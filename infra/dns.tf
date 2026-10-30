@@ -11,6 +11,13 @@ variable "custom_domain_ready" {
   default = false
 }
 
+# El dominio estaba asociado a una distribución de CloudFront de la cuenta vieja.
+# false → solo certificado + TXT de autorización; correr associate-alias; luego true.
+variable "aliases_moved" {
+  type    = bool
+  default = false
+}
+
 locals {
   domain = "divelearn.cloud"
 }
@@ -136,6 +143,16 @@ resource "aws_route53_record" "www" {
     zone_id                = aws_cloudfront_distribution.site.hosted_zone_id
     evaluate_target_health = false
   }
+}
+
+# TXT que exige CloudFront para mover un alias entre distribuciones (associate-alias).
+resource "aws_route53_record" "alias_move_auth" {
+  for_each = toset(["_${local.domain}", "_www.${local.domain}"])
+  zone_id  = aws_route53_zone.main.zone_id
+  name     = each.value
+  type     = "TXT"
+  ttl      = 300
+  records  = [aws_cloudfront_distribution.site.domain_name]
 }
 
 output "name_servers" {
