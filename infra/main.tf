@@ -176,8 +176,13 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
 
-  # Certificado por defecto de *.cloudfront.net hasta conectar divelearn.cloud (tarea 8a).
+  aliases = var.custom_domain_ready ? [local.domain, "www.${local.domain}"] : []
+
+  # Hasta activar el dominio se usa el certificado de *.cloudfront.net (ver dns.tf).
   viewer_certificate {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = !var.custom_domain_ready
+    acm_certificate_arn            = var.custom_domain_ready ? aws_acm_certificate_validation.site[0].certificate_arn : null
+    ssl_support_method             = var.custom_domain_ready ? "sni-only" : null
+    minimum_protocol_version       = var.custom_domain_ready ? "TLSv1.2_2021" : "TLSv1"
   }
 }
