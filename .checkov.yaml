@@ -1,0 +1,14 @@
+# Excepciones conscientes; cada una con su motivo.
+skip-check:
+  - CKV_AWS_18   # Access logs de S3: sitio estático sin datos sensibles; se evalúa con tráfico real
+  - CKV_AWS_144  # Replicación entre regiones: el sitio se reconstruye desde git
+  - CKV_AWS_145  # KMS propio: SSE-S3 basta para contenido público
+  - CKV2_AWS_62  # Notificaciones de eventos S3: no aplican
+  - CKV_AWS_86   # Logs de CloudFront: se activan cuando haya dominio propio y tráfico
+  - CKV_AWS_68   # WAF en CloudFront: cuesta por mes; se evalúa al crecer
+  - CKV_AWS_174  # TLS 1.2 mínimo: el certificado *.cloudfront.net no lo permite; se fija con el dominio propio (tarea 8a)
+  - CKV_AWS_310  # Origin failover: un solo origen S3 es suficiente
+  - CKV_AWS_374  # Geo restricción: el sitio es para todo el mundo
+  - CKV2_AWS_42  # Certificado propio: llega con divelearn.cloud (tarea 8a)
+  - CKV2_AWS_47  # WAF Log4j: no hay backend
+  - CKV2_AWS_32  # Ya hay response headers policy propia
