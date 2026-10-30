@@ -1,3 +1,10 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" type="image/png" href="guia/favicon.png">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Inmersión ANS-C01</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Plan de estudio gratis y gamificado para AWS Certified Advanced Networking – Specialty (ANS-C01), por DiveLearn.">
@@ -182,6 +189,8 @@ textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:1
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}#snow{display:none}}
 </style>
 
+</head>
+<body>
 <canvas id="snow" aria-hidden="true"></canvas>
 <div class="wrap">
   <header class="hero">
@@ -515,3 +524,5 @@ renderDoms();render();
   (function tick(){if(!document.hidden){x.clearRect(0,0,W,H);x.fillStyle="rgba(214,226,255,.75)";P.forEach(p=>{p.y+=p.s;p.w+=.01;p.x+=Math.sin(p.w)*.15;if(p.y>H){p.y=-4;p.x=Math.random()*W}x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()})}requestAnimationFrame(tick)})();
 })();
 </script>
+</body>
+</html>
