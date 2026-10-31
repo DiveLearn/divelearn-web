@@ -1,0 +1,228 @@
+---
+import "@fontsource/silkscreen/700.css";
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+
+// El formulario lo procesa Kit (formulario "Inmersión ANS-C01"): confirmación por correo,
+// lista y redirección siguen configuradas en Kit.
+const KIT_FORM = "https://app.kit.com/forms/10121697/subscriptions";
+---
+
+<Base title="Únete a la tripulación" description="Recursos nuevos, avisos de cursos y lo que estoy aprendiendo de AWS, directo a tu correo. Sin spam.">
+  <div class="juego">
+    <section class="wrap tarjeta-lista">
+      <div class="panel">
+        <header class="barra"><span>Únete a la tripulación</span><span class="puntos"><i></i><i></i><i></i></span></header>
+        <div class="cuerpo">
+          <div class="escena" aria-hidden="true">
+            <Sprite nombre="buzo-chao" escala={2.4} class="buzo" />
+            <Sprite nombre="pulpo-profe" escala={1.8} class="pulpo" />
+            <Sprite nombre="obj-paquete" escala={1.6} class="sobre" />
+          </div>
+          <div class="texto">
+            <h1>Lo que vale la pena, <em>directo a tu correo</em></h1>
+            <ul class="beneficios">
+              <li><Sprite nombre="obj-bombillo" escala={0.9} /> Recursos nuevos antes que nadie: guías, simuladores e infografías.</li>
+              <li><Sprite nombre="obj-cronometro" escala={0.9} /> Avisos de las clases en video y de la próxima edición en vivo del bootcamp.</li>
+              <li><Sprite nombre="obj-candado" escala={0.9} /> Sin spam: te sales con un clic cuando quieras.</li>
+            </ul>
+            <form action={KIT_FORM} method="post" class="form">
+              <label>
+                <span>Tu nombre</span>
+                <input type="text" name="fields[first_name]" autocomplete="given-name" placeholder="¿Cómo te llamas?" />
+              </label>
+              <label>
+                <span>Tu correo</span>
+                <input type="email" name="email_address" autocomplete="email" required placeholder="tucorreo@ejemplo.com" />
+              </label>
+              <button type="submit" class="btn-jugar">▶ Quiero entrar</button>
+              <p class="nota">Te llega un correo para confirmar. Si no lo ves, revisa promociones o spam.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .juego {
+    --borde: 1.5px solid var(--ink);
+    --pixel: "Silkscreen", ui-monospace, monospace;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(84, 83, 235, 0.12) 1px, transparent 0) 0 0 / 22px 22px,
+      #e9e4fb;
+    padding: 48px 0 24px;
+  }
+  .panel {
+    border: var(--borde);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 4px 4px 0 var(--ink);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 18px;
+    background: var(--lav);
+    border-bottom: var(--borde);
+    font: 700 1.1rem var(--pixel);
+    color: var(--ink);
+  }
+  .puntos {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .puntos i {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    background: #ff7a8a;
+  }
+  .puntos i:nth-child(2) {
+    background: #ffd36e;
+  }
+  .puntos i:nth-child(3) {
+    background: #6fd08c;
+  }
+  .cuerpo {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 28px;
+    padding: 28px;
+    align-items: center;
+  }
+  .escena {
+    position: relative;
+    min-height: 260px;
+    border-radius: 14px;
+    background: linear-gradient(#9fd8ff, #7cc6fe 55%, #5453eb);
+    overflow: hidden;
+  }
+  .escena :global(img) {
+    position: absolute;
+    image-rendering: pixelated;
+  }
+  .escena :global(.buzo) {
+    left: 18%;
+    bottom: 18px;
+    animation: flota 3s ease-in-out infinite;
+  }
+  .escena :global(.pulpo) {
+    right: 10%;
+    bottom: 24px;
+    animation: flota 3.6s ease-in-out infinite reverse;
+  }
+  .escena :global(.sobre) {
+    right: 22%;
+    top: 22px;
+    animation: vuela 4s ease-in-out infinite;
+  }
+  @keyframes flota {
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  @keyframes vuela {
+    50% {
+      transform: translate(-10px, 8px) rotate(-6deg);
+    }
+  }
+  h1 {
+    font: 700 clamp(1.5rem, 3.6vw, 2.2rem) / 1.2 var(--pixel);
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  h1 em {
+    color: var(--purple);
+  }
+  .beneficios {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+    display: grid;
+    gap: 8px;
+    color: var(--muted);
+  }
+  .beneficios li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .beneficios :global(img) {
+    flex: 0 0 auto;
+    image-rendering: pixelated;
+    width: 28px;
+    height: auto;
+  }
+  .form {
+    display: grid;
+    gap: 12px;
+  }
+  .form label {
+    display: grid;
+    gap: 4px;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.92rem;
+  }
+  .form input {
+    font: inherit;
+    font-weight: 400;
+    padding: 12px 14px;
+    border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+    border-radius: 10px;
+    min-height: 48px;
+  }
+  .form input:focus {
+    outline: 3px solid var(--lav);
+    outline-offset: 1px;
+  }
+  .btn-jugar {
+    justify-self: start;
+    min-height: 48px;
+    padding: 10px 26px;
+    border: var(--borde);
+    border-radius: 10px;
+    background: #6fd08c;
+    color: var(--ink);
+    font: 700 1.1rem var(--pixel);
+    box-shadow: 3px 3px 0 var(--ink);
+    cursor: pointer;
+    transition:
+      transform 0.12s,
+      box-shadow 0.12s;
+  }
+  .btn-jugar:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .btn-jugar:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 var(--ink);
+  }
+  .nota {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media (max-width: 720px) {
+    .cuerpo {
+      grid-template-columns: 1fr;
+      padding: 18px;
+    }
+    .escena {
+      min-height: 200px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .escena :global(img) {
+      animation: none;
+    }
+  }
+</style>
