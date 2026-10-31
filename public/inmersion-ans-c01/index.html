@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" type="image/png" href="guia/favicon.png">
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}.cr-px{display:grid;place-items:center}.cr-px img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;animation:crflota 3.2s ease-in-out infinite}@keyframes crflota{50%{transform:translateY(-4px)}}@media (prefers-reduced-motion:reduce){.cr-px img{animation:none}}
+</style>
 <title>Inmersión ANS-C01</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Plan de estudio gratis y gamificado para AWS Certified Advanced Networking – Specialty (ANS-C01), por DiveLearn.">
@@ -397,7 +398,9 @@ const K={
  nautilus:(p)=>{let d="M66 60";for(let t=0;t<13;t+=.3){const r=34*Math.exp(-0.17*t);d+=` L${(66+Math.cos(t)*r).toFixed(1)} ${(60+Math.sin(t)*r).toFixed(1)}`}return `<g class="bob"><circle cx="64" cy="60" r="36" fill="${p[0]}"/>${[0,1,2,3,4,5].map(i=>`<path d="M${64+Math.cos(i*1.1-1)*14} ${60+Math.sin(i*1.1-1)*14} L${64+Math.cos(i*1.1-1)*36} ${60+Math.sin(i*1.1-1)*36}" stroke="${p[1]}" stroke-width="4" opacity=".75"/>`).join("")}<path d="${d}" stroke="#0b0f2a" stroke-width="2" fill="none" opacity=".4"/>${[0,1,2,3,4].map(i=>`<path class="arm" d="M${30+i*2} ${72+i*3} q-14 ${4+i*2} -20 ${-2+i*4}" stroke="${p[2]}" stroke-width="3" fill="none" stroke-linecap="round"/>`).join("")}<path d="M28 60 Q22 72 34 84 L40 76 Z" fill="#c9b79a"/>${eye(34,66,4.6)}</g>`},
  school:(p)=>`<g class="bob">${[[22,40,.6],[58,30,.7],[44,62,.75],[78,58,.65],[28,86,.6],[66,90,.7]].map(([x,y,s],i)=>`<g transform="translate(${x} ${y}) scale(${s})"><g class="${i%2?'bob':''}"><path class="tail" d="M28 0 L44 -12 L40 0 L44 12 Z" fill="${p[0]}"/><ellipse cx="0" cy="0" rx="30" ry="11" fill="${p[0]}"/><path d="M-26 1 H26" stroke="${p[1]}" stroke-width="3"/><ellipse cx="0" cy="5" rx="22" ry="4" fill="${p[2]}"/><circle cx="-18" cy="-3" r="3.4" fill="#fff"/><circle cx="-19" cy="-3" r="1.8" fill="#0b0f2a"/></g></g>`).join("")}</g>`
 };
-function creature(sp){const f=K[sp.kind]||K.fish;return `<span class="cr"><svg viewBox="0 0 120 120" role="img" aria-label="${sp.name}">${f(sp.pal,sp.opt)}</svg></span>`}
+/* Especies pixel propias (diseñadas con Gemini, limpiadas con scripts/recortar-sprites.py). Si falta alguna, queda el dibujo SVG. */
+const PIXEL={"caracolin": "caracolin", "subnetto": "subnetto", "linternin": "linternin", "flowlug": "medusa-flowlug", "peerlinga": "remora-peerlinga", "linkpriv": "cangrejo-linkpriv", "hubzilla": "pulpo-hubzilla", "megahub": "pulpo-megahub", "manta": "guardiana-manta", "bgpardo": "delfin-bgpardo", "tunelin": "anguila-tunelin", "clienton": "caballito-clienton", "fibron": "calamar-fibron", "lagmor": "ballena-lagmor", "cachalote": "guardian-cachalote", "cachemon": "pez-volador-cachemon", "balanceo": "sardinas-balanceo", "anycastor": "tortuga-anycastor", "resolveron": "narval-resolveron", "espada": "guardian-pez-espada", "wafflor": "erizo-wafflor", "suricaton": "pez-globo-suricaton", "podlet": "estrella-podlet", "rape": "guardiana-rape-abisal", "tiburon": "tiburon-simulacro", "limpiador": "pez-limpiador-correcta", "mapamundi": "nautilus-mapamundi", "granblanco": "jefe-megalodon", "orca": "orca-alto-mando", "manati": "manati-campeon"};
+function creature(sp){const px=PIXEL[sp.id];if(px)return `<span class="cr cr-px"><img src="/img/sprites/${px}.png" alt="${sp.name}" loading="lazy" decoding="async"></span>`;const f=K[sp.kind]||K.fish;return `<span class="cr"><svg viewBox="0 0 120 120" role="img" aria-label="${sp.name}">${f(sp.pal,sp.opt)}</svg></span>`}
 
 /* ───────────── Estado ───────────── */
 const KEY="inmersion-ans-c01-v1";
