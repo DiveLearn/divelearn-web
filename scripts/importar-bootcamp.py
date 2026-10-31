@@ -123,8 +123,12 @@ def cabecera(m: int, pagina: str) -> str:
     d = MODULO[m]
     w, h = _tam.get(d["sprite"], [40, 40])
     volver = '<a class="dl-jh-btn" href="./">Módulo ' + str(m) + "</a>" if pagina != "index" else ""
-    return f"""<header class="dl-jh">
-  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+    # Mismo banner que el resto del sitio (src/layouts/Base.astro) + panel de juego.
+    return f"""<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
   <div class="dl-jh-panel">
     <div class="dl-jh-barra"><span>{d["etapa"]}</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
     <div class="dl-jh-cuerpo">

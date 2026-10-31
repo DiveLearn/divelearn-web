@@ -440,3 +440,54 @@ html body .tabs-bar {
   max-width: none;
   justify-content: center;
 }
+
+/* ── Banner del sitio (igual que src/layouts/Base.astro) ── */
+.dl-sitio {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #5453eb;
+  font-family: "Questrial", "Century Gothic", system-ui, sans-serif;
+}
+.dl-sitio-logo img {
+  display: block;
+  width: 140px;
+  height: auto;
+}
+.dl-sitio nav {
+  display: flex;
+  gap: 4px;
+}
+.dl-sitio nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-size: 17px;
+}
+.dl-sitio nav a:hover,
+.dl-sitio nav a[aria-current="page"] {
+  background: rgba(178, 202, 253, 0.25);
+}
+@media (max-width: 480px) {
+  .dl-sitio-logo img {
+    width: auto;
+    height: 34px;
+  }
+  .dl-sitio nav a {
+    padding: 10px 7px;
+    font-size: 0.9rem;
+  }
+}
+html body .tabs-bar {
+  top: 59px;
+}
+/* En la portada de cada módulo, el encabezado viejo repetía título y volver: la cabecera de juego ya lo tiene */
+html body .header:has(.module-title) {
+  display: none !important;
+}
