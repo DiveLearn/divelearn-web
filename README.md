@@ -32,7 +32,7 @@ Todo cambio entra por Pull Request; CI revisa formato, validación y seguridad (
 ## Mover el dominio desde otra distribución (hecho el 2026-10-30)
 
 `divelearn.cloud` seguía asociado a la distribución de CloudFront de la cuenta vieja. Con el certificado ya puesto
-en la distribución nueva y los TXT `_divelearn.cloud` / `_www.divelearn.cloud` apuntando a ella:
+en la distribución nueva y los TXT `_.divelearn.cloud` / `_www.divelearn.cloud` apuntando a ella:
 
 ```bash
 aws cloudfront associate-alias --target-distribution-id E32922Y3WKSJS3 --alias divelearn.cloud
