@@ -23,8 +23,9 @@ html {
   --c: #b2cafd;
   --ink: #1f1d5c;
   --tinte: color-mix(in srgb, var(--c) 22%, #ffffff);
-  --borde: 3px solid var(--ink);
-  --sombra: 5px 5px 0 var(--ink);
+  --borde: 1.5px solid var(--ink);
+  --sombra: 3px 3px 0 color-mix(in srgb, var(--ink) 85%, transparent);
+  --borde-suave: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
   --pixel: "Silkscreen", ui-monospace, monospace;
 }
 
@@ -89,18 +90,28 @@ html body :is(.main-content, .card, .quiz-container, .question-card, .tips-secti
   box-shadow: var(--sombra) !important;
 }
 html body :is(.main-content, .quiz-container) {
-  border-top: 14px solid var(--c) !important;
+  border-top: 8px solid var(--c) !important;
+}
+/* Paneles dentro de paneles: solo un contorno fino, sin sombra */
+html body :is(.main-content, .tab-content, .teoria-section, .card) :is(.card, .tips-section, .tip-box, .info-box, .calculator-container,
+  .input-container, .tool-container, .comparison-container, .simulator-container, .editor-container, .results-container,
+  .objetivos-container, .teoria-section) {
+  border: var(--borde-suave) !important;
+  box-shadow: 0 6px 18px rgba(31, 29, 92, 0.06) !important;
+  border-radius: 16px !important;
 }
 
 /* Recuadros internos: tinte del color de la etapa en lugar de rosados/naranjas */
 html body :is(.tip-item, .objetivo-item, .teoria-subsection, .example-box, .feedback-info,
   .result-info, .feedback-area, .result-card, .highlight-box) {
   background: var(--tinte) !important;
-  border: 2px solid var(--ink) !important;
-  border-left-width: 6px !important;
-  border-radius: 10px !important;
+  border: 0 !important;
+  border-left: 4px solid var(--c) !important;
+  border-radius: 12px !important;
   box-shadow: none !important;
   color: var(--ink) !important;
+  padding: 12px 16px !important;
+  margin-bottom: 8px !important;
 }
 /* Dentro de un recuadro, el contenido no lleva otro borde */
 html body .subsection-content {
@@ -134,7 +145,7 @@ html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
 /* ── Etiquetas (tiempo, nivel, puntos) ── */
 html body :is(.meta-item, .meta-chip, .activity-badge, .actividad-duracion, .status-indicator) {
   background: #ffffff !important;
-  border: 2px solid var(--ink) !important;
+  border: var(--borde-suave) !important;
   border-radius: 8px !important;
   color: var(--ink) !important;
   font-weight: 700;
@@ -147,7 +158,7 @@ html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .btn-primary, .btn-l
   font-weight: 700 !important;
   border: var(--borde) !important;
   border-radius: 10px !important;
-  box-shadow: 4px 4px 0 var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
   color: var(--ink) !important;
   background: #ffffff !important;
   transition: transform 0.12s, box-shadow 0.12s !important;
@@ -157,7 +168,7 @@ html body :is(.btn-primary, .nav-btn:not(.secondary), .calculate-btn, .control-b
 }
 html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .option-btn, .topology-btn, .selector-btn, .tab):hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
 }
 html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .option-btn, .topology-btn, .selector-btn, .tab):active {
   transform: translate(3px, 3px);
@@ -172,7 +183,7 @@ html body .option {
   background: #ffffff !important;
   border: var(--borde) !important;
   border-radius: 10px !important;
-  box-shadow: 3px 3px 0 var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
   color: var(--ink) !important;
 }
 html body .option:hover {
@@ -195,9 +206,9 @@ html body .progress-header :is(*, .progress-info) {
 /* ── Barras de progreso ── */
 html body .progress-bar {
   background: #ffffff !important;
-  border: 2px solid var(--ink) !important;
-  border-radius: 8px !important;
-  height: 16px !important;
+  border: var(--borde-suave) !important;
+  border-radius: 99px !important;
+  height: 12px !important;
 }
 html body .progress-fill {
   background: repeating-linear-gradient(90deg, #6fd08c 0 12px, #5cc27c 12px 24px) !important;
@@ -387,7 +398,7 @@ html body .tab-btn {
   border-radius: 10px !important;
   background: #fff !important;
   color: var(--ink) !important;
-  box-shadow: 4px 4px 0 var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
   padding: 10px 20px !important;
 }
 html body .tab-btn.active {
@@ -417,14 +428,15 @@ html body .concept-num {
 }
 html body :is(.journey-node, .legend-item, .act-chip, .eco-tech, .act-badge) {
   background: var(--tinte) !important;
-  border: 2px solid var(--ink) !important;
+  border: var(--borde-suave) !important;
   border-radius: 10px !important;
   color: var(--ink) !important;
 }
 html body .insight {
   background: var(--tinte) !important;
-  border: 2px solid var(--ink) !important;
-  border-left-width: 6px !important;
+  border: 0 !important;
+  border-left: 4px solid var(--c) !important;
+  border-radius: 12px !important;
   color: var(--ink) !important;
 }
 html body .act-cta {
@@ -490,4 +502,36 @@ html body .tabs-bar {
 /* En la portada de cada módulo, el encabezado viejo repetía título y volver: la cabecera de juego ya lo tiene */
 html body .header:has(.module-title) {
   display: none !important;
+}
+
+/* ── Dibujitos: los personajes acompañan cada tipo de bloque ── */
+html body :is(.tips-title, .objetivos-title, .results-title, .example-title)::before {
+  content: "";
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background: center / contain no-repeat;
+  image-rendering: pixelated;
+}
+html body .tips-title::before { background-image: url("/img/sprites/pulpo-profe.png"); }
+html body .objetivos-title::before { background-image: url("/img/sprites/buzo-estudia.png"); }
+html body .results-title::before { background-image: url("/img/sprites/buzo-celebra.png"); }
+html body .example-title::before { width: 28px; height: 28px; background-image: url("/img/sprites/buzo-piensa.png"); }
+html body :is(.feedback-success, .result-success, .feedback.correct-feedback) {
+  background-image: url("/img/sprites/pulpo-ok.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 36px auto !important;
+  image-rendering: pixelated;
+  padding-right: 56px !important;
+}
+html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
+  background-image: url("/img/sprites/pulpo-ups.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 36px auto !important;
+  image-rendering: pixelated;
+  padding-right: 56px !important;
 }

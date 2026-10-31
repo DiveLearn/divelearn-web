@@ -103,8 +103,8 @@ def limpiar(h: str) -> str:
     return h
 
 
-# Color de la etapa de cada módulo (los mismos que src/data/bootcamp.ts).
-COLOR = {0: "#ffd36e", 1: "#ffd36e", 2: "#ff7a8a", 3: "#ff7a8a", 4: "#ff7a8a", 5: "#7cc6fe", 6: "#7cc6fe", 7: "#04a8bb", 8: "#04a8bb"}
+# Color propio de cada módulo (los mismos que src/data/bootcamp.ts).
+COLOR = {0: "#ffd36e", 1: "#ff9f43", 2: "#ff7a8a", 3: "#f49ac2", 4: "#b39dfa", 5: "#7cc6fe", 6: "#5fd3c6", 7: "#04a8bb", 8: "#6fd08c"}
 
 
 # Datos de cada módulo (etapa, título, sprite) leídos de src/data/bootcamp.ts, para la cabecera de juego.
@@ -114,7 +114,7 @@ _tam = json.loads((RAIZ / "src/data/sprites-png.json").read_text())
 MODULO = {}
 for ei, bloque in enumerate(_ts.split("    id: ")[1:]):
     nombre_etapa = re.search(r'nombre: "([^"]+)"', bloque).group(1)
-    for n, spr, tit in re.findall(r'\{ n: (\d+), sprite: "([^"]+)", titulo: "([^"]+)"', bloque):
+    for n, spr, tit in re.findall(r'\{ n: (\d+), color: "[^"]+", sprite: "([^"]+)", titulo: "([^"]+)"', bloque):
         MODULO[int(n)] = {"etapa": f"Etapa {ei + 1} · {nombre_etapa}", "sprite": spr, "titulo": tit}
 
 
