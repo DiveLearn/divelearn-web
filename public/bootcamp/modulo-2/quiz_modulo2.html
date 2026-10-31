@@ -203,7 +203,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">🔢 Quiz del Módulo</h1>
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
             <p class="quiz-subtitle">Evalúa tu dominio de las Direcciones Secretas (Direccionamiento IP)</p>
         </div>
 
@@ -360,7 +360,7 @@ Máscara: 255.255.255.0</div>
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -401,7 +401,7 @@ Máscara: 255.255.255.0</div>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -418,50 +418,50 @@ Máscara: 255.255.255.0</div>
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Con /26 se toman 2 bits adicionales (/24 + 2 = /26), no 1 bit. Un bit adicional sería /25.',
-                    'b': '✅ ¡Correcto! /26 toma 2 bits adicionales del campo de host (/24 + 2 = /26). Con 2 bits puedes crear 2² = 4 subredes.',
-                    'c': '❌ Incorrecto. Para 8 subredes necesitarías 3 bits adicionales (2³ = 8), lo que sería una máscara /27.',
-                    'd': '❌ Incorrecto. Para 16 subredes necesitarías 4 bits adicionales (2⁴ = 16), lo que sería una máscara /28.'
+                    'a': ' Incorrecto. Con /26 se toman 2 bits adicionales (/24 + 2 = /26), no 1 bit. Un bit adicional sería /25.',
+                    'b': ' ¡Correcto! /26 toma 2 bits adicionales del campo de host (/24 + 2 = /26). Con 2 bits puedes crear 2² = 4 subredes.',
+                    'c': ' Incorrecto. Para 8 subredes necesitarías 3 bits adicionales (2³ = 8), lo que sería una máscara /27.',
+                    'd': ' Incorrecto. Para 16 subredes necesitarías 4 bits adicionales (2⁴ = 16), lo que sería una máscara /28.'
                 }
             },
             {
                 id: 2,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. /18 permite solo 4 subredes (2² = 4), pero la empresa necesita 6 subredes.',
-                    'b': '✅ ¡Correcto! Para 6 subredes necesitas al menos 3 bits (2³ = 8 subredes). /19 toma 3 bits del host (/16 + 3 = /19).',
-                    'c': '❌ Incorrecto. Aunque /20 funcionaría (16 subredes), no es la máscara MÍNIMA. /19 es suficiente y más eficiente.',
-                    'd': '❌ Incorrecto. /17 permite solo 2 subredes (2¹=2), insuficiente para las 6 subredes requeridas.'
+                    'a': ' Incorrecto. /18 permite solo 4 subredes (2² = 4), pero la empresa necesita 6 subredes.',
+                    'b': ' ¡Correcto! Para 6 subredes necesitas al menos 3 bits (2³ = 8 subredes). /19 toma 3 bits del host (/16 + 3 = /19).',
+                    'c': ' Incorrecto. Aunque /20 funcionaría (16 subredes), no es la máscara MÍNIMA. /19 es suficiente y más eficiente.',
+                    'd': ' Incorrecto. /17 permite solo 2 subredes (2¹=2), insuficiente para las 6 subredes requeridas.'
                 }
             },
             {
                 id: 3,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. El rango 10.0.1.0 - 10.0.1.255 incluye la dirección de red (.0) y broadcast (.255), que no son utilizables.',
-                    'b': '✅ ¡Correcto! En cualquier subred, la primera dirección (.0) es la dirección de red y la última (.255) es broadcast. Solo 10.0.1.1 - 10.0.1.254 son utilizables.',
-                    'c': '❌ Incorrecto. La dirección 10.0.1.255 es la dirección de broadcast de la subred y no puede asignarse a un host.',
-                    'd': '❌ Incorrecto. La dirección 10.0.1.0 es la dirección de red y no puede asignarse a un dispositivo individual.'
+                    'a': ' Incorrecto. El rango 10.0.1.0 - 10.0.1.255 incluye la dirección de red (.0) y broadcast (.255), que no son utilizables.',
+                    'b': ' ¡Correcto! En cualquier subred, la primera dirección (.0) es la dirección de red y la última (.255) es broadcast. Solo 10.0.1.1 - 10.0.1.254 son utilizables.',
+                    'c': ' Incorrecto. La dirección 10.0.1.255 es la dirección de broadcast de la subred y no puede asignarse a un host.',
+                    'd': ' Incorrecto. La dirección 10.0.1.0 es la dirección de red y no puede asignarse a un dispositivo individual.'
                 }
             },
             {
                 id: 4,
                 correct: 'd',
                 feedback: {
-                    'a': '❌ Incorrecto. Esta es una dirección IPv6 válida en formato completo, con 8 grupos de 4 dígitos hexadecimales.',
-                    'b': '❌ Incorrecto. Esta es una dirección IPv6 válida en formato comprimido, donde "::" representa grupos de ceros consecutivos.',
-                    'c': '❌ Incorrecto. "::1" es la dirección de loopback IPv6 válida, equivalente a 127.0.0.1 en IPv4.',
-                    'd': '✅ ¡Correcto! Esta NO es una dirección IPv6 válida. Mezcla formato IPv4 (192.168.1.1) con sintaxis IPv6 incorrecta. IPv6 usa solo hexadecimal.'
+                    'a': ' Incorrecto. Esta es una dirección IPv6 válida en formato completo, con 8 grupos de 4 dígitos hexadecimales.',
+                    'b': ' Incorrecto. Esta es una dirección IPv6 válida en formato comprimido, donde "::" representa grupos de ceros consecutivos.',
+                    'c': ' Incorrecto. "::1" es la dirección de loopback IPv6 válida, equivalente a 127.0.0.1 en IPv4.',
+                    'd': ' ¡Correcto! Esta NO es una dirección IPv6 válida. Mezcla formato IPv4 (192.168.1.1) con sintaxis IPv6 incorrecta. IPv6 usa solo hexadecimal.'
                 }
             },
             {
                 id: 5,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. /24 proporciona 254 hosts, desperdiciando 134 direcciones (254-120=134). No es eficiente.',
-                    'b': '✅ ¡Correcto! /25 proporciona 126 hosts utilizables (2⁷-2=126), que es lo mínimo necesario para 120 hosts. Es la opción más eficiente.',
-                    'c': '❌ Incorrecto. /26 solo proporciona 62 hosts utilizables, insuficiente para los 120 hosts requeridos.',
-                    'd': '❌ Incorrecto. /23 proporciona 510 hosts, desperdiciando 390 direcciones. Muy ineficiente para solo 120 hosts.'
+                    'a': ' Incorrecto. /24 proporciona 254 hosts, desperdiciando 134 direcciones (254-120=134). No es eficiente.',
+                    'b': ' ¡Correcto! /25 proporciona 126 hosts utilizables (2⁷-2=126), que es lo mínimo necesario para 120 hosts. Es la opción más eficiente.',
+                    'c': ' Incorrecto. /26 solo proporciona 62 hosts utilizables, insuficiente para los 120 hosts requeridos.',
+                    'd': ' Incorrecto. /23 proporciona 510 hosts, desperdiciando 390 direcciones. Muy ineficiente para solo 120 hosts.'
                 }
             }
         ];
@@ -611,13 +611,13 @@ Máscara: 255.255.255.0</div>
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Hub
+                     Volver al Hub
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             
@@ -626,13 +626,13 @@ Máscara: 255.255.255.0</div>
             // Mostrar mensaje motivacional basado en el puntaje
             let message = '';
             if (score === 5) {
-                message = '🌟 ¡Excelente! Dominas completamente el direccionamiento IP y subneteo.';
+                message = ' ¡Excelente! Dominas completamente el direccionamiento IP y subneteo.';
             } else if (score >= 4) {
-                message = '👏 ¡Muy bien! Tienes una sólida comprensión de las direcciones secretas.';
+                message = ' ¡Muy bien! Tienes una sólida comprensión de las direcciones secretas.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Revisa algunos conceptos de subneteo y estarás listo.';
+                message = ' ¡Buen trabajo! Revisa algunos conceptos de subneteo y estarás listo.';
             } else {
-                message = '📚 Te recomendamos repasar la teoría del módulo antes de continuar.';
+                message = ' Te recomendamos repasar la teoría del módulo antes de continuar.';
             }
 
             const messageElement = document.createElement('p');
@@ -660,7 +660,7 @@ Máscara: 255.255.255.0</div>
             // Ocultar resultados
             document.getElementById('resultsContainer').classList.remove('show');
             document.getElementById('resultsContainer').innerHTML = `
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -697,7 +697,7 @@ Máscara: 255.255.255.0</div>
         }
 
         function nextModule() {
-            alert('🚀 ¡Excelente progreso en direccionamiento IP! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar conceptos o explorar otros módulos.');
+            alert(' ¡Excelente progreso en direccionamiento IP! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar conceptos o explorar otros módulos.');
             goToHub();
         }
 

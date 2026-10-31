@@ -319,19 +319,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 3</a> / Actividad 3
             </div>
-            <h1 class="activity-title">⏰ Simulador de TTL y Caché</h1>
+            <h1 class="activity-title"> Simulador de TTL y Caché</h1>
             <p class="activity-subtitle">Comprende cómo funciona el sistema de caché DNS y el impacto del TTL</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 120</span>
                 </div>
             </div>
@@ -339,16 +339,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad experimentarás con el comportamiento del caché DNS y los valores TTL. Verás cómo diferentes configuraciones afectan la velocidad de respuesta y la frecuencia de consultas DNS.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔧 Simulador de Caché DNS</h2>
+                <h2 class="section-title"> Simulador de Caché DNS</h2>
                 
                 <div class="simulator-container">
                     <div class="control-panel">
-                        <div class="control-title">⚙️ Panel de Control</div>
+                        <div class="control-title"> Panel de Control</div>
                         
                         <div class="control-group">
                             <div class="input-group">
@@ -373,15 +373,15 @@
                         </div>
 
                         <div class="action-buttons">
-                            <button class="action-btn" onclick="queryDomain()">🔍 Consultar DNS</button>
-                            <button class="action-btn secondary" onclick="startSimulation()">▶️ Iniciar Simulación</button>
-                            <button class="action-btn secondary" onclick="pauseSimulation()">⏸️ Pausar</button>
-                            <button class="action-btn danger" onclick="clearCache()">🗑️ Limpiar Caché</button>
+                            <button class="action-btn" onclick="queryDomain()"> Consultar DNS</button>
+                            <button class="action-btn secondary" onclick="startSimulation()">▶ Iniciar Simulación</button>
+                            <button class="action-btn secondary" onclick="pauseSimulation()"> Pausar</button>
+                            <button class="action-btn danger" onclick="clearCache()"> Limpiar Caché</button>
                         </div>
                     </div>
 
                     <div class="simulation-area">
-                        <h3 style="margin-bottom: 15px; color: #8888bb;">📦 Estado del Caché DNS</h3>
+                        <h3 style="margin-bottom: 15px; color: #8888bb;"> Estado del Caché DNS</h3>
                         <div class="cache-visualization" id="cacheVisualization">
                             <div style="grid-column: 1/-1; text-align: center; color: #8888bb; padding: 40px;">
                                 El caché está vacío. Haz una consulta DNS para comenzar.
@@ -390,14 +390,14 @@
                     </div>
 
                     <div class="timeline">
-                        <div class="timeline-title">📜 Registro de Actividad</div>
+                        <div class="timeline-title"> Registro de Actividad</div>
                         <div id="timelineEntries">
                             <div style="color: #8888bb; font-style: italic;">No hay actividad registrada aún...</div>
                         </div>
                     </div>
 
                     <div class="stats-panel">
-                        <div class="stats-title">📊 Estadísticas de la Simulación</div>
+                        <div class="stats-title"> Estadísticas de la Simulación</div>
                         <div class="stats-grid">
                             <div class="stat-item">
                                 <div class="stat-number" id="totalQueries">0</div>
@@ -422,22 +422,22 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips sobre TTL y Caché
+                     Tips sobre TTL y Caché
                 </h3>
                 <div class="tip-item">
-                    <strong>⏰ TTL Bajo (30-300s):</strong> Cambios rápidos en DNS, pero más tráfico y consultas frecuentes.
+                    <strong> TTL Bajo (30-300s):</strong> Cambios rápidos en DNS, pero más tráfico y consultas frecuentes.
                 </div>
                 <div class="tip-item">
-                    <strong>⏰ TTL Alto (3600-86400s):</strong> Menos tráfico DNS, pero los cambios tardan más en propagarse.
+                    <strong> TTL Alto (3600-86400s):</strong> Menos tráfico DNS, pero los cambios tardan más en propagarse.
                 </div>
                 <div class="tip-item">
-                    <strong>🎯 Cache Hit:</strong> Cuando la respuesta está disponible en caché (rápido, no requiere consulta externa).
+                    <strong> Cache Hit:</strong> Cuando la respuesta está disponible en caché (rápido, no requiere consulta externa).
                 </div>
                 <div class="tip-item">
-                    <strong>❌ Cache Miss:</strong> Cuando hay que consultar al servidor autoritativo (lento, requiere red).
+                    <strong> Cache Miss:</strong> Cuando hay que consultar al servidor autoritativo (lento, requiere red).
                 </div>
                 <div class="tip-item">
-                    <strong>🔄 Propagación:</strong> Tiempo que tarda un cambio DNS en ser visible globalmente.
+                    <strong> Propagación:</strong> Tiempo que tarda un cambio DNS en ser visible globalmente.
                 </div>
             </div>
         </div>
@@ -453,12 +453,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -559,7 +559,7 @@
                 updateCacheVisualization();
             }, 100);
 
-            addTimelineEntry('⏯️ Simulación iniciada', 'info');
+            addTimelineEntry(' Simulación iniciada', 'info');
         }
 
         function pauseSimulation() {
@@ -567,12 +567,12 @@
             
             isRunning = false;
             clearInterval(simulationInterval);
-            addTimelineEntry('⏸️ Simulación pausada', 'info');
+            addTimelineEntry(' Simulación pausada', 'info');
         }
 
         function clearCache() {
             cache.clear();
-            addTimelineEntry('🗑️ Caché limpiado completamente', 'warning');
+            addTimelineEntry(' Caché limpiado completamente', 'warning');
             updateCacheVisualization();
         }
 
@@ -662,10 +662,10 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             setTimeout(() => {
-                alert('🎉 ¡Excelente! Has experimentado con el comportamiento del caché DNS y TTL.\n\n✅ Actividad completada automáticamente\n🏆 +120 puntos ganados');
+                alert(' ¡Excelente! Has experimentado con el comportamiento del caché DNS y TTL.\n\n Actividad completada automáticamente\n +120 puntos ganados');
             }, 1000);
         }
 
@@ -673,7 +673,7 @@
             if (!isCompleted) {
                 completeActivity();
             } else {
-                alert('🎉 ¡Felicidades! Has completado la actividad "Simulador de TTL y Caché".\n\n✅ Actividad marcada como completada\n🏆 +120 puntos ganados\n\n¡Ahora entiendes cómo funciona el caché DNS!');
+                alert(' ¡Felicidades! Has completado la actividad "Simulador de TTL y Caché".\n\n Actividad marcada como completada\n +120 puntos ganados\n\n¡Ahora entiendes cómo funciona el caché DNS!');
             }
         }
 

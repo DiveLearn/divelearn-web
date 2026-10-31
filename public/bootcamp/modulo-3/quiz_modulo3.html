@@ -203,7 +203,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">📞 Quiz del Módulo</h1>
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
             <p class="quiz-subtitle">Evalúa tus conocimientos sobre la Guía Telefónica Digital (DNS)</p>
         </div>
 
@@ -358,7 +358,7 @@
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -399,7 +399,7 @@
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -416,50 +416,50 @@
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. La encriptación de comunicaciones es función de protocolos como HTTPS/TLS, no del DNS.',
-                    'b': '✅ ¡Correcto! DNS es el "directorio telefónico de Internet" que traduce nombres amigables como google.com a direcciones IP numéricas como 172.217.14.238.',
-                    'c': '❌ Incorrecto. La distribución de contenido global es función de CDNs (Content Delivery Networks), no del DNS.',
-                    'd': '❌ Incorrecto. La gestión del tráfico de red es función de routers y protocolos de enrutamiento, no del DNS.'
+                    'a': ' Incorrecto. La encriptación de comunicaciones es función de protocolos como HTTPS/TLS, no del DNS.',
+                    'b': ' ¡Correcto! DNS es el "directorio telefónico de Internet" que traduce nombres amigables como google.com a direcciones IP numéricas como 172.217.14.238.',
+                    'c': ' Incorrecto. La distribución de contenido global es función de CDNs (Content Delivery Networks), no del DNS.',
+                    'd': ' Incorrecto. La gestión del tráfico de red es función de routers y protocolos de enrutamiento, no del DNS.'
                 }
             },
             {
                 id: 2,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. 7 servidores serían insuficientes para la redundancia y distribución geográfica necesaria.',
-                    'b': '✅ ¡Correcto! Existen exactamente 13 servidores raíz DNS, nombrados de la A a la M (a.root-servers.net hasta m.root-servers.net), distribuidos globalmente para redundancia.',
-                    'c': '❌ Incorrecto. No hay 25 servidores raíz. El sistema está diseñado con 13 para balance entre redundancia y eficiencia.',
-                    'd': '❌ Incorrecto. 50 servidores serían excesivos y innecesarios para la función de los servidores raíz.'
+                    'a': ' Incorrecto. 7 servidores serían insuficientes para la redundancia y distribución geográfica necesaria.',
+                    'b': ' ¡Correcto! Existen exactamente 13 servidores raíz DNS, nombrados de la A a la M (a.root-servers.net hasta m.root-servers.net), distribuidos globalmente para redundancia.',
+                    'c': ' Incorrecto. No hay 25 servidores raíz. El sistema está diseñado con 13 para balance entre redundancia y eficiencia.',
+                    'd': ' Incorrecto. 50 servidores serían excesivos y innecesarios para la función de los servidores raíz.'
                 }
             },
             {
                 id: 3,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. TTL no se relaciona con límites de transferencia de datos.',
-                    'b': '✅ ¡Correcto! TTL (Time To Live) especifica en segundos cuánto tiempo puede un servidor DNS mantener una respuesta en caché antes de necesitar consultar nuevamente la fuente autoritativa.',
-                    'c': '❌ Incorrecto. TTL no clasifica tipos de dominios de nivel superior.',
-                    'd': '❌ Incorrecto. TTL no monitorea tráfico de consultas DNS.'
+                    'a': ' Incorrecto. TTL no se relaciona con límites de transferencia de datos.',
+                    'b': ' ¡Correcto! TTL (Time To Live) especifica en segundos cuánto tiempo puede un servidor DNS mantener una respuesta en caché antes de necesitar consultar nuevamente la fuente autoritativa.',
+                    'c': ' Incorrecto. TTL no clasifica tipos de dominios de nivel superior.',
+                    'd': ' Incorrecto. TTL no monitorea tráfico de consultas DNS.'
                 }
             },
             {
                 id: 4,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Los registros AAAA son para IPv6, no CNAME. Los registros A son para IPv4.',
-                    'b': '✅ ¡Correcto! Un registro A apunta directamente a una dirección IP (ej: ejemplo.com → 192.168.1.1), mientras que CNAME crea un alias que apunta a otro nombre de dominio (ej: www.ejemplo.com → ejemplo.com).',
-                    'c': '❌ Incorrecto. Tanto A como CNAME pueden tener TTL configurables, no hay diferencia inherente de permanencia.',
-                    'd': '❌ Incorrecto. Tanto A como CNAME pueden ser públicos o privados dependiendo de la configuración del servidor DNS.'
+                    'a': ' Incorrecto. Los registros AAAA son para IPv6, no CNAME. Los registros A son para IPv4.',
+                    'b': ' ¡Correcto! Un registro A apunta directamente a una dirección IP (ej: ejemplo.com → 192.168.1.1), mientras que CNAME crea un alias que apunta a otro nombre de dominio (ej: www.ejemplo.com → ejemplo.com).',
+                    'c': ' Incorrecto. Tanto A como CNAME pueden tener TTL configurables, no hay diferencia inherente de permanencia.',
+                    'd': ' Incorrecto. Tanto A como CNAME pueden ser públicos o privados dependiendo de la configuración del servidor DNS.'
                 }
             },
             {
                 id: 5,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. En registros MX, menor número indica mayor prioridad, no mayor número.',
-                    'b': '✅ ¡Correcto! Los registros MX especifican qué servidores manejan correo electrónico para un dominio. El número de prioridad indica orden de preferencia: menor número = mayor prioridad (se intenta primero).',
-                    'c': '❌ Incorrecto. MX significa "Mail Exchange", no tiene relación con archivos multimedia.',
-                    'd': '❌ Incorrecto. MX no se relaciona con información de proxy ni especifica puertos.'
+                    'a': ' Incorrecto. En registros MX, menor número indica mayor prioridad, no mayor número.',
+                    'b': ' ¡Correcto! Los registros MX especifican qué servidores manejan correo electrónico para un dominio. El número de prioridad indica orden de preferencia: menor número = mayor prioridad (se intenta primero).',
+                    'c': ' Incorrecto. MX significa "Mail Exchange", no tiene relación con archivos multimedia.',
+                    'd': ' Incorrecto. MX no se relaciona con información de proxy ni especifica puertos.'
                 }
             }
         ];
@@ -607,13 +607,13 @@
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Módulo
+                     Volver al Módulo
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             
@@ -622,13 +622,13 @@
             // Mostrar mensaje motivacional basado en el puntaje
             let message = '';
             if (score === 5) {
-                message = '🌟 ¡Excelente! Dominas completamente el DNS y la resolución de nombres.';
+                message = ' ¡Excelente! Dominas completamente el DNS y la resolución de nombres.';
             } else if (score >= 4) {
-                message = '👏 ¡Muy bien! Tienes una comprensión sólida del sistema DNS.';
+                message = ' ¡Muy bien! Tienes una comprensión sólida del sistema DNS.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Revisa algunos conceptos sobre registros DNS y estarás listo.';
+                message = ' ¡Buen trabajo! Revisa algunos conceptos sobre registros DNS y estarás listo.';
             } else {
-                message = '📚 Te recomendamos revisar la teoría sobre jerarquía DNS y tipos de registros antes de continuar.';
+                message = ' Te recomendamos revisar la teoría sobre jerarquía DNS y tipos de registros antes de continuar.';
             }
 
             const messageElement = document.createElement('p');
@@ -656,7 +656,7 @@
             // Ocultar resultados
             document.getElementById('resultsContainer').classList.remove('show');
             document.getElementById('resultsContainer').innerHTML = `
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -693,7 +693,7 @@
         }
 
         function nextModule() {
-            alert('🚀 ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros módulos del bootcamp.');
+            alert(' ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros módulos del bootcamp.');
             goToHub();
         }
 

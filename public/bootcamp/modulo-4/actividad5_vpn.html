@@ -318,25 +318,25 @@
         }
 
         .log-entry.info::before {
-            content: "ℹ️";
+            content: "";
             position: absolute;
             left: 0;
         }
 
         .log-entry.success::before {
-            content: "✅";
+            content: "";
             position: absolute;
             left: 0;
         }
 
         .log-entry.warning::before {
-            content: "⚠️";
+            content: "";
             position: absolute;
             left: 0;
         }
 
         .log-entry.error::before {
-            content: "❌";
+            content: "";
             position: absolute;
             left: 0;
         }
@@ -492,19 +492,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 4</a> / Actividad 5
             </div>
-            <h1 class="activity-title">🌉 Simulador de Túnel VPN</h1>
+            <h1 class="activity-title"> Simulador de Túnel VPN</h1>
             <p class="activity-subtitle">Simula conexiones VPN entre oficinas remotas y comprende túneles seguros</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>40 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio-Avanzado</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 250</span>
                 </div>
             </div>
@@ -512,30 +512,30 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad simularás el establecimiento de conexiones VPN entre diferentes ubicaciones. Aprenderás sobre protocolos IPsec, OpenVPN, configuración de túneles seguros y casos de uso empresariales.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🌐 Simulador de Red VPN</h2>
+                <h2 class="section-title"> Simulador de Red VPN</h2>
                 
                 <div class="vpn-simulator">
                     <div class="network-diagram">
                         <div class="network-nodes">
                             <div class="network-node client" id="clientNode">
-                                <span class="node-icon">💻</span>
+                                <span class="node-icon"></span>
                                 <div class="node-name">Cliente Remoto</div>
                                 <div class="node-ip" id="clientIP">192.168.1.100</div>
                             </div>
                             
                             <div class="network-node vpn-server" id="vpnServerNode">
-                                <span class="node-icon">🌉</span>
+                                <span class="node-icon"></span>
                                 <div class="node-name">Servidor VPN</div>
                                 <div class="node-ip" id="vpnServerIP">203.0.113.10</div>
                             </div>
                             
                             <div class="network-node server" id="targetServerNode">
-                                <span class="node-icon">🏢</span>
+                                <span class="node-icon"></span>
                                 <div class="node-name">Servidor Corporativo</div>
                                 <div class="node-ip" id="targetServerIP">10.0.0.100</div>
                             </div>
@@ -546,7 +546,7 @@
                     </div>
 
                     <div class="control-panel">
-                        <h3 class="panel-title">⚙️ Configuración de VPN</h3>
+                        <h3 class="panel-title"> Configuración de VPN</h3>
                         
                         <div class="vpn-controls">
                             <div class="control-group">
@@ -598,15 +598,15 @@
                         </div>
 
                         <div class="vpn-buttons">
-                            <button class="vpn-btn" onclick="establishVPN()" id="connectBtn">🔗 Establecer Túnel</button>
-                            <button class="vpn-btn danger" onclick="disconnectVPN()" id="disconnectBtn" disabled>🔌 Desconectar</button>
-                            <button class="vpn-btn warning" onclick="testConnection()" id="testBtn" disabled>🧪 Probar Conexión</button>
-                            <button class="vpn-btn success" onclick="simulateTraffic()" id="trafficBtn" disabled>📊 Simular Tráfico</button>
+                            <button class="vpn-btn" onclick="establishVPN()" id="connectBtn"> Establecer Túnel</button>
+                            <button class="vpn-btn danger" onclick="disconnectVPN()" id="disconnectBtn" disabled> Desconectar</button>
+                            <button class="vpn-btn warning" onclick="testConnection()" id="testBtn" disabled> Probar Conexión</button>
+                            <button class="vpn-btn success" onclick="simulateTraffic()" id="trafficBtn" disabled> Simular Tráfico</button>
                         </div>
                     </div>
 
                     <div class="status-panel">
-                        <div class="status-title">📊 Estado de la Conexión</div>
+                        <div class="status-title"> Estado de la Conexión</div>
                         <div class="status-grid">
                             <div class="status-item" id="connectionStatus">
                                 <div class="status-label">Estado</div>
@@ -636,14 +636,14 @@
                     </div>
 
                     <div class="log-panel">
-                        <div class="log-header">📋 Registro de Conexión VPN</div>
+                        <div class="log-header"> Registro de Conexión VPN</div>
                         <div id="vpnLogs">
                             <div class="log-entry info">Sistema VPN iniciado - Esperando conexión...</div>
                         </div>
                     </div>
 
                     <div class="protocol-comparison">
-                        <div class="comparison-title">📖 Comparación de Protocolos VPN</div>
+                        <div class="comparison-title"> Comparación de Protocolos VPN</div>
                         
                         <div class="protocol-tabs">
                             <div class="protocol-tab active" onclick="showProtocol('openvpn')" data-protocol="openvpn">OpenVPN</div>
@@ -687,7 +687,7 @@
 
                         <div id="pptp-info" class="protocol-info">
                             <ul class="protocol-features">
-                                <li><span class="feature-name">Seguridad:</span> <span class="feature-value">Muy Baja ⚠️</span></li>
+                                <li><span class="feature-name">Seguridad:</span> <span class="feature-value">Muy Baja </span></li>
                                 <li><span class="feature-name">Velocidad:</span> <span class="feature-value">Alta</span></li>
                                 <li><span class="feature-name">Compatibilidad:</span> <span class="feature-value">Universal</span></li>
                                 <li><span class="feature-name">Configuración:</span> <span class="feature-value">Muy Simple</span></li>
@@ -701,22 +701,22 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips sobre VPN
+                     Tips sobre VPN
                 </h3>
                 <div class="tip-item">
-                    <strong>🔒 Seguridad:</strong> OpenVPN e IPsec son los más seguros - evita PPTP para datos sensibles.
+                    <strong> Seguridad:</strong> OpenVPN e IPsec son los más seguros - evita PPTP para datos sensibles.
                 </div>
                 <div class="tip-item">
-                    <strong>⚡ Rendimiento:</strong> WireGuard ofrece la mejor velocidad con seguridad moderna.
+                    <strong> Rendimiento:</strong> WireGuard ofrece la mejor velocidad con seguridad moderna.
                 </div>
                 <div class="tip-item">
-                    <strong>🌐 Casos de uso:</strong> Site-to-site para oficinas, client-to-site para trabajadores remotos.
+                    <strong> Casos de uso:</strong> Site-to-site para oficinas, client-to-site para trabajadores remotos.
                 </div>
                 <div class="tip-item">
-                    <strong>🛡️ Split Tunneling:</strong> Permite que solo cierto tráfico use la VPN, mejorando velocidad.
+                    <strong> Split Tunneling:</strong> Permite que solo cierto tráfico use la VPN, mejorando velocidad.
                 </div>
                 <div class="tip-item">
-                    <strong>📱 Móviles:</strong> IPsec IKEv2 es ideal para dispositivos móviles por su capacidad de reconexión rápida.
+                    <strong> Móviles:</strong> IPsec IKEv2 es ideal para dispositivos móviles por su capacidad de reconexión rápida.
                 </div>
             </div>
         </div>
@@ -732,12 +732,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -780,14 +780,14 @@
 
             // Validar configuración
             if (protocol === 'pptp') {
-                if (!confirm('⚠️ PPTP es un protocolo inseguro y obsoleto.\n\n¿Estás seguro de que quieres continuar con fines educativos?')) {
+                if (!confirm(' PPTP es un protocolo inseguro y obsoleto.\n\n¿Estás seguro de que quieres continuar con fines educativos?')) {
                     return;
                 }
             }
 
             // Deshabilitar botón de conexión
             document.getElementById('connectBtn').disabled = true;
-            document.getElementById('connectBtn').textContent = '🔄 Conectando...';
+            document.getElementById('connectBtn').textContent = ' Conectando...';
 
             addLog(`Iniciando conexión VPN con ${protocol.toUpperCase()}`, 'info');
             addLog(`Configuración: ${encryption.toUpperCase()}, Puerto ${port}, Auth: ${auth}`, 'info');
@@ -835,14 +835,14 @@
                             updateStatus('latencyStatus', generateLatency(protocol) + ' ms', 'connected');
                             updateStatus('protocolStatus', protocol.toUpperCase(), 'connected');
 
-                            addLog('✅ Túnel VPN establecido exitosamente', 'success');
+                            addLog(' Túnel VPN establecido exitosamente', 'success');
                             addLog(`Dirección IP asignada: ${generateVPNIP()}`, 'success');
 
                             // Iniciar contador de tiempo activo
                             startUptimeCounter();
 
                             // Restablecer botón
-                            document.getElementById('connectBtn').textContent = '🔗 Establecer Túnel';
+                            document.getElementById('connectBtn').textContent = ' Establecer Túnel';
 
                         }, 1000);
                     }, 800);
@@ -911,8 +911,8 @@
                     setTimeout(() => {
                         addLog('Probando acceso HTTP al servidor corporativo...', 'info');
                         setTimeout(() => {
-                            addLog('✅ Acceso HTTP exitoso - Servidor corporativo accesible', 'success');
-                            addLog('✅ Prueba de conectividad completada', 'success');
+                            addLog(' Acceso HTTP exitoso - Servidor corporativo accesible', 'success');
+                            addLog(' Prueba de conectividad completada', 'success');
                         }, 1000);
                     }, 500);
                 }, 2000);
@@ -928,12 +928,12 @@
                 clearInterval(trafficInterval);
                 trafficInterval = null;
                 addLog('Simulación de tráfico detenida', 'warning');
-                document.getElementById('trafficBtn').textContent = '📊 Simular Tráfico';
+                document.getElementById('trafficBtn').textContent = ' Simular Tráfico';
                 updateStatus('throughputStatus', '0 Mbps', 'connected');
                 return;
             }
 
-            document.getElementById('trafficBtn').textContent = '⏹️ Detener Tráfico';
+            document.getElementById('trafficBtn').textContent = ' Detener Tráfico';
             
             trafficInterval = setInterval(() => {
                 const throughput = (Math.random() * 80 + 20).toFixed(1); // 20-100 Mbps
@@ -995,9 +995,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Excelente trabajo! Has completado el simulador de túnel VPN.\n\n✅ Actividad marcada como completada\n🏆 +250 puntos ganados\n\n🌉 Ahora comprendes cómo funcionan las VPN y los túneles seguros.');
+            alert(' ¡Excelente trabajo! Has completado el simulador de túnel VPN.\n\n Actividad marcada como completada\n +250 puntos ganados\n\n Ahora comprendes cómo funcionan las VPN y los túneles seguros.');
         }
 
         function goBack() {
@@ -1028,7 +1028,7 @@
                 addLog(`Protocolo cambiado a ${protocol.toUpperCase()} - Puerto ${defaultPorts[protocol]}`, 'info');
                 
                 if (protocol === 'pptp') {
-                    addLog('⚠️ ADVERTENCIA: PPTP es inseguro - solo para demostración', 'warning');
+                    addLog(' ADVERTENCIA: PPTP es inseguro - solo para demostración', 'warning');
                 }
             });
         });

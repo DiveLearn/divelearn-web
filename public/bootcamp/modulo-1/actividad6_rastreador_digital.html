@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
-    <title>🛰️ Actividad 6 - Rastreador Digital</title>
+    <title> Actividad 6 - Rastreador Digital</title>
     <style>
 .breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
   font-size: 1.25rem;
@@ -575,19 +575,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 1</a> / Actividad 6
             </div>
-            <h1 class="activity-title">🛰️ Rastreador Digital</h1>
+            <h1 class="activity-title"> Rastreador Digital</h1>
             <p class="activity-subtitle">Sigue el viaje épico de los datos por Internet usando traceroute</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>16 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Avanzado</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 250</span>
                 </div>
             </div>
@@ -596,82 +596,82 @@
         <div class="main-content">
             <!-- Navigation Tabs -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('simulation')">🛰️ Simulación</button>
-                <button class="tab-btn" onclick="showTab('analysis')">📊 Análisis</button>
-                <button class="tab-btn" onclick="showTab('nodes')">🔍 Nodos</button>
-                <button class="tab-btn" onclick="showTab('diagnostics')">📝 Diagnóstico</button>
-                <button class="tab-btn" onclick="showTab('quiz')">🧠 Quiz</button>
+                <button class="tab-btn active" onclick="showTab('simulation')"> Simulación</button>
+                <button class="tab-btn" onclick="showTab('analysis')"> Análisis</button>
+                <button class="tab-btn" onclick="showTab('nodes')"> Nodos</button>
+                <button class="tab-btn" onclick="showTab('diagnostics')"> Diagnóstico</button>
+                <button class="tab-btn" onclick="showTab('quiz')"> Quiz</button>
             </div>
 
             <!-- Simulación Interactiva -->
             <div id="simulation" class="tab-content active">
                 <div class="section">
-                    <h2 class="section-title">🌐 Tu Misión de Rastreo</h2>
+                    <h2 class="section-title"> Tu Misión de Rastreo</h2>
                     <p>¡Saludos, Rastreador Digital! Tu misión es seguir el viaje de un paquete de datos desde tu computadora hasta un servidor remoto. Utilizarás una herramienta especial llamada <strong>traceroute</strong>, que es como un GPS que muestra cada parada en el camino.</p>
                     <p>Imagina que envías una carta digital, pero en lugar de ir directamente, debe pasar por varias oficinas postales (routers) antes de llegar a su destino. ¡Vamos a rastrear cada paso!</p>
                     
                     <div class="stats-dashboard">
                         <div class="stat-card">
                             <div class="stat-value" id="hopCount">0</div>
-                            <div class="stat-label">🔍 Saltos Rastreados</div>
+                            <div class="stat-label"> Saltos Rastreados</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value" id="totalTime">0ms</div>
-                            <div class="stat-label">⏱️ Tiempo Total</div>
+                            <div class="stat-label"> Tiempo Total</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value" id="currentStatus">Esperando</div>
-                            <div class="stat-label">📡 Estado</div>
+                            <div class="stat-label"> Estado</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value" id="avgLatency">0ms</div>
-                            <div class="stat-label">📈 Latencia Promedio</div>
+                            <div class="stat-label"> Latencia Promedio</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Controles de Simulación -->
                 <div class="section">
-                    <h2 class="section-title">🎮 Centro de Control</h2>
+                    <h2 class="section-title"> Centro de Control</h2>
                     <div class="interactive-area">
-                        <h3>🎯 Selecciona un destino y comienza el rastreo:</h3>
-                        <button class="control-btn" onclick="startTrace('google')">🔍 Rastrear a Google</button>
-                        <button class="control-btn" onclick="startTrace('youtube')">🎬 Rastrear a YouTube</button>
-                        <button class="control-btn" onclick="startTrace('github')">💻 Rastrear a GitHub</button>
-                        <button class="control-btn" onclick="startTrace('cloudflare')">☁️ Rastrear a Cloudflare</button>
-                        <button class="control-btn secondary" onclick="resetTrace()" id="resetBtn" disabled>🔄 Reiniciar</button>
+                        <h3> Selecciona un destino y comienza el rastreo:</h3>
+                        <button class="control-btn" onclick="startTrace('google')"> Rastrear a Google</button>
+                        <button class="control-btn" onclick="startTrace('youtube')"> Rastrear a YouTube</button>
+                        <button class="control-btn" onclick="startTrace('github')"> Rastrear a GitHub</button>
+                        <button class="control-btn" onclick="startTrace('cloudflare')"> Rastrear a Cloudflare</button>
+                        <button class="control-btn secondary" onclick="resetTrace()" id="resetBtn" disabled> Reiniciar</button>
                     </div>
                 </div>
 
                 <!-- Visualización de Ruta -->
                 <div class="section">
-                    <h2 class="section-title">🗺️ Mapa de Ruta</h2>
+                    <h2 class="section-title"> Mapa de Ruta</h2>
                     <div class="route-visualization" id="routeViz">
                         <div class="route-node" id="node0">
-                            🏠<br><small>Tu PC</small>
+                            <br><small>Tu PC</small>
                         </div>
                         <div class="route-connection" id="conn0"></div>
                         <div class="route-node" id="node1">
-                            🛣️<br><small>Router</small>
+                            <br><small>Router</small>
                         </div>
                         <div class="route-connection" id="conn1"></div>
                         <div class="route-node" id="node2">
-                            🏢<br><small>ISP</small>
+                            <br><small>ISP</small>
                         </div>
                         <div class="route-connection" id="conn2"></div>
                         <div class="route-node" id="node3">
-                            🌆<br><small>Regional</small>
+                            <br><small>Regional</small>
                         </div>
                         <div class="route-connection" id="conn3"></div>
                         <div class="route-node" id="node4">
-                            🌍<br><small>Destino</small>
+                            <br><small>Destino</small>
                         </div>
                     </div>
                 </div>
 
                 <!-- Terminal de Traceroute -->
                 <div class="section">
-                    <h2 class="section-title">💻 Terminal de Rastreo</h2>
+                    <h2 class="section-title"> Terminal de Rastreo</h2>
                     <div class="terminal">
                         <div class="terminal-header">
                             C:\> tracert <span id="currentTarget">selecciona-destino.com</span>
@@ -689,14 +689,14 @@
             <!-- Análisis de Rutas -->
             <div id="analysis" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">📊 Análisis de Rutas</h2>
+                    <h2 class="section-title"> Análisis de Rutas</h2>
                     <div class="analysis-panel">
-                        <h3>🔬 Centro de Análisis</h3>
+                        <h3> Centro de Análisis</h3>
                         <p>Analiza los patrones de enrutamiento y rendimiento de las rutas trazadas.</p>
                         
                         <div class="analysis-grid">
                             <div class="analysis-card">
-                                <h4>📈 Análisis de Latencia</h4>
+                                <h4> Análisis de Latencia</h4>
                                 <div id="latencyAnalysis">
                                     <p><strong>Latencia más baja:</strong> <span id="minLatency">N/A</span></p>
                                     <p><strong>Latencia más alta:</strong> <span id="maxLatency">N/A</span></p>
@@ -706,7 +706,7 @@
                             </div>
                             
                             <div class="analysis-card">
-                                <h4>🌐 Análisis Geográfico</h4>
+                                <h4> Análisis Geográfico</h4>
                                 <div id="geoAnalysis">
                                     <p><strong>Saltos locales:</strong> <span id="localHops">0</span></p>
                                     <p><strong>Saltos ISP:</strong> <span id="ispHops">0</span></p>
@@ -716,7 +716,7 @@
                             </div>
                             
                             <div class="analysis-card">
-                                <h4>🔧 Análisis Técnico</h4>
+                                <h4> Análisis Técnico</h4>
                                 <div id="techAnalysis">
                                     <p><strong>TTL inicial:</strong> <span id="initialTTL">64</span></p>
                                     <p><strong>Protocolo:</strong> <span id="protocol">ICMP</span></p>
@@ -726,7 +726,7 @@
                             </div>
                             
                             <div class="analysis-card">
-                                <h4>⚡ Comparación de Destinos</h4>
+                                <h4> Comparación de Destinos</h4>
                                 <div id="comparisonAnalysis">
                                     <div class="comparison-item">
                                         <strong>Google:</strong> <span id="googleStats">No ejecutado</span>
@@ -750,9 +750,9 @@
             <!-- Identificación de Nodos -->
             <div id="nodes" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">🔍 Identificación de Nodos</h2>
+                    <h2 class="section-title"> Identificación de Nodos</h2>
                     <div class="analysis-panel">
-                        <h3>🏗️ Explorador de Infraestructura</h3>
+                        <h3> Explorador de Infraestructura</h3>
                         <p>Identifica y analiza cada nodo en la ruta de red.</p>
                         
                         <div id="nodeIdentification">
@@ -767,13 +767,13 @@
             <!-- Reportes de Diagnóstico -->
             <div id="diagnostics" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">📝 Reportes de Diagnóstico</h2>
+                    <h2 class="section-title"> Reportes de Diagnóstico</h2>
                     <div class="diagnostic-report">
-                        <h3>🔧 Centro de Diagnóstico</h3>
+                        <h3> Centro de Diagnóstico</h3>
                         <p>Genera reportes detallados sobre el rendimiento y problemas de red.</p>
                         
                         <div class="report-section">
-                            <h4>📋 Resumen Ejecutivo</h4>
+                            <h4> Resumen Ejecutivo</h4>
                             <div id="executiveSummary">
                                 <p>Estado de la conexión: <strong id="connectionStatus">No evaluado</strong></p>
                                 <p>Tiempo total de respuesta: <strong id="totalResponseTime">N/A</strong></p>
@@ -783,7 +783,7 @@
                         </div>
                         
                         <div class="report-section">
-                            <h4>⚠️ Problemas Identificados</h4>
+                            <h4> Problemas Identificados</h4>
                             <div id="problemsIdentified">
                                 <div class="diagnostic-item">
                                     <strong>Estado:</strong> Esperando análisis de red...
@@ -792,7 +792,7 @@
                         </div>
                         
                         <div class="report-section">
-                            <h4>💡 Recomendaciones</h4>
+                            <h4> Recomendaciones</h4>
                             <div id="recommendations">
                                 <div class="diagnostic-item">
                                     <strong>Acción:</strong> Ejecuta al menos un rastreo para generar recomendaciones personalizadas.
@@ -801,7 +801,7 @@
                         </div>
                         
                         <div class="report-section">
-                            <h4>📊 Métricas Detalladas</h4>
+                            <h4> Métricas Detalladas</h4>
                             <div id="detailedMetrics">
                                 <table style="width: 100%; color: #8888bb; border-collapse: collapse;">
                                     <thead>
@@ -815,17 +815,17 @@
                                         <tr>
                                             <td style="padding: 8px;">Latencia promedio</td>
                                             <td style="padding: 8px;" id="avgLatencyMetric">N/A</td>
-                                            <td style="padding: 8px;" id="avgLatencyStatus">⏳ Pendiente</td>
+                                            <td style="padding: 8px;" id="avgLatencyStatus"> Pendiente</td>
                                         </tr>
                                         <tr>
                                             <td style="padding: 8px;">Estabilidad de ruta</td>
                                             <td style="padding: 8px;" id="routeStabilityMetric">N/A</td>
-                                            <td style="padding: 8px;" id="routeStabilityStatus">⏳ Pendiente</td>
+                                            <td style="padding: 8px;" id="routeStabilityStatus"> Pendiente</td>
                                         </tr>
                                         <tr>
                                             <td style="padding: 8px;">Eficiencia de saltos</td>
                                             <td style="padding: 8px;" id="hopEfficiencyMetric">N/A</td>
-                                            <td style="padding: 8px;" id="hopEfficiencyStatus">⏳ Pendiente</td>
+                                            <td style="padding: 8px;" id="hopEfficiencyStatus"> Pendiente</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -833,7 +833,7 @@
                         </div>
                         
                         <button class="control-btn" onclick="generateDetailedReport()" id="generateReportBtn">
-                            📄 Generar Reporte Completo
+                             Generar Reporte Completo
                         </button>
                     </div>
                 </div>
@@ -842,7 +842,7 @@
             <!-- Quiz Expandido -->
             <div id="quiz" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">🧠 Desafío del Rastreador Maestro</h2>
+                    <h2 class="section-title"> Desafío del Rastreador Maestro</h2>
                     <div class="quiz-container">
                         <div class="quiz-question" id="quizQuestion">
                             <!-- La pregunta se cargará dinámicamente -->
@@ -861,7 +861,7 @@
                     
                     <div id="quizResults" style="display: none;">
                         <div class="report-section">
-                            <h4>🏆 Resultados del Quiz</h4>
+                            <h4> Resultados del Quiz</h4>
                             <div class="stats-dashboard">
                                 <div class="stat-card">
                                     <div class="stat-value" id="finalScore">0</div>
@@ -884,19 +884,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips del Rastreador Digital
+                     Tips del Rastreador Digital
                 </h3>
                 <div class="tip-item">
-                    <strong>🛰️ Traceroute:</strong> Es una herramienta que mapea la ruta que toman los paquetes de datos hacia un destino específico.
+                    <strong> Traceroute:</strong> Es una herramienta que mapea la ruta que toman los paquetes de datos hacia un destino específico.
                 </div>
                 <div class="tip-item">
-                    <strong>⏱️ TTL (Time To Live):</strong> Campo que previene bucles infinitos decrementándose en cada salto hasta llegar a cero.
+                    <strong> TTL (Time To Live):</strong> Campo que previene bucles infinitos decrementándose en cada salto hasta llegar a cero.
                 </div>
                 <div class="tip-item">
-                    <strong>🔍 Asteriscos (* * *):</strong> Indican timeouts, que pueden ser por filtros ICMP, sobrecarga o problemas de conectividad.
+                    <strong> Asteriscos (* * *):</strong> Indican timeouts, que pueden ser por filtros ICMP, sobrecarga o problemas de conectividad.
                 </div>
                 <div class="tip-item">
-                    <strong>🌐 Rutas dinámicas:</strong> Los paquetes pueden tomar diferentes caminos basándose en la congestión y disponibilidad de la red.
+                    <strong> Rutas dinámicas:</strong> Los paquetes pueden tomar diferentes caminos basándose en la congestión y disponibilidad de la red.
                 </div>
             </div>
 
@@ -914,12 +914,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Completar Actividad
+                 Completar Actividad
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -942,39 +942,39 @@
                 name: 'www.google.com',
                 display: 'Google DNS (8.8.8.8)',
                 hops: [
-                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: '🏠 Tu router casero - La primera parada en el viaje digital', asn: 'AS-LOCAL', location: 'Casa' },
-                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 15, type: 'isp', description: '🏢 Gateway ISP - Tu conexión al mundo digital', asn: 'AS-ISP-12345', location: 'Ciudad' },
-                    { ip: '172.16.1.1', name: 'Nodo Regional ISP', time: 45, type: 'regional', description: '🌆 Nodo Regional - Conecta tu ciudad con otras regiones', asn: 'AS-ISP-12345', location: 'Región' },
-                    { ip: '8.8.8.8', name: 'Google Public DNS', time: 120, type: 'destination', description: '🌍 Servidores DNS de Google - El destino final', asn: 'AS-15169', location: 'Global' }
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: ' Tu router casero - La primera parada en el viaje digital', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 15, type: 'isp', description: ' Gateway ISP - Tu conexión al mundo digital', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '172.16.1.1', name: 'Nodo Regional ISP', time: 45, type: 'regional', description: ' Nodo Regional - Conecta tu ciudad con otras regiones', asn: 'AS-ISP-12345', location: 'Región' },
+                    { ip: '8.8.8.8', name: 'Google Public DNS', time: 120, type: 'destination', description: ' Servidores DNS de Google - El destino final', asn: 'AS-15169', location: 'Global' }
                 ]
             },
             youtube: {
                 name: 'www.youtube.com',
                 display: 'YouTube CDN',
                 hops: [
-                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: '🏠 Tu router casero - Iniciando la aventura del streaming', asn: 'AS-LOCAL', location: 'Casa' },
-                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 18, type: 'isp', description: '🏢 ISP Local - Preparando el ancho de banda para videos', asn: 'AS-ISP-12345', location: 'Ciudad' },
-                    { ip: '203.0.113.1', name: 'CDN Edge Server', time: 32, type: 'cdn', description: '📡 Servidor CDN - Contenido cerca de ti para videos rápidos', asn: 'AS-13335', location: 'Nacional' },
-                    { ip: '142.250.1.1', name: 'YouTube Servers', time: 89, type: 'destination', description: '🎬 Servidores de YouTube - Donde viven todos los videos', asn: 'AS-15169', location: 'Global' }
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: ' Tu router casero - Iniciando la aventura del streaming', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 18, type: 'isp', description: ' ISP Local - Preparando el ancho de banda para videos', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '203.0.113.1', name: 'CDN Edge Server', time: 32, type: 'cdn', description: ' Servidor CDN - Contenido cerca de ti para videos rápidos', asn: 'AS-13335', location: 'Nacional' },
+                    { ip: '142.250.1.1', name: 'YouTube Servers', time: 89, type: 'destination', description: ' Servidores de YouTube - Donde viven todos los videos', asn: 'AS-15169', location: 'Global' }
                 ]
             },
             github: {
                 name: 'github.com',
                 display: 'GitHub Platform',
                 hops: [
-                    { ip: '192.168.1.1', name: 'Router Casero', time: 2, type: 'local', description: '🏠 Tu router casero - Comenzando el viaje al código', asn: 'AS-LOCAL', location: 'Casa' },
-                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 22, type: 'isp', description: '🏢 ISP Local - Conectando con el mundo del desarrollo', asn: 'AS-ISP-12345', location: 'Ciudad' },
-                    { ip: '198.51.100.1', name: 'Internet Backbone', time: 67, type: 'backbone', description: '🌐 Backbone de Internet - Las autopistas principales de datos', asn: 'AS-174', location: 'Internacional' },
-                    { ip: '140.82.112.1', name: 'GitHub Infrastructure', time: 145, type: 'destination', description: '💻 Infraestructura de GitHub - El hogar del código', asn: 'AS-36459', location: 'Global' }
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 2, type: 'local', description: ' Tu router casero - Comenzando el viaje al código', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 22, type: 'isp', description: ' ISP Local - Conectando con el mundo del desarrollo', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '198.51.100.1', name: 'Internet Backbone', time: 67, type: 'backbone', description: ' Backbone de Internet - Las autopistas principales de datos', asn: 'AS-174', location: 'Internacional' },
+                    { ip: '140.82.112.1', name: 'GitHub Infrastructure', time: 145, type: 'destination', description: ' Infraestructura de GitHub - El hogar del código', asn: 'AS-36459', location: 'Global' }
                 ]
             },
             cloudflare: {
                 name: 'cloudflare.com',
                 display: 'Cloudflare CDN',
                 hops: [
-                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: '🏠 Tu router casero - Iniciando conexión a CDN global', asn: 'AS-LOCAL', location: 'Casa' },
-                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 12, type: 'isp', description: '🏢 ISP Local - Ruteo hacia red de borde', asn: 'AS-ISP-12345', location: 'Ciudad' },
-                    { ip: '104.16.124.96', name: 'Cloudflare Edge', time: 28, type: 'cdn', description: '☁️ Servidor de Borde - CDN ultrarrápido y global', asn: 'AS-13335', location: 'Nacional' }
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: ' Tu router casero - Iniciando conexión a CDN global', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 12, type: 'isp', description: ' ISP Local - Ruteo hacia red de borde', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '104.16.124.96', name: 'Cloudflare Edge', time: 28, type: 'cdn', description: ' Servidor de Borde - CDN ultrarrápido y global', asn: 'AS-13335', location: 'Nacional' }
                 ]
             }
         };
@@ -983,10 +983,10 @@
             {
                 question: "¿Qué comando se utiliza en Windows para realizar un traceroute?",
                 options: [
-                    "🖥️ tracert",
-                    "🌐 traceroute", 
-                    "📡 ping",
-                    "🔧 netstat"
+                    " tracert",
+                    " traceroute", 
+                    " ping",
+                    " netstat"
                 ],
                 correct: 0,
                 explanation: "En Windows se usa 'tracert', mientras que en Linux/Mac se usa 'traceroute'. Ambos realizan la misma función pero con sintaxis diferente."
@@ -994,10 +994,10 @@
             {
                 question: "¿Por qué un paquete de datos puede tomar diferentes rutas para llegar al mismo destino?",
                 options: [
-                    "🚫 Porque siempre toma la ruta más larga para ser más seguro",
-                    "🛣️ Porque los routers eligen la mejor ruta disponible dinámicamente",
-                    "🎲 Porque los paquetes eligen rutas completamente al azar",
-                    "⏰ Porque siempre esperan a que haya menos tráfico"
+                    " Porque siempre toma la ruta más larga para ser más seguro",
+                    " Porque los routers eligen la mejor ruta disponible dinámicamente",
+                    " Porque los paquetes eligen rutas completamente al azar",
+                    " Porque siempre esperan a que haya menos tráfico"
                 ],
                 correct: 1,
                 explanation: "Los routers utilizan algoritmos de enrutamiento para seleccionar la mejor ruta basándose en factores como congestión, costo, distancia y disponibilidad en tiempo real."
@@ -1005,10 +1005,10 @@
             {
                 question: "¿Qué significa cuando un salto en traceroute muestra '* * *' o 'Request timed out'?",
                 options: [
-                    "🔥 El router está sobrecargado y no puede responder",
-                    "🛡️ El router está configurado para no responder a ICMP",
-                    "💥 Hay un problema grave de conectividad",
-                    "✅ Todas las opciones anteriores son posibles"
+                    " El router está sobrecargado y no puede responder",
+                    " El router está configurado para no responder a ICMP",
+                    " Hay un problema grave de conectividad",
+                    " Todas las opciones anteriores son posibles"
                 ],
                 correct: 3,
                 explanation: "Los asteriscos pueden indicar filtrado ICMP, sobrecarga del router, problemas de conectividad, o políticas de seguridad. Es importante analizar el contexto completo."
@@ -1016,10 +1016,10 @@
             {
                 question: "¿Cuál es el propósito principal del campo TTL (Time To Live) en traceroute?",
                 options: [
-                    "⏱️ Medir el tiempo exacto que tarda cada paquete",
-                    "🔢 Limitar el número de saltos para evitar bucles infinitos",
-                    "🔐 Proporcionar seguridad adicional a los paquetes",
-                    "📊 Calcular el ancho de banda disponible"
+                    " Medir el tiempo exacto que tarda cada paquete",
+                    " Limitar el número de saltos para evitar bucles infinitos",
+                    " Proporcionar seguridad adicional a los paquetes",
+                    " Calcular el ancho de banda disponible"
                 ],
                 correct: 1,
                 explanation: "TTL previene bucles infinitos decrementándose en cada salto. Cuando llega a 0, el router descarta el paquete y envía un mensaje ICMP 'Time Exceeded', permitiendo a traceroute mapear la ruta."
@@ -1027,10 +1027,10 @@
             {
                 question: "¿Qué información NO puedes obtener típicamente de un traceroute básico?",
                 options: [
-                    "📍 La ruta que toman los paquetes",
-                    "⏱️ La latencia de cada salto",
-                    "🌍 Las direcciones IP de los routers intermedios",
-                    "💾 El ancho de banda disponible en cada enlace"
+                    " La ruta que toman los paquetes",
+                    " La latencia de cada salto",
+                    " Las direcciones IP de los routers intermedios",
+                    " El ancho de banda disponible en cada enlace"
                 ],
                 correct: 3,
                 explanation: "Traceroute muestra ruta, latencia e IPs de routers, pero no mide ancho de banda. Para eso se necesitan herramientas específicas como iperf, speedtest, o análisis de tráfico continuo."
@@ -1050,7 +1050,7 @@
             const completedFactors = completionFactors.filter(Boolean).length;
 
             if (completedFactors >= 2) {
-                statusText.textContent = 'Listo para completar ✅';
+                statusText.textContent = 'Listo para completar ';
                 statusIndicator.style.background = '#28a745';
             } else if (completedFactors >= 1) {
                 statusText.textContent = 'Buen progreso...';
@@ -1138,7 +1138,7 @@
                 currentHop++;
                 updateStats();
                 
-                showFeedback(`🛰️ Salto ${hopNumber} rastreado: ${hop.name}`, 'success');
+                showFeedback(` Salto ${hopNumber} rastreado: ${hop.name}`, 'success');
                 
                 // Continuar con el siguiente hop
                 setTimeout(() => traceNextHop(), 1000);
@@ -1233,7 +1233,7 @@
             updateCompletionStatus();
             
             setTimeout(() => {
-                showFeedback('🎉 ¡Rastreo completado con éxito!', 'success');
+                showFeedback(' ¡Rastreo completado con éxito!', 'success');
             }, 500);
         }
 
@@ -1327,7 +1327,7 @@
                 const nodeDiv = document.createElement('div');
                 nodeDiv.className = 'node-info';
                 nodeDiv.innerHTML = `
-                    <h5>🔍 Salto ${index + 1}: ${hop.name}</h5>
+                    <h5> Salto ${index + 1}: ${hop.name}</h5>
                     <p><strong>IP:</strong> ${hop.ip}</p>
                     <p><strong>Tipo:</strong> ${hop.type.charAt(0).toUpperCase() + hop.type.slice(1)}</p>
                     <p><strong>ASN:</strong> ${hop.asn}</p>
@@ -1363,21 +1363,21 @@
             if (data.avgLatency > 200) {
                 const problem = document.createElement('div');
                 problem.className = 'diagnostic-item warning';
-                problem.innerHTML = '<strong>⚠️ Latencia elevada:</strong> La latencia promedio supera los 200ms, lo que puede afectar aplicaciones en tiempo real.';
+                problem.innerHTML = '<strong> Latencia elevada:</strong> La latencia promedio supera los 200ms, lo que puede afectar aplicaciones en tiempo real.';
                 problemsDiv.appendChild(problem);
             }
             
             if (data.hops.length > 6) {
                 const problem = document.createElement('div');
                 problem.className = 'diagnostic-item warning';
-                problem.innerHTML = '<strong>⚠️ Ruta larga:</strong> La ruta tiene más saltos de lo óptimo, lo que puede indicar enrutamiento subóptimo.';
+                problem.innerHTML = '<strong> Ruta larga:</strong> La ruta tiene más saltos de lo óptimo, lo que puede indicar enrutamiento subóptimo.';
                 problemsDiv.appendChild(problem);
             }
             
             if (problemsDiv.children.length === 0) {
                 const problem = document.createElement('div');
                 problem.className = 'diagnostic-item';
-                problem.innerHTML = '<strong>✅ Sin problemas:</strong> La ruta funciona correctamente sin problemas identificados.';
+                problem.innerHTML = '<strong> Sin problemas:</strong> La ruta funciona correctamente sin problemas identificados.';
                 problemsDiv.appendChild(problem);
             }
             
@@ -1388,39 +1388,39 @@
             if (data.avgLatency < 50) {
                 const rec = document.createElement('div');
                 rec.className = 'diagnostic-item';
-                rec.innerHTML = '<strong>🎯 Rendimiento óptimo:</strong> La conexión funciona excelentemente. Mantén la configuración actual.';
+                rec.innerHTML = '<strong> Rendimiento óptimo:</strong> La conexión funciona excelentemente. Mantén la configuración actual.';
                 recDiv.appendChild(rec);
             } else if (data.avgLatency < 100) {
                 const rec = document.createElement('div');
                 rec.className = 'diagnostic-item';
-                rec.innerHTML = '<strong>📈 Buen rendimiento:</strong> Considera usar DNS más rápidos como 1.1.1.1 o 8.8.8.8 para optimizar.';
+                rec.innerHTML = '<strong> Buen rendimiento:</strong> Considera usar DNS más rápidos como 1.1.1.1 o 8.8.8.8 para optimizar.';
                 recDiv.appendChild(rec);
             } else {
                 const rec = document.createElement('div');
                 rec.className = 'diagnostic-item warning';
-                rec.innerHTML = '<strong>🔧 Optimización necesaria:</strong> Verifica la calidad de tu conexión a Internet y considera contactar a tu ISP.';
+                rec.innerHTML = '<strong> Optimización necesaria:</strong> Verifica la calidad de tu conexión a Internet y considera contactar a tu ISP.';
                 recDiv.appendChild(rec);
             }
             
             // Métricas detalladas
             document.getElementById('avgLatencyMetric').textContent = data.avgLatency + 'ms';
-            document.getElementById('avgLatencyStatus').textContent = data.avgLatency < 100 ? '✅ Buena' : '⚠️ Mejorable';
+            document.getElementById('avgLatencyStatus').textContent = data.avgLatency < 100 ? ' Buena' : ' Mejorable';
             
             document.getElementById('routeStabilityMetric').textContent = '98%';
-            document.getElementById('routeStabilityStatus').textContent = '✅ Estable';
+            document.getElementById('routeStabilityStatus').textContent = ' Estable';
             
             const efficiency = ((8 - data.hops.length) / 8 * 100).toFixed(0);
             document.getElementById('hopEfficiencyMetric').textContent = efficiency + '%';
-            document.getElementById('hopEfficiencyStatus').textContent = efficiency > 60 ? '✅ Eficiente' : '⚠️ Mejorable';
+            document.getElementById('hopEfficiencyStatus').textContent = efficiency > 60 ? ' Eficiente' : ' Mejorable';
         }
 
         function generateDetailedReport() {
             if (Object.keys(routeData).length === 0) {
-                alert('🔍 Ejecuta al menos un rastreo antes de generar el reporte.');
+                alert(' Ejecuta al menos un rastreo antes de generar el reporte.');
                 return;
             }
             
-            showFeedback('📄 Reporte detallado generado', 'success');
+            showFeedback(' Reporte detallado generado', 'success');
             
             const reportWindow = window.open('', '_blank');
             let reportContent = `
@@ -1437,7 +1437,7 @@
 </head>
                 <body>
                     <div class="header">
-                        <h1>🛰️ Reporte de Diagnóstico de Red</h1>
+                        <h1> Reporte de Diagnóstico de Red</h1>
                         <p>Generado por DiveLearn - Rastreador Digital</p>
                         <p>Fecha: ${new Date().toLocaleString()}</p>
                     </div>
@@ -1447,7 +1447,7 @@
                 const data = routeData[dest];
                 reportContent += `
                     <div class="section">
-                        <h2>📊 Análisis de ${destinations[dest].display}</h2>
+                        <h2> Análisis de ${destinations[dest].display}</h2>
                         <div class="metric">Saltos: ${data.hops.length}</div>
                         <div class="metric">Tiempo total: ${data.totalTime}ms</div>
                         <div class="metric">Latencia promedio: ${data.avgLatency}ms</div>
@@ -1466,7 +1466,7 @@
             
             reportContent += `
                     <div class="section">
-                        <h2>📝 Conclusiones y Recomendaciones</h2>
+                        <h2> Conclusiones y Recomendaciones</h2>
                         <p>Este reporte muestra el análisis detallado de las rutas de red ejecutadas. Utiliza esta información para optimizar tu conectividad.</p>
                     </div>
                 
@@ -1528,10 +1528,10 @@
             
             // Mostrar feedback
             if (selectedIndex === question.correct) {
-                feedback.textContent = '🎉 ¡Correcto! ' + question.explanation;
+                feedback.textContent = ' ¡Correcto! ' + question.explanation;
                 feedback.className = 'feedback positive show';
             } else {
-                feedback.textContent = '🤔 Incorrecto. ' + question.explanation;
+                feedback.textContent = ' Incorrecto. ' + question.explanation;
                 feedback.className = 'feedback negative show';
             }
             
@@ -1591,11 +1591,11 @@
             const summaryDiv = document.getElementById('quizFeedbackSummary');
             let summaryText = '';
             if (score >= 90) {
-                summaryText = '🏆 ¡Excelente! Eres un verdadero experto en traceroute y diagnóstico de red.';
+                summaryText = ' ¡Excelente! Eres un verdadero experto en traceroute y diagnóstico de red.';
             } else if (score >= 70) {
-                summaryText = '👍 ¡Bien hecho! Tienes un buen entendimiento de los conceptos de traceroute.';
+                summaryText = ' ¡Bien hecho! Tienes un buen entendimiento de los conceptos de traceroute.';
             } else {
-                summaryText = '📚 Buen intento. Repasa los conceptos y vuelve a intentarlo para mejorar tu comprensión.';
+                summaryText = ' Buen intento. Repasa los conceptos y vuelve a intentarlo para mejorar tu comprensión.';
             }
             summaryDiv.innerHTML = `<p style="color: #667eea; font-weight: bold;">${summaryText}</p>`;
             
@@ -1636,7 +1636,7 @@
             const missingRequirements = requiredProgress.filter(req => !req.condition);
             
             if (missingRequirements.length > 0) {
-                alert('📋 Para completar la actividad necesitas:\n\n' + 
+                alert(' Para completar la actividad necesitas:\n\n' + 
                       missingRequirements.map(req => '• ' + req.message).join('\n'));
                 return;
             }
@@ -1646,16 +1646,16 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             // Mostrar mensaje de éxito
-            alert('🎉 ¡Felicidades! Has completado la actividad "Rastreador Digital".\n\n' +
-                  '✅ Simulación interactiva de traceroute completada\n' +
-                  '📊 Análisis de rutas de red realizado\n' +
-                  '🔍 Identificación de nodos ejecutada\n' +
-                  '📝 Reportes de diagnóstico generados\n' +
-                  '🧠 Quiz de conceptos completado\n\n' +
-                  '🏆 +250 puntos ganados\n\n' +
+            alert(' ¡Felicidades! Has completado la actividad "Rastreador Digital".\n\n' +
+                  ' Simulación interactiva de traceroute completada\n' +
+                  ' Análisis de rutas de red realizado\n' +
+                  ' Identificación de nodos ejecutada\n' +
+                  ' Reportes de diagnóstico generados\n' +
+                  ' Quiz de conceptos completado\n\n' +
+                  ' +250 puntos ganados\n\n' +
                   '¡Ahora eres un experto en traceroute y diagnóstico de red!');
         }
 

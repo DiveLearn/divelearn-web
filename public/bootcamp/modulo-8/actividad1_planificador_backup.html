@@ -267,19 +267,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 8</a> / Actividad 1
             </div>
-            <h1 class="activity-title">📅 Planificador de Estrategia de Backup</h1>
+            <h1 class="activity-title"> Planificador de Estrategia de Backup</h1>
             <p class="activity-subtitle">Diseña una estrategia personalizada aplicando la regla 3-2-1</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -287,16 +287,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a diseñar una estrategia de backup completa y personalizada. Analizarás tus necesidades específicas y crearás un plan que siga las mejores prácticas de la industria.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔧 Configurador de Backup</h2>
+                <h2 class="section-title"> Configurador de Backup</h2>
                 <div class="interactive-area">
                     <form id="backupForm">
                         <div class="form-group">
-                            <label class="form-label">🏢 Tipo de Organización</label>
+                            <label class="form-label"> Tipo de Organización</label>
                             <select id="orgType" class="form-select" onchange="updateForm()">
                                 <option value="">Selecciona tu tipo de organización</option>
                                 <option value="startup">Startup/Empresa pequeña (1-10 empleados)</option>
@@ -307,7 +307,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">💾 Volumen de Datos Aproximado</label>
+                            <label class="form-label"> Volumen de Datos Aproximado</label>
                             <select id="dataVolume" class="form-select">
                                 <option value="">Selecciona el volumen de datos</option>
                                 <option value="small">Pequeño (< 100 GB)</option>
@@ -318,7 +318,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">⚡ Criticidad de los Datos</label>
+                            <label class="form-label"> Criticidad de los Datos</label>
                             <select id="criticality" class="form-select">
                                 <option value="">¿Qué tan críticos son tus datos?</option>
                                 <option value="low">Baja - Puedo perder hasta 1 semana de datos</option>
@@ -329,7 +329,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">💰 Presupuesto Mensual Disponible</label>
+                            <label class="form-label"> Presupuesto Mensual Disponible</label>
                             <select id="budget" class="form-select">
                                 <option value="">Selecciona tu presupuesto</option>
                                 <option value="minimal">Mínimo (< $50 USD/mes)</option>
@@ -340,37 +340,37 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">📁 Tipos de Datos a Proteger</label>
+                            <label class="form-label"> Tipos de Datos a Proteger</label>
                             <div class="checkbox-group" id="dataTypes">
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="documents" value="documents">
-                                    <label for="documents">📄 Documentos de oficina</label>
+                                    <label for="documents"> Documentos de oficina</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="databases" value="databases">
-                                    <label for="databases">🗄️ Bases de datos</label>
+                                    <label for="databases"> Bases de datos</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="multimedia" value="multimedia">
-                                    <label for="multimedia">🎬 Archivos multimedia</label>
+                                    <label for="multimedia"> Archivos multimedia</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="code" value="code">
-                                    <label for="code">💻 Código fuente</label>
+                                    <label for="code"> Código fuente</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="emails" value="emails">
-                                    <label for="emails">📧 Correos electrónicos</label>
+                                    <label for="emails"> Correos electrónicos</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="configs" value="configs">
-                                    <label for="configs">⚙️ Configuraciones de sistema</label>
+                                    <label for="configs"> Configuraciones de sistema</label>
                                 </div>
                             </div>
                         </div>
 
                         <button type="button" class="generate-btn" onclick="generateStrategy()">
-                            🚀 Generar Estrategia de Backup
+                             Generar Estrategia de Backup
                         </button>
                     </form>
 
@@ -382,19 +382,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips para una Estrategia Exitosa
+                     Tips para una Estrategia Exitosa
                 </h3>
                 <div class="tip-item">
-                    <strong>🎯 Automatización:</strong> Los backups manuales fallan. Siempre automatiza tus procesos de respaldo.
+                    <strong> Automatización:</strong> Los backups manuales fallan. Siempre automatiza tus procesos de respaldo.
                 </div>
                 <div class="tip-item">
-                    <strong>🔍 Monitoreo:</strong> Configura alertas para saber inmediatamente si un backup falla.
+                    <strong> Monitoreo:</strong> Configura alertas para saber inmediatamente si un backup falla.
                 </div>
                 <div class="tip-item">
-                    <strong>🧪 Pruebas regulares:</strong> Un backup no probado es una falsa sensación de seguridad.
+                    <strong> Pruebas regulares:</strong> Un backup no probado es una falsa sensación de seguridad.
                 </div>
                 <div class="tip-item">
-                    <strong>📚 Documentación:</strong> Documenta tus procedimientos de recuperación paso a paso.
+                    <strong> Documentación:</strong> Documenta tus procedimientos de recuperación paso a paso.
                 </div>
             </div>
         </div>
@@ -410,12 +410,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -518,22 +518,22 @@
 
             // Generar advertencias específicas
             if (data.criticality === 'critical' && data.budget === 'minimal') {
-                strategy.warnings.push('⚠️ Tu criticidad es muy alta para el presupuesto disponible. Considera incrementar la inversión.');
+                strategy.warnings.push(' Tu criticidad es muy alta para el presupuesto disponible. Considera incrementar la inversión.');
             }
             if (data.dataVolume === 'enterprise' && data.budget !== 'enterprise') {
-                strategy.warnings.push('⚠️ El volumen de datos es muy grande para el presupuesto. Podrías necesitar optimizar o comprimir.');
+                strategy.warnings.push(' El volumen de datos es muy grande para el presupuesto. Podrías necesitar optimizar o comprimir.');
             }
 
             // Recomendaciones específicas por tipo de datos
             data.dataTypes.forEach(type => {
                 if (type === 'databases') {
-                    strategy.recommendations.push('🗄️ Bases de datos: Usa dumps transaccionales y prueba la integridad regularmente');
+                    strategy.recommendations.push(' Bases de datos: Usa dumps transaccionales y prueba la integridad regularmente');
                 }
                 if (type === 'code') {
-                    strategy.recommendations.push('💻 Código fuente: Combina con control de versiones (Git) y repositorios remotos');
+                    strategy.recommendations.push(' Código fuente: Combina con control de versiones (Git) y repositorios remotos');
                 }
                 if (type === 'multimedia') {
-                    strategy.recommendations.push('🎬 Multimedia: Considera compresión y almacenamiento en frío para archivos antiguos');
+                    strategy.recommendations.push(' Multimedia: Considera compresión y almacenamiento en frío para archivos antiguos');
                 }
             });
 
@@ -546,11 +546,11 @@
             let html = `
                 <div class="backup-strategy">
                     <div class="strategy-title">
-                        📋 ${strategy.title}
+                         ${strategy.title}
                     </div>
                     
                     <div class="strategy-section">
-                        <h4>⏰ Cronograma de Backups Recomendado</h4>
+                        <h4> Cronograma de Backups Recomendado</h4>
                         <div class="backup-schedule">
                             ${strategy.schedule.map(item => `
                                 <div class="schedule-item">
@@ -563,7 +563,7 @@
                     </div>
 
                     <div class="strategy-section">
-                        <h4>💿 Medios de Almacenamiento (Regla 3-2-1)</h4>
+                        <h4> Medios de Almacenamiento (Regla 3-2-1)</h4>
                         <div class="rule-321-display">
                             <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
                                 <div><span class="rule-number">3</span><br>Copias</div>
@@ -571,24 +571,24 @@
                                 <div><span class="rule-number">1</span><br>Remoto</div>
                             </div>
                             <div style="text-align: left;">
-                                ${strategy.media.map(medium => `<div style="margin: 5px 0;">✅ ${medium}</div>`).join('')}
+                                ${strategy.media.map(medium => `<div style="margin: 5px 0;"> ${medium}</div>`).join('')}
                             </div>
                         </div>
                     </div>
 
                     <div class="strategy-section">
-                        <h4>📍 Ubicaciones de Almacenamiento</h4>
+                        <h4> Ubicaciones de Almacenamiento</h4>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
                             ${strategy.locations.map(location => `
                                 <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; border-left: 4px solid #28a745;">
-                                    📍 ${location}
+                                     ${location}
                                 </div>
                             `).join('')}
                         </div>
                     </div>
 
                     <div class="strategy-section">
-                        <h4>💰 Costo Estimado</h4>
+                        <h4> Costo Estimado</h4>
                         <div style="font-size: 1.2rem; color: #28a745; font-weight: 600;">${strategy.costs}</div>
                         <div style="font-size: 0.9rem; color: #8888bb; margin-top: 5px;">
                             *Incluye hardware, software y servicios en nube
@@ -597,26 +597,26 @@
 
                     ${strategy.warnings.length > 0 ? `
                         <div class="warning-section">
-                            <div class="warning-title">⚠️ Consideraciones Importantes</div>
+                            <div class="warning-title"> Consideraciones Importantes</div>
                             ${strategy.warnings.map(warning => `<div style="margin: 8px 0;">${warning}</div>`).join('')}
                         </div>
                     ` : ''}
 
                     ${strategy.recommendations.length > 0 ? `
                         <div class="strategy-section">
-                            <h4>🎯 Recomendaciones Específicas</h4>
+                            <h4> Recomendaciones Específicas</h4>
                             ${strategy.recommendations.map(rec => `<div style="margin: 8px 0;">${rec}</div>`).join('')}
                         </div>
                     ` : ''}
 
                     <div class="strategy-section">
-                        <h4>📋 Próximos Pasos</h4>
+                        <h4> Próximos Pasos</h4>
                         <div style="display: grid; gap: 10px;">
-                            <div>1️⃣ Adquiere el hardware y configura servicios en nube</div>
-                            <div>2️⃣ Configura el software de backup con el cronograma propuesto</div>
-                            <div>3️⃣ Realiza un backup de prueba completo</div>
-                            <div>4️⃣ Documenta los procedimientos de recuperación</div>
-                            <div>5️⃣ Programa simulacros de recuperación mensuales</div>
+                            <div>1 Adquiere el hardware y configura servicios en nube</div>
+                            <div>2 Configura el software de backup con el cronograma propuesto</div>
+                            <div>3 Realiza un backup de prueba completo</div>
+                            <div>4 Documenta los procedimientos de recuperación</div>
+                            <div>5 Programa simulacros de recuperación mensuales</div>
                         </div>
                     </div>
                 </div>
@@ -635,9 +635,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado el "Planificador de Estrategia de Backup".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados');
+            alert(' ¡Felicidades! Has completado el "Planificador de Estrategia de Backup".\n\n Actividad marcada como completada\n +200 puntos ganados');
         }
 
         function goBack() {

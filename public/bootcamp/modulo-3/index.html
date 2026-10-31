@@ -386,7 +386,7 @@
                 </a>
             </div>
             
-            <h1 class="module-title">📞 Módulo 3</h1>
+            <h1 class="module-title"> Módulo 3</h1>
             <p class="module-subtitle">La Guía Telefónica Digital (DNS)</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
@@ -396,36 +396,36 @@
         <div class="main-content">
             <div class="tabs">
                 <div class="tab active" onclick="showTab('teoria')">
-                    📚 Teoría
+                     Teoría
                 </div>
                 <div class="tab" onclick="showTab('submodulos')">
-                    🎯 Submódulos
+                     Submódulos
                 </div>
             </div>
 
             <div id="teoria" class="tab-content active">
                 <div class="objetivos-container">
-                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <h3 class="objetivos-title"> Objetivos de Aprendizaje</h3>
                     <div class="objetivo-item">
-                        <strong>🌐 Al finalizar este módulo podrás:</strong> Comprender cómo funciona el Sistema de Nombres de Dominio (DNS) y su papel crucial en Internet.
+                        <strong> Al finalizar este módulo podrás:</strong> Comprender cómo funciona el Sistema de Nombres de Dominio (DNS) y su papel crucial en Internet.
                     </div>
                     <div class="objetivo-item">
-                        <strong>🔍 Dominar:</strong> Resolución de nombres, jerarquía DNS, tipos de registros y herramientas de consulta.
+                        <strong> Dominar:</strong> Resolución de nombres, jerarquía DNS, tipos de registros y herramientas de consulta.
                     </div>
                     <div class="objetivo-item">
-                        <strong>⚡ Aplicar:</strong> Configuración básica de DNS, troubleshooting de problemas de resolución y uso de herramientas como nslookup y dig.
+                        <strong> Aplicar:</strong> Configuración básica de DNS, troubleshooting de problemas de resolución y uso de herramientas como nslookup y dig.
                     </div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">📖 3.1 El Problema de la Memoria</h2>
+                    <h2 class="teoria-title"> 3.1 El Problema de la Memoria</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Por qué no usamos números directamente?</h3>
                         <div class="subsection-content">
                             Imagina que para llamar a tu mejor amigo tuvieras que memorizar el número 192.168.1.147 en lugar de simplemente buscar "Juan" en tu agenda. Esto es exactamente lo que pasaría en Internet sin DNS. Las computadoras usan direcciones IP numéricas (como 172.217.14.238) para comunicarse, pero los humanos necesitamos algo más fácil de recordar como <span class="highlight">google.com</span>.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">📱 Analogía con tu teléfono:</div>
+                            <div class="example-title"> Analogía con tu teléfono:</div>
                             Tu contacto "Mamá" en realidad apunta al número +52-55-1234-5678. DNS funciona igual: "google.com" apunta a 172.217.14.238.
                         </div>
                     </div>
@@ -458,7 +458,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🏢 3.2 La Jerarquía Global</h2>
+                    <h2 class="teoria-title"> 3.2 La Jerarquía Global</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Raíz: los jefes supremos del Internet</h3>
                         <div class="subsection-content">
@@ -472,7 +472,7 @@
                             Los <span class="highlight">TLD (Top Level Domains)</span> son como los "jefes regionales". Por ejemplo, .com maneja todos los dominios comerciales, .mx maneja dominios mexicanos, y .edu maneja instituciones educativas. Cada TLD tiene sus propios servidores autoritativos.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🌍 Ejemplos comunes:</div>
+                            <div class="example-title"> Ejemplos comunes:</div>
                             <strong>gTLD (genéricos):</strong> .com, .org, .net, .info<br>
                             <strong>ccTLD (países):</strong> .mx (México), .es (España), .uk (Reino Unido)
                         </div>
@@ -487,7 +487,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🛣️ 3.3 El Viaje de una Consulta</h2>
+                    <h2 class="teoria-title"> 3.3 El Viaje de una Consulta</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">"Walking the tree": siguiendo la cadena de preguntas</h3>
                         <div class="subsection-content">
@@ -513,7 +513,7 @@
                             El <span class="highlight">TTL (Time To Live)</span> especifica cuánto tiempo puede un servidor mantener una respuesta en caché antes de preguntar de nuevo. Un TTL de 3600 segundos significa "recuerda esta respuesta por 1 hora".
                         </div>
                         <div class="example-box">
-                            <div class="example-title">⏰ TTL en la práctica:</div>
+                            <div class="example-title"> TTL en la práctica:</div>
                             TTL bajo (300s) = Cambios rápidos, más tráfico DNS<br>
                             TTL alto (86400s) = Menos tráfico, cambios más lentos
                         </div>
@@ -521,7 +521,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">📋 3.4 Tipos de Registros</h2>
+                    <h2 class="teoria-title"> 3.4 Tipos de Registros</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Los diferentes tipos de información DNS</h3>
                         <div class="subsection-content">
@@ -571,7 +571,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">⚙️ 3.5 Gestión de Dominios</h2>
+                    <h2 class="teoria-title"> 3.5 Gestión de Dominios</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Qué pasa cuando registras un dominio?</h3>
                         <div class="subsection-content">
@@ -596,7 +596,7 @@
                             <strong>Solución:</strong> Revisar registros MX, verificar prioridades
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🔧 Herramientas útiles:</div>
+                            <div class="example-title"> Herramientas útiles:</div>
                             <strong>nslookup</strong> - Consultas DNS básicas<br>
                             <strong>dig</strong> - Consultas DNS avanzadas<br>
                             <strong>whatsmydns.net</strong> - Verificar propagación global
@@ -606,49 +606,49 @@
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_navegador_jerarquia.html" class="actividad-card">
                         <div class="actividad-numero">1</div>
-                        <h3 class="actividad-titulo">🌳 Navegador de Jerarquía DNS</h3>
+                        <h3 class="actividad-titulo"> Navegador de Jerarquía DNS</h3>
                         <p class="actividad-descripcion">Explora interactivamente la estructura jerárquica del DNS navegando desde la raíz hasta dominios específicos</p>
-                        <span class="actividad-duracion">⏱️ 20 min</span>
+                        <span class="actividad-duracion"> 20 min</span>
                     </a>
 
                     <a href="./actividad2_investigador_dns.html" class="actividad-card">
                         <div class="actividad-numero">2</div>
-                        <h3 class="actividad-titulo">🔍 Investigador DNS</h3>
+                        <h3 class="actividad-titulo"> Investigador DNS</h3>
                         <p class="actividad-descripcion">Usa herramientas de consulta DNS para investigar registros de dominios reales y entender el proceso de resolución</p>
-                        <span class="actividad-duracion">⏱️ 25 min</span>
+                        <span class="actividad-duracion"> 25 min</span>
                     </a>
 
                     <a href="./actividad3_simulador_ttl.html" class="actividad-card">
                         <div class="actividad-numero">3</div>
-                        <h3 class="actividad-titulo">⏰ Simulador de TTL y Caché</h3>
+                        <h3 class="actividad-titulo"> Simulador de TTL y Caché</h3>
                         <p class="actividad-descripcion">Comprende cómo funciona el sistema de caché DNS y el impacto del TTL en la propagación</p>
-                        <span class="actividad-duracion">⏱️ 20 min</span>
+                        <span class="actividad-duracion"> 20 min</span>
                     </a>
 
                     <a href="./actividad4_configurar_registros.html" class="actividad-card">
                         <div class="actividad-numero">4</div>
-                        <h3 class="actividad-titulo">📧 Configurador de Registros DNS</h3>
+                        <h3 class="actividad-titulo"> Configurador de Registros DNS</h3>
                         <p class="actividad-descripcion">Aprende a configurar diferentes tipos de registros DNS para servicios web, correo y otros</p>
-                        <span class="actividad-duracion">⏱️ 30 min</span>
+                        <span class="actividad-duracion"> 30 min</span>
                     </a>
 
                     <a href="./quiz_modulo3.html" class="actividad-card quiz-card">
                         <div class="actividad-numero">Q</div>
                         <h3 class="actividad-titulo">Quiz del Módulo</h3>
                         <p class="actividad-descripcion">Evalúa tus conocimientos sobre DNS con 5 preguntas sobre resolución de nombres, jerarquía y registros</p>
-                        <span class="actividad-duracion">⏱️ 10 min</span>
+                        <span class="actividad-duracion"> 10 min</span>
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>

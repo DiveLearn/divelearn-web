@@ -231,7 +231,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">🛡️ Quiz del Módulo</h1>
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
             <p class="quiz-subtitle">Evalúa tus conocimientos sobre Seguridad Digital</p>
         </div>
 
@@ -386,7 +386,7 @@
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -427,7 +427,7 @@
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -444,50 +444,50 @@
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. La encriptación simétrica es más rápida que la asimétrica para cifrar grandes volúmenes de datos.',
-                    'b': '✅ ¡Correcto! La encriptación asimétrica resuelve el problema de distribución segura de llaves, ya que la llave pública puede compartirse libremente.',
-                    'c': '❌ Incorrecto. Ambos tipos de encriptación pueden ser igualmente seguros dependiendo del algoritmo usado.',
-                    'd': '❌ Incorrecto. La encriptación asimétrica es más intensiva computacionalmente que la simétrica.'
+                    'a': ' Incorrecto. La encriptación simétrica es más rápida que la asimétrica para cifrar grandes volúmenes de datos.',
+                    'b': ' ¡Correcto! La encriptación asimétrica resuelve el problema de distribución segura de llaves, ya que la llave pública puede compartirse libremente.',
+                    'c': ' Incorrecto. Ambos tipos de encriptación pueden ser igualmente seguros dependiendo del algoritmo usado.',
+                    'd': ' Incorrecto. La encriptación asimétrica es más intensiva computacionalmente que la simétrica.'
                 }
             },
             {
                 id: 2,
                 correct: 'c',
                 feedback: {
-                    'a': '❌ Incorrecto. Los hashes son irreversibles por diseño.',
-                    'b': '❌ Incorrecto. Esa es la función de algoritmos de compresión.',
-                    'c': '✅ ¡Correcto! Los hashes se utilizan para verificar la integridad de los datos.',
-                    'd': '❌ Incorrecto. Los hashes no afectan la velocidad de conexión.'
+                    'a': ' Incorrecto. Los hashes son irreversibles por diseño.',
+                    'b': ' Incorrecto. Esa es la función de algoritmos de compresión.',
+                    'c': ' ¡Correcto! Los hashes se utilizan para verificar la integridad de los datos.',
+                    'd': ' Incorrecto. Los hashes no afectan la velocidad de conexión.'
                 }
             },
             {
                 id: 3,
                 correct: 'd',
                 feedback: {
-                    'a': '❌ Incorrecto. El stateful es más rápido al ser más simple.',
-                    'b': '❌ Incorrecto. El stateful mantiene tabla de conexiones activas.',
-                    'c': '❌ Incorrecto. El stateful ofrece mejor seguridad al ser contextual.',
-                    'd': '✅ ¡Correcto! No hay diferencia práctica entre ambos.'
+                    'a': ' Incorrecto. El stateful es más rápido al ser más simple.',
+                    'b': ' Incorrecto. El stateful mantiene tabla de conexiones activas.',
+                    'c': ' Incorrecto. El stateful ofrece mejor seguridad al ser contextual.',
+                    'd': ' ¡Correcto! No hay diferencia práctica entre ambos.'
                 }
             },
             {
                 id: 4,
                 correct: 'c',
                 feedback: {
-                    'a': '❌ Incorrecto. PPTP es obsoleto e inseguro.',
-                    'b': '❌ Incorrecto. OpenVPN es más seguro pero menos eficiente que WireGuard.',
-                    'c': '✅ ¡Correcto! WireGuard es protocolo moderno, rápido y seguro.',
-                    'd': '❌ Incorrecto. IPsec es más seguro pero más complejo de configurar.'
+                    'a': ' Incorrecto. PPTP es obsoleto e inseguro.',
+                    'b': ' Incorrecto. OpenVPN es más seguro pero menos eficiente que WireGuard.',
+                    'c': ' ¡Correcto! WireGuard es protocolo moderno, rápido y seguro.',
+                    'd': ' Incorrecto. IPsec es más seguro pero más complejo de configurar.'
                 }
             },
             {
                 id: 5,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Los certificados no garantizan invulnerabilidad total.',
-                    'b': '✅ ¡Correcto! Los certificados aseguran tanto cifrado como autenticación.',
-                    'c': '❌ Incorrecto. HTTPS puede ser ligeramente más lento que HTTP.',
-                    'd': '❌ Incorrecto. Los certificados no afectan el costo del sitio.'
+                    'a': ' Incorrecto. Los certificados no garantizan invulnerabilidad total.',
+                    'b': ' ¡Correcto! Los certificados aseguran tanto cifrado como autenticación.',
+                    'c': ' Incorrecto. HTTPS puede ser ligeramente más lento que HTTP.',
+                    'd': ' Incorrecto. Los certificados no afectan el costo del sitio.'
                 }
             }
         ];
@@ -520,7 +520,7 @@
                 const feedbackContent = feedback.querySelector('.feedback-content');
                 
                 feedbackContent.innerHTML = `
-                    <div class="feedback-icon">${isCorrect ? '✅' : '❌'}</div>
+                    <div class="feedback-icon">${isCorrect ? '' : ''}</div>
                     <div>${question.feedback[option]}</div>
                 `;
                 
@@ -560,13 +560,13 @@
 
             let message = '';
             if (score === 5) {
-                message = '🌟 ¡Excelente! Eres un verdadero guardián digital.';
+                message = ' ¡Excelente! Eres un verdadero guardián digital.';
             } else if (score >= 4) {
-                message = '👏 ¡Muy bien! Tienes una sólida comprensión de la seguridad digital.';
+                message = ' ¡Muy bien! Tienes una sólida comprensión de la seguridad digital.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Revisa algunos conceptos y estarás listo para proteger sistemas.';
+                message = ' ¡Buen trabajo! Revisa algunos conceptos y estarás listo para proteger sistemas.';
             } else {
-                message = '📚 Te recomendamos revisar la teoría antes de continuar. La seguridad es crucial.';
+                message = ' Te recomendamos revisar la teoría antes de continuar. La seguridad es crucial.';
             }
 
             const messageElement = document.createElement('p');
@@ -579,13 +579,13 @@
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Hub
+                     Volver al Hub
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             

@@ -354,19 +354,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 6</a> / Actividad 2
             </div>
-            <h1 class="activity-title">📦 Comparador VM vs Contenedor</h1>
+            <h1 class="activity-title"> Comparador VM vs Contenedor</h1>
             <p class="activity-subtitle">Explora las diferencias entre máquinas virtuales y contenedores de forma interactiva</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>15 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 120</span>
                 </div>
             </div>
@@ -374,49 +374,49 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>Comprende las diferencias fundamentales entre máquinas virtuales y contenedores a través de comparaciones visuales, métricas de rendimiento y simulaciones en tiempo real.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🎮 Escenarios de Comparación</h2>
+                <h2 class="section-title"> Escenarios de Comparación</h2>
                 <div class="comparison-selector">
                     <p style="margin-bottom: 20px; color: #8888bb; font-size: 1.1rem;">
                         Selecciona un escenario para ver cómo se comportan las VMs vs Contenedores:
                     </p>
                     <div class="scenario-buttons">
                         <button class="scenario-btn active" onclick="loadScenario('web-app')" id="btn-web-app">
-                            🌐 Aplicación Web Simple
+                             Aplicación Web Simple
                         </button>
                         <button class="scenario-btn" onclick="loadScenario('microservices')" id="btn-microservices">
-                            🔗 Arquitectura de Microservicios
+                             Arquitectura de Microservicios
                         </button>
                         <button class="scenario-btn" onclick="loadScenario('database')" id="btn-database">
-                            🗄️ Base de Datos
+                             Base de Datos
                         </button>
                         <button class="scenario-btn" onclick="loadScenario('development')" id="btn-development">
-                            👨‍💻 Entorno de Desarrollo
+                             Entorno de Desarrollo
                         </button>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">⚖️ Comparación Visual</h2>
+                <h2 class="section-title"> Comparación Visual</h2>
                 <div class="comparison-container">
                     <!-- Máquinas Virtuales -->
                     <div class="tech-card vm">
                         <div class="tech-header">
-                            <div class="tech-icon">🖥️</div>
+                            <div class="tech-icon"></div>
                             <div class="tech-title">Máquinas Virtuales</div>
                             <div class="tech-subtitle">Virtualización completa del hardware</div>
                         </div>
 
                         <div class="architecture-visual" id="vm-architecture">
-                            <div class="layer hardware">💾 Hardware Físico</div>
-                            <div class="layer hypervisor">🎭 Hipervisor</div>
-                            <div class="layer os">🖥️ Guest OS #1</div>
-                            <div class="layer app">📱 Aplicación</div>
+                            <div class="layer hardware"> Hardware Físico</div>
+                            <div class="layer hypervisor"> Hipervisor</div>
+                            <div class="layer os"> Guest OS #1</div>
+                            <div class="layer app"> Aplicación</div>
                         </div>
 
                         <div class="metrics-grid" id="vm-metrics">
@@ -427,16 +427,16 @@
                     <!-- Contenedores -->
                     <div class="tech-card container">
                         <div class="tech-header">
-                            <div class="tech-icon">📦</div>
+                            <div class="tech-icon"></div>
                             <div class="tech-title">Contenedores</div>
                             <div class="tech-subtitle">Virtualización a nivel de SO</div>
                         </div>
 
                         <div class="architecture-visual" id="container-architecture">
-                            <div class="layer hardware">💾 Hardware Físico</div>
-                            <div class="layer os">🖥️ Host OS</div>
-                            <div class="layer runtime">🐳 Container Runtime</div>
-                            <div class="layer app">📱 Aplicación</div>
+                            <div class="layer hardware"> Hardware Físico</div>
+                            <div class="layer os"> Host OS</div>
+                            <div class="layer runtime"> Container Runtime</div>
+                            <div class="layer app"> Aplicación</div>
                         </div>
 
                         <div class="metrics-grid" id="container-metrics">
@@ -447,56 +447,56 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🚀 Simulación en Tiempo Real</h2>
+                <h2 class="section-title"> Simulación en Tiempo Real</h2>
                 <div class="live-demo">
-                    <div class="demo-title">⚡ Simulador de Despliegue</div>
+                    <div class="demo-title"> Simulador de Despliegue</div>
                     <p style="color: #8888bb; margin-bottom: 20px;">
                         Observa las diferencias en tiempo de arranque y uso de recursos
                     </p>
                     
                     <div class="demo-controls">
                         <button class="demo-btn" onclick="simulateVMDeploy()" id="vm-deploy-btn">
-                            🖥️ Desplegar VM
+                             Desplegar VM
                         </button>
                         <button class="demo-btn" onclick="simulateContainerDeploy()" id="container-deploy-btn">
-                            📦 Desplegar Contenedor
+                             Desplegar Contenedor
                         </button>
                         <button class="demo-btn" onclick="clearDemo()" style="background: #6c757d;">
-                            🧹 Limpiar
+                             Limpiar
                         </button>
                     </div>
 
                     <div class="demo-output" id="demo-output">
-                        <div class="demo-line">💻 Sistema listo para simulación...</div>
-                        <div class="demo-line">🎯 Selecciona una opción de despliegue para comenzar</div>
+                        <div class="demo-line"> Sistema listo para simulación...</div>
+                        <div class="demo-line"> Selecciona una opción de despliegue para comenzar</div>
                     </div>
                 </div>
             </div>
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 ¿Cuándo usar cada tecnología?
+                     ¿Cuándo usar cada tecnología?
                 </h3>
                 <div class="tip-item">
-                    <strong>🖥️ Usa VMs cuando:</strong> Necesites aislamiento completo, diferentes sistemas operativos, o ejecutar aplicaciones legacy que requieren un entorno específico.
+                    <strong> Usa VMs cuando:</strong> Necesites aislamiento completo, diferentes sistemas operativos, o ejecutar aplicaciones legacy que requieren un entorno específico.
                 </div>
                 <div class="tip-item">
-                    <strong>📦 Usa Contenedores cuando:</strong> Desarrolles aplicaciones modernas, necesites escalabilidad, despliegues frecuentes, o tengas una arquitectura de microservicios.
+                    <strong> Usa Contenedores cuando:</strong> Desarrolles aplicaciones modernas, necesites escalabilidad, despliegues frecuentes, o tengas una arquitectura de microservicios.
                 </div>
                 <div class="tip-item">
-                    <strong>🔄 Híbrido:</strong> Muchas empresas usan ambos: VMs para sistemas críticos y contenedores para aplicaciones web y APIs.
+                    <strong> Híbrido:</strong> Muchas empresas usan ambos: VMs para sistemas críticos y contenedores para aplicaciones web y APIs.
                 </div>
             </div>
         </div>
 
         <div class="navigation">
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -627,13 +627,13 @@
             if (scenario.winner === 'vm') {
                 const badge = document.createElement('div');
                 badge.className = 'winner-badge';
-                badge.textContent = '🏆 Mejor';
+                badge.textContent = ' Mejor';
                 vmArch.style.position = 'relative';
                 vmArch.appendChild(badge);
             } else if (scenario.winner === 'container') {
                 const badge = document.createElement('div');
                 badge.className = 'winner-badge';
-                badge.textContent = '🏆 Mejor';
+                badge.textContent = ' Mejor';
                 containerArch.style.position = 'relative';
                 containerArch.appendChild(badge);
             }
@@ -641,38 +641,38 @@
             // Actualizar títulos según el escenario
             if (scenarioId === 'microservices') {
                 vmArch.innerHTML = `
-                    <div class="layer hardware">💾 Hardware Físico</div>
-                    <div class="layer hypervisor">🎭 Hipervisor</div>
-                    <div class="layer os">🖥️ Guest OS #1</div>
-                    <div class="layer app">📱 Servicio A</div>
-                    <div class="layer os">🖥️ Guest OS #2</div>
-                    <div class="layer app">📱 Servicio B</div>
-                    <div class="layer os">🖥️ Guest OS #3</div>
-                    <div class="layer app">📱 Servicio C</div>
+                    <div class="layer hardware"> Hardware Físico</div>
+                    <div class="layer hypervisor"> Hipervisor</div>
+                    <div class="layer os"> Guest OS #1</div>
+                    <div class="layer app"> Servicio A</div>
+                    <div class="layer os"> Guest OS #2</div>
+                    <div class="layer app"> Servicio B</div>
+                    <div class="layer os"> Guest OS #3</div>
+                    <div class="layer app"> Servicio C</div>
                 `;
                 
                 containerArch.innerHTML = `
-                    <div class="layer hardware">💾 Hardware Físico</div>
-                    <div class="layer os">🖥️ Host OS</div>
-                    <div class="layer runtime">🐳 Container Runtime</div>
-                    <div class="layer app">📱 Servicio A</div>
-                    <div class="layer app">📱 Servicio B</div>
-                    <div class="layer app">📱 Servicio C</div>
+                    <div class="layer hardware"> Hardware Físico</div>
+                    <div class="layer os"> Host OS</div>
+                    <div class="layer runtime"> Container Runtime</div>
+                    <div class="layer app"> Servicio A</div>
+                    <div class="layer app"> Servicio B</div>
+                    <div class="layer app"> Servicio C</div>
                 `;
             } else {
                 // Arquitectura estándar
                 vmArch.innerHTML = `
-                    <div class="layer hardware">💾 Hardware Físico</div>
-                    <div class="layer hypervisor">🎭 Hipervisor</div>
-                    <div class="layer os">🖥️ Guest OS</div>
-                    <div class="layer app">📱 ${scenario.name}</div>
+                    <div class="layer hardware"> Hardware Físico</div>
+                    <div class="layer hypervisor"> Hipervisor</div>
+                    <div class="layer os"> Guest OS</div>
+                    <div class="layer app"> ${scenario.name}</div>
                 `;
                 
                 containerArch.innerHTML = `
-                    <div class="layer hardware">💾 Hardware Físico</div>
-                    <div class="layer os">🖥️ Host OS</div>
-                    <div class="layer runtime">🐳 Container Runtime</div>
-                    <div class="layer app">📱 ${scenario.name}</div>
+                    <div class="layer hardware"> Hardware Físico</div>
+                    <div class="layer os"> Host OS</div>
+                    <div class="layer runtime"> Container Runtime</div>
+                    <div class="layer app"> ${scenario.name}</div>
                 `;
             }
         }
@@ -702,54 +702,54 @@
 
             vmMetrics.innerHTML = `
                 <div class="metric-item">
-                    <div class="metric-label">⏱️ Tiempo Inicio</div>
+                    <div class="metric-label"> Tiempo Inicio</div>
                     <div class="metric-value ${getMetricClass(scenario.vm.startup, 'startup')}">${scenario.vm.startup}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">🧠 Memoria</div>
+                    <div class="metric-label"> Memoria</div>
                     <div class="metric-value ${getMetricClass(scenario.vm.memory, 'memory')}">${scenario.vm.memory}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">💾 Almacenamiento</div>
+                    <div class="metric-label"> Almacenamiento</div>
                     <div class="metric-value average">${scenario.vm.storage}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">🔒 Aislamiento</div>
+                    <div class="metric-label"> Aislamiento</div>
                     <div class="metric-value good">${scenario.vm.isolation}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">📦 Portabilidad</div>
+                    <div class="metric-label"> Portabilidad</div>
                     <div class="metric-value average">${scenario.vm.portability}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">⚡ Overhead</div>
+                    <div class="metric-label"> Overhead</div>
                     <div class="metric-value ${getMetricClass(scenario.vm.overhead, 'overhead')}">${scenario.vm.overhead}</div>
                 </div>
             `;
 
             containerMetrics.innerHTML = `
                 <div class="metric-item">
-                    <div class="metric-label">⏱️ Tiempo Inicio</div>
+                    <div class="metric-label"> Tiempo Inicio</div>
                     <div class="metric-value ${getMetricClass(scenario.container.startup, 'startup')}">${scenario.container.startup}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">🧠 Memoria</div>
+                    <div class="metric-label"> Memoria</div>
                     <div class="metric-value ${getMetricClass(scenario.container.memory, 'memory')}">${scenario.container.memory}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">💾 Almacenamiento</div>
+                    <div class="metric-label"> Almacenamiento</div>
                     <div class="metric-value good">${scenario.container.storage}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">🔒 Aislamiento</div>
+                    <div class="metric-label"> Aislamiento</div>
                     <div class="metric-value average">${scenario.container.isolation}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">📦 Portabilidad</div>
+                    <div class="metric-label"> Portabilidad</div>
                     <div class="metric-value good">${scenario.container.portability}</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-label">⚡ Overhead</div>
+                    <div class="metric-label"> Overhead</div>
                     <div class="metric-value ${getMetricClass(scenario.container.overhead, 'overhead')}">${scenario.container.overhead}</div>
                 </div>
             `;
@@ -764,16 +764,16 @@
             interactionsCount++;
 
             const steps = [
-                '🔧 Iniciando hipervisor...',
-                '💾 Asignando recursos de hardware...',
-                '🖥️ Creando máquina virtual...',
-                '⚙️ Instalando sistema operativo guest...',
-                '📦 Configurando red virtual...',
-                '🔐 Aplicando configuración de seguridad...',
-                '📱 Instalando aplicación...',
-                '🚀 Configurando servicios del sistema...',
-                '✅ VM lista en 2 minutos 45 segundos',
-                '📊 Recursos utilizados: 4GB RAM, 40GB Storage, 2 CPU cores'
+                ' Iniciando hipervisor...',
+                ' Asignando recursos de hardware...',
+                ' Creando máquina virtual...',
+                ' Instalando sistema operativo guest...',
+                ' Configurando red virtual...',
+                ' Aplicando configuración de seguridad...',
+                ' Instalando aplicación...',
+                ' Configurando servicios del sistema...',
+                ' VM lista en 2 minutos 45 segundos',
+                ' Recursos utilizados: 4GB RAM, 40GB Storage, 2 CPU cores'
             ];
 
             let delay = 0;
@@ -803,13 +803,13 @@
             interactionsCount++;
 
             const steps = [
-                '🐳 Iniciando Docker runtime...',
-                '📦 Descargando imagen del contenedor...',
-                '🔧 Creando namespace y cgroups...',
-                '🌐 Configurando red del contenedor...',
-                '📱 Ejecutando aplicación...',
-                '✅ Contenedor listo en 8 segundos',
-                '📊 Recursos utilizados: 512MB RAM, 500MB Storage'
+                ' Iniciando Docker runtime...',
+                ' Descargando imagen del contenedor...',
+                ' Creando namespace y cgroups...',
+                ' Configurando red del contenedor...',
+                ' Ejecutando aplicación...',
+                ' Contenedor listo en 8 segundos',
+                ' Recursos utilizados: 512MB RAM, 500MB Storage'
             ];
 
             let delay = 0;
@@ -833,8 +833,8 @@
         function clearDemo() {
             const output = document.getElementById('demo-output');
             output.innerHTML = `
-                <div class="demo-line">💻 Sistema listo para simulación...</div>
-                <div class="demo-line">🎯 Selecciona una opción de despliegue para comenzar</div>
+                <div class="demo-line"> Sistema listo para simulación...</div>
+                <div class="demo-line"> Selecciona una opción de despliegue para comenzar</div>
             `;
             
             document.getElementById('vm-deploy-btn').disabled = false;
@@ -843,7 +843,7 @@
 
         function markCompleted() {
             if (interactionsCount < 3) {
-                alert('⚠️ Explora al menos 3 escenarios o simulaciones diferentes para completar la actividad.');
+                alert(' Explora al menos 3 escenarios o simulaciones diferentes para completar la actividad.');
                 return;
             }
 
@@ -852,14 +852,14 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado la actividad "Comparador VM vs Contenedor".\n\n' +
-                  `📊 Estadísticas:\n` +
+            alert(' ¡Felicidades! Has completado la actividad "Comparador VM vs Contenedor".\n\n' +
+                  ` Estadísticas:\n` +
                   `• ${interactionsCount} interacciones realizadas\n` +
                   `• Escenarios explorados: ${Object.keys(scenarios).length}\n` +
                   `• Conceptos dominados: Virtualización, Contenedores, Arquitecturas\n\n` +
-                  `✅ Actividad marcada como completada\n🏆 +120 puntos ganados`);
+                  ` Actividad marcada como completada\n +120 puntos ganados`);
         }
 
         function goBack() {

@@ -537,19 +537,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 2</a> / Actividad 5
             </div>
-            <h1 class="activity-title">🎭 Aprende Máscaras de Red</h1>
+            <h1 class="activity-title"> Aprende Máscaras de Red</h1>
             <p class="activity-subtitle">Visualiza cómo los bits definen redes y hosts en direcciones IP</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>16 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico-Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 140</span>
                 </div>
             </div>
@@ -557,7 +557,7 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>Comprende visualmente cómo las máscaras de subred dividen una dirección IP en partes de red y host. Explora interactivamente diferentes configuraciones de máscara y observa cómo afectan la capacidad de la red.</p>
             </div>
 
@@ -682,21 +682,21 @@
                     <!-- Information Grid -->
                     <div class="info-grid">
                         <div class="info-card">
-                            <h3>📊 Información de la Máscara</h3>
+                            <h3> Información de la Máscara</h3>
                             <p><strong>Notación CIDR:</strong> <span class="info-value" id="info-cidr">/24</span></p>
                             <p><strong>Bits de Red:</strong> <span class="info-value" id="info-network-bits">24</span></p>
                             <p><strong>Bits de Host:</strong> <span class="info-value" id="info-host-bits">8</span></p>
                         </div>
 
                         <div class="info-card">
-                            <h3>🏠 Capacidad de Hosts</h3>
+                            <h3> Capacidad de Hosts</h3>
                             <p><strong>Total de direcciones:</strong> <span class="info-value" id="info-total-addresses">256</span></p>
                             <p><strong>Hosts utilizables:</strong> <span class="info-value" id="info-usable-hosts">254</span></p>
                             <p><strong>Subredes posibles:</strong> <span class="info-value" id="info-subnets">1</span></p>
                         </div>
 
                         <div class="info-card">
-                            <h3>🎯 Clase de Red</h3>
+                            <h3> Clase de Red</h3>
                             <p><strong>Clase:</strong> <span class="info-value" id="info-class">C</span></p>
                             <p><strong>Tipo:</strong> <span class="info-value" id="info-type">Estándar</span></p>
                             <p><strong>Uso común:</strong> <span class="info-value" id="info-usage">Redes pequeñas</span></p>
@@ -707,7 +707,7 @@
 
             <!-- Examples Section -->
             <div class="examples-section">
-                <h3 class="examples-title">📚 Ejemplos Comunes de Máscaras</h3>
+                <h3 class="examples-title"> Ejemplos Comunes de Máscaras</h3>
                 <div class="examples-grid">
                     <button class="example-btn" onclick="setMask(8)">/8 - 255.0.0.0</button>
                     <button class="example-btn" onclick="setMask(16)">/16 - 255.255.0.0</button>
@@ -722,7 +722,7 @@
 
             <!-- Binary Conversion Helper -->
             <div class="conversion-helper">
-                <h3 class="conversion-title">🔢 Tabla de Conversión Binario-Decimal</h3>
+                <h3 class="conversion-title"> Tabla de Conversión Binario-Decimal</h3>
                 <table class="binary-table">
                     <thead>
                         <tr>
@@ -787,12 +787,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -800,8 +800,8 @@
     <div id="notification" class="notification"></div>
 
     <!-- Tutorial and Help buttons -->
-    <button class="tutorial-btn" onclick="startTutorial()">🎓 Tutorial Interactivo</button>
-    <button class="help-btn" onclick="showHelp()">❓</button>
+    <button class="tutorial-btn" onclick="startTutorial()"> Tutorial Interactivo</button>
+    <button class="help-btn" onclick="showHelp()"></button>
 
     <script>
         // Estado global
@@ -811,7 +811,7 @@
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
             updateMask();
-            showNotification('🎯 ¡Explora las máscaras de red! Usa el slider para cambiar el CIDR', 4000);
+            showNotification(' ¡Explora las máscaras de red! Usa el slider para cambiar el CIDR', 4000);
         });
 
         // Función principal para actualizar la máscara
@@ -957,7 +957,7 @@
                 document.querySelector('.visualizer-container').classList.remove('pulse');
             }, 2000);
 
-            showNotification(`🎯 Máscara cambiada a /${cidr}`, 2000);
+            showNotification(` Máscara cambiada a /${cidr}`, 2000);
         }
 
         // Explicar un bit específico
@@ -969,7 +969,7 @@
                 'Este bit se usa para identificar dispositivos específicos (hosts) dentro de la red.';
 
             showDetailedNotification(
-                `🔍 Bit ${position}: ${value}`,
+                ` Bit ${position}: ${value}`,
                 `<strong style="color: ${color}">Tipo:</strong> ${type}<br>
                  <strong>Posición:</strong> ${position} de 32<br>
                  <strong>Valor:</strong> ${value === '1' ? 'Activo (1)' : 'Inactivo (0)'}<br>
@@ -1017,23 +1017,23 @@
             const steps = [
                 {
                     action: () => setMask(24),
-                    message: "🎯 Comenzemos con /24, la máscara más común para redes pequeñas"
+                    message: " Comenzemos con /24, la máscara más común para redes pequeñas"
                 },
                 {
                     action: () => setMask(16),
-                    message: "🏢 /16 se usa para redes medianas - ¡Observa cómo cambian los bits!"
+                    message: " /16 se usa para redes medianas - ¡Observa cómo cambian los bits!"
                 },
                 {
                     action: () => setMask(8),
-                    message: "🌐 /8 para redes muy grandes - Máximo espacio para hosts"
+                    message: " /8 para redes muy grandes - Máximo espacio para hosts"
                 },
                 {
                     action: () => setMask(30),
-                    message: "🔗 /30 para enlaces punto a punto - Solo 2 hosts utilizables"
+                    message: " /30 para enlaces punto a punto - Solo 2 hosts utilizables"
                 },
                 {
                     action: () => setMask(24),
-                    message: "✅ ¡Tutorial completado! Ahora experimenta con el slider"
+                    message: " ¡Tutorial completado! Ahora experimenta con el slider"
                 }
             ];
 
@@ -1058,7 +1058,7 @@
         // Funcionalidad de ayuda contextual
         function showHelp() {
             const helpContent = `
-                <h3 style="color: #4CAF50; margin-bottom: 15px;">🎯 Cómo usar el Visualizador</h3>
+                <h3 style="color: #4CAF50; margin-bottom: 15px;"> Cómo usar el Visualizador</h3>
                 <ul style="line-height: 1.8; color: #8888bb;">
                     <li><strong>Slider CIDR:</strong> Cambia la máscara de /8 a /30</li>
                     <li><strong>Bits verdes:</strong> Identifican la red</li>
@@ -1068,17 +1068,17 @@
                     <li><strong>Tabla de conversión:</strong> Aprende binario-decimal</li>
                 </ul>
                 <div style="margin-top: 15px; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
-                    <strong>💡 Tip:</strong> Mientras más bits de red tengas, menos hosts pero más subredes puedes crear.
+                    <strong> Tip:</strong> Mientras más bits de red tengas, menos hosts pero más subredes puedes crear.
                 </div>
             `;
 
-            showDetailedNotification('📚 Guía de Uso', helpContent, 8000);
+            showDetailedNotification(' Guía de Uso', helpContent, 8000);
         }
 
         // Validación y manejo de errores
         function validateCIDR(cidr) {
             if (cidr < 8 || cidr > 32) {
-                showNotification('⚠️ CIDR debe estar entre /8 y /32', 3000);
+                showNotification(' CIDR debe estar entre /8 y /32', 3000);
                 return false;
             }
             return true;
@@ -1090,10 +1090,10 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             // Mostrar mensaje de éxito
-            alert('🎉 ¡Excelente! Has dominado las máscaras de red.\n\n✅ Actividad marcada como completada\n🏆 +140 puntos ganados\n🎭 ¡Ahora entiendes cómo los bits definen redes y hosts!');
+            alert(' ¡Excelente! Has dominado las máscaras de red.\n\n Actividad marcada como completada\n +140 puntos ganados\n ¡Ahora entiendes cómo los bits definen redes y hosts!');
         }
 
         function goBack() {

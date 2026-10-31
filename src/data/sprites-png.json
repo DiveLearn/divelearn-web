@@ -1,0 +1,194 @@
+{
+"agua-orilla": [
+27,
+26
+],
+"algas": [
+27,
+24
+],
+"ancla": [
+22,
+26
+],
+"anemonas": [
+26,
+24
+],
+"arena-conchas": [
+27,
+26
+],
+"arena-huellas": [
+27,
+26
+],
+"arena-orilla": [
+27,
+26
+],
+"arena-pasto": [
+27,
+25
+],
+"buzo-nada": [
+89,
+44
+],
+"buzo-saluda": [
+44,
+62
+],
+"chanclas-pelota": [
+27,
+19
+],
+"cofre-abierto": [
+41,
+39
+],
+"coral-morado": [
+25,
+22
+],
+"coral-rojo": [
+27,
+22
+],
+"erizo": [
+28,
+25
+],
+"estrella-mar": [
+27,
+17
+],
+"insignia-equipo": [
+60,
+60
+],
+"insignia-inmersion": [
+60,
+59
+],
+"insignia-licencia-b": [
+60,
+59
+],
+"insignia-licencia": [
+60,
+59
+],
+"insignia-piscina": [
+60,
+60
+],
+"insignia-playa": [
+60,
+60
+],
+"licencia": [
+42,
+29
+],
+"medusa": [
+31,
+44
+],
+"medusas-coral": [
+23,
+26
+],
+"mod-backup": [
+39,
+38
+],
+"mod-datos": [
+42,
+34
+],
+"mod-dns": [
+43,
+32
+],
+"mod-internet": [
+42,
+34
+],
+"mod-ip": [
+40,
+35
+],
+"mod-linux": [
+38,
+33
+],
+"mod-redes": [
+36,
+36
+],
+"mod-seguridad": [
+32,
+37
+],
+"mod-virtualizacion": [
+34,
+37
+],
+"ola-grande": [
+27,
+22
+],
+"palmera": [
+23,
+25
+],
+"pez-payaso": [
+46,
+32
+],
+"planta": [
+28,
+22
+],
+"pulpo-profe": [
+48,
+46
+],
+"roca-musgo": [
+28,
+24
+],
+"rocas": [
+28,
+26
+],
+"sombrilla": [
+24,
+25
+],
+"timon": [
+29,
+23
+],
+"toalla": [
+27,
+24
+],
+"tortuga": [
+70,
+42
+],
+"trofeo": [
+34,
+40
+],
+"tronco": [
+26,
+22
+],
+"volcan": [
+24,
+26
+]
+}

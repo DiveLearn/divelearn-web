@@ -3,9 +3,10 @@ import "@fontsource/silkscreen/700.css";
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import Pixel from "../../components/Pixel.astro";
+import Sprite from "../../components/Sprite.astro";
 import { etapas, rangos, XP } from "../../data/bootcamp";
 import paginas from "../../data/bootcamp-paginas.json";
-import { PALETA, PALMERA, ISLA, NUBE, COFRE, BURBUJA, TANQUE } from "../../data/sprites";
+import { PALETA, ISLA, NUBE, BURBUJA, TANQUE } from "../../data/sprites";
 
 // Personajes pixel diseñados con Gemini y limpiados con scripts/recortar-sprites.py (PNG a 1x).
 const sprite = (n: string, w: number, h: number, x: number) => ({ src: `/img/sprites/${n}.png`, width: w * x, height: h * x });
@@ -24,8 +25,8 @@ const juego = {
   total,
 };
 const camino = [
-  ...etapas.map((e) => ({ id: e.id, icono: e.icono, color: e.color, nombre: e.nombre })),
-  { id: "licencia", icono: "identification-card", color: "#e0f24a", nombre: "Licencia" },
+  ...etapas.map((e) => ({ id: e.id, insignia: e.insignia, nombre: e.nombre })),
+  { id: "licencia", insignia: "insignia-licencia", nombre: "Licencia" },
 ];
 ---
 
@@ -53,7 +54,10 @@ const camino = [
           <span class="sol" aria-hidden="true"></span>
         </div>
         <div class="isla">
-          <Pixel mapa={PALMERA} paleta={PALETA} escala={8} class="palmera" />
+          <div class="isla-deco">
+            <Sprite nombre="sombrilla" escala={2.2} class="sombrilla" />
+            <Sprite nombre="palmera" escala={3.2} class="palmera" />
+          </div>
           <Pixel mapa={ISLA} paleta={PALETA} escala={8} />
         </div>
         <div class="mar">
@@ -64,7 +68,15 @@ const camino = [
           <img class="px medusa" {...sprite("medusa", 31, 44, 1.6)} alt="" />
           <Pixel mapa={BURBUJA} paleta={PALETA} escala={4} class="burbuja u1" />
           <Pixel mapa={BURBUJA} paleta={PALETA} escala={3} class="burbuja u2" />
-          <Pixel mapa={COFRE} paleta={PALETA} escala={6} class="cofre" />
+          <Sprite nombre="cofre-abierto" escala={1.6} class="cofre" />
+          <div class="fondo-mar">
+            <Sprite nombre="algas" escala={2.4} />
+            <Sprite nombre="coral-rojo" escala={2.2} />
+            <Sprite nombre="estrella-mar" escala={1.8} />
+            <Sprite nombre="anemonas" escala={2} />
+            <Sprite nombre="coral-morado" escala={2.2} />
+            <Sprite nombre="algas" escala={2} />
+          </div>
           <span class="fondo-arena"></span>
         </div>
         <div class="consola" aria-hidden="true">
@@ -76,11 +88,11 @@ const camino = [
       <ol class="camino" aria-label="Etapas del bootcamp">
         {
           camino.map((c, i) => (
-            <li style={`--c:${c.color}`} data-camino={c.id}>
+            <li data-camino={c.id}>
               <a href={`#${c.id}`}>
                 <span class="bola">
-                  <Icon name={c.icono} />
-                  <span class="n">{i + 1}</span>
+                  <Sprite nombre={c.insignia} escala={1.5} alt={`Insignia ${i + 1}: ${c.nombre}`} />
+                  <span class="ok" aria-hidden="true" />
                 </span>
                 <span class="etq">{c.nombre}</span>
               </a>
@@ -130,7 +142,7 @@ const camino = [
           <div class="panel etapa-panel">
             <header class="barra-titulo color">
               <h2 id={`t-${e.id}`}>
-                <Icon name={e.icono} /> Etapa {ei + 1} · {e.nombre}
+                <Sprite nombre={e.insignia} escala={0.6} /> Etapa {ei + 1} · {e.nombre}
               </h2>
               <span class="avance" data-avance={e.id}>0/{e.modulos.length}</span>
             </header>
@@ -142,7 +154,7 @@ const camino = [
                   <li data-modulo={m.n}>
                     <a href={`/bootcamp/modulo-${m.n}/`}>
                       <span class="ico-mod">
-                        <Icon name={m.icono} />
+                        <Sprite nombre={m.sprite} escala={1.4} />
                       </span>
                       <span class="mod-txt">
                         <span class="mod-n">
@@ -170,9 +182,9 @@ const camino = [
     <!-- ── Licencia ── -->
     <section class="wrap etapa" id="licencia">
       <div class="panel licencia" data-licencia>
-        <header class="barra-titulo"><h2><Icon name="identification-card" /> Licencia de buceo</h2><span class="puntos"><i></i><i></i><i></i></span></header>
+        <header class="barra-titulo"><h2><Sprite nombre="insignia-licencia" escala={0.6} /> Licencia de buceo</h2><span class="puntos"><i></i><i></i><i></i></span></header>
         <div class="licencia-cuerpo">
-          <Pixel mapa={COFRE} paleta={PALETA} escala={9} class="cofre-grande" />
+          <Sprite nombre="licencia" escala={3.4} class="cofre-grande" alt="Licencia de buceo DiveLearn" />
           <div>
             <p class="estado-licencia" data-licencia-estado>Se desbloquea al completar todo el bootcamp</p>
             <p>Ya sabes cómo viajan los datos, cómo se protegen y dónde viven. Lo que sigue es el océano: tu primera certificación de AWS.</p>
@@ -190,7 +202,7 @@ const camino = [
   <!-- ── Subida de rango ── -->
   <div class="subida" role="dialog" aria-modal="true" aria-labelledby="t-subida" hidden data-subida>
     <div class="panel subida-caja">
-      <img class="px" {...sprite("buzo-saluda", 44, 62, 2)} alt="" />
+      <Sprite nombre="trofeo" escala={2.6} />
       <p class="subida-kicker">¡Subiste de rango!</p>
       <h2 id="t-subida" data-subida-rango></h2>
       <button type="button" class="btn-jugar" data-subida-ok>¡Vamos!</button>
@@ -298,7 +310,7 @@ const camino = [
       $(`[data-camino="licencia"]`).classList.toggle("hecho", todo);
       $("[data-licencia]").classList.toggle("lista", todo);
       $("[data-licencia-estado]").textContent = todo
-        ? "¡Desbloqueada! Ya eres buzo con licencia 🎉"
+        ? "¡Desbloqueada! Ya eres buzo con licencia"
         : `Te faltan ${mods.filter((m) => !m.completo).length} módulos para desbloquearla`;
 
       // Misión del día: abrir al menos una actividad nueva hoy.
@@ -550,7 +562,13 @@ const camino = [
     align-items: center;
     z-index: 2;
   }
-  .pantalla :global(.palmera) {
+  .isla-deco {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    margin-bottom: -6px;
+  }
+  .isla-deco :global(.palmera) {
     margin: 0 0 -4px 30px;
     transform-origin: bottom center;
     animation: mecer 4s ease-in-out infinite;
@@ -657,9 +675,24 @@ const camino = [
   }
   .pantalla :global(.cofre) {
     position: absolute;
-    right: 24%;
+    right: 22%;
     bottom: 18px;
     z-index: 2;
+  }
+  .fondo-mar {
+    position: absolute;
+    left: 2%;
+    right: 2%;
+    bottom: 20px;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .fondo-mar :global(img:nth-child(2)),
+  .fondo-mar :global(img:nth-child(4)) {
+    margin-right: 18%;
   }
   .fondo-arena {
     position: absolute;
@@ -721,49 +754,34 @@ const camino = [
   }
   .bola {
     position: relative;
-    display: grid;
-    place-items: center;
-    width: 84px;
-    height: 84px;
+    display: block;
+    filter: drop-shadow(4px 4px 0 var(--ink));
+    transition: transform 0.2s;
+  }
+  .bola .ok {
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    display: none;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: var(--borde);
-    background: var(--c);
+    background: var(--lime);
+  }
+  .bola .ok::after {
+    content: "✓";
+    display: grid;
+    place-items: center;
+    height: 100%;
+    font: 700 1rem var(--body);
     color: var(--ink);
-    --duo: var(--white);
-    font-size: 2.4rem;
-    box-shadow: 4px 4px 0 var(--ink);
-    transition: transform 0.2s;
+  }
+  .camino li.hecho .ok {
+    display: block;
   }
   .camino a:hover .bola {
     transform: translate(-2px, -4px) rotate(-4deg);
-  }
-  .bola .n,
-  .avance,
-  .stat b,
-  .xp-txt,
-  .mod-pie {
-    font-variant-numeric: tabular-nums;
-  }
-  .bola .n {
-    position: absolute;
-    left: -6px;
-    bottom: -6px;
-    width: 30px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    border: var(--borde);
-    background: var(--white);
-    font: 700 0.95rem var(--body);
-  }
-  .camino li.hecho .n {
-    background: var(--lime);
-    font-size: 0;
-  }
-  .camino li.hecho .n::after {
-    content: "✓";
-    font-size: 1rem;
   }
   .etq {
     font: 700 0.85rem/1.3 var(--pixel);
@@ -990,11 +1008,10 @@ const camino = [
   .barra-titulo.color {
     background: var(--c);
   }
-  .barra-titulo.color h2 {
+  .barra-titulo h2 {
     display: flex;
     align-items: center;
     gap: 10px;
-    --duo: var(--white);
   }
   .avance {
     padding: 4px 12px;
@@ -1039,8 +1056,8 @@ const camino = [
     display: grid;
     place-items: center;
     flex: 0 0 auto;
-    width: 64px;
-    height: 64px;
+    width: 76px;
+    height: 76px;
     border: var(--borde);
     border-radius: 12px;
     background: var(--c);
@@ -1124,8 +1141,8 @@ const camino = [
   }
   .licencia :global(.cofre-grande) {
     flex: 0 0 auto;
-    filter: grayscale(0.8);
-    opacity: 0.6;
+    filter: grayscale(0.9);
+    opacity: 0.5;
     transition:
       filter 0.4s,
       opacity 0.4s;
@@ -1240,10 +1257,12 @@ const camino = [
     .tanques :global(svg:nth-child(n + 4)) {
       display: none;
     }
-    .bola {
+    .bola :global(img) {
       width: 64px;
       height: 64px;
-      font-size: 1.8rem;
+    }
+    .fondo-mar :global(img:nth-child(n + 4)) {
+      display: none;
     }
     .etq {
       font-size: 0.7rem;

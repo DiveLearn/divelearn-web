@@ -313,19 +313,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 5</a> / Actividad 2
             </div>
-            <h1 class="activity-title">👥 Gestor de Usuarios y Permisos</h1>
+            <h1 class="activity-title"> Gestor de Usuarios y Permisos</h1>
             <p class="activity-subtitle">Administra usuarios, grupos y permisos de archivos de forma práctica</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>30 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico-Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -333,12 +333,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a gestionar permisos de archivos y directorios en Linux. Comprenderás el sistema de usuarios, grupos y los tres tipos de permisos (lectura, escritura, ejecución) tanto en formato simbólico como numérico.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔐 Simulador de Permisos</h2>
+                <h2 class="section-title"> Simulador de Permisos</h2>
                 <div class="permissions-simulator">
                     <p><strong>Haz clic en los permisos para activarlos/desactivarlos:</strong></p>
                     
@@ -351,7 +351,7 @@
 
                     <div class="file-item">
                         <div class="file-info">
-                            <div class="file-icon">📄</div>
+                            <div class="file-icon"></div>
                             <div class="file-details">
                                 <div class="file-name">documento.txt</div>
                                 <div class="file-path">/home/usuario/documento.txt</div>
@@ -379,7 +379,7 @@
 
                     <div class="file-item">
                         <div class="file-info">
-                            <div class="file-icon">🗂️</div>
+                            <div class="file-icon"></div>
                             <div class="file-details">
                                 <div class="file-name">scripts/</div>
                                 <div class="file-path">/home/usuario/scripts/</div>
@@ -407,7 +407,7 @@
 
                     <div class="file-item">
                         <div class="file-info">
-                            <div class="file-icon">⚙️</div>
+                            <div class="file-icon"></div>
                             <div class="file-details">
                                 <div class="file-name">backup.sh</div>
                                 <div class="file-path">/home/usuario/backup.sh</div>
@@ -436,10 +436,10 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🧮 Calculadora Chmod</h2>
+                <h2 class="section-title"> Calculadora Chmod</h2>
                 <div class="chmod-calculator">
                     <div class="calculator-title">
-                        🔢 Calculadora de Permisos
+                         Calculadora de Permisos
                     </div>
                     <p>Ingresa un número de 3 dígitos para ver los permisos correspondientes:</p>
                     <div class="chmod-input">
@@ -454,7 +454,7 @@
 
             <div class="challenge-section">
                 <h3 class="challenge-title">
-                    🎯 Desafíos Prácticos
+                     Desafíos Prácticos
                 </h3>
                 <div class="challenge-item">
                     <strong>Desafío 1:</strong> Configura el archivo "documento.txt" para que solo el propietario pueda leer y escribir (permisos 600).
@@ -472,19 +472,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips y Conceptos Clave
+                     Tips y Conceptos Clave
                 </h3>
                 <div class="tip-item">
-                    <strong>🔢 Números de permisos:</strong> 4=lectura, 2=escritura, 1=ejecución. Se suman: 7=rwx, 6=rw-, 5=r-x, 4=r--, 0=---
+                    <strong> Números de permisos:</strong> 4=lectura, 2=escritura, 1=ejecución. Se suman: 7=rwx, 6=rw-, 5=r-x, 4=r--, 0=---
                 </div>
                 <div class="tip-item">
-                    <strong>📁 Directorios:</strong> Necesitan permiso de ejecución (x) para poder acceder a su contenido.
+                    <strong> Directorios:</strong> Necesitan permiso de ejecución (x) para poder acceder a su contenido.
                 </div>
                 <div class="tip-item">
-                    <strong>🔒 Seguridad:</strong> Usa 600 para archivos privados, 644 para archivos públicos de solo lectura, 755 para directorios y scripts.
+                    <strong> Seguridad:</strong> Usa 600 para archivos privados, 644 para archivos públicos de solo lectura, 755 para directorios y scripts.
                 </div>
                 <div class="tip-item">
-                    <strong>👥 Grupos:</strong> Permiten compartir archivos entre usuarios específicos sin dar acceso a todos.
+                    <strong> Grupos:</strong> Permiten compartir archivos entre usuarios específicos sin dar acceso a todos.
                 </div>
             </div>
         </div>
@@ -500,12 +500,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -558,7 +558,7 @@
             const result = document.getElementById('chmodResult');
             
             if (!/^\d{3}$/.test(input)) {
-                result.innerHTML = '<span style="color: #dc3545;">❌ Ingresa exactamente 3 dígitos (ej: 755)</span>';
+                result.innerHTML = '<span style="color: #dc3545;"> Ingresa exactamente 3 dígitos (ej: 755)</span>';
                 result.style.display = 'block';
                 return;
             }
@@ -594,9 +594,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado la actividad "Gestor de Usuarios y Permisos".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n¡Ahora comprendes el sistema de permisos de Linux!');
+            alert(' ¡Felicidades! Has completado la actividad "Gestor de Usuarios y Permisos".\n\n Actividad marcada como completada\n +200 puntos ganados\n\n¡Ahora comprendes el sistema de permisos de Linux!');
         }
 
         function goBack() {

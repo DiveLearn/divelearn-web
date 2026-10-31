@@ -436,7 +436,7 @@
                 </a>
             </div>
             
-            <h1 class="module-title">💾 Módulo 8</h1>
+            <h1 class="module-title"> Módulo 8</h1>
             <p class="module-subtitle">Proteger lo Importante (Backup y Recuperación)</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
@@ -446,40 +446,40 @@
         <div class="main-content">
             <div class="tabs">
                 <div class="tab active" onclick="showTab('teoria')">
-                    📚 Teoría
+                     Teoría
                 </div>
                 <div class="tab" onclick="showTab('submodulos')">
-                    🎯 Submódulos
+                     Submódulos
                 </div>
             </div>
 
             <div id="teoria" class="tab-content active">
                 <div class="objetivos-container">
-                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <h3 class="objetivos-title"> Objetivos de Aprendizaje</h3>
                     <div class="objetivo-item">
-                        <strong>🛡️ Al finalizar este módulo podrás:</strong> Diseñar e implementar estrategias completas de backup y recuperación para proteger datos y servicios críticos
+                        <strong> Al finalizar este módulo podrás:</strong> Diseñar e implementar estrategias completas de backup y recuperación para proteger datos y servicios críticos
                     </div>
                     <div class="objetivo-item">
-                        <strong>🧭 Dominar:</strong> Tipos de backup, la regla 3-2-1, objetivos RTO/RPO, y metodologías de pruebas de recuperación
+                        <strong> Dominar:</strong> Tipos de backup, la regla 3-2-1, objetivos RTO/RPO, y metodologías de pruebas de recuperación
                     </div>
                     <div class="objetivo-item">
-                        <strong>⚡ Aplicar:</strong> Planes de contingencia, cálculos de tiempo de recuperación y estrategias de protección de datos en entornos reales
+                        <strong> Aplicar:</strong> Planes de contingencia, cálculos de tiempo de recuperación y estrategias de protección de datos en entornos reales
                     </div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🚨 8.1 ¿Por qué se Pierden las Cosas?</h2>
+                    <h2 class="teoria-title"> 8.1 ¿Por qué se Pierden las Cosas?</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Las Principales Amenazas</h3>
                         <div class="subsection-content">
                             Los datos pueden perderse por múltiples razones, y cada una requiere una estrategia de protección diferente. Las <span class="highlight">fallas de hardware</span> son inevitables - discos duros, servidores y equipos eventualmente fallan. Los <span class="highlight">errores humanos</span> son aún más comunes: archivos borrados accidentalmente, configuraciones incorrectas, o comandos ejecutados en el servidor equivocado.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">💥 Ejemplo real de pérdida de datos:</div>
+                            <div class="example-title"> Ejemplo real de pérdida de datos:</div>
                             En 2017, GitLab perdió 6 horas de datos de producción cuando un administrador ejecutó accidentalmente un comando "rm -rf" en el servidor equivocado, y descubrieron que sus 5 mecanismos de backup habían fallado silenciosamente.
                         </div>
                         <div class="warning-box">
-                            <div class="warning-title">⚠️ Datos alarmantes:</div>
+                            <div class="warning-title"> Datos alarmantes:</div>
                             - 60% de las empresas que pierden datos cierran en 6 meses<br>
                             - 93% de empresas sin backup por 10+ días quiebran en un año<br>
                             - El costo promedio de tiempo de inactividad es $5,600 por minuto
@@ -495,14 +495,14 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">💿 8.2 Tipos de Backup</h2>
+                    <h2 class="teoria-title"> 8.2 Tipos de Backup</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Backup Completo (Full Backup)</h3>
                         <div class="subsection-content">
                             Un backup completo copia <span class="highlight">todos los datos</span> desde cero cada vez. Es la forma más simple y confiable, pero también la más lenta y que consume más espacio. La ventaja es que para restaurar solo necesitas una cinta/archivo. La desventaja es el tiempo y espacio requerido.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">📦 Ejemplo práctico:</div>
+                            <div class="example-title"> Ejemplo práctico:</div>
                             Si tienes 1TB de datos, cada backup completo ocupará 1TB, sin importar si solo cambiaron 10MB desde el último backup.
                         </div>
                     </div>
@@ -523,7 +523,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🔢 8.3 La Regla 3-2-1</h2>
+                    <h2 class="teoria-title"> 8.3 La Regla 3-2-1</h2>
                     <div class="rule-321">
                         <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
                             <div>
@@ -546,14 +546,14 @@
                             Mantén <span class="highlight">3 copias</span> de cualquier dato crítico: la original + 2 backups. Usa <span class="highlight">2 tipos diferentes de medios</span>: disco local + cinta, o disco + nube. Mantén <span class="highlight">1 copia fuera del sitio</span> (nube, oficina remota, caja de seguridad) para protegerte de desastres locales.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🏢 Ejemplo empresarial:</div>
+                            <div class="example-title"> Ejemplo empresarial:</div>
                             Datos originales en servidor → Backup diario en NAS local → Backup semanal en cinta → Copia mensual en nube AWS/Azure
                         </div>
                     </div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">⏱️ 8.4 Objetivos de Recuperación</h2>
+                    <h2 class="teoria-title"> 8.4 Objetivos de Recuperación</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">RTO: Recovery Time Objective</h3>
                         <div class="subsection-content">
@@ -567,7 +567,7 @@
                             El <span class="highlight">RPO</span> define cuánta información puedes permitirte perder. Si haces backup cada 24 horas, tu RPO es de 24 horas máximo. Para datos críticos, podrías necesitar RPO de minutos (con replicación en tiempo real).
                         </div>
                         <div class="example-box">
-                            <div class="example-title">💰 Relación costo-velocidad:</div>
+                            <div class="example-title"> Relación costo-velocidad:</div>
                             RPO de 24 horas: Backup nocturno ($)<br>
                             RPO de 1 hora: Backup cada hora ($$)<br>
                             RPO de 5 minutos: Replicación en tiempo real ($$$)
@@ -576,14 +576,14 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🧪 8.5 Pruebas de Recuperación</h2>
+                    <h2 class="teoria-title"> 8.5 Pruebas de Recuperación</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Funcionan Realmente tus Backups?</h3>
                         <div class="subsection-content">
                             Un backup que no se ha probado es <span class="highlight">una falsa sensación de seguridad</span>. Las pruebas regulares revelan problemas como archivos corruptos, configuraciones incorrectas, o procedimientos desactualizados. Programa restauraciones de prueba trimestralmente.
                         </div>
                         <div class="warning-box">
-                            <div class="warning-title">⚠️ Historia real:</div>
+                            <div class="warning-title"> Historia real:</div>
                             Una empresa descubrió durante un desastre real que sus backups de base de datos estaban corruptos desde hacía 8 meses. Las pruebas de restauración habrían detectado esto mucho antes.
                         </div>
                     </div>
@@ -605,49 +605,49 @@
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_planificador_backup.html" class="actividad-card">
                         <div class="actividad-numero">1</div>
-                        <h3 class="actividad-titulo">📅 Planificador de Estrategia de Backup</h3>
+                        <h3 class="actividad-titulo"> Planificador de Estrategia de Backup</h3>
                         <p class="actividad-descripcion">Diseña una estrategia de backup personalizada aplicando la regla 3-2-1 y calculando frecuencias óptimas según tus necesidades específicas.</p>
-                        <span class="actividad-duracion">⏱️ 20 min</span>
+                        <span class="actividad-duracion"> 20 min</span>
                     </a>
 
                     <a href="./actividad2_calculadora_rto_rpo.html" class="actividad-card">
                         <div class="actividad-numero">2</div>
-                        <h3 class="actividad-titulo">⏱️ Calculadora RTO/RPO</h3>
+                        <h3 class="actividad-titulo"> Calculadora RTO/RPO</h3>
                         <p class="actividad-descripcion">Aprende a calcular objetivos de tiempo de recuperación (RTO) y punto de recuperación (RPO) para diferentes tipos de sistemas y datos.</p>
-                        <span class="actividad-duracion">⏱️ 15 min</span>
+                        <span class="actividad-duracion"> 15 min</span>
                     </a>
 
                     <a href="./actividad3_simulador_desastre.html" class="actividad-card">
                         <div class="actividad-numero">3</div>
-                        <h3 class="actividad-titulo">🎮 Simulador de Desastre y Recuperación</h3>
+                        <h3 class="actividad-titulo"> Simulador de Desastre y Recuperación</h3>
                         <p class="actividad-descripcion">Experimenta diferentes escenarios de desastre y practica los procedimientos de recuperación en un entorno seguro y controlado.</p>
-                        <span class="actividad-duracion">⏱️ 25 min</span>
+                        <span class="actividad-duracion"> 25 min</span>
                     </a>
 
                     <a href="./actividad4_plan_contingencia.html" class="actividad-card">
                         <div class="actividad-numero">4</div>
-                        <h3 class="actividad-titulo">📋 Generador de Plan de Contingencia</h3>
+                        <h3 class="actividad-titulo"> Generador de Plan de Contingencia</h3>
                         <p class="actividad-descripcion">Crea un plan de contingencia completo con procedimientos paso a paso, contactos de emergencia y criterios de escalación.</p>
-                        <span class="actividad-duracion">⏱️ 30 min</span>
+                        <span class="actividad-duracion"> 30 min</span>
                     </a>
 
                     <a href="./quiz_modulo8.html" class="actividad-card quiz-card">
                         <div class="actividad-numero">Q</div>
                         <h3 class="actividad-titulo">Quiz del Módulo</h3>
                         <p class="actividad-descripcion">Evalúa tus conocimientos sobre backup, recuperación, RTO/RPO y estrategias de protección de datos con 5 preguntas detalladas.</p>
-                        <span class="actividad-duracion">⏱️ 10 min</span>
+                        <span class="actividad-duracion"> 10 min</span>
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>

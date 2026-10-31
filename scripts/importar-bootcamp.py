@@ -37,6 +37,17 @@ css += "\n@view-transition {\n  navigation: auto;\n}\n"
 (D / "dl-brand.css").write_text(css)
 
 
+# Emojis fuera: el sitio usa sprites e íconos propios. Se respetan ✓ ✔ ✗ ✘ y las flechas.
+EMOJI = re.compile(
+    "[\U0001F000-\U0001FAFF\u2600-\u26FF\u2700-\u2712\u2715\u2716\u2719-\u27BF\u2B00-\u2BFF"
+    "\u231A\u231B\u23E9-\u23FA\u2139\u24C2\u3030\u303D\u3297\u3299\uFE0F\u200D\u20E3]+"
+)
+
+
+def sin_emojis(h: str) -> str:
+    return EMOJI.sub("", h)
+
+
 def limpiar(h: str) -> str:
     h = re.sub(r'\s*<link rel="preconnect" href="https://fonts.(googleapis|gstatic).com"[^>]*>', "", h)
     h = re.sub(r'\s*<link href="https://fonts.googleapis.com[^>]*>', "", h)
@@ -59,6 +70,7 @@ def limpiar(h: str) -> str:
     # Terminal en azul noche (no negro) y pastilla "Crítica" ilegible.
     h = h.replace("#1e1e1e", "#1f1d5c").replace("#00ff00", "#e0f24a")
     h = re.sub(r"background: #06B6D4;(\s*)color: #06B6D4;", r"background: #fde2e7;\1color: #b4234a;", h)
+    h = sin_emojis(h)
     if 'name="viewport"' not in h:
         h = re.sub(r'(<meta charset="[^"]*">)', r'\1\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">', h, count=1, flags=re.I)
     return h
@@ -88,7 +100,7 @@ EN_REPARACION = """<!doctype html>
 <body>
 <nav class="dl-nav"><a href="/"><img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo"></a><div class="dl-nav-divider"></div><a href="./" class="dl-nav-back">← Módulo</a></nav>
 <main class="container" style="text-align:center;padding-top:80px">
-<h1>Esta actividad está en reparación 🔧</h1>
+<h1>Esta actividad está en reparación</h1>
 <p style="max-width:46ch;margin:16px auto 32px">La estamos mejorando para que funcione como se merece. Mientras tanto, sigue con las demás actividades del módulo.</p>
 <a href="./" class="btn btn-primary">Volver al módulo</a>
 </main>

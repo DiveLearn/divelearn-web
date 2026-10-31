@@ -344,19 +344,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 2
             </div>
-            <h1 class="activity-title">🚦 Controlador de Tráfico Digital</h1>
+            <h1 class="activity-title"> Controlador de Tráfico Digital</h1>
             <p class="activity-subtitle">Analiza el flujo de datos y aprende a identificar cuellos de botella</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>25 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -364,25 +364,25 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad simularás el tráfico de datos en una red y aprenderás a identificar problemas de rendimiento como congestión, latencia y pérdida de paquetes. Experimentarás con diferentes escenarios de tráfico para entender cómo afectan el rendimiento de la red.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🌐 Simulador de Tráfico de Red</h2>
+                <h2 class="section-title"> Simulador de Tráfico de Red</h2>
                 
                 <div class="scenario-selector">
                     <div class="scenario-btn active" onclick="loadScenario('office')">
-                        🏢 Oficina Pequeña
+                         Oficina Pequeña
                     </div>
                     <div class="scenario-btn" onclick="loadScenario('datacenter')">
-                        🏭 Data Center
+                         Data Center
                     </div>
                     <div class="scenario-btn" onclick="loadScenario('home')">
-                        🏠 Red Doméstica
+                         Red Doméstica
                     </div>
                     <div class="scenario-btn" onclick="loadScenario('campus')">
-                        🏫 Campus Universitario
+                         Campus Universitario
                     </div>
                 </div>
 
@@ -393,45 +393,45 @@
 
                     <div class="simulation-controls">
                         <button class="sim-btn" id="startBtn" onclick="startSimulation()">
-                            ▶️ Iniciar Simulación
+                            ▶ Iniciar Simulación
                         </button>
                         <button class="sim-btn" id="pauseBtn" onclick="pauseSimulation()" style="display: none;">
-                            ⏸️ Pausar
+                             Pausar
                         </button>
                         <button class="sim-btn danger" onclick="stopSimulation()">
-                            ⏹️ Detener
+                             Detener
                         </button>
                         <button class="sim-btn" onclick="addTrafficBurst()">
-                            💥 Ráfaga de Tráfico
+                             Ráfaga de Tráfico
                         </button>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">⚙️ Controles de Simulación</h2>
+                <h2 class="section-title"> Controles de Simulación</h2>
                 
                 <div class="controls-panel">
                     <div class="control-group">
-                        <div class="control-label">📊 Carga de Tráfico</div>
+                        <div class="control-label"> Carga de Tráfico</div>
                         <input type="range" class="control-slider" id="trafficLoad" min="10" max="100" value="30" onchange="updateTrafficLoad(this.value)">
                         <div class="slider-value" id="trafficLoadValue">30%</div>
                     </div>
 
                     <div class="control-group">
-                        <div class="control-label">🔗 Ancho de Banda</div>
+                        <div class="control-label"> Ancho de Banda</div>
                         <input type="range" class="control-slider" id="bandwidth" min="1" max="10" value="5" onchange="updateBandwidth(this.value)">
                         <div class="slider-value" id="bandwidthValue">100 Mbps</div>
                     </div>
 
                     <div class="control-group">
-                        <div class="control-label">⏱️ Latencia Base</div>
+                        <div class="control-label"> Latencia Base</div>
                         <input type="range" class="control-slider" id="latency" min="1" max="100" value="20" onchange="updateLatency(this.value)">
                         <div class="slider-value" id="latencyValue">20 ms</div>
                     </div>
 
                     <div class="control-group">
-                        <div class="control-label">📦 Pérdida de Paquetes</div>
+                        <div class="control-label"> Pérdida de Paquetes</div>
                         <input type="range" class="control-slider" id="packetLoss" min="0" max="10" value="1" onchange="updatePacketLoss(this.value)">
                         <div class="slider-value" id="packetLossValue">1%</div>
                     </div>
@@ -439,7 +439,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">📊 Métricas en Tiempo Real</h2>
+                <h2 class="section-title"> Métricas en Tiempo Real</h2>
                 
                 <div class="metrics-panel">
                     <div class="metric-card">
@@ -480,7 +480,7 @@
                 </div>
 
                 <div style="margin: 20px 0;">
-                    <h4 style="margin-bottom: 10px;">🚦 Nivel de Congestión</h4>
+                    <h4 style="margin-bottom: 10px;"> Nivel de Congestión</h4>
                     <div class="congestion-indicator">
                         <div class="congestion-pointer" id="congestionPointer"></div>
                     </div>
@@ -494,22 +494,22 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips de Control de Tráfico
+                     Tips de Control de Tráfico
                 </h3>
                 <div class="tip-item">
-                    <strong>🚦 Throughput vs Latencia:</strong> Mayor carga de tráfico aumenta el throughput pero también la latencia. Busca el punto óptimo.
+                    <strong> Throughput vs Latencia:</strong> Mayor carga de tráfico aumenta el throughput pero también la latencia. Busca el punto óptimo.
                 </div>
                 <div class="tip-item">
-                    <strong>📊 Utilización Óptima:</strong> Una red al 70-80% de utilización es eficiente. Más del 90% genera congestión.
+                    <strong> Utilización Óptima:</strong> Una red al 70-80% de utilización es eficiente. Más del 90% genera congestión.
                 </div>
                 <div class="tip-item">
-                    <strong>📦 Pérdida de Paquetes:</strong> Incluso 1% de pérdida puede afectar significativamente aplicaciones en tiempo real.
+                    <strong> Pérdida de Paquetes:</strong> Incluso 1% de pérdida puede afectar significativamente aplicaciones en tiempo real.
                 </div>
                 <div class="tip-item">
-                    <strong>🔗 Cuellos de Botella:</strong> Observa donde se acumulan los paquetes - ese es tu punto más débil.
+                    <strong> Cuellos de Botella:</strong> Observa donde se acumulan los paquetes - ese es tu punto más débil.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Pro tip:</strong> Los paquetes verdes son normales, amarillos tienen prioridad media, rojos son alta prioridad.
+                    <strong> Pro tip:</strong> Los paquetes verdes son normales, amarillos tienen prioridad media, rojos son alta prioridad.
                 </div>
             </div>
         </div>
@@ -525,12 +525,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -551,13 +551,13 @@
             office: {
                 name: 'Oficina Pequeña',
                 nodes: [
-                    { id: 'router1', type: 'router', x: 300, y: 50, emoji: '🔀' },
-                    { id: 'switch1', type: 'switch', x: 150, y: 150, emoji: '🔌' },
-                    { id: 'switch2', type: 'switch', x: 450, y: 150, emoji: '🔌' },
-                    { id: 'pc1', type: 'computer', x: 50, y: 250, emoji: '💻' },
-                    { id: 'pc2', type: 'computer', x: 150, y: 300, emoji: '💻' },
-                    { id: 'pc3', type: 'computer', x: 350, y: 300, emoji: '💻' },
-                    { id: 'server1', type: 'server', x: 550, y: 250, emoji: '🖥️' }
+                    { id: 'router1', type: 'router', x: 300, y: 50, emoji: '' },
+                    { id: 'switch1', type: 'switch', x: 150, y: 150, emoji: '' },
+                    { id: 'switch2', type: 'switch', x: 450, y: 150, emoji: '' },
+                    { id: 'pc1', type: 'computer', x: 50, y: 250, emoji: '' },
+                    { id: 'pc2', type: 'computer', x: 150, y: 300, emoji: '' },
+                    { id: 'pc3', type: 'computer', x: 350, y: 300, emoji: '' },
+                    { id: 'server1', type: 'server', x: 550, y: 250, emoji: '' }
                 ],
                 connections: [
                     ['router1', 'switch1'], ['router1', 'switch2'],
@@ -568,19 +568,19 @@
             datacenter: {
                 name: 'Data Center',
                 nodes: [
-                    { id: 'core1', type: 'router', x: 300, y: 50, emoji: '🔀' },
-                    { id: 'agg1', type: 'switch', x: 150, y: 150, emoji: '🔌' },
-                    { id: 'agg2', type: 'switch', x: 450, y: 150, emoji: '🔌' },
-                    { id: 'tor1', type: 'switch', x: 100, y: 250, emoji: '🔌' },
-                    { id: 'tor2', type: 'switch', x: 200, y: 250, emoji: '🔌' },
-                    { id: 'tor3', type: 'switch', x: 400, y: 250, emoji: '🔌' },
-                    { id: 'tor4', type: 'switch', x: 500, y: 250, emoji: '🔌' },
-                    { id: 'srv1', type: 'server', x: 50, y: 350, emoji: '🖥️' },
-                    { id: 'srv2', type: 'server', x: 150, y: 350, emoji: '🖥️' },
-                    { id: 'srv3', type: 'server', x: 250, y: 350, emoji: '🖥️' },
-                    { id: 'srv4', type: 'server', x: 350, y: 350, emoji: '🖥️' },
-                    { id: 'srv5', type: 'server', x: 450, y: 350, emoji: '🖥️' },
-                    { id: 'srv6', type: 'server', x: 550, y: 350, emoji: '🖥️' }
+                    { id: 'core1', type: 'router', x: 300, y: 50, emoji: '' },
+                    { id: 'agg1', type: 'switch', x: 150, y: 150, emoji: '' },
+                    { id: 'agg2', type: 'switch', x: 450, y: 150, emoji: '' },
+                    { id: 'tor1', type: 'switch', x: 100, y: 250, emoji: '' },
+                    { id: 'tor2', type: 'switch', x: 200, y: 250, emoji: '' },
+                    { id: 'tor3', type: 'switch', x: 400, y: 250, emoji: '' },
+                    { id: 'tor4', type: 'switch', x: 500, y: 250, emoji: '' },
+                    { id: 'srv1', type: 'server', x: 50, y: 350, emoji: '' },
+                    { id: 'srv2', type: 'server', x: 150, y: 350, emoji: '' },
+                    { id: 'srv3', type: 'server', x: 250, y: 350, emoji: '' },
+                    { id: 'srv4', type: 'server', x: 350, y: 350, emoji: '' },
+                    { id: 'srv5', type: 'server', x: 450, y: 350, emoji: '' },
+                    { id: 'srv6', type: 'server', x: 550, y: 350, emoji: '' }
                 ],
                 connections: [
                     ['core1', 'agg1'], ['core1', 'agg2'],
@@ -594,13 +594,13 @@
             home: {
                 name: 'Red Doméstica',
                 nodes: [
-                    { id: 'modem', type: 'router', x: 300, y: 50, emoji: '📡' },
-                    { id: 'router', type: 'router', x: 300, y: 150, emoji: '🔀' },
-                    { id: 'laptop', type: 'computer', x: 150, y: 250, emoji: '💻' },
-                    { id: 'phone', type: 'computer', x: 200, y: 300, emoji: '📱' },
-                    { id: 'tablet', type: 'computer', x: 400, y: 300, emoji: '📱' },
-                    { id: 'smart_tv', type: 'computer', x: 450, y: 250, emoji: '📺' },
-                    { id: 'iot', type: 'computer', x: 350, y: 350, emoji: '🏠' }
+                    { id: 'modem', type: 'router', x: 300, y: 50, emoji: '' },
+                    { id: 'router', type: 'router', x: 300, y: 150, emoji: '' },
+                    { id: 'laptop', type: 'computer', x: 150, y: 250, emoji: '' },
+                    { id: 'phone', type: 'computer', x: 200, y: 300, emoji: '' },
+                    { id: 'tablet', type: 'computer', x: 400, y: 300, emoji: '' },
+                    { id: 'smart_tv', type: 'computer', x: 450, y: 250, emoji: '' },
+                    { id: 'iot', type: 'computer', x: 350, y: 350, emoji: '' }
                 ],
                 connections: [
                     ['modem', 'router'],
@@ -611,16 +611,16 @@
             campus: {
                 name: 'Campus Universitario',
                 nodes: [
-                    { id: 'core', type: 'router', x: 300, y: 100, emoji: '🔀' },
-                    { id: 'lib_sw', type: 'switch', x: 100, y: 200, emoji: '🔌' },
-                    { id: 'lab_sw', type: 'switch', x: 300, y: 200, emoji: '🔌' },
-                    { id: 'dorm_sw', type: 'switch', x: 500, y: 200, emoji: '🔌' },
-                    { id: 'lib_pc', type: 'computer', x: 50, y: 300, emoji: '💻' },
-                    { id: 'lib_srv', type: 'server', x: 150, y: 300, emoji: '🖥️' },
-                    { id: 'lab_pc1', type: 'computer', x: 250, y: 300, emoji: '💻' },
-                    { id: 'lab_pc2', type: 'computer', x: 350, y: 300, emoji: '💻' },
-                    { id: 'dorm_pc1', type: 'computer', x: 450, y: 300, emoji: '💻' },
-                    { id: 'dorm_pc2', type: 'computer', x: 550, y: 300, emoji: '💻' }
+                    { id: 'core', type: 'router', x: 300, y: 100, emoji: '' },
+                    { id: 'lib_sw', type: 'switch', x: 100, y: 200, emoji: '' },
+                    { id: 'lab_sw', type: 'switch', x: 300, y: 200, emoji: '' },
+                    { id: 'dorm_sw', type: 'switch', x: 500, y: 200, emoji: '' },
+                    { id: 'lib_pc', type: 'computer', x: 50, y: 300, emoji: '' },
+                    { id: 'lib_srv', type: 'server', x: 150, y: 300, emoji: '' },
+                    { id: 'lab_pc1', type: 'computer', x: 250, y: 300, emoji: '' },
+                    { id: 'lab_pc2', type: 'computer', x: 350, y: 300, emoji: '' },
+                    { id: 'dorm_pc1', type: 'computer', x: 450, y: 300, emoji: '' },
+                    { id: 'dorm_pc2', type: 'computer', x: 550, y: 300, emoji: '' }
                 ],
                 connections: [
                     ['core', 'lib_sw'], ['core', 'lab_sw'], ['core', 'dorm_sw'],
@@ -911,7 +911,7 @@
 
         function markCompleted() {
             if (totalPacketsSent < 50) {
-                alert('⚠️ Para completar la actividad, ejecuta la simulación hasta enviar al menos 50 paquetes.');
+                alert(' Para completar la actividad, ejecuta la simulación hasta enviar al menos 50 paquetes.');
                 return;
             }
 
@@ -920,12 +920,12 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             // Crear resumen de la actividad
             const efficiency = ((totalPacketsSent - totalPacketsLost) / totalPacketsSent * 100).toFixed(1);
             
-            alert(`🎉 ¡Felicidades! Has completado "Controlador de Tráfico Digital".\n\n📊 Resumen de tu simulación:\n• Paquetes enviados: ${totalPacketsSent}\n• Paquetes perdidos: ${totalPacketsLost}\n• Eficiencia de red: ${efficiency}%\n• Escenario: ${scenarios[currentScenario].name}\n\n✅ Actividad completada\n🏆 +200 puntos ganados`);
+            alert(` ¡Felicidades! Has completado "Controlador de Tráfico Digital".\n\n Resumen de tu simulación:\n• Paquetes enviados: ${totalPacketsSent}\n• Paquetes perdidos: ${totalPacketsLost}\n• Eficiencia de red: ${efficiency}%\n• Escenario: ${scenarios[currentScenario].name}\n\n Actividad completada\n +200 puntos ganados`);
         }
 
         function goBack() {

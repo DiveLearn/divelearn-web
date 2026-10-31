@@ -228,7 +228,7 @@
         }
 
         .recommendation-item::before {
-            content: "💡";
+            content: "";
             position: absolute;
             left: 0;
         }
@@ -333,19 +333,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 8</a> / Actividad 2
             </div>
-            <h1 class="activity-title">⏱️ Calculadora RTO/RPO</h1>
+            <h1 class="activity-title"> Calculadora RTO/RPO</h1>
             <p class="activity-subtitle">Aprende a calcular objetivos de recuperación para tu organización</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>15 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 150</span>
                 </div>
             </div>
@@ -353,16 +353,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a calcular los objetivos RTO (Recovery Time Objective) y RPO (Recovery Point Objective) para diferentes tipos de sistemas y datos, considerando el impacto económico y operacional.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">📚 Conceptos Fundamentales</h2>
+                <h2 class="section-title"> Conceptos Fundamentales</h2>
                 <div class="definition-cards">
                     <div class="definition-card">
                         <div class="definition-title">
-                            ⏱️ RTO - Recovery Time Objective
+                             RTO - Recovery Time Objective
                         </div>
                         <div class="definition-desc">
                             El tiempo máximo aceptable que un sistema puede estar fuera de servicio después de un incidente, antes de que cause un daño inaceptable al negocio.
@@ -374,7 +374,7 @@
 
                     <div class="definition-card">
                         <div class="definition-title">
-                            💾 RPO - Recovery Point Objective
+                             RPO - Recovery Point Objective
                         </div>
                         <div class="definition-desc">
                             La cantidad máxima de datos (medida en tiempo) que una organización puede permitirse perder durante un incidente sin causar daño significativo.
@@ -387,7 +387,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🧮 Calculadoras Interactivas</h2>
+                <h2 class="section-title"> Calculadoras Interactivas</h2>
                 <div class="calculator-area">
                     <div class="calculator-tabs">
                         <button class="calc-tab active" onclick="showCalculator('rto')">Calculadora RTO</button>
@@ -396,10 +396,10 @@
                     </div>
 
                     <div id="rto-calc" class="calc-content active">
-                        <h3 style="margin-bottom: 20px; color: #8888bb;">⏱️ Cálculo de Recovery Time Objective (RTO)</h3>
+                        <h3 style="margin-bottom: 20px; color: #8888bb;"> Cálculo de Recovery Time Objective (RTO)</h3>
                         
                         <div class="form-group">
-                            <label class="form-label">💰 Costo por hora de inactividad (USD)</label>
+                            <label class="form-label"> Costo por hora de inactividad (USD)</label>
                             <div class="input-with-unit">
                                 <input type="number" id="hourly-cost" class="form-input" placeholder="5000" min="0">
                                 <div class="unit-label">USD/hora</div>
@@ -407,12 +407,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">👥 Número de usuarios afectados</label>
+                            <label class="form-label"> Número de usuarios afectados</label>
                             <input type="number" id="affected-users" class="form-input" placeholder="1000" min="0">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">📊 Criticidad del sistema</label>
+                            <label class="form-label"> Criticidad del sistema</label>
                             <select id="system-criticality" class="form-select">
                                 <option value="">Selecciona la criticidad</option>
                                 <option value="critical">Crítico - Negocio se detiene completamente</option>
@@ -423,12 +423,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">💸 Presupuesto disponible para recuperación (USD)</label>
+                            <label class="form-label"> Presupuesto disponible para recuperación (USD)</label>
                             <input type="number" id="recovery-budget" class="form-input" placeholder="25000" min="0">
                         </div>
 
                         <button class="calculate-btn" onclick="calculateRTO()">
-                            🚀 Calcular RTO Óptimo
+                             Calcular RTO Óptimo
                         </button>
 
                         <div id="rto-results" class="result-display">
@@ -437,10 +437,10 @@
                     </div>
 
                     <div id="rpo-calc" class="calc-content">
-                        <h3 style="margin-bottom: 20px; color: #8888bb;">💾 Cálculo de Recovery Point Objective (RPO)</h3>
+                        <h3 style="margin-bottom: 20px; color: #8888bb;"> Cálculo de Recovery Point Objective (RPO)</h3>
                         
                         <div class="form-group">
-                            <label class="form-label">📈 Volumen de datos generados por hora</label>
+                            <label class="form-label"> Volumen de datos generados por hora</label>
                             <div class="input-with-unit">
                                 <input type="number" id="data-per-hour" class="form-input" placeholder="10" min="0" step="0.1">
                                 <select id="data-unit" class="form-select" style="max-width: 120px;">
@@ -452,7 +452,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">💰 Valor monetario de los datos por hora (USD)</label>
+                            <label class="form-label"> Valor monetario de los datos por hora (USD)</label>
                             <div class="input-with-unit">
                                 <input type="number" id="data-value" class="form-input" placeholder="2000" min="0">
                                 <div class="unit-label">USD/hora</div>
@@ -460,7 +460,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">📋 Tipo de datos</label>
+                            <label class="form-label"> Tipo de datos</label>
                             <select id="data-type" class="form-select">
                                 <option value="">Selecciona el tipo de datos</option>
                                 <option value="transactional">Transaccionales - Ventas, pagos, pedidos</option>
@@ -471,7 +471,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">🔄 Frecuencia de backup actual</label>
+                            <label class="form-label"> Frecuencia de backup actual</label>
                             <div class="input-with-unit">
                                 <input type="number" id="backup-frequency" class="form-input" placeholder="24" min="0.25" step="0.25">
                                 <div class="unit-label">horas</div>
@@ -479,7 +479,7 @@
                         </div>
 
                         <button class="calculate-btn" onclick="calculateRPO()">
-                            🚀 Calcular RPO Óptimo
+                             Calcular RPO Óptimo
                         </button>
 
                         <div id="rpo-results" class="result-display">
@@ -488,12 +488,12 @@
                     </div>
 
                     <div id="scenarios-calc" class="calc-content">
-                        <h3 style="margin-bottom: 20px; color: #8888bb;">🎭 Escenarios de Ejemplo</h3>
+                        <h3 style="margin-bottom: 20px; color: #8888bb;"> Escenarios de Ejemplo</h3>
                         <p style="color: #8888bb; margin-bottom: 20px;">Haz clic en cualquier escenario para cargar los valores automáticamente:</p>
                         
                         <div class="scenario-examples">
                             <div class="scenario-card" onclick="loadScenario('ecommerce')">
-                                <div class="scenario-title">🛒 E-commerce</div>
+                                <div class="scenario-title"> E-commerce</div>
                                 <div class="scenario-desc">Tienda online con 10,000 usuarios diarios</div>
                                 <div class="scenario-values">
                                     <span>RTO: 1-2h</span>
@@ -502,7 +502,7 @@
                             </div>
 
                             <div class="scenario-card" onclick="loadScenario('banking')">
-                                <div class="scenario-title">🏦 Sistema Bancario</div>
+                                <div class="scenario-title"> Sistema Bancario</div>
                                 <div class="scenario-desc">Transacciones financieras críticas</div>
                                 <div class="scenario-values">
                                     <span>RTO: 15-30min</span>
@@ -511,7 +511,7 @@
                             </div>
 
                             <div class="scenario-card" onclick="loadScenario('corporate')">
-                                <div class="scenario-title">🏢 Email Corporativo</div>
+                                <div class="scenario-title"> Email Corporativo</div>
                                 <div class="scenario-desc">Comunicaciones de empresa mediana</div>
                                 <div class="scenario-values">
                                     <span>RTO: 2-4h</span>
@@ -520,7 +520,7 @@
                             </div>
 
                             <div class="scenario-card" onclick="loadScenario('development')">
-                                <div class="scenario-title">💻 Entorno Desarrollo</div>
+                                <div class="scenario-title"> Entorno Desarrollo</div>
                                 <div class="scenario-desc">Sistemas de desarrollo y testing</div>
                                 <div class="scenario-values">
                                     <span>RTO: 24h</span>
@@ -529,7 +529,7 @@
                             </div>
 
                             <div class="scenario-card" onclick="loadScenario('healthcare')">
-                                <div class="scenario-title">🏥 Sistema Hospitalario</div>
+                                <div class="scenario-title"> Sistema Hospitalario</div>
                                 <div class="scenario-desc">Expedientes médicos críticos</div>
                                 <div class="scenario-values">
                                     <span>RTO: 30min</span>
@@ -538,7 +538,7 @@
                             </div>
 
                             <div class="scenario-card" onclick="loadScenario('manufacturing')">
-                                <div class="scenario-title">🏭 Control Industrial</div>
+                                <div class="scenario-title"> Control Industrial</div>
                                 <div class="scenario-desc">Sistemas de control de producción</div>
                                 <div class="scenario-values">
                                     <span>RTO: 1h</span>
@@ -562,12 +562,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -704,7 +704,7 @@
 
             resultsDiv.innerHTML = `
                 <div class="result-card">
-                    <div class="result-title">🎯 Resultados del Cálculo RTO</div>
+                    <div class="result-title"> Resultados del Cálculo RTO</div>
                     <div class="result-grid">
                         <div class="result-metric">
                             <div class="result-value">${data.recommendedRTO.toFixed(1)}</div>
@@ -730,7 +730,7 @@
                 </div>
 
                 <div class="recommendations">
-                    <div class="recommendations-title">🎯 Recomendaciones Específicas</div>
+                    <div class="recommendations-title"> Recomendaciones Específicas</div>
                     ${recommendations.map(rec => `<div class="recommendation-item">${rec}</div>`).join('')}
                 </div>
             `;
@@ -786,7 +786,7 @@
 
             resultsDiv.innerHTML = `
                 <div class="result-card">
-                    <div class="result-title">💾 Resultados del Cálculo RPO</div>
+                    <div class="result-title"> Resultados del Cálculo RPO</div>
                     <div class="result-grid">
                         <div class="result-metric">
                             <div class="result-value">${data.recommendedRPO.toFixed(2)}</div>
@@ -812,13 +812,13 @@
                 </div>
 
                 <div class="recommendations">
-                    <div class="recommendations-title">💡 Estrategia de Backup Recomendada</div>
+                    <div class="recommendations-title"> Estrategia de Backup Recomendada</div>
                     ${recommendations.map(rec => `<div class="recommendation-item">${rec}</div>`).join('')}
                 </div>
 
                 ${data.recommendedRPO < data.currentFrequency ? `
                     <div class="recommendations" style="border-color: #DC3545; background: linear-gradient(135deg, #F8D7DA 0%, #F5C6CB 100%);">
-                        <div class="recommendations-title" style="color: #721C24;">⚠️ Atención Requerida</div>
+                        <div class="recommendations-title" style="color: #721C24;"> Atención Requerida</div>
                         <div class="recommendation-item" style="color: #721C24;">
                             Tu frecuencia actual de backup (${data.currentFrequency}h) es insuficiente para el RPO recomendado (${data.recommendedRPO.toFixed(2)}h).
                             Debes incrementar la frecuencia de backups para reducir el riesgo de pérdida de datos.
@@ -890,7 +890,7 @@
                 }
             }, 500);
 
-            alert(`📊 Escenario "${scenario}" cargado exitosamente!\n\nLos valores han sido configurados automáticamente y se ha calculado el resultado.`);
+            alert(` Escenario "${scenario}" cargado exitosamente!\n\nLos valores han sido configurados automáticamente y se ha calculado el resultado.`);
         }
 
         function markCompleted() {
@@ -899,9 +899,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado la "Calculadora RTO/RPO".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados');
+            alert(' ¡Felicidades! Has completado la "Calculadora RTO/RPO".\n\n Actividad marcada como completada\n +150 puntos ganados');
         }
 
         function goBack() {

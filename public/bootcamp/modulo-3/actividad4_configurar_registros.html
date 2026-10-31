@@ -388,19 +388,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 3</a> / Actividad 4
             </div>
-            <h1 class="activity-title">📧 Configurador de Registros DNS</h1>
+            <h1 class="activity-title"> Configurador de Registros DNS</h1>
             <p class="activity-subtitle">Aprende a configurar diferentes tipos de registros DNS para servicios web, correo y otros</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>30 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Avanzado</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -408,31 +408,31 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad configurarás registros DNS para diferentes servicios. Aprenderás a crear zonas DNS completas para sitios web, servidores de correo, subdominios y servicios especializados.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🏢 Escenarios de Configuración</h2>
+                <h2 class="section-title"> Escenarios de Configuración</h2>
                 
                 <div class="scenario-selector">
                     <div class="scenario-card" onclick="loadScenario('startup')">
-                        <div class="scenario-icon">🚀</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">Startup Tecnológica</div>
                         <div class="scenario-desc">Sitio web, correo y API</div>
                     </div>
                     <div class="scenario-card" onclick="loadScenario('ecommerce')">
-                        <div class="scenario-icon">🛍️</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">E-commerce</div>
                         <div class="scenario-desc">Tienda online con CDN</div>
                     </div>
                     <div class="scenario-card" onclick="loadScenario('corporate')">
-                        <div class="scenario-icon">🏢</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">Empresa Corporativa</div>
                         <div class="scenario-desc">Múltiples servicios</div>
                     </div>
                     <div class="scenario-card" onclick="loadScenario('custom')">
-                        <div class="scenario-icon">⚙️</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">Configuración Libre</div>
                         <div class="scenario-desc">Crea tu propia zona</div>
                     </div>
@@ -440,11 +440,11 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">⚙️ Configurador de Zona DNS</h2>
+                <h2 class="section-title"> Configurador de Zona DNS</h2>
                 
                 <div class="dns-configurator">
                     <div class="domain-setup">
-                        <div class="setup-title">🌐 Configuración del Dominio</div>
+                        <div class="setup-title"> Configuración del Dominio</div>
                         
                         <div class="form-row">
                             <div class="input-group">
@@ -459,7 +459,7 @@
                     </div>
 
                     <div class="domain-setup">
-                        <div class="setup-title">📋 Agregar Registro DNS</div>
+                        <div class="setup-title"> Agregar Registro DNS</div>
                         
                         <div class="record-type-selector">
                             <div class="record-type-btn active" data-type="A" onclick="selectRecordType('A')">A</div>
@@ -583,7 +583,7 @@
                         </div>
 
                         <button class="add-record-btn" onclick="addRecord()">
-                            ➕ Agregar Registro
+                             Agregar Registro
                         </button>
 
                         <div class="validation-feedback" id="validationFeedback">
@@ -592,7 +592,7 @@
 
                     <div class="records-table">
                         <div class="table-header">
-                            📋 Registros DNS Configurados
+                             Registros DNS Configurados
                         </div>
                         <div class="table-content" id="recordsTable">
                             <div style="padding: 30px; text-align: center; color: #8888bb;">
@@ -602,7 +602,7 @@
                     </div>
 
                     <div class="zone-preview">
-                        <div class="preview-title">📄 Vista Previa del Archivo de Zona</div>
+                        <div class="preview-title"> Vista Previa del Archivo de Zona</div>
                         <div id="zoneFilePreview">
 ; Zona DNS para miempresa.com
 ; No hay registros configurados aún
@@ -610,7 +610,7 @@
                     </div>
 
                     <div class="progress-tracker">
-                        <div class="progress-title">📊 Progreso de Configuración</div>
+                        <div class="progress-title"> Progreso de Configuración</div>
                         <div class="progress-item">
                             <div class="progress-checkbox" id="progress-a"></div>
                             <span>Configurar registro A (sitio web principal)</span>
@@ -633,25 +633,25 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips de Configuración DNS
+                     Tips de Configuración DNS
                 </h3>
                 <div class="tip-item">
-                    <strong>🌐 Registro A:</strong> Apunta tu dominio a una dirección IPv4. Usa "@" para el dominio raíz o "www" para el subdominio web.
+                    <strong> Registro A:</strong> Apunta tu dominio a una dirección IPv4. Usa "@" para el dominio raíz o "www" para el subdominio web.
                 </div>
                 <div class="tip-item">
-                    <strong>📧 Registro MX:</strong> Configura dónde llega tu correo. Menor prioridad = mayor importancia (10 antes que 20).
+                    <strong> Registro MX:</strong> Configura dónde llega tu correo. Menor prioridad = mayor importancia (10 antes que 20).
                 </div>
                 <div class="tip-item">
-                    <strong>🔗 Registro CNAME:</strong> Crea alias para subdominios. No puede coexistir con otros registros en el mismo nombre.
+                    <strong> Registro CNAME:</strong> Crea alias para subdominios. No puede coexistir con otros registros en el mismo nombre.
                 </div>
                 <div class="tip-item">
-                    <strong>📝 Registro TXT:</strong> Usado para verificaciones (SPF, DKIM), Google Site Verification, y otras validaciones.
+                    <strong> Registro TXT:</strong> Usado para verificaciones (SPF, DKIM), Google Site Verification, y otras validaciones.
                 </div>
                 <div class="tip-item">
-                    <strong>⚡ TTL Bajo:</strong> Para entornos de desarrollo o cuando esperas cambios frecuentes (300-900s).
+                    <strong> TTL Bajo:</strong> Para entornos de desarrollo o cuando esperas cambios frecuentes (300-900s).
                 </div>
                 <div class="tip-item">
-                    <strong>🏗️ TTL Alto:</strong> Para producción estable, reduce la carga en servidores DNS (3600-86400s).
+                    <strong> TTL Alto:</strong> Para producción estable, reduce la carga en servidores DNS (3600-86400s).
                 </div>
             </div>
         </div>
@@ -667,12 +667,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -739,7 +739,7 @@
             updateRecordsTable();
             updateZonePreview();
             
-            showValidationFeedback(`📋 Escenario "${scenarioName}" cargado con ${scenario.records.length} registros predefinidos.`, 'success');
+            showValidationFeedback(` Escenario "${scenarioName}" cargado con ${scenario.records.length} registros predefinidos.`, 'success');
         }
 
         function selectRecordType(type) {
@@ -761,7 +761,7 @@
         function addRecord() {
             const domain = document.getElementById('domainName').value.trim();
             if (!domain) {
-                showValidationFeedback('❌ Por favor ingresa un nombre de dominio válido.', 'error');
+                showValidationFeedback(' Por favor ingresa un nombre de dominio válido.', 'error');
                 return;
             }
 
@@ -771,7 +771,7 @@
             // Validar el registro
             const validation = validateRecord(record);
             if (!validation.valid) {
-                showValidationFeedback(`❌ ${validation.message}`, 'error');
+                showValidationFeedback(` ${validation.message}`, 'error');
                 return;
             }
 
@@ -783,7 +783,7 @@
             );
             
             if (duplicate) {
-                showValidationFeedback('❌ Ya existe un registro igual. Elimina el anterior si quieres reemplazarlo.', 'error');
+                showValidationFeedback(' Ya existe un registro igual. Elimina el anterior si quieres reemplazarlo.', 'error');
                 return;
             }
 
@@ -794,7 +794,7 @@
             clearCurrentForm();
             markProgress(record.type);
             
-            showValidationFeedback(`✅ Registro ${record.type} agregado exitosamente.`, 'success');
+            showValidationFeedback(` Registro ${record.type} agregado exitosamente.`, 'success');
         }
 
         function getRecordFromForm() {
@@ -911,7 +911,7 @@
                         <div class="record-type">${record.type}</div>
                         <div class="record-value">${displayValue}</div>
                         <div class="record-ttl">${record.ttl}s</div>
-                        <button class="delete-btn" onclick="deleteRecord(${index})">🗑️</button>
+                        <button class="delete-btn" onclick="deleteRecord(${index})"></button>
                     </div>
                 `;
             });
@@ -959,7 +959,7 @@
                 dnsRecords.splice(index, 1);
                 updateRecordsTable();
                 updateZonePreview();
-                showValidationFeedback('🗑️ Registro eliminado exitosamente.', 'success');
+                showValidationFeedback(' Registro eliminado exitosamente.', 'success');
             }
         }
 
@@ -1007,10 +1007,10 @@
                 const statusText = document.getElementById('statusText');
                 
                 indicator.classList.add('completed');
-                statusText.textContent = 'Completado ✅';
+                statusText.textContent = 'Completado ';
                 
                 setTimeout(() => {
-                    alert('🎉 ¡Excelente trabajo! Has configurado exitosamente una zona DNS completa.\n\n✅ Actividad completada automáticamente\n🏆 +200 puntos ganados');
+                    alert(' ¡Excelente trabajo! Has configurado exitosamente una zona DNS completa.\n\n Actividad completada automáticamente\n +200 puntos ganados');
                 }, 1000);
             }
         }
@@ -1019,7 +1019,7 @@
             if (!isCompleted) {
                 completeActivity();
             } else {
-                alert('🎉 ¡Felicidades! Has completado la actividad "Configurador de Registros DNS".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n¡Ahora sabes cómo configurar zonas DNS profesionales!');
+                alert(' ¡Felicidades! Has completado la actividad "Configurador de Registros DNS".\n\n Actividad marcada como completada\n +200 puntos ganados\n\n¡Ahora sabes cómo configurar zonas DNS profesionales!');
             }
         }
 

@@ -531,19 +531,19 @@
             <div class="breadcrumb">
                 <a href="/bootcamp/">← Módulo 6</a> / Actividad 8
             </div>
-            <h1 class="activity-title">🚦 Simulador de Latencia</h1>
+            <h1 class="activity-title"> Simulador de Latencia</h1>
             <p class="activity-subtitle">Experimentación interactiva con efectos de latencia</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 250</span>
                 </div>
             </div>
@@ -551,38 +551,38 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás sobre latencia de red a través de experimentación práctica. Simularás diferentes escenarios de red y observarás cómo diversos factores afectan el rendimiento y la experiencia del usuario.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🚦 Simulador de Latencia Interactivo</h2>
+                <h2 class="section-title"> Simulador de Latencia Interactivo</h2>
                 <div class="simulator-container">
                     <div class="simulator-grid">
                         <!-- Panel de Controles -->
                         <div class="controls-panel">
-                            <h3 style="color: #8888bb; margin-bottom: 15px; text-align: center; font-size: 1rem;">⚙️ Controles</h3>
+                            <h3 style="color: #8888bb; margin-bottom: 15px; text-align: center; font-size: 1rem;"> Controles</h3>
                             
                             <div class="control-group">
-                                <label>🌍 Distancia (km)</label>
+                                <label> Distancia (km)</label>
                                 <input type="range" id="distance" min="1" max="2000" value="500">
                                 <div class="control-value" id="distanceValue">500 km</div>
                             </div>
                             
                             <div class="control-group">
-                                <label>🔄 Routers</label>
+                                <label> Routers</label>
                                 <input type="range" id="routers" min="1" max="8" value="3">
                                 <div class="control-value" id="routersValue">3 routers</div>
                             </div>
                             
                             <div class="control-group">
-                                <label>⚡ Velocidad (Mbps)</label>
+                                <label> Velocidad (Mbps)</label>
                                 <input type="range" id="speed" min="10" max="1000" value="100">
                                 <div class="control-value" id="speedValue">100 Mbps</div>
                             </div>
                             
                             <div class="control-group">
-                                <label>📊 Congestión (%)</label>
+                                <label> Congestión (%)</label>
                                 <input type="range" id="congestion" min="0" max="90" value="20">
                                 <div class="control-value" id="congestionValue">20%</div>
                             </div>
@@ -590,7 +590,7 @@
 
                         <!-- Área de Visualización -->
                         <div class="visualization-area">
-                            <h3 style="color: #8888bb; margin-bottom: 12px; font-size: 1rem;">📡 Visualización de Red</h3>
+                            <h3 style="color: #8888bb; margin-bottom: 12px; font-size: 1rem;"> Visualización de Red</h3>
                             <div class="network-path" id="networkPath">
                                 <!-- Los nodos se generarán dinámicamente -->
                             </div>
@@ -616,14 +616,14 @@
                     </div>
 
                     <div class="simulator-controls">
-                        <button class="control-btn" id="startSimulation">🚀 Iniciar Simulación</button>
-                        <button class="control-btn secondary" id="stopSimulation">⏹️ Detener</button>
-                        <button class="control-btn success" onclick="analyzeResults()">📊 Analizar Resultados</button>
+                        <button class="control-btn" id="startSimulation"> Iniciar Simulación</button>
+                        <button class="control-btn secondary" id="stopSimulation"> Detener</button>
+                        <button class="control-btn success" onclick="analyzeResults()"> Analizar Resultados</button>
                     </div>
                 </div>
 
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                    <h3 style="color: #8888bb; margin-bottom: 15px; font-size: 1.1rem;">📚 ¿Qué es la Latencia?</h3>
+                    <h3 style="color: #8888bb; margin-bottom: 15px; font-size: 1.1rem;"> ¿Qué es la Latencia?</h3>
                     <p style="color: #8888bb; line-height: 1.6; margin-bottom: 15px;">
                         La latencia es el tiempo que tarda un paquete de datos en viajar desde su origen hasta su destino. 
                         Es como el tiempo que tarda un mensajero en entregar una carta de una ciudad a otra.
@@ -631,19 +631,19 @@
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 15px;">
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
-                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;">🌍 Distancia</h4>
+                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Distancia</h4>
                             <p style="font-size: 0.8rem; color: #8888bb;">Más lejos = más tiempo</p>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
-                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;">🔄 Routers</h4>
+                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Routers</h4>
                             <p style="font-size: 0.8rem; color: #8888bb;">Cada uno añade delay</p>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
-                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;">📊 Congestión</h4>
+                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Congestión</h4>
                             <p style="font-size: 0.8rem; color: #8888bb;">Tráfico aumenta espera</p>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
-                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;">⚡ Velocidad</h4>
+                            <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Velocidad</h4>
                             <p style="font-size: 0.8rem; color: #8888bb;">Más rápido = menos latencia</p>
                         </div>
                     </div>
@@ -651,7 +651,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">📊 Análisis de Métricas</h2>
+                <h2 class="section-title"> Análisis de Métricas</h2>
                 <div class="analysis-container">
                     <p style="margin-bottom: 15px; color: #8888bb;">Analiza las métricas de rendimiento de tu simulación</p>
                     
@@ -679,18 +679,18 @@
                     </div>
 
                     <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                        <h4 style="color: #8888bb; margin-bottom: 10px;">💡 Interpretación de Métricas</h4>
+                        <h4 style="color: #8888bb; margin-bottom: 10px;"> Interpretación de Métricas</h4>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
                             <div>
-                                <strong style="color: #48bb78;">✅ Excelente:</strong>
+                                <strong style="color: #48bb78;"> Excelente:</strong>
                                 <p style="color: #8888bb; font-size: 0.85rem; margin: 3px 0;">Latencia < 20ms, Jitter < 5ms</p>
                             </div>
                             <div>
-                                <strong style="color: #f6ad55;">⚠️ Aceptable:</strong>
+                                <strong style="color: #f6ad55;"> Aceptable:</strong>
                                 <p style="color: #8888bb; font-size: 0.85rem; margin: 3px 0;">Latencia 20-100ms, Jitter 5-15ms</p>
                             </div>
                             <div>
-                                <strong style="color: #fc8181;">❌ Problemático:</strong>
+                                <strong style="color: #fc8181;"> Problemático:</strong>
                                 <p style="color: #8888bb; font-size: 0.85rem; margin: 3px 0;">Latencia > 100ms, Jitter > 15ms</p>
                             </div>
                         </div>
@@ -699,13 +699,13 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔧 Configuración de Parámetros</h2>
+                <h2 class="section-title"> Configuración de Parámetros</h2>
                 <div class="parameters-container">
                     <p style="margin-bottom: 15px; color: #8888bb;">Experimenta con diferentes configuraciones de red</p>
                     
                     <div class="parameters-grid">
                         <div class="parameter-group">
-                            <div class="parameter-title">🌐 Tipo de Red</div>
+                            <div class="parameter-title"> Tipo de Red</div>
                             <div class="parameter-controls">
                                 <div class="parameter-item">
                                     <label>Red:</label>
@@ -729,7 +729,7 @@
                         </div>
 
                         <div class="parameter-group">
-                            <div class="parameter-title">📊 Tráfico</div>
+                            <div class="parameter-title"> Tráfico</div>
                             <div class="parameter-controls">
                                 <div class="parameter-item">
                                     <label>Tamaño Paquete:</label>
@@ -745,7 +745,7 @@
                         </div>
 
                         <div class="parameter-group">
-                            <div class="parameter-title">🎛️ Avanzado</div>
+                            <div class="parameter-title"> Avanzado</div>
                             <div class="parameter-controls">
                                 <div class="parameter-item">
                                     <label>Buffer:</label>
@@ -766,19 +766,19 @@
                     </div>
 
                     <div style="text-align: center; margin: 20px 0;">
-                        <button class="control-btn" onclick="applyParameters()">⚡ Aplicar Configuración</button>
-                        <button class="control-btn secondary" onclick="resetParameters()">🔄 Resetear</button>
+                        <button class="control-btn" onclick="applyParameters()"> Aplicar Configuración</button>
+                        <button class="control-btn secondary" onclick="resetParameters()"> Resetear</button>
                     </div>
 
                     <div id="parameterResults" style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; display: none;">
-                        <h4 style="color: #8888bb; margin-bottom: 10px;">📊 Impacto de la Configuración</h4>
+                        <h4 style="color: #8888bb; margin-bottom: 10px;"> Impacto de la Configuración</h4>
                         <div id="parameterAnalysis"></div>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🧠 Quiz de Latencia</h2>
+                <h2 class="section-title"> Quiz de Latencia</h2>
                 <div class="quiz-container">
                     <div class="quiz-progress">
                         <div class="quiz-progress-fill" id="quizProgressFill"></div>
@@ -831,26 +831,26 @@
                     <div class="quiz-summary" id="quizSummary">
                         <div class="quiz-score" id="quizScoreDisplay">0/4</div>
                         <p id="quizMessage">¡Felicitaciones! Has completado el quiz de latencia.</p>
-                        <button class="control-btn" onclick="resetQuiz()" style="margin-top: 15px; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3);">🔄 Reiniciar Quiz</button>
+                        <button class="control-btn" onclick="resetQuiz()" style="margin-top: 15px; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3);"> Reiniciar Quiz</button>
                     </div>
                 </div>
             </div>
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips sobre Latencia y Rendimiento
+                     Tips sobre Latencia y Rendimiento
                 </h3>
                 <div class="tip-item">
-                    <strong>🎯 Distancia:</strong> La velocidad de la luz en fibra óptica es ~200,000 km/s, por lo que 1000km = ~5ms de latencia mínima.
+                    <strong> Distancia:</strong> La velocidad de la luz en fibra óptica es ~200,000 km/s, por lo que 1000km = ~5ms de latencia mínima.
                 </div>
                 <div class="tip-item">
-                    <strong>🔄 Procesamiento:</strong> Cada router típicamente añade 1-5ms de latencia por procesamiento de paquetes.
+                    <strong> Procesamiento:</strong> Cada router típicamente añade 1-5ms de latencia por procesamiento de paquetes.
                 </div>
                 <div class="tip-item">
-                    <strong>📊 Aplicaciones:</strong> Gaming requiere <20ms, video call <150ms, streaming tolera mayor latencia pero requiere bajo jitter.
+                    <strong> Aplicaciones:</strong> Gaming requiere <20ms, video call <150ms, streaming tolera mayor latencia pero requiere bajo jitter.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Pro tip:</strong> La congestión puede multiplicar la latencia por 10x o más en casos extremos.
+                    <strong> Pro tip:</strong> La congestión puede multiplicar la latencia por 10x o más en casos extremos.
                 </div>
             </div>
         </div>
@@ -866,12 +866,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -991,7 +991,7 @@
             if (simulatorState.isRunning) return;
             
             simulatorState.isRunning = true;
-            document.getElementById('startSimulation').textContent = '🔄 Simulando...';
+            document.getElementById('startSimulation').textContent = ' Simulando...';
             document.getElementById('startSimulation').disabled = true;
             
             updateNetworkVisualization();
@@ -1000,7 +1000,7 @@
 
         function stopSimulation() {
             simulatorState.isRunning = false;
-            document.getElementById('startSimulation').textContent = '🚀 Iniciar Simulación';
+            document.getElementById('startSimulation').textContent = ' Iniciar Simulación';
             document.getElementById('startSimulation').disabled = false;
             
             if (simulatorState.interval) {
@@ -1060,7 +1060,7 @@
             // Crear paquete
             const packet = document.createElement('div');
             packet.className = 'packet';
-            packet.textContent = '📦';
+            packet.textContent = '';
             networkPath.appendChild(packet);
             
             let currentIndex = 0;
@@ -1099,7 +1099,7 @@
         // ========== ANALYSIS FUNCTIONS ==========
         function analyzeResults() {
             if (simulatorState.metricsData.latencyHistory.length === 0) {
-                showNotification('⚠️ Ejecuta una simulación primero para generar datos');
+                showNotification(' Ejecuta una simulación primero para generar datos');
                 return;
             }
             
@@ -1125,7 +1125,7 @@
             updateMetricStatus('throughputStatus', avgThroughput, [50, 20], ['Excelente', 'Bueno', 'Bajo'], true);
             updateMetricStatus('lossStatus', packetLoss, [0.1, 1], ['Excelente', 'Aceptable', 'Crítico']);
             
-            showNotification('📊 Análisis de resultados completado');
+            showNotification(' Análisis de resultados completado');
         }
 
         function updateMetricStatus(elementId, value, thresholds, labels, reverse = false) {
@@ -1242,14 +1242,14 @@
                 <div style="margin-top: 12px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
                     <p style="color: #8888bb; font-size: 0.85rem; margin: 0;">
                         <strong>Configuración:</strong> ${networkType.toUpperCase()} sobre ${medium} 
-                        ${latencyMultiplier > 5 ? '- ⚠️ Alta latencia esperada' : ''}
-                        ${throughputMultiplier < 0.5 ? '- ⚠️ Throughput limitado' : ''}
+                        ${latencyMultiplier > 5 ? '-  Alta latencia esperada' : ''}
+                        ${throughputMultiplier < 0.5 ? '-  Throughput limitado' : ''}
                     </p>
                 </div>
             `;
             
             resultsDiv.style.display = 'block';
-            showNotification('⚡ Configuración aplicada exitosamente');
+            showNotification(' Configuración aplicada exitosamente');
         }
 
         function resetParameters() {
@@ -1262,7 +1262,7 @@
             
             initializeParameterControls();
             document.getElementById('parameterResults').style.display = 'none';
-            showNotification('🔄 Parámetros reseteados');
+            showNotification(' Parámetros reseteados');
         }
 
         // ========== QUIZ FUNCTIONALITY ==========
@@ -1298,11 +1298,11 @@
             feedback.style.display = 'block';
             if (isCorrect) {
                 feedback.className = 'feedback-area feedback-success';
-                feedback.textContent = '✅ ¡Correcto! Excelente comprensión de conceptos de latencia.';
+                feedback.textContent = ' ¡Correcto! Excelente comprensión de conceptos de latencia.';
                 simulatorState.quizAnswers[questionNum] = true;
             } else {
                 feedback.className = 'feedback-area feedback-error';
-                feedback.textContent = '❌ Incorrecto. Revisa los conceptos sobre latencia y rendimiento de red.';
+                feedback.textContent = ' Incorrecto. Revisa los conceptos sobre latencia y rendimiento de red.';
                 simulatorState.quizAnswers[questionNum] = false;
             }
             
@@ -1331,20 +1331,20 @@
             let message = '';
             
             if (percentage === 100) {
-                message = '🏆 ¡Perfecto! Dominas completamente los conceptos de latencia.';
+                message = ' ¡Perfecto! Dominas completamente los conceptos de latencia.';
             } else if (percentage >= 75) {
-                message = '🎉 ¡Excelente! Tienes muy buenos conocimientos sobre latencia de red.';
+                message = ' ¡Excelente! Tienes muy buenos conocimientos sobre latencia de red.';
             } else if (percentage >= 50) {
-                message = '👍 Bien hecho, pero hay oportunidades de mejora.';
+                message = ' Bien hecho, pero hay oportunidades de mejora.';
             } else {
-                message = '📚 Sigue estudiando los conceptos de latencia y rendimiento de red.';
+                message = ' Sigue estudiando los conceptos de latencia y rendimiento de red.';
             }
             
             messageDisplay.textContent = message;
             summary.style.display = 'block';
             summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            showNotification(`Quiz completado: ${correctAnswers}/4 🎯`);
+            showNotification(`Quiz completado: ${correctAnswers}/4 `);
         }
 
         function resetQuiz() {
@@ -1363,7 +1363,7 @@
             document.getElementById('quizProgressFill').style.width = '0%';
             document.getElementById('quizSummary').style.display = 'none';
             
-            showNotification('🔄 Quiz reiniciado. ¡Buena suerte!');
+            showNotification(' Quiz reiniciado. ¡Buena suerte!');
         }
 
         // ========== UTILITY FUNCTIONS ==========
@@ -1409,7 +1409,7 @@
             const hasQuizAnswers = Object.keys(simulatorState.quizAnswers).length >= 2;
             
             if (!hasSimulated || !hasAnalyzed || !hasQuizAnswers) {
-                alert('⚠️ Para completar la actividad necesitas:\n\n• Ejecutar al menos una simulación\n• Analizar los resultados obtenidos\n• Responder al menos 2 preguntas del quiz\n• Experimentar con los parámetros');
+                alert(' Para completar la actividad necesitas:\n\n• Ejecutar al menos una simulación\n• Analizar los resultados obtenidos\n• Responder al menos 2 preguntas del quiz\n• Experimentar con los parámetros');
                 return;
             }
             
@@ -1418,14 +1418,14 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             const correctAnswers = Object.values(simulatorState.quizAnswers).filter(answer => answer).length;
             const totalQuestions = Object.keys(simulatorState.quizAnswers).length;
             const avgLatency = simulatorState.metricsData.latencyHistory.length > 0 ? 
                 (simulatorState.metricsData.latencyHistory.reduce((a, b) => a + b, 0) / simulatorState.metricsData.latencyHistory.length).toFixed(1) : 0;
             
-            alert(`🎉 ¡Felicidades! Has completado la actividad "Simulador de Latencia".\n\n✅ Simulaciones ejecutadas: ${simulatorState.metricsData.latencyHistory.length}\n📊 Latencia promedio observada: ${avgLatency}ms\n🧠 Quiz: ${correctAnswers}/${totalQuestions} respuestas correctas\n🏆 +250 puntos ganados`);
+            alert(` ¡Felicidades! Has completado la actividad "Simulador de Latencia".\n\n Simulaciones ejecutadas: ${simulatorState.metricsData.latencyHistory.length}\n Latencia promedio observada: ${avgLatency}ms\n Quiz: ${correctAnswers}/${totalQuestions} respuestas correctas\n +250 puntos ganados`);
         }
 
         function goBack() {

@@ -316,19 +316,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 4</a> / Actividad 4
             </div>
-            <h1 class="activity-title">🚪 Configurador de Reglas de Firewall</h1>
+            <h1 class="activity-title"> Configurador de Reglas de Firewall</h1>
             <p class="activity-subtitle">Diseña y configura reglas para proteger una red empresarial</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>35 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -336,36 +336,36 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a configurar reglas de firewall para proteger una red empresarial. Entenderás cómo funcionan las políticas de seguridad, puertos, protocolos y prioridades de reglas.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🛠️ Simulador de Firewall</h2>
+                <h2 class="section-title"> Simulador de Firewall</h2>
                 
                 <div class="firewall-simulator">
                     <div class="simulator-section">
-                        <h3 class="simulator-title">🏢 Escenarios Predefinidos</h3>
+                        <h3 class="simulator-title"> Escenarios Predefinidos</h3>
                         <p style="margin-bottom: 15px; color: #8888bb;">Selecciona un escenario para cargar reglas de ejemplo:</p>
                         
                         <div class="predefined-scenarios">
                             <div class="scenario-card" onclick="loadScenario('office')" data-scenario="office">
-                                <span class="scenario-icon">🏢</span>
+                                <span class="scenario-icon"></span>
                                 <div class="scenario-name">Oficina Básica</div>
                                 <div class="scenario-desc">Reglas para oficina pequeña</div>
                             </div>
                             <div class="scenario-card" onclick="loadScenario('enterprise')" data-scenario="enterprise">
-                                <span class="scenario-icon">🏭</span>
+                                <span class="scenario-icon"></span>
                                 <div class="scenario-name">Empresa</div>
                                 <div class="scenario-desc">Entorno corporativo complejo</div>
                             </div>
                             <div class="scenario-card" onclick="loadScenario('dmz')" data-scenario="dmz">
-                                <span class="scenario-icon">🛡️</span>
+                                <span class="scenario-icon"></span>
                                 <div class="scenario-name">DMZ</div>
                                 <div class="scenario-desc">Zona desmilitarizada</div>
                             </div>
                             <div class="scenario-card" onclick="loadScenario('lockdown')" data-scenario="lockdown">
-                                <span class="scenario-icon">🔒</span>
+                                <span class="scenario-icon"></span>
                                 <div class="scenario-name">Alta Seguridad</div>
                                 <div class="scenario-desc">Máxima protección</div>
                             </div>
@@ -373,7 +373,7 @@
                     </div>
 
                     <div class="simulator-section">
-                        <h3 class="simulator-title">➕ Constructor de Reglas</h3>
+                        <h3 class="simulator-title"> Constructor de Reglas</h3>
                         <div class="rule-builder">
                             <div class="rule-form">
                                 <div class="form-group">
@@ -422,15 +422,15 @@
                                 </div>
                             </div>
                             <div class="rule-actions">
-                                <button class="rule-btn" onclick="addRule()">➕ Agregar Regla</button>
-                                <button class="rule-btn secondary" onclick="clearForm()">🗑️ Limpiar</button>
-                                <button class="rule-btn secondary" onclick="loadCommonRules()">⚡ Reglas Comunes</button>
+                                <button class="rule-btn" onclick="addRule()"> Agregar Regla</button>
+                                <button class="rule-btn secondary" onclick="clearForm()"> Limpiar</button>
+                                <button class="rule-btn secondary" onclick="loadCommonRules()"> Reglas Comunes</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="simulator-section">
-                        <h3 class="simulator-title">📋 Reglas Configuradas</h3>
+                        <h3 class="simulator-title"> Reglas Configuradas</h3>
                         <div style="overflow-x: auto;">
                             <table class="rules-table" id="rulesTable">
                                 <thead>
@@ -456,15 +456,15 @@
                             </table>
                         </div>
                         <div style="margin-top: 15px;">
-                            <button class="rule-btn danger" onclick="clearAllRules()">🗑️ Limpiar Todas las Reglas</button>
-                            <button class="rule-btn secondary" onclick="exportRules()">📤 Exportar Configuración</button>
+                            <button class="rule-btn danger" onclick="clearAllRules()"> Limpiar Todas las Reglas</button>
+                            <button class="rule-btn secondary" onclick="exportRules()"> Exportar Configuración</button>
                         </div>
                     </div>
 
                     <div class="simulator-section">
-                        <h3 class="simulator-title">🧪 Probar Conexión</h3>
+                        <h3 class="simulator-title"> Probar Conexión</h3>
                         <div class="test-panel">
-                            <div class="test-title">🔍 Simulador de Tráfico</div>
+                            <div class="test-title"> Simulador de Tráfico</div>
                             <p style="margin-bottom: 15px; color: #8888bb;">Prueba si una conexión específica sería permitida o bloqueada por tus reglas:</p>
                             
                             <div class="test-form">
@@ -493,7 +493,7 @@
                                     <input type="text" id="testDestPort" class="form-input" placeholder="80" value="80">
                                 </div>
                             </div>
-                            <button class="rule-btn" onclick="testConnection()">🧪 Probar Conexión</button>
+                            <button class="rule-btn" onclick="testConnection()"> Probar Conexión</button>
                             <div id="testResult" style="display: none;"></div>
                         </div>
                     </div>
@@ -502,22 +502,22 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips de Configuración de Firewall
+                     Tips de Configuración de Firewall
                 </h3>
                 <div class="tip-item">
-                    <strong>🔢 Prioridad:</strong> Las reglas con menor número tienen mayor prioridad - se evalúan primero.
+                    <strong> Prioridad:</strong> Las reglas con menor número tienen mayor prioridad - se evalúan primero.
                 </div>
                 <div class="tip-item">
-                    <strong>🚪 Puertos comunes:</strong> HTTP (80), HTTPS (443), SSH (22), DNS (53), FTP (21), SMTP (25).
+                    <strong> Puertos comunes:</strong> HTTP (80), HTTPS (443), SSH (22), DNS (53), FTP (21), SMTP (25).
                 </div>
                 <div class="tip-item">
-                    <strong>🛡️ Principio:</strong> "Denegar por defecto" - bloquea todo y permite solo lo necesario.
+                    <strong> Principio:</strong> "Denegar por defecto" - bloquea todo y permite solo lo necesario.
                 </div>
                 <div class="tip-item">
-                    <strong>🔍 Orden:</strong> Las reglas se evalúan de arriba hacia abajo - la primera coincidencia gana.
+                    <strong> Orden:</strong> Las reglas se evalúan de arriba hacia abajo - la primera coincidencia gana.
                 </div>
                 <div class="tip-item">
-                    <strong>⚡ Stateful:</strong> Los firewalls modernos recuerdan conexiones establecidas para permitir respuestas.
+                    <strong> Stateful:</strong> Los firewalls modernos recuerdan conexiones establecidas para permitir respuestas.
                 </div>
             </div>
         </div>
@@ -533,12 +533,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -610,7 +610,7 @@
             
             // Mostrar mensaje de éxito
             setTimeout(() => {
-                alert(`✅ Escenario "${getScenarioName(scenarioType)}" cargado correctamente.\n\n📋 Se han agregado ${scenario.length} reglas de firewall.`);
+                alert(` Escenario "${getScenarioName(scenarioType)}" cargado correctamente.\n\n Se han agregado ${scenario.length} reglas de firewall.`);
             }, 100);
         }
 
@@ -635,7 +635,7 @@
             const description = document.getElementById('ruleDescription').value || 'Sin descripción';
 
             if (!destPort || destPort === 'any') {
-                if (confirm('⚠️ Estás creando una regla sin puerto específico.\n\n¿Estás seguro? Esto podría afectar todo el tráfico.')) {
+                if (confirm(' Estás creando una regla sin puerto específico.\n\n¿Estás seguro? Esto podría afectar todo el tráfico.')) {
                     // Continuar
                 } else {
                     return;
@@ -664,7 +664,7 @@
             
             // Mensaje de confirmación
             const actionText = action === 'allow' ? 'PERMITIR' : 'DENEGAR';
-            alert(`✅ Regla agregada: ${actionText} ${protocol.toUpperCase()} desde ${sourceIP}:${sourcePort} hacia ${destIP}:${destPort}`);
+            alert(` Regla agregada: ${actionText} ${protocol.toUpperCase()} desde ${sourceIP}:${sourcePort} hacia ${destIP}:${destPort}`);
         }
 
         function deleteRule(ruleId) {
@@ -697,15 +697,15 @@
                 firewallRules.sort((a, b) => a.priority - b.priority);
                 updateRulesTable();
                 
-                alert(`✅ Se han agregado ${commonRules.length} reglas comunes al firewall.`);
+                alert(` Se han agregado ${commonRules.length} reglas comunes al firewall.`);
             }
         }
 
         function clearAllRules() {
-            if (confirm('⚠️ ¿Estás seguro de que quieres eliminar TODAS las reglas?\n\nEsto dejará el firewall sin configuración.')) {
+            if (confirm(' ¿Estás seguro de que quieres eliminar TODAS las reglas?\n\nEsto dejará el firewall sin configuración.')) {
                 firewallRules = [];
                 updateRulesTable();
-                alert('🗑️ Todas las reglas han sido eliminadas.');
+                alert(' Todas las reglas han sido eliminadas.');
             }
         }
 
@@ -726,7 +726,7 @@
             tbody.innerHTML = firewallRules.map(rule => `
                 <tr>
                     <td><span class="rule-priority">${rule.priority}</span></td>
-                    <td><span class="rule-status ${rule.action}">${rule.action === 'allow' ? '✅ Permitir' : '❌ Denegar'}</span></td>
+                    <td><span class="rule-status ${rule.action}">${rule.action === 'allow' ? ' Permitir' : ' Denegar'}</span></td>
                     <td>${rule.protocol.toUpperCase()}</td>
                     <td>${rule.sourceIP}</td>
                     <td>${rule.sourcePort}</td>
@@ -735,7 +735,7 @@
                     <td>${rule.description}</td>
                     <td>
                         <button class="rule-btn danger" onclick="deleteRule(${rule.id})" style="padding: 4px 8px; font-size: 0.8rem;">
-                            🗑️
+                            
                         </button>
                     </td>
                 </tr>
@@ -771,7 +771,7 @@
                 const isAllowed = matchedRule.action === 'allow';
                 resultDiv.className = `test-result ${isAllowed ? 'allowed' : 'blocked'}`;
                 resultDiv.innerHTML = `
-                    <strong>${isAllowed ? '✅ CONEXIÓN PERMITIDA' : '❌ CONEXIÓN BLOQUEADA'}</strong><br>
+                    <strong>${isAllowed ? ' CONEXIÓN PERMITIDA' : ' CONEXIÓN BLOQUEADA'}</strong><br>
                     <strong>Regla aplicada:</strong> ${matchedRule.description}<br>
                     <strong>Prioridad:</strong> ${matchedRule.priority}<br>
                     <strong>Detalle:</strong> ${matchedRule.action} ${matchedRule.protocol} ${matchedRule.sourceIP}:${matchedRule.sourcePort} → ${matchedRule.destIP}:${matchedRule.destPort}
@@ -779,7 +779,7 @@
             } else {
                 resultDiv.className = 'test-result blocked';
                 resultDiv.innerHTML = `
-                    <strong>❌ CONEXIÓN BLOQUEADA</strong><br>
+                    <strong> CONEXIÓN BLOQUEADA</strong><br>
                     <strong>Razón:</strong> No hay reglas que permitan esta conexión<br>
                     <strong>Política por defecto:</strong> Denegar todo (implícita)
                 `;
@@ -883,7 +883,7 @@ iptables -P OUTPUT ACCEPT`;
             element.click();
             document.body.removeChild(element);
 
-            alert('📤 Configuración exportada como script de iptables.\n\n⚠️ Revisa el archivo antes de ejecutarlo en un sistema real.');
+            alert(' Configuración exportada como script de iptables.\n\n Revisa el archivo antes de ejecutarlo en un sistema real.');
         }
 
         function markCompleted() {
@@ -892,9 +892,9 @@ iptables -P OUTPUT ACCEPT`;
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Excelente trabajo! Has completado el configurador de firewall.\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n🚪 Ahora comprendes cómo proteger redes con reglas de firewall.');
+            alert(' ¡Excelente trabajo! Has completado el configurador de firewall.\n\n Actividad marcada como completada\n +200 puntos ganados\n\n Ahora comprendes cómo proteger redes con reglas de firewall.');
         }
 
         function goBack() {

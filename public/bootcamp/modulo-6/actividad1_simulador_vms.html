@@ -393,19 +393,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 6</a> / Actividad 1
             </div>
-            <h1 class="activity-title">🏢 Simulador de Máquinas Virtuales</h1>
+            <h1 class="activity-title"> Simulador de Máquinas Virtuales</h1>
             <p class="activity-subtitle">Experimenta creando y gestionando máquinas virtuales en un servidor simulado</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 150</span>
                 </div>
             </div>
@@ -413,35 +413,35 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad simularás ser un administrador de sistemas que debe crear y gestionar máquinas virtuales en un servidor físico. Aprenderás sobre limitaciones de recursos y planificación de capacidad.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🖥️ Servidor Físico</h2>
+                <h2 class="section-title"> Servidor Físico</h2>
                 <div class="server-container">
                     <div class="server-specs">
                         <div class="spec-item">
-                            <span>🖥️</span>
+                            <span></span>
                             <span>Servidor HP DL380</span>
                         </div>
                         <div class="spec-item">
-                            <span>💾</span>
+                            <span></span>
                             <span>CPU: <span class="spec-value" id="totalCpu">32 Cores</span></span>
                         </div>
                         <div class="spec-item">
-                            <span>🧠</span>
+                            <span></span>
                             <span>RAM: <span class="spec-value" id="totalRam">64 GB</span></span>
                         </div>
                         <div class="spec-item">
-                            <span>💽</span>
+                            <span></span>
                             <span>Storage: <span class="spec-value" id="totalStorage">2 TB</span></span>
                         </div>
                     </div>
 
                     <div class="resources-overview">
                         <div class="resource-card">
-                            <div class="resource-icon">🔥</div>
+                            <div class="resource-icon"></div>
                             <div class="resource-title">CPU Cores</div>
                             <div class="resource-bar">
                                 <div class="resource-fill cpu" id="cpuBar"></div>
@@ -450,7 +450,7 @@
                         </div>
 
                         <div class="resource-card">
-                            <div class="resource-icon">🧠</div>
+                            <div class="resource-icon"></div>
                             <div class="resource-title">Memoria RAM</div>
                             <div class="resource-bar">
                                 <div class="resource-fill ram" id="ramBar"></div>
@@ -459,7 +459,7 @@
                         </div>
 
                         <div class="resource-card">
-                            <div class="resource-icon">💾</div>
+                            <div class="resource-icon"></div>
                             <div class="resource-title">Almacenamiento</div>
                             <div class="resource-bar">
                                 <div class="resource-fill storage" id="storageBar"></div>
@@ -471,18 +471,18 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">➕ Crear Nueva Máquina Virtual</h2>
+                <h2 class="section-title"> Crear Nueva Máquina Virtual</h2>
                 <div class="vm-controls">
-                    <h3 class="controls-title">⚙️ Configuración de VM</h3>
+                    <h3 class="controls-title"> Configuración de VM</h3>
                     
                     <div class="vm-form">
                         <div class="form-group">
-                            <label class="form-label">🏷️ Nombre de la VM</label>
+                            <label class="form-label"> Nombre de la VM</label>
                             <input type="text" id="vmName" class="form-input" placeholder="Ej: VM-Web-Server">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">💻 Sistema Operativo</label>
+                            <label class="form-label"> Sistema Operativo</label>
                             <select id="vmOS" class="form-select">
                                 <option value="">Selecciona un OS</option>
                                 <option value="ubuntu">Ubuntu Server (2 GB RAM mín.)</option>
@@ -493,22 +493,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">🔥 CPU Cores</label>
+                            <label class="form-label"> CPU Cores</label>
                             <input type="number" id="vmCpu" class="form-input" placeholder="1-8" min="1" max="8">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">🧠 RAM (GB)</label>
+                            <label class="form-label"> RAM (GB)</label>
                             <input type="number" id="vmRam" class="form-input" placeholder="1-16" min="1" max="16">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">💾 Almacenamiento (GB)</label>
+                            <label class="form-label"> Almacenamiento (GB)</label>
                             <input type="number" id="vmStorage" class="form-input" placeholder="20-500" min="20" max="500">
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">🎯 Propósito</label>
+                            <label class="form-label"> Propósito</label>
                             <select id="vmPurpose" class="form-select">
                                 <option value="">Selecciona el uso</option>
                                 <option value="web">Servidor Web</option>
@@ -521,7 +521,7 @@
                     </div>
 
                     <button class="create-btn" id="createVmBtn" onclick="createVM()">
-                        <span>🚀</span>
+                        <span></span>
                         <span>Crear Máquina Virtual</span>
                     </button>
 
@@ -530,7 +530,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">📋 Máquinas Virtuales Activas</h2>
+                <h2 class="section-title"> Máquinas Virtuales Activas</h2>
                 <div class="vms-list">
                     <div id="vmsList">
                         <p style="text-align: center; color: #8888bb; font-style: italic; padding: 20px;">
@@ -542,16 +542,16 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips y Mejores Prácticas
+                     Tips y Mejores Prácticas
                 </h3>
                 <div class="tip-item">
-                    <strong>🎯 Planificación:</strong> Reserva siempre un 20% de recursos para el sistema host y operaciones del hipervisor.
+                    <strong> Planificación:</strong> Reserva siempre un 20% de recursos para el sistema host y operaciones del hipervisor.
                 </div>
                 <div class="tip-item">
-                    <strong>🔍 Sobreaprovisionamiento:</strong> En entornos reales, puedes asignar más recursos de los físicamente disponibles (overcommit) si las VMs no usan todos sus recursos simultáneamente.
+                    <strong> Sobreaprovisionamiento:</strong> En entornos reales, puedes asignar más recursos de los físicamente disponibles (overcommit) si las VMs no usan todos sus recursos simultáneamente.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Optimización:</strong> Las VMs para desarrollo pueden tener menos recursos que las de producción. Ajusta según el propósito real.
+                    <strong> Optimización:</strong> Las VMs para desarrollo pueden tener menos recursos que las de producción. Ajusta según el propósito real.
                 </div>
             </div>
         </div>
@@ -567,12 +567,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -755,7 +755,7 @@
             vmsList.innerHTML = virtualMachines.map(vm => `
                 <div class="vm-item">
                     <div class="vm-info">
-                        <div class="vm-name">🖥️ ${vm.name}</div>
+                        <div class="vm-name"> ${vm.name}</div>
                         <div class="vm-specs-text">
                             ${vm.os.charAt(0).toUpperCase() + vm.os.slice(1)} • 
                             ${vm.cpu} cores • 
@@ -765,15 +765,15 @@
                         </div>
                     </div>
                     <div class="vm-status ${vm.status}">
-                        <span>${vm.status === 'running' ? '🟢' : '🔴'}</span>
+                        <span>${vm.status === 'running' ? '' : ''}</span>
                         <span>${vm.status === 'running' ? 'Ejecutándose' : 'Detenida'}</span>
                     </div>
                     <div class="vm-actions">
                         ${vm.status === 'running' ? 
-                            `<button class="action-btn stop" onclick="stopVM(${vm.id})">⏹️ Detener</button>` :
-                            `<button class="action-btn start" onclick="startVM(${vm.id})">▶️ Iniciar</button>`
+                            `<button class="action-btn stop" onclick="stopVM(${vm.id})"> Detener</button>` :
+                            `<button class="action-btn start" onclick="startVM(${vm.id})">▶ Iniciar</button>`
                         }
-                        <button class="action-btn delete" onclick="deleteVM(${vm.id})">🗑️ Eliminar</button>
+                        <button class="action-btn delete" onclick="deleteVM(${vm.id})"> Eliminar</button>
                     </div>
                 </div>
             `).join('');
@@ -826,19 +826,19 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             // Mostrar mensaje de éxito
             const vmCount = virtualMachines.length;
             const runningVMs = virtualMachines.filter(vm => vm.status === 'running').length;
             
-            alert(`🎉 ¡Felicidades! Has completado la actividad "Simulador de Máquinas Virtuales".\n\n` +
-                  `📊 Estadísticas:\n` +
+            alert(` ¡Felicidades! Has completado la actividad "Simulador de Máquinas Virtuales".\n\n` +
+                  ` Estadísticas:\n` +
                   `• ${vmCount} máquinas virtuales creadas\n` +
                   `• ${runningVMs} VMs ejecutándose\n` +
                   `• ${serverResources.usedCpu}/${serverResources.totalCpu} cores utilizados\n` +
                   `• ${serverResources.usedRam}/${serverResources.totalRam} GB RAM utilizados\n\n` +
-                  `✅ Actividad marcada como completada\n🏆 +150 puntos ganados`);
+                  ` Actividad marcada como completada\n +150 puntos ganados`);
         }
 
         function goBack() {
