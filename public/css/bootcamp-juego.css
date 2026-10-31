@@ -535,3 +535,14 @@ html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
   image-rendering: pixelated;
   padding-right: 56px !important;
 }
+
+/* Objeto pixel en cada título de sección */
+.dl-obj {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  vertical-align: -7px;
+  margin-right: 10px;
+}

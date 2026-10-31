@@ -141,11 +141,46 @@ def cabecera(m: int, pagina: str) -> str:
 """
 
 
+# Objeto pixel para cada título de sección, según de qué habla (la primera palabra clave que aparezca gana).
+OBJETO_TEMA = [
+    (("cifr", "encript", "certific", "segur", "candado", "ssl", "tls"), "obj-candado"),
+    (("llave", "clave", "ssh", "contraseñ"), "obj-llave"),
+    (("firewall", "cortafuego", "ataque", "riesgo", "amenaz", "error", "desastre"), "obj-advertencia"),
+    (("dns", "nombre", "busca", "investig", "explor", "jerarq"), "obj-lupa"),
+    (("router", "ruta", "red", "redes", "topolog", "subred", "máscara", "mascara"), "obj-router"),
+    (("cable", "conex", "conect", "carretera"), "obj-cable"),
+    (("wifi", "inalámbr", "señal"), "obj-wifi"),
+    (("latencia", "velocidad", "tiempo", "ttl", "rto", "rpo"), "obj-cronometro"),
+    (("paquete", "datos viajan", "mensaje", "protocolo"), "obj-paquete"),
+    (("backup", "respaldo", "copia", "recuper"), "obj-disquete"),
+    (("almacen", "disco", "volumen", "bloque", "archivo"), "obj-disco"),
+    (("base de datos", "bases de datos", "sql", "tabla", "metadato"), "obj-cd"),
+    (("servidor", "máquina", "maquina", "vm", "virtual", "contenedor"), "obj-servidores"),
+    (("nube", "cloud", "aws", "internet"), "obj-nube"),
+    (("terminal", "linux", "comando", "script", "laboratorio", "simulador", "práctic", "practic"), "obj-laptop"),
+    (("satél", "satel", "global", "mundo"), "obj-satelite"),
+    (("objetivo", "meta", "complet", "resultado"), "obj-bandera"),
+    (("checklist", "pasos", "plan", "planific", "evalua"), "obj-checklist"),
+    (("idea", "concepto", "qué es", "que es", "por qué", "por que"), "obj-bombillo"),
+]
+OBJETO_MODULO = {0: "obj-satelite", 1: "obj-cable", 2: "obj-router", 3: "obj-lupa", 4: "obj-candado", 5: "obj-laptop", 6: "obj-servidores", 7: "obj-disco", 8: "obj-disquete"}
+
+
+def con_objetos(h: str, m: int) -> str:
+    """Pone un objeto pixel antes del texto de cada título de sección."""
+    def poner(x):
+        texto = re.sub(r"<[^>]+>", "", x.group(3)).lower()
+        obj = next((o for claves, o in OBJETO_TEMA if any(k in texto for k in claves)), OBJETO_MODULO[m])
+        return f'{x.group(1)}<img class="dl-obj" src="/img/sprites/{obj}.png" alt="" width="32" height="32">{x.group(3)}{x.group(4)}'
+    return re.sub(r'(<(h[1-4]|div|span)[^>]*class="[^"]*\b(?:section-title|teoria-title|card-title)\b[^"]*"[^>]*>)(.*?)(</\2>)', poner, h, flags=re.S)
+
+
 def con_progreso(h: str, m: int, pagina: str, total: int) -> str:
     """Piel de videojuego (al final del head, gana a los estilos propios) + chip de progreso."""
     h = re.sub(r"<html([^>]*)>", lambda x: f'<html{x.group(1)} style="--c:{COLOR[m]}">', h, count=1)
     h = h.replace("</head>", '<link rel="stylesheet" href="/css/bootcamp-juego.css">\n</head>', 1)
     h = re.sub(r"(<body[^>]*>)", lambda x: x.group(1) + "\n" + cabecera(m, pagina), h, count=1)
+    h = con_objetos(h, m)
     tag = f'<script src="/js/bootcamp-progreso.js" data-modulo="{m}" data-pagina="{pagina}" data-total="{total}" defer></script>'
     return h.replace("</body>", f"{tag}\n</body>", 1)
 
