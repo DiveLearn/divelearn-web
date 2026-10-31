@@ -176,7 +176,9 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
 
-  aliases = var.custom_domain_ready ? [local.domain, "www.${local.domain}"] : []
+  # Los alias se movieron desde la distribución vieja (otra cuenta) con
+  # `aws cloudfront associate-alias`; ver README. Hasta entonces, solo el certificado.
+  aliases = var.custom_domain_ready && var.aliases_moved ? [local.domain, "www.${local.domain}"] : []
 
   # Hasta activar el dominio se usa el certificado de *.cloudfront.net (ver dns.tf).
   viewer_certificate {

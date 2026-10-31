@@ -29,6 +29,18 @@ scripts/deploy.sh
 
 Todo cambio entra por Pull Request; CI revisa formato, validación y seguridad (checkov).
 
+## Mover el dominio desde otra distribución (hecho el 2026-10-30)
+
+`divelearn.cloud` seguía asociado a la distribución de CloudFront de la cuenta vieja. Con el certificado ya puesto
+en la distribución nueva y los TXT `_divelearn.cloud` / `_www.divelearn.cloud` apuntando a ella:
+
+```bash
+aws cloudfront associate-alias --target-distribution-id E32922Y3WKSJS3 --alias divelearn.cloud
+aws cloudfront associate-alias --target-distribution-id E32922Y3WKSJS3 --alias www.divelearn.cloud
+```
+
+Después `aliases_moved = true` en `infra/terraform.tfvars`.
+
 ## Pendiente
 
 - **Despliegue desde GitHub con OIDC.** La cuenta está en el plan gratis de AWS, que bloquea crear el proveedor OIDC. Al pasar a plan pago (antes del 30-abr-2027): crear el proveedor y los roles de plan/apply en `bootstrap/` y agregar los jobs de `plan`, `apply` y despliegue en `.github/workflows/`.
