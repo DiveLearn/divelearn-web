@@ -5,7 +5,10 @@ import Icon from "../../components/Icon.astro";
 import Pixel from "../../components/Pixel.astro";
 import { etapas, rangos, XP } from "../../data/bootcamp";
 import paginas from "../../data/bootcamp-paginas.json";
-import { PALETA, BUZO, PEZ, PEZ2, PALMERA, ISLA, NUBE, COFRE, BURBUJA, TANQUE } from "../../data/sprites";
+import { PALETA, PALMERA, ISLA, NUBE, COFRE, BURBUJA, TANQUE } from "../../data/sprites";
+
+// Personajes pixel diseñados con Gemini y limpiados con scripts/recortar-sprites.py (PNG a 1x).
+const sprite = (n: string, w: number, h: number, x: number) => ({ src: `/img/sprites/${n}.png`, width: w * x, height: h * x });
 
 const pags = paginas as Record<string, string[]>;
 const xpDe = (slug: string) => (slug.startsWith("quiz") ? XP.quiz : XP.actividad);
@@ -55,9 +58,10 @@ const camino = [
         </div>
         <div class="mar">
           <span class="ola o1"></span><span class="ola o2"></span>
-          <Pixel mapa={BUZO} paleta={PALETA} escala={6} class="buzo" titulo="Buzo de DiveLearn" />
-          <Pixel mapa={PEZ} paleta={PALETA} escala={5} class="pez p1" />
-          <Pixel mapa={PEZ2} paleta={PALETA} escala={5} class="pez p2" />
+          <img class="px buzo" {...sprite("buzo-nada", 89, 44, 2.6)} alt="La buzo de DiveLearn nadando" />
+          <img class="px pez p1" {...sprite("pez-payaso", 46, 32, 1.6)} alt="" />
+          <img class="px tortuga" {...sprite("tortuga", 70, 42, 1.8)} alt="" />
+          <img class="px medusa" {...sprite("medusa", 31, 44, 1.6)} alt="" />
           <Pixel mapa={BURBUJA} paleta={PALETA} escala={4} class="burbuja u1" />
           <Pixel mapa={BURBUJA} paleta={PALETA} escala={3} class="burbuja u2" />
           <Pixel mapa={COFRE} paleta={PALETA} escala={6} class="cofre" />
@@ -91,7 +95,7 @@ const camino = [
       <article class="panel">
         <header class="barra-titulo"><h2>Tu progreso</h2><span class="puntos"><i></i><i></i><i></i></span></header>
         <div class="perfil">
-          <div class="avatar"><Pixel mapa={BUZO} paleta={PALETA} escala={5} /></div>
+          <div class="avatar"><img class="px" {...sprite("buzo-saluda", 44, 62, 1.4)} alt="Tu buzo" /></div>
           <div class="perfil-txt">
             <p class="rango" data-rango>{juego.rangos[0].nombre}</p>
             <div class="barra-xp"><span data-barra></span></div>
@@ -107,7 +111,10 @@ const camino = [
 
       <article class="panel">
         <header class="barra-titulo"><h2>Misión del día</h2><span class="puntos"><i></i><i></i><i></i></span></header>
-        <p class="mision"><span class="check" data-mision-check></span><span data-mision>Abre tu primera actividad del bootcamp.</span></p>
+        <div class="profe">
+          <img class="px" {...sprite("pulpo-profe", 48, 46, 1.5)} alt="El pulpo profe" />
+          <p class="mision"><span class="check" data-mision-check></span><span data-mision>Abre tu primera actividad del bootcamp.</span></p>
+        </div>
         <div class="terminal">
           <span class="puntos"><i></i><i></i><i></i></span>
           <code data-comando>$ curl -I https://divelearn.cloud</code>
@@ -183,7 +190,7 @@ const camino = [
   <!-- ── Subida de rango ── -->
   <div class="subida" role="dialog" aria-modal="true" aria-labelledby="t-subida" hidden data-subida>
     <div class="panel subida-caja">
-      <Icon name="trophy" class="trofeo" />
+      <img class="px" {...sprite("buzo-saluda", 44, 62, 2)} alt="" />
       <p class="subida-kicker">¡Subiste de rango!</p>
       <h2 id="t-subida" data-subida-rango></h2>
       <button type="button" class="btn-jugar" data-subida-ok>¡Vamos!</button>
@@ -578,31 +585,47 @@ const camino = [
       transform: translateX(-48px);
     }
   }
-  .pantalla :global(.buzo) {
+  .px {
+    image-rendering: pixelated;
+    height: auto;
+  }
+  .pantalla .buzo {
     position: absolute;
-    left: 42%;
-    top: -58px;
+    left: 36%;
+    top: -34px;
     z-index: 3;
     animation: flotar 3s ease-in-out infinite;
+  }
+  .pantalla .tortuga {
+    position: absolute;
+    top: 52%;
+    left: 100%;
+    animation: nadar 26s linear infinite;
+    animation-delay: -9s;
+  }
+  .pantalla .medusa {
+    position: absolute;
+    top: 38%;
+    left: 14%;
+    animation: medusa 5s ease-in-out infinite;
+  }
+  @keyframes medusa {
+    50% {
+      transform: translateY(-18px) scaleY(0.94);
+    }
   }
   @keyframes flotar {
     50% {
       transform: translateY(10px) rotate(-3deg);
     }
   }
-  .pantalla :global(.pez) {
+  .pantalla .pez {
     position: absolute;
     animation: nadar 14s linear infinite;
   }
-  .pantalla :global(.p1) {
+  .pantalla .p1 {
     top: 40%;
     left: 100%;
-  }
-  .pantalla :global(.p2) {
-    top: 64%;
-    left: 100%;
-    animation-duration: 19s !important;
-    animation-delay: -6s !important;
   }
   @keyframes nadar {
     to {
@@ -791,6 +814,19 @@ const camino = [
   .etapa .panel.visto {
     opacity: 1;
     transform: none;
+  }
+  .profe {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 14px 18px 0;
+  }
+  .profe img {
+    flex: 0 0 auto;
+    animation: medusa 4s ease-in-out infinite;
+  }
+  .profe .mision {
+    padding: 4px 0 12px;
   }
   .perfil {
     display: flex;
@@ -1152,10 +1188,9 @@ const camino = [
       opacity: 0;
     }
   }
-  .subida-caja :global(.trofeo) {
-    font-size: 5rem;
-    color: #f0b53c;
-    --duo: #ffd36e;
+  .subida-caja img {
+    margin: 0 auto;
+    animation: medusa 1.6s ease-in-out infinite;
   }
   .subida-kicker {
     margin: 8px 0 0;
