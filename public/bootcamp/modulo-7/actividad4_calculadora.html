@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 4 - Calculadora de Rendimiento vs Costo</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -325,6 +325,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-datos.png" alt="" width="84" height="68"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 7</span><span class="dl-jh-tit">Dónde guardar las cosas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 7</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -357,16 +372,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad aprenderás a evaluar diferentes opciones de almacenamiento considerando factores críticos como rendimiento, capacidad, costo y escalabilidad. Usarás una calculadora interactiva para tomar decisiones informadas.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Calculadora Interactiva</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-disco.png" alt="" width="32" height="32"> Calculadora Interactiva</h2>
                 
                 <div class="calculator-interface">
                     <div class="input-panel">
-                        <h4 style="color: #8888bb; margin-bottom: 20px;"> Parámetros del Proyecto</h4>
+                        <h4 style="color: #55538a; margin-bottom: 20px;"> Parámetros del Proyecto</h4>
                         
                         <div class="input-group">
                             <label class="input-label">Capacidad requerida (GB):</label>
@@ -430,9 +445,9 @@
                     </div>
 
                     <div class="results-panel">
-                        <h4 style="color: #8888bb; margin-bottom: 20px;"> Opciones Recomendadas</h4>
+                        <h4 style="color: #55538a; margin-bottom: 20px;"> Opciones Recomendadas</h4>
                         <div id="recommendationsContainer">
-                            <div style="text-align: center; color: #8888bb; padding: 40px 20px;">
+                            <div style="text-align: center; color: #55538a; padding: 40px 20px;">
                                 <div style="font-size: 3rem; margin-bottom: 15px;"></div>
                                 <div><strong>Configura tus parámetros</strong></div>
                                 <div style="font-size: 0.9rem; margin-top: 5px;">Ajusta los valores en el panel izquierdo para ver recomendaciones personalizadas</div>
@@ -443,15 +458,15 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Análisis Comparativo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-disco.png" alt="" width="32" height="32"> Análisis Comparativo</h2>
                 
                 <div class="comparison-chart">
-                    <h4 style="color: #8888bb; margin-bottom: 15px;">Rendimiento vs Costo - Análisis Visual</h4>
+                    <h4 style="color: #55538a; margin-bottom: 15px;">Rendimiento vs Costo - Análisis Visual</h4>
                     <div class="chart-container" id="chartContainer">
                         <div class="chart-placeholder">
                             <div style="font-size: 3rem; margin-bottom: 15px;"></div>
                             <div><strong>Gráfico de Comparación</strong></div>
-                            <div style="font-size: 0.9rem; margin-top: 5px; color: #8888bb;">
+                            <div style="font-size: 0.9rem; margin-top: 5px; color: #55538a;">
                                 Configura tus parámetros para ver un análisis visual detallado
                             </div>
                         </div>
@@ -459,7 +474,7 @@
                 </div>
 
                 <div id="performanceMetrics" style="display: none;">
-                    <h4 style="color: #8888bb; margin: 20px 0 15px 0;"> Métricas de Rendimiento</h4>
+                    <h4 style="color: #55538a; margin: 20px 0 15px 0;"> Métricas de Rendimiento</h4>
                     
                     <div class="performance-indicator">
                         <span style="width: 120px; font-weight: 600;">Velocidad:</span>
@@ -721,7 +736,7 @@
                             </div>
                         </div>
                         
-                        <div style="color: #8888bb; font-size: 0.9rem; margin-bottom: 15px;">
+                        <div style="color: #55538a; font-size: 0.9rem; margin-bottom: 15px;">
                             ${rec.option.type}
                         </div>
                         
@@ -845,7 +860,7 @@
                         <div style="font-size: 0.8rem; font-weight: 600; max-width: 80px; word-break: break-word;">
                             ${rec.option.name.split(' ')[1] || rec.option.name}
                         </div>
-                        <div style="font-size: 0.7rem; color: #8888bb;">
+                        <div style="font-size: 0.7rem; color: #55538a;">
                             ${rec.monthlyCost}
                         </div>
                     </div>
@@ -869,7 +884,7 @@
             
             // Limpiar resultados
             document.getElementById('recommendationsContainer').innerHTML = `
-                <div style="text-align: center; color: #8888bb; padding: 40px 20px;">
+                <div style="text-align: center; color: #55538a; padding: 40px 20px;">
                     <div style="font-size: 3rem; margin-bottom: 15px;"></div>
                     <div><strong>Configura tus parámetros</strong></div>
                     <div style="font-size: 0.9rem; margin-top: 5px;">Ajusta los valores en el panel izquierdo para ver recomendaciones personalizadas</div>
@@ -882,7 +897,7 @@
                 <div class="chart-placeholder">
                     <div style="font-size: 3rem; margin-bottom: 15px;"></div>
                     <div><strong>Gráfico de Comparación</strong></div>
-                    <div style="font-size: 0.9rem; margin-top: 5px; color: #8888bb;">
+                    <div style="font-size: 0.9rem; margin-top: 5px; color: #55538a;">
                         Configura tus parámetros para ver un análisis visual detallado
                     </div>
                 </div>

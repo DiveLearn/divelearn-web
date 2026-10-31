@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 5 - Aprende Máscaras de Red</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -117,7 +117,7 @@
             font-family: 'Courier New', monospace;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--lime);
+            color: var(--lime-texto);
             min-width: 60px;
             text-align: center;
         }
@@ -317,7 +317,7 @@
         .info-value {
             font-family: 'Courier New', monospace;
             font-weight: 700;
-            color: var(--lime);
+            color: var(--lime-texto);
             font-size: 1.1rem;
         }
 
@@ -424,7 +424,7 @@
         .notification-title {
             font-weight: 700;
             margin-bottom: 10px;
-            color: var(--lime);
+            color: var(--lime-texto);
         }
 
         @keyframes slideInRight {
@@ -462,7 +462,7 @@
             top: 30px;
             right: 30px;
             background: rgba(255, 255, 255, 0.9);
-            color: var(--lime);
+            color: var(--lime-texto);
             border: 2px solid var(--purple);
             width: 50px;
             height: 50px;
@@ -525,6 +525,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-ip.png" alt="" width="80" height="70"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 2</span><span class="dl-jh-tit">Las direcciones secretas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 2</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -557,7 +572,7 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>Comprende visualmente cómo las máscaras de subred dividen una dirección IP en partes de red y host. Explora interactivamente diferentes configuraciones de máscara y observa cómo afectan la capacidad de la red.</p>
             </div>
 
@@ -1059,7 +1074,7 @@
         function showHelp() {
             const helpContent = `
                 <h3 style="color: #4CAF50; margin-bottom: 15px;"> Cómo usar el Visualizador</h3>
-                <ul style="line-height: 1.8; color: #8888bb;">
+                <ul style="line-height: 1.8; color: #55538a;">
                     <li><strong>Slider CIDR:</strong> Cambia la máscara de /8 a /30</li>
                     <li><strong>Bits verdes:</strong> Identifican la red</li>
                     <li><strong>Bits rojos:</strong> Identifican hosts individuales</li>

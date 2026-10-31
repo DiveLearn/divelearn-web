@@ -1,6 +1,6 @@
 </html>
 <!DOCTYPE html>
-<html lang="es" style="--c:#ffd36e">
+<html lang="es" style="--c:#ff9f43">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 9 - Las Carreteras Digitales</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -360,6 +360,21 @@
 </head>
 
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -397,7 +412,7 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad completa explorarás los diferentes tipos de redes digitales, diseñarás topologías
                     óptimas y comprenderás cómo fluyen los datos a través de las "carreteras digitales" que conectan
                     nuestro mundo.</p>
@@ -414,7 +429,7 @@
             <!-- Tab 1: Identificación de Tipos de Redes -->
             <div id="networks" class="tab-content active">
                 <div class="section">
-                    <h2 class="section-title"> Detective de Redes</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Detective de Redes</h2>
                     <p>Tu misión es investigar los diferentes tipos de redes digitales. Cada red tiene características
                         únicas que la hacen perfecta para diferentes situaciones.</p>
 
@@ -442,7 +457,7 @@
                 </div>
 
                 <div class="section">
-                    <h2 class="section-title"> Casos por Resolver</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Casos por Resolver</h2>
 
                     <div class="network-card" onclick="investigateNetwork('pan')">
                         <h3> Caso 1: PAN - Red de Área Personal</h3>
@@ -532,7 +547,7 @@
             <!-- Tab 2: Diseñar Red -->
             <div id="design" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Arquitecto de Redes</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Arquitecto de Redes</h2>
                     <div class="design-panel">
                         <h3> Centro de Diseño de Redes</h3>
                         <p>Diseña tu red perfecta seleccionando los dispositivos adecuados según el escenario.</p>
@@ -596,7 +611,7 @@
             <!-- Tab 3: Analizar Flujo -->
             <div id="analysis" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Análisis de Flujo de Datos</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Análisis de Flujo de Datos</h2>
                     <p>Comprende cómo los datos viajan a través de las diferentes capas de la red, desde el dispositivo
                         origen hasta el destino final.</p>
 
@@ -632,19 +647,19 @@
                             style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Paquetes Enviados</h5>
-                                <div id="packets-sent" style="font-size: 2em; color: #68d391;">0</div>
+                                <div id="packets-sent" style="font-size: 2em; color: #2f8a3c;">0</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Paquetes Recibidos</h5>
-                                <div id="packets-received" style="font-size: 2em; color: #4fd1c7;">0</div>
+                                <div id="packets-received" style="font-size: 2em; color: #0f7f86;">0</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Latencia</h5>
-                                <div id="avg-latency" style="font-size: 2em; color: #f6ad55;">0ms</div>
+                                <div id="avg-latency" style="font-size: 2em; color: #b5651d;">0ms</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Ancho de Banda</h5>
-                                <div id="bandwidth-usage" style="font-size: 2em; color: #fc8181;">0%</div>
+                                <div id="bandwidth-usage" style="font-size: 2em; color: #c0392b;">0%</div>
                             </div>
                         </div>
 
@@ -655,7 +670,7 @@
                             <button class="action-btn" onclick="simulateTrafficSpike()"> Simular Congestión</button>
                         </div>
 
-                        <div id="flow-insights" style="margin-top: 20px; color: #4fd1c7;"></div>
+                        <div id="flow-insights" style="margin-top: 20px; color: #0f7f86;"></div>
                     </div>
 
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -690,7 +705,7 @@
             <!-- Tab 4: Desafío Final -->
             <div id="challenge" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Desafío del Maestro de Redes</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Desafío del Maestro de Redes</h2>
                     <p>Pon a prueba todos tus conocimientos con este desafío integrador que combina identificación,
                         diseño y análisis.</p>
 
@@ -953,7 +968,7 @@
             document.getElementById('design-scenario').innerHTML = `
                 <strong>${currentScenario.name}</strong><br>
                 ${currentScenario.description}<br>
-                <small style="color: #8888bb;">Tipo de red recomendado: ${currentScenario.networkType}</small>
+                <small style="color: #55538a;">Tipo de red recomendado: ${currentScenario.networkType}</small>
             `;
 
             // Reset device selection
@@ -995,7 +1010,7 @@
 
             if (missingRequired.length === 0) {
                 score = 80;
-                feedbackHTML += '<h4 style="color: #48bb78;"> ¡Diseño Funcional!</h4>';
+                feedbackHTML += '<h4 style="color: #2f8a3c;"> ¡Diseño Funcional!</h4>';
                 feedbackHTML += '<p>Has incluido todos los dispositivos esenciales.</p>';
 
                 if (hasOptional.length > 0) {
@@ -1009,7 +1024,7 @@
                     showCelebration('¡Diseño de red completado exitosamente!');
                 }
             } else {
-                feedbackHTML += '<h4 style="color: #fc8181;"> Diseño Incompleto</h4>';
+                feedbackHTML += '<h4 style="color: #c0392b;"> Diseño Incompleto</h4>';
                 feedbackHTML += `<p>Te faltan estos dispositivos esenciales: <strong>${missingRequired.join(', ')}</strong></p>`;
                 feedbackHTML += '<p> Tip: Cada escenario requiere dispositivos específicos para funcionar correctamente.</p>';
             }

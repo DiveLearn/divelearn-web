@@ -16,7 +16,7 @@
     .act-hero { text-align: center; margin-bottom: 48px; }
     .act-eyebrow {
       display: inline-block; font-size: .75rem; font-weight: 800; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--lime); background: rgba(224,242,74,.12);
+      text-transform: uppercase; color: var(--lime-texto); background: rgba(224,242,74,.12);
       border: 1px solid rgba(224,242,74,.3); border-radius: 100px; padding: 4px 14px; margin-bottom: 16px;
     }
     .act-title { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 900; color: var(--text); margin-bottom: 10px; line-height: 1.15; }
@@ -31,7 +31,7 @@
     .sec { margin-bottom: 48px; }
     .sec-label {
       font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--purple-light); margin-bottom: 10px;
+      color: var(--lav-texto); margin-bottom: 10px;
     }
     .sec-h { font-size: 1.35rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
     .sec-desc { color: var(--text-muted); font-size: .95rem; margin-bottom: 20px; }
@@ -67,10 +67,10 @@
 
     .p-proto  { color: #a78bfa; }
     .p-sub    { color: #38bdf8; }
-    .p-domain { color: var(--lime); }
+    .p-domain { color: var(--lime-texto); }
     .p-port   { color: #fb923c; }
     .p-path   { color: #f472b6; }
-    .p-query  { color: #4ade80; }
+    .p-query  { color: #2f8a3c; }
     .p-frag   { color: #fbbf24; }
 
     /* Parts grid */
@@ -83,7 +83,7 @@
     .part-card-name { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
     .part-card-val { font-family: 'Courier New', monospace; font-size: .9rem; color: var(--text); margin-bottom: 6px; word-break: break-all; }
     .part-card-desc { font-size: .8rem; color: var(--text-muted); line-height: 1.5; }
-    .part-card-aws { font-size: .75rem; margin-top: 8px; padding: 5px 9px; background: rgba(84,83,235,.15); border-radius: 6px; color: var(--purple-light); }
+    .part-card-aws { font-size: .75rem; margin-top: 8px; padding: 5px 9px; background: rgba(84,83,235,.15); border-radius: 6px; color: var(--lav-texto); }
 
     /* ── Drag & Drop ── */
     .pieces-pool { display: flex; flex-wrap: wrap; gap: 10px; min-height: 54px; margin-bottom: 24px; }
@@ -116,10 +116,10 @@
       display: flex; align-items: center; gap: 16px; margin-bottom: 18px;
       font-size: .9rem; color: var(--text-muted);
     }
-    .dd-score strong { color: var(--lime); font-size: 1.1rem; }
+    .dd-score strong { color: var(--lime-texto); font-size: 1.1rem; }
     .dd-reset { background: none; border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; padding: 6px 14px; font-size: .8rem; cursor: pointer; }
     .dd-reset:hover { border-color: var(--purple); color: var(--text); }
-    .dd-complete-msg { display: none; background: rgba(74,222,128,.12); border: 1px solid #4ade80; border-radius: 10px; padding: 14px 18px; color: #4ade80; font-weight: 700; text-align: center; margin-top: 16px; }
+    .dd-complete-msg { display: none; background: rgba(74,222,128,.12); border: 1px solid #4ade80; border-radius: 10px; padding: 14px 18px; color: #2f8a3c; font-weight: 700; text-align: center; margin-top: 16px; }
     .dd-complete-msg.show { display: block; }
 
     /* ── URL Builder ── */
@@ -142,8 +142,8 @@
       background: none; border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px;
       color: var(--text-muted); font-size: .85rem; cursor: pointer; transition: all .2s;
     }
-    .copy-btn:hover { border-color: var(--lime); color: var(--lime); }
-    .copy-btn.copied { border-color: #4ade80; color: #4ade80; }
+    .copy-btn:hover { border-color: var(--lime); color: var(--lime-texto); }
+    .copy-btn.copied { border-color: #4ade80; color: #2f8a3c; }
 
     /* ── Quiz ── */
     .quiz-progress-bar {
@@ -161,8 +161,8 @@
       transition: border-color .15s, background .15s; text-align: left;
     }
     .quiz-opt:hover:not(.locked) { border-color: var(--purple); background: rgba(84,83,235,.08); }
-    .quiz-opt.correct { border-color: #4ade80; background: rgba(74,222,128,.12); color: #4ade80; }
-    .quiz-opt.wrong   { border-color: #f87171; background: rgba(248,113,113,.1);  color: #f87171; }
+    .quiz-opt.correct { border-color: #4ade80; background: rgba(74,222,128,.12); color: #2f8a3c; }
+    .quiz-opt.wrong   { border-color: #f87171; background: rgba(248,113,113,.1);  color: #c0392b; }
     .quiz-opt.locked  { cursor: default; }
 
     .quiz-feedback {
@@ -170,8 +170,8 @@
       font-size: .9rem; line-height: 1.5;
     }
     .quiz-feedback.show { display: block; }
-    .quiz-feedback.ok  { background: rgba(74,222,128,.1);  border: 1px solid #4ade80; color: #4ade80; }
-    .quiz-feedback.bad { background: rgba(248,113,113,.1); border: 1px solid #f87171; color: #f87171; }
+    .quiz-feedback.ok  { background: rgba(74,222,128,.1);  border: 1px solid #4ade80; color: #2f8a3c; }
+    .quiz-feedback.bad { background: rgba(248,113,113,.1); border: 1px solid #f87171; color: #c0392b; }
 
     .quiz-next {
       display: none; margin-top: 16px; background: var(--purple); color: #fff; border: none;
@@ -184,11 +184,11 @@
       display: none; text-align: center; padding: 32px;
     }
     .quiz-result.show { display: block; }
-    .quiz-score-big { font-size: 3.5rem; font-weight: 900; color: var(--lime); }
+    .quiz-score-big { font-size: 3.5rem; font-weight: 900; color: var(--lime-texto); }
     .quiz-score-label { font-size: 1rem; color: var(--text-muted); margin-bottom: 24px; }
     .quiz-xp-badge {
       display: inline-block; background: rgba(84,83,235,.2); border: 1px solid var(--purple);
-      border-radius: 100px; padding: 8px 22px; font-weight: 800; color: var(--purple-light); font-size: 1.1rem; margin-bottom: 20px;
+      border-radius: 100px; padding: 8px 22px; font-weight: 800; color: var(--lav-texto); font-size: 1.1rem; margin-bottom: 20px;
     }
     .quiz-retry { background: none; border: 1px solid var(--border); border-radius: 10px; padding: 10px 24px; color: var(--text-muted); cursor: pointer; font-size: .9rem; }
     .quiz-retry:hover { border-color: var(--purple-light); color: var(--text); }
@@ -217,6 +217,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-internet.png" alt="" width="84" height="68"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 0</span><span class="dl-jh-tit">Cómo funciona Internet</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 0</a></nav>
+    </div>
+  </div>
+</header>
+
   <!-- Nav -->
   <nav class="dl-nav">
     <a href="/">
@@ -260,7 +275,7 @@
     <div class="sec">
       <div class="sec-label">Parte 2 de 4</div>
       <h2 class="sec-h"> Arrastra cada pieza a su zona</h2>
-      <p class="sec-desc">Clasifica los componentes de esta URL: <code style="color:var(--purple-light)">https://shop.ejemplo.com:8080/ropa/camisas?color=rojo#talla</code></p>
+      <p class="sec-desc">Clasifica los componentes de esta URL: <code style="color:var(--lav-texto)">https://shop.ejemplo.com:8080/ropa/camisas?color=rojo#talla</code></p>
 
       <div class="card">
         <div class="dd-score">

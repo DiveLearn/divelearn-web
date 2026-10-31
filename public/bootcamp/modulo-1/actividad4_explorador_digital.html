@@ -1,12 +1,12 @@
 </html><!DOCTYPE html>
-<html lang="es" style="--c:#ffd36e">
+<html lang="es" style="--c:#ff9f43">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 4 - Explorador Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -535,6 +535,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -572,7 +587,7 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta expedición digital explorarás los dispositivos esenciales de red, aprenderás a configurarlos y resolverás desafíos prácticos para dominar el mundo de los dispositivos de networking.</p>
             </div>
 
@@ -587,7 +602,7 @@
             <!-- Tab 1: Identificación de Dispositivos -->
             <div id="identification" class="tab-content active">
                 <div class="section">
-                    <h2 class="section-title"> Expedición Digital</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Expedición Digital</h2>
                     <p>¡Saludos, Explorador! Imagina que las redes son como autopistas llenas de tráfico de datos. Para que todo funcione sin problemas, necesitamos dispositivos especiales que actúan como semáforos, puentes y guardias de seguridad.</p>
                     <p>Tu misión es explorar cada dispositivo y descubrir su función secreta en la gran red digital. ¡Haz clic en cada dispositivo para comenzar tu exploración!</p>
                     
@@ -615,7 +630,7 @@
                 </div>
 
                 <div class="section">
-                    <h2 class="section-title"> Laboratorio de Dispositivos</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Laboratorio de Dispositivos</h2>
                     <p>Haz clic en cada dispositivo para explorar su función:</p>
                     
                     <div class="network-diagram">
@@ -652,7 +667,7 @@
             <!-- Tab 2: Simulación de Conexiones -->
             <div id="simulation" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Simulación de Conexiones</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Simulación de Conexiones</h2>
                     <div class="simulation-arena">
                         <h3> Arena de Simulación</h3>
                         <p>Arrastra los dispositivos para crear tu red. Observa cómo se conectan entre sí.</p>
@@ -698,7 +713,7 @@
                             <button class="action-btn secondary" onclick="resetSimulation()"> Reiniciar</button>
                         </div>                     
                         
-                        <div id="simulation-feedback" style="margin-top: 20px; color: #4fd1c7;"></div>
+                        <div id="simulation-feedback" style="margin-top: 20px; color: #0f7f86;"></div>
                     </div>
                 </div>
             </div>
@@ -706,7 +721,7 @@
             <!-- Tab 3: Configuración Básica -->
             <div id="configuration" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Configuración Básica</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Configuración Básica</h2>
                     <div class="config-panel">
                         <h3> Centro de Configuración</h3>
                         <p>Aprende a configurar los parámetros básicos de cada dispositivo de red.</p>
@@ -812,7 +827,7 @@
             <!-- Tab 4: Desafío Interactivo -->
             <div id="challenge" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Desafío Interactivo</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Desafío Interactivo</h2>
                     <div class="challenge-scenario">
                         <h3> Centro de Resolución de Problemas</h3>
                         <p><strong> Instrucciones:</strong> Lee cada escenario y decide qué dispositivos necesitas para resolver el problema. Haz clic en un escenario para ver los pasos detallados que debes seguir.</p>
@@ -834,7 +849,7 @@
                             <p><strong> Dispositivos necesarios:</strong> Router, Switch, Access Point</p>
                             <p><strong> Tu tarea:</strong> Diseñar una red que permita a todos conectarse a Internet y usar la impresora.</p>
                             <div class="badge" id="badge1" style="display: none;"> Arquitecto de Oficina</div>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #55538a;">
                                 <strong> Situación real:</strong> El jefe quiere que todos puedan trabajar desde sus computadoras y imprimir documentos.
                             </div>
                         </div>
@@ -845,7 +860,7 @@
                             <p><strong> Dispositivos necesarios:</strong> Módem, Router con WiFi, Firewall</p>
                             <p><strong> Tu tarea:</strong> Crear una red segura con diferentes niveles de acceso.</p>
                             <div class="badge" id="badge2" style="display: none;"> Guardián Digital</div>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #55538a;">
                                 <strong> Situación real:</strong> Los padres quieren que los niños no accedan a contenido inapropiado por las noches.
                             </div>
                         </div>
@@ -856,7 +871,7 @@
                             <p><strong> Dispositivos necesarios:</strong> Firewall corporativo, Switch gestionado, múltiples APs</p>
                             <p><strong> Tu tarea:</strong> Separar la red de empleados de la red de invitados por seguridad.</p>
                             <div class="badge" id="badge3" style="display: none;"> Arquitecto Empresarial</div>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #55538a;">
                                 <strong> Situación real:</strong> Los invitados necesitan Internet pero no deben acceder a datos de la empresa.
                             </div>
                         </div>
@@ -1247,7 +1262,7 @@
 
         function showTemporaryMessage(element, message) {
             const originalContent = element.innerHTML;
-            element.innerHTML = `<div style="color: #fc8181; font-weight: bold;">${message}</div>`;
+            element.innerHTML = `<div style="color: #c0392b; font-weight: bold;">${message}</div>`;
             element.style.borderColor = '#fc8181';
             
             setTimeout(() => {

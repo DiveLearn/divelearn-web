@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#ffd36e">
+<html lang="es" style="--c:#ff9f43">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
     <title> Actividad 6 - Rastreador Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -76,7 +76,7 @@
 
         .terminal {
             background: #1a202c;
-            color: #68d391;
+            color: #2f8a3c;
             padding: 25px;
             border-radius: 15px;
             font-family: 'Courier New', monospace;
@@ -89,7 +89,7 @@
         }
 
         .terminal-header {
-            color: #e2e8f0;
+            color: #55538a;
             border-bottom: 1px solid #4a5568;
             padding-bottom: 10px;
             margin-bottom: 15px;
@@ -125,7 +125,7 @@
         }
 
         .hop-number {
-            color: #f6ad55;
+            color: #b5651d;
             font-weight: bold;
             display: inline-block;
             width: 30px;
@@ -137,11 +137,11 @@
         }
 
         .hop-name {
-            color: #e2e8f0;
+            color: #55538a;
         }
 
         .hop-time {
-            color: #68d391;
+            color: #2f8a3c;
             float: right;
         }
 
@@ -179,7 +179,7 @@
             height: 80px;
             border-radius: 50%;
             background: linear-gradient(135deg, #4a5568, #2d3748);
-            color: #e2e8f0;
+            color: #55538a;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -563,6 +563,21 @@
 </head>
 
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -606,7 +621,7 @@
             <!-- Simulación Interactiva -->
             <div id="simulation" class="tab-content active">
                 <div class="section">
-                    <h2 class="section-title"> Tu Misión de Rastreo</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Tu Misión de Rastreo</h2>
                     <p>¡Saludos, Rastreador Digital! Tu misión es seguir el viaje de un paquete de datos desde tu computadora hasta un servidor remoto. Utilizarás una herramienta especial llamada <strong>traceroute</strong>, que es como un GPS que muestra cada parada en el camino.</p>
                     <p>Imagina que envías una carta digital, pero en lugar de ir directamente, debe pasar por varias oficinas postales (routers) antes de llegar a su destino. ¡Vamos a rastrear cada paso!</p>
                     
@@ -632,7 +647,7 @@
 
                 <!-- Controles de Simulación -->
                 <div class="section">
-                    <h2 class="section-title"> Centro de Control</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Centro de Control</h2>
                     <div class="interactive-area">
                         <h3> Selecciona un destino y comienza el rastreo:</h3>
                         <button class="control-btn" onclick="startTrace('google')"> Rastrear a Google</button>
@@ -645,7 +660,7 @@
 
                 <!-- Visualización de Ruta -->
                 <div class="section">
-                    <h2 class="section-title"> Mapa de Ruta</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Mapa de Ruta</h2>
                     <div class="route-visualization" id="routeViz">
                         <div class="route-node" id="node0">
                             <br><small>Tu PC</small>
@@ -671,7 +686,7 @@
 
                 <!-- Terminal de Traceroute -->
                 <div class="section">
-                    <h2 class="section-title"> Terminal de Rastreo</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Terminal de Rastreo</h2>
                     <div class="terminal">
                         <div class="terminal-header">
                             C:\> tracert <span id="currentTarget">selecciona-destino.com</span>
@@ -689,7 +704,7 @@
             <!-- Análisis de Rutas -->
             <div id="analysis" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Análisis de Rutas</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Análisis de Rutas</h2>
                     <div class="analysis-panel">
                         <h3> Centro de Análisis</h3>
                         <p>Analiza los patrones de enrutamiento y rendimiento de las rutas trazadas.</p>
@@ -750,13 +765,13 @@
             <!-- Identificación de Nodos -->
             <div id="nodes" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Identificación de Nodos</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Identificación de Nodos</h2>
                     <div class="analysis-panel">
                         <h3> Explorador de Infraestructura</h3>
                         <p>Identifica y analiza cada nodo en la ruta de red.</p>
                         
                         <div id="nodeIdentification">
-                            <div class="node-info" style="text-align: center; color: #8888bb;">
+                            <div class="node-info" style="text-align: center; color: #55538a;">
                                 Ejecuta un rastreo para identificar nodos en la ruta...
                             </div>
                         </div>
@@ -767,7 +782,7 @@
             <!-- Reportes de Diagnóstico -->
             <div id="diagnostics" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Reportes de Diagnóstico</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Reportes de Diagnóstico</h2>
                     <div class="diagnostic-report">
                         <h3> Centro de Diagnóstico</h3>
                         <p>Genera reportes detallados sobre el rendimiento y problemas de red.</p>
@@ -803,7 +818,7 @@
                         <div class="report-section">
                             <h4> Métricas Detalladas</h4>
                             <div id="detailedMetrics">
-                                <table style="width: 100%; color: #8888bb; border-collapse: collapse;">
+                                <table style="width: 100%; color: #55538a; border-collapse: collapse;">
                                     <thead>
                                         <tr style="border-bottom: 1px solid #e2e8f0;">
                                             <th style="padding: 10px; text-align: left;">Métrica</th>
@@ -842,7 +857,7 @@
             <!-- Quiz Expandido -->
             <div id="quiz" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title"> Desafío del Rastreador Maestro</h2>
+                    <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Desafío del Rastreador Maestro</h2>
                     <div class="quiz-container">
                         <div class="quiz-question" id="quizQuestion">
                             <!-- La pregunta se cargará dinámicamente -->

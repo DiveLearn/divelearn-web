@@ -18,11 +18,14 @@
 }
 
 html {
+  --lime-texto: #4f5c00;
+  --lav-texto: #4b49c9;
   --c: #b2cafd;
   --ink: #1f1d5c;
   --tinte: color-mix(in srgb, var(--c) 22%, #ffffff);
-  --borde: 3px solid var(--ink);
-  --sombra: 5px 5px 0 var(--ink);
+  --borde: 1.5px solid var(--ink);
+  --sombra: 3px 3px 0 color-mix(in srgb, var(--ink) 85%, transparent);
+  --borde-suave: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
   --pixel: "Silkscreen", ui-monospace, monospace;
 }
 
@@ -87,18 +90,28 @@ html body :is(.main-content, .card, .quiz-container, .question-card, .tips-secti
   box-shadow: var(--sombra) !important;
 }
 html body :is(.main-content, .quiz-container) {
-  border-top: 14px solid var(--c) !important;
+  border-top: 8px solid var(--c) !important;
+}
+/* Paneles dentro de paneles: solo un contorno fino, sin sombra */
+html body :is(.main-content, .tab-content, .teoria-section, .card) :is(.card, .tips-section, .tip-box, .info-box, .calculator-container,
+  .input-container, .tool-container, .comparison-container, .simulator-container, .editor-container, .results-container,
+  .objetivos-container, .teoria-section) {
+  border: var(--borde-suave) !important;
+  box-shadow: 0 6px 18px rgba(31, 29, 92, 0.06) !important;
+  border-radius: 16px !important;
 }
 
 /* Recuadros internos: tinte del color de la etapa en lugar de rosados/naranjas */
 html body :is(.tip-item, .objetivo-item, .teoria-subsection, .example-box, .feedback-info,
   .result-info, .feedback-area, .result-card, .highlight-box) {
   background: var(--tinte) !important;
-  border: 2px solid var(--ink) !important;
-  border-left-width: 6px !important;
-  border-radius: 10px !important;
+  border: 0 !important;
+  border-left: 4px solid var(--c) !important;
+  border-radius: 12px !important;
   box-shadow: none !important;
   color: var(--ink) !important;
+  padding: 12px 16px !important;
+  margin-bottom: 8px !important;
 }
 /* Dentro de un recuadro, el contenido no lleva otro borde */
 html body .subsection-content {
@@ -132,7 +145,7 @@ html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
 /* ── Etiquetas (tiempo, nivel, puntos) ── */
 html body :is(.meta-item, .meta-chip, .activity-badge, .actividad-duracion, .status-indicator) {
   background: #ffffff !important;
-  border: 2px solid var(--ink) !important;
+  border: var(--borde-suave) !important;
   border-radius: 8px !important;
   color: var(--ink) !important;
   font-weight: 700;
@@ -145,7 +158,7 @@ html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .btn-primary, .btn-l
   font-weight: 700 !important;
   border: var(--borde) !important;
   border-radius: 10px !important;
-  box-shadow: 4px 4px 0 var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
   color: var(--ink) !important;
   background: #ffffff !important;
   transition: transform 0.12s, box-shadow 0.12s !important;
@@ -155,7 +168,7 @@ html body :is(.btn-primary, .nav-btn:not(.secondary), .calculate-btn, .control-b
 }
 html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .option-btn, .topology-btn, .selector-btn, .tab):hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
 }
 html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .option-btn, .topology-btn, .selector-btn, .tab):active {
   transform: translate(3px, 3px);
@@ -170,7 +183,7 @@ html body .option {
   background: #ffffff !important;
   border: var(--borde) !important;
   border-radius: 10px !important;
-  box-shadow: 3px 3px 0 var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
   color: var(--ink) !important;
 }
 html body .option:hover {
@@ -193,9 +206,9 @@ html body .progress-header :is(*, .progress-info) {
 /* ── Barras de progreso ── */
 html body .progress-bar {
   background: #ffffff !important;
-  border: 2px solid var(--ink) !important;
-  border-radius: 8px !important;
-  height: 16px !important;
+  border: var(--borde-suave) !important;
+  border-radius: 99px !important;
+  height: 12px !important;
 }
 html body .progress-fill {
   background: repeating-linear-gradient(90deg, #6fd08c 0 12px, #5cc27c 12px 24px) !important;
@@ -229,4 +242,307 @@ html body .actividad-titulo {
 html body :is(.footer, .divelearn-brand) {
   color: #55538a !important;
   background: transparent !important;
+}
+
+/* Dentro de lo que sigue siendo oscuro (terminales, código), el lima y la lavanda vuelven a su color */
+html body :is(.terminal, [class*="terminal"], .console, pre, .code-block, .output, [class*="output"]) {
+  --lime-texto: #e0f24a;
+  --lav-texto: #b2cafd;
+}
+html body code {
+  background: var(--tinte) !important;
+  color: var(--ink) !important;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+html body :is(.terminal, [class*="terminal"], pre) code {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* ── Cabecera de juego (la misma cara que el mapa del bootcamp) ── */
+html body .dl-nav,
+html body .breadcrumb,
+html body .dl-nav-back {
+  display: none !important;
+}
+.dl-jh {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 18px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: "Questrial", "Century Gothic", system-ui, sans-serif;
+}
+.dl-jh-logo img {
+  display: block;
+  width: 140px;
+  height: auto;
+}
+.dl-jh-panel {
+  border: var(--borde);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+.dl-jh-barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--c);
+  border-bottom: var(--borde);
+  font: 700 1rem/1.3 var(--pixel);
+  color: var(--ink);
+}
+.dl-jh-puntos {
+  display: inline-flex;
+  gap: 6px;
+}
+.dl-jh-puntos i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: #ff7a8a;
+}
+.dl-jh-puntos i:nth-child(2) {
+  background: #ffd36e;
+}
+.dl-jh-puntos i:nth-child(3) {
+  background: #6fd08c;
+}
+.dl-jh-cuerpo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+.dl-jh-ico {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  flex: 0 0 auto;
+  border: var(--borde);
+  border-radius: 12px;
+  background: var(--c);
+}
+.dl-jh-ico img {
+  image-rendering: pixelated;
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+}
+.dl-jh-txt {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 240px;
+  gap: 2px;
+}
+.dl-jh-mod {
+  font: 700 0.9rem var(--pixel);
+  color: #55538a;
+}
+.dl-jh-tit {
+  font: 700 clamp(1.3rem, 3vw, 1.9rem) / 1.15 var(--pixel);
+  color: var(--ink);
+}
+.dl-jh-nav {
+  display: flex;
+  gap: 10px;
+}
+.dl-jh-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 16px;
+  border: var(--borde);
+  border-radius: 10px;
+  background: #6fd08c;
+  color: var(--ink) !important;
+  font: 700 1rem var(--pixel);
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.dl-jh-btn + .dl-jh-btn {
+  background: #fff;
+}
+.dl-jh-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* ── Plantilla del módulo 0 (distinta a las demás) con la misma piel ── */
+html body .hub-hero {
+  display: none !important; /* la cabecera de juego ya dice el módulo y el título */
+}
+html body .tabs-bar {
+  max-width: 1080px;
+  margin: 8px auto 0 !important;
+  padding: 0 16px !important;
+  background: transparent !important;
+  border: 0 !important;
+  display: flex;
+  gap: 12px;
+}
+html body .tab-btn {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  border: var(--borde) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
+  padding: 10px 20px !important;
+}
+html body .tab-btn.active {
+  background: var(--c) !important;
+}
+html body :is(.concept-block, .eco-card, .act-card, .journey, .url-display) {
+  background: #fff !important;
+  border: var(--borde) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--sombra) !important;
+  color: var(--ink) !important;
+  padding: 20px !important;
+  margin-bottom: 22px;
+}
+html body .concept-title-text,
+html body .act-title,
+html body .eco-name {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+}
+html body .concept-num {
+  background: var(--c) !important;
+  color: var(--ink) !important;
+  border: 2px solid var(--ink);
+  font-family: var(--pixel);
+}
+html body :is(.journey-node, .legend-item, .act-chip, .eco-tech, .act-badge) {
+  background: var(--tinte) !important;
+  border: var(--borde-suave) !important;
+  border-radius: 10px !important;
+  color: var(--ink) !important;
+}
+html body .insight {
+  background: var(--tinte) !important;
+  border: 0 !important;
+  border-left: 4px solid var(--c) !important;
+  border-radius: 12px !important;
+  color: var(--ink) !important;
+}
+html body .act-cta {
+  font-family: var(--pixel) !important;
+  color: var(--ink) !important;
+}
+html body .tabs-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #e9e4fb !important;
+  padding: 10px 16px !important;
+  max-width: none;
+  justify-content: center;
+}
+
+/* ── Banner del sitio (igual que src/layouts/Base.astro) ── */
+.dl-sitio {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #5453eb;
+  font-family: "Questrial", "Century Gothic", system-ui, sans-serif;
+}
+.dl-sitio-logo img {
+  display: block;
+  width: 140px;
+  height: auto;
+}
+.dl-sitio nav {
+  display: flex;
+  gap: 4px;
+}
+.dl-sitio nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-size: 17px;
+}
+.dl-sitio nav a:hover,
+.dl-sitio nav a[aria-current="page"] {
+  background: rgba(178, 202, 253, 0.25);
+}
+@media (max-width: 480px) {
+  .dl-sitio-logo img {
+    width: auto;
+    height: 34px;
+  }
+  .dl-sitio nav a {
+    padding: 10px 7px;
+    font-size: 0.9rem;
+  }
+}
+html body .tabs-bar {
+  top: 59px;
+}
+/* En la portada de cada módulo, el encabezado viejo repetía título y volver: la cabecera de juego ya lo tiene */
+html body .header:has(.module-title) {
+  display: none !important;
+}
+
+/* ── Dibujitos: los personajes acompañan cada tipo de bloque ── */
+html body :is(.tips-title, .objetivos-title, .results-title, .example-title)::before {
+  content: "";
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background: center / contain no-repeat;
+  image-rendering: pixelated;
+}
+html body .tips-title::before { background-image: url("/img/sprites/pulpo-profe.png"); }
+html body .objetivos-title::before { background-image: url("/img/sprites/buzo-estudia.png"); }
+html body .results-title::before { background-image: url("/img/sprites/buzo-celebra.png"); }
+html body .example-title::before { width: 28px; height: 28px; background-image: url("/img/sprites/buzo-piensa.png"); }
+html body :is(.feedback-success, .result-success, .feedback.correct-feedback) {
+  background-image: url("/img/sprites/pulpo-ok.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 36px auto !important;
+  image-rendering: pixelated;
+  padding-right: 56px !important;
+}
+html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
+  background-image: url("/img/sprites/pulpo-ups.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 36px auto !important;
+  image-rendering: pixelated;
+  padding-right: 56px !important;
+}
+
+/* Objeto pixel en cada título de sección */
+.dl-obj {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  vertical-align: -7px;
+  margin-right: 10px;
 }

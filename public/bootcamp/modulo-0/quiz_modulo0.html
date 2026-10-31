@@ -15,7 +15,7 @@
     .quiz-hero { text-align: center; margin-bottom: 40px; }
     .quiz-eyebrow {
       display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--lime); background: rgba(224,242,74,.12);
+      text-transform: uppercase; color: var(--lime-texto); background: rgba(224,242,74,.12);
       border: 1px solid rgba(224,242,74,.3); border-radius: 100px; padding: 4px 14px; margin-bottom: 14px;
     }
     .quiz-title-big { font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 900; color: var(--text); margin-bottom: 10px; }
@@ -34,7 +34,7 @@
       padding: 20px 28px 0; display: flex; justify-content: space-between; align-items: center;
     }
     .quiz-counter { font-size: .8rem; font-weight: 700; color: var(--text-muted); }
-    .quiz-score-live { font-size: .8rem; font-weight: 800; color: var(--lime); }
+    .quiz-score-live { font-size: .8rem; font-weight: 800; color: var(--lime-texto); }
 
     /* Question panel */
     .q-panel { padding: 28px; display: none; }
@@ -47,7 +47,7 @@
     .q-text { font-size: 1.12rem; font-weight: 800; color: var(--text); line-height: 1.5; margin-bottom: 22px; }
     .q-url-ref {
       background: var(--surface2); border-radius: 8px; padding: 10px 14px;
-      font-family: 'Courier New', monospace; font-size: .85rem; color: var(--purple-light);
+      font-family: 'Courier New', monospace; font-size: .85rem; color: var(--lav-texto);
       margin-bottom: 18px; border: 1px solid var(--border); word-break: break-all;
     }
 
@@ -58,8 +58,8 @@
       transition: border-color .15s, background .15s; text-align: left; line-height: 1.45;
     }
     .opt:hover:not(.locked) { border-color: var(--purple); background: rgba(84,83,235,.08); }
-    .opt.correct { border-color: #4ade80; background: rgba(74,222,128,.1); color: #4ade80; }
-    .opt.wrong   { border-color: #f87171; background: rgba(248,113,113,.1); color: #f87171; animation: shake .3s ease; }
+    .opt.correct { border-color: #4ade80; background: rgba(74,222,128,.1); color: #2f8a3c; }
+    .opt.wrong   { border-color: #f87171; background: rgba(248,113,113,.1); color: #c0392b; animation: shake .3s ease; }
     .opt.locked  { cursor: default; }
     @keyframes shake {
       0%,100% { transform: translateX(0); }
@@ -72,8 +72,8 @@
       font-size: .9rem; line-height: 1.55;
     }
     .q-feedback.show { display: block; }
-    .q-feedback.ok  { background: rgba(74,222,128,.08);  border: 1px solid #4ade80; color: #4ade80; }
-    .q-feedback.bad { background: rgba(248,113,113,.08); border: 1px solid #f87171; color: #f87171; }
+    .q-feedback.ok  { background: rgba(74,222,128,.08);  border: 1px solid #4ade80; color: #2f8a3c; }
+    .q-feedback.bad { background: rgba(248,113,113,.08); border: 1px solid #f87171; color: #c0392b; }
 
     .q-next {
       display: none; margin-top: 20px; background: var(--purple); color: #fff; border: none;
@@ -86,11 +86,11 @@
     /* Result */
     .result-panel { display: none; padding: 40px 28px; text-align: center; }
     .result-panel.show { display: block; }
-    .result-score-big { font-size: 4rem; font-weight: 900; color: var(--lime); line-height: 1; }
+    .result-score-big { font-size: 4rem; font-weight: 900; color: var(--lime-texto); line-height: 1; }
     .result-of { font-size: 1rem; color: var(--text-muted); margin-bottom: 6px; }
     .result-xp {
       display: inline-block; background: rgba(84,83,235,.18); border: 1px solid var(--purple);
-      border-radius: 100px; padding: 8px 24px; font-weight: 800; color: var(--purple-light);
+      border-radius: 100px; padding: 8px 24px; font-weight: 800; color: var(--lav-texto);
       font-size: 1.1rem; margin: 16px 0 20px;
     }
     .result-msg { font-size: 1rem; color: var(--text-muted); max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
@@ -114,6 +114,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-internet.png" alt="" width="84" height="68"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 0</span><span class="dl-jh-tit">Cómo funciona Internet</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 0</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="DiveLearn" class="dl-nav-logo">

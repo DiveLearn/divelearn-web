@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#7cc6fe">
+<html lang="es" style="--c:#5fd3c6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 2 - Comparador VM vs Contenedor</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -108,7 +108,7 @@
         }
 
         .tech-card.vm .tech-title {
-            color: #ff6b6b;
+            color: #c0392b;
         }
 
         .tech-card.container .tech-title {
@@ -194,7 +194,7 @@
         }
 
         .metric-value.good {
-            color: #22C55E;
+            color: #2f8a3c;
         }
 
         .metric-value.average {
@@ -251,7 +251,7 @@
 
         .demo-output {
             background: #263238;
-            color: var(--lime);
+            color: var(--lime-texto);
             border-radius: 8px;
             padding: 20px;
             font-family: 'Courier New', monospace;
@@ -342,6 +342,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-virtualizacion.png" alt="" width="68" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 6</span><span class="dl-jh-tit">Cajas dentro de cajas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 6</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -374,14 +389,14 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>Comprende las diferencias fundamentales entre máquinas virtuales y contenedores a través de comparaciones visuales, métricas de rendimiento y simulaciones en tiempo real.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Escenarios de Comparación</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Escenarios de Comparación</h2>
                 <div class="comparison-selector">
-                    <p style="margin-bottom: 20px; color: #8888bb; font-size: 1.1rem;">
+                    <p style="margin-bottom: 20px; color: #55538a; font-size: 1.1rem;">
                         Selecciona un escenario para ver cómo se comportan las VMs vs Contenedores:
                     </p>
                     <div class="scenario-buttons">
@@ -402,7 +417,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Comparación Visual</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Comparación Visual</h2>
                 <div class="comparison-container">
                     <!-- Máquinas Virtuales -->
                     <div class="tech-card vm">
@@ -447,10 +462,10 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Simulación en Tiempo Real</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cronometro.png" alt="" width="32" height="32"> Simulación en Tiempo Real</h2>
                 <div class="live-demo">
                     <div class="demo-title"> Simulador de Despliegue</div>
-                    <p style="color: #8888bb; margin-bottom: 20px;">
+                    <p style="color: #55538a; margin-bottom: 20px;">
                         Observa las diferencias en tiempo de arranque y uso de recursos
                     </p>
                     

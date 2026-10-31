@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#ff7a8a">
+<html lang="es" style="--c:#f49ac2">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Módulo 3 - La Guía Telefónica Digital (DNS)</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -102,7 +102,7 @@
 
         .tab.active {
             background: var(--surface);
-            color: var(--lime);
+            color: var(--lime-texto);
             border-bottom-color: var(--lime);
         }
 
@@ -185,7 +185,7 @@
 
         .example-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -273,7 +273,7 @@
         .actividad-duracion {
             display: inline-block;
             background: rgba(76, 175, 80, 0.1);
-            color: var(--lime);
+            color: var(--lime-texto);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -312,7 +312,7 @@
 
         .objetivos-title {
             font-size: 1.4rem;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 20px;
             font-weight: 600;
             display: flex;
@@ -371,6 +371,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-dns.png" alt="" width="86" height="64"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 3</span><span class="dl-jh-tit">La guía telefónica digital</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -418,7 +433,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 3.1 El Problema de la Memoria</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-lupa.png" alt="" width="32" height="32"> 3.1 El Problema de la Memoria</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Por qué no usamos números directamente?</h3>
                         <div class="subsection-content">
@@ -458,7 +473,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 3.2 La Jerarquía Global</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-lupa.png" alt="" width="32" height="32"> 3.2 La Jerarquía Global</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Raíz: los jefes supremos del Internet</h3>
                         <div class="subsection-content">
@@ -487,7 +502,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 3.3 El Viaje de una Consulta</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-lupa.png" alt="" width="32" height="32"> 3.3 El Viaje de una Consulta</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">"Walking the tree": siguiendo la cadena de preguntas</h3>
                         <div class="subsection-content">
@@ -521,7 +536,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 3.4 Tipos de Registros</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-lupa.png" alt="" width="32" height="32"> 3.4 Tipos de Registros</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Los diferentes tipos de información DNS</h3>
                         <div class="subsection-content">
@@ -571,7 +586,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 3.5 Gestión de Dominios</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-lupa.png" alt="" width="32" height="32"> 3.5 Gestión de Dominios</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Qué pasa cuando registras un dominio?</h3>
                         <div class="subsection-content">
@@ -606,7 +621,7 @@
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #55538a; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_navegador_jerarquia.html" class="actividad-card">

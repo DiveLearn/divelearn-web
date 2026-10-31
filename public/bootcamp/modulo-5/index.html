@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo 5 - El Sistema Operativo del Servidor (Linux)</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -203,7 +203,7 @@
 
         .example-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -360,6 +360,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-linux.png" alt="" width="76" height="66"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 5</span><span class="dl-jh-tit">El sistema operativo del servidor</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -407,7 +422,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 5.1 ¿Qué es un Sistema Operativo?</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-bombillo.png" alt="" width="32" height="32"> 5.1 ¿Qué es un Sistema Operativo?</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">El Director de Orquesta de la Computadora</h3>
                         <div class="subsection-content">
@@ -442,7 +457,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 5.2 La Terminal: Tu Nueva Mejor Amiga</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> 5.2 La Terminal: Tu Nueva Mejor Amiga</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Por qué Texto en vez de Clics?</h3>
                         <div class="subsection-content">
@@ -499,7 +514,7 @@ rm -rf /ruta/peligrosa/  # Fuerza eliminación</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 5.3 Permisos y Usuarios</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> 5.3 Permisos y Usuarios</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Dueños, Grupos y Otros</h3>
                         <div class="subsection-content">
@@ -569,7 +584,7 @@ sudo su -</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 5.4 Archivos de Configuración</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-disco.png" alt="" width="32" height="32"> 5.4 Archivos de Configuración</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Todo es un Archivo en Linux</h3>
                         <div class="subsection-content">
@@ -609,7 +624,7 @@ echo 'export MI_VARIABLE="valor"' >> ~/.bashrc</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 5.5 Conectarse Remotamente</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> 5.5 Conectarse Remotamente</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">SSH: La Conexión Segura</h3>
                         <div class="subsection-content">
@@ -649,7 +664,7 @@ ssh usuario@servidor.com</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 5.6 Automatización Básica</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> 5.6 Automatización Básica</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Scripts: Automatizar Tareas Repetitivas</h3>
                         <div class="subsection-content">
@@ -707,7 +722,7 @@ journalctl --since "10 minutes ago" -p err</div>
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #55538a; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_terminal.html" class="actividad-card">

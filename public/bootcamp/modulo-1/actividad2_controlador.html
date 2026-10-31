@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#ffd36e">
+<html lang="es" style="--c:#ff9f43">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 2 - Controlador de Tráfico Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -332,6 +332,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -364,12 +379,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad simularás el tráfico de datos en una red y aprenderás a identificar problemas de rendimiento como congestión, latencia y pérdida de paquetes. Experimentarás con diferentes escenarios de tráfico para entender cómo afectan el rendimiento de la red.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Simulador de Tráfico de Red</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Simulador de Tráfico de Red</h2>
                 
                 <div class="scenario-selector">
                     <div class="scenario-btn active" onclick="loadScenario('office')">
@@ -409,7 +424,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Controles de Simulación</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Controles de Simulación</h2>
                 
                 <div class="controls-panel">
                     <div class="control-group">
@@ -439,7 +454,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Métricas en Tiempo Real</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cronometro.png" alt="" width="32" height="32"> Métricas en Tiempo Real</h2>
                 
                 <div class="metrics-panel">
                     <div class="metric-card">
@@ -484,7 +499,7 @@
                     <div class="congestion-indicator">
                         <div class="congestion-pointer" id="congestionPointer"></div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8888bb; margin-top: 5px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #55538a; margin-top: 5px;">
                         <span>Fluido</span>
                         <span>Moderado</span>
                         <span>Congestionado</span>

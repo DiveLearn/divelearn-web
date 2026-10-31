@@ -14,7 +14,7 @@ const sprite = (n: string, w: number, h: number, x: number) => ({ src: `/img/spr
 const pags = paginas as Record<string, string[]>;
 const xpDe = (slug: string) => (slug.startsWith("quiz") ? XP.quiz : XP.actividad);
 const modulos = etapas.flatMap((e) =>
-  e.modulos.map((m) => ({ ...m, etapa: e.id, color: e.color, paginas: pags[m.n] ?? [], xp: (pags[m.n] ?? []).reduce((a, s) => a + xpDe(s), 0) })),
+  e.modulos.map((m) => ({ ...m, etapa: e.id, paginas: pags[m.n] ?? [], xp: (pags[m.n] ?? []).reduce((a, s) => a + xpDe(s), 0) })),
 );
 const total = modulos.reduce((a, m) => a + m.xp, 0);
 const juego = {
@@ -151,7 +151,7 @@ const camino = [
               {modulos
                 .filter((m) => m.etapa === e.id)
                 .map((m) => (
-                  <li data-modulo={m.n}>
+                  <li data-modulo={m.n} style={`--c:${m.color}`}>
                     <a href={`/bootcamp/modulo-${m.n}/`}>
                       <span class="ico-mod">
                         <Sprite nombre={m.sprite} escala={1.4} />
@@ -202,7 +202,7 @@ const camino = [
   <!-- ── Subida de rango ── -->
   <div class="subida" role="dialog" aria-modal="true" aria-labelledby="t-subida" hidden data-subida>
     <div class="panel subida-caja">
-      <Sprite nombre="buzo-saluda" escala={2} />
+      <Sprite nombre="buzo-celebra" escala={2} />
       <p class="subida-kicker">¡Subiste de rango!</p>
       <h2 id="t-subida" data-subida-rango></h2>
       <button type="button" class="btn-jugar" data-subida-ok>¡Vamos!</button>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#7cc6fe">
+<html lang="es" style="--c:#5fd3c6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 3 - Planificador de Recursos</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -432,6 +432,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-virtualizacion.png" alt="" width="68" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 6</span><span class="dl-jh-tit">Cajas dentro de cajas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 6</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -464,12 +479,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>Como arquitecto de infraestructura, debes planificar la distribución óptima de recursos virtualizados para diferentes escenarios empresariales. Evaluarás costos, rendimiento y eficiencia para tomar decisiones informadas.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Escenarios Empresariales</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Escenarios Empresariales</h2>
                 <div class="scenario-selector">
                     <div class="scenario-buttons" id="scenarioButtons">
                         <!-- Los escenarios se cargarán dinámicamente -->
@@ -478,7 +493,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Planificación de Recursos</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-checklist.png" alt="" width="32" height="32"> Planificación de Recursos</h2>
                 <div class="planning-workspace">
                     <div class="requirements-panel">
                         <h3 class="panel-title"> Requisitos del Proyecto</h3>
@@ -502,7 +517,7 @@
                         </div>
 
                         <div class="architecture-canvas" id="architectureCanvas">
-                            <div style="text-align: center; color: #8888bb; margin-top: 100px;">
+                            <div style="text-align: center; color: #55538a; margin-top: 100px;">
                                 <p> Selecciona un tipo de despliegue arriba</p>
                                 <p style="font-size: 0.9rem; margin-top: 10px;">La arquitectura se visualizará aquí</p>
                             </div>
@@ -512,7 +527,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Análisis de Eficiencia</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Análisis de Eficiencia</h2>
                 <div class="resource-summary" id="resourceSummary">
                     <!-- El resumen se generará dinámicamente -->
                 </div>
@@ -530,7 +545,7 @@
                 <div class="recommendations" id="recommendations">
                     <h3 class="rec-title"> Recomendaciones</h3>
                     <div id="recommendationsList">
-                        <p style="color: #8888bb; font-style: italic;">Completa tu planificación para ver recomendaciones personalizadas</p>
+                        <p style="color: #55538a; font-style: italic;">Completa tu planificación para ver recomendaciones personalizadas</p>
                     </div>
                 </div>
             </div>
@@ -823,7 +838,7 @@
             return `
                 <div style="text-align: center; margin-bottom: 15px;">
                     <h4> Arquitectura con Máquinas Virtuales</h4>
-                    <p style="color: #8888bb; font-size: 0.9rem;">Cada aplicación en su propia VM con OS completo</p>
+                    <p style="color: #55538a; font-size: 0.9rem;">Cada aplicación en su propia VM con OS completo</p>
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
                     ${serversHTML}
@@ -859,7 +874,7 @@
             return `
                 <div style="text-align: center; margin-bottom: 15px;">
                     <h4> Arquitectura con Contenedores</h4>
-                    <p style="color: #8888bb; font-size: 0.9rem;">Múltiples contenedores compartiendo el OS del host</p>
+                    <p style="color: #55538a; font-size: 0.9rem;">Múltiples contenedores compartiendo el OS del host</p>
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
                     ${clustersHTML}
@@ -913,7 +928,7 @@
             return `
                 <div style="text-align: center; margin-bottom: 15px;">
                     <h4> Arquitectura Híbrida</h4>
-                    <p style="color: #8888bb; font-size: 0.9rem;">VMs para sistemas críticos, contenedores para microservicios</p>
+                    <p style="color: #55538a; font-size: 0.9rem;">VMs para sistemas críticos, contenedores para microservicios</p>
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
                     ${hybridHTML}
@@ -1133,7 +1148,7 @@
             document.getElementById('efficiencyFill').style.width = '0%';
             document.getElementById('efficiencyScore').textContent = '0%';
             document.getElementById('recommendationsList').innerHTML = 
-                '<p style="color: #8888bb; font-style: italic;">Completa tu planificación para ver recomendaciones personalizadas</p>';
+                '<p style="color: #55538a; font-style: italic;">Completa tu planificación para ver recomendaciones personalizadas</p>';
             
             updateButtons();
         }
@@ -1142,7 +1157,7 @@
             const canvas = document.getElementById('architectureCanvas');
             canvas.classList.remove('has-solution');
             canvas.innerHTML = `
-                <div style="text-align: center; color: #8888bb; margin-top: 100px;">
+                <div style="text-align: center; color: #55538a; margin-top: 100px;">
                     <p> Selecciona un tipo de despliegue arriba</p>
                     <p style="font-size: 0.9rem; margin-top: 10px;">La arquitectura se visualizará aquí</p>
                 </div>

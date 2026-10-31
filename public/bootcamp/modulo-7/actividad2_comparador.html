@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 2 - Comparador de Tipos de Almacenamiento</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -279,6 +279,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-datos.png" alt="" width="84" height="68"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 7</span><span class="dl-jh-tit">Dónde guardar las cosas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 7</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -311,7 +326,7 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad analizarás diferentes escenarios empresariales y elegirás el tipo de almacenamiento más adecuado. Aprenderás a evaluar factores como escalabilidad, rendimiento, costo y complejidad de datos.</p>
             </div>
 
@@ -321,7 +336,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Selecciona un Escenario</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-disco.png" alt="" width="32" height="32"> Selecciona un Escenario</h2>
                 <div class="scenario-selector">
                     <div class="scenario-card" onclick="selectScenario('ecommerce')">
                         <div class="scenario-icon"></div>
@@ -356,7 +371,7 @@
             </div>
 
             <div class="comparison-area" id="comparisonArea">
-                <p style="text-align: center; color: #8888bb; font-size: 1.1rem; margin-top: 100px;">
+                <p style="text-align: center; color: #55538a; font-size: 1.1rem; margin-top: 100px;">
                      <strong>Selecciona un escenario arriba para comenzar</strong><br>
                     <small>Cada escenario presenta desafíos únicos de almacenamiento</small>
                 </p>
@@ -635,10 +650,10 @@
             const scenario = currentScenario;
 
             comparisonArea.innerHTML = `
-                <h3 style="color: #8888bb; margin-bottom: 20px;">${scenario.title}</h3>
-                <p style="color: #8888bb; margin-bottom: 25px; line-height: 1.6;">${scenario.description}</p>
+                <h3 style="color: #55538a; margin-bottom: 20px;">${scenario.title}</h3>
+                <p style="color: #55538a; margin-bottom: 25px; line-height: 1.6;">${scenario.description}</p>
                 
-                <h4 style="color: #8888bb; margin-bottom: 15px;">¿Qué tipo de almacenamiento recomendarías?</h4>
+                <h4 style="color: #55538a; margin-bottom: 15px;">¿Qué tipo de almacenamiento recomendarías?</h4>
                 
                 <div class="storage-options">
                     ${Object.entries(scenario.options).map(([key, option]) => `
@@ -727,7 +742,7 @@
 
             // Resetear área de comparación
             document.getElementById('comparisonArea').innerHTML = `
-                <p style="text-align: center; color: #8888bb; font-size: 1.1rem; margin-top: 100px;">
+                <p style="text-align: center; color: #55538a; font-size: 1.1rem; margin-top: 100px;">
                      <strong>Selecciona otro escenario para continuar</strong><br>
                     <small>Completa los 5 escenarios para dominar el tema</small>
                 </p>

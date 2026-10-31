@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 3 - Explorador de Metadatos</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -342,6 +342,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-datos.png" alt="" width="84" height="68"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 7</span><span class="dl-jh-tit">Dónde guardar las cosas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 7</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -374,16 +389,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad explorarás cómo los metadatos agregan valor a los archivos y objetos. Aprenderás a identificar, interpretar y crear metadatos útiles para mejorar la organización y búsqueda de información.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Explorador de Archivos</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-lupa.png" alt="" width="32" height="32"> Explorador de Archivos</h2>
                 
                 <div class="explorer-interface">
                     <div class="file-browser">
-                        <h4 style="color: #8888bb; margin-bottom: 15px;"> Archivos de Ejemplo</h4>
+                        <h4 style="color: #55538a; margin-bottom: 15px;"> Archivos de Ejemplo</h4>
                         
                         <div class="file-grid">
                             <div class="file-item" onclick="selectFile('photo1')">
@@ -425,7 +440,7 @@
                     </div>
 
                     <div class="metadata-panel">
-                        <h4 style="color: #8888bb; margin-bottom: 15px;"> Panel de Metadatos</h4>
+                        <h4 style="color: #55538a; margin-bottom: 15px;"> Panel de Metadatos</h4>
                         
                         <div class="metadata-display" id="metadataDisplay">
                             <div class="metadata-empty">
@@ -436,7 +451,7 @@
                         </div>
 
                         <div class="version-history" id="versionHistory" style="display: none;">
-                            <h5 style="color: #8888bb; margin-bottom: 10px;"> Historial de Versiones</h5>
+                            <h5 style="color: #55538a; margin-bottom: 10px;"> Historial de Versiones</h5>
                             <div id="versionList"></div>
                         </div>
                     </div>
@@ -444,7 +459,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Generador de Metadatos</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cd.png" alt="" width="32" height="32"> Generador de Metadatos</h2>
                 
                 <div class="metadata-generator">
                     <div class="generator-title">Crea metadatos personalizados para tus archivos</div>
@@ -505,7 +520,7 @@
                 </div>
 
                 <div class="custom-metadata" id="customMetadataResult" style="display: none;">
-                    <h4 style="color: #8888bb; margin-bottom: 15px;"> Metadatos Generados</h4>
+                    <h4 style="color: #55538a; margin-bottom: 15px;"> Metadatos Generados</h4>
                     <div id="customMetadataContent"></div>
                 </div>
             </div>
@@ -735,8 +750,8 @@
             let metadataHtml = `
                 <div style="text-align: center; margin-bottom: 20px;">
                     <div style="font-size: 3rem; margin-bottom: 10px;">${file.icon}</div>
-                    <div style="font-weight: 600; color: #8888bb; font-size: 1.1rem;">${file.name}</div>
-                    <div style="color: #8888bb; font-size: 0.9rem;">${file.size}</div>
+                    <div style="font-weight: 600; color: #55538a; font-size: 1.1rem;">${file.name}</div>
+                    <div style="color: #55538a; font-size: 0.9rem;">${file.size}</div>
                 </div>
             `;
 
@@ -882,7 +897,7 @@
                 const tagArray = tags.split(',').map(tag => tag.trim());
                 metadataHtml += `
                     <div style="margin-top: 20px;">
-                        <div style="font-weight: 600; margin-bottom: 10px; color: #8888bb;"> Etiquetas Visuales:</div>
+                        <div style="font-weight: 600; margin-bottom: 10px; color: #55538a;"> Etiquetas Visuales:</div>
                         ${tagArray.map(tag => `<span class="metadata-tag">${tag}</span>`).join('')}
                     </div>
                 `;

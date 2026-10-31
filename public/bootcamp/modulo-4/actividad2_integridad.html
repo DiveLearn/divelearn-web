@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#ff7a8a">
+<html lang="es" style="--c:#b39dfa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 2 - Verificador de Integridad (Hashing)</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -72,7 +72,7 @@
 
         .lab-title {
             font-size: 1.2rem;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 15px;
             font-weight: 600;
             display: flex;
@@ -215,7 +215,7 @@
         .algorithm-btn.active {
             border-color: #22C55E;
             background: #f8fff9;
-            color: #22C55E;
+            color: #2f8a3c;
             font-weight: 600;
         }
 
@@ -308,6 +308,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-seguridad.png" alt="" width="64" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 4</span><span class="dl-jh-tit">Los guardianes digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 4</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -340,17 +355,17 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad aprenderás a calcular hashes MD5 y SHA-256, verificar la integridad de datos y detectar modificaciones. Comprenderás por qué los hashes son fundamentales para la seguridad digital.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Laboratorio de Hashing</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Laboratorio de Hashing</h2>
                 
                 <div class="hash-lab">
                     <div class="lab-section">
                         <h3 class="lab-title"> Calculadora de Hash</h3>
-                        <p style="margin-bottom: 15px; color: #8888bb;">Genera el hash de cualquier texto para crear su "huella digital" única.</p>
+                        <p style="margin-bottom: 15px; color: #55538a;">Genera el hash de cualquier texto para crear su "huella digital" única.</p>
                         
                         <div class="input-group">
                             <label class="input-label" for="inputText">Texto o archivo a verificar:</label>
@@ -370,13 +385,13 @@
                         </div>
 
                         <div class="result-area" id="hashResult">
-                            <div style="color: #8888bb; font-style: italic;">El hash aparecerá aquí...</div>
+                            <div style="color: #55538a; font-style: italic;">El hash aparecerá aquí...</div>
                         </div>
                     </div>
 
                     <div class="lab-section">
                         <h3 class="lab-title"> Verificador de Integridad</h3>
-                        <p style="margin-bottom: 15px; color: #8888bb;">Compara dos hashes para verificar si los datos son idénticos o han sido modificados.</p>
+                        <p style="margin-bottom: 15px; color: #55538a;">Compara dos hashes para verificar si los datos son idénticos o han sido modificados.</p>
                         
                         <div class="hash-comparison">
                             <div class="comparison-box" id="hash1Box">
@@ -395,13 +410,13 @@
                         </div>
 
                         <div class="result-area" id="comparisonResult">
-                            <div style="color: #8888bb; font-style: italic;">El resultado de la comparación aparecerá aquí...</div>
+                            <div style="color: #55538a; font-style: italic;">El resultado de la comparación aparecerá aquí...</div>
                         </div>
                     </div>
 
                     <div class="lab-section">
                         <h3 class="lab-title"> Archivos de Demostración</h3>
-                        <p style="margin-bottom: 15px; color: #8888bb;">Selecciona un archivo de ejemplo para ver cómo cambia el hash con diferentes contenidos.</p>
+                        <p style="margin-bottom: 15px; color: #55538a;">Selecciona un archivo de ejemplo para ver cómo cambia el hash con diferentes contenidos.</p>
                         
                         <div class="demo-files">
                             <div class="demo-file" onclick="selectDemoFile('document')" data-file="document">
@@ -422,7 +437,7 @@
                         </div>
 
                         <div class="result-area" id="demoResult">
-                            <div style="color: #8888bb; font-style: italic;">Selecciona un archivo para ver su contenido y hash...</div>
+                            <div style="color: #55538a; font-style: italic;">Selecciona un archivo para ver su contenido y hash...</div>
                         </div>
                     </div>
                 </div>

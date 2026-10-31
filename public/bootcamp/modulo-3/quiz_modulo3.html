@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#ff7a8a">
+<html lang="es" style="--c:#f49ac2">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz - Módulo 3: La Guía Telefónica Digital (DNS)</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -190,6 +190,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-dns.png" alt="" width="86" height="64"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 3</span><span class="dl-jh-tit">La guía telefónica digital</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 3</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -377,7 +392,7 @@
                         <div class="result-stat-label">Puntos Obtenidos</div>
                     </div>
                 </div>
-                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                <p style="color: #55538a; margin: 20px 0; font-size: 1.1rem;">
                     <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 3: La Guía Telefónica Digital (DNS)</strong>
                 </p>
             </div>
@@ -632,7 +647,7 @@
             }
 
             const messageElement = document.createElement('p');
-            messageElement.style.cssText = 'color: #8888bb; margin: 20px 0; font-size: 1rem; font-weight: 500;';
+            messageElement.style.cssText = 'color: #55538a; margin: 20px 0; font-size: 1rem; font-weight: 500;';
             messageElement.innerHTML = message;
             resultsContainer.insertBefore(messageElement, navigationDiv);
         }
@@ -675,7 +690,7 @@
                         <div class="result-stat-label">Puntos Obtenidos</div>
                     </div>
                 </div>
-                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                <p style="color: #55538a; margin: 20px 0; font-size: 1.1rem;">
                     <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 3: La Guía Telefónica Digital (DNS)</strong>
                 </p>
             `;

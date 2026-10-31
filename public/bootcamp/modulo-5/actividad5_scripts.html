@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 5 - Creador de Scripts Básicos</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -166,7 +166,7 @@
 
         .code-editor {
             background: #1f1d5c;
-            color: #d4d4d4;
+            color: #55538a;
             font-family: 'Courier New', Monaco, monospace;
             font-size: 14px;
             line-height: 1.5;
@@ -180,7 +180,7 @@
 
         .script-output {
             background: #1f1d5c;
-            color: #e0f24a;
+            color: var(--lime-texto);
             font-family: 'Courier New', Monaco, monospace;
             font-size: 14px;
             line-height: 1.5;
@@ -201,7 +201,7 @@
         }
 
         .output-error {
-            color: #ff6b6b;
+            color: #c0392b;
         }
 
         .output-warning {
@@ -367,6 +367,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-linux.png" alt="" width="76" height="66"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 5</span><span class="dl-jh-tit">El sistema operativo del servidor</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 5</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -399,12 +414,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad aprenderás a crear scripts básicos en Bash para automatizar tareas repetitivas. Dominarás conceptos como variables, condicionales, bucles y programación de tareas con Cron.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Constructor de Scripts</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Constructor de Scripts</h2>
                 <div class="script-builder">
                     <div class="script-templates">
                         <div class="templates-title">
@@ -487,7 +502,7 @@ main</textarea>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Programador de Tareas (Cron)</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Programador de Tareas (Cron)</h2>
                 <div class="cron-section">
                     <div class="cron-title">
                          Constructor de Expresiones Cron
@@ -527,7 +542,7 @@ main</textarea>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Ejemplos de Scripts Útiles</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Ejemplos de Scripts Útiles</h2>
                 <div class="examples-grid">
                     <div class="example-card" onclick="loadExample('diskSpace')">
                         <div class="example-title"> Verificar Espacio en Disco</div>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#04a8bb">
+<html lang="es" style="--c:#6fd08c">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 1 - Planificador de Estrategia de Backup</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -131,7 +131,7 @@
 
         .strategy-title {
             font-size: 1.4rem;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -255,6 +255,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-backup.png" alt="" width="78" height="76"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 8</span><span class="dl-jh-tit">Proteger lo importante</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 8</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -287,12 +302,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad aprenderás a diseñar una estrategia de backup completa y personalizada. Analizarás tus necesidades específicas y crearás un plan que siga las mejores prácticas de la industria.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Configurador de Backup</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-disquete.png" alt="" width="32" height="32"> Configurador de Backup</h2>
                 <div class="interactive-area">
                     <form id="backupForm">
                         <div class="form-group">
@@ -556,7 +571,7 @@
                                 <div class="schedule-item">
                                     <div class="schedule-type">${item.type}</div>
                                     <div class="schedule-frequency">${item.frequency}</div>
-                                    <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">${item.desc}</div>
+                                    <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">${item.desc}</div>
                                 </div>
                             `).join('')}
                         </div>
@@ -590,7 +605,7 @@
                     <div class="strategy-section">
                         <h4> Costo Estimado</h4>
                         <div style="font-size: 1.2rem; color: #28a745; font-weight: 600;">${strategy.costs}</div>
-                        <div style="font-size: 0.9rem; color: #8888bb; margin-top: 5px;">
+                        <div style="font-size: 0.9rem; color: #55538a; margin-top: 5px;">
                             *Incluye hardware, software y servicios en nube
                         </div>
                     </div>

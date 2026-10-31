@@ -39,13 +39,45 @@
 82,
 58
 ],
+"buzo-celebra": [
+52,
+61
+],
+"buzo-chao": [
+44,
+62
+],
+"buzo-estudia": [
+43,
+62
+],
+"buzo-laptop": [
+50,
+63
+],
 "buzo-nada": [
 89,
 44
 ],
+"buzo-piensa": [
+53,
+62
+],
+"buzo-pulgar": [
+45,
+62
+],
+"buzo-rapida": [
+60,
+36
+],
 "buzo-saluda": [
 44,
 62
+],
+"buzo-sin-aire": [
+54,
+59
 ],
 "caballito-clienton": [
 46,
@@ -258,6 +290,86 @@
 "nodo-nube": [
 61,
 52
+],
+"obj-advertencia": [
+26,
+23
+],
+"obj-bandera": [
+18,
+24
+],
+"obj-bombillo": [
+24,
+23
+],
+"obj-cable": [
+26,
+26
+],
+"obj-candado": [
+19,
+24
+],
+"obj-cd": [
+27,
+26
+],
+"obj-checklist": [
+19,
+26
+],
+"obj-cronometro": [
+20,
+23
+],
+"obj-disco": [
+29,
+17
+],
+"obj-disquete": [
+26,
+25
+],
+"obj-laptop": [
+27,
+23
+],
+"obj-llave": [
+24,
+25
+],
+"obj-lupa": [
+25,
+25
+],
+"obj-nube": [
+30,
+26
+],
+"obj-paquete": [
+25,
+17
+],
+"obj-router": [
+28,
+24
+],
+"obj-satelite": [
+21,
+25
+],
+"obj-servidores": [
+24,
+25
+],
+"obj-usb": [
+23,
+24
+],
+"obj-wifi": [
+27,
+23
 ],
 "ola-grande": [
 27,

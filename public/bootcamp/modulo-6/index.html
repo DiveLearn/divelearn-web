@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#7cc6fe">
+<html lang="es" style="--c:#5fd3c6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo 6 - Cajas Dentro de Cajas (Virtualización)</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -188,7 +188,7 @@
 
         .example-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -410,6 +410,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-virtualizacion.png" alt="" width="68" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 6</span><span class="dl-jh-tit">Cajas dentro de cajas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -457,7 +472,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 6.1 El Concepto de Virtualización</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> 6.1 El Concepto de Virtualización</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Qué es la Virtualización?</h3>
                         <div class="subsection-content">
@@ -497,7 +512,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 6.2 Tipos de Virtualización</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> 6.2 Tipos de Virtualización</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Hipervisores: Los Administradores de VMs</h3>
                         <div class="subsection-content">
@@ -541,7 +556,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 6.3 La Evolución: Contenedores</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> 6.3 La Evolución: Contenedores</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Contenedores vs Máquinas Virtuales</h3>
                         <div class="subsection-content">
@@ -596,7 +611,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 6.4 Orquestación Básica</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> 6.4 Orquestación Básica</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">El Director de Orquesta Digital</h3>
                         <div class="subsection-content">
@@ -632,7 +647,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title"> 6.5 Casos de Uso Prácticos</h2>
+                    <h2 class="teoria-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> 6.5 Casos de Uso Prácticos</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Desarrollo vs Producción</h3>
                         <div class="subsection-content">
@@ -663,7 +678,7 @@
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #55538a; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_simulador_vms.html" class="actividad-card">

@@ -12,13 +12,15 @@ import numpy as np
 from PIL import Image
 
 hoja, salida, nombres = sys.argv[1], pathlib.Path(sys.argv[2]), sys.argv[3:]
-grilla, pixel_fijo, sin_abajo = None, None, 0.0
+grilla, pixel_fijo, sin_abajo, colores = None, None, 0.0, 20
 while nombres and nombres[0].startswith("--"):
     op, val, nombres = nombres[0], nombres[1], nombres[2:]
     if op == "--grilla":
         grilla = tuple(int(x) for x in val.split("x"))
     elif op == "--pixel":  # tamaño del pixel a mano cuando la detección falla
         pixel_fijo = float(val)
+    elif op == "--colores":  # más colores cuando se mezclan detalles chicos (ej. el brillo de los ojos)
+        colores = int(val)
     elif op == "--sin-abajo":  # fracción de abajo de cada celda a ignorar (nombres escritos por Gemini)
         sin_abajo = float(val)
 salida.mkdir(parents=True, exist_ok=True)
@@ -118,7 +120,7 @@ for (y0, y1, x0, x1), nombre in zip(sprites, nombres):
             out[j, i, 3] = 255
     img = Image.fromarray(out, "RGBA")
     # Pocos colores, como pixel art de verdad (y quita el ruido del JPEG)
-    rgb = img.convert("RGB").quantize(colors=20, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGB")
+    rgb = img.convert("RGB").quantize(colors=colores, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert("RGB")
     final = Image.merge("RGBA", (*rgb.split(), img.split()[3]))
     final = final.crop(final.getbbox())
     nw, nh = final.size

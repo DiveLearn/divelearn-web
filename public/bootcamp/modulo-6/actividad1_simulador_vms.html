@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" style="--c:#7cc6fe">
+<html lang="es" style="--c:#5fd3c6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 1 - Simulador de Máquinas Virtuales</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -381,6 +381,21 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-virtualizacion.png" alt="" width="68" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 6</span><span class="dl-jh-tit">Cajas dentro de cajas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 6</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -413,12 +428,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title"> Objetivo</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
                 <p>En esta actividad simularás ser un administrador de sistemas que debe crear y gestionar máquinas virtuales en un servidor físico. Aprenderás sobre limitaciones de recursos y planificación de capacidad.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Servidor Físico</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Servidor Físico</h2>
                 <div class="server-container">
                     <div class="server-specs">
                         <div class="spec-item">
@@ -471,7 +486,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Crear Nueva Máquina Virtual</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Crear Nueva Máquina Virtual</h2>
                 <div class="vm-controls">
                     <h3 class="controls-title"> Configuración de VM</h3>
                     
@@ -530,10 +545,10 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title"> Máquinas Virtuales Activas</h2>
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-servidores.png" alt="" width="32" height="32"> Máquinas Virtuales Activas</h2>
                 <div class="vms-list">
                     <div id="vmsList">
-                        <p style="text-align: center; color: #8888bb; font-style: italic; padding: 20px;">
+                        <p style="text-align: center; color: #55538a; font-style: italic; padding: 20px;">
                             No hay máquinas virtuales creadas aún. ¡Crea tu primera VM arriba!
                         </p>
                     </div>
@@ -745,7 +760,7 @@
             
             if (virtualMachines.length === 0) {
                 vmsList.innerHTML = `
-                    <p style="text-align: center; color: #8888bb; font-style: italic; padding: 20px;">
+                    <p style="text-align: center; color: #55538a; font-style: italic; padding: 20px;">
                         No hay máquinas virtuales creadas aún. ¡Crea tu primera VM arriba!
                     </p>
                 `;
