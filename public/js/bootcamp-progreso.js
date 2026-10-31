@@ -63,6 +63,10 @@
     p.ultimaNueva = hoy; // misión del día: abrir al menos una actividad nueva
     guardar(p);
   }
+  // Caminito de la cabecera: marca con ✓ las páginas ya visitadas.
+  document.querySelectorAll(".dl-paso[data-paso]").forEach(function (a) {
+    if (vistas.indexOf(a.dataset.paso) !== -1) a.classList.add("visto");
+  });
   var hechas = Math.min(vistas.length, total);
   var completo = hechas >= total;
 

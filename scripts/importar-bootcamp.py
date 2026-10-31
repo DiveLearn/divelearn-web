@@ -118,6 +118,53 @@ for ei, bloque in enumerate(_ts.split("    id: ")[1:]):
         MODULO[int(n)] = {"etapa": f"Etapa {ei + 1} · {nombre_etapa}", "sprite": spr, "titulo": tit}
 
 
+TITULOS = {}  # (módulo, página) → título corto, para el caminito de pasos
+
+
+def titulo_de(h: str) -> str:
+    t = re.search(r"<title>([^<]*)</title>", h)
+    t = t.group(1) if t else ""
+    t = re.sub(r"^\s*(Actividad\s*\d+\s*[-–:]\s*|Quiz\s*[-–:]?\s*)", "", t)
+    return re.sub(r"\s*[|·]\s*DiveLearn.*$", "", t).strip() or "Actividad"
+
+
+def pasos(m: int, pagina: str) -> str:
+    """Caminito: Inicio · 1 · 2 · … · Quiz. Las visitadas las marca bootcamp-progreso.js."""
+    items = [("index", "./", "Inicio", "Portada del módulo")]
+    n = 0
+    for p in paginas[m]:
+        if p.startswith("quiz"):
+            items.append((p, f"./{p}.html", "Quiz", TITULOS.get((m, p), "Quiz")))
+        else:
+            n += 1
+            items.append((p, f"./{p}.html", str(n), TITULOS.get((m, p), f"Actividad {n}")))
+    chips = "".join(
+        f'<a class="dl-paso{" actual" if p == pagina else ""}" href="{href}" data-paso="{p}" title="{t}"{" aria-current=\"page\"" if p == pagina else ""}>{etq}</a>'
+        for p, href, etq, t in items
+    )
+    return f'<nav class="dl-pasos" aria-label="Actividades del módulo">{chips}</nav>'
+
+
+def pie(m: int, pagina: str) -> str:
+    """← Anterior / Siguiente → dentro del módulo; el quiz lleva al módulo siguiente."""
+    orden = ["index"] + paginas[m]
+    i = orden.index(pagina) if pagina in orden else 0
+    href = lambda p: "./" if p == "index" else f"./{p}.html"
+    if i > 0:
+        ant = orden[i - 1]
+        a = f'<a class="dl-pie-btn" href="{href(ant)}">← {"Portada del módulo" if ant == "index" else TITULOS.get((m, ant), "Anterior")}</a>'
+    else:
+        a = '<a class="dl-pie-btn" href="/bootcamp/">← Mapa del bootcamp</a>'
+    if i + 1 < len(orden):
+        sig = orden[i + 1]
+        b = f'<a class="dl-pie-btn sig" href="{href(sig)}">{TITULOS.get((m, sig), "Siguiente")} →</a>'
+    elif m < 8:
+        b = f'<a class="dl-pie-btn sig" href="/bootcamp/modulo-{m + 1}/">Módulo {m + 1}: {MODULO[m + 1]["titulo"]} →</a>'
+    else:
+        b = '<a class="dl-pie-btn sig" href="/bootcamp/#licencia">Reclamar tu licencia →</a>'
+    return f'<nav class="dl-pie" aria-label="Siguiente paso">{a}{b}</nav>'
+
+
 def cabecera(m: int, pagina: str) -> str:
     """Panel tipo ventana igual al del mapa del bootcamp (bootcamp-juego.css)."""
     d = MODULO[m]
@@ -136,6 +183,7 @@ def cabecera(m: int, pagina: str) -> str:
       <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo {m}</span><span class="dl-jh-tit">{d["titulo"]}</span></div>
       <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a>{volver}</nav>
     </div>
+    {pasos(m, pagina)}
   </div>
 </header>
 """
@@ -181,6 +229,7 @@ def con_progreso(h: str, m: int, pagina: str, total: int) -> str:
     h = h.replace("</head>", '<link rel="stylesheet" href="/css/bootcamp-juego.css">\n</head>', 1)
     h = re.sub(r"(<body[^>]*>)", lambda x: x.group(1) + "\n" + cabecera(m, pagina), h, count=1)
     h = con_objetos(h, m)
+    h = h.replace("</body>", pie(m, pagina) + "\n</body>", 1)
     tag = f'<script src="/js/bootcamp-progreso.js" data-modulo="{m}" data-pagina="{pagina}" data-total="{total}" defer></script>'
     return h.replace("</body>", f"{tag}\n</body>", 1)
 
@@ -219,6 +268,8 @@ for m in range(9):
             reparar.append(f"modulo-{m}/{f.name}")
             (out / f.name).write_text(EN_REPARACION)
     paginas[m] = [f.stem for f in subs]
+    for f in subs:
+        TITULOS[(m, f.stem)] = titulo_de(f.read_text())
     hub = limpiar((src / f"hub_modulo{m}.html").read_text())
     # En la portada del módulo, "volver" lleva al mapa del Bootcamp.
     hub = re.sub(r'<a href="\./" class="dl-nav-back">← [^<]*</a>', '<a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>', hub)
