@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+---
+
+<Base title="Blog" description="Servicios de AWS explicados con historias, infografías y labs.">
+  <PageHead title="Blog" lead="Servicios de AWS explicados con historias, infografías y labs. Lo que aprendo en el trabajo, contado sin humo." />
+  <section class="wrap lista">
+    {
+      posts.length === 0 ? (
+        <p class="vacio">
+          Los primeros posts están en el horno 🫧 Mientras tanto, bucea en la <a href="/inmersion-ans-c01/">Inmersión ANS-C01</a>.
+        </p>
+      ) : (
+        posts.map((p) => (
+          <a class="post" href={`/blog/${p.id}/`}>
+            <time datetime={p.data.date.toISOString()}>{fecha.format(p.data.date)}</time>
+            <h2>{p.data.title}</h2>
+            <p>{p.data.description}</p>
+          </a>
+        ))
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  .lista {
+    display: grid;
+    gap: 16px;
+    padding-top: 40px;
+  }
+  .vacio {
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+  .post {
+    display: block;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--lav-soft);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .post:hover {
+    border-color: var(--purple);
+  }
+  time {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  h2 {
+    font-size: 1.6rem;
+    color: var(--purple);
+    margin: 4px 0 8px;
+  }
+  .post p {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>

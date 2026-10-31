@@ -1,6 +1,6 @@
 # divelearn-web
 
-Sitio de DiveLearn en **https://divelearn.cloud**. Primera sección: [Inmersión ANS-C01](https://divelearn.cloud/inmersion-ans-c01/), una ruta de estudio gratis y gamificada para AWS Certified Advanced Networking – Specialty.
+Sitio de DiveLearn en **https://divelearn.cloud**, hecho con [Astro](https://astro.build): inicio, blog, recursos y cursos. Primer recurso: [Inmersión ANS-C01](https://divelearn.cloud/inmersion-ans-c01/), una ruta de estudio gratis y gamificada para AWS Certified Advanced Networking – Specialty.
 
 ## Cómo está armado
 
@@ -13,12 +13,15 @@ Visitante → CloudFront (HTTPS, caché, headers de seguridad)
 |---|---|
 | `bootstrap/` | Bucket del estado de Terraform. Se aplicó a mano una sola vez; su estado es local y no va a git. |
 | `infra/` | Bucket del sitio, CloudFront, función de reescritura de `index.html` y headers de seguridad. DNS de divelearn.cloud en Route 53 (`dns.tf`, incluye el correo de Google Workspace y Kit). Estado en S3 con bloqueo nativo. |
-| `site/` | Archivos estáticos publicados tal cual. |
-| `scripts/deploy.sh` | Sube `site/` y limpia la caché de CloudFront. |
+| `src/` | Páginas Astro (`pages/`), plantilla con la marca (`layouts/Base.astro`) y posts del blog en Markdown (`content/blog/`). |
+| `public/` | Archivos que se publican tal cual: la Inmersión ANS-C01, imágenes, fuentes. |
+| `scripts/deploy.sh` | Construye el sitio, sube `dist/` y limpia la caché de CloudFront. |
 
 ## Trabajar
 
 ```bash
+npm install && npm run dev                 # sitio en http://localhost:4321
+
 aws login --profile divelearn-web          # permisos temporales, sin llaves
 export AWS_PROFILE=divelearn-web
 terraform -chdir=infra init
@@ -28,6 +31,20 @@ scripts/deploy.sh
 ```
 
 Todo cambio entra por Pull Request; CI revisa formato, validación y seguridad (checkov).
+
+## Escribir un post
+
+Crear `src/content/blog/mi-post.md`:
+
+```markdown
+---
+title: "Título"
+description: "Una línea para Google y LinkedIn"
+date: 2026-11-05
+tags: [aws, redes]
+draft: true   # quitarlo para publicar
+---
+```
 
 ## Mover el dominio desde otra distribución (hecho el 2026-10-30)
 

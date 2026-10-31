@@ -4,3 +4,8 @@
 *.tfstate.*
 *.tfplan
 crash.log
+
+# Astro
+node_modules/
+dist/
+.astro/
