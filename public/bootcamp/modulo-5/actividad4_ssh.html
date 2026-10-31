@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Generador y Gestor de Llaves SSH</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .ssh-generator {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+
+        .generator-form {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .generate-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .generate-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .key-display {
+            background: #1f1d5c;
+            color: #e0f24a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', Monaco, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            display: none;
+        }
+
+        .key-display.show {
+            display: block;
+        }
+
+        .key-section {
+            margin-bottom: 20px;
+        }
+
+        .key-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key-content {
+            background: #2d2d30;
+            padding: 15px;
+            border-radius: 6px;
+            word-break: break-all;
+            border-left: 4px solid #e0f24a;
+        }
+
+        .copy-btn {
+            background: #22C55E;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #22C55E;
+        }
+
+        .ssh-config {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .config-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1565c0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .connection-simulator {
+            background: #1f1d5c;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #d4d4d4;
+            font-family: 'Courier New', Monaco, monospace;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            padding: 5px 0;
+        }
+
+        .prompt {
+            color: #e0f24a;
+        }
+
+        .command {
+            color: #ffff00;
+        }
+
+        .output {
+            color: #d4d4d4;
+        }
+
+        .error {
+            color: #ff6b6b;
+        }
+
+        .success {
+            color: #51cf66;
+        }
+
+        .server-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .server-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .server-card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .server-card.connected {
+            border-color: #22C55E;
+            background: rgba(34,197,94,0.15);
+        }
+
+        .server-name {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .server-details {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', Monaco, monospace;
+        }
+
+        .server-status {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-disconnected {
+            background: rgba(239,68,68,0.15);
+            color: #721c24;
+        }
+
+        .status-connected {
+            background: rgba(34,197,94,0.15);
+            color: var(--text-muted);
+        }
+
+        
+
+        
+
+        
+
+        .challenge-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-item {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .challenge-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .server-list {
+                grid-template-columns: 1fr;
+            }
+
+            
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 5</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 5</a> / Actividad 4
+            </div>
+            <h1 class="activity-title">🔑 Generador y Gestor de Llaves SSH</h1>
+            <p class="activity-subtitle">Genera y gestiona llaves SSH para conexiones seguras</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a generar y gestionar llaves SSH para autenticación segura sin contraseñas. Comprenderás la diferencia entre llaves públicas y privadas, y cómo configurar conexiones SSH seguras a servidores remotos.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔐 Generador de Llaves SSH</h2>
+                <div class="ssh-generator">
+                    <div class="generator-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Tipo de Llave</label>
+                                <select class="form-select" id="keyType">
+                                    <option value="rsa">RSA (Recomendado)</option>
+                                    <option value="ed25519">Ed25519 (Más seguro)</option>
+                                    <option value="ecdsa">ECDSA</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tamaño de Bits (RSA)</label>
+                                <select class="form-select" id="keySize">
+                                    <option value="2048">2048 bits</option>
+                                    <option value="4096" selected>4096 bits</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email/Comentario</label>
+                            <input type="email" class="form-input" id="keyComment" placeholder="tu@email.com" value="usuario@ejemplo.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Passphrase (Opcional pero recomendado)</label>
+                            <input type="password" class="form-input" id="keyPassphrase" placeholder="Frase secreta para proteger la llave privada">
+                        </div>
+                        
+                        <button class="generate-btn" onclick="generateSSHKey()">
+                            🔑 Generar Par de Llaves SSH
+                        </button>
+                    </div>
+                    
+                    <div class="key-display" id="keyDisplay">
+                        <div class="key-section">
+                            <div class="key-title">
+                                🔓 Llave Pública (id_rsa.pub)
+                                <button class="copy-btn" onclick="copyToClipboard('publicKey')">📋 Copiar</button>
+                            </div>
+                            <div class="key-content" id="publicKey"></div>
+                        </div>
+                        
+                        <div class="key-section">
+                            <div class="key-title">
+                                🔒 Llave Privada (id_rsa) - ¡MANTENER SECRETA!
+                                <button class="copy-btn" onclick="copyToClipboard('privateKey')">📋 Copiar</button>
+                            </div>
+                            <div class="key-content" id="privateKey"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">⚙️ Configuración SSH</h2>
+                <div class="ssh-config">
+                    <div class="config-title">
+                        📝 Archivo ~/.ssh/config
+                    </div>
+                    <p>Configura conexiones predefinidas para facilitar el acceso a servidores:</p>
+                    <div class="connection-simulator">
+                        <div class="terminal-line">
+                            <span class="comment"># Servidor de producción</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">Host servidor-prod</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">    HostName 192.168.1.100</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">    User admin</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">    Port 22</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">    IdentityFile ~/.ssh/id_rsa</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">    IdentitiesOnly yes</span>
+                        </div>
+                        <div class="terminal-line">&nbsp;</div>
+                        <div class="terminal-line">
+                            <span class="comment"># Conexión simplificada:</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> <span class="command">ssh servidor-prod</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🖥️ Simulador de Conexiones</h2>
+                <p><strong>Haz clic en un servidor para simular la conexión SSH:</strong></p>
+                
+                <div class="server-list">
+                    <div class="server-card" onclick="connectToServer('web-server', this)">
+                        <div class="server-name">🌐 Servidor Web</div>
+                        <div class="server-details">usuario@192.168.1.100:22</div>
+                        <div class="server-status status-disconnected">Desconectado</div>
+                    </div>
+                    
+                    <div class="server-card" onclick="connectToServer('db-server', this)">
+                        <div class="server-name">🗄️ Servidor BD</div>
+                        <div class="server-details">admin@db.empresa.com:2222</div>
+                        <div class="server-status status-disconnected">Desconectado</div>
+                    </div>
+                    
+                    <div class="server-card" onclick="connectToServer('backup-server', this)">
+                        <div class="server-name">💾 Servidor Backup</div>
+                        <div class="server-details">backup@backup.local:22</div>
+                        <div class="server-status status-disconnected">Desconectado</div>
+                    </div>
+                    
+                    <div class="server-card" onclick="connectToServer('dev-server', this)">
+                        <div class="server-name">⚙️ Servidor Desarrollo</div>
+                        <div class="server-details">dev@localhost:2022</div>
+                        <div class="server-status status-disconnected">Desconectado</div>
+                    </div>
+                </div>
+                
+                <div class="connection-simulator" id="connectionLog">
+                    <div class="terminal-line">
+                        <span class="output">Terminal SSH - Listo para conexiones</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">Selecciona un servidor arriba para iniciar conexión...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-section">
+                <h3 class="challenge-title">
+                    🎯 Desafíos SSH
+                </h3>
+                <div class="challenge-item">
+                    <strong>Desafío 1:</strong> Genera una llave SSH de tipo Ed25519 con tu email personal.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 2:</strong> Copia la llave pública generada (simula subirla a un servidor).
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 3:</strong> Conecta a todos los servidores disponibles en el simulador.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 4:</strong> Explica la diferencia entre llave pública y privada.
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Mejores Prácticas SSH
+                </h3>
+                <div class="tip-item">
+                    <strong>🔒 Seguridad:</strong> Siempre usa passphrase para proteger tu llave privada. Es una capa extra de seguridad.
+                </div>
+                <div class="tip-item">
+                    <strong>📂 Ubicación:</strong> Las llaves SSH se guardan en ~/.ssh/ (llave privada) y ~/.ssh/id_rsa.pub (llave pública).
+                </div>
+                <div class="tip-item">
+                    <strong>🔑 Permisos:</strong> La llave privada debe tener permisos 600 (solo tú puedes leerla).
+                </div>
+                <div class="tip-item">
+                    <strong>📤 Distribución:</strong> Solo compartes la llave PÚBLICA. La privada nunca debe salir de tu computadora.
+                </div>
+                <div class="tip-item">
+                    <strong>🔄 Rotación:</strong> Cambia tus llaves SSH periódicamente, especialmente si sospechas compromiso.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let connectedServers = new Set();
+
+        function generateSSHKey() {
+            const keyType = document.getElementById('keyType').value;
+            const keySize = document.getElementById('keySize').value;
+            const comment = document.getElementById('keyComment').value;
+            const passphrase = document.getElementById('keyPassphrase').value;
+            
+            // Simular generación de llaves
+            const timestamp = Date.now();
+            const keyId = `${keyType}_${timestamp}`;
+            
+            // Generar llaves simuladas
+            const publicKey = generatePublicKey(keyType, keySize, comment);
+            const privateKey = generatePrivateKey(keyType, keySize, passphrase.length > 0);
+            
+            // Mostrar llaves
+            document.getElementById('publicKey').textContent = publicKey;
+            document.getElementById('privateKey').textContent = privateKey;
+            document.getElementById('keyDisplay').classList.add('show');
+            
+            // Log de generación
+            const log = document.getElementById('connectionLog');
+            log.innerHTML = `
+                <div class="terminal-line">
+                    <span class="success">✅ Par de llaves SSH generado exitosamente:</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">Tipo: ${keyType.toUpperCase()}</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">Tamaño: ${keyType === 'rsa' ? keySize + ' bits' : 'Curva elíptica'}</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">Protegida: ${passphrase.length > 0 ? 'Sí (con passphrase)' : 'No'}</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">Comentario: ${comment}</span>
+                </div>
+                <div class="terminal-line">&nbsp;</div>
+                <div class="terminal-line">
+                    <span class="output">Siguiente paso: Copia la llave pública al servidor destino</span>
+                </div>
+            `;
+        }
+
+        function generatePublicKey(type, size, comment) {
+            const keyData = generateRandomString(type === 'ed25519' ? 43 : 372);
+            const prefix = type === 'ed25519' ? 'ssh-ed25519' : `ssh-rsa`;
+            return `${prefix} ${keyData} ${comment}`;
+        }
+
+        function generatePrivateKey(type, size, hasPassphrase) {
+            const header = type === 'ed25519' ? 'OPENSSH PRIVATE KEY' : 'RSA PRIVATE KEY';
+            const keyLength = type === 'ed25519' ? 8 : 25;
+            
+            let key = `-----BEGIN ${header}-----\n`;
+            
+            if (hasPassphrase) {
+                key += `Proc-Type: 4,ENCRYPTED\n`;
+                key += `DEK-Info: AES-128-CBC,${generateRandomString(32)}\n\n`;
+            }
+            
+            for (let i = 0; i < keyLength; i++) {
+                key += generateRandomString(64) + '\n';
+            }
+            
+            key += `-----END ${header}-----`;
+            return key;
+        }
+
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copiado';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(() => {
+                alert('Texto copiado al portapapeles (simulado):\n\n' + text.substring(0, 100) + '...');
+            });
+        }
+
+        function connectToServer(serverId, element) {
+            const serverNames = {
+                'web-server': '🌐 Servidor Web',
+                'db-server': '🗄️ Servidor BD', 
+                'backup-server': '💾 Servidor Backup',
+                'dev-server': '⚙️ Servidor Desarrollo'
+            };
+            
+            const serverHosts = {
+                'web-server': 'usuario@192.168.1.100',
+                'db-server': 'admin@db.empresa.com',
+                'backup-server': 'backup@backup.local',
+                'dev-server': 'dev@localhost'
+            };
+            
+            const log = document.getElementById('connectionLog');
+            const statusElement = element.querySelector('.server-status');
+            
+            if (connectedServers.has(serverId)) {
+                // Desconectar
+                connectedServers.delete(serverId);
+                element.classList.remove('connected');
+                statusElement.textContent = 'Desconectado';
+                statusElement.className = 'server-status status-disconnected';
+                
+                log.innerHTML += `
+                    <div class="terminal-line">
+                        <span class="prompt">$</span> <span class="command">exit</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">Connection to ${serverHosts[serverId].split('@')[1]} closed.</span>
+                    </div>
+                `;
+            } else {
+                // Conectar
+                connectedServers.add(serverId);
+                element.classList.add('connected');
+                statusElement.textContent = 'Conectado';
+                statusElement.className = 'server-status status-connected';
+                
+                log.innerHTML += `
+                    <div class="terminal-line">
+                        <span class="prompt">$</span> <span class="command">ssh ${serverHosts[serverId]}</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">Connecting to ${serverHosts[serverId].split('@')[1]}...</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="success">✅ Authentication successful (SSH key)</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="success">Welcome to ${serverNames[serverId]}!</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">Last login: ${new Date().toLocaleString()}</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">${serverHosts[serverId]}:~$</span> <span class="output">_</span>
+                    </div>
+                `;
+            }
+            
+            // Scroll al final del log
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Generador y Gestor de Llaves SSH".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n¡Ahora sabes gestionar autenticación SSH segura!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Actualizar el campo de tamaño de bits según el tipo de llave
+        document.getElementById('keyType').addEventListener('change', function() {
+            const keySize = document.getElementById('keySize');
+            if (this.value === 'ed25519') {
+                keySize.disabled = true;
+                keySize.style.opacity = '0.5';
+            } else {
+                keySize.disabled = false;
+                keySize.style.opacity = '1';
+            }
+        });
+    </script>
+
+</body>
+</html>

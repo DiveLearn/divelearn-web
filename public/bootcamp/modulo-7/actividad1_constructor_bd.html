@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - Constructor de Base de Datos Simple</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .interactive-area {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px dashed var(--border);
+        }
+
+        .db-designer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .table-creator {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .table-creator h4 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .table-preview {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        
+
+        .btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: #6c757d;
+        }
+
+        .btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn.danger {
+            background: #EF4444;
+        }
+
+        .btn.danger:hover {
+            background: #EF4444;
+        }
+
+        .btn.success {
+            background: #22C55E;
+        }
+
+        .btn.success:hover {
+            background: #22C55E;
+        }
+
+        .table-display {
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+        }
+
+        .table-header {
+            background: var(--purple);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .table-content {
+            padding: 15px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 80px;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: var(--surface);
+            border-radius: 6px;
+        }
+        .remove-field {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .remove-field:hover {
+            background: #EF4444;
+        }
+
+        .sql-output {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .query-executor {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+        .query-result {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+            min-height: 50px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--purple);
+            border-bottom-color: var(--purple);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--surface);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .db-designer {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .field-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 7</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 7</a> / Actividad 1
+            </div>
+            <h1 class="activity-title">🗂️ Constructor de Base de Datos Simple</h1>
+            <p class="activity-subtitle">Diseña y crea tu primera base de datos relacional paso a paso</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>35 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 150</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a diseñar una base de datos relacional desde cero. Crearás tablas, definirás relaciones y escribirás consultas SQL básicas para entender cómo funcionan las bases de datos en el mundo real.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔧 Constructor Interactivo</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('design')">🏗️ Diseño</div>
+                    <div class="tab" onclick="showTab('sql')">💻 SQL</div>
+                    <div class="tab" onclick="showTab('queries')">🔍 Consultas</div>
+                </div>
+
+                <div id="design" class="tab-content active">
+                    <div class="db-designer">
+                        <div class="table-creator">
+                            <h4>📋 Crear Nueva Tabla</h4>
+                            
+                            <div class="input-group">
+                                <label class="input-label">Nombre de la tabla:</label>
+                                <input type="text" id="tableName" class="input-field" placeholder="ej: empleados">
+                            </div>
+
+                            <div id="fields">
+                                <div class="field-row">
+                                    <input type="text" placeholder="Nombre del campo" class="field-name">
+                                    <select class="field-type">
+                                        <option value="INT">Número (INT)</option>
+                                        <option value="VARCHAR(100)">Texto (VARCHAR)</option>
+                                        <option value="DATE">Fecha (DATE)</option>
+                                        <option value="DECIMAL(10,2)">Decimal</option>
+                                        <option value="BOOLEAN">Verdadero/Falso</option>
+                                    </select>
+                                    <button class="remove-field" onclick="removeField(this)">❌</button>
+                                </div>
+                            </div>
+
+                            <div style="margin: 15px 0;">
+                                <button class="btn secondary" onclick="addField()">➕ Agregar Campo</button>
+                                <button class="btn" onclick="createTable()">🎨 Crear Tabla</button>
+                            </div>
+                        </div>
+
+                        <div class="table-preview">
+                            <h4>🗄️ Base de Datos Actual</h4>
+                            <div id="tablesContainer">
+                                <p style="color: #8888bb; text-align: center; margin-top: 50px;">
+                                    Aún no hay tablas creadas.<br>
+                                    <small>Crea tu primera tabla usando el panel de la izquierda.</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sql" class="tab-content">
+                    <h4>📜 Código SQL Generado</h4>
+                    <div class="sql-output" id="sqlOutput">-- El código SQL aparecerá aquí cuando crees tablas</div>
+                    
+                    <div style="margin: 20px 0;">
+                        <button class="btn" onclick="copySql()">📋 Copiar SQL</button>
+                        <button class="btn secondary" onclick="downloadSql()">💾 Descargar</button>
+                    </div>
+                </div>
+
+                <div id="queries" class="tab-content">
+                    <div class="query-executor">
+                        <h4>🔍 Ejecutor de Consultas</h4>
+                        <p style="color: #8888bb; margin-bottom: 15px;">Escribe consultas SQL para practicar:</p>
+                        
+                        <textarea id="queryInput" class="query-input" placeholder="SELECT * FROM empleados WHERE salario > 50000;&#10;&#10;-- Prueba estas consultas de ejemplo:&#10;-- SELECT nombre FROM empleados;&#10;-- SELECT COUNT(*) FROM empleados;&#10;-- SELECT * FROM empleados ORDER BY salario DESC;"></textarea>
+                        
+                        <div style="margin: 15px 0;">
+                            <button class="btn" onclick="executeQuery()">▶️ Ejecutar</button>
+                            <button class="btn secondary" onclick="loadExample()">📝 Cargar Ejemplo</button>
+                        </div>
+
+                        <div class="query-result" id="queryResult">
+                            Los resultados aparecerán aquí...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips para Diseñar Bases de Datos
+                </h3>
+                <div class="tip-item">
+                    <strong>🔑 Clave primaria:</strong> Cada tabla debe tener un campo único que identifique cada registro (como ID).
+                </div>
+                <div class="tip-item">
+                    <strong>📊 Tipos de datos:</strong> Elige el tipo correcto: números para cálculos, texto para nombres, fechas para eventos.
+                </div>
+                <div class="tip-item">
+                    <strong>🔗 Relaciones:</strong> Conecta tablas usando campos en común (como id_empleado en tabla de ventas).
+                </div>
+                <div class="tip-item">
+                    <strong>📝 Nombres claros:</strong> Usa nombres descriptivos: "fecha_nacimiento" en lugar de "fn".
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let tables = [];
+        let sqlCode = '';
+        let isCompleted = false;
+
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remover clase active de todos los tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el tab correspondiente
+            event.target.classList.add('active');
+        }
+
+        function addField() {
+            const fieldsContainer = document.getElementById('fields');
+            const fieldRow = document.createElement('div');
+            fieldRow.className = 'field-row';
+            fieldRow.innerHTML = `
+                <input type="text" placeholder="Nombre del campo" class="field-name">
+                <select class="field-type">
+                    <option value="INT">Número (INT)</option>
+                    <option value="VARCHAR(100)">Texto (VARCHAR)</option>
+                    <option value="DATE">Fecha (DATE)</option>
+                    <option value="DECIMAL(10,2)">Decimal</option>
+                    <option value="BOOLEAN">Verdadero/Falso</option>
+                </select>
+                <button class="remove-field" onclick="removeField(this)">❌</button>
+            `;
+            fieldsContainer.appendChild(fieldRow);
+        }
+
+        function removeField(button) {
+            button.parentElement.remove();
+        }
+
+        function createTable() {
+            const tableName = document.getElementById('tableName').value.trim();
+            if (!tableName) {
+                alert('Por favor, ingresa un nombre para la tabla');
+                return;
+            }
+
+            const fieldRows = document.querySelectorAll('.field-row');
+            const fields = [];
+
+            fieldRows.forEach(row => {
+                const name = row.querySelector('.field-name').value.trim();
+                const type = row.querySelector('.field-type').value;
+                if (name) {
+                    fields.push({ name, type });
+                }
+            });
+
+            if (fields.length === 0) {
+                alert('Agrega al menos un campo a la tabla');
+                return;
+            }
+
+            // Crear objeto tabla
+            const table = {
+                name: tableName,
+                fields: fields
+            };
+
+            tables.push(table);
+            updateTablesDisplay();
+            generateSQL();
+            clearForm();
+
+            // Mostrar mensaje de éxito
+            alert(`✅ Tabla "${tableName}" creada exitosamente con ${fields.length} campos`);
+        }
+
+        function updateTablesDisplay() {
+            const container = document.getElementById('tablesContainer');
+            
+            if (tables.length === 0) {
+                container.innerHTML = `
+                    <p style="color: #8888bb; text-align: center; margin-top: 50px;">
+                        Aún no hay tablas creadas.<br>
+                        <small>Crea tu primera tabla usando el panel de la izquierda.</small>
+                    </p>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+
+            tables.forEach((table, index) => {
+                const tableDiv = document.createElement('div');
+                tableDiv.className = 'table-display';
+                
+                let fieldsHtml = table.fields.map(field => 
+                    `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f0f0f0;">
+                        <span style="font-weight: 500;">${field.name}</span>
+                        <span style="color: #8888bb; font-size: 0.85rem;">${field.type}</span>
+                    </div>`
+                ).join('');
+
+                tableDiv.innerHTML = `
+                    <div class="table-header">
+                        📋 ${table.name}
+                        <button style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer;" onclick="deleteTable(${index})">🗑️</button>
+                    </div>
+                    <div class="table-content">
+                        ${fieldsHtml}
+                    </div>
+                `;
+
+                container.appendChild(tableDiv);
+            });
+        }
+
+        function deleteTable(index) {
+            if (confirm(`¿Seguro que quieres eliminar la tabla "${tables[index].name}"?`)) {
+                tables.splice(index, 1);
+                updateTablesDisplay();
+                generateSQL();
+            }
+        }
+
+        function generateSQL() {
+            if (tables.length === 0) {
+                sqlCode = '-- El código SQL aparecerá aquí cuando crees tablas';
+                document.getElementById('sqlOutput').textContent = sqlCode;
+                return;
+            }
+
+            sqlCode = '-- Código SQL generado automáticamente\n\n';
+
+            tables.forEach(table => {
+                sqlCode += `CREATE TABLE ${table.name} (\n`;
+                
+                table.fields.forEach((field, index) => {
+                    sqlCode += `    ${field.name} ${field.type}`;
+                    if (index < table.fields.length - 1) {
+                        sqlCode += ',';
+                    }
+                    sqlCode += '\n';
+                });
+
+                sqlCode += ');\n\n';
+            });
+
+            document.getElementById('sqlOutput').textContent = sqlCode;
+        }
+
+        function clearForm() {
+            document.getElementById('tableName').value = '';
+            
+            // Limpiar campos excepto el primero
+            const fieldsContainer = document.getElementById('fields');
+            const fieldRows = fieldsContainer.querySelectorAll('.field-row');
+            
+            for (let i = fieldRows.length - 1; i > 0; i--) {
+                fieldRows[i].remove();
+            }
+
+            // Limpiar el primer campo
+            const firstRow = fieldsContainer.querySelector('.field-row');
+            firstRow.querySelector('.field-name').value = '';
+            firstRow.querySelector('.field-type').selectedIndex = 0;
+        }
+
+        function copySql() {
+            navigator.clipboard.writeText(sqlCode).then(() => {
+                alert('📋 Código SQL copiado al portapapeles');
+            });
+        }
+
+        function downloadSql() {
+            const blob = new Blob([sqlCode], { type: 'text/sql' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mi_base_de_datos.sql';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function executeQuery() {
+            const query = document.getElementById('queryInput').value.trim();
+            const resultDiv = document.getElementById('queryResult');
+
+            if (!query) {
+                resultDiv.innerHTML = '<span style="color: #dc3545;">❌ Por favor, escribe una consulta SQL</span>';
+                return;
+            }
+
+            // Simulación de ejecución de consultas
+            let result = '';
+
+            if (query.toLowerCase().includes('select')) {
+                if (tables.length === 0) {
+                    result = '<span style="color: #dc3545;">❌ No hay tablas en la base de datos</span>';
+                } else {
+                    result = `
+                        <div style="color: #28a745; margin-bottom: 10px;">✅ Consulta ejecutada exitosamente</div>
+                        <div style="background: white; border: 1px solid #ddd; border-radius: 4px; padding: 10px;">
+                            <strong>Resultado simulado:</strong><br>
+                            <small style="color: #8888bb;">En una base de datos real, aquí verías los datos solicitados.</small>
+                        </div>
+                    `;
+                }
+            } else if (query.toLowerCase().includes('create')) {
+                result = '<span style="color: #ffc107;">⚠️ Usa el diseñador visual para crear tablas</span>';
+            } else if (query.toLowerCase().includes('insert')) {
+                result = '<span style="color: #17a2b8;">ℹ️ Simulación: Datos insertados correctamente</span>';
+            } else if (query.toLowerCase().includes('update')) {
+                result = '<span style="color: #17a2b8;">ℹ️ Simulación: Registros actualizados</span>';
+            } else if (query.toLowerCase().includes('delete')) {
+                result = '<span style="color: #dc3545;">⚠️ Simulación: Registros eliminados</span>';
+            } else {
+                result = '<span style="color: #6c757d;">🤔 Consulta no reconocida. Prueba con SELECT, INSERT, UPDATE o DELETE</span>';
+            }
+
+            resultDiv.innerHTML = result;
+        }
+
+        function loadExample() {
+            if (tables.length === 0) {
+                alert('Primero crea algunas tablas para poder hacer consultas de ejemplo');
+                return;
+            }
+
+            const tableName = tables[0].name;
+            const exampleQuery = `-- Consultas de ejemplo para la tabla "${tableName}"
+
+SELECT * FROM ${tableName};
+
+SELECT COUNT(*) FROM ${tableName};
+
+-- Buscar registros específicos (ajusta según tus campos)
+SELECT * FROM ${tableName} WHERE id = 1;
+
+-- Ordenar resultados
+SELECT * FROM ${tableName} ORDER BY id DESC;`;
+
+            document.getElementById('queryInput').value = exampleQuery;
+        }
+
+        function markCompleted() {
+            if (tables.length === 0) {
+                alert('🎯 Para completar la actividad, crea al menos una tabla con algunos campos.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado "Constructor de Base de Datos Simple".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n\n¡Has aprendido los fundamentos del diseño de bases de datos!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (tables.length > 0) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+
+        // Inicializar con un campo por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            generateSQL();
+        });
+    </script>
+
+</body>
+</html>
+            

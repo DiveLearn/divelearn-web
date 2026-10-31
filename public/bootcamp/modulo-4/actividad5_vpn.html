@@ -1,0 +1,1042 @@
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 5 - Simulador de Túnel VPN</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .vpn-simulator {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #6f42c1;
+        }
+
+        .network-diagram {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .network-nodes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            min-height: 200px;
+        }
+
+        .network-node {
+            background: var(--surface);
+            border: 3px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .network-node.client {
+            border-color: var(--purple);
+            background: var(--surface2);
+        }
+
+        .network-node.server {
+            border-color: #22C55E;
+            background: var(--surface2);
+        }
+
+        .network-node.vpn-server {
+            border-color: #6f42c1;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+        }
+
+        .network-node.connected {
+            box-shadow: 0 0 20px rgba(111, 66, 193, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        
+            50% { transform: scale(1.05); }
+        }
+
+        .node-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .node-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .node-ip {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .tunnel-line {
+            position: absolute;
+            height: 4px;
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            top: 50%;
+            left: 15%;
+            right: 15%;
+            transform: translateY(-2px);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .tunnel-line.active {
+            opacity: 1;
+            animation: dataFlow 2s infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .tunnel-
+
+        .control-panel {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #6f42c1;
+        }
+
+        .panel-title {
+            font-size: 1.2rem;
+            color: #6f42c1;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vpn-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .control-
+        .control-
+
+        .vpn-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        
+        .vpn-btn {
+            background: #6f42c1;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .vpn-btn:hover {
+            background: #5a359c;
+            transform: translateY(-2px);
+        }
+
+        .vpn-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .vpn-btn.success {
+            background: #22C55E;
+        }
+
+        .vpn-btn.success:hover {
+            background: #22C55E;
+        }
+
+        .vpn-btn.danger {
+            background: #EF4444;
+        }
+
+        .vpn-btn.danger:hover {
+            background: #EF4444;
+        }
+
+        .vpn-btn.warning {
+            background: #F59E0B;
+            color: #212529;
+        }
+
+        .vpn-btn.warning:hover {
+            background: #e0a800;
+        }
+
+        .status-panel {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .status-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .status-item {
+            background: var(--surface);
+            border-radius: 6px;
+            padding: 15px;
+            border-left: 4px solid #dee2e6;
+        }
+
+        .status-item.connected {
+            border-left-color: #22C55E;
+        }
+
+        .status-item.disconnected {
+            border-left-color: #EF4444;
+        }
+
+        .status-item.connecting {
+            border-left-color: #F59E0B;
+        }
+        .status-value {
+            font-size: 1rem;
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+        }
+
+        .log-panel {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-header {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #3498db;
+            border-bottom: 1px solid #34495e;
+            padding-bottom: 10px;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .log-entry.info::before {
+            content: "ℹ️";
+            position: absolute;
+            left: 0;
+        }
+
+        .log-entry.success::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        .log-entry.warning::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+
+        .log-entry.error::before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+        }
+
+        .protocol-comparison {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+
+        .comparison-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .protocol-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .protocol-tab {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .protocol-tab.active {
+            border-color: #6f42c1;
+            background: #f3e5f5;
+            color: #6f42c1;
+            font-weight: 600;
+        }
+
+        .protocol-tab:hover {
+            border-color: #6f42c1;
+        }
+
+        .protocol-info {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .protocol-info.active {
+            display: block;
+        }
+
+        .protocol-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .protocol-features li {
+            padding: 5px 0;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .protocol-features li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .feature-value {
+            color: var(--text-muted);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .network-nodes {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tunnel-line {
+                display: none;
+            }
+            .vpn-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .vpn-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .protocol-tabs {
+                flex-direction: column;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 4</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 4</a> / Actividad 5
+            </div>
+            <h1 class="activity-title">🌉 Simulador de Túnel VPN</h1>
+            <p class="activity-subtitle">Simula conexiones VPN entre oficinas remotas y comprende túneles seguros</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>40 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio-Avanzado</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 250</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad simularás el establecimiento de conexiones VPN entre diferentes ubicaciones. Aprenderás sobre protocolos IPsec, OpenVPN, configuración de túneles seguros y casos de uso empresariales.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🌐 Simulador de Red VPN</h2>
+                
+                <div class="vpn-simulator">
+                    <div class="network-diagram">
+                        <div class="network-nodes">
+                            <div class="network-node client" id="clientNode">
+                                <span class="node-icon">💻</span>
+                                <div class="node-name">Cliente Remoto</div>
+                                <div class="node-ip" id="clientIP">192.168.1.100</div>
+                            </div>
+                            
+                            <div class="network-node vpn-server" id="vpnServerNode">
+                                <span class="node-icon">🌉</span>
+                                <div class="node-name">Servidor VPN</div>
+                                <div class="node-ip" id="vpnServerIP">203.0.113.10</div>
+                            </div>
+                            
+                            <div class="network-node server" id="targetServerNode">
+                                <span class="node-icon">🏢</span>
+                                <div class="node-name">Servidor Corporativo</div>
+                                <div class="node-ip" id="targetServerIP">10.0.0.100</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tunnel-line" id="tunnelLine"></div>
+                        <div class="tunnel-label" id="tunnelLabel">Túnel VPN Encriptado</div>
+                    </div>
+
+                    <div class="control-panel">
+                        <h3 class="panel-title">⚙️ Configuración de VPN</h3>
+                        
+                        <div class="vpn-controls">
+                            <div class="control-group">
+                                <label class="control-label">Protocolo VPN</label>
+                                <select id="vpnProtocol" class="control-select">
+                                    <option value="openvpn">OpenVPN</option>
+                                    <option value="ipsec">IPsec</option>
+                                    <option value="wireguard">WireGuard</option>
+                                    <option value="pptp">PPTP (Inseguro)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Método de Encriptación</label>
+                                <select id="encryptionMethod" class="control-select">
+                                    <option value="aes256">AES-256</option>
+                                    <option value="aes128">AES-128</option>
+                                    <option value="3des">3DES (Obsoleto)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Puerto de Conexión</label>
+                                <input type="number" id="vpnPort" class="control-input" value="1194" min="1" max="65535">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Autenticación</label>
+                                <select id="authMethod" class="control-select">
+                                    <option value="certificates">Certificados</option>
+                                    <option value="psk">Clave Pre-compartida</option>
+                                    <option value="username">Usuario/Contraseña</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Compresión</label>
+                                <select id="compression" class="control-select">
+                                    <option value="lzo">LZO</option>
+                                    <option value="lz4">LZ4</option>
+                                    <option value="none">Ninguna</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label">Tiempo de Conexión (seg)</label>
+                                <input type="number" id="connectionTime" class="control-input" value="30" min="10" max="300">
+                            </div>
+                        </div>
+
+                        <div class="vpn-buttons">
+                            <button class="vpn-btn" onclick="establishVPN()" id="connectBtn">🔗 Establecer Túnel</button>
+                            <button class="vpn-btn danger" onclick="disconnectVPN()" id="disconnectBtn" disabled>🔌 Desconectar</button>
+                            <button class="vpn-btn warning" onclick="testConnection()" id="testBtn" disabled>🧪 Probar Conexión</button>
+                            <button class="vpn-btn success" onclick="simulateTraffic()" id="trafficBtn" disabled>📊 Simular Tráfico</button>
+                        </div>
+                    </div>
+
+                    <div class="status-panel">
+                        <div class="status-title">📊 Estado de la Conexión</div>
+                        <div class="status-grid">
+                            <div class="status-item" id="connectionStatus">
+                                <div class="status-label">Estado</div>
+                                <div class="status-value" id="statusValue">Desconectado</div>
+                            </div>
+                            <div class="status-item" id="encryptionStatus">
+                                <div class="status-label">Encriptación</div>
+                                <div class="status-value" id="encryptionValue">-</div>
+                            </div>
+                            <div class="status-item" id="throughputStatus">
+                                <div class="status-label">Throughput</div>
+                                <div class="status-value" id="throughputValue">0 Mbps</div>
+                            </div>
+                            <div class="status-item" id="latencyStatus">
+                                <div class="status-label">Latencia</div>
+                                <div class="status-value" id="latencyValue">- ms</div>
+                            </div>
+                            <div class="status-item" id="uptimeStatus">
+                                <div class="status-label">Tiempo Activo</div>
+                                <div class="status-value" id="uptimeValue">00:00:00</div>
+                            </div>
+                            <div class="status-item" id="protocolStatus">
+                                <div class="status-label">Protocolo</div>
+                                <div class="status-value" id="protocolValue">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="log-panel">
+                        <div class="log-header">📋 Registro de Conexión VPN</div>
+                        <div id="vpnLogs">
+                            <div class="log-entry info">Sistema VPN iniciado - Esperando conexión...</div>
+                        </div>
+                    </div>
+
+                    <div class="protocol-comparison">
+                        <div class="comparison-title">📖 Comparación de Protocolos VPN</div>
+                        
+                        <div class="protocol-tabs">
+                            <div class="protocol-tab active" onclick="showProtocol('openvpn')" data-protocol="openvpn">OpenVPN</div>
+                            <div class="protocol-tab" onclick="showProtocol('ipsec')" data-protocol="ipsec">IPsec</div>
+                            <div class="protocol-tab" onclick="showProtocol('wireguard')" data-protocol="wireguard">WireGuard</div>
+                            <div class="protocol-tab" onclick="showProtocol('pptp')" data-protocol="pptp">PPTP</div>
+                        </div>
+
+                        <div id="openvpn-info" class="protocol-info active">
+                            <ul class="protocol-features">
+                                <li><span class="feature-name">Seguridad:</span> <span class="feature-value">Muy Alta</span></li>
+                                <li><span class="feature-name">Velocidad:</span> <span class="feature-value">Media-Alta</span></li>
+                                <li><span class="feature-name">Compatibilidad:</span> <span class="feature-value">Excelente</span></li>
+                                <li><span class="feature-name">Configuración:</span> <span class="feature-value">Flexible</span></li>
+                                <li><span class="feature-name">Puertos:</span> <span class="feature-value">UDP 1194, TCP 443</span></li>
+                                <li><span class="feature-name">Uso típico:</span> <span class="feature-value">Acceso remoto, empresas</span></li>
+                            </ul>
+                        </div>
+
+                        <div id="ipsec-info" class="protocol-info">
+                            <ul class="protocol-features">
+                                <li><span class="feature-name">Seguridad:</span> <span class="feature-value">Muy Alta</span></li>
+                                <li><span class="feature-name">Velocidad:</span> <span class="feature-value">Alta</span></li>
+                                <li><span class="feature-name">Compatibilidad:</span> <span class="feature-value">Nativa en SO</span></li>
+                                <li><span class="feature-name">Configuración:</span> <span class="feature-value">Compleja</span></li>
+                                <li><span class="feature-name">Puertos:</span> <span class="feature-value">UDP 500, 4500</span></li>
+                                <li><span class="feature-name">Uso típico:</span> <span class="feature-value">Site-to-site, móviles</span></li>
+                            </ul>
+                        </div>
+
+                        <div id="wireguard-info" class="protocol-info">
+                            <ul class="protocol-features">
+                                <li><span class="feature-name">Seguridad:</span> <span class="feature-value">Muy Alta</span></li>
+                                <li><span class="feature-name">Velocidad:</span> <span class="feature-value">Muy Alta</span></li>
+                                <li><span class="feature-name">Compatibilidad:</span> <span class="feature-value">Creciente</span></li>
+                                <li><span class="feature-name">Configuración:</span> <span class="feature-value">Simple</span></li>
+                                <li><span class="feature-name">Puertos:</span> <span class="feature-value">UDP 51820</span></li>
+                                <li><span class="feature-name">Uso típico:</span> <span class="feature-value">Moderno, eficiente</span></li>
+                            </ul>
+                        </div>
+
+                        <div id="pptp-info" class="protocol-info">
+                            <ul class="protocol-features">
+                                <li><span class="feature-name">Seguridad:</span> <span class="feature-value">Muy Baja ⚠️</span></li>
+                                <li><span class="feature-name">Velocidad:</span> <span class="feature-value">Alta</span></li>
+                                <li><span class="feature-name">Compatibilidad:</span> <span class="feature-value">Universal</span></li>
+                                <li><span class="feature-name">Configuración:</span> <span class="feature-value">Muy Simple</span></li>
+                                <li><span class="feature-name">Puertos:</span> <span class="feature-value">TCP 1723</span></li>
+                                <li><span class="feature-name">Uso típico:</span> <span class="feature-value">Obsoleto, no recomendado</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips sobre VPN
+                </h3>
+                <div class="tip-item">
+                    <strong>🔒 Seguridad:</strong> OpenVPN e IPsec son los más seguros - evita PPTP para datos sensibles.
+                </div>
+                <div class="tip-item">
+                    <strong>⚡ Rendimiento:</strong> WireGuard ofrece la mejor velocidad con seguridad moderna.
+                </div>
+                <div class="tip-item">
+                    <strong>🌐 Casos de uso:</strong> Site-to-site para oficinas, client-to-site para trabajadores remotos.
+                </div>
+                <div class="tip-item">
+                    <strong>🛡️ Split Tunneling:</strong> Permite que solo cierto tráfico use la VPN, mejorando velocidad.
+                </div>
+                <div class="tip-item">
+                    <strong>📱 Móviles:</strong> IPsec IKEv2 es ideal para dispositivos móviles por su capacidad de reconexión rápida.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let isConnected = false;
+        let connectionStartTime = 0;
+        let uptimeInterval = null;
+        let trafficInterval = null;
+
+        function addLog(message, type = 'info') {
+            const logsContainer = document.getElementById('vpnLogs');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logsContainer.appendChild(logEntry);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        function updateStatus(field, value, statusType = 'disconnected') {
+            const statusElement = document.getElementById(field);
+            const valueElement = document.getElementById(field.replace('Status', 'Value'));
+            
+            if (statusElement) {
+                statusElement.className = `status-item ${statusType}`;
+            }
+            if (valueElement) {
+                valueElement.textContent = value;
+            }
+        }
+
+        function establishVPN() {
+            const protocol = document.getElementById('vpnProtocol').value;
+            const encryption = document.getElementById('encryptionMethod').value;
+            const port = document.getElementById('vpnPort').value;
+            const auth = document.getElementById('authMethod').value;
+            const compression = document.getElementById('compression').value;
+            const connectionTime = parseInt(document.getElementById('connectionTime').value);
+
+            // Validar configuración
+            if (protocol === 'pptp') {
+                if (!confirm('⚠️ PPTP es un protocolo inseguro y obsoleto.\n\n¿Estás seguro de que quieres continuar con fines educativos?')) {
+                    return;
+                }
+            }
+
+            // Deshabilitar botón de conexión
+            document.getElementById('connectBtn').disabled = true;
+            document.getElementById('connectBtn').textContent = '🔄 Conectando...';
+
+            addLog(`Iniciando conexión VPN con ${protocol.toUpperCase()}`, 'info');
+            addLog(`Configuración: ${encryption.toUpperCase()}, Puerto ${port}, Auth: ${auth}`, 'info');
+
+            updateStatus('connectionStatus', 'Conectando...', 'connecting');
+            updateStatus('protocolStatus', protocol.toUpperCase(), 'connecting');
+
+            // Simular proceso de conexión
+            setTimeout(() => {
+                // Fase 1: Handshake
+                addLog('Iniciando handshake SSL/TLS...', 'info');
+                updateStatus('encryptionStatus', 'Negociando...', 'connecting');
+
+                setTimeout(() => {
+                    // Fase 2: Autenticación
+                    addLog(`Autenticando con ${auth}...`, 'info');
+                    
+                    setTimeout(() => {
+                        // Fase 3: Establecer túnel
+                        addLog('Estableciendo túnel seguro...', 'info');
+                        updateStatus('encryptionStatus', encryption.toUpperCase(), 'connecting');
+
+                        setTimeout(() => {
+                            // Conexión exitosa
+                            isConnected = true;
+                            connectionStartTime = Date.now();
+                            
+                            // Actualizar UI
+                            document.getElementById('connectBtn').disabled = true;
+                            document.getElementById('disconnectBtn').disabled = false;
+                            document.getElementById('testBtn').disabled = false;
+                            document.getElementById('trafficBtn').disabled = false;
+
+                            // Actualizar estado visual
+                            document.getElementById('clientNode').classList.add('connected');
+                            document.getElementById('vpnServerNode').classList.add('connected');
+                            document.getElementById('targetServerNode').classList.add('connected');
+                            document.getElementById('tunnelLine').classList.add('active');
+                            document.getElementById('tunnelLabel').classList.add('active');
+
+                            // Actualizar estado
+                            updateStatus('connectionStatus', 'Conectado', 'connected');
+                            updateStatus('encryptionStatus', encryption.toUpperCase(), 'connected');
+                            updateStatus('throughputStatus', '0 Mbps', 'connected');
+                            updateStatus('latencyStatus', generateLatency(protocol) + ' ms', 'connected');
+                            updateStatus('protocolStatus', protocol.toUpperCase(), 'connected');
+
+                            addLog('✅ Túnel VPN establecido exitosamente', 'success');
+                            addLog(`Dirección IP asignada: ${generateVPNIP()}`, 'success');
+
+                            // Iniciar contador de tiempo activo
+                            startUptimeCounter();
+
+                            // Restablecer botón
+                            document.getElementById('connectBtn').textContent = '🔗 Establecer Túnel';
+
+                        }, 1000);
+                    }, 800);
+                }, 1200);
+            }, 500);
+        }
+
+        function disconnectVPN() {
+            if (!isConnected) return;
+
+            addLog('Desconectando túnel VPN...', 'warning');
+            
+            // Actualizar UI
+            document.getElementById('connectBtn').disabled = false;
+            document.getElementById('disconnectBtn').disabled = true;
+            document.getElementById('testBtn').disabled = true;
+            document.getElementById('trafficBtn').disabled = true;
+
+            // Quitar efectos visuales
+            document.getElementById('clientNode').classList.remove('connected');
+            document.getElementById('vpnServerNode').classList.remove('connected');
+            document.getElementById('targetServerNode').classList.remove('connected');
+            document.getElementById('tunnelLine').classList.remove('active');
+            document.getElementById('tunnelLabel').classList.remove('active');
+
+            // Actualizar estado
+            updateStatus('connectionStatus', 'Desconectado', 'disconnected');
+            updateStatus('encryptionStatus', '-', 'disconnected');
+            updateStatus('throughputStatus', '0 Mbps', 'disconnected');
+            updateStatus('latencyStatus', '- ms', 'disconnected');
+            updateStatus('protocolStatus', '-', 'disconnected');
+            updateStatus('uptimeStatus', '00:00:00', 'disconnected');
+
+            // Detener contadores
+            if (uptimeInterval) {
+                clearInterval(uptimeInterval);
+                uptimeInterval = null;
+            }
+            if (trafficInterval) {
+                clearInterval(trafficInterval);
+                trafficInterval = null;
+            }
+
+            isConnected = false;
+            addLog('Túnel VPN desconectado', 'info');
+        }
+
+        function testConnection() {
+            if (!isConnected) return;
+
+            addLog('Iniciando prueba de conectividad...', 'info');
+            
+            // Simular ping test
+            setTimeout(() => {
+                const targetIP = document.getElementById('targetServerIP').textContent;
+                addLog(`PING ${targetIP}: Enviando 4 paquetes...`, 'info');
+                
+                setTimeout(() => {
+                    addLog(`Respuesta de ${targetIP}: tiempo=23ms TTL=64`, 'success');
+                    addLog(`Respuesta de ${targetIP}: tiempo=19ms TTL=64`, 'success');
+                    addLog(`Respuesta de ${targetIP}: tiempo=25ms TTL=64`, 'success');
+                    addLog(`Respuesta de ${targetIP}: tiempo=21ms TTL=64`, 'success');
+                    addLog('Estadísticas: 4 enviados, 4 recibidos, 0% pérdida', 'success');
+                    
+                    // Probar HTTP
+                    setTimeout(() => {
+                        addLog('Probando acceso HTTP al servidor corporativo...', 'info');
+                        setTimeout(() => {
+                            addLog('✅ Acceso HTTP exitoso - Servidor corporativo accesible', 'success');
+                            addLog('✅ Prueba de conectividad completada', 'success');
+                        }, 1000);
+                    }, 500);
+                }, 2000);
+            }, 500);
+        }
+
+        function simulateTraffic() {
+            if (!isConnected) return;
+
+            addLog('Iniciando simulación de tráfico...', 'info');
+            
+            if (trafficInterval) {
+                clearInterval(trafficInterval);
+                trafficInterval = null;
+                addLog('Simulación de tráfico detenida', 'warning');
+                document.getElementById('trafficBtn').textContent = '📊 Simular Tráfico';
+                updateStatus('throughputStatus', '0 Mbps', 'connected');
+                return;
+            }
+
+            document.getElementById('trafficBtn').textContent = '⏹️ Detener Tráfico';
+            
+            trafficInterval = setInterval(() => {
+                const throughput = (Math.random() * 80 + 20).toFixed(1); // 20-100 Mbps
+                updateStatus('throughputStatus', `${throughput} Mbps`, 'connected');
+                
+                if (Math.random() < 0.1) { // 10% chance de log
+                    addLog(`Transferencia: ${throughput} Mbps - ${(Math.random() * 500 + 100).toFixed(0)} paquetes/seg`, 'info');
+                }
+            }, 1000);
+        }
+
+        function startUptimeCounter() {
+            uptimeInterval = setInterval(() => {
+                if (!isConnected) return;
+                
+                const elapsed = Date.now() - connectionStartTime;
+                const hours = Math.floor(elapsed / 3600000);
+                const minutes = Math.floor((elapsed % 3600000) / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                
+                const uptimeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                updateStatus('uptimeStatus', uptimeString, 'connected');
+            }, 1000);
+        }
+
+        function generateLatency(protocol) {
+            const baseLatency = {
+                'openvpn': 25,
+                'ipsec': 15,
+                'wireguard': 10,
+                'pptp': 35
+            };
+            
+            const base = baseLatency[protocol] || 20;
+            return Math.floor(base + Math.random() * 10);
+        }
+
+        function generateVPNIP() {
+            return `10.8.0.${Math.floor(Math.random() * 200 + 10)}`;
+        }
+
+        function showProtocol(protocolName) {
+            // Actualizar tabs
+            document.querySelectorAll('.protocol-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-protocol="${protocolName}"]`).classList.add('active');
+            
+            // Mostrar info del protocolo
+            document.querySelectorAll('.protocol-info').forEach(info => {
+                info.classList.remove('active');
+            });
+            document.getElementById(`${protocolName}-info`).classList.add('active');
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Excelente trabajo! Has completado el simulador de túnel VPN.\n\n✅ Actividad marcada como completada\n🏆 +250 puntos ganados\n\n🌉 Ahora comprendes cómo funcionan las VPN y los túneles seguros.');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                // Limpiar intervalos antes de salir
+                if (uptimeInterval) clearInterval(uptimeInterval);
+                if (trafficInterval) clearInterval(trafficInterval);
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('Sistema VPN iniciado - Esperando conexión...', 'info');
+            addLog('Configuración disponible: OpenVPN, IPsec, WireGuard, PPTP', 'info');
+            
+            // Actualizar protocolo cuando cambie
+            document.getElementById('vpnProtocol').addEventListener('change', function() {
+                const protocol = this.value;
+                const defaultPorts = {
+                    'openvpn': 1194,
+                    'ipsec': 500,
+                    'wireguard': 51820,
+                    'pptp': 1723
+                };
+                
+                document.getElementById('vpnPort').value = defaultPorts[protocol] || 1194;
+                addLog(`Protocolo cambiado a ${protocol.toUpperCase()} - Puerto ${defaultPorts[protocol]}`, 'info');
+                
+                if (protocol === 'pptp') {
+                    addLog('⚠️ ADVERTENCIA: PPTP es inseguro - solo para demostración', 'warning');
+                }
+            });
+        });
+
+        // Cleanup al cerrar la página
+        window.addEventListener('beforeunload', function() {
+            if (uptimeInterval) clearInterval(uptimeInterval);
+            if (trafficInterval) clearInterval(trafficInterval);
+        });
+    </script>
+
+</body>

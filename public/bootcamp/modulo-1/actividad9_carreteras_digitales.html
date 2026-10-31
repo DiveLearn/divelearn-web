@@ -1,0 +1,1300 @@
+</html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 9 - Las Carreteras Digitales</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #4a5568;
+            z-index: 10;
+        }
+
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #4a5568;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .network-card {
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #48bb78;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .network-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(72, 187, 120, 0.2);
+        }
+
+        .network-card.investigated {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            border-color: #4fd1c7;
+        }
+
+        .network-card h3 {
+            color: #22543d;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .network-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 1.5em;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .network-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 15px;
+        }
+
+        .network-details.show {
+            max-height: 600px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--bg);
+            color: #744210;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 0;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .stats-dashboard {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #4fd1c7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .design-panel {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #cbd5e0;
+        }
+        .scenario-btn {
+            padding: 10px 16px;
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .scenario-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .network-designer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .device-option {
+            background: var(--surface);
+            border: 2px dashed #cbd5e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .device-option:hover {
+            border-color: var(--purple);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .device-option.
+
+        .device-option h5 {
+            margin: 10px 0 5px 0;
+            color: var(--text);
+        }
+
+        .action-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .action-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.success {
+            background: #48bb78;
+        }
+
+        .action-btn.success:hover {
+            background: #38a169;
+        }
+
+        .action-btn.secondary {
+            background: #a0aec0;
+        }
+
+        .action-btn.secondary:hover {
+            background: #718096;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .feedback-warning {
+            background: rgba(245,158,11,0.15);
+            border: 1px solid #ffeaa7;
+            color: var(--text-muted);
+        }
+
+        
+        @media (max-width: 768px) {            .network-designer {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .network-visual {
+                font-size: 1.2em;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 9
+            </div>
+            <h1 class="activity-title">🛣️ Las Carreteras Digitales</h1>
+            <p class="activity-subtitle">Descubre cómo los datos viajan por las autopistas de la información</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>24 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 250</span>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-text">Investigación: <span id="progressText">0%</span></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad completa explorarás los diferentes tipos de redes digitales, diseñarás topologías
+                    óptimas y comprenderás cómo fluyen los datos a través de las "carreteras digitales" que conectan
+                    nuestro mundo.</p>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="showTab('networks')">🔍 Identificar Tipos</button>
+                <button class="tab-btn" onclick="showTab('design')">🗺️ Diseñar Red</button>
+                <button class="tab-btn" onclick="showTab('analysis')">🚦 Analizar Flujo</button>
+                <button class="tab-btn" onclick="showTab('challenge')">🧠 Desafío Final</button>
+            </div>
+
+            <!-- Tab 1: Identificación de Tipos de Redes -->
+            <div id="networks" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">🔍 Detective de Redes</h2>
+                    <p>Tu misión es investigar los diferentes tipos de redes digitales. Cada red tiene características
+                        únicas que la hacen perfecta para diferentes situaciones.</p>
+
+                    <div class="stats-dashboard">
+                        <h3>📊 Estado de la Investigación</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div>🔍 Casos Resueltos</div>
+                                <div id="casesResolved">0/4</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>🏆 Badges Ganados</div>
+                                <div id="badgesCount">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>⭐ Rango Detective</div>
+                                <div id="detectiveRank">Novato</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>📈 Progreso</div>
+                                <div id="progressPercent">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🏘️ Casos por Resolver</h2>
+
+                    <div class="network-card" onclick="investigateNetwork('pan')">
+                        <h3>📱 Caso 1: PAN - Red de Área Personal</h3>
+                        <p>Un misterioso espacio digital alrededor de una sola persona...</p>
+                        <div class="network-visual">👤 ↔️ 📱 ↔️ ⌚ ↔️ 🎧</div>
+
+                        <div id="pan-details" class="network-details">
+                            <p><strong>🔍 Pistas descubiertas:</strong></p>
+                            <ul style="text-align: left; margin: 15px 0;">
+                                <li>✅ Conecta dispositivos de una sola persona (1-10 metros)</li>
+                                <li>✅ Bluetooth entre tu teléfono y auriculares</li>
+                                <li>✅ Smartwatch sincronizado con tu móvil</li>
+                                <li>✅ Muy corta distancia, muy personal</li>
+                                <li>✅ Ejemplos: Bluetooth, infrarrojos, NFC</li>
+                            </ul>
+                            <p><strong>🎯 Analogía:</strong> Como tu burbuja personal donde todos tus gadgets se
+                                conectan.</p>
+                            <div class="badge">🔍 Detective PAN Certificado</div>
+                        </div>
+                    </div>
+
+                    <div class="network-card" onclick="investigateNetwork('lan')">
+                        <h3>🏠 Caso 2: LAN - Red de Área Local</h3>
+                        <p>Un misterioso vecindario digital donde todos los dispositivos se conocen...</p>
+                        <div class="network-visual">🏠 ↔️ 💻 ↔️ 📱 ↔️ 🖨️</div>
+
+                        <div id="lan-details" class="network-details">
+                            <p><strong>🔍 Pistas descubiertas:</strong></p>
+                            <ul style="text-align: left; margin: 15px 0;">
+                                <li>✅ Conecta dispositivos en un área pequeña (casa, oficina, escuela)</li>
+                                <li>✅ Muy rápida porque todo está cerca</li>
+                                <li>✅ Tu WiFi casero es una LAN</li>
+                                <li>✅ Usa cables ethernet o WiFi</li>
+                                <li>✅ Perfecta para compartir archivos e impresoras</li>
+                                <li>✅ Típicamente hasta 1 km de alcance</li>
+                            </ul>
+                            <p><strong>🎯 Analogía:</strong> Como un barrio donde todos los vecinos se conocen y pueden
+                                visitarse fácilmente.</p>
+                            <div class="badge">🏆 Detective LAN Certificado</div>
+                        </div>
+                    </div>
+
+                    <div class="network-card" onclick="investigateNetwork('man')">
+                        <h3>🏙️ Caso 3: MAN - Red de Área Metropolitana</h3>
+                        <p>Una red intermedia que conecta toda una ciudad...</p>
+                        <div class="network-visual">🏫 ↔️ 🏢 ↔️ 🏥 ↔️ 🏛️</div>
+
+                        <div id="man-details" class="network-details">
+                            <p><strong>🔍 Pistas descubiertas:</strong></p>
+                            <ul style="text-align: left; margin: 15px 0;">
+                                <li>✅ Conecta varias LANs en una ciudad (10-100 km)</li>
+                                <li>✅ Más grande que LAN, más pequeña que WAN</li>
+                                <li>✅ Usada por universidades y gobiernos</li>
+                                <li>✅ Conecta campus, edificios públicos</li>
+                                <li>✅ Velocidad media entre LAN y WAN</li>
+                                <li>✅ Puede usar fibra óptica o microondas</li>
+                            </ul>
+                            <p><strong>🎯 Analogía:</strong> Como el sistema de transporte público de una ciudad que
+                                conecta todos los barrios.</p>
+                            <div class="badge">🎯 Investigador MAN Experto</div>
+                        </div>
+                    </div>
+
+                    <div class="network-card" onclick="investigateNetwork('wan')">
+                        <h3>🌍 Caso 4: WAN - Red de Área Amplia</h3>
+                        <p>Una red misteriosa que conecta continentes enteros...</p>
+                        <div class="network-visual">🏠 ↔️ 🌆 ↔️ 🌍 ↔️ 🏢</div>
+
+                        <div id="wan-details" class="network-details">
+                            <p><strong>🔍 Pistas descubiertas:</strong></p>
+                            <ul style="text-align: left; margin: 15px 0;">
+                                <li>✅ Conecta redes muy lejanas (ciudades, países, continentes)</li>
+                                <li>✅ Internet es la WAN más grande del mundo</li>
+                                <li>✅ Usa cables submarinos, satélites y fibra óptica</li>
+                                <li>✅ Permite que chatees con amigos en otros países</li>
+                                <li>✅ Más lenta que LAN/MAN por las distancias</li>
+                                <li>✅ Puede cubrir miles de kilómetros</li>
+                            </ul>
+                            <p><strong>🎯 Analogía:</strong> Como una red de autopistas internacionales que conecta
+                                países y continentes.</p>
+                            <div class="badge">🌟 Explorador WAN Maestro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Diseñar Red -->
+            <div id="design" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🗺️ Arquitecto de Redes</h2>
+                    <div class="design-panel">
+                        <h3>🎨 Centro de Diseño de Redes</h3>
+                        <p>Diseña tu red perfecta seleccionando los dispositivos adecuados según el escenario.</p>
+
+                        <div
+                            style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #667eea;">
+                            <h4>🎯 Escenario de Diseño:</h4>
+                            <p id="design-scenario">Selecciona un escenario para comenzar el diseño.</p>
+                            <div class="scenario-selector">
+                                <button class="scenario-btn" onclick="loadScenario('home')">🏠 Casa Familiar</button>
+                                <button class="scenario-btn" onclick="loadScenario('office')">🏢 Oficina
+                                    Pequeña</button>
+                                <button class="scenario-btn" onclick="loadScenario('campus')">🏫 Campus
+                                    Universitario</button>
+                            </div>
+                        </div>
+
+                        <div class="network-designer" id="network-designer">
+                            <div class="device-option" onclick="selectDevice('router')">
+                                <div style="font-size: 2em;">🛣️</div>
+                                <h5>Router</h5>
+                                <p>Dirige el tráfico</p>
+                            </div>
+                            <div class="device-option" onclick="selectDevice('switch')">
+                                <div style="font-size: 2em;">🔄</div>
+                                <h5>Switch</h5>
+                                <p>Conecta dispositivos</p>
+                            </div>
+                            <div class="device-option" onclick="selectDevice('access-point')">
+                                <div style="font-size: 2em;">📶</div>
+                                <h5>Access Point</h5>
+                                <p>WiFi inalámbrico</p>
+                            </div>
+                            <div class="device-option" onclick="selectDevice('firewall')">
+                                <div style="font-size: 2em;">🛡️</div>
+                                <h5>Firewall</h5>
+                                <p>Protección segura</p>
+                            </div>
+                            <div class="device-option" onclick="selectDevice('modem')">
+                                <div style="font-size: 2em;">📡</div>
+                                <h5>Módem</h5>
+                                <p>Conexión a Internet</p>
+                            </div>
+                            <div class="device-option" onclick="selectDevice('server')">
+                                <div style="font-size: 2em;">🗄️</div>
+                                <h5>Servidor</h5>
+                                <p>Almacena datos</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="action-btn success" onclick="validateDesign()">✅ Validar Diseño</button>
+                            <button class="action-btn secondary" onclick="resetDesign()">🔄 Reiniciar</button>
+                        </div>
+
+                        <div id="design-feedback" class="feedback-area"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Analizar Flujo -->
+            <div id="analysis" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🚦 Análisis de Flujo de Datos</h2>
+                    <p>Comprende cómo los datos viajan a través de las diferentes capas de la red, desde el dispositivo
+                        origen hasta el destino final.</p>
+
+                    <div
+                        style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 15px; padding: 30px; margin: 20px 0; color: white;">
+                        <h3>📊 Simulador de Flujo de Datos</h3>
+                        <p>Observa cómo los paquetes de datos navegan por las carreteras digitales.</p>
+
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin: 30px 0; position: relative; flex-wrap: wrap; gap: 20px;">
+                            <div
+                                style="background: linear-gradient(135deg, #4299e1, #3182ce); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                📱</div>
+                            <div
+                                style="flex: 1; height: 4px; background: linear-gradient(90deg, #4299e1, #3182ce); margin: 0 10px; border-radius: 2px; position: relative;">
+                                <div style="position: absolute; width: 15px; height: 15px; background: #68d391; border-radius: 50%; top: -6px; animation: packetFlow 3s linear infinite; display: none;"
+                                    id="packet1">📦</div>
+                            </div>
+                            <div
+                                style="background: linear-gradient(135deg, #4299e1, #3182ce); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                🛣️</div>
+                            <div
+                                style="flex: 1; height: 4px; background: linear-gradient(90deg, #4299e1, #3182ce); margin: 0 10px; border-radius: 2px; position: relative;">
+                                <div style="position: absolute; width: 15px; height: 15px; background: #68d391; border-radius: 50%; top: -6px; animation: packetFlow 3s linear infinite; animation-delay: 1.5s; display: none;"
+                                    id="packet2">📦</div>
+                            </div>
+                            <div
+                                style="background: linear-gradient(135deg, #4299e1, #3182ce); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                🌐</div>
+                        </div>
+
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                                <h5>📈 Paquetes Enviados</h5>
+                                <div id="packets-sent" style="font-size: 2em; color: #68d391;">0</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                                <h5>📉 Paquetes Recibidos</h5>
+                                <div id="packets-received" style="font-size: 2em; color: #4fd1c7;">0</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                                <h5>⚡ Latencia</h5>
+                                <div id="avg-latency" style="font-size: 2em; color: #f6ad55;">0ms</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                                <h5>📊 Ancho de Banda</h5>
+                                <div id="bandwidth-usage" style="font-size: 2em; color: #fc8181;">0%</div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="action-btn success" onclick="startDataFlow()" id="start-flow-btn">▶️ Iniciar
+                                Flujo</button>
+                            <button class="action-btn" onclick="stopDataFlow()" id="stop-flow-btn">⏹️ Detener</button>
+                            <button class="action-btn" onclick="simulateTrafficSpike()">📈 Simular Congestión</button>
+                        </div>
+
+                        <div id="flow-insights" style="margin-top: 20px; color: #4fd1c7;"></div>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4>🎯 Conceptos Clave del Flujo de Datos</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                            <div
+                                style="padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #667eea;">
+                                <h5>📦 Paquetización</h5>
+                                <p>Los datos se dividen en pequeños paquetes para viajar eficientemente.</p>
+                            </div>
+                            <div
+                                style="padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #48bb78;">
+                                <h5>🛣️ Enrutamiento</h5>
+                                <p>Los routers deciden la mejor ruta para cada paquete hacia su destino.</p>
+                            </div>
+                            <div
+                                style="padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #f6ad55;">
+                                <h5>🔄 Reensamblaje</h5>
+                                <p>En el destino, los paquetes se reensamblan para formar el mensaje original.</p>
+                            </div>
+                            <div
+                                style="padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #fc8181;">
+                                <h5>✅ Verificación</h5>
+                                <p>Se verifica que todos los paquetes llegaron correctamente y sin errores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Desafío Final -->
+            <div id="challenge" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🧠 Desafío del Maestro de Redes</h2>
+                    <p>Pon a prueba todos tus conocimientos con este desafío integrador que combina identificación,
+                        diseño y análisis.</p>
+
+                    <div
+                        style="background: linear-gradient(135deg, #fef5e7, #fed7aa); border-radius: 15px; padding: 25px; margin: 20px 0; border: 2px solid #f6ad55;">
+                        <div id="challenge-content">
+                            <h3>🎯 Desafío: Empresa TechCorp</h3>
+                            <p>La empresa TechCorp te ha contratado como consultor de redes. Necesitan conectar:</p>
+                            <ul style="margin: 15px 0; text-align: left;">
+                                <li>🏢 Oficina principal (100 empleados)</li>
+                                <li>🏭 Planta de producción (50 empleados)</li>
+                                <li>🏠 Trabajadores remotos (25 personas)</li>
+                                <li>☁️ Servicios en la nube</li>
+                            </ul>
+
+                            <div style="margin: 20px 0;">
+                                <h4>Pregunta 1: ¿Qué tipos de red necesitas?</h4>
+                                <div style="display: grid; gap: 10px; margin: 10px 0;">
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="networkTypes" value="lan"> LAN para cada ubicación
+                                        física
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="networkTypes" value="wan"> WAN para conectar
+                                        ubicaciones distantes
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="networkTypes" value="vpn"> VPN para trabajadores
+                                        remotos
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="networkTypes" value="man"> MAN si están en la misma
+                                        ciudad
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div style="margin: 20px 0;">
+                                <h4>Pregunta 2: ¿Qué dispositivos son esenciales?</h4>
+                                <div style="display: grid; gap: 10px; margin: 10px 0;">
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="devices" value="router"> Routers para enrutamiento
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="devices" value="firewall"> Firewalls para seguridad
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="devices" value="switch"> Switches para LANs
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="checkbox" name="devices" value="server"> Servidores para
+                                        aplicaciones
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div style="margin: 20px 0;">
+                                <h4>Pregunta 3: ¿Cuál sería tu mayor preocupación?</h4>
+                                <div style="display: grid; gap: 10px; margin: 10px 0;">
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="radio" name="concern" value="security"> Seguridad de datos
+                                        empresariales
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="radio" name="concern" value="speed"> Velocidad de conexión
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="radio" name="concern" value="cost"> Minimizar costos
+                                    </label>
+                                    <label
+                                        style="display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 8px; cursor: pointer;">
+                                        <input type="radio" name="concern" value="reliability"> Confiabilidad y uptime
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 20px;">
+                                <button class="action-btn success" onclick="evaluateChallenge()">🎯 Evaluar
+                                    Solución</button>
+                                <button class="action-btn secondary" onclick="resetChallenge()">🔄 Reiniciar</button>
+                            </div>
+                        </div>
+
+                        <div id="challenge-result" style="display: none; margin-top: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Maestro de Redes
+                </h3>
+                <div class="tip-item">
+                    <strong>🔍 Identificación:</strong> PAN (personal), LAN (local), MAN (metropolitana), WAN (amplia).
+                    Cada una tiene su propósito específico.
+                </div>
+                <div class="tip-item">
+                    <strong>🗺️ Diseño:</strong> Considera primero las necesidades, luego el presupuesto, después la
+                    seguridad y finalmente el crecimiento futuro.
+                </div>
+                <div class="tip-item">
+                    <strong>🚦 Flujo:</strong> Los datos siempre buscan la ruta más eficiente, pero no siempre la más
+                    corta geográficamente.
+                </div>
+                <div class="tip-item">
+                    <strong>🧠 Integración:</strong> Una red empresarial real combina múltiples tipos de redes
+                    trabajando juntas.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Pro tip:</strong> La redundancia (rutas alternativas) es clave para redes críticas
+                    empresariales.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let progress = 0;
+        let casesResolved = new Set();
+        let totalCases = 4;
+        let badgesEarned = 0;
+        let designCompleted = false;
+        let analysisCompleted = false;
+        let challengeCompleted = false;
+
+        // Design variables
+        let currentScenario = null;
+        let selectedDevices = new Set();
+
+        // Flow analysis variables
+        let flowInterval = null;
+        let packetsSent = 0;
+        let packetsReceived = 0;
+        let isFlowing = false;
+
+        const scenarios = {
+            home: {
+                name: "🏠 Casa Familiar",
+                description: "Una familia de 4 personas con múltiples dispositivos que necesita Internet, WiFi y capacidad de compartir archivos.",
+                required: ['router', 'modem', 'access-point'],
+                optional: ['switch'],
+                networkType: "LAN"
+            },
+            office: {
+                name: "🏢 Oficina Pequeña",
+                description: "Una oficina de 15 empleados que necesita red segura, compartir impresora y acceso controlado a Internet.",
+                required: ['router', 'switch', 'firewall', 'modem'],
+                optional: ['access-point', 'server'],
+                networkType: "LAN"
+            },
+            campus: {
+                name: "🏫 Campus Universitario",
+                description: "Un campus universitario con múltiples edificios que necesita conectar todas las facultades en la ciudad.",
+                required: ['router', 'switch', 'firewall', 'server'],
+                optional: ['access-point'],
+                networkType: "MAN"
+            }
+        };
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+
+            progressBar.style.width = progress + '%';
+            progressText.textContent = Math.round(progress) + '%';
+
+            // Actualizar estadísticas
+            document.getElementById('casesResolved').textContent = `${casesResolved.size}/${totalCases}`;
+            document.getElementById('badgesCount').textContent = badgesEarned;
+            document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+
+            // Actualizar rango
+            let rank = 'Novato';
+            if (progress >= 90) rank = 'Maestro de Redes';
+            else if (progress >= 70) rank = 'Arquitecto Experto';
+            else if (progress >= 50) rank = 'Diseñador Avanzado';
+            else if (progress >= 25) rank = 'Investigador Junior';
+            document.getElementById('detectiveRank').textContent = rank;
+        }
+
+        function addProgress(amount) {
+            progress = Math.min(100, progress + amount);
+            updateProgress();
+        }
+
+        function showCelebration(message) {
+            alert(`🎉 ${message} 🎉\n\n¡Excelente trabajo!`);
+        }
+
+        function investigateNetwork(type) {
+            const details = document.getElementById(type + '-details');
+            const card = details.closest('.network-card');
+
+            if (!casesResolved.has(type)) {
+                casesResolved.add(type);
+                details.classList.add('show');
+                card.classList.add('investigated');
+
+                badgesEarned++;
+                addProgress(15); // 15% por cada caso resuelto
+
+                const networkNames = {
+                    pan: 'Red Personal (PAN)',
+                    lan: 'Red Local (LAN)',
+                    man: 'Red Metropolitana (MAN)',
+                    wan: 'Red Amplia (WAN)'
+                };
+
+                showCelebration(`¡Caso ${networkNames[type]} resuelto!`);
+
+                // Verificar si todos los casos están resueltos
+                if (casesResolved.size === totalCases) {
+                    setTimeout(() => {
+                        showCelebration('¡Todos los tipos de red investigados! Continúa con el diseño de redes.');
+                        addProgress(10); // Bonus por resolver todos
+                    }, 1000);
+                }
+            } else {
+                // Si ya está resuelto, solo toggle los detalles
+                details.classList.toggle('show');
+            }
+        }
+
+        // Funciones de Diseño de Red
+        function loadScenario(scenarioType) {
+            currentScenario = scenarios[scenarioType];
+            selectedDevices.clear();
+
+            document.getElementById('design-scenario').innerHTML = `
+                <strong>${currentScenario.name}</strong><br>
+                ${currentScenario.description}<br>
+                <small style="color: #8888bb;">Tipo de red recomendado: ${currentScenario.networkType}</small>
+            `;
+
+            // Reset device selection
+            document.querySelectorAll('.device-option').forEach(device => {
+                device.classList.remove('selected');
+            });
+
+            const feedback = document.getElementById('design-feedback');
+            feedback.style.display = 'none';
+        }
+
+        function selectDevice(deviceType) {
+            const deviceElement = document.querySelector(`[onclick="selectDevice('${deviceType}')"]`);
+
+            if (selectedDevices.has(deviceType)) {
+                selectedDevices.delete(deviceType);
+                deviceElement.classList.remove('selected');
+            } else {
+                selectedDevices.add(deviceType);
+                deviceElement.classList.add('selected');
+            }
+        }
+
+        function validateDesign() {
+            if (!currentScenario) {
+                alert('Por favor, selecciona un escenario primero.');
+                return;
+            }
+
+            const feedback = document.getElementById('design-feedback');
+            const required = currentScenario.required;
+            const optional = currentScenario.optional;
+
+            const missingRequired = required.filter(device => !selectedDevices.has(device));
+            const hasOptional = optional.filter(device => selectedDevices.has(device));
+
+            let score = 0;
+            let feedbackHTML = '<div style="background: white; padding: 20px; border-radius: 10px; margin-top: 15px;">';
+
+            if (missingRequired.length === 0) {
+                score = 80;
+                feedbackHTML += '<h4 style="color: #48bb78;">✅ ¡Diseño Funcional!</h4>';
+                feedbackHTML += '<p>Has incluido todos los dispositivos esenciales.</p>';
+
+                if (hasOptional.length > 0) {
+                    score = 100;
+                    feedbackHTML += '<p><strong>🏆 ¡Diseño Optimizado!</strong> También incluiste dispositivos opcionales que mejoran la red.</p>';
+                }
+
+                if (!designCompleted) {
+                    designCompleted = true;
+                    addProgress(20);
+                    showCelebration('¡Diseño de red completado exitosamente!');
+                }
+            } else {
+                feedbackHTML += '<h4 style="color: #fc8181;">⚠️ Diseño Incompleto</h4>';
+                feedbackHTML += `<p>Te faltan estos dispositivos esenciales: <strong>${missingRequired.join(', ')}</strong></p>`;
+                feedbackHTML += '<p>💡 Tip: Cada escenario requiere dispositivos específicos para funcionar correctamente.</p>';
+            }
+
+            feedbackHTML += `<p><strong>Puntuación:</strong> ${score}/100</p></div>`;
+            feedback.innerHTML = feedbackHTML;
+            feedback.className = 'feedback-area ' + (score >= 80 ? 'feedback-success' : 'feedback-warning');
+            feedback.style.display = 'block';
+        }
+
+        function resetDesign() {
+            selectedDevices.clear();
+            document.querySelectorAll('.device-option').forEach(device => {
+                device.classList.remove('selected');
+            });
+            const feedback = document.getElementById('design-feedback');
+            feedback.style.display = 'none';
+        }
+
+        // Funciones de Análisis de Flujo
+        function startDataFlow() {
+            if (isFlowing) return;
+
+            isFlowing = true;
+            packetsSent = 0;
+            packetsReceived = 0;
+
+            document.getElementById('packet1').style.display = 'block';
+            document.getElementById('packet2').style.display = 'block';
+
+            flowInterval = setInterval(() => {
+                packetsSent += Math.floor(Math.random() * 10) + 1;
+                packetsReceived += Math.floor(Math.random() * 8) + 1;
+
+                const latency = Math.floor(Math.random() * 100) + 20;
+                const bandwidth = Math.floor(Math.random() * 80) + 20;
+
+                document.getElementById('packets-sent').textContent = packetsSent;
+                document.getElementById('packets-received').textContent = packetsReceived;
+                document.getElementById('avg-latency').textContent = latency + 'ms';
+                document.getElementById('bandwidth-usage').textContent = bandwidth + '%';
+
+                updateFlowInsights(latency, bandwidth);
+            }, 1000);
+
+            if (!analysisCompleted) {
+                analysisCompleted = true;
+                addProgress(15);
+                showCelebration('¡Análisis de flujo de datos iniciado!');
+            }
+        }
+
+        function stopDataFlow() {
+            isFlowing = false;
+            if (flowInterval) {
+                clearInterval(flowInterval);
+                flowInterval = null;
+            }
+
+            document.getElementById('packet1').style.display = 'none';
+            document.getElementById('packet2').style.display = 'none';
+        }
+
+        function simulateTrafficSpike() {
+            if (!isFlowing) {
+                alert('Inicia el análisis de flujo primero.');
+                return;
+            }
+
+            packetsSent += 100;
+            packetsReceived += 90;
+
+            document.getElementById('packets-sent').textContent = packetsSent;
+            document.getElementById('packets-received').textContent = packetsReceived;
+            document.getElementById('avg-latency').textContent = '250ms';
+            document.getElementById('bandwidth-usage').textContent = '95%';
+
+            updateFlowInsights(250, 95);
+            showCelebration('¡Congestión de red simulada!');
+        }
+
+        function updateFlowInsights(latency, bandwidth) {
+            const insights = document.getElementById('flow-insights');
+            let analysis = '<h4>📊 Análisis en Tiempo Real:</h4>';
+
+            if (latency > 200) {
+                analysis += '<p>🔴 <strong>Alta Latencia:</strong> Los paquetes están experimentando retrasos significativos. Posible congestión en la red.</p>';
+            } else if (latency > 100) {
+                analysis += '<p>🟡 <strong>Latencia Moderada:</strong> Rendimiento aceptable pero hay margen de mejora.</p>';
+            } else {
+                analysis += '<p>🟢 <strong>Baja Latencia:</strong> Excelente rendimiento de red. Los paquetes fluyen eficientemente.</p>';
+            }
+
+            if (bandwidth > 80) {
+                analysis += '<p>🔴 <strong>Congestión:</strong> El ancho de banda está saturado. Considera upgrading o load balancing.</p>';
+            } else if (bandwidth > 50) {
+                analysis += '<p>🟡 <strong>Uso Moderado:</strong> La red está ocupada pero funcional.</p>';
+            } else {
+                analysis += '<p>🟢 <strong>Flujo Óptimo:</strong> Ancho de banda disponible suficiente para el tráfico actual.</p>';
+            }
+
+            insights.innerHTML = analysis;
+        }
+
+        // Funciones del Desafío Final
+        function evaluateChallenge() {
+            const networkTypes = Array.from(document.querySelectorAll('input[name="networkTypes"]:checked')).map(el => el.value);
+            const devices = Array.from(document.querySelectorAll('input[name="devices"]:checked')).map(el => el.value);
+            const concern = document.querySelector('input[name="concern"]:checked')?.value;
+
+            let score = 0;
+            let feedback = '<h3>📊 Evaluación de tu Solución</h3>';
+
+            // Evaluar tipos de red
+            const expectedNetworks = ['lan', 'wan', 'vpn'];
+            const correctNetworks = networkTypes.filter(type => expectedNetworks.includes(type));
+            const networkScore = (correctNetworks.length / expectedNetworks.length) * 40;
+            score += networkScore;
+
+            feedback += `<h4>🌐 Tipos de Red (${Math.round(networkScore)}/40 puntos)</h4>`;
+            if (networkTypes.includes('lan')) feedback += '<p>✅ LAN correcta para oficinas locales</p>';
+            if (networkTypes.includes('wan')) feedback += '<p>✅ WAN correcta para conectar ubicaciones distantes</p>';
+            if (networkTypes.includes('vpn')) feedback += '<p>✅ VPN correcta para trabajadores remotos</p>';
+            if (networkTypes.includes('man')) feedback += '<p>🟡 MAN podría ser útil si están en la misma ciudad</p>';
+
+            // Evaluar dispositivos
+            const expectedDevices = ['router', 'firewall', 'switch', 'server'];
+            const correctDevices = devices.filter(device => expectedDevices.includes(device));
+            const deviceScore = (correctDevices.length / expectedDevices.length) * 40;
+            score += deviceScore;
+
+            feedback += `<h4>🔧 Dispositivos (${Math.round(deviceScore)}/40 puntos)</h4>`;
+            if (devices.includes('router')) feedback += '<p>✅ Routers esenciales para enrutamiento</p>';
+            if (devices.includes('firewall')) feedback += '<p>✅ Firewalls críticos para seguridad empresarial</p>';
+            if (devices.includes('switch')) feedback += '<p>✅ Switches necesarios para LANs</p>';
+            if (devices.includes('server')) feedback += '<p>✅ Servidores para aplicaciones empresariales</p>';
+
+            // Evaluar preocupación principal
+            let concernScore = 0;
+            if (concern === 'security') concernScore = 20;
+            else if (concern === 'reliability') concernScore = 15;
+            else if (concern === 'speed') concernScore = 10;
+            else if (concern === 'cost') concernScore = 5;
+            score += concernScore;
+
+            feedback += `<h4>🎯 Prioridad Principal (${concernScore}/20 puntos)</h4>`;
+            if (concern === 'security') feedback += '<p>✅ Excelente! La seguridad es crítica para datos empresariales</p>';
+            else if (concern === 'reliability') feedback += '<p>🟢 Muy buena elección! El uptime es crucial para empresas</p>';
+            else if (concern === 'speed') feedback += '<p>🟡 Importante, pero secundario a seguridad en empresas</p>';
+            else if (concern === 'cost') feedback += '<p>🟠 Comprensible, pero no debe comprometer seguridad</p>';
+
+            // Calificación final
+            let grade = 'F';
+            let message = '';
+            if (score >= 90) {
+                grade = 'A+';
+                message = '🏆 ¡Excelente! Eres un verdadero arquitecto de redes empresariales.';
+            } else if (score >= 80) {
+                grade = 'A';
+                message = '👏 ¡Muy bien! Tienes una sólida comprensión de redes empresariales.';
+            } else if (score >= 70) {
+                grade = 'B';
+                message = '👍 ¡Buen trabajo! Tu solución es funcional con algunas mejoras menores.';
+            } else if (score >= 60) {
+                grade = 'C';
+                message = '📚 Decente, pero necesitas considerar más aspectos de seguridad y redundancia.';
+            } else {
+                grade = 'D';
+                message = '💭 Necesitas repasar los conceptos de redes empresariales y sus requerimientos.';
+            }
+
+            feedback += `
+                <div style="background: linear-gradient(135deg, #48bb78, #38a169); color: white; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                    <h3>Calificación Final: ${grade}</h3>
+                    <h2 style="font-size: 3em; margin: 10px 0;">${Math.round(score)}/100</h2>
+                    <p>${message}</p>
+                </div>
+            `;
+
+            document.getElementById('challenge-result').innerHTML = feedback;
+            document.getElementById('challenge-result').style.display = 'block';
+
+            if (!challengeCompleted && score >= 70) {
+                challengeCompleted = true;
+                addProgress(20);
+                showCelebration('¡Desafío empresarial completado exitosamente!');
+            }
+        }
+
+        function resetChallenge() {
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.getElementById('challenge-result').style.display = 'none';
+        }
+
+        function showTab(tabName) {
+            // Ocultar todas las pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+
+            // Actualizar botones de navegación
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function markCompleted() {
+            const requiredProgress = [
+                { condition: casesResolved.size >= 3, message: 'Investiga al menos 3 tipos de redes' },
+                { condition: designCompleted, message: 'Completa el diseño de una red' },
+                { condition: analysisCompleted, message: 'Ejecuta el análisis de flujo de datos' },
+                { condition: challengeCompleted, message: 'Supera el desafío empresarial con calificación B o superior' }
+            ];
+
+            const missingRequirements = requiredProgress.filter(req => !req.condition);
+
+            if (missingRequirements.length > 0) {
+                alert('📋 Para completar la actividad necesitas:\n\n' +
+                    missingRequirements.map(req => '• ' + req.message).join('\n') +
+                    '\n\n💡 Usa las pestañas de arriba para completar cada sección.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            // Calcular estadísticas finales
+            const investigationScore = Math.round((casesResolved.size / totalCases) * 100);
+            const totalScore = Math.round(progress);
+            
+            alert(`🎉 ¡Felicidades! Has completado "Las Carreteras Digitales".\n\n` +
+                  `📊 Resumen de tu exploración:\n` +
+                  `• Tipos de red investigados: ${casesResolved.size}/${totalCases} (${investigationScore}%)\n` +
+                  `• Badges ganados: ${badgesEarned}\n` +
+                  `• Diseños completados: ${designCompleted ? 'Sí' : 'No'}\n` +
+                  `• Análisis realizados: ${analysisCompleted ? 'Sí' : 'No'}\n` +
+                  `• Desafío superado: ${challengeCompleted ? 'Sí' : 'No'}\n` +
+                  `• Progreso total: ${totalScore}%\n\n` +
+                  `✅ Actividad completada\n` +
+                  `🏆 +250 puntos ganados\n` +
+                  `🎯 Ahora dominas las carreteras digitales y sus elementos clave`);
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function () {
+            updateProgress();
+
+            // Agregar animación CSS para los paquetes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes packetFlow {
+                    0% {
+                        left: 0;
+                        opacity: 1;
+                    }
+                    100% {
+                        left: calc(100% - 15px);
+                        opacity: 0.3;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (progress > 0) {
+                console.log('Progreso guardado automáticamente:', progress + '%');
+            }
+        }, 30000); // Cada 30 segundos
+    </script>
+
+</body>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - Planificador de Estrategia de Backup</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .interactive-area {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px dashed var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--surface);
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--purple);
+        }
+        .generate-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .generate-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .result-area {
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-area.show {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .backup-strategy {
+            background: var(--surface2);
+            border: 2px solid var(--purple);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .strategy-title {
+            font-size: 1.4rem;
+            color: #22C55E;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .strategy-section {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .strategy-section h4 {
+            color: var(--text);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .backup-schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .schedule-item {
+            background: var(--surface);
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .schedule-type {
+            font-weight: 600;
+            color: var(--purple);
+            margin-bottom: 5px;
+        }
+
+        .schedule-frequency {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .rule-321-display {
+            background: var(--surface2);
+            border: 2px solid #2196F3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .rule-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1976D2;
+            margin: 0 10px;
+        }
+
+        .warning-section {
+            background: var(--surface2);
+            border: 2px solid #FFC107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-title {
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .backup-schedule {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 8</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 8</a> / Actividad 1
+            </div>
+            <h1 class="activity-title">📅 Planificador de Estrategia de Backup</h1>
+            <p class="activity-subtitle">Diseña una estrategia personalizada aplicando la regla 3-2-1</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a diseñar una estrategia de backup completa y personalizada. Analizarás tus necesidades específicas y crearás un plan que siga las mejores prácticas de la industria.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔧 Configurador de Backup</h2>
+                <div class="interactive-area">
+                    <form id="backupForm">
+                        <div class="form-group">
+                            <label class="form-label">🏢 Tipo de Organización</label>
+                            <select id="orgType" class="form-select" onchange="updateForm()">
+                                <option value="">Selecciona tu tipo de organización</option>
+                                <option value="startup">Startup/Empresa pequeña (1-10 empleados)</option>
+                                <option value="medium">Empresa mediana (11-100 empleados)</option>
+                                <option value="large">Empresa grande (100+ empleados)</option>
+                                <option value="personal">Uso personal/freelancer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">💾 Volumen de Datos Aproximado</label>
+                            <select id="dataVolume" class="form-select">
+                                <option value="">Selecciona el volumen de datos</option>
+                                <option value="small">Pequeño (< 100 GB)</option>
+                                <option value="medium">Mediano (100 GB - 1 TB)</option>
+                                <option value="large">Grande (1 TB - 10 TB)</option>
+                                <option value="enterprise">Empresarial (> 10 TB)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">⚡ Criticidad de los Datos</label>
+                            <select id="criticality" class="form-select">
+                                <option value="">¿Qué tan críticos son tus datos?</option>
+                                <option value="low">Baja - Puedo perder hasta 1 semana de datos</option>
+                                <option value="medium">Media - Puedo perder hasta 1 día de datos</option>
+                                <option value="high">Alta - Puedo perder máximo 1 hora de datos</option>
+                                <option value="critical">Crítica - No puedo perder casi nada</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">💰 Presupuesto Mensual Disponible</label>
+                            <select id="budget" class="form-select">
+                                <option value="">Selecciona tu presupuesto</option>
+                                <option value="minimal">Mínimo (< $50 USD/mes)</option>
+                                <option value="basic">Básico ($50 - $200 USD/mes)</option>
+                                <option value="professional">Profesional ($200 - $1000 USD/mes)</option>
+                                <option value="enterprise">Empresarial (> $1000 USD/mes)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">📁 Tipos de Datos a Proteger</label>
+                            <div class="checkbox-group" id="dataTypes">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="documents" value="documents">
+                                    <label for="documents">📄 Documentos de oficina</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="databases" value="databases">
+                                    <label for="databases">🗄️ Bases de datos</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="multimedia" value="multimedia">
+                                    <label for="multimedia">🎬 Archivos multimedia</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="code" value="code">
+                                    <label for="code">💻 Código fuente</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="emails" value="emails">
+                                    <label for="emails">📧 Correos electrónicos</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="configs" value="configs">
+                                    <label for="configs">⚙️ Configuraciones de sistema</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="generate-btn" onclick="generateStrategy()">
+                            🚀 Generar Estrategia de Backup
+                        </button>
+                    </form>
+
+                    <div id="resultArea" class="result-area">
+                        <!-- Los resultados se generarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips para una Estrategia Exitosa
+                </h3>
+                <div class="tip-item">
+                    <strong>🎯 Automatización:</strong> Los backups manuales fallan. Siempre automatiza tus procesos de respaldo.
+                </div>
+                <div class="tip-item">
+                    <strong>🔍 Monitoreo:</strong> Configura alertas para saber inmediatamente si un backup falla.
+                </div>
+                <div class="tip-item">
+                    <strong>🧪 Pruebas regulares:</strong> Un backup no probado es una falsa sensación de seguridad.
+                </div>
+                <div class="tip-item">
+                    <strong>📚 Documentación:</strong> Documenta tus procedimientos de recuperación paso a paso.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+
+        function updateForm() {
+            // Esta función se puede usar para mostrar/ocultar campos dinámicamente
+            const orgType = document.getElementById('orgType').value;
+            // Por ahora, mantenemos todos los campos visibles
+        }
+
+        function generateStrategy() {
+            const formData = {
+                orgType: document.getElementById('orgType').value,
+                dataVolume: document.getElementById('dataVolume').value,
+                criticality: document.getElementById('criticality').value,
+                budget: document.getElementById('budget').value,
+                dataTypes: Array.from(document.querySelectorAll('#dataTypes input:checked')).map(cb => cb.value)
+            };
+
+            if (!formData.orgType || !formData.dataVolume || !formData.criticality || !formData.budget) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+
+            const strategy = createBackupStrategy(formData);
+            displayStrategy(strategy);
+        }
+
+        function createBackupStrategy(data) {
+            const strategy = {
+                title: '',
+                schedule: [],
+                media: [],
+                locations: [],
+                costs: '',
+                warnings: [],
+                recommendations: []
+            };
+
+            // Determinar título basado en organización
+            const orgTitles = {
+                startup: 'Estrategia Startup - Eficiente y Escalable',
+                medium: 'Estrategia Empresarial - Robusta y Confiable',
+                large: 'Estrategia Empresarial Avanzada',
+                personal: 'Estrategia Personal - Simple y Efectiva'
+            };
+            strategy.title = orgTitles[data.orgType];
+
+            // Crear cronograma basado en criticidad
+            if (data.criticality === 'critical') {
+                strategy.schedule.push(
+                    { type: 'Backup Incremental', frequency: 'Cada 15 minutos', desc: 'Para cambios críticos en tiempo real' },
+                    { type: 'Backup Diferencial', frequency: 'Cada 4 horas', desc: 'Consolidación de cambios diarios' },
+                    { type: 'Backup Completo', frequency: 'Diario', desc: 'Copia completa de seguridad' }
+                );
+            } else if (data.criticality === 'high') {
+                strategy.schedule.push(
+                    { type: 'Backup Incremental', frequency: 'Cada hora', desc: 'Cambios frecuentes' },
+                    { type: 'Backup Diferencial', frequency: 'Cada 6 horas', desc: 'Consolidación regular' },
+                    { type: 'Backup Completo', frequency: 'Diario', desc: 'Copia completa nocturna' }
+                );
+            } else if (data.criticality === 'medium') {
+                strategy.schedule.push(
+                    { type: 'Backup Incremental', frequency: 'Cada 4 horas', desc: 'Cambios durante el día' },
+                    { type: 'Backup Completo', frequency: 'Diario', desc: 'Copia completa nocturna' },
+                    { type: 'Backup Semanal', frequency: 'Domingo', desc: 'Archivo de largo plazo' }
+                );
+            } else {
+                strategy.schedule.push(
+                    { type: 'Backup Completo', frequency: 'Diario', desc: 'Copia completa simple' },
+                    { type: 'Backup Semanal', frequency: 'Domingo', desc: 'Archivo semanal' }
+                );
+            }
+
+            // Determinar medios y ubicaciones basado en presupuesto
+            if (data.budget === 'enterprise') {
+                strategy.media = ['Discos locales NAS', 'Biblioteca de cintas LTO', 'Almacenamiento en nube empresarial', 'Replicación en tiempo real'];
+                strategy.locations = ['Centro de datos principal', 'Centro de datos secundario', 'Nube (AWS/Azure)', 'Oficina remota'];
+            } else if (data.budget === 'professional') {
+                strategy.media = ['Discos duros externos', 'NAS pequeño', 'Almacenamiento en nube', 'Cintas LTO básicas'];
+                strategy.locations = ['Oficina principal', 'Nube (Google Drive/OneDrive)', 'Oficina domicilio'];
+            } else if (data.budget === 'basic') {
+                strategy.media = ['Discos duros externos', 'Almacenamiento en nube básico'];
+                strategy.locations = ['Oficina', 'Nube (Dropbox/Google Drive)', 'Caja de seguridad'];
+            } else {
+                strategy.media = ['Discos duros externos', 'Almacenamiento en nube gratuito'];
+                strategy.locations = ['Casa/oficina', 'Nube gratuita (Google Drive)', 'Casa de familiar/amigo'];
+            }
+
+            // Determinar costos estimados
+            const budgetCosts = {
+                minimal: '$30-50 USD/mes',
+                basic: '$100-200 USD/mes',
+                professional: '$500-1000 USD/mes',
+                enterprise: '$2000+ USD/mes'
+            };
+            strategy.costs = budgetCosts[data.budget];
+
+            // Generar advertencias específicas
+            if (data.criticality === 'critical' && data.budget === 'minimal') {
+                strategy.warnings.push('⚠️ Tu criticidad es muy alta para el presupuesto disponible. Considera incrementar la inversión.');
+            }
+            if (data.dataVolume === 'enterprise' && data.budget !== 'enterprise') {
+                strategy.warnings.push('⚠️ El volumen de datos es muy grande para el presupuesto. Podrías necesitar optimizar o comprimir.');
+            }
+
+            // Recomendaciones específicas por tipo de datos
+            data.dataTypes.forEach(type => {
+                if (type === 'databases') {
+                    strategy.recommendations.push('🗄️ Bases de datos: Usa dumps transaccionales y prueba la integridad regularmente');
+                }
+                if (type === 'code') {
+                    strategy.recommendations.push('💻 Código fuente: Combina con control de versiones (Git) y repositorios remotos');
+                }
+                if (type === 'multimedia') {
+                    strategy.recommendations.push('🎬 Multimedia: Considera compresión y almacenamiento en frío para archivos antiguos');
+                }
+            });
+
+            return strategy;
+        }
+
+        function displayStrategy(strategy) {
+            const resultArea = document.getElementById('resultArea');
+            
+            let html = `
+                <div class="backup-strategy">
+                    <div class="strategy-title">
+                        📋 ${strategy.title}
+                    </div>
+                    
+                    <div class="strategy-section">
+                        <h4>⏰ Cronograma de Backups Recomendado</h4>
+                        <div class="backup-schedule">
+                            ${strategy.schedule.map(item => `
+                                <div class="schedule-item">
+                                    <div class="schedule-type">${item.type}</div>
+                                    <div class="schedule-frequency">${item.frequency}</div>
+                                    <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">${item.desc}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="strategy-section">
+                        <h4>💿 Medios de Almacenamiento (Regla 3-2-1)</h4>
+                        <div class="rule-321-display">
+                            <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
+                                <div><span class="rule-number">3</span><br>Copias</div>
+                                <div><span class="rule-number">2</span><br>Medios</div>
+                                <div><span class="rule-number">1</span><br>Remoto</div>
+                            </div>
+                            <div style="text-align: left;">
+                                ${strategy.media.map(medium => `<div style="margin: 5px 0;">✅ ${medium}</div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strategy-section">
+                        <h4>📍 Ubicaciones de Almacenamiento</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                            ${strategy.locations.map(location => `
+                                <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; border-left: 4px solid #28a745;">
+                                    📍 ${location}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="strategy-section">
+                        <h4>💰 Costo Estimado</h4>
+                        <div style="font-size: 1.2rem; color: #28a745; font-weight: 600;">${strategy.costs}</div>
+                        <div style="font-size: 0.9rem; color: #8888bb; margin-top: 5px;">
+                            *Incluye hardware, software y servicios en nube
+                        </div>
+                    </div>
+
+                    ${strategy.warnings.length > 0 ? `
+                        <div class="warning-section">
+                            <div class="warning-title">⚠️ Consideraciones Importantes</div>
+                            ${strategy.warnings.map(warning => `<div style="margin: 8px 0;">${warning}</div>`).join('')}
+                        </div>
+                    ` : ''}
+
+                    ${strategy.recommendations.length > 0 ? `
+                        <div class="strategy-section">
+                            <h4>🎯 Recomendaciones Específicas</h4>
+                            ${strategy.recommendations.map(rec => `<div style="margin: 8px 0;">${rec}</div>`).join('')}
+                        </div>
+                    ` : ''}
+
+                    <div class="strategy-section">
+                        <h4>📋 Próximos Pasos</h4>
+                        <div style="display: grid; gap: 10px;">
+                            <div>1️⃣ Adquiere el hardware y configura servicios en nube</div>
+                            <div>2️⃣ Configura el software de backup con el cronograma propuesto</div>
+                            <div>3️⃣ Realiza un backup de prueba completo</div>
+                            <div>4️⃣ Documenta los procedimientos de recuperación</div>
+                            <div>5️⃣ Programa simulacros de recuperación mensuales</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.classList.add('show');
+            
+            // Scroll suave al resultado
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado el "Planificador de Estrategia de Backup".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

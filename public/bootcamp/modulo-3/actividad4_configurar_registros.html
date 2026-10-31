@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Configurador de Registros DNS</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .dns-configurator {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #9C27B0;
+        }
+
+        .domain-setup {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .setup-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #9C27B0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+        .record-type-btn {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .record-type-btn:hover {
+            border-color: #9C27B0;
+            background: #f3e5f5;
+        }
+
+        .record-type-btn.active {
+            background: #9C27B0;
+            color: white;
+            border-color: #9C27B0;
+        }
+
+        .record-form {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .record-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .add-record-btn {
+            background: var(--lime);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .add-record-btn:hover {
+            background: #22C55E;
+            transform: translateY(-2px);
+        }
+        .table-header {
+            background: #9C27B0;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-content {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .record-entry {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr 1fr auto;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .record-entry:hover {
+            background: var(--surface);
+        }
+
+        .record-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .record-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .record-value {
+            font-family: 'Courier New', monospace;
+            color: var(--text-muted);
+        }
+
+        .record-ttl {
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .delete-btn {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #EF4444;
+        }
+
+        .validation-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .validation-feedback.success {
+            background: rgba(34,197,94,0.15);
+            color: var(--text-muted);
+            border: 1px solid var(--purple);
+        }
+
+        .validation-feedback.error {
+            background: rgba(239,68,68,0.15);
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .validation-feedback.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .zone-preview {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .preview-title {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+        .scenario-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .scenario-card:hover {
+            border-color: #9C27B0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .scenario-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .scenario-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .progress-tracker {
+            background: #e8f5e8;
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 15px;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .progress-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--purple);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+        }
+
+        .progress-checkbox.completed {
+            background: var(--lime);
+            color: white;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .record-type-
+
+            .record-entry {
+                grid-template-columns: 1fr;
+                gap: 5px;
+                text-align: left;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 3</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 3</a> / Actividad 4
+            </div>
+            <h1 class="activity-title">📧 Configurador de Registros DNS</h1>
+            <p class="activity-subtitle">Aprende a configurar diferentes tipos de registros DNS para servicios web, correo y otros</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>30 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Avanzado</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad configurarás registros DNS para diferentes servicios. Aprenderás a crear zonas DNS completas para sitios web, servidores de correo, subdominios y servicios especializados.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🏢 Escenarios de Configuración</h2>
+                
+                <div class="scenario-selector">
+                    <div class="scenario-card" onclick="loadScenario('startup')">
+                        <div class="scenario-icon">🚀</div>
+                        <div class="scenario-title">Startup Tecnológica</div>
+                        <div class="scenario-desc">Sitio web, correo y API</div>
+                    </div>
+                    <div class="scenario-card" onclick="loadScenario('ecommerce')">
+                        <div class="scenario-icon">🛍️</div>
+                        <div class="scenario-title">E-commerce</div>
+                        <div class="scenario-desc">Tienda online con CDN</div>
+                    </div>
+                    <div class="scenario-card" onclick="loadScenario('corporate')">
+                        <div class="scenario-icon">🏢</div>
+                        <div class="scenario-title">Empresa Corporativa</div>
+                        <div class="scenario-desc">Múltiples servicios</div>
+                    </div>
+                    <div class="scenario-card" onclick="loadScenario('custom')">
+                        <div class="scenario-icon">⚙️</div>
+                        <div class="scenario-title">Configuración Libre</div>
+                        <div class="scenario-desc">Crea tu propia zona</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">⚙️ Configurador de Zona DNS</h2>
+                
+                <div class="dns-configurator">
+                    <div class="domain-setup">
+                        <div class="setup-title">🌐 Configuración del Dominio</div>
+                        
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label class="input-label" for="domainName">Nombre del dominio:</label>
+                                <input type="text" id="domainName" class="input-field" placeholder="miempresa.com" value="miempresa.com">
+                            </div>
+                            <div class="input-group">
+                                <label class="input-label" for="defaultTTL">TTL por defecto:</label>
+                                <input type="number" id="defaultTTL" class="input-field" placeholder="3600" value="3600" min="300" max="86400">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="domain-setup">
+                        <div class="setup-title">📋 Agregar Registro DNS</div>
+                        
+                        <div class="record-type-selector">
+                            <div class="record-type-btn active" data-type="A" onclick="selectRecordType('A')">A</div>
+                            <div class="record-type-btn" data-type="AAAA" onclick="selectRecordType('AAAA')">AAAA</div>
+                            <div class="record-type-btn" data-type="CNAME" onclick="selectRecordType('CNAME')">CNAME</div>
+                            <div class="record-type-btn" data-type="MX" onclick="selectRecordType('MX')">MX</div>
+                            <div class="record-type-btn" data-type="TXT" onclick="selectRecordType('TXT')">TXT</div>
+                            <div class="record-type-btn" data-type="NS" onclick="selectRecordType('NS')">NS</div>
+                        </div>
+
+                        <!-- Formulario para registro A -->
+                        <div class="record-form active" id="form-A">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label class="input-label">Nombre (subdominio):</label>
+                                    <input type="text" id="a-name" class="input-field" placeholder="www o @ para raíz">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Dirección IPv4:</label>
+                                    <input type="text" id="a-value" class="input-field" placeholder="192.168.1.100">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">TTL (segundos):</label>
+                                    <input type="number" id="a-ttl" class="input-field" placeholder="3600" value="3600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario para registro AAAA -->
+                        <div class="record-form" id="form-AAAA">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label class="input-label">Nombre (subdominio):</label>
+                                    <input type="text" id="aaaa-name" class="input-field" placeholder="www o @ para raíz">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Dirección IPv6:</label>
+                                    <input type="text" id="aaaa-value" class="input-field" placeholder="2001:db8::1">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">TTL (segundos):</label>
+                                    <input type="number" id="aaaa-ttl" class="input-field" placeholder="3600" value="3600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario para registro CNAME -->
+                        <div class="record-form" id="form-CNAME">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label class="input-label">Nombre (alias):</label>
+                                    <input type="text" id="cname-name" class="input-field" placeholder="blog">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Destino:</label>
+                                    <input type="text" id="cname-value" class="input-field" placeholder="www.miempresa.com">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">TTL (segundos):</label>
+                                    <input type="number" id="cname-ttl" class="input-field" placeholder="3600" value="3600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario para registro MX -->
+                        <div class="record-form" id="form-MX">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label class="input-label">Nombre (dominio):</label>
+                                    <input type="text" id="mx-name" class="input-field" placeholder="@ para raíz">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Servidor de correo:</label>
+                                    <input type="text" id="mx-value" class="input-field" placeholder="mail.miempresa.com">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Prioridad:</label>
+                                    <input type="number" id="mx-priority" class="input-field" placeholder="10" value="10" min="1" max="100">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">TTL (segundos):</label>
+                                    <input type="number" id="mx-ttl" class="input-field" placeholder="3600" value="3600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario para registro TXT -->
+                        <div class="record-form" id="form-TXT">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label class="input-label">Nombre:</label>
+                                    <input type="text" id="txt-name" class="input-field" placeholder="@ para raíz">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Valor de texto:</label>
+                                    <input type="text" id="txt-value" class="input-field" placeholder="v=spf1 include:_spf.google.com ~all">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">TTL (segundos):</label>
+                                    <input type="number" id="txt-ttl" class="input-field" placeholder="3600" value="3600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario para registro NS -->
+                        <div class="record-form" id="form-NS">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label class="input-label">Nombre (subdominio):</label>
+                                    <input type="text" id="ns-name" class="input-field" placeholder="@ para raíz">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Servidor de nombres:</label>
+                                    <input type="text" id="ns-value" class="input-field" placeholder="ns1.miproveedor.com">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">TTL (segundos):</label>
+                                    <input type="number" id="ns-ttl" class="input-field" placeholder="86400" value="86400">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="add-record-btn" onclick="addRecord()">
+                            ➕ Agregar Registro
+                        </button>
+
+                        <div class="validation-feedback" id="validationFeedback">
+                        </div>
+                    </div>
+
+                    <div class="records-table">
+                        <div class="table-header">
+                            📋 Registros DNS Configurados
+                        </div>
+                        <div class="table-content" id="recordsTable">
+                            <div style="padding: 30px; text-align: center; color: #8888bb;">
+                                No hay registros configurados aún. Agrega tu primer registro DNS arriba.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zone-preview">
+                        <div class="preview-title">📄 Vista Previa del Archivo de Zona</div>
+                        <div id="zoneFilePreview">
+; Zona DNS para miempresa.com
+; No hay registros configurados aún
+                        </div>
+                    </div>
+
+                    <div class="progress-tracker">
+                        <div class="progress-title">📊 Progreso de Configuración</div>
+                        <div class="progress-item">
+                            <div class="progress-checkbox" id="progress-a"></div>
+                            <span>Configurar registro A (sitio web principal)</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-checkbox" id="progress-mx"></div>
+                            <span>Configurar registro MX (servidor de correo)</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-checkbox" id="progress-cname"></div>
+                            <span>Configurar registro CNAME (alias/subdominio)</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-checkbox" id="progress-txt"></div>
+                            <span>Configurar registro TXT (verificación/SPF)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Configuración DNS
+                </h3>
+                <div class="tip-item">
+                    <strong>🌐 Registro A:</strong> Apunta tu dominio a una dirección IPv4. Usa "@" para el dominio raíz o "www" para el subdominio web.
+                </div>
+                <div class="tip-item">
+                    <strong>📧 Registro MX:</strong> Configura dónde llega tu correo. Menor prioridad = mayor importancia (10 antes que 20).
+                </div>
+                <div class="tip-item">
+                    <strong>🔗 Registro CNAME:</strong> Crea alias para subdominios. No puede coexistir con otros registros en el mismo nombre.
+                </div>
+                <div class="tip-item">
+                    <strong>📝 Registro TXT:</strong> Usado para verificaciones (SPF, DKIM), Google Site Verification, y otras validaciones.
+                </div>
+                <div class="tip-item">
+                    <strong>⚡ TTL Bajo:</strong> Para entornos de desarrollo o cuando esperas cambios frecuentes (300-900s).
+                </div>
+                <div class="tip-item">
+                    <strong>🏗️ TTL Alto:</strong> Para producción estable, reduce la carga en servidores DNS (3600-86400s).
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let dnsRecords = [];
+        let currentRecordType = 'A';
+        let completedTypes = new Set();
+        let isCompleted = false;
+
+        const scenarios = {
+            startup: {
+                domain: 'mistartp.com',
+                records: [
+                    { type: 'A', name: '@', value: '192.168.1.100', ttl: 3600 },
+                    { type: 'A', name: 'www', value: '192.168.1.100', ttl: 3600 },
+                    { type: 'CNAME', name: 'api', value: 'www.mistartp.com', ttl: 3600 },
+                    { type: 'MX', name: '@', value: 'mail.mistartp.com', priority: 10, ttl: 3600 },
+                    { type: 'TXT', name: '@', value: 'v=spf1 include:_spf.google.com ~all', ttl: 3600 }
+                ]
+            },
+            ecommerce: {
+                domain: 'tiendaonline.com',
+                records: [
+                    { type: 'A', name: '@', value: '203.0.113.10', ttl: 3600 },
+                    { type: 'A', name: 'www', value: '203.0.113.10', ttl: 3600 },
+                    { type: 'CNAME', name: 'shop', value: 'www.tiendaonline.com', ttl: 3600 },
+                    { type: 'CNAME', name: 'cdn', value: 'cdn.cloudfront.net', ttl: 3600 },
+                    { type: 'MX', name: '@', value: 'aspmx.l.google.com', priority: 1, ttl: 3600 },
+                    { type: 'TXT', name: '@', value: 'google-site-verification=abc123xyz', ttl: 3600 }
+                ]
+            },
+            corporate: {
+                domain: 'corporativo.com',
+                records: [
+                    { type: 'A', name: '@', value: '198.51.100.20', ttl: 3600 },
+                    { type: 'A', name: 'www', value: '198.51.100.20', ttl: 3600 },
+                    { type: 'A', name: 'intranet', value: '10.0.1.50', ttl: 300 },
+                    { type: 'CNAME', name: 'mail', value: 'mail.provider.com', ttl: 3600 },
+                    { type: 'CNAME', name: 'ftp', value: 'files.corporativo.com', ttl: 3600 },
+                    { type: 'MX', name: '@', value: 'mx1.provider.com', priority: 10, ttl: 3600 },
+                    { type: 'MX', name: '@', value: 'mx2.provider.com', priority: 20, ttl: 3600 },
+                    { type: 'TXT', name: '@', value: 'v=spf1 include:provider.com ~all', ttl: 3600 },
+                    { type: 'NS', name: '@', value: 'ns1.provider.com', ttl: 86400 }
+                ]
+            }
+        };
+
+        function loadScenario(scenarioName) {
+            if (scenarioName === 'custom') {
+                // Limpiar para configuración libre
+                dnsRecords = [];
+                document.getElementById('domainName').value = 'midominio.com';
+                updateRecordsTable();
+                updateZonePreview();
+                return;
+            }
+
+            const scenario = scenarios[scenarioName];
+            if (!scenario) return;
+
+            document.getElementById('domainName').value = scenario.domain;
+            dnsRecords = [...scenario.records];
+            
+            updateRecordsTable();
+            updateZonePreview();
+            
+            showValidationFeedback(`📋 Escenario "${scenarioName}" cargado con ${scenario.records.length} registros predefinidos.`, 'success');
+        }
+
+        function selectRecordType(type) {
+            currentRecordType = type;
+            
+            // Actualizar botones
+            document.querySelectorAll('.record-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
+            
+            // Mostrar formulario correspondiente
+            document.querySelectorAll('.record-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(`form-${type}`).classList.add('active');
+        }
+
+        function addRecord() {
+            const domain = document.getElementById('domainName').value.trim();
+            if (!domain) {
+                showValidationFeedback('❌ Por favor ingresa un nombre de dominio válido.', 'error');
+                return;
+            }
+
+            const record = getRecordFromForm();
+            if (!record) return;
+
+            // Validar el registro
+            const validation = validateRecord(record);
+            if (!validation.valid) {
+                showValidationFeedback(`❌ ${validation.message}`, 'error');
+                return;
+            }
+
+            // Verificar duplicados
+            const duplicate = dnsRecords.find(r => 
+                r.type === record.type && 
+                r.name === record.name && 
+                (record.type !== 'MX' || r.priority === record.priority)
+            );
+            
+            if (duplicate) {
+                showValidationFeedback('❌ Ya existe un registro igual. Elimina el anterior si quieres reemplazarlo.', 'error');
+                return;
+            }
+
+            // Agregar registro
+            dnsRecords.push(record);
+            updateRecordsTable();
+            updateZonePreview();
+            clearCurrentForm();
+            markProgress(record.type);
+            
+            showValidationFeedback(`✅ Registro ${record.type} agregado exitosamente.`, 'success');
+        }
+
+        function getRecordFromForm() {
+            const type = currentRecordType;
+            const record = { type };
+
+            switch (type) {
+                case 'A':
+                    record.name = document.getElementById('a-name').value.trim() || '@';
+                    record.value = document.getElementById('a-value').value.trim();
+                    record.ttl = parseInt(document.getElementById('a-ttl').value) || 3600;
+                    break;
+                case 'AAAA':
+                    record.name = document.getElementById('aaaa-name').value.trim() || '@';
+                    record.value = document.getElementById('aaaa-value').value.trim();
+                    record.ttl = parseInt(document.getElementById('aaaa-ttl').value) || 3600;
+                    break;
+                case 'CNAME':
+                    record.name = document.getElementById('cname-name').value.trim();
+                    record.value = document.getElementById('cname-value').value.trim();
+                    record.ttl = parseInt(document.getElementById('cname-ttl').value) || 3600;
+                    break;
+                case 'MX':
+                    record.name = document.getElementById('mx-name').value.trim() || '@';
+                    record.value = document.getElementById('mx-value').value.trim();
+                    record.priority = parseInt(document.getElementById('mx-priority').value) || 10;
+                    record.ttl = parseInt(document.getElementById('mx-ttl').value) || 3600;
+                    break;
+                case 'TXT':
+                    record.name = document.getElementById('txt-name').value.trim() || '@';
+                    record.value = document.getElementById('txt-value').value.trim();
+                    record.ttl = parseInt(document.getElementById('txt-ttl').value) || 3600;
+                    break;
+                case 'NS':
+                    record.name = document.getElementById('ns-name').value.trim() || '@';
+                    record.value = document.getElementById('ns-value').value.trim();
+                    record.ttl = parseInt(document.getElementById('ns-ttl').value) || 86400;
+                    break;
+            }
+
+            return record;
+        }
+
+        function validateRecord(record) {
+            if (!record.value) {
+                return { valid: false, message: 'El valor del registro no puede estar vacío.' };
+            }
+
+            switch (record.type) {
+                case 'A':
+                    if (!/^(\d{1,3}\.){3}\d{1,3}$/.test(record.value)) {
+                        return { valid: false, message: 'La dirección IPv4 no tiene un formato válido.' };
+                    }
+                    const octets = record.value.split('.').map(Number);
+                    if (octets.some(octet => octet < 0 || octet > 255)) {
+                        return { valid: false, message: 'Los octetos de la dirección IPv4 deben estar entre 0 y 255.' };
+                    }
+                    break;
+                case 'AAAA':
+                    if (!/^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(record.value) && 
+                        !/^([0-9a-fA-F]{1,4}:)*::([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4}$/.test(record.value)) {
+                        return { valid: false, message: 'La dirección IPv6 no tiene un formato válido.' };
+                    }
+                    break;
+                case 'CNAME':
+                    if (!record.name || record.name === '@') {
+                        return { valid: false, message: 'Los registros CNAME no pueden usar @ (raíz). Usa un subdominio.' };
+                    }
+                    if (!record.value.includes('.')) {
+                        return { valid: false, message: 'El destino CNAME debe ser un FQDN válido.' };
+                    }
+                    break;
+                case 'MX':
+                    if (!record.value.includes('.')) {
+                        return { valid: false, message: 'El servidor MX debe ser un FQDN válido.' };
+                    }
+                    if (record.priority < 1 || record.priority > 100) {
+                        return { valid: false, message: 'La prioridad MX debe estar entre 1 y 100.' };
+                    }
+                    break;
+                case 'TXT':
+                    if (record.value.length > 255) {
+                        return { valid: false, message: 'Los registros TXT no pueden exceder 255 caracteres.' };
+                    }
+                    break;
+                case 'NS':
+                    if (!record.value.includes('.')) {
+                        return { valid: false, message: 'El servidor NS debe ser un FQDN válido.' };
+                    }
+                    break;
+            }
+
+            if (record.ttl < 300 || record.ttl > 86400) {
+                return { valid: false, message: 'El TTL debe estar entre 300 y 86400 segundos.' };
+            }
+
+            return { valid: true };
+        }
+
+        function updateRecordsTable() {
+            const container = document.getElementById('recordsTable');
+            
+            if (dnsRecords.length === 0) {
+                container.innerHTML = '<div style="padding: 30px; text-align: center; color: #8888bb;">No hay registros configurados aún. Agrega tu primer registro DNS arriba.</div>';
+                return;
+            }
+
+            let html = '';
+            dnsRecords.forEach((record, index) => {
+                const displayValue = record.type === 'MX' ? `${record.priority} ${record.value}` : record.value;
+                html += `
+                    <div class="record-entry">
+                        <div class="record-name">${record.name}</div>
+                        <div class="record-type">${record.type}</div>
+                        <div class="record-value">${displayValue}</div>
+                        <div class="record-ttl">${record.ttl}s</div>
+                        <button class="delete-btn" onclick="deleteRecord(${index})">🗑️</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function updateZonePreview() {
+            const domain = document.getElementById('domainName').value.trim();
+            const container = document.getElementById('zoneFilePreview');
+            
+            if (dnsRecords.length === 0) {
+                container.textContent = `; Zona DNS para ${domain}\n; No hay registros configurados aún`;
+                return;
+            }
+
+            let zoneFile = `; Zona DNS para ${domain}\n`;
+            zoneFile += `; Generado automáticamente\n\n`;
+            
+            // Agrupar por tipo para mejor legibilidad
+            const types = ['NS', 'A', 'AAAA', 'CNAME', 'MX', 'TXT'];
+            
+            types.forEach(type => {
+                const records = dnsRecords.filter(r => r.type === type);
+                if (records.length > 0) {
+                    zoneFile += `; Registros ${type}\n`;
+                    records.forEach(record => {
+                        const name = record.name === '@' ? domain + '.' : `${record.name}.${domain}.`;
+                        const value = record.type === 'MX' ? `${record.priority} ${record.value}.` : 
+                                     record.type === 'TXT' ? `"${record.value}"` : 
+                                     record.type === 'CNAME' ? `${record.value}.` :
+                                     record.type === 'NS' ? `${record.value}.` : record.value;
+                        
+                        zoneFile += `${name.padEnd(30)} ${record.ttl.toString().padEnd(8)} IN ${record.type.padEnd(6)} ${value}\n`;
+                    });
+                    zoneFile += '\n';
+                }
+            });
+
+            container.textContent = zoneFile;
+        }
+
+        function deleteRecord(index) {
+            if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
+                dnsRecords.splice(index, 1);
+                updateRecordsTable();
+                updateZonePreview();
+                showValidationFeedback('🗑️ Registro eliminado exitosamente.', 'success');
+            }
+        }
+
+        function clearCurrentForm() {
+            const type = currentRecordType.toLowerCase();
+            document.querySelectorAll(`#form-${currentRecordType} input`).forEach(input => {
+                if (input.type === 'number' && (input.id.includes('ttl') || input.id.includes('priority'))) {
+                    // Mantener valores por defecto para TTL y prioridad
+                    return;
+                }
+                input.value = '';
+            });
+        }
+
+        function markProgress(recordType) {
+            const progressId = `progress-${recordType.toLowerCase()}`;
+            const checkbox = document.getElementById(progressId);
+            
+            if (checkbox && !completedTypes.has(recordType)) {
+                checkbox.classList.add('completed');
+                checkbox.textContent = '✓';
+                completedTypes.add(recordType);
+                
+                // Verificar si se completaron suficientes tipos
+                if (completedTypes.size >= 3) {
+                    completeActivity();
+                }
+            }
+        }
+
+        function showValidationFeedback(message, type) {
+            const feedback = document.getElementById('validationFeedback');
+            feedback.textContent = message;
+            feedback.className = `validation-feedback ${type} show`;
+            
+            setTimeout(() => {
+                feedback.classList.remove('show');
+            }, 5000);
+        }
+
+        function completeActivity() {
+            if (!isCompleted) {
+                isCompleted = true;
+                const indicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                
+                indicator.classList.add('completed');
+                statusText.textContent = 'Completado ✅';
+                
+                setTimeout(() => {
+                    alert('🎉 ¡Excelente trabajo! Has configurado exitosamente una zona DNS completa.\n\n✅ Actividad completada automáticamente\n🏆 +200 puntos ganados');
+                }, 1000);
+            }
+        }
+
+        function markCompleted() {
+            if (!isCompleted) {
+                completeActivity();
+            } else {
+                alert('🎉 ¡Felicidades! Has completado la actividad "Configurador de Registros DNS".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n¡Ahora sabes cómo configurar zonas DNS profesionales!');
+            }
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar con ejemplo básico
+        document.addEventListener('DOMContentLoaded', function() {
+            updateZonePreview();
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Configurador de Registros DNS

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2 - Gestor de Usuarios y Permisos</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .permissions-simulator {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+
+        .file-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .file-path {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .permissions-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .permission-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .permission-bit {
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .permission-bit.read {
+            background: rgba(34,197,94,0.15);
+            color: var(--text-muted);
+        }
+
+        .permission-bit.write {
+            background: rgba(245,158,11,0.15);
+            color: var(--text-muted);
+        }
+
+        .permission-bit.execute {
+            background: rgba(239,68,68,0.15);
+            color: #721c24;
+        }
+
+        .permission-bit.active {
+            transform: scale(1.1);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .permission-bit.inactive {
+            background: var(--surface2);
+            color: #6c757d;
+        }
+
+        .numeric-display {
+            background: #1f1d5c;
+            color: #e0f24a;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .user-group-labels {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            justify-content: center;
+        }
+        .chmod-calculator {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .calculator-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1565c0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chmod-field {
+            padding: 8px 12px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            width: 100px;
+        }
+
+        .chmod-field:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+
+        .chmod-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .chmod-btn:hover {
+            background: var(--purple);
+        }
+
+        
+
+        
+
+        
+
+        .challenge-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-item {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .challenge-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .permissions-display {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 5</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 5</a> / Actividad 2
+            </div>
+            <h1 class="activity-title">👥 Gestor de Usuarios y Permisos</h1>
+            <p class="activity-subtitle">Administra usuarios, grupos y permisos de archivos de forma práctica</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>30 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico-Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a gestionar permisos de archivos y directorios en Linux. Comprenderás el sistema de usuarios, grupos y los tres tipos de permisos (lectura, escritura, ejecución) tanto en formato simbólico como numérico.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔐 Simulador de Permisos</h2>
+                <div class="permissions-simulator">
+                    <p><strong>Haz clic en los permisos para activarlos/desactivarlos:</strong></p>
+                    
+                    <div class="user-group-labels">
+                        <div class="user-group-label">Usuario (u)</div>
+                        <div class="user-group-label">Grupo (g)</div>
+                        <div class="user-group-label">Otros (o)</div>
+                        <div class="user-group-label">Numérico</div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-icon">📄</div>
+                            <div class="file-details">
+                                <div class="file-name">documento.txt</div>
+                                <div class="file-path">/home/usuario/documento.txt</div>
+                            </div>
+                        </div>
+                        <div class="permissions-display">
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="doc1" data-type="user" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write active" data-file="doc1" data-type="user" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute inactive" data-file="doc1" data-type="user" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="doc1" data-type="group" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write inactive" data-file="doc1" data-type="group" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute inactive" data-file="doc1" data-type="group" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="doc1" data-type="other" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write inactive" data-file="doc1" data-type="other" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute inactive" data-file="doc1" data-type="other" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="numeric-display" id="numeric-doc1">644</div>
+                        </div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-icon">🗂️</div>
+                            <div class="file-details">
+                                <div class="file-name">scripts/</div>
+                                <div class="file-path">/home/usuario/scripts/</div>
+                            </div>
+                        </div>
+                        <div class="permissions-display">
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="dir1" data-type="user" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write active" data-file="dir1" data-type="user" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute active" data-file="dir1" data-type="user" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="dir1" data-type="group" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write inactive" data-file="dir1" data-type="group" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute active" data-file="dir1" data-type="group" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="dir1" data-type="other" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write inactive" data-file="dir1" data-type="other" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute active" data-file="dir1" data-type="other" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="numeric-display" id="numeric-dir1">755</div>
+                        </div>
+                    </div>
+
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-icon">⚙️</div>
+                            <div class="file-details">
+                                <div class="file-name">backup.sh</div>
+                                <div class="file-path">/home/usuario/backup.sh</div>
+                            </div>
+                        </div>
+                        <div class="permissions-display">
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="script1" data-type="user" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write active" data-file="script1" data-type="user" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute active" data-file="script1" data-type="user" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="permission-group">
+                                <div class="permission-bit read active" data-file="script1" data-type="group" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write inactive" data-file="script1" data-type="group" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute active" data-file="script1" data-type="group" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="permission-group">
+                                <div class="permission-bit read inactive" data-file="script1" data-type="other" data-perm="r" onclick="togglePermission(this)">r</div>
+                                <div class="permission-bit write inactive" data-file="script1" data-type="other" data-perm="w" onclick="togglePermission(this)">w</div>
+                                <div class="permission-bit execute inactive" data-file="script1" data-type="other" data-perm="x" onclick="togglePermission(this)">x</div>
+                            </div>
+                            <div class="numeric-display" id="numeric-script1">750</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🧮 Calculadora Chmod</h2>
+                <div class="chmod-calculator">
+                    <div class="calculator-title">
+                        🔢 Calculadora de Permisos
+                    </div>
+                    <p>Ingresa un número de 3 dígitos para ver los permisos correspondientes:</p>
+                    <div class="chmod-input">
+                        <label>chmod</label>
+                        <input type="text" class="chmod-field" id="chmodInput" placeholder="755" maxlength="3">
+                        <button class="chmod-btn" onclick="calculatePermissions()">Calcular</button>
+                    </div>
+                    <div id="chmodResult" style="margin-top: 15px; font-family: 'Courier New', monospace; background: white; padding: 15px; border-radius: 6px; display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-section">
+                <h3 class="challenge-title">
+                    🎯 Desafíos Prácticos
+                </h3>
+                <div class="challenge-item">
+                    <strong>Desafío 1:</strong> Configura el archivo "documento.txt" para que solo el propietario pueda leer y escribir (permisos 600).
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 2:</strong> Dale permisos de ejecución al grupo en el script "backup.sh".
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 3:</strong> Calcula qué permisos representa el número 644 y aplícalos a un archivo.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 4:</strong> Configura un directorio con permisos 755 y explica por qué es una configuración común.
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips y Conceptos Clave
+                </h3>
+                <div class="tip-item">
+                    <strong>🔢 Números de permisos:</strong> 4=lectura, 2=escritura, 1=ejecución. Se suman: 7=rwx, 6=rw-, 5=r-x, 4=r--, 0=---
+                </div>
+                <div class="tip-item">
+                    <strong>📁 Directorios:</strong> Necesitan permiso de ejecución (x) para poder acceder a su contenido.
+                </div>
+                <div class="tip-item">
+                    <strong>🔒 Seguridad:</strong> Usa 600 para archivos privados, 644 para archivos públicos de solo lectura, 755 para directorios y scripts.
+                </div>
+                <div class="tip-item">
+                    <strong>👥 Grupos:</strong> Permiten compartir archivos entre usuarios específicos sin dar acceso a todos.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let filePermissions = {
+            doc1: { user: {r: true, w: true, x: false}, group: {r: true, w: false, x: false}, other: {r: true, w: false, x: false} },
+            dir1: { user: {r: true, w: true, x: true}, group: {r: true, w: false, x: true}, other: {r: true, w: false, x: true} },
+            script1: { user: {r: true, w: true, x: true}, group: {r: true, w: false, x: true}, other: {r: false, w: false, x: false} }
+        };
+
+        function togglePermission(element) {
+            const file = element.dataset.file;
+            const type = element.dataset.type;
+            const perm = element.dataset.perm;
+            
+            // Toggle permission
+            filePermissions[file][type][perm] = !filePermissions[file][type][perm];
+            
+            // Update visual state
+            if (filePermissions[file][type][perm]) {
+                element.classList.remove('inactive');
+                element.classList.add('active');
+            } else {
+                element.classList.remove('active');
+                element.classList.add('inactive');
+            }
+            
+            // Update numeric display
+            updateNumericDisplay(file);
+        }
+
+        function updateNumericDisplay(file) {
+            const perms = filePermissions[file];
+            let numeric = '';
+            
+            ['user', 'group', 'other'].forEach(type => {
+                let value = 0;
+                if (perms[type].r) value += 4;
+                if (perms[type].w) value += 2;
+                if (perms[type].x) value += 1;
+                numeric += value;
+            });
+            
+            document.getElementById(`numeric-${file}`).textContent = numeric;
+        }
+
+        function calculatePermissions() {
+            const input = document.getElementById('chmodInput').value;
+            const result = document.getElementById('chmodResult');
+            
+            if (!/^\d{3}$/.test(input)) {
+                result.innerHTML = '<span style="color: #dc3545;">❌ Ingresa exactamente 3 dígitos (ej: 755)</span>';
+                result.style.display = 'block';
+                return;
+            }
+            
+            const digits = input.split('').map(Number);
+            const types = ['Usuario', 'Grupo', 'Otros'];
+            let explanation = `<strong>chmod ${input}:</strong><br><br>`;
+            
+            digits.forEach((digit, index) => {
+                const r = digit & 4 ? 'r' : '-';
+                const w = digit & 2 ? 'w' : '-';
+                const x = digit & 1 ? 'x' : '-';
+                
+                explanation += `${types[index]}: ${r}${w}${x} (${digit})<br>`;
+            });
+            
+            const symbolic = digits.map(d => {
+                const r = d & 4 ? 'r' : '-';
+                const w = d & 2 ? 'w' : '-';
+                const x = d & 1 ? 'x' : '-';
+                return r + w + x;
+            }).join('');
+            
+            explanation += `<br><strong>Representación completa:</strong> ${symbolic}`;
+            
+            result.innerHTML = explanation;
+            result.style.display = 'block';
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Gestor de Usuarios y Permisos".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n¡Ahora comprendes el sistema de permisos de Linux!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Event listener para la calculadora
+        document.getElementById('chmodInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculatePermissions();
+            }
+        });
+
+        // Inicializar displays numéricos
+        document.addEventListener('DOMContentLoaded', function() {
+            Object.keys(filePermissions).forEach(file => {
+                updateNumericDisplay(file);
+            });
+        });
+    </script>
+
+</body>
+</html>

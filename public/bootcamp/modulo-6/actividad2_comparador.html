@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2 - Comparador VM vs Contenedor</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .scenario-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .scenario-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scenario-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .scenario-btn.active {
+            background: #22C55E;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .tech-card {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card.vm {
+            border-color: #ff6b6b;
+        }
+        .tech-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .tech-card.vm .tech-title {
+            color: #ff6b6b;
+        }
+
+        .tech-card.container .tech-title {
+            color: #4ecdc4;
+        }
+
+        .tech-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .architecture-visual {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .layer {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .layer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .layer.hardware {
+            background: #343a40;
+            color: white;
+        }
+
+        .layer.hypervisor {
+            background: #6f42c1;
+            color: white;
+        }
+
+        .layer.os {
+            background: #F59E0B;
+            color: white;
+        }
+
+        .layer.runtime {
+            background: #20c997;
+            color: white;
+        }
+
+        .layer.app {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid var(--border);
+        }
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .metric-value.good {
+            color: #22C55E;
+        }
+
+        .metric-value.average {
+            color: #F59E0B;
+        }
+
+        .metric-value.poor {
+            color: #EF4444;
+        }
+
+        .live-demo {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .demo-title {
+            font-size: 1.3rem;
+            color: #1565c0;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .demo-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover:not(:disabled) {
+            background: #1976d2;
+            transform: translateY(-2px);
+        }
+
+        .demo-btn:disabled {
+            background: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        .demo-output {
+            background: #263238;
+            color: var(--lime);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            min-height: 150px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .demo-line {
+            margin: 2px 0;
+            opacity: 0;
+            animation: typewriter 0.5s ease forwards;
+        }
+
+        @keyframes typewriter {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .winner-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ffd700;
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transform: rotate(15deg);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {
+            
+
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+
+            .scenario-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .demo-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 6</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 6</a> / Actividad 2
+            </div>
+            <h1 class="activity-title">📦 Comparador VM vs Contenedor</h1>
+            <p class="activity-subtitle">Explora las diferencias entre máquinas virtuales y contenedores de forma interactiva</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>15 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 120</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>Comprende las diferencias fundamentales entre máquinas virtuales y contenedores a través de comparaciones visuales, métricas de rendimiento y simulaciones en tiempo real.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎮 Escenarios de Comparación</h2>
+                <div class="comparison-selector">
+                    <p style="margin-bottom: 20px; color: #8888bb; font-size: 1.1rem;">
+                        Selecciona un escenario para ver cómo se comportan las VMs vs Contenedores:
+                    </p>
+                    <div class="scenario-buttons">
+                        <button class="scenario-btn active" onclick="loadScenario('web-app')" id="btn-web-app">
+                            🌐 Aplicación Web Simple
+                        </button>
+                        <button class="scenario-btn" onclick="loadScenario('microservices')" id="btn-microservices">
+                            🔗 Arquitectura de Microservicios
+                        </button>
+                        <button class="scenario-btn" onclick="loadScenario('database')" id="btn-database">
+                            🗄️ Base de Datos
+                        </button>
+                        <button class="scenario-btn" onclick="loadScenario('development')" id="btn-development">
+                            👨‍💻 Entorno de Desarrollo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">⚖️ Comparación Visual</h2>
+                <div class="comparison-container">
+                    <!-- Máquinas Virtuales -->
+                    <div class="tech-card vm">
+                        <div class="tech-header">
+                            <div class="tech-icon">🖥️</div>
+                            <div class="tech-title">Máquinas Virtuales</div>
+                            <div class="tech-subtitle">Virtualización completa del hardware</div>
+                        </div>
+
+                        <div class="architecture-visual" id="vm-architecture">
+                            <div class="layer hardware">💾 Hardware Físico</div>
+                            <div class="layer hypervisor">🎭 Hipervisor</div>
+                            <div class="layer os">🖥️ Guest OS #1</div>
+                            <div class="layer app">📱 Aplicación</div>
+                        </div>
+
+                        <div class="metrics-grid" id="vm-metrics">
+                            <!-- Métricas se cargarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Contenedores -->
+                    <div class="tech-card container">
+                        <div class="tech-header">
+                            <div class="tech-icon">📦</div>
+                            <div class="tech-title">Contenedores</div>
+                            <div class="tech-subtitle">Virtualización a nivel de SO</div>
+                        </div>
+
+                        <div class="architecture-visual" id="container-architecture">
+                            <div class="layer hardware">💾 Hardware Físico</div>
+                            <div class="layer os">🖥️ Host OS</div>
+                            <div class="layer runtime">🐳 Container Runtime</div>
+                            <div class="layer app">📱 Aplicación</div>
+                        </div>
+
+                        <div class="metrics-grid" id="container-metrics">
+                            <!-- Métricas se cargarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🚀 Simulación en Tiempo Real</h2>
+                <div class="live-demo">
+                    <div class="demo-title">⚡ Simulador de Despliegue</div>
+                    <p style="color: #8888bb; margin-bottom: 20px;">
+                        Observa las diferencias en tiempo de arranque y uso de recursos
+                    </p>
+                    
+                    <div class="demo-controls">
+                        <button class="demo-btn" onclick="simulateVMDeploy()" id="vm-deploy-btn">
+                            🖥️ Desplegar VM
+                        </button>
+                        <button class="demo-btn" onclick="simulateContainerDeploy()" id="container-deploy-btn">
+                            📦 Desplegar Contenedor
+                        </button>
+                        <button class="demo-btn" onclick="clearDemo()" style="background: #6c757d;">
+                            🧹 Limpiar
+                        </button>
+                    </div>
+
+                    <div class="demo-output" id="demo-output">
+                        <div class="demo-line">💻 Sistema listo para simulación...</div>
+                        <div class="demo-line">🎯 Selecciona una opción de despliegue para comenzar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 ¿Cuándo usar cada tecnología?
+                </h3>
+                <div class="tip-item">
+                    <strong>🖥️ Usa VMs cuando:</strong> Necesites aislamiento completo, diferentes sistemas operativos, o ejecutar aplicaciones legacy que requieren un entorno específico.
+                </div>
+                <div class="tip-item">
+                    <strong>📦 Usa Contenedores cuando:</strong> Desarrolles aplicaciones modernas, necesites escalabilidad, despliegues frecuentes, o tengas una arquitectura de microservicios.
+                </div>
+                <div class="tip-item">
+                    <strong>🔄 Híbrido:</strong> Muchas empresas usan ambos: VMs para sistemas críticos y contenedores para aplicaciones web y APIs.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = 'web-app';
+        let isCompleted = false;
+        let interactionsCount = 0;
+
+        // Datos de escenarios
+        const scenarios = {
+            'web-app': {
+                name: 'Aplicación Web Simple',
+                description: 'Una aplicación web básica con backend y frontend',
+                vm: {
+                    startup: '2-3 minutos',
+                    memory: '4 GB',
+                    storage: '40 GB',
+                    isolation: 'Completo',
+                    portability: 'Buena',
+                    overhead: 'Alto'
+                },
+                container: {
+                    startup: '5-10 segundos',
+                    memory: '512 MB',
+                    storage: '500 MB',
+                    isolation: 'Proceso',
+                    portability: 'Excelente',
+                    overhead: 'Bajo'
+                },
+                winner: 'container'
+            },
+            'microservices': {
+                name: 'Arquitectura de Microservicios',
+                description: 'Múltiples servicios pequeños e independientes',
+                vm: {
+                    startup: '10-15 minutos',
+                    memory: '16 GB+',
+                    storage: '200 GB+',
+                    isolation: 'Completo',
+                    portability: 'Regular',
+                    overhead: 'Muy Alto'
+                },
+                container: {
+                    startup: '30-60 segundos',
+                    memory: '2-4 GB',
+                    storage: '2-5 GB',
+                    isolation: 'Proceso',
+                    portability: 'Excelente',
+                    overhead: 'Mínimo'
+                },
+                winner: 'container'
+            },
+            'database': {
+                name: 'Base de Datos',
+                description: 'Sistema de gestión de base de datos empresarial',
+                vm: {
+                    startup: '3-5 minutos',
+                    memory: '8 GB',
+                    storage: '100 GB',
+                    isolation: 'Completo',
+                    portability: 'Buena',
+                    overhead: 'Medio'
+                },
+                container: {
+                    startup: '30 segundos',
+                    memory: '1-2 GB',
+                    storage: '10 GB',
+                    isolation: 'Proceso',
+                    portability: 'Buena',
+                    overhead: 'Bajo'
+                },
+                winner: 'tie'
+            },
+            'development': {
+                name: 'Entorno de Desarrollo',
+                description: 'Entorno completo para desarrollo de software',
+                vm: {
+                    startup: '3-4 minutos',
+                    memory: '6 GB',
+                    storage: '80 GB',
+                    isolation: 'Completo',
+                    portability: 'Excelente',
+                    overhead: 'Alto'
+                },
+                container: {
+                    startup: '10-15 segundos',
+                    memory: '1 GB',
+                    storage: '5 GB',
+                    isolation: 'Proceso',
+                    portability: 'Excelente',
+                    overhead: 'Muy Bajo'
+                },
+                winner: 'container'
+            }
+        };
+
+        function loadScenario(scenarioId) {
+            currentScenario = scenarioId;
+            interactionsCount++;
+
+            // Actualizar botones activos
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${scenarioId}`).classList.add('active');
+
+            // Cargar datos del escenario
+            const scenario = scenarios[scenarioId];
+            
+            // Actualizar arquitectura visual
+            updateArchitecture(scenario);
+            
+            // Actualizar métricas
+            updateMetrics(scenario);
+
+            // Limpiar demo
+            clearDemo();
+        }
+
+        function updateArchitecture(scenario) {
+            const vmArch = document.getElementById('vm-architecture');
+            const containerArch = document.getElementById('container-architecture');
+
+            // Limpiar badges anteriores
+            document.querySelectorAll('.winner-badge').forEach(badge => badge.remove());
+
+            // Añadir badge de ganador
+            if (scenario.winner === 'vm') {
+                const badge = document.createElement('div');
+                badge.className = 'winner-badge';
+                badge.textContent = '🏆 Mejor';
+                vmArch.style.position = 'relative';
+                vmArch.appendChild(badge);
+            } else if (scenario.winner === 'container') {
+                const badge = document.createElement('div');
+                badge.className = 'winner-badge';
+                badge.textContent = '🏆 Mejor';
+                containerArch.style.position = 'relative';
+                containerArch.appendChild(badge);
+            }
+
+            // Actualizar títulos según el escenario
+            if (scenarioId === 'microservices') {
+                vmArch.innerHTML = `
+                    <div class="layer hardware">💾 Hardware Físico</div>
+                    <div class="layer hypervisor">🎭 Hipervisor</div>
+                    <div class="layer os">🖥️ Guest OS #1</div>
+                    <div class="layer app">📱 Servicio A</div>
+                    <div class="layer os">🖥️ Guest OS #2</div>
+                    <div class="layer app">📱 Servicio B</div>
+                    <div class="layer os">🖥️ Guest OS #3</div>
+                    <div class="layer app">📱 Servicio C</div>
+                `;
+                
+                containerArch.innerHTML = `
+                    <div class="layer hardware">💾 Hardware Físico</div>
+                    <div class="layer os">🖥️ Host OS</div>
+                    <div class="layer runtime">🐳 Container Runtime</div>
+                    <div class="layer app">📱 Servicio A</div>
+                    <div class="layer app">📱 Servicio B</div>
+                    <div class="layer app">📱 Servicio C</div>
+                `;
+            } else {
+                // Arquitectura estándar
+                vmArch.innerHTML = `
+                    <div class="layer hardware">💾 Hardware Físico</div>
+                    <div class="layer hypervisor">🎭 Hipervisor</div>
+                    <div class="layer os">🖥️ Guest OS</div>
+                    <div class="layer app">📱 ${scenario.name}</div>
+                `;
+                
+                containerArch.innerHTML = `
+                    <div class="layer hardware">💾 Hardware Físico</div>
+                    <div class="layer os">🖥️ Host OS</div>
+                    <div class="layer runtime">🐳 Container Runtime</div>
+                    <div class="layer app">📱 ${scenario.name}</div>
+                `;
+            }
+        }
+
+        function updateMetrics(scenario) {
+            const vmMetrics = document.getElementById('vm-metrics');
+            const containerMetrics = document.getElementById('container-metrics');
+
+            function getMetricClass(value, type) {
+                if (type === 'startup') {
+                    if (value.includes('segundo')) return 'good';
+                    if (value.includes('2-3 minuto')) return 'average';
+                    return 'poor';
+                }
+                if (type === 'memory') {
+                    if (value.includes('MB') || value.includes('1 GB')) return 'good';
+                    if (value.includes('4 GB') || value.includes('6 GB')) return 'average';
+                    return 'poor';
+                }
+                if (type === 'overhead') {
+                    if (value === 'Bajo' || value === 'Mínimo' || value === 'Muy Bajo') return 'good';
+                    if (value === 'Medio') return 'average';
+                    return 'poor';
+                }
+                return 'average';
+            }
+
+            vmMetrics.innerHTML = `
+                <div class="metric-item">
+                    <div class="metric-label">⏱️ Tiempo Inicio</div>
+                    <div class="metric-value ${getMetricClass(scenario.vm.startup, 'startup')}">${scenario.vm.startup}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">🧠 Memoria</div>
+                    <div class="metric-value ${getMetricClass(scenario.vm.memory, 'memory')}">${scenario.vm.memory}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">💾 Almacenamiento</div>
+                    <div class="metric-value average">${scenario.vm.storage}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">🔒 Aislamiento</div>
+                    <div class="metric-value good">${scenario.vm.isolation}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">📦 Portabilidad</div>
+                    <div class="metric-value average">${scenario.vm.portability}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">⚡ Overhead</div>
+                    <div class="metric-value ${getMetricClass(scenario.vm.overhead, 'overhead')}">${scenario.vm.overhead}</div>
+                </div>
+            `;
+
+            containerMetrics.innerHTML = `
+                <div class="metric-item">
+                    <div class="metric-label">⏱️ Tiempo Inicio</div>
+                    <div class="metric-value ${getMetricClass(scenario.container.startup, 'startup')}">${scenario.container.startup}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">🧠 Memoria</div>
+                    <div class="metric-value ${getMetricClass(scenario.container.memory, 'memory')}">${scenario.container.memory}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">💾 Almacenamiento</div>
+                    <div class="metric-value good">${scenario.container.storage}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">🔒 Aislamiento</div>
+                    <div class="metric-value average">${scenario.container.isolation}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">📦 Portabilidad</div>
+                    <div class="metric-value good">${scenario.container.portability}</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">⚡ Overhead</div>
+                    <div class="metric-value ${getMetricClass(scenario.container.overhead, 'overhead')}">${scenario.container.overhead}</div>
+                </div>
+            `;
+        }
+
+        function simulateVMDeploy() {
+            const output = document.getElementById('demo-output');
+            const vmBtn = document.getElementById('vm-deploy-btn');
+            
+            vmBtn.disabled = true;
+            output.innerHTML = '';
+            interactionsCount++;
+
+            const steps = [
+                '🔧 Iniciando hipervisor...',
+                '💾 Asignando recursos de hardware...',
+                '🖥️ Creando máquina virtual...',
+                '⚙️ Instalando sistema operativo guest...',
+                '📦 Configurando red virtual...',
+                '🔐 Aplicando configuración de seguridad...',
+                '📱 Instalando aplicación...',
+                '🚀 Configurando servicios del sistema...',
+                '✅ VM lista en 2 minutos 45 segundos',
+                '📊 Recursos utilizados: 4GB RAM, 40GB Storage, 2 CPU cores'
+            ];
+
+            let delay = 0;
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = 'demo-line';
+                    line.textContent = step;
+                    line.style.animationDelay = '0s';
+                    output.appendChild(line);
+                    
+                    if (index === steps.length - 1) {
+                        vmBtn.disabled = false;
+                    }
+                }, delay);
+                
+                delay += (index < steps.length - 2) ? 300 : 800;
+            });
+        }
+
+        function simulateContainerDeploy() {
+            const output = document.getElementById('demo-output');
+            const containerBtn = document.getElementById('container-deploy-btn');
+            
+            containerBtn.disabled = true;
+            output.innerHTML = '';
+            interactionsCount++;
+
+            const steps = [
+                '🐳 Iniciando Docker runtime...',
+                '📦 Descargando imagen del contenedor...',
+                '🔧 Creando namespace y cgroups...',
+                '🌐 Configurando red del contenedor...',
+                '📱 Ejecutando aplicación...',
+                '✅ Contenedor listo en 8 segundos',
+                '📊 Recursos utilizados: 512MB RAM, 500MB Storage'
+            ];
+
+            let delay = 0;
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = 'demo-line';
+                    line.textContent = step;
+                    line.style.animationDelay = '0s';
+                    output.appendChild(line);
+                    
+                    if (index === steps.length - 1) {
+                        containerBtn.disabled = false;
+                    }
+                }, delay);
+                
+                delay += (index < steps.length - 2) ? 200 : 500;
+            });
+        }
+
+        function clearDemo() {
+            const output = document.getElementById('demo-output');
+            output.innerHTML = `
+                <div class="demo-line">💻 Sistema listo para simulación...</div>
+                <div class="demo-line">🎯 Selecciona una opción de despliegue para comenzar</div>
+            `;
+            
+            document.getElementById('vm-deploy-btn').disabled = false;
+            document.getElementById('container-deploy-btn').disabled = false;
+        }
+
+        function markCompleted() {
+            if (interactionsCount < 3) {
+                alert('⚠️ Explora al menos 3 escenarios o simulaciones diferentes para completar la actividad.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Comparador VM vs Contenedor".\n\n' +
+                  `📊 Estadísticas:\n` +
+                  `• ${interactionsCount} interacciones realizadas\n` +
+                  `• Escenarios explorados: ${Object.keys(scenarios).length}\n` +
+                  `• Conceptos dominados: Virtualización, Contenedores, Arquitecturas\n\n` +
+                  `✅ Actividad marcada como completada\n🏆 +120 puntos ganados`);
+        }
+
+        function goBack() {
+            window.location.href = './';
+        }
+
+        // Inicializar la actividad
+        document.addEventListener('DOMContentLoaded', function() {
+            loadScenario('web-app');
+        });
+    </script>
+
+</body>
+</html>btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-

@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Módulo 8: Proteger lo Importante (Backup y Recuperación)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .question {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            to { opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .results-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 2.2rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5453eb, #7b7aff);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .score-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #ff9a9e;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 8</a>
+  </nav>
+  <div class="container">
+        <div class="breadcrumb">
+            <a href="./">← Volver al Módulo 8</a>
+        </div>
+
+        <div class="header">
+            <h1 class="quiz-title">🎯 Quiz del Módulo</h1>
+            <p class="quiz-subtitle">Evalúa tus conocimientos sobre Backup y Recuperación</p>
+        </div>
+
+        <div class="quiz-container">
+            <div class="progress-header">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> de <span id="totalQuestions">5</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="currentScore">0</span> puntos
+                </div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <!-- Pregunta 1 -->
+                <div class="question active" data-question="1">
+                    <div class="question-number">1</div>
+                    <h2 class="question-text">¿Cuál es el significado correcto de la regla 3-2-1 en backup?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) 3 servidores, 2 ubicaciones, 1 administrador</div>
+                            <div class="option-text">Enfoque organizacional de recursos humanos</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) 3 copias de datos, 2 tipos de medios, 1 copia fuera del sitio</div>
+                            <div class="option-text">Estándar de la industria para protección de datos</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) 3 horas de backup, 2 veces por semana, 1 mes de retención</div>
+                            <div class="option-text">Cronograma de frecuencia de backups</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) 3 tipos de backup, 2 niveles de acceso, 1 punto de falla</div>
+                            <div class="option-text">Clasificación de sistemas de backup</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback1">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="question" data-question="2">
+                    <div class="question-number">2</div>
+                    <h2 class="question-text">Si tu RTO es de 2 horas y tu RPO es de 30 minutos, ¿qué significa esto?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Puedes estar 2 horas sin servicio y perder máximo 30 min de datos</div>
+                            <div class="option-text">Definición correcta de objetivos de recuperación</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Necesitas 2 horas para hacer backup y 30 min para restaurar</div>
+                            <div class="option-text">Tiempos de operaciones de backup</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) El backup toma 2 horas y se ejecuta cada 30 minutos</div>
+                            <div class="option-text">Frecuencia y duración de backups</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Tienes 2 horas para detectar problemas y 30 min para solucionarlos</div>
+                            <div class="option-text">Tiempos de detección y resolución</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback2">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="question" data-question="3">
+                    <div class="question-number">3</div>
+                    <h2 class="question-text">¿Cuál es la principal diferencia entre backup incremental y diferencial?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Incremental copia solo cambios desde el último backup (cualquier tipo), diferencial desde el último completo</div>
+                            <div class="option-text">Diferencia en punto de referencia para cambios</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Incremental es más rápido, diferencial es más seguro</div>
+                            <div class="option-text">Comparación de velocidad vs seguridad</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Incremental usa más espacio, diferencial usa menos</div>
+                            <div class="option-text">Comparación de uso de espacio de almacenamiento</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) No hay diferencia, son sinónimos</div>
+                            <div class="option-text">Términos intercambiables</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback3">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="question" data-question="4">
+                    <div class="question-number">4</div>
+                    <h2 class="question-text">¿Por qué es crucial hacer pruebas regulares de restauración de backups?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Para cumplir con regulaciones legales</div>
+                            <div class="option-text">Requerimiento de compliance</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Para verificar que los backups realmente funcionan y están íntegros</div>
+                            <div class="option-text">Validación de integridad y funcionalidad</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Para mantener al personal entrenado en procedimientos</div>
+                            <div class="option-text">Entrenamiento y preparación del equipo</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Para optimizar el rendimiento del sistema de backup</div>
+                            <div class="option-text">Mejora de performance</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback4">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="question" data-question="5">
+                    <div class="question-number">5</div>
+                    <h2 class="question-text">En un plan de contingencia, ¿cuál debe ser el primer paso al detectar un incidente crítico?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Iniciar inmediatamente la restauración desde backup</div>
+                            <div class="option-text">Acción de recuperación directa</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Evaluar el alcance y severidad del incidente</div>
+                            <div class="option-text">Análisis inicial de la situación</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Notificar a todos los usuarios del problema</div>
+                            <div class="option-text">Comunicación masiva inmediata</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Documentar la hora exacta del incidente</div>
+                            <div class="option-text">Registro temporal del evento</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback5">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 8: Proteger lo Importante (Backup y Recuperación)</strong>
+                </p>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" disabled>
+                    ← Anterior
+                </button>
+                
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="nav-btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Siguiente →
+                    </button>
+                    <button class="nav-btn success" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                        Finalizar Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let score = 0;
+        let startTime = Date.now();
+        let questionAnswered = false;
+
+        const questions = [
+            {
+                id: 1,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. La regla 3-2-1 no se refiere a recursos humanos o servidores, sino a copias de datos.',
+                    'b': '✅ ¡Correcto! La regla 3-2-1 es el estándar de oro: 3 copias de datos importantes (original + 2 backups), en 2 tipos diferentes de medios (disco + cinta/nube), con 1 copia fuera del sitio (offsite).',
+                    'c': '❌ Incorrecto. La regla 3-2-1 no se refiere a cronogramas de tiempo, sino a la distribución física de las copias de datos.',
+                    'd': '❌ Incorrecto. La regla 3-2-1 se enfoca en redundancia y distribución de copias, no en clasificaciones de tipos de backup.'
+                }
+            },
+            {
+                id: 2,
+                correct: 'a',
+                feedback: {
+                    'a': '✅ ¡Correcto! RTO (Recovery Time Objective) de 2 horas significa que tu negocio puede tolerar máximo 2 horas sin el servicio. RPO (Recovery Point Objective) de 30 minutos significa que puedes perder máximo 30 minutos de datos.',
+                    'b': '❌ Incorrecto. RTO y RPO no son tiempos de operación de backup, sino objetivos de tolerancia del negocio a interrupciones y pérdida de datos.',
+                    'c': '❌ Incorrecto. RTO y RPO no definen la duración o frecuencia de backups, sino los límites de tolerancia del negocio.',
+                    'd': '❌ Incorrecto. RTO y RPO no se refieren a tiempos de detección y resolución, sino a objetivos de recuperación del negocio.'
+                }
+            },
+            {
+                id: 3,
+                correct: 'a',
+                feedback: {
+                    'a': '✅ ¡Correcto! Backup incremental copia solo archivos que cambiaron desde el último backup (sin importar si fue completo, incremental o diferencial). Backup diferencial copia solo archivos que cambiaron desde el último backup COMPLETO.',
+                    'b': '❌ Incorrecto. Aunque es cierto que incremental suele ser más rápido, la diferencia principal está en el punto de referencia para detectar cambios, no en velocidad vs seguridad.',
+                    'c': '❌ Incorrecto. Es al revés: incremental usa menos espacio (solo cambios recientes), diferencial usa más espacio (todos los cambios desde el último completo).',
+                    'd': '❌ Incorrecto. Son conceptos diferentes con estrategias distintas de backup. No son sinónimos.'
+                }
+            },
+            {
+                id: 4,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. Aunque puede ser un requerimiento en algunas regulaciones, la razón principal es técnica, no legal.',
+                    'b': '✅ ¡Correcto! Las pruebas de restauración son cruciales porque un backup que no se ha probado es una falsa sensación de seguridad. Pueden estar corruptos, incompletos, o los procedimientos pueden fallar.',
+                    'c': '❌ Incorrecto. Aunque mantener al personal entrenado es importante, la razón principal es verificar que los backups realmente funcionan.',
+                    'd': '❌ Incorrecto. Las pruebas de restauración no optimizan el rendimiento del backup, sino que verifican que funcionan correctamente.'
+                }
+            },
+            {
+                id: 5,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. Restaurar inmediatamente sin evaluar puede empeorar la situación o ser innecesario según el tipo de incidente.',
+                    'b': '✅ ¡Correcto! El primer paso debe ser evaluar el alcance y severidad del incidente para determinar la respuesta apropiada. Esto incluye entender qué sistemas están afectados y qué nivel de respuesta se requiere.',
+                    'c': '❌ Incorrecto. Notificar usuarios sin entender primero el problema puede causar pánico innecesario o dar información incorrecta.',
+                    'd': '❌ Incorrecto. Aunque documentar es importante, no debe ser la prioridad inicial cuando hay un incidente crítico activo.'
+                }
+            }
+        ];
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+        }
+
+        function showQuestion(index) {
+            // Ocultar todas las preguntas
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+
+            // Mostrar pregunta actual
+            const currentQuestion = document.querySelector(`[data-question="${index + 1}"]`);
+            if (currentQuestion) {
+                currentQuestion.classList.add('active');
+            }
+
+            // Actualizar botones de navegación
+            document.getElementById('prevBtn').disabled = index === 0;
+            
+            if (index === questions.length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('finishBtn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-flex';
+                document.getElementById('finishBtn').style.display = 'none';
+            }
+
+            // Verificar si ya se respondió esta pregunta
+            questionAnswered = answers[index + 1] !== undefined;
+            updateNextButton();
+
+            updateProgress();
+        }
+
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                finishBtn.disabled = !questionAnswered;
+            } else {
+                nextBtn.disabled = !questionAnswered;
+            }
+        }
+
+        function selectOption(element, questionId, option) {
+            // Marcar opción seleccionada
+            const questionElement = document.querySelector(`[data-question="${questionId}"]`);
+            questionElement.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            answers[questionId] = option;
+            questionAnswered = true;
+
+            // Mostrar feedback inmediato
+            setTimeout(() => {
+                const question = questions[questionId - 1];
+                const isCorrect = option === question.correct;
+                
+                // Marcar opción correcta e incorrecta
+                questionElement.querySelectorAll('.option').forEach(opt => {
+                    const optionValue = opt.getAttribute('data-option');
+                    if (optionValue === question.correct) {
+                        opt.classList.add('correct');
+                    } else if (optionValue === option && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                // Mostrar feedback
+                const feedback = document.getElementById(`feedback${questionId}`);
+                const feedbackContent = feedback.querySelector('.feedback-content');
+                
+                feedbackContent.innerHTML = question.feedback[option];
+                feedback.className = `feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                // Actualizar puntaje
+                if (isCorrect && answers[questionId] !== 'scored') {
+                    score++;
+                    answers[questionId] = 'scored'; // Evitar doble conteo
+                }
+
+                updateNextButton();
+                updateProgress();
+            }, 500);
+        }
+
+        function nextQuestion() {
+            if (questionAnswered && currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                questionAnswered = false;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                questionAnswered = answers[currentQuestionIndex + 1] !== undefined;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function finishQuiz() {
+            if (!questionAnswered) return;
+
+            // Calcular tiempo total
+            const endTime = Date.now();
+            const totalTimeMs = endTime - startTime;
+            const minutes = Math.floor(totalTimeMs / 60000);
+            const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Calcular puntos (40 puntos por respuesta correcta para este módulo avanzado)
+            const points = score * 40;
+
+            // Ocultar contenedor de preguntas
+            document.getElementById('questionContainer').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+
+            // Mostrar resultados
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            // Actualizar estadísticas
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('totalTime').textContent = timeString;
+            document.getElementById('finalPoints').textContent = points;
+
+            // Crear botones de navegación en resultados
+            const navigationDiv = document.createElement('div');
+            navigationDiv.style.cssText = 'margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;';
+            
+            navigationDiv.innerHTML = `
+                <button class="nav-btn" onclick="retryQuiz()">
+                    🔄 Repetir Quiz
+                </button>
+                <button class="nav-btn primary" onclick="goToHub()">
+                    🏠 Volver al Hub
+                </button>
+                <button class="nav-btn success" onclick="nextModule()">
+                    ➡️ Siguiente Módulo
+                </button>
+            `;
+            
+            resultsContainer.appendChild(navigationDiv);
+
+            // Mostrar mensaje motivacional basado en el puntaje
+            let message = '';
+            if (score === 5) {
+                message = '🌟 ¡Excelente! Dominas completamente los conceptos de backup y recuperación. Estás listo para implementar estrategias de protección de datos en entornos profesionales.';
+            } else if (score >= 4) {
+                message = '👏 ¡Muy bien! Tienes una sólida comprensión de backup y recuperación. Solo necesitas repasar algunos conceptos específicos.';
+            } else if (score >= 3) {
+                message = '👍 ¡Buen trabajo! Entiendes los fundamentos, pero te beneficiarías de revisar los conceptos más avanzados como RTO/RPO y estrategias de backup.';
+            } else {
+                message = '📚 Te recomendamos revisar el contenido del módulo, especialmente los conceptos de la regla 3-2-1, diferencias entre tipos de backup, y planes de contingencia.';
+            }
+
+            const messageElement = document.createElement('p');
+            messageElement.style.cssText = 'color: #8888bb; margin: 20px 0; font-size: 1rem; font-weight: 500; line-height: 1.6;';
+            messageElement.innerHTML = message;
+            resultsContainer.insertBefore(messageElement, navigationDiv);
+        }
+
+        function retryQuiz() {
+            // Reiniciar variables
+            currentQuestionIndex = 0;
+            answers = {};
+            score = 0;
+            startTime = Date.now();
+            questionAnswered = false;
+
+            // Limpiar todas las opciones y feedback
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.classList.remove('show', 'correct', 'incorrect');
+            });
+
+            // Ocultar resultados
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('resultsContainer').innerHTML = `
+                <h2 class="results-title">🎯 ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 8: Proteger lo Importante (Backup y Recuperación)</strong>
+                </p>
+            `;
+
+            // Mostrar contenedor de preguntas y navegación
+            document.getElementById('questionContainer').style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+
+            // Mostrar primera pregunta
+            showQuestion(0);
+        }
+
+        function goToHub() {
+            window.location.href = './';
+        }
+
+        function nextModule() {
+            alert('🚀 ¡Excelente progreso! Has completado el Módulo 8 sobre Backup y Recuperación.\n\n🎓 Este es el último módulo disponible del bootcamp.\n\n💪 Has desarrollado habilidades fundamentales en:\n• Estrategias de backup y recuperación\n• Cálculo de RTO/RPO\n• Manejo de crisis y contingencias\n• Protección de datos críticos\n\n¡Felicidades por completar todo el bootcamp!');
+            goToHub();
+        }
+
+        // Event listeners para las opciones
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionElement = this.closest('.question');
+                    const questionId = parseInt(questionElement.getAttribute('data-question'));
+                    const optionValue = this.getAttribute('data-option');
+                    
+                    // Solo permitir selección si no se ha respondido o es la primera vez
+                    if (!questionElement.querySelector('.option.correct') && !questionElement.querySelector('.option.incorrect')) {
+                        selectOption(this, questionId, optionValue);
+                    }
+                });
+            });
+
+            // Inicializar
+            showQuestion(0);
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' && !document.getElementById('prevBtn').disabled) {
+                previousQuestion();
+            } else if (e.key === 'ArrowRight' && !document.getElementById('nextBtn').disabled) {
+                nextQuestion();
+            } else if (e.key === 'Enter') {
+                if (currentQuestionIndex === questions.length - 1 && questionAnswered) {
+                    finishQuiz();
+                } else if (questionAnswered) {
+                    nextQuestion();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

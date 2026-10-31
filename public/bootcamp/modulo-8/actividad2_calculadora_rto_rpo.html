@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2 - Calculadora RTO/RPO</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .definition-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .definition-card {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .definition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .definition-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .definition-example {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #28a745;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .calculator-area {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px dashed var(--border);
+        }
+
+        .calculator-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .calc-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+        }
+
+        .calc-tab.active {
+            background: var(--purple);
+            color: white;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .calc-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .calc-content.active {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-
+        .
+
+        .
+        .result-display {
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-display.show {
+            display: block;
+        }
+
+        
+
+        .result-title {
+            font-size: 1.4rem;
+            color: #22C55E;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .result-metric {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 5px;
+        }
+        .result-interpretation {
+            font-size: 0.8rem;
+            color: #22C55E;
+            font-weight: 600;
+        }
+
+        .recommendations {
+            background: var(--surface2);
+            border: 2px solid #FFC107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .recommendations-title {
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recommendation-item {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .recommendation-item::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .scenario-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .scenario-card {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .scenario-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .scenario-values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--purple);
+            font-weight: 600;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .definition-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-tabs {
+                flex-direction: column;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scenario-examples {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 8</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 8</a> / Actividad 2
+            </div>
+            <h1 class="activity-title">⏱️ Calculadora RTO/RPO</h1>
+            <p class="activity-subtitle">Aprende a calcular objetivos de recuperación para tu organización</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>15 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 150</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a calcular los objetivos RTO (Recovery Time Objective) y RPO (Recovery Point Objective) para diferentes tipos de sistemas y datos, considerando el impacto económico y operacional.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📚 Conceptos Fundamentales</h2>
+                <div class="definition-cards">
+                    <div class="definition-card">
+                        <div class="definition-title">
+                            ⏱️ RTO - Recovery Time Objective
+                        </div>
+                        <div class="definition-desc">
+                            El tiempo máximo aceptable que un sistema puede estar fuera de servicio después de un incidente, antes de que cause un daño inaceptable al negocio.
+                        </div>
+                        <div class="definition-example">
+                            <strong>Ejemplo:</strong> Si tu tienda online puede estar máximo 2 horas sin funcionar antes de perder clientes significativamente, tu RTO es de 2 horas.
+                        </div>
+                    </div>
+
+                    <div class="definition-card">
+                        <div class="definition-title">
+                            💾 RPO - Recovery Point Objective
+                        </div>
+                        <div class="definition-desc">
+                            La cantidad máxima de datos (medida en tiempo) que una organización puede permitirse perder durante un incidente sin causar daño significativo.
+                        </div>
+                        <div class="definition-example">
+                            <strong>Ejemplo:</strong> Si puedes perder máximo las últimas 4 horas de ventas en tu base de datos, tu RPO es de 4 horas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🧮 Calculadoras Interactivas</h2>
+                <div class="calculator-area">
+                    <div class="calculator-tabs">
+                        <button class="calc-tab active" onclick="showCalculator('rto')">Calculadora RTO</button>
+                        <button class="calc-tab" onclick="showCalculator('rpo')">Calculadora RPO</button>
+                        <button class="calc-tab" onclick="showCalculator('scenarios')">Escenarios Ejemplo</button>
+                    </div>
+
+                    <div id="rto-calc" class="calc-content active">
+                        <h3 style="margin-bottom: 20px; color: #8888bb;">⏱️ Cálculo de Recovery Time Objective (RTO)</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">💰 Costo por hora de inactividad (USD)</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="hourly-cost" class="form-input" placeholder="5000" min="0">
+                                <div class="unit-label">USD/hora</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">👥 Número de usuarios afectados</label>
+                            <input type="number" id="affected-users" class="form-input" placeholder="1000" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">📊 Criticidad del sistema</label>
+                            <select id="system-criticality" class="form-select">
+                                <option value="">Selecciona la criticidad</option>
+                                <option value="critical">Crítico - Negocio se detiene completamente</option>
+                                <option value="high">Alto - Impacto severo en operaciones</option>
+                                <option value="medium">Medio - Impacto moderado</option>
+                                <option value="low">Bajo - Impacto mínimo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">💸 Presupuesto disponible para recuperación (USD)</label>
+                            <input type="number" id="recovery-budget" class="form-input" placeholder="25000" min="0">
+                        </div>
+
+                        <button class="calculate-btn" onclick="calculateRTO()">
+                            🚀 Calcular RTO Óptimo
+                        </button>
+
+                        <div id="rto-results" class="result-display">
+                            <!-- Los resultados se mostrarán aquí -->
+                        </div>
+                    </div>
+
+                    <div id="rpo-calc" class="calc-content">
+                        <h3 style="margin-bottom: 20px; color: #8888bb;">💾 Cálculo de Recovery Point Objective (RPO)</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">📈 Volumen de datos generados por hora</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="data-per-hour" class="form-input" placeholder="10" min="0" step="0.1">
+                                <select id="data-unit" class="form-select" style="max-width: 120px;">
+                                    <option value="GB">GB/hora</option>
+                                    <option value="MB">MB/hora</option>
+                                    <option value="TB">TB/hora</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">💰 Valor monetario de los datos por hora (USD)</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="data-value" class="form-input" placeholder="2000" min="0">
+                                <div class="unit-label">USD/hora</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">📋 Tipo de datos</label>
+                            <select id="data-type" class="form-select">
+                                <option value="">Selecciona el tipo de datos</option>
+                                <option value="transactional">Transaccionales - Ventas, pagos, pedidos</option>
+                                <option value="operational">Operacionales - Logs, métricas, estado</option>
+                                <option value="analytical">Analíticos - Reportes, estadísticas</option>
+                                <option value="content">Contenido - Documentos, multimedia</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🔄 Frecuencia de backup actual</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="backup-frequency" class="form-input" placeholder="24" min="0.25" step="0.25">
+                                <div class="unit-label">horas</div>
+                            </div>
+                        </div>
+
+                        <button class="calculate-btn" onclick="calculateRPO()">
+                            🚀 Calcular RPO Óptimo
+                        </button>
+
+                        <div id="rpo-results" class="result-display">
+                            <!-- Los resultados se mostrarán aquí -->
+                        </div>
+                    </div>
+
+                    <div id="scenarios-calc" class="calc-content">
+                        <h3 style="margin-bottom: 20px; color: #8888bb;">🎭 Escenarios de Ejemplo</h3>
+                        <p style="color: #8888bb; margin-bottom: 20px;">Haz clic en cualquier escenario para cargar los valores automáticamente:</p>
+                        
+                        <div class="scenario-examples">
+                            <div class="scenario-card" onclick="loadScenario('ecommerce')">
+                                <div class="scenario-title">🛒 E-commerce</div>
+                                <div class="scenario-desc">Tienda online con 10,000 usuarios diarios</div>
+                                <div class="scenario-values">
+                                    <span>RTO: 1-2h</span>
+                                    <span>RPO: 15min</span>
+                                </div>
+                            </div>
+
+                            <div class="scenario-card" onclick="loadScenario('banking')">
+                                <div class="scenario-title">🏦 Sistema Bancario</div>
+                                <div class="scenario-desc">Transacciones financieras críticas</div>
+                                <div class="scenario-values">
+                                    <span>RTO: 15-30min</span>
+                                    <span>RPO: 1-5min</span>
+                                </div>
+                            </div>
+
+                            <div class="scenario-card" onclick="loadScenario('corporate')">
+                                <div class="scenario-title">🏢 Email Corporativo</div>
+                                <div class="scenario-desc">Comunicaciones de empresa mediana</div>
+                                <div class="scenario-values">
+                                    <span>RTO: 2-4h</span>
+                                    <span>RPO: 1h</span>
+                                </div>
+                            </div>
+
+                            <div class="scenario-card" onclick="loadScenario('development')">
+                                <div class="scenario-title">💻 Entorno Desarrollo</div>
+                                <div class="scenario-desc">Sistemas de desarrollo y testing</div>
+                                <div class="scenario-values">
+                                    <span>RTO: 24h</span>
+                                    <span>RPO: 8h</span>
+                                </div>
+                            </div>
+
+                            <div class="scenario-card" onclick="loadScenario('healthcare')">
+                                <div class="scenario-title">🏥 Sistema Hospitalario</div>
+                                <div class="scenario-desc">Expedientes médicos críticos</div>
+                                <div class="scenario-values">
+                                    <span>RTO: 30min</span>
+                                    <span>RPO: 15min</span>
+                                </div>
+                            </div>
+
+                            <div class="scenario-card" onclick="loadScenario('manufacturing')">
+                                <div class="scenario-title">🏭 Control Industrial</div>
+                                <div class="scenario-desc">Sistemas de control de producción</div>
+                                <div class="scenario-values">
+                                    <span>RTO: 1h</span>
+                                    <span>RPO: 5min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+
+        function showCalculator(calcType) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.calc-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remover clase active de todos los tabs
+            document.querySelectorAll('.calc-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(calcType + '-calc').classList.add('active');
+            
+            // Activar el tab correspondiente
+            event.target.classList.add('active');
+        }
+
+        function calculateRTO() {
+            const hourlyCost = parseFloat(document.getElementById('hourly-cost').value);
+            const affectedUsers = parseInt(document.getElementById('affected-users').value);
+            const criticality = document.getElementById('system-criticality').value;
+            const budget = parseFloat(document.getElementById('recovery-budget').value);
+
+            if (!hourlyCost || !affectedUsers || !criticality || !budget) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            // Factores de criticidad
+            const criticalityFactors = {
+                critical: { multiplier: 4, maxHours: 0.5 },
+                high: { multiplier: 2, maxHours: 2 },
+                medium: { multiplier: 1, maxHours: 8 },
+                low: { multiplier: 0.5, maxHours: 24 }
+            };
+
+            const factor = criticalityFactors[criticality];
+            const impactPerHour = hourlyCost * factor.multiplier;
+            const maxAcceptableLoss = budget * 0.8; // 80% del presupuesto como límite
+            const recommendedRTO = Math.min(maxAcceptableLoss / impactPerHour, factor.maxHours);
+
+            displayRTOResults({
+                impactPerHour,
+                recommendedRTO,
+                maxAcceptableLoss,
+                criticality,
+                budget,
+                affectedUsers
+            });
+        }
+
+        function calculateRPO() {
+            const dataPerHour = parseFloat(document.getElementById('data-per-hour').value);
+            const dataUnit = document.getElementById('data-unit').value;
+            const dataValue = parseFloat(document.getElementById('data-value').value);
+            const dataType = document.getElementById('data-type').value;
+            const currentFrequency = parseFloat(document.getElementById('backup-frequency').value);
+
+            if (!dataPerHour || !dataValue || !dataType || !currentFrequency) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            // Factores por tipo de datos
+            const dataTypeFactors = {
+                transactional: { criticality: 0.95, maxLoss: 0.25 }, // Muy crítico, máximo 15min
+                operational: { criticality: 0.7, maxLoss: 1 }, // Crítico, máximo 1h
+                analytical: { criticality: 0.4, maxLoss: 8 }, // Moderado, máximo 8h
+                content: { criticality: 0.2, maxLoss: 24 } // Menos crítico, máximo 24h
+            };
+
+            const factor = dataTypeFactors[dataType];
+            const lossPerHour = dataValue * factor.criticality;
+            const recommendedRPO = Math.min(factor.maxLoss, currentFrequency * 0.5); // Máximo la mitad de la frecuencia actual
+            const potentialLoss = lossPerHour * recommendedRPO;
+
+            displayRPOResults({
+                dataPerHour,
+                dataUnit,
+                lossPerHour,
+                recommendedRPO,
+                potentialLoss,
+                dataType,
+                currentFrequency
+            });
+        }
+
+        function displayRTOResults(data) {
+            const resultsDiv = document.getElementById('rto-results');
+            
+            let rtoCategorization = '';
+            let recommendations = [];
+            
+            if (data.recommendedRTO <= 0.5) {
+                rtoCategorization = 'Crítico - Tolerancia Cero';
+                recommendations = [
+                    'Implementar redundancia activa/activa',
+                    'Considerar clustering con failover automático',
+                    'Replicación en tiempo real',
+                    'Monitoreo 24/7 con alertas inmediatas'
+                ];
+            } else if (data.recommendedRTO <= 4) {
+                rtoCategorization = 'Alto - Recuperación Rápida';
+                recommendations = [
+                    'Configurar failover automatizado',
+                    'Mantener sistemas en standby caliente',
+                    'Backups incrementales cada hora',
+                    'Equipo de respuesta dedicado'
+                ];
+            } else if (data.recommendedRTO <= 24) {
+                rtoCategorization = 'Medio - Recuperación Estándar';
+                recommendations = [
+                    'Sistemas de standby en frío aceptables',
+                    'Backups diarios con retención semanal',
+                    'Procedimientos documentados de recuperación',
+                    'Pruebas de recuperación mensuales'
+                ];
+            } else {
+                rtoCategorization = 'Bajo - Recuperación Básica';
+                recommendations = [
+                    'Backups regulares son suficientes',
+                    'Recuperación manual aceptable',
+                    'Documentación básica de procedimientos',
+                    'Pruebas de recuperación trimestrales'
+                ];
+            }
+
+            resultsDiv.innerHTML = `
+                <div class="result-card">
+                    <div class="result-title">🎯 Resultados del Cálculo RTO</div>
+                    <div class="result-grid">
+                        <div class="result-metric">
+                            <div class="result-value">${data.recommendedRTO.toFixed(1)}</div>
+                            <div class="result-label">Horas</div>
+                            <div class="result-interpretation">RTO Recomendado</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="result-value">${data.impactPerHour.toLocaleString()}</div>
+                            <div class="result-label">USD/hora</div>
+                            <div class="result-interpretation">Impacto por Hora</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="result-value">${(data.recommendedRTO * data.impactPerHour).toLocaleString()}</div>
+                            <div class="result-label">USD</div>
+                            <div class="result-interpretation">Pérdida Máxima</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="result-value">${rtoCategorization.split(' - ')[0]}</div>
+                            <div class="result-label">Nivel</div>
+                            <div class="result-interpretation">${rtoCategorization.split(' - ')[1]}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <div class="recommendations-title">🎯 Recomendaciones Específicas</div>
+                    ${recommendations.map(rec => `<div class="recommendation-item">${rec}</div>`).join('')}
+                </div>
+            `;
+
+            resultsDiv.classList.add('show');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function displayRPOResults(data) {
+            const resultsDiv = document.getElementById('rpo-results');
+            
+            let rpoCategorization = '';
+            let backupFrequency = '';
+            let recommendations = [];
+            
+            if (data.recommendedRPO <= 0.25) {
+                rpoCategorization = 'Crítico - Tiempo Real';
+                backupFrequency = 'Replicación continua';
+                recommendations = [
+                    'Implementar replicación síncrona',
+                    'Usar tecnologías de journaling',
+                    'Considerar bases de datos distribuidas',
+                    'Monitorear latencia de replicación'
+                ];
+            } else if (data.recommendedRPO <= 1) {
+                rpoCategorization = 'Alto - Sub-horario';
+                backupFrequency = 'Cada 15-30 minutos';
+                recommendations = [
+                    'Backups incrementales frecuentes',
+                    'Log shipping o similar',
+                    'Snapshot automáticos',
+                    'Verificación de integridad automática'
+                ];
+            } else if (data.recommendedRPO <= 8) {
+                rpoCategorization = 'Medio - Horario';
+                backupFrequency = 'Cada 1-4 horas';
+                recommendations = [
+                    'Backups incrementales regulares',
+                    'Combinación de full + incrementales',
+                    'Retención de múltiples generaciones',
+                    'Pruebas de restauración semanales'
+                ];
+            } else {
+                rpoCategorization = 'Bajo - Diario';
+                backupFrequency = 'Diario o menos frecuente';
+                recommendations = [
+                    'Backups completos diarios',
+                    'Archival para retención largo plazo',
+                    'Verificación de backups mensual',
+                    'Documentar procedimientos de restauración'
+                ];
+            }
+
+            resultsDiv.innerHTML = `
+                <div class="result-card">
+                    <div class="result-title">💾 Resultados del Cálculo RPO</div>
+                    <div class="result-grid">
+                        <div class="result-metric">
+                            <div class="result-value">${data.recommendedRPO.toFixed(2)}</div>
+                            <div class="result-label">Horas</div>
+                            <div class="result-interpretation">RPO Recomendado</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="result-value">${data.dataPerHour}</div>
+                            <div class="result-label">${data.dataUnit}/hora</div>
+                            <div class="result-interpretation">Volumen de Datos</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="result-value">${data.potentialLoss.toLocaleString()}</div>
+                            <div class="result-label">USD</div>
+                            <div class="result-interpretation">Pérdida Potencial</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="result-value">${backupFrequency}</div>
+                            <div class="result-label">Frecuencia</div>
+                            <div class="result-interpretation">Backup Sugerido</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <div class="recommendations-title">💡 Estrategia de Backup Recomendada</div>
+                    ${recommendations.map(rec => `<div class="recommendation-item">${rec}</div>`).join('')}
+                </div>
+
+                ${data.recommendedRPO < data.currentFrequency ? `
+                    <div class="recommendations" style="border-color: #DC3545; background: linear-gradient(135deg, #F8D7DA 0%, #F5C6CB 100%);">
+                        <div class="recommendations-title" style="color: #721C24;">⚠️ Atención Requerida</div>
+                        <div class="recommendation-item" style="color: #721C24;">
+                            Tu frecuencia actual de backup (${data.currentFrequency}h) es insuficiente para el RPO recomendado (${data.recommendedRPO.toFixed(2)}h).
+                            Debes incrementar la frecuencia de backups para reducir el riesgo de pérdida de datos.
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+
+            resultsDiv.classList.add('show');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function loadScenario(scenario) {
+            const scenarios = {
+                ecommerce: {
+                    tab: 'rto',
+                    rto: { hourly: 50000, users: 10000, criticality: 'high', budget: 100000 },
+                    rpo: { dataPerHour: 5, unit: 'GB', value: 15000, type: 'transactional', frequency: 0.25 }
+                },
+                banking: {
+                    tab: 'rto',
+                    rto: { hourly: 500000, users: 50000, criticality: 'critical', budget: 1000000 },
+                    rpo: { dataPerHour: 20, unit: 'GB', value: 100000, type: 'transactional', frequency: 0.08 }
+                },
+                corporate: {
+                    tab: 'rto',
+                    rto: { hourly: 5000, users: 500, criticality: 'medium', budget: 50000 },
+                    rpo: { dataPerHour: 2, unit: 'GB', value: 1000, type: 'operational', frequency: 1 }
+                },
+                development: {
+                    tab: 'rto',
+                    rto: { hourly: 1000, users: 50, criticality: 'low', budget: 10000 },
+                    rpo: { dataPerHour: 0.5, unit: 'GB', value: 500, type: 'content', frequency: 8 }
+                },
+                healthcare: {
+                    tab: 'rto',
+                    rto: { hourly: 100000, users: 1000, criticality: 'critical', budget: 500000 },
+                    rpo: { dataPerHour: 10, unit: 'GB', value: 50000, type: 'transactional', frequency: 0.25 }
+                },
+                manufacturing: {
+                    tab: 'rto',
+                    rto: { hourly: 200000, users: 200, criticality: 'critical', budget: 300000 },
+                    rpo: { dataPerHour: 1, unit: 'GB', value: 25000, type: 'operational', frequency: 0.08 }
+                }
+            };
+
+            const data = scenarios[scenario];
+            
+            // Cargar datos en formulario RTO
+            document.getElementById('hourly-cost').value = data.rto.hourly;
+            document.getElementById('affected-users').value = data.rto.users;
+            document.getElementById('system-criticality').value = data.rto.criticality;
+            document.getElementById('recovery-budget').value = data.rto.budget;
+
+            // Cargar datos en formulario RPO
+            document.getElementById('data-per-hour').value = data.rpo.dataPerHour;
+            document.getElementById('data-unit').value = data.rpo.unit;
+            document.getElementById('data-value').value = data.rpo.value;
+            document.getElementById('data-type').value = data.rpo.type;
+            document.getElementById('backup-frequency').value = data.rpo.frequency;
+
+            // Cambiar a la pestaña RTO y calcular
+            showCalculator(data.tab);
+            setTimeout(() => {
+                if (data.tab === 'rto') {
+                    calculateRTO();
+                } else {
+                    calculateRPO();
+                }
+            }, 500);
+
+            alert(`📊 Escenario "${scenario}" cargado exitosamente!\n\nLos valores han sido configurados automáticamente y se ha calculado el resultado.`);
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la "Calculadora RTO/RPO".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar eventos de teclado para cálculo automático
+            ['hourly-cost', 'affected-users', 'recovery-budget'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', function() {
+                        clearTimeout(this.calcTimer);
+                        this.calcTimer = setTimeout(() => {
+                            if (document.getElementById('system-criticality').value) {
+                                // Auto-calcular si todos los campos están llenos
+                            }
+                        }, 1500);
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

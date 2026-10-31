@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 3 - Velocímetro de Red</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .speedometer-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .speedometer {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 150px 150px 0 0;
+            border: 5px solid var(--border);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .speedometer-inner {
+            width: 280px;
+            height: 180px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: radial-gradient(circle at center bottom, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 140px 140px 0 0;
+        }
+
+        .speed-marks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .speed-mark {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #666;
+            transform-origin: bottom center;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .speed-mark.major {
+            width: 3px;
+            height: 30px;
+            background: #333;
+        }
+        .speedometer-needle {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, #dc3545 0%, #333 100%);
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(-90deg);
+            transition: transform 0.5s ease;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .speedometer-center {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .speed-display {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #e0f24a;
+            padding: 5px 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px solid #333;
+        }
+
+        .connection-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .connection-card {
+            background: var(--surface2);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connection-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .connection-card.active {
+            border-color: var(--purple);
+            background: var(--surface2);
+        }
+
+        .connection-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .connection-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .connection-speed {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .connection-description {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .test-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .test-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .test-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .test-btn.running {
+            background: #22C55E;
+            animation: pulse 1.5s infinite;
+        }
+
+        
+            50% { opacity: 0.7; }
+        }
+
+        .results-panel {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .results-panel.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .result-metric {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+        .metric-unit {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .comparison-chart {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        .chart-track {
+            flex: 1;
+            height: 20px;
+            background: var(--surface2);
+            border-radius: 10px;
+            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .chart-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        
+            100% { left: 100%; }
+        }
+
+        .chart-value {
+            width: 80px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--purple);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .speedometer {
+                width: 250px;
+                height: 160px;
+            }
+
+            .speedometer-inner {
+                width: 230px;
+                height: 140px;
+            }
+
+            .speedometer-needle {
+                height: 100px;
+            }
+
+            .connection-types {
+                grid-template-columns: 1fr;
+            }
+
+            .test-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 3
+            </div>
+            <h1 class="activity-title">📊 Velocímetro de Red</h1>
+            <p class="activity-subtitle">Mide y compara diferentes tipos de conexiones de red</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>15 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a medir y comparar diferentes tipos de conexiones de red. Entenderás conceptos como latencia, ancho de banda y throughput mediante simulaciones interactivas que muestran las diferencias entre tecnologías de conexión.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">⚡ Velocímetro de Red</h2>
+                
+                <div class="speedometer-container">
+                    <div class="speedometer">
+                        <div class="speedometer-inner">
+                            <div class="speed-marks"></div>
+                            <div class="speedometer-needle" id="speedNeedle"></div>
+                            <div class="speedometer-center"></div>
+                            <div class="speed-display" id="speedDisplay">0 Mbps</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔌 Tipos de Conexión</h2>
+                <p style="margin-bottom: 20px;">Selecciona un tipo de conexión para simular su velocidad:</p>
+                
+                <div class="connection-types">
+                    <div class="connection-card active" data-connection="dial-up" onclick="selectConnection('dial-up')">
+                        <div class="connection-icon">📞</div>
+                        <div class="connection-name">Dial-up</div>
+                        <div class="connection-speed">56 Kbps</div>
+                        <div class="connection-description">Conexión telefónica tradicional. La más lenta pero históricamente importante.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="dsl" onclick="selectConnection('dsl')">
+                        <div class="connection-icon">🏠</div>
+                        <div class="connection-name">DSL</div>
+                        <div class="connection-speed">1-100 Mbps</div>
+                        <div class="connection-description">Línea digital de suscriptor. Usa líneas telefónicas existentes para datos.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="cable" onclick="selectConnection('cable')">
+                        <div class="connection-icon">📺</div>
+                        <div class="connection-name">Cable</div>
+                        <div class="connection-speed">10-300 Mbps</div>
+                        <div class="connection-description">Internet por cable coaxial. Compartido con otros usuarios del área.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="fiber" onclick="selectConnection('fiber')">
+                        <div class="connection-icon">💎</div>
+                        <div class="connection-name">Fibra Óptica</div>
+                        <div class="connection-speed">100-1000 Mbps</div>
+                        <div class="connection-description">Transmisión por luz. La más rápida y confiable para largas distancias.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="wifi" onclick="selectConnection('wifi')">
+                        <div class="connection-icon">📶</div>
+                        <div class="connection-name">WiFi</div>
+                        <div class="connection-speed">11-1200 Mbps</div>
+                        <div class="connection-description">Inalámbrica local. Velocidad depende de la distancia y obstáculos.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="5g" onclick="selectConnection('5g')">
+                        <div class="connection-icon">📱</div>
+                        <div class="connection-name">5G Celular</div>
+                        <div class="connection-speed">50-2000 Mbps</div>
+                        <div class="connection-description">Red móvil de quinta generación. Ultra-rápida con baja latencia.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="satellite" onclick="selectConnection('satellite')">
+                        <div class="connection-icon">🛰️</div>
+                        <div class="connection-name">Satélite</div>
+                        <div class="connection-speed">12-100 Mbps</div>
+                        <div class="connection-description">Conexión espacial. Disponible en áreas remotas pero con alta latencia.</div>
+                    </div>
+
+                    <div class="connection-card" data-connection="ethernet" onclick="selectConnection('ethernet')">
+                        <div class="connection-icon">🔌</div>
+                        <div class="connection-name">Ethernet</div>
+                        <div class="connection-speed">10-10000 Mbps</div>
+                        <div class="connection-description">Conexión cableada directa. Más estable y rápida que inalámbrica.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🧪 Controles de Prueba</h2>
+                
+                <div class="test-controls">
+                    <button class="test-btn" id="speedTestBtn" onclick="runSpeedTest()">
+                        🚀 Probar Velocidad
+                    </button>
+                    <button class="test-btn" onclick="runLatencyTest()">
+                        ⏱️ Medir Latencia
+                    </button>
+                    <button class="test-btn" onclick="runStabilityTest()">
+                        📊 Prueba de Estabilidad
+                    </button>
+                    <button class="test-btn" onclick="compareAll()">
+                        ⚖️ Comparar Todas
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-panel" id="resultsPanel">
+                <h3 style="margin-bottom: 20px; color: #8888bb;">📈 Resultados de la Prueba</h3>
+                
+                <div class="results-grid">
+                    <div class="result-metric">
+                        <div class="metric-value" id="downloadSpeed">0</div>
+                        <div class="metric-label">Descarga</div>
+                        <div class="metric-unit">Mbps</div>
+                    </div>
+
+                    <div class="result-metric">
+                        <div class="metric-value" id="uploadSpeed">0</div>
+                        <div class="metric-label">Subida</div>
+                        <div class="metric-unit">Mbps</div>
+                    </div>
+
+                    <div class="result-metric">
+                        <div class="metric-value" id="latencyResult">0</div>
+                        <div class="metric-label">Latencia</div>
+                        <div class="metric-unit">ms</div>
+                    </div>
+
+                    <div class="result-metric">
+                        <div class="metric-value" id="jitterResult">0</div>
+                        <div class="metric-label">Jitter</div>
+                        <div class="metric-unit">ms</div>
+                    </div>
+
+                    <div class="result-metric">
+                        <div class="metric-value" id="stabilityScore">0</div>
+                        <div class="metric-label">Estabilidad</div>
+                        <div class="metric-unit">%</div>
+                    </div>
+
+                    <div class="result-metric">
+                        <div class="metric-value" id="qualityScore">A+</div>
+                        <div class="metric-label">Calidad</div>
+                        <div class="metric-unit">rating</div>
+                    </div>
+                </div>
+
+                <div class="comparison-chart" id="comparisonChart" style="display: none;">
+                    <h4 style="margin-bottom: 15px; color: #8888bb;">📊 Comparación de Velocidades</h4>
+                    <div id="chartContent"></div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips sobre Velocidades de Red
+                </h3>
+                <div class="tip-item">
+                    <strong>📊 Ancho de Banda vs Throughput:</strong> El ancho de banda es la capacidad máxima, el throughput es la velocidad real que obtienes.
+                </div>
+                <div class="tip-item">
+                    <strong>⏱️ Latencia:</strong> El tiempo que tarda un paquete en viajar. Crítico para videojuegos y videoconferencias.
+                </div>
+                <div class="tip-item">
+                    <strong>📶 Factores que Afectan WiFi:</strong> Distancia, obstáculos, interferencia de otros dispositivos, y número de usuarios conectados.
+                </div>
+                <div class="tip-item">
+                    <strong>🛰️ Latencia de Satélite:</strong> ~600ms debido a la distancia al espacio. No ideal para aplicaciones en tiempo real.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Pro tip:</strong> Para streaming 4K necesitas al menos 25 Mbps. Para videollamadas HD, 5 Mbps es suficiente.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentConnection = 'dial-up';
+        let testResults = {};
+        let testsRun = 0;
+
+        // Configuración de tipos de conexión
+        const connectionTypes = {
+            'dial-up': {
+                name: 'Dial-up',
+                downloadMin: 0.04,
+                downloadMax: 0.056,
+                uploadMin: 0.03,
+                uploadMax: 0.048,
+                latencyMin: 100,
+                latencyMax: 300,
+                stability: 60,
+                icon: '📞'
+            },
+            'dsl': {
+                name: 'DSL',
+                downloadMin: 1,
+                downloadMax: 100,
+                uploadMin: 0.5,
+                uploadMax: 20,
+                latencyMin: 20,
+                latencyMax: 80,
+                stability: 75,
+                icon: '🏠'
+            },
+            'cable': {
+                name: 'Cable',
+                downloadMin: 10,
+                downloadMax: 300,
+                uploadMin: 5,
+                uploadMax: 50,
+                latencyMin: 15,
+                latencyMax: 50,
+                stability: 80,
+                icon: '📺'
+            },
+            'fiber': {
+                name: 'Fibra Óptica',
+                downloadMin: 100,
+                downloadMax: 1000,
+                uploadMin: 100,
+                uploadMax: 1000,
+                latencyMin: 1,
+                latencyMax: 10,
+                stability: 95,
+                icon: '💎'
+            },
+            'wifi': {
+                name: 'WiFi',
+                downloadMin: 11,
+                downloadMax: 1200,
+                uploadMin: 5,
+                uploadMax: 600,
+                latencyMin: 5,
+                latencyMax: 100,
+                stability: 70,
+                icon: '📶'
+            },
+            '5g': {
+                name: '5G Celular',
+                downloadMin: 50,
+                downloadMax: 2000,
+                uploadMin: 10,
+                uploadMax: 400,
+                latencyMin: 1,
+                latencyMax: 20,
+                stability: 85,
+                icon: '📱'
+            },
+            'satellite': {
+                name: 'Satélite',
+                downloadMin: 12,
+                downloadMax: 100,
+                uploadMin: 1,
+                uploadMax: 10,
+                latencyMin: 500,
+                latencyMax: 800,
+                stability: 65,
+                icon: '🛰️'
+            },
+            'ethernet': {
+                name: 'Ethernet',
+                downloadMin: 10,
+                downloadMax: 10000,
+                uploadMin: 10,
+                uploadMax: 10000,
+                latencyMin: 1,
+                latencyMax: 5,
+                stability: 99,
+                icon: '🔌'
+            }
+        };
+
+        // Inicializar velocímetro
+        function initSpeedometer() {
+            const speedMarks = document.querySelector('.speed-marks');
+            
+            // Crear marcas de velocidad
+            for (let i = 0; i <= 180; i += 18) {
+                const mark = document.createElement('div');
+                mark.className = i % 36 === 0 ? 'speed-mark major' : 'speed-mark';
+                mark.style.transform = `rotate(${i - 90}deg)`;
+                speedMarks.appendChild(mark);
+
+                // Agregar etiquetas para marcas principales
+                if (i % 36 === 0) {
+                    const label = document.createElement('div');
+                    label.className = 'speed-label';
+                    const speed = Math.floor((i / 180) * 1000);
+                    label.textContent = speed >= 1000 ? '1G+' : speed;
+                    
+                    const angle = (i - 90) * Math.PI / 180;
+                    const radius = 100;
+                    const x = 150 + Math.cos(angle) * radius;
+                    const y = 180 + Math.sin(angle) * radius;
+                    
+                    label.style.left = x + 'px';
+                    label.style.top = y + 'px';
+                    speedMarks.appendChild(label);
+                }
+            }
+        }
+
+        function selectConnection(connectionId) {
+            // Actualizar selección visual
+            document.querySelectorAll('.connection-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`[data-connection="${connectionId}"]`).classList.add('active');
+            
+            currentConnection = connectionId;
+            
+            // Actualizar velocímetro con velocidad promedio
+            const config = connectionTypes[connectionId];
+            const avgSpeed = (config.downloadMin + config.downloadMax) / 2;
+            updateSpeedometer(avgSpeed);
+            
+            // Ocultar resultados previos
+            document.getElementById('resultsPanel').classList.remove('show');
+        }
+
+        function updateSpeedometer(speed) {
+            const needle = document.getElementById('speedNeedle');
+            const display = document.getElementById('speedDisplay');
+            
+            // Calcular ángulo (0-180 grados para 0-1000 Mbps)
+            const maxSpeed = 1000;
+            const angle = Math.min((speed / maxSpeed) * 180, 180);
+            
+            needle.style.transform = `translateX(-50%) rotate(${angle - 90}deg)`;
+            
+            // Formatear display
+            let displayText;
+            if (speed >= 1000) {
+                displayText = (speed / 1000).toFixed(1) + ' Gbps';
+            } else if (speed >= 1) {
+                displayText = speed.toFixed(0) + ' Mbps';
+            } else {
+                displayText = (speed * 1000).toFixed(0) + ' Kbps';
+            }
+            
+            display.textContent = displayText;
+        }
+
+        function runSpeedTest() {
+            const btn = document.getElementById('speedTestBtn');
+            btn.classList.add('running');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Probando...';
+            
+            const config = connectionTypes[currentConnection];
+            
+            // Simular prueba de velocidad con animación
+            let progress = 0;
+            const testInterval = setInterval(() => {
+                progress += Math.random() * 20;
+                
+                const currentSpeed = (config.downloadMin + (config.downloadMax - config.downloadMin) * (progress / 100)) * (0.8 + Math.random() * 0.4);
+                updateSpeedometer(currentSpeed);
+                
+                if (progress >= 100) {
+                    clearInterval(testInterval);
+                    completeSpeedTest(config);
+                }
+            }, 100);
+        }
+
+        function completeSpeedTest(config) {
+            const btn = document.getElementById('speedTestBtn');
+            btn.classList.remove('running');
+            btn.disabled = false;
+            btn.innerHTML = '🚀 Probar Velocidad';
+            
+            // Generar resultados simulados
+            const downloadSpeed = (config.downloadMin + (config.downloadMax - config.downloadMin) * Math.random()).toFixed(1);
+            const uploadSpeed = (config.uploadMin + (config.uploadMax - config.uploadMin) * Math.random()).toFixed(1);
+            const latency = Math.floor(config.latencyMin + (config.latencyMax - config.latencyMin) * Math.random());
+            const jitter = Math.floor(Math.random() * 20 + 1);
+            const stability = config.stability + Math.floor(Math.random() * 10 - 5);
+            
+            // Calcular calidad
+            let quality = 'A+';
+            if (latency > 100 || stability < 70) quality = 'B';
+            if (latency > 200 || stability < 60) quality = 'C';
+            if (latency > 500 || stability < 50) quality = 'D';
+            
+            // Actualizar resultados
+            document.getElementById('downloadSpeed').textContent = downloadSpeed;
+            document.getElementById('uploadSpeed').textContent = uploadSpeed;
+            document.getElementById('latencyResult').textContent = latency;
+            document.getElementById('jitterResult').textContent = jitter;
+            document.getElementById('stabilityScore').textContent = stability;
+            document.getElementById('qualityScore').textContent = quality;
+            
+            // Guardar resultados para comparación
+            testResults[currentConnection] = {
+                download: parseFloat(downloadSpeed),
+                upload: parseFloat(uploadSpeed),
+                latency: latency,
+                stability: stability,
+                quality: quality
+            };
+            
+            // Mostrar panel de resultados
+            document.getElementById('resultsPanel').classList.add('show');
+            
+            testsRun++;
+            updateSpeedometer(parseFloat(downloadSpeed));
+        }
+
+        function runLatencyTest() {
+            alert(`🏓 Prueba de Latencia - ${connectionTypes[currentConnection].name}\n\n` +
+                  `📍 Simulando ping a servidor...\n` +
+                  `⏱️ Tiempo promedio: ${connectionTypes[currentConnection].latencyMin}-${connectionTypes[currentConnection].latencyMax}ms\n\n` +
+                  `💡 Latencia baja es crucial para:\n` +
+                  `• Videojuegos en línea\n` +
+                  `• Videoconferencias\n` +
+                  `• Trading financiero\n` +
+                  `• Aplicaciones en tiempo real`);
+        }
+
+        function runStabilityTest() {
+            const config = connectionTypes[currentConnection];
+            const stability = config.stability + Math.floor(Math.random() * 10 - 5);
+            
+            let stabilityMsg = '';
+            if (stability >= 90) stabilityMsg = '🟢 Excelente - Conexión muy estable';
+            else if (stability >= 75) stabilityMsg = '🟡 Buena - Conexión estable';
+            else if (stability >= 60) stabilityMsg = '🟠 Regular - Algunas fluctuaciones';
+            else stabilityMsg = '🔴 Inestable - Conexión variable';
+            
+            alert(`📊 Prueba de Estabilidad - ${config.name}\n\n` +
+                  `📈 Puntuación: ${stability}%\n` +
+                  `${stabilityMsg}\n\n` +
+                  `💡 Factores que afectan estabilidad:\n` +
+                  `• Calidad de la infraestructura\n` +
+                  `• Congestión de red\n` +
+                  `• Condiciones climáticas (satelital/inalámbrica)\n` +
+                  `• Mantenimiento del proveedor`);
+        }
+
+        function compareAll() {
+            // Ejecutar pruebas rápidas para todas las conexiones
+            const chartContent = document.getElementById('chartContent');
+            chartContent.innerHTML = '';
+            
+            Object.keys(connectionTypes).forEach(connectionId => {
+                const config = connectionTypes[connectionId];
+                const avgSpeed = (config.downloadMin + config.downloadMax) / 2;
+                const maxSpeed = 1000; // Para normalizar
+                const percentage = Math.min((avgSpeed / maxSpeed) * 100, 100);
+                
+                const chartBar = document.createElement('div');
+                chartBar.className = 'chart-bar';
+                chartBar.innerHTML = `
+                    <div class="chart-label">${config.icon} ${config.name}</div>
+                    <div class="chart-track">
+                        <div class="chart-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <div class="chart-value">${avgSpeed.toFixed(0)} Mbps</div>
+                `;
+                
+                chartContent.appendChild(chartBar);
+            });
+            
+            document.getElementById('comparisonChart').style.display = 'block';
+            document.getElementById('resultsPanel').classList.add('show');
+            
+            testsRun++;
+        }
+
+        function markCompleted() {
+            if (testsRun < 2) {
+                alert('⚠️ Para completar la actividad, realiza al menos 2 pruebas diferentes (velocidad, latencia, estabilidad o comparación).');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert(`🎉 ¡Felicidades! Has completado "Velocímetro de Red".\n\n` +
+                  `📊 Resumen de tu exploración:\n` +
+                  `• Pruebas realizadas: ${testsRun}\n` +
+                  `• Conexión actual: ${connectionTypes[currentConnection].name}\n` +
+                  `• Conceptos aprendidos: Ancho de banda, latencia, throughput\n\n` +
+                  `✅ Actividad completada\n` +
+                  `🏆 +100 puntos ganados\n` +
+                  `🎯 Ahora entiendes las diferencias entre tipos de conexión`);
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initSpeedometer();
+            selectConnection('dial-up');
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (testsRun > 0) {
+                console.log('Progreso de pruebas guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

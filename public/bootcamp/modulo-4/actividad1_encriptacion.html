@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - Laboratorio de Encriptación Simple</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .encryption-lab {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #dc3545;
+        }
+
+        .lab-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 10px;
+            border-left: 5px solid #dc3545;
+        }
+
+        .lab-title {
+            font-size: 1.2rem;
+            color: #EF4444;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .textarea-field {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .
+
+        .encrypt-btn {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .encrypt-btn:hover {
+            background: #EF4444;
+            transform: translateY(-2px);
+        }
+
+        .encrypt-btn.secondary {
+            background: #6c757d;
+        }
+
+        .encrypt-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .encrypt-btn.success {
+            background: #22C55E;
+        }
+
+        .encrypt-btn.success:hover {
+            background: #22C55E;
+        }
+
+        .result-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 60px;
+            border: 2px dashed var(--border);
+            background: var(--surface);
+        }
+
+        .result-area.has-content {
+            border-color: #EF4444;
+            background: #fff5f5;
+        }
+
+        .result-text {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: var(--text);
+        }
+        .algorithm-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .algorithm-btn.active {
+            border-color: #EF4444;
+            background: #fff5f5;
+            color: #EF4444;
+            font-weight: 600;
+        }
+
+        .algorithm-btn:hover {
+            border-color: #EF4444;
+        }
+
+        .key-display {
+            background: rgba(245,158,11,0.15);
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }        .comparison-table 
+        .comparison-table 
+
+        
+        @media (max-width: 768px) {            .
+        }
+
+        
+        .encryption-container {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .encryption-type {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .encryption-card {
+            flex: 1;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .encryption-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .encryption-card:hover::before {
+            opacity: 1;
+        }
+
+        .encryption-card.active {
+            border-color: var(--purple);
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e6 100%);
+        }
+
+        .encryption-card h3 {
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .encryption-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .key-visualization {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .key-box {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--purple);
+            color: white;
+            border-radius: 6px;
+            margin: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .key-box:hover {
+            transform: scale(1.1);
+        }
+
+        .result-area {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            opacity: 0.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .action-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: #6c757d;
+        }
+
+        .action-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .visualization {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .visualization-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .visualization-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .visualization-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            color: var(--purple);
+        }
+        .arrow {
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 4</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 4</a> / Actividad 1
+            </div>
+            <h1 class="activity-title">🔐 Laboratorio de Encriptación Simple</h1>
+            <p class="activity-subtitle">Experimenta con encriptación simétrica y asimétrica</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico-Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 150</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a cifrar y descifrar mensajes usando diferentes algoritmos de encriptación. Comprenderás las diferencias entre encriptación simétrica y asimétrica, y cuándo usar cada una.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔬 Laboratorio Interactivo</h2>
+                
+                <div class="encryption-container">
+                    <h2 class="section-title">🔐 Laboratorio de Encriptación</h2>
+                    
+                    <div class="encryption-type">
+                        <div class="encryption-card" onclick="selectEncryptionType('symmetric')">
+                            <h3>🔑 Encriptación Simétrica</h3>
+                            <p>Usa la misma llave para cifrar y descifrar. Rápida y eficiente, pero requiere compartir la llave de forma segura.</p>
+                        </div>
+                        <div class="encryption-card" onclick="selectEncryptionType('asymmetric')">
+                            <h3>🔐 Encriptación Asimétrica</h3>
+                            <p>Usa un par de llaves: pública y privada. Más segura pero más lenta. Ideal para intercambio de llaves.</p>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="messageInput">💬 Mensaje a encriptar:</label>
+                        <input type="text" id="messageInput" class="input-field" placeholder="Escribe tu mensaje aquí...">
+                    </div>
+
+                    <div class="key-visualization" id="keyVisualization">
+                        <h3>🔑 Visualización de Llaves</h3>
+                        <div id="keyBoxes"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="encryptMessage()">
+                            🔒 Encriptar
+                        </button>
+                        <button class="action-btn secondary" onclick="decryptMessage()">
+                            🔓 Desencriptar
+                        </button>
+                        <button class="action-btn secondary" onclick="generateNewKeys()">
+                            🔄 Generar Nuevas Llaves
+                        </button>
+                    </div>
+
+                    <div class="result-area" id="resultArea">
+                        El resultado aparecerá aquí...
+                    </div>
+
+                    <div class="visualization">
+                        <h3 class="visualization-title">📊 Visualización del Proceso</h3>
+                        <div class="visualization-content">
+                            <div class="visualization-step">
+                                <div class="step-icon">💬</div>
+                                <div class="step-label">Mensaje Original</div>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="visualization-step">
+                                <div class="step-icon">🔑</div>
+                                <div class="step-label">Llave</div>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="visualization-step">
+                                <div class="step-icon">🔒</div>
+                                <div class="step-label">Mensaje Cifrado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Seguridad
+                </h3>
+                <div class="tip-item">
+                    <strong>🔐 Simétrica:</strong> Perfect para cifrar grandes volúmenes de datos, pero requiere intercambio seguro de llaves.
+                </div>
+                <div class="tip-item">
+                    <strong>🗝️ Asimétrica:</strong> Ideal para establecer confianza y intercambiar llaves simétricas de forma segura.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 En la práctica:</strong> Se combinan ambas - RSA para intercambiar llaves AES, y AES para cifrar los datos reales.
+                </div>
+                <div class="tip-item">
+                    <strong>⚠️ Importante:</strong> Nunca uses Caesar cipher en aplicaciones reales - es solo para aprendizaje.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentEncryptionType = 'symmetric';
+        let currentKeys = {
+            symmetric: generateRandomKey(),
+            public: generateRandomKey(),
+            private: generateRandomKey()
+        };
+
+        function selectEncryptionType(type) {
+            currentEncryptionType = type;
+            document.querySelectorAll('.encryption-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            updateKeyVisualization();
+        }
+
+        function generateRandomKey() {
+            return Math.random().toString(36).substring(2, 15);
+        }
+
+        function generateNewKeys() {
+            if (currentEncryptionType === 'symmetric') {
+                currentKeys.symmetric = generateRandomKey();
+            } else {
+                currentKeys.public = generateRandomKey();
+                currentKeys.private = generateRandomKey();
+            }
+            updateKeyVisualization();
+        }
+
+        function updateKeyVisualization() {
+            const keyBoxes = document.getElementById('keyBoxes');
+            keyBoxes.innerHTML = '';
+
+            if (currentEncryptionType === 'symmetric') {
+                const keyBox = document.createElement('div');
+                keyBox.className = 'key-box';
+                keyBox.textContent = currentKeys.symmetric;
+                keyBoxes.appendChild(keyBox);
+            } else {
+                const publicKeyBox = document.createElement('div');
+                publicKeyBox.className = 'key-box';
+                publicKeyBox.textContent = currentKeys.public;
+                publicKeyBox.title = 'Llave Pública';
+                keyBoxes.appendChild(publicKeyBox);
+
+                const privateKeyBox = document.createElement('div');
+                privateKeyBox.className = 'key-box';
+                privateKeyBox.textContent = currentKeys.private;
+                privateKeyBox.title = 'Llave Privada';
+                keyBoxes.appendChild(privateKeyBox);
+            }
+        }
+
+        function encryptMessage() {
+            const message = document.getElementById('messageInput').value;
+            if (!message) {
+                alert('Por favor, ingresa un mensaje para encriptar.');
+                return;
+            }
+
+            let encryptedMessage;
+            if (currentEncryptionType === 'symmetric') {
+                encryptedMessage = simpleEncrypt(message, currentKeys.symmetric);
+            } else {
+                encryptedMessage = simpleEncrypt(message, currentKeys.public);
+            }
+
+            document.getElementById('resultArea').textContent = encryptedMessage;
+        }
+
+        function decryptMessage() {
+            const message = document.getElementById('messageInput').value;
+            if (!message) {
+                alert('Por favor, ingresa un mensaje para desencriptar.');
+                return;
+            }
+
+            let decryptedMessage;
+            if (currentEncryptionType === 'symmetric') {
+                decryptedMessage = simpleDecrypt(message, currentKeys.symmetric);
+            } else {
+                decryptedMessage = simpleDecrypt(message, currentKeys.private);
+            }
+
+            document.getElementById('resultArea').textContent = decryptedMessage;
+        }
+
+        function simpleEncrypt(message, key) {
+            // Simulación simple de encriptación
+            return btoa(message + key);
+        }
+
+        function simpleDecrypt(encrypted, key) {
+            // Simulación simple de desencriptación
+            try {
+                const decoded = atob(encrypted);
+                return decoded.slice(0, -key.length);
+            } catch (e) {
+                return 'Error: Mensaje no válido o llave incorrecta';
+            }
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Excelente trabajo! Has completado el laboratorio de encriptación.\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n\n🔐 Ahora comprendes los fundamentos de la encriptación simétrica y asimétrica.');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        updateKeyVisualization();
+    </script>
+
+</body>
+</html>

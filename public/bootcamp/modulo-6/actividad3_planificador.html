@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 - Planificador de Recursos</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .scenario-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .scenario-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .scenario-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .scenario-card.active {
+            border-color: #22C55E;
+            background: var(--surface2);
+        }
+
+        .scenario-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .scenario-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .scenario-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .scenario-specs {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .planning-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .requirements-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid #667eea;
+        }
+
+        .panel-title {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .requirement-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .req-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .req-name {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .req-details {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .req-resources {
+            display: flex;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .resource-tag {
+            background: var(--surface2);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .solution-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid #28a745;
+        }
+
+        .deployment-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .deploy-option {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .deploy-option:hover {
+            background: var(--purple);
+            transform: translateY(-1px);
+        }
+
+        .deploy-option.active {
+            background: #22C55E;
+        }
+
+        .architecture-canvas {
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            min-height: 300px;
+            padding: 20px;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .architecture-canvas.has-solution {
+            border-color: #22C55E;
+            border-style: solid;
+        }
+
+        .server-visual {
+            background: #343a40;
+            color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 5px;
+            text-align: center;
+            position: relative;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .server-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .server-resources {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .server-workloads {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .workload-item {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .vm-workload {
+            background: #ff6b6b;
+        }
+
+        .container-workload {
+            background: #4ecdc4;
+        }
+
+        .resource-summary {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--surface);
+            border-radius: 8px;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .efficiency-meter {
+            margin: 20px 0;
+        }
+        .meter-bar {
+            background: var(--surface2);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .meter-fill.excellent { background: linear-gradient(135deg, #1a3d1a, #22C55E33); }
+        .meter-fill.good { background: linear-gradient(90deg, #ffc107, #fd7e14); }
+        .meter-fill.poor { background: linear-gradient(90deg, #dc3545, #e74c3c); }
+
+        .recommendations {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        .rec-title {
+            font-size: 1.2rem;
+            color: #1565c0;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #2196f3;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #22C55E;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover:not(:disabled) {
+            background: #22C55E;
+            transform: translateY(-2px);
+        }
+
+        .action-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .action-btn.secondary {
+            background: var(--purple);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--purple);
+        }
+
+        .action-btn.danger {
+            background: #EF4444;
+        }
+
+        .action-btn.danger:hover {
+            background: #EF4444;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {
+            
+
+            .planning-workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .deployment-options {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 6</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 6</a> / Actividad 3
+            </div>
+            <h1 class="activity-title">🎯 Planificador de Recursos</h1>
+            <p class="activity-subtitle">Diseña la distribución óptima de recursos virtualizados para diferentes escenarios empresariales</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 180</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>Como arquitecto de infraestructura, debes planificar la distribución óptima de recursos virtualizados para diferentes escenarios empresariales. Evaluarás costos, rendimiento y eficiencia para tomar decisiones informadas.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🏢 Escenarios Empresariales</h2>
+                <div class="scenario-selector">
+                    <div class="scenario-buttons" id="scenarioButtons">
+                        <!-- Los escenarios se cargarán dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📋 Planificación de Recursos</h2>
+                <div class="planning-workspace">
+                    <div class="requirements-panel">
+                        <h3 class="panel-title">📄 Requisitos del Proyecto</h3>
+                        <div id="requirementsList">
+                            <!-- Los requisitos se cargarán según el escenario -->
+                        </div>
+                    </div>
+
+                    <div class="solution-panel">
+                        <h3 class="panel-title">🛠️ Tu Solución</h3>
+                        <div class="deployment-options">
+                            <button class="deploy-option" onclick="selectDeployment('vm')" id="vm-option">
+                                🖥️ Solo VMs
+                            </button>
+                            <button class="deploy-option" onclick="selectDeployment('container')" id="container-option">
+                                📦 Solo Contenedores
+                            </button>
+                            <button class="deploy-option" onclick="selectDeployment('hybrid')" id="hybrid-option">
+                                🔄 Híbrido
+                            </button>
+                        </div>
+
+                        <div class="architecture-canvas" id="architectureCanvas">
+                            <div style="text-align: center; color: #8888bb; margin-top: 100px;">
+                                <p>🎯 Selecciona un tipo de despliegue arriba</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">La arquitectura se visualizará aquí</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📊 Análisis de Eficiencia</h2>
+                <div class="resource-summary" id="resourceSummary">
+                    <!-- El resumen se generará dinámicamente -->
+                </div>
+
+                <div class="efficiency-meter">
+                    <div class="meter-label">
+                        <span>⚡ Eficiencia General</span>
+                        <span id="efficiencyScore">0%</span>
+                    </div>
+                    <div class="meter-bar">
+                        <div class="meter-fill" id="efficiencyFill"></div>
+                    </div>
+                </div>
+
+                <div class="recommendations" id="recommendations">
+                    <h3 class="rec-title">💡 Recomendaciones</h3>
+                    <div id="recommendationsList">
+                        <p style="color: #8888bb; font-style: italic;">Completa tu planificación para ver recomendaciones personalizadas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn secondary" onclick="generateSolution()" id="generateBtn" disabled>
+                    🚀 Generar Solución
+                </button>
+                <button class="action-btn" onclick="optimizeSolution()" id="optimizeBtn" disabled>
+                    ⚡ Optimizar
+                </button>
+                <button class="action-btn danger" onclick="resetPlanning()">
+                    🔄 Reiniciar
+                </button>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Planificación
+                </h3>
+                <div class="tip-item">
+                    <strong>🏗️ Arquitectura Híbrida:</strong> Usa VMs para aplicaciones legacy y bases de datos críticas, contenedores para microservicios y APIs.
+                </div>
+                <div class="tip-item">
+                    <strong>📈 Escalabilidad:</strong> Los contenedores son ideales para aplicaciones que necesitan escalar rápidamente según la demanda.
+                </div>
+                <div class="tip-item">
+                    <strong>💰 Costos:</strong> Los contenedores tienen menor overhead, pero las VMs ofrecen mejor aislamiento para aplicaciones críticas.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = null;
+        let currentDeployment = null;
+        let isCompleted = false;
+        let solutionsGenerated = 0;
+
+        // Definición de escenarios
+        const scenarios = {
+            startup: {
+                name: 'Startup Tecnológica',
+                icon: '🚀',
+                description: 'Una startup con presupuesto limitado que necesita escalabilidad rápida',
+                specs: 'Presupuesto: $5,000/mes | Usuarios: 1,000-10,000 | Crecimiento: 200%/año',
+                requirements: [
+                    { name: 'Aplicación Web', details: 'Frontend React + Backend Node.js', cpu: 2, ram: 4, priority: 'high' },
+                    { name: 'Base de Datos', details: 'PostgreSQL con backups', cpu: 2, ram: 8, priority: 'critical' },
+                    { name: 'API Gateway', details: 'Manejo de tráfico y autenticación', cpu: 1, ram: 2, priority: 'medium' },
+                    { name: 'Monitoreo', details: 'Logs y métricas de aplicación', cpu: 1, ram: 2, priority: 'low' }
+                ],
+                constraints: {
+                    budget: 5000,
+                    maxServers: 3,
+                    scalabilityRequired: true
+                }
+            },
+            enterprise: {
+                name: 'Empresa Corporativa',
+                icon: '🏢',
+                description: 'Gran empresa con aplicaciones legacy y sistemas críticos',
+                specs: 'Presupuesto: $50,000/mes | Usuarios: 50,000+ | Uptime: 99.9%',
+                requirements: [
+                    { name: 'ERP Legacy', details: 'Sistema SAP en Windows Server', cpu: 8, ram: 32, priority: 'critical' },
+                    { name: 'CRM Moderno', details: 'Aplicación web containerizada', cpu: 4, ram: 8, priority: 'high' },
+                    { name: 'Base de Datos Oracle', details: 'Sistema crítico de producción', cpu: 16, ram: 64, priority: 'critical' },
+                    { name: 'Aplicaciones de Oficina', details: 'Suite de herramientas internas', cpu: 4, ram: 16, priority: 'medium' },
+                    { name: 'Backup y DR', details: 'Sistema de respaldo y recuperación', cpu: 2, ram: 8, priority: 'high' }
+                ],
+                constraints: {
+                    budget: 50000,
+                    maxServers: 10,
+                    complianceRequired: true
+                }
+            },
+            ecommerce: {
+                name: 'E-commerce en Crecimiento',
+                icon: '🛒',
+                description: 'Tienda online con picos de tráfico estacionales',
+                specs: 'Presupuesto: $15,000/mes | Black Friday: 10x tráfico | Global',
+                requirements: [
+                    { name: 'Frontend Web', details: 'Tienda online con CDN', cpu: 4, ram: 8, priority: 'critical' },
+                    { name: 'Microservicio Productos', details: 'Catálogo y búsqueda', cpu: 2, ram: 4, priority: 'high' },
+                    { name: 'Microservicio Pagos', details: 'Procesamiento de transacciones', cpu: 2, ram: 4, priority: 'critical' },
+                    { name: 'Microservicio Usuarios', details: 'Autenticación y perfiles', cpu: 1, ram: 2, priority: 'high' },
+                    { name: 'Base de Datos', details: 'Cluster de alta disponibilidad', cpu: 6, ram: 24, priority: 'critical' },
+                    { name: 'Cache Redis', details: 'Cache distribuido', cpu: 2, ram: 8, priority: 'high' }
+                ],
+                constraints: {
+                    budget: 15000,
+                    maxServers: 6,
+                    seasonalScaling: true
+                }
+            },
+            gaming: {
+                name: 'Plataforma de Gaming',
+                icon: '🎮',
+                description: 'Plataforma multijugador con baja latencia requerida',
+                specs: 'Presupuesto: $25,000/mes | Latencia: <50ms | Jugadores: 100,000',
+                requirements: [
+                    { name: 'Game Servers', details: 'Servidores de juego distribuidos', cpu: 8, ram: 16, priority: 'critical' },
+                    { name: 'Matchmaking', details: 'Sistema de emparejamiento', cpu: 4, ram: 8, priority: 'high' },
+                    { name: 'Chat en Tiempo Real', details: 'Comunicación entre jugadores', cpu: 2, ram: 4, priority: 'high' },
+                    { name: 'Base de Datos Jugadores', details: 'Perfiles y estadísticas', cpu: 4, ram: 16, priority: 'high' },
+                    { name: 'Analytics', details: 'Métricas de juego en tiempo real', cpu: 2, ram: 8, priority: 'medium' },
+                    { name: 'CDN Assets', details: 'Distribución de contenido del juego', cpu: 2, ram: 4, priority: 'medium' }
+                ],
+                constraints: {
+                    budget: 25000,
+                    maxServers: 8,
+                    lowLatencyRequired: true
+                }
+            }
+        };
+
+        function loadScenarios() {
+            const container = document.getElementById('scenarioButtons');
+            container.innerHTML = Object.keys(scenarios).map(key => {
+                const scenario = scenarios[key];
+                return `
+                    <div class="scenario-card" onclick="selectScenario('${key}')" id="scenario-${key}">
+                        <div class="scenario-icon">${scenario.icon}</div>
+                        <div class="scenario-title">${scenario.name}</div>
+                        <div class="scenario-desc">${scenario.description}</div>
+                        <div class="scenario-specs">${scenario.specs}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectScenario(scenarioKey) {
+            // Actualizar UI
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.getElementById(`scenario-${scenarioKey}`).classList.add('active');
+
+            currentScenario = scenarioKey;
+            const scenario = scenarios[scenarioKey];
+
+            // Cargar requisitos
+            loadRequirements(scenario.requirements);
+
+            // Resetear selección de despliegue
+            currentDeployment = null;
+            document.querySelectorAll('.deploy-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Limpiar canvas
+            resetCanvas();
+
+            // Habilitar botón de generar si hay scenario seleccionado
+            updateButtons();
+        }
+
+        function loadRequirements(requirements) {
+            const container = document.getElementById('requirementsList');
+            container.innerHTML = requirements.map(req => {
+                const priorityColors = {
+                    critical: '#dc3545',
+                    high: '#fd7e14',
+                    medium: '#ffc107',
+                    low: '#28a745'
+                };
+
+                return `
+                    <div class="requirement-item">
+                        <div class="req-info">
+                            <div class="req-name">${req.name}</div>
+                            <div class="req-details">${req.details}</div>
+                            <div class="req-resources">
+                                <span class="resource-tag">CPU: ${req.cpu} cores</span>
+                                <span class="resource-tag">RAM: ${req.ram} GB</span>
+                                <span class="resource-tag" style="background: ${priorityColors[req.priority]}; color: white;">
+                                    ${req.priority.toUpperCase()}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectDeployment(type) {
+            // Actualizar UI
+            document.querySelectorAll('.deploy-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`${type}-option`).classList.add('active');
+
+            currentDeployment = type;
+            updateButtons();
+        }
+
+        function generateSolution() {
+            if (!currentScenario || !currentDeployment) return;
+
+            const scenario = scenarios[currentScenario];
+            const canvas = document.getElementById('architectureCanvas');
+            canvas.classList.add('has-solution');
+
+            // Generar arquitectura visual
+            let architectureHTML = '';
+            let totalCost = 0;
+            let totalCPU = 0;
+            let totalRAM = 0;
+            let efficiency = 0;
+
+            switch (currentDeployment) {
+                case 'vm':
+                    architectureHTML = generateVMArchitecture(scenario);
+                    totalCost = calculateVMCosts(scenario);
+                    efficiency = 65; // VMs son menos eficientes pero más aisladas
+                    break;
+                case 'container':
+                    architectureHTML = generateContainerArchitecture(scenario);
+                    totalCost = calculateContainerCosts(scenario);
+                    efficiency = 90; // Contenedores muy eficientes
+                    break;
+                case 'hybrid':
+                    architectureHTML = generateHybridArchitecture(scenario);
+                    totalCost = calculateHybridCosts(scenario);
+                    efficiency = 85; // Híbrido balanceado
+                    break;
+            }
+
+            canvas.innerHTML = architectureHTML;
+
+            // Calcular recursos totales
+            scenario.requirements.forEach(req => {
+                totalCPU += req.cpu;
+                totalRAM += req.ram;
+            });
+
+            // Actualizar resumen
+            updateResourceSummary(totalCost, totalCPU, totalRAM, efficiency);
+            updateEfficiencyMeter(efficiency);
+            generateRecommendations(scenario, currentDeployment, efficiency);
+
+            solutionsGenerated++;
+            updateButtons();
+        }
+
+        function generateVMArchitecture(scenario) {
+            let serversCount = Math.ceil(scenario.requirements.length / 2);
+            let serversHTML = '';
+
+            for (let i = 0; i < serversCount; i++) {
+                const startIdx = i * 2;
+                const endIdx = Math.min(startIdx + 2, scenario.requirements.length);
+                const serverReqs = scenario.requirements.slice(startIdx, endIdx);
+                
+                const totalCPU = serverReqs.reduce((sum, req) => sum + req.cpu, 0);
+                const totalRAM = serverReqs.reduce((sum, req) => sum + req.ram, 0);
+
+                serversHTML += `
+                    <div class="server-visual">
+                        <div class="server-title">🖥️ Servidor VM-${i + 1}</div>
+                        <div class="server-resources">${totalCPU} CPU cores • ${totalRAM} GB RAM</div>
+                        <div class="server-workloads">
+                            ${serverReqs.map(req => `
+                                <div class="workload-item vm-workload">${req.name}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <h4>🏗️ Arquitectura con Máquinas Virtuales</h4>
+                    <p style="color: #8888bb; font-size: 0.9rem;">Cada aplicación en su propia VM con OS completo</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                    ${serversHTML}
+                </div>
+            `;
+        }
+
+        function generateContainerArchitecture(scenario) {
+            const clustersCount = Math.ceil(scenario.requirements.length / 4);
+            let clustersHTML = '';
+
+            for (let i = 0; i < clustersCount; i++) {
+                const startIdx = i * 4;
+                const endIdx = Math.min(startIdx + 4, scenario.requirements.length);
+                const clusterReqs = scenario.requirements.slice(startIdx, endIdx);
+                
+                const totalCPU = clusterReqs.reduce((sum, req) => sum + req.cpu, 0);
+                const totalRAM = clusterReqs.reduce((sum, req) => sum + req.ram, 0);
+
+                clustersHTML += `
+                    <div class="server-visual">
+                        <div class="server-title">🐳 Cluster K8s-${i + 1}</div>
+                        <div class="server-resources">${totalCPU} CPU cores • ${totalRAM} GB RAM</div>
+                        <div class="server-workloads">
+                            ${clusterReqs.map(req => `
+                                <div class="workload-item container-workload">${req.name}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <h4>📦 Arquitectura con Contenedores</h4>
+                    <p style="color: #8888bb; font-size: 0.9rem;">Múltiples contenedores compartiendo el OS del host</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                    ${clustersHTML}
+                </div>
+            `;
+        }
+
+        function generateHybridArchitecture(scenario) {
+            // Separar aplicaciones críticas (VMs) de microservicios (contenedores)
+            const criticalApps = scenario.requirements.filter(req => req.priority === 'critical');
+            const normalApps = scenario.requirements.filter(req => req.priority !== 'critical');
+
+            let hybridHTML = '';
+
+            // VMs para aplicaciones críticas
+            if (criticalApps.length > 0) {
+                const vmCPU = criticalApps.reduce((sum, req) => sum + req.cpu, 0);
+                const vmRAM = criticalApps.reduce((sum, req) => sum + req.ram, 0);
+
+                hybridHTML += `
+                    <div class="server-visual">
+                        <div class="server-title">🖥️ VMs Críticas</div>
+                        <div class="server-resources">${vmCPU} CPU cores • ${vmRAM} GB RAM</div>
+                        <div class="server-workloads">
+                            ${criticalApps.map(req => `
+                                <div class="workload-item vm-workload">${req.name}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Contenedores para el resto
+            if (normalApps.length > 0) {
+                const containerCPU = normalApps.reduce((sum, req) => sum + req.cpu, 0);
+                const containerRAM = normalApps.reduce((sum, req) => sum + req.ram, 0);
+
+                hybridHTML += `
+                    <div class="server-visual">
+                        <div class="server-title">🐳 Contenedores</div>
+                        <div class="server-resources">${containerCPU} CPU cores • ${containerRAM} GB RAM</div>
+                        <div class="server-workloads">
+                            ${normalApps.map(req => `
+                                <div class="workload-item container-workload">${req.name}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <h4>🔄 Arquitectura Híbrida</h4>
+                    <p style="color: #8888bb; font-size: 0.9rem;">VMs para sistemas críticos, contenedores para microservicios</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                    ${hybridHTML}
+                </div>
+            `;
+        }
+
+        function calculateVMCosts(scenario) {
+            // VMs tienen mayor overhead (OS completo, hipervisor)
+            const baseCostPerCore = 50; // USD por core/mes
+            const baseCostPerGB = 20; // USD por GB RAM/mes
+            const totalCPU = scenario.requirements.reduce((sum, req) => sum + req.cpu, 0);
+            const totalRAM = scenario.requirements.reduce((sum, req) => sum + req.ram, 0);
+            
+            return (totalCPU * baseCostPerCore) + (totalRAM * baseCostPerGB) + 500; // +overhead
+        }
+
+        function calculateContainerCosts(scenario) {
+            // Contenedores más eficientes
+            const baseCostPerCore = 30; // USD por core/mes
+            const baseCostPerGB = 12; // USD por GB RAM/mes
+            const totalCPU = scenario.requirements.reduce((sum, req) => sum + req.cpu, 0);
+            const totalRAM = scenario.requirements.reduce((sum, req) => sum + req.ram, 0);
+            
+            return (totalCPU * baseCostPerCore) + (totalRAM * baseCostPerGB) + 200; // +orquestador
+        }
+
+        function calculateHybridCosts(scenario) {
+            const criticalApps = scenario.requirements.filter(req => req.priority === 'critical');
+            const normalApps = scenario.requirements.filter(req => req.priority !== 'critical');
+            
+            // Costos VMs para críticas
+            const vmCPU = criticalApps.reduce((sum, req) => sum + req.cpu, 0);
+            const vmRAM = criticalApps.reduce((sum, req) => sum + req.ram, 0);
+            const vmCosts = (vmCPU * 50) + (vmRAM * 20);
+            
+            // Costos contenedores para el resto
+            const containerCPU = normalApps.reduce((sum, req) => sum + req.cpu, 0);
+            const containerRAM = normalApps.reduce((sum, req) => sum + req.ram, 0);
+            const containerCosts = (containerCPU * 30) + (containerRAM * 12);
+            
+            return vmCosts + containerCosts + 350; // +overhead híbrido
+        }
+
+        function updateResourceSummary(cost, cpu, ram, efficiency) {
+            const summary = document.getElementById('resourceSummary');
+            const scenario = scenarios[currentScenario];
+            
+            const utilizationPercent = Math.round((cost / scenario.constraints.budget) * 100);
+            const utilizationClass = utilizationPercent <= 80 ? 'good' : utilizationPercent <= 100 ? 'average' : 'poor';
+
+            summary.innerHTML = `
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-value">${cost.toLocaleString()}</div>
+                        <div class="summary-label">Costo Mensual</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value">${cpu}</div>
+                        <div class="summary-label">CPU Cores</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value">${ram} GB</div>
+                        <div class="summary-label">RAM Total</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value" style="color: ${utilizationClass === 'good' ? '#28a745' : utilizationClass === 'average' ? '#ffc107' : '#dc3545'}">${utilizationPercent}%</div>
+                        <div class="summary-label">Uso del Presupuesto</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateEfficiencyMeter(efficiency) {
+            const fill = document.getElementById('efficiencyFill');
+            const score = document.getElementById('efficiencyScore');
+            
+            fill.style.width = efficiency + '%';
+            score.textContent = efficiency + '%';
+            
+            if (efficiency >= 80) {
+                fill.className = 'meter-fill excellent';
+            } else if (efficiency >= 60) {
+                fill.className = 'meter-fill good';
+            } else {
+                fill.className = 'meter-fill poor';
+            }
+        }
+
+        function generateRecommendations(scenario, deployment, efficiency) {
+            const container = document.getElementById('recommendationsList');
+            let recommendations = [];
+
+            // Recomendaciones basadas en el tipo de despliegue
+            switch (deployment) {
+                case 'vm':
+                    recommendations = [
+                        '🔧 Considera usar contenedores para microservicios no críticos para reducir costos',
+                        '📈 Las VMs son ideales para tu base de datos y aplicaciones legacy',
+                        '💾 Implementa snapshots automáticos para backup y recuperación rápida'
+                    ];
+                    break;
+                case 'container':
+                    recommendations = [
+                        '🚀 Excelente elección para escalabilidad y eficiencia de recursos',
+                        '🔒 Asegúrate de implementar políticas de seguridad robustas para contenedores',
+                        '📊 Usa herramientas de monitoreo especializadas para contenedores'
+                    ];
+                    break;
+                case 'hybrid':
+                    recommendations = [
+                        '⚖️ Balance perfecto entre seguridad y eficiencia',
+                        '🔄 Considera migrar gradualmente más aplicaciones a contenedores',
+                        '🛠️ Implementa herramientas de gestión unificada para ambos entornos'
+                    ];
+                    break;
+            }
+
+            // Recomendaciones específicas del escenario
+            if (scenario.constraints.scalabilityRequired) {
+                recommendations.push('📈 Implementa auto-scaling para manejar picos de tráfico');
+            }
+            if (scenario.constraints.complianceRequired) {
+                recommendations.push('🔐 Asegúrate de cumplir con regulaciones de seguridad y privacidad');
+            }
+
+            container.innerHTML = recommendations.map(rec => `
+                <div class="rec-item">${rec}</div>
+            `).join('');
+        }
+
+        function optimizeSolution() {
+            if (!currentScenario || !currentDeployment) return;
+
+            const scenario = scenarios[currentScenario];
+            let optimizations = [];
+
+            // Optimizaciones específicas por tipo
+            switch (currentDeployment) {
+                case 'vm':
+                    optimizations = [
+                        'Reduciendo overhead de VMs subutilizadas...',
+                        'Consolidando aplicaciones compatibles...',
+                        'Optimizando asignación de recursos...'
+                    ];
+                    break;
+                case 'container':
+                    optimizations = [
+                        'Ajustando límites de recursos por contenedor...',
+                        'Optimizando distribución de pods...',
+                        'Implementando horizontal pod autoscaler...'
+                    ];
+                    break;
+                case 'hybrid':
+                    optimizations = [
+                        'Balanceando cargas entre VMs y contenedores...',
+                        'Optimizando comunicación inter-servicios...',
+                        'Ajustando políticas de scheduling...'
+                    ];
+                    break;
+            }
+
+            // Mostrar proceso de optimización
+            const canvas = document.getElementById('architectureCanvas');
+            canvas.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <h3>⚡ Optimizando Solución...</h3>
+                    <div id="optimizationProgress" style="margin-top: 20px;"></div>
+                </div>
+            `;
+
+            const progressDiv = document.getElementById('optimizationProgress');
+            let step = 0;
+
+            const interval = setInterval(() => {
+                if (step < optimizations.length) {
+                    progressDiv.innerHTML += `<p style="color: #28a745; margin: 5px 0;">✅ ${optimizations[step]}</p>`;
+                    step++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        // Regenerar solución optimizada
+                        generateSolution();
+                        
+                        // Mejorar eficiencia
+                        const currentEfficiency = parseInt(document.getElementById('efficiencyScore').textContent);
+                        const newEfficiency = Math.min(95, currentEfficiency + 10);
+                        updateEfficiencyMeter(newEfficiency);
+                        
+                        alert('🎉 ¡Solución optimizada!\n\n' +
+                              `⚡ Eficiencia mejorada: ${currentEfficiency}% → ${newEfficiency}%\n` +
+                              `💰 Costos optimizados\n` +
+                              `🚀 Rendimiento mejorado`);
+                    }, 1000);
+                }
+            }, 800);
+        }
+
+        function resetPlanning() {
+            currentScenario = null;
+            currentDeployment = null;
+            
+            // Limpiar selecciones
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelectorAll('.deploy-option').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Limpiar contenido
+            document.getElementById('requirementsList').innerHTML = '';
+            resetCanvas();
+            
+            // Limpiar análisis
+            document.getElementById('resourceSummary').innerHTML = '';
+            document.getElementById('efficiencyFill').style.width = '0%';
+            document.getElementById('efficiencyScore').textContent = '0%';
+            document.getElementById('recommendationsList').innerHTML = 
+                '<p style="color: #8888bb; font-style: italic;">Completa tu planificación para ver recomendaciones personalizadas</p>';
+            
+            updateButtons();
+        }
+
+        function resetCanvas() {
+            const canvas = document.getElementById('architectureCanvas');
+            canvas.classList.remove('has-solution');
+            canvas.innerHTML = `
+                <div style="text-align: center; color: #8888bb; margin-top: 100px;">
+                    <p>🎯 Selecciona un tipo de despliegue arriba</p>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">La arquitectura se visualizará aquí</p>
+                </div>
+            `;
+        }
+
+        function updateButtons() {
+            const generateBtn = document.getElementById('generateBtn');
+            const optimizeBtn = document.getElementById('optimizeBtn');
+            
+            generateBtn.disabled = !currentScenario || !currentDeployment;
+            optimizeBtn.disabled = solutionsGenerated === 0;
+        }
+
+        function markCompleted() {
+            if (solutionsGenerated === 0) {
+                alert('⚠️ Genera al menos una solución de planificación para completar la actividad.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Planificador de Recursos".\n\n' +
+                  `📊 Estadísticas:\n` +
+                  `• ${solutionsGenerated} soluciones generadas\n` +
+                  `• Escenarios explorados: ${currentScenario || 'Varios'}\n` +
+                  `• Tipo de arquitectura: ${currentDeployment || 'Múltiples'}\n\n` +
+                  `✅ Actividad marcada como completada\n🏆 +180 puntos ganados`);
+        }
+
+        function goBack() {
+            window.location.href = './';
+        }
+
+        // Inicializar la actividad
+        document.addEventListener('DOMContentLoaded', function() {
+            loadScenarios();
+            updateButtons();
+        });
+    </script>
+
+</body>
+</html>

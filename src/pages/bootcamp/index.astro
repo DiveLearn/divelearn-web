@@ -1,0 +1,681 @@
+---
+import Base from "../../layouts/Base.astro";
+import { zonas, rangos } from "../../data/bootcamp";
+
+const modulos = zonas.flatMap((z) => z.modulos);
+const juego = {
+  modulos: zonas.flatMap((z) => z.modulos.map((m) => ({ n: m.n, xp: m.xp, titulo: m.titulo, zona: z.id }))),
+  zonas: zonas.map((z) => ({ id: z.id })),
+  rangos,
+};
+const peces = ["🐟", "🐠", "🦑", "🪼"];
+---
+
+<Base title="Bootcamp" description="Bootcamp gratis de fundamentos técnicos para la nube: redes, IP, DNS, seguridad, Linux, virtualización, datos y backup. Como un videojuego: de la superficie al abismo.">
+  <section class="intro">
+    <div class="wrap">
+      <p class="kicker">Bootcamp gratis</p>
+      <h1>De la superficie <em>al abismo</em></h1>
+      <p class="lead">
+        {modulos.length} módulos de fundamentos para la nube, en orden. Cada módulo es un nivel: ganas XP, subes de rango
+        y desbloqueas una insignia por cada zona que completas.
+      </p>
+      <a class="btn" href="#superficie">Empezar la inmersión ↓</a>
+    </div>
+  </section>
+
+  <aside class="hud" aria-label="Tu progreso">
+    <div class="wrap hud-in">
+      <div class="rango">
+        <span class="rango-ico" aria-hidden="true">🤿</span>
+        <div>
+          <p class="rango-nombre" data-rango>Snorkel</p>
+          <div class="barra" role="progressbar" aria-label="XP hacia el siguiente rango" aria-valuemin="0" aria-valuemax="100" data-barra-aria>
+            <span data-barra></span>
+          </div>
+        </div>
+      </div>
+      <p class="stat"><b data-xp>0</b> XP</p>
+      <p class="stat"><b data-hechos>0</b>/{modulos.length} módulos</p>
+      <p class="insignias" aria-label="Insignias por zona">
+        {zonas.map((z) => <span title={`Insignia ${z.nombre}`} data-insignia={z.id}>{z.modulos[0].icono}</span>)}
+      </p>
+    </div>
+  </aside>
+
+  <div class="oceano" data-oceano>
+    <div class="burbujas" aria-hidden="true">
+      {Array.from({ length: 18 }, (_, i) => <span style={`--x:${(i * 53) % 100}%;--d:${8 + (i % 5) * 2}s;--s:${6 + (i % 4) * 5}px;--r:${(i * 0.7) % 9}s`} />)}
+    </div>
+
+    {
+      zonas.map((z, zi) => (
+        <section class={`zona z${zi}`} id={z.id} aria-labelledby={`t-${z.id}`}>
+          {zi > 0 && <span class="pez" aria-hidden="true">{peces[zi % peces.length]}</span>}
+          <header class="wrap zona-head">
+            <p class="metros">{z.metros}</p>
+            <h2 id={`t-${z.id}`}>{z.nombre}</h2>
+            <p class="lema">{z.lema}</p>
+          </header>
+          <ol class="wrap ruta">
+            {z.modulos.map((m) => (
+              <li class={`nivel ${m.n % 2 ? "der" : "izq"}`} data-modulo={m.n}>
+                <a href={`/bootcamp/modulo-${m.n}/`} data-ir={m.n}>
+                  <span class="nodo">
+                    <span aria-hidden="true">{m.icono}</span>
+                    <span class="num">{m.n}</span>
+                  </span>
+                  <span class="tarjeta">
+                    <span class="estado">
+                      Módulo {m.n} · {m.actividades} actividades + quiz
+                    </span>
+                    <span class="titulo">{m.titulo}</span>
+                    <span class="tema">{m.tema}</span>
+                    <span class="xp">+{m.xp} XP</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+    <div class="wrap fondo">
+      <p>Tocaste fondo 🐚 ¿Quieres seguir bajando? Las clases en video y la próxima edición en vivo llegan primero a la lista.</p>
+      <a class="btn lime" href="https://mar31orvel.kit.com/inmersion-ans-c01">Avísame</a>
+      <button type="button" class="reiniciar" data-reiniciar>Reiniciar mi progreso</button>
+    </div>
+  </div>
+
+  <p class="profundimetro" aria-hidden="true" data-profundimetro><span data-metros>0</span> m</p>
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script is:inline type="application/json" id="juego" set:html={JSON.stringify(juego)} />
+  <script>
+    // Progreso del buzo, guardado solo en este navegador (sin cookies ni servidor).
+    type Juego = {
+      modulos: { n: number; xp: number; titulo: string; zona: string }[];
+      zonas: { id: string }[];
+      rangos: { xp: number; nombre: string }[];
+    };
+    type Progreso = { hechos: number[]; ultimo?: string };
+
+    const juego: Juego = JSON.parse(document.getElementById("juego")!.textContent!);
+    const CLAVE = "divelearn-bootcamp";
+    const $ = (s: string) => document.querySelector(s) as HTMLElement;
+
+    const leer = (): Progreso => {
+      try {
+        return { hechos: [], ...JSON.parse(localStorage.getItem(CLAVE) || "{}") };
+      } catch {
+        return { hechos: [] };
+      }
+    };
+    const guardar = (p: Progreso) => {
+      try {
+        localStorage.setItem(CLAVE, JSON.stringify(p));
+      } catch {
+        /* modo privado: el juego funciona, solo no recuerda */
+      }
+    };
+
+    function pintar(p: Progreso) {
+      const xp = juego.modulos.filter((m) => p.hechos.includes(m.n)).reduce((a, m) => a + m.xp, 0);
+      const i = juego.rangos.findLastIndex((r) => xp >= r.xp);
+      const sig = juego.rangos[i + 1];
+      const pct = sig ? Math.round(((xp - juego.rangos[i].xp) / (sig.xp - juego.rangos[i].xp)) * 100) : 100;
+      $("[data-rango]").textContent = juego.rangos[i].nombre;
+      $("[data-xp]").textContent = xp.toLocaleString("es-ES");
+      $("[data-hechos]").textContent = String(p.hechos.length);
+      $("[data-barra]").style.width = pct + "%";
+      $("[data-barra-aria]").setAttribute("aria-valuenow", String(pct));
+
+      const siguiente = juego.modulos.find((m) => !p.hechos.includes(m.n));
+      document.querySelectorAll<HTMLElement>("[data-modulo]").forEach((el) => {
+        const n = Number(el.dataset.modulo);
+        el.classList.toggle("hecho", p.hechos.includes(n));
+        el.classList.toggle("siguiente", n === siguiente?.n);
+      });
+      juego.zonas.forEach((z) => {
+        const completa = juego.modulos.filter((m) => m.zona === z.id).every((m) => p.hechos.includes(m.n));
+        $(`[data-insignia="${z.id}"]`).classList.toggle("ganada", completa);
+      });
+    }
+
+    function avisar(texto: string) {
+      const t = $("[data-toast]");
+      t.textContent = texto;
+      t.classList.add("ver");
+      setTimeout(() => t.classList.remove("ver"), 3200);
+    }
+
+    let p = leer();
+    pintar(p);
+    if (p.ultimo) {
+      avisar(p.ultimo);
+      delete p.ultimo;
+      guardar(p);
+    }
+
+    // Al entrar a un módulo se marca como explorado; el aviso de XP sale al volver.
+    document.querySelectorAll<HTMLAnchorElement>("[data-ir]").forEach((a) =>
+      a.addEventListener("click", () => {
+        const m = juego.modulos.find((x) => x.n === Number(a.dataset.ir))!;
+        if (p.hechos.includes(m.n)) return;
+        p.hechos.push(m.n);
+        p.ultimo = `+${m.xp} XP · ${m.titulo}`;
+        guardar(p);
+      }),
+    );
+    $("[data-reiniciar]").addEventListener("click", () => {
+      p = { hechos: [] };
+      guardar(p);
+      pintar(p);
+      avisar("Progreso reiniciado: de vuelta a la superficie 🤿");
+    });
+
+    // Profundímetro: 0 m arriba del océano, 150 m al tocar fondo.
+    const oceano = $("[data-oceano]");
+    const metros = $("[data-metros]");
+    const medir = () => {
+      const r = oceano.getBoundingClientRect();
+      const avance = Math.min(1, Math.max(0, (innerHeight * 0.5 - r.top) / r.height));
+      metros.textContent = String(Math.round(avance * 150));
+    };
+    addEventListener("scroll", medir, { passive: true });
+    medir();
+    // El profundímetro solo se ve mientras estás bajo el agua.
+    new IntersectionObserver(([e]) => $("[data-profundimetro]").classList.toggle("ver", e.isIntersecting)).observe(oceano);
+
+    // Los niveles aparecen al bajar.
+    const io = new IntersectionObserver(
+      (es) =>
+        es.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visto");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.2 },
+    );
+    document.querySelectorAll(".nivel, .zona-head").forEach((el) => io.observe(el));
+  </script>
+</Base>
+
+<style>
+  .intro {
+    background: linear-gradient(#ffffff, #eef2ff);
+    padding: 56px 0 32px;
+    text-align: center;
+  }
+  .kicker {
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .intro h1 {
+    font-size: clamp(2.4rem, 7vw, 4.2rem);
+    color: var(--purple);
+    margin-top: 8px;
+  }
+  .intro h1 em {
+    color: var(--deep);
+    background: linear-gradient(transparent 62%, var(--lime) 62%);
+  }
+  .lead {
+    max-width: 52ch;
+    margin: 0 auto 24px;
+    color: var(--muted);
+    font-size: 1.1rem;
+  }
+
+  /* ── Marcador ── */
+  .hud {
+    position: sticky;
+    top: 59px;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .hud-in {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .rango {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 220px;
+  }
+  .rango-ico {
+    font-size: 1.8rem;
+  }
+  .rango-nombre {
+    margin: 0;
+    font-family: var(--title);
+    color: var(--purple);
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+  .barra {
+    height: 8px;
+    width: 100%;
+    max-width: 240px;
+    border-radius: 99px;
+    background: var(--line);
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .barra span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--purple), var(--lime));
+    transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .stat {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .stat b {
+    color: var(--ink);
+    font-size: 1.15rem;
+  }
+  .insignias {
+    display: flex;
+    gap: 6px;
+    margin: 0;
+  }
+  .insignias span {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--line);
+    filter: grayscale(1);
+    opacity: 0.45;
+    transition:
+      transform 0.4s,
+      opacity 0.4s,
+      filter 0.4s;
+  }
+  .insignias span.ganada {
+    filter: none;
+    opacity: 1;
+    background: var(--lime);
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px var(--purple);
+  }
+
+  /* ── Océano: se oscurece hacia morado profundo, nunca negro ── */
+  .oceano {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 48px;
+    background: linear-gradient(180deg, #eef2ff 0%, #b2cafd 22%, #7f86f2 42%, #5453eb 60%, #3a34d2 80%, #27218f 100%);
+  }
+  .burbujas span {
+    position: absolute;
+    bottom: -20px;
+    left: var(--x);
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    animation: subir var(--d) linear var(--r) infinite;
+    pointer-events: none;
+  }
+  @keyframes subir {
+    from {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    to {
+      transform: translate(20px, -120vh);
+      opacity: 0;
+    }
+  }
+  .profundimetro {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    margin: 0;
+    z-index: 4;
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+      opacity 0.3s,
+      transform 0.3s;
+    padding: 8px 14px;
+    border-radius: 99px;
+    background: var(--ink);
+    color: var(--lime);
+    font-family: var(--title);
+    font-size: 1.1rem;
+    box-shadow: 0 8px 24px rgba(31, 29, 92, 0.3);
+  }
+  .profundimetro.ver {
+    opacity: 1;
+    transform: none;
+  }
+  .zona {
+    position: relative;
+    padding: 64px 0 24px;
+  }
+  .pez {
+    position: absolute;
+    top: 40px;
+    left: -60px;
+    font-size: 2rem;
+    animation: nadar 26s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes nadar {
+    to {
+      transform: translateX(calc(100vw + 120px));
+    }
+  }
+  .zona-head {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s,
+      transform 0.6s;
+  }
+  .metros {
+    display: inline-block;
+    margin: 0;
+    padding: 4px 12px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .zona-head h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--ink);
+    margin: 10px 0 4px;
+  }
+  .lema {
+    margin: 0;
+    color: var(--muted);
+  }
+  .z2 .zona-head h2,
+  .z3 .zona-head h2 {
+    color: var(--white);
+  }
+  .z2 .lema,
+  .z3 .lema {
+    color: var(--lav);
+  }
+
+  /* ── Ruta de niveles ── */
+  .ruta {
+    list-style: none;
+    margin: 32px auto 0;
+    max-width: 760px;
+    position: relative;
+  }
+  .ruta::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    border-left: 3px dashed rgba(255, 255, 255, 0.7);
+    transform: translateX(-50%);
+  }
+  .nivel {
+    position: relative;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+    transition:
+      opacity 0.6s,
+      transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .visto {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .nivel a {
+    display: grid;
+    grid-template-columns: 1fr 88px 1fr;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nodo {
+    grid-column: 2;
+    grid-row: 1;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: var(--white);
+    font-size: 2.2rem;
+    box-shadow:
+      0 0 0 6px rgba(255, 255, 255, 0.35),
+      0 12px 30px rgba(31, 29, 92, 0.25);
+    transition: transform 0.25s;
+  }
+  .num {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .tarjeta {
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 10px 30px rgba(31, 29, 92, 0.15);
+    transition:
+      transform 0.25s,
+      box-shadow 0.25s;
+  }
+  .izq .tarjeta {
+    grid-column: 1;
+    text-align: right;
+  }
+  .der .tarjeta {
+    grid-column: 3;
+  }
+  .estado {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .titulo {
+    font-family: var(--title);
+    font-size: 1.35rem;
+    color: var(--purple);
+    line-height: 1.15;
+  }
+  .tema {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .xp {
+    align-self: flex-start;
+    margin-top: 4px;
+    padding: 2px 10px;
+    border-radius: 99px;
+    background: var(--lime);
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .izq .xp {
+    align-self: flex-end;
+  }
+  .nivel a:hover .nodo,
+  .nivel a:focus-visible .nodo {
+    transform: scale(1.08) rotate(-4deg);
+  }
+  .nivel a:hover .tarjeta {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(31, 29, 92, 0.25);
+  }
+  .siguiente .nodo {
+    animation: latir 1.8s ease-in-out infinite;
+    box-shadow:
+      0 0 0 6px var(--lime),
+      0 12px 30px rgba(31, 29, 92, 0.25);
+  }
+  .siguiente .estado::before {
+    content: "▶ Siguiente · ";
+    color: var(--deep);
+  }
+  @keyframes latir {
+    50% {
+      transform: scale(1.07);
+    }
+  }
+  .hecho .nodo {
+    background: var(--lime);
+  }
+  .hecho .num {
+    background: var(--ink);
+    font-size: 0;
+  }
+  .hecho .num::after {
+    content: "✓";
+    font-size: 0.95rem;
+  }
+  .hecho .estado::before {
+    content: "Explorado · ";
+    color: #2f8a3c;
+  }
+  .fondo {
+    position: relative;
+    text-align: center;
+    color: var(--white);
+    padding-top: 56px;
+    max-width: 640px;
+  }
+  .fondo p {
+    font-size: 1.15rem;
+  }
+  .reiniciar {
+    display: block;
+    margin: 24px auto 0;
+    background: none;
+    border: 0;
+    color: var(--lav);
+    text-decoration: underline;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
+
+  /* ── Aviso de XP ── */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 20;
+    padding: 14px 22px;
+    border-radius: 99px;
+    background: var(--ink);
+    color: var(--lime);
+    font-weight: 700;
+    box-shadow: 0 12px 30px rgba(31, 29, 92, 0.35);
+    transform: translate(-50%, 140%);
+    visibility: hidden;
+    transition:
+      transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      visibility 0.45s;
+    max-width: calc(100% - 32px);
+  }
+  .toast.ver {
+    transform: translate(-50%, 0);
+    visibility: visible;
+  }
+
+  @media (max-width: 640px) {
+    .hud {
+      top: 55px;
+    }
+    .hud-in {
+      gap: 8px 16px;
+    }
+    .rango {
+      flex-basis: 100%;
+    }
+    .ruta::before {
+      left: 36px;
+    }
+    .nivel a {
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+    }
+    .nodo {
+      grid-column: 1;
+      width: 72px;
+      height: 72px;
+      font-size: 1.8rem;
+    }
+    .izq .tarjeta,
+    .der .tarjeta {
+      grid-column: 2;
+      text-align: left;
+    }
+    .izq .xp {
+      align-self: flex-start;
+    }
+    .profundimetro {
+      font-size: 0.9rem;
+      padding: 6px 10px;
+      right: 8px;
+      top: auto;
+      bottom: 16px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nivel,
+    .zona-head {
+      opacity: 1;
+      transform: none;
+    }
+    .burbujas,
+    .pez {
+      display: none;
+    }
+  }
+</style>

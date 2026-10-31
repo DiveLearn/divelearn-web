@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Quiz - Módulo 1: Las Carreteras Digitales</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .question {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            to { opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .results-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 2.2rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5453eb, #7b7aff);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .score-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #ff9a9e;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="breadcrumb">
+            <a href="./">← Volver al Módulo 1</a>
+        </div>
+
+        <div class="header">
+            <h1 class="quiz-title">🛣️ Quiz: Carreteras Digitales</h1>
+            <p class="quiz-subtitle">Evalúa tus conocimientos sobre redes y conectividad</p>
+        </div>
+
+        <div class="quiz-container">
+            <div class="progress-header">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> de <span id="totalQuestions">5</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="currentScore">0</span> puntos
+                </div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <!-- Pregunta 1 -->
+                <div class="question active" data-question="1">
+                    <div class="question-number">1</div>
+                    <h2 class="question-text">¿Cuál es la principal diferencia entre ancho de banda y throughput en una red?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Son términos idénticos que se usan indistintamente</div>
+                            <div class="option-text">Ambos miden exactamente lo mismo en redes</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) El ancho de banda es teórico, el throughput es real</div>
+                            <div class="option-text">Ancho de banda = capacidad máxima, throughput = velocidad actual obtenida</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) El throughput siempre es mayor que el ancho de banda</div>
+                            <div class="option-text">El throughput supera los límites teóricos</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Solo se diferencian en las unidades de medida</div>
+                            <div class="option-text">Uno se mide en bits y otro en bytes únicamente</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback1">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="question" data-question="2">
+                    <div class="question-number">2</div>
+                    <h2 class="question-text">En la analogía de las carreteras digitales, ¿qué representa la latencia?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) El número de carriles en la autopista</div>
+                            <div class="option-text">La capacidad total de la vía</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) La cantidad de vehículos en la carretera</div>
+                            <div class="option-text">El volumen de tráfico presente</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) El tiempo que tarda un vehículo en llegar al destino</div>
+                            <div class="option-text">El retraso o tiempo de viaje de punto A a punto B</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) El combustible que consumen los vehículos</div>
+                            <div class="option-text">Los recursos energéticos utilizados</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback2">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="question" data-question="3">
+                    <div class="question-number">3</div>
+                    <h2 class="question-text">¿Cuál de estas tecnologías de conexión típicamente tiene la mayor latencia?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Fibra óptica</div>
+                            <div class="option-text">Transmisión por luz a alta velocidad</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Cable Ethernet</div>
+                            <div class="option-text">Conexión cableada directa</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) WiFi doméstico</div>
+                            <div class="option-text">Red inalámbrica local</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Internet satelital</div>
+                            <div class="option-text">Conexión que viaja al espacio y regresa</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback3">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="question" data-question="4">
+                    <div class="question-number">4</div>
+                    <h2 class="question-text">¿Qué tipo de topología describe mejor una red donde todos los dispositivos se conectan a un switch central?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Topología de bus</div>
+                            <div class="option-text">Dispositivos conectados en línea recta</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Topología de anillo</div>
+                            <div class="option-text">Dispositivos conectados formando un círculo</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Topología de estrella</div>
+                            <div class="option-text">Todos los dispositivos conectados a un punto central</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Topología de malla</div>
+                            <div class="option-text">Cada dispositivo conectado a todos los demás</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback4">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="question" data-question="5">
+                    <div class="question-number">5</div>
+                    <h2 class="question-text">¿Cuál es la ventaja principal de la fibra óptica sobre los cables de cobre?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Es más barata de instalar</div>
+                            <div class="option-text">Menor costo inicial de implementación</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Es más fácil de reparar</div>
+                            <div class="option-text">Mantenimiento más sencillo</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Transmite datos más rápido y a mayor distancia</div>
+                            <div class="option-text">Usa luz en lugar de electricidad, sin degradación significativa</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Funciona mejor en ambientes húmedos</div>
+                            <div class="option-text">Mayor resistencia a la humedad</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback5">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 1: Las Carreteras Digitales</strong>
+                </p>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" disabled>
+                    ← Anterior
+                </button>
+                
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="nav-btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Siguiente →
+                    </button>
+                    <button class="nav-btn success" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                        Finalizar Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let score = 0;
+        let startTime = Date.now();
+        let questionAnswered = false;
+
+        const questions = [
+            {
+                id: 1,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. Aunque relacionados, ancho de banda y throughput miden aspectos diferentes del rendimiento de red.',
+                    'b': '✅ ¡Correcto! El ancho de banda es la capacidad máxima teórica de la conexión, mientras que el throughput es la velocidad real que experimentas, que puede ser menor debido a congestión, latencia u otros factores.',
+                    'c': '❌ Incorrecto. El throughput nunca puede ser mayor que el ancho de banda, ya que está limitado por la capacidad máxima del canal.',
+                    'd': '❌ Incorrecto. La diferencia no está en las unidades sino en que uno es teórico (ancho de banda) y otro es la medición real (throughput).'
+                }
+            },
+            {
+                id: 2,
+                correct: 'c',
+                feedback: {
+                    'a': '❌ Incorrecto. El número de carriles representa el ancho de banda (capacidad), no la latencia.',
+                    'b': '❌ Incorrecto. La cantidad de vehículos representa la carga de tráfico o congestión, no la latencia.',
+                    'c': '✅ ¡Correcto! La latencia es el tiempo que tarda un paquete de datos en viajar desde el origen hasta el destino, igual que el tiempo de viaje en una carretera.',
+                    'd': '❌ Incorrecto. El combustible representaría más bien el consumo de recursos o energía, no el tiempo de viaje.'
+                }
+            },
+            {
+                id: 3,
+                correct: 'd',
+                feedback: {
+                    'a': '❌ Incorrecto. La fibra óptica tiene una latencia muy baja debido a que los datos viajan a la velocidad de la luz.',
+                    'b': '❌ Incorrecto. Las conexiones Ethernet cableadas tienen latencia muy baja, típicamente 1-5ms en redes locales.',
+                    'c': '❌ Incorrecto. Aunque WiFi tiene más latencia que cables, sigue siendo relativamente baja (5-50ms típicamente).',
+                    'd': '✅ ¡Correcto! El internet satelital tiene la mayor latencia (500-800ms) porque los datos deben viajar aproximadamente 36,000 km al espacio y regresar.'
+                }
+            },
+            {
+                id: 4,
+                correct: 'c',
+                feedback: {
+                    'a': '❌ Incorrecto. En topología de bus, los dispositivos se conectan a un cable principal compartido, no a un punto central.',
+                    'b': '❌ Incorrecto. En topología de anillo, cada dispositivo se conecta al siguiente formando un círculo, sin un punto central.',
+                    'c': '✅ ¡Correcto! La topología de estrella conecta todos los dispositivos a un punto central (switch o hub), facilitando la administración y aislando fallos.',
+                    'd': '❌ Incorrecto. En topología de malla, cada dispositivo se conecta directamente a múltiples o todos los otros dispositivos.'
+                }
+            },
+            {
+                id: 5,
+                correct: 'c',
+                feedback: {
+                    'a': '❌ Incorrecto. La fibra óptica es más costosa de instalar que el cable de cobre, requiere equipos y técnicas especializadas.',
+                    'b': '❌ Incorrecto. La fibra óptica es más delicada y requiere equipos especiales para reparación, siendo más compleja que el cobre.',
+                    'c': '✅ ¡Correcto! La fibra óptica transmite datos usando luz en lugar de electricidad, permitiendo velocidades mucho mayores y distancias más largas sin degradación significativa de la señal.',
+                    'd': '❌ Incorrecto. Aunque la fibra es resistente a interferencias electromagnéticas, esta no es su ventaja principal sobre el cobre.'
+                }
+            }
+        ];
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+        }
+
+        function showQuestion(index) {
+            // Ocultar todas las preguntas
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+
+            // Mostrar pregunta actual
+            const currentQuestion = document.querySelector(`[data-question="${index + 1}"]`);
+            if (currentQuestion) {
+                currentQuestion.classList.add('active');
+            }
+
+            // Actualizar botones de navegación
+            document.getElementById('prevBtn').disabled = index === 0;
+            
+            if (index === questions.length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('finishBtn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-flex';
+                document.getElementById('finishBtn').style.display = 'none';
+            }
+
+            // Verificar si ya se respondió esta pregunta
+            questionAnswered = answers[index + 1] !== undefined;
+            updateNextButton();
+
+            updateProgress();
+        }
+
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                finishBtn.disabled = !questionAnswered;
+            } else {
+                nextBtn.disabled = !questionAnswered;
+            }
+        }
+
+        function selectOption(element, questionId, option) {
+            // Marcar opción seleccionada
+            const questionElement = document.querySelector(`[data-question="${questionId}"]`);
+            questionElement.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            answers[questionId] = option;
+            questionAnswered = true;
+
+            // Mostrar feedback inmediato
+            setTimeout(() => {
+                const question = questions[questionId - 1];
+                const isCorrect = option === question.correct;
+                
+                // Marcar opción correcta e incorrecta
+                questionElement.querySelectorAll('.option').forEach(opt => {
+                    const optionValue = opt.getAttribute('data-option');
+                    if (optionValue === question.correct) {
+                        opt.classList.add('correct');
+                    } else if (optionValue === option && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                // Mostrar feedback
+                const feedback = document.getElementById(`feedback${questionId}`);
+                const feedbackContent = feedback.querySelector('.feedback-content');
+                
+                feedbackContent.innerHTML = question.feedback[option];
+                feedback.className = `feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                // Actualizar puntaje
+                if (isCorrect && answers[questionId] !== 'scored') {
+                    score++;
+                    answers[questionId] = 'scored'; // Evitar doble conteo
+                }
+
+                updateNextButton();
+                updateProgress();
+            }, 500);
+        }
+
+        function nextQuestion() {
+            if (questionAnswered && currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                questionAnswered = false;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                questionAnswered = answers[currentQuestionIndex + 1] !== undefined;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function finishQuiz() {
+            if (!questionAnswered) return;
+
+            // Calcular tiempo total
+            const endTime = Date.now();
+            const totalTimeMs = endTime - startTime;
+            const minutes = Math.floor(totalTimeMs / 60000);
+            const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Calcular puntos (50 puntos por respuesta correcta)
+            const points = score * 50;
+
+            // Ocultar contenedor de preguntas
+            document.getElementById('questionContainer').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+
+            // Mostrar resultados
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            // Actualizar estadísticas
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('totalTime').textContent = timeString;
+            document.getElementById('finalPoints').textContent = points;
+
+            // Crear botones de navegación en resultados
+            const navigationDiv = document.createElement('div');
+            navigationDiv.style.cssText = 'margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;';
+            
+            navigationDiv.innerHTML = `
+                <button class="nav-btn" onclick="retryQuiz()">
+                    🔄 Repetir Quiz
+                </button>
+                <button class="nav-btn primary" onclick="goToHub()">
+                    🏠 Volver al Hub
+                </button>
+                <button class="nav-btn success" onclick="nextModule()">
+                    ➡️ Siguiente Módulo
+                </button>
+            `;
+            
+            resultsContainer.appendChild(navigationDiv);
+
+            // Mostrar mensaje motivacional basado en el puntaje
+            let message = '';
+            if (score === 5) {
+                message = '🌟 ¡Excelente! Dominas completamente las carreteras digitales.';
+            } else if (score >= 4) {
+                message = '👏 ¡Muy bien! Tienes una sólida comprensión de las redes.';
+            } else if (score >= 3) {
+                message = '👍 ¡Buen trabajo! Revisa algunos conceptos y estarás listo.';
+            } else {
+                message = '📚 Te recomendamos revisar la teoría antes de continuar.';
+            }
+
+            const messageElement = document.createElement('p');
+            messageElement.style.cssText = 'color: #8888bb; margin: 20px 0; font-size: 1rem; font-weight: 500;';
+            messageElement.innerHTML = message;
+            resultsContainer.insertBefore(messageElement, navigationDiv);
+        }
+
+        function retryQuiz() {
+            // Reiniciar variables
+            currentQuestionIndex = 0;
+            answers = {};
+            score = 0;
+            startTime = Date.now();
+            questionAnswered = false;
+
+            // Limpiar todas las opciones y feedback
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.classList.remove('show', 'correct', 'incorrect');
+            });
+
+            // Ocultar resultados
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('resultsContainer').innerHTML = `
+                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 1: Las Carreteras Digitales</strong>
+                </p>
+            `;
+
+            // Mostrar contenedor de preguntas y navegación
+            document.getElementById('questionContainer').style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+
+            // Mostrar primera pregunta
+            showQuestion(0);
+        }
+
+        function goToHub() {
+            window.location.href = './';
+        }
+
+        function nextModule() {
+            alert('🚀 ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
+            goToHub();
+        }
+
+        // Event listeners para las opciones
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionElement = this.closest('.question');
+                    const questionId = parseInt(questionElement.getAttribute('data-question'));
+                    const optionValue = this.getAttribute('data-option');
+                    
+                    // Solo permitir selección si no se ha respondido o es la primera vez
+                    if (!questionElement.querySelector('.option.correct') && !questionElement.querySelector('.option.incorrect')) {
+                        selectOption(this, questionId, optionValue);
+                    }
+                });
+            });
+
+            // Inicializar
+            showQuestion(0);
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' && !document.getElementById('prevBtn').disabled) {
+                previousQuestion();
+            } else if (e.key === 'ArrowRight' && !document.getElementById('nextBtn').disabled) {
+                nextQuestion();
+            } else if (e.key === 'Enter') {
+                if (currentQuestionIndex === questions.length - 1 && questionAnswered) {
+                    finishQuiz();
+                } else if (questionAnswered) {
+                    nextQuestion();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

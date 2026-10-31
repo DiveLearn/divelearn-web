@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 4 - Planificación de Crecimiento</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .company-timeline {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: #1565C0;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #2196F3;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 80px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: #2196F3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .timeline-content {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .timeline-year {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1565C0;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .timeline-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            background: var(--surface);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 3px solid #4CAF50;
+        }
+
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #22C55E;
+        }
+        .planning-simulator {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--purple);
+        }
+
+        .simulator-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+        .control-
+        .control-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-weight: 600;
+            color: #22C55E;
+            margin-top: 5px;
+        }
+
+        .simulate-btn {
+            background: var(--lime);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .simulate-btn:hover {
+            background: #22C55E;
+            transform: translateY(-2px);
+        }
+
+        .results-container {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        
+
+        .result-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .result-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .network-visualization {
+            background: #1a1a1a;
+            color: #e0f24a;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .subnet-plan {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #e0f24a;
+        }
+
+        .recommendations {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #ffc107;
+        }
+
+        .recommendations-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recommendation-item {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .recommendation-type {
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .recommendation-text {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid;
+        }
+
+        .alert.warning {
+            background: rgba(245,158,11,0.15);
+            border-color: #F59E0B;
+            color: var(--text-muted);
+        }
+
+        .alert.danger {
+            background: rgba(239,68,68,0.15);
+            border-color: #EF4444;
+            color: #721c24;
+        }
+
+        .alert.success {
+            background: rgba(34,197,94,0.15);
+            border-color: #22C55E;
+            color: var(--text-muted);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .timeline-item {
+                padding-left: 60px;
+            }
+
+            .simulator-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 2</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 2</a> / Actividad 4
+            </div>
+            <h1 class="activity-title">📋 Planificación de Crecimiento</h1>
+            <p class="activity-subtitle">Simula el crecimiento de una red y aprende a planificar direcciones IP para expansiones futuras</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>18 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio-Avanzado</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 180</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>Como arquitecto de redes de una startup en crecimiento, debes planificar la expansión de la infraestructura de red para los próximos 5 años. Tu objetivo es diseñar un esquema de direccionamiento IP que sea escalable, eficiente y que permita el crecimiento orgánico de la empresa.</p>
+            </div>
+
+            <div class="company-timeline">
+                <div class="timeline-title">🏢 Historia de Crecimiento: InnovateTech Solutions</div>
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Año 1 (Actual) - Startup</div>
+                            <div class="timeline-description">
+                                La empresa inicia operaciones con un equipo pequeño pero ambicioso. Se requiere una red básica pero bien planificada.
+                            </div>
+                            <div class="timeline-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">25</div>
+                                    <div class="stat-label">Empleados</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">30</div>
+                                    <div class="stat-label">Dispositivos</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">2</div>
+                                    <div class="stat-label">Departamentos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Año 2 - Primera Expansión</div>
+                            <div class="timeline-description">
+                                Primeros contratos importantes. Se añade el departamento de marketing y se expande el equipo técnico.
+                            </div>
+                            <div class="timeline-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">50</div>
+                                    <div class="stat-label">Empleados</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">70</div>
+                                    <div class="stat-label">Dispositivos</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">4</div>
+                                    <div class="stat-label">Departamentos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot">3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Año 3 - Crecimiento Acelerado</div>
+                            <div class="timeline-description">
+                                Ronda de financiamiento exitosa. Expansión a nuevas oficinas y contratación masiva.
+                            </div>
+                            <div class="timeline-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">120</div>
+                                    <div class="stat-label">Empleados</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">180</div>
+                                    <div class="stat-label">Dispositivos</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">6</div>
+                                    <div class="stat-label">Departamentos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot">4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Año 4 - Consolidación</div>
+                            <div class="timeline-description">
+                                Estabilización del crecimiento. Se añaden servicios de soporte y se mejora la infraestructura.
+                            </div>
+                            <div class="timeline-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">200</div>
+                                    <div class="stat-label">Empleados</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">300</div>
+                                    <div class="stat-label">Dispositivos</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">8</div>
+                                    <div class="stat-label">Departamentos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot">5</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Año 5 - Empresa Establecida</div>
+                            <div class="timeline-description">
+                                Empresa madura con múltiples productos. Posible expansión internacional y nuevas divisiones.
+                            </div>
+                            <div class="timeline-stats">
+                                <div class="stat-box">
+                                    <div class="stat-number">350</div>
+                                    <div class="stat-label">Empleados</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">500</div>
+                                    <div class="stat-label">Dispositivos</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-number">12</div>
+                                    <div class="stat-label">Departamentos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🛠️ Simulador de Planificación</h2>
+                <div class="planning-simulator">
+                    <div class="simulator-controls">
+                        <div class="control-group">
+                            <label class="control-label">🌐 Red Base Asignada</label>
+                            <select class="control-input" id="baseNetwork">
+                                <option value="10.0.0.0/16">10.0.0.0/16 (65,534 hosts)</option>
+                                <option value="172.16.0.0/12">172.16.0.0/12 (1,048,574 hosts)</option>
+                                <option value="192.168.0.0/16">192.168.0.0/16 (65,534 hosts)</option>
+                                <option value="10.0.0.0/8">10.0.0.0/8 (16,777,214 hosts)</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">📈 Factor de Crecimiento Anual</label>
+                            <input type="range" class="control-slider" id="growthFactor" min="1.2" max="3.0" step="0.1

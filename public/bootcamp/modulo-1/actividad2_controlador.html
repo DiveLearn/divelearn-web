@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 2 - Controlador de Tráfico Digital</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .simulator-area {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+
+        .traffic-canvas {
+            background: #1a1a1a;
+            border-radius: 8px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .network-node {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+
+        .node-router {
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+        }
+
+        .node-switch {
+            background: linear-gradient(135deg, #007bff, #6610f2);
+        }
+
+        .node-computer {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+
+        .node-server {
+            background: linear-gradient(135deg, #dc3545, #e83e8c);
+        }
+
+        .connection-path {
+            position: absolute;
+            height: 3px;
+            background: #444;
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        .data-packet {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #e0f24a;
+            border-radius: 50%;
+            z-index: 15;
+            box-shadow: 0 0 10px #e0f24a;
+            animation: pulse 1s infinite;
+        }
+
+        
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        .data-packet.priority-high {
+            background: #ff4444;
+            box-shadow: 0 0 10px #ff4444;
+        }
+
+        .data-packet.priority-low {
+            background: #ffaa00;
+            box-shadow: 0 0 10px #ffaa00;
+        }
+
+        .controls-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .control-slider {
+            width: 100%;
+            margin: 10px 0;
+            appearance: none;
+            height: 8px;
+            background: var(--surface2);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .control-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--purple);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .control-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--purple);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-value {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .simulation-controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .sim-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sim-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .sim-btn.active {
+            background: #22C55E;
+        }
+
+        .sim-btn.danger {
+            background: #EF4444;
+        }
+
+        .sim-btn.danger:hover {
+            background: #EF4444;
+        }
+
+        .metrics-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: var(--surface2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+        .metric-unit {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .congestion-indicator {
+            height: 20px;
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            border-radius: 10px;
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .congestion-pointer {
+            position: absolute;
+            top: -5px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #333;
+            transition: left 0.3s ease;
+        }
+        .scenario-btn {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .scenario-btn:hover {
+            border-color: var(--purple);
+            background: #e3f2fd;
+        }
+
+        .scenario-btn.active {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .controls-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .traffic-canvas {
+                height: 300px;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 2
+            </div>
+            <h1 class="activity-title">🚦 Controlador de Tráfico Digital</h1>
+            <p class="activity-subtitle">Analiza el flujo de datos y aprende a identificar cuellos de botella</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad simularás el tráfico de datos en una red y aprenderás a identificar problemas de rendimiento como congestión, latencia y pérdida de paquetes. Experimentarás con diferentes escenarios de tráfico para entender cómo afectan el rendimiento de la red.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🌐 Simulador de Tráfico de Red</h2>
+                
+                <div class="scenario-selector">
+                    <div class="scenario-btn active" onclick="loadScenario('office')">
+                        🏢 Oficina Pequeña
+                    </div>
+                    <div class="scenario-btn" onclick="loadScenario('datacenter')">
+                        🏭 Data Center
+                    </div>
+                    <div class="scenario-btn" onclick="loadScenario('home')">
+                        🏠 Red Doméstica
+                    </div>
+                    <div class="scenario-btn" onclick="loadScenario('campus')">
+                        🏫 Campus Universitario
+                    </div>
+                </div>
+
+                <div class="simulator-area">
+                    <div class="traffic-canvas" id="trafficCanvas">
+                        <!-- Los nodos y conexiones se generarán dinámicamente -->
+                    </div>
+
+                    <div class="simulation-controls">
+                        <button class="sim-btn" id="startBtn" onclick="startSimulation()">
+                            ▶️ Iniciar Simulación
+                        </button>
+                        <button class="sim-btn" id="pauseBtn" onclick="pauseSimulation()" style="display: none;">
+                            ⏸️ Pausar
+                        </button>
+                        <button class="sim-btn danger" onclick="stopSimulation()">
+                            ⏹️ Detener
+                        </button>
+                        <button class="sim-btn" onclick="addTrafficBurst()">
+                            💥 Ráfaga de Tráfico
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">⚙️ Controles de Simulación</h2>
+                
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <div class="control-label">📊 Carga de Tráfico</div>
+                        <input type="range" class="control-slider" id="trafficLoad" min="10" max="100" value="30" onchange="updateTrafficLoad(this.value)">
+                        <div class="slider-value" id="trafficLoadValue">30%</div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">🔗 Ancho de Banda</div>
+                        <input type="range" class="control-slider" id="bandwidth" min="1" max="10" value="5" onchange="updateBandwidth(this.value)">
+                        <div class="slider-value" id="bandwidthValue">100 Mbps</div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">⏱️ Latencia Base</div>
+                        <input type="range" class="control-slider" id="latency" min="1" max="100" value="20" onchange="updateLatency(this.value)">
+                        <div class="slider-value" id="latencyValue">20 ms</div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">📦 Pérdida de Paquetes</div>
+                        <input type="range" class="control-slider" id="packetLoss" min="0" max="10" value="1" onchange="updatePacketLoss(this.value)">
+                        <div class="slider-value" id="packetLossValue">1%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📊 Métricas en Tiempo Real</h2>
+                
+                <div class="metrics-panel">
+                    <div class="metric-card">
+                        <div class="metric-value" id="throughputValue">0</div>
+                        <div class="metric-label">Throughput</div>
+                        <div class="metric-unit">Mbps</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value" id="latencyMetric">0</div>
+                        <div class="metric-label">Latencia Promedio</div>
+                        <div class="metric-unit">ms</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value" id="packetsSecond">0</div>
+                        <div class="metric-label">Paquetes/seg</div>
+                        <div class="metric-unit">pps</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value" id="lostPackets">0</div>
+                        <div class="metric-label">Paquetes Perdidos</div>
+                        <div class="metric-unit">total</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value" id="activeConnections">0</div>
+                        <div class="metric-label">Conexiones Activas</div>
+                        <div class="metric-unit">count</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-value" id="utilizationPercent">0</div>
+                        <div class="metric-label">Utilización</div>
+                        <div class="metric-unit">%</div>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h4 style="margin-bottom: 10px;">🚦 Nivel de Congestión</h4>
+                    <div class="congestion-indicator">
+                        <div class="congestion-pointer" id="congestionPointer"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8888bb; margin-top: 5px;">
+                        <span>Fluido</span>
+                        <span>Moderado</span>
+                        <span>Congestionado</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Control de Tráfico
+                </h3>
+                <div class="tip-item">
+                    <strong>🚦 Throughput vs Latencia:</strong> Mayor carga de tráfico aumenta el throughput pero también la latencia. Busca el punto óptimo.
+                </div>
+                <div class="tip-item">
+                    <strong>📊 Utilización Óptima:</strong> Una red al 70-80% de utilización es eficiente. Más del 90% genera congestión.
+                </div>
+                <div class="tip-item">
+                    <strong>📦 Pérdida de Paquetes:</strong> Incluso 1% de pérdida puede afectar significativamente aplicaciones en tiempo real.
+                </div>
+                <div class="tip-item">
+                    <strong>🔗 Cuellos de Botella:</strong> Observa donde se acumulan los paquetes - ese es tu punto más débil.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Pro tip:</strong> Los paquetes verdes son normales, amarillos tienen prioridad media, rojos son alta prioridad.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let simulationRunning = false;
+        let simulationInterval = null;
+        let packetCounter = 0;
+        let totalPacketsSent = 0;
+        let totalPacketsLost = 0;
+        let currentScenario = 'office';
+        let activePackets = [];
+        let networkNodes = [];
+        let networkPaths = [];
+
+        // Configuración de escenarios
+        const scenarios = {
+            office: {
+                name: 'Oficina Pequeña',
+                nodes: [
+                    { id: 'router1', type: 'router', x: 300, y: 50, emoji: '🔀' },
+                    { id: 'switch1', type: 'switch', x: 150, y: 150, emoji: '🔌' },
+                    { id: 'switch2', type: 'switch', x: 450, y: 150, emoji: '🔌' },
+                    { id: 'pc1', type: 'computer', x: 50, y: 250, emoji: '💻' },
+                    { id: 'pc2', type: 'computer', x: 150, y: 300, emoji: '💻' },
+                    { id: 'pc3', type: 'computer', x: 350, y: 300, emoji: '💻' },
+                    { id: 'server1', type: 'server', x: 550, y: 250, emoji: '🖥️' }
+                ],
+                connections: [
+                    ['router1', 'switch1'], ['router1', 'switch2'],
+                    ['switch1', 'pc1'], ['switch1', 'pc2'],
+                    ['switch2', 'pc3'], ['switch2', 'server1']
+                ]
+            },
+            datacenter: {
+                name: 'Data Center',
+                nodes: [
+                    { id: 'core1', type: 'router', x: 300, y: 50, emoji: '🔀' },
+                    { id: 'agg1', type: 'switch', x: 150, y: 150, emoji: '🔌' },
+                    { id: 'agg2', type: 'switch', x: 450, y: 150, emoji: '🔌' },
+                    { id: 'tor1', type: 'switch', x: 100, y: 250, emoji: '🔌' },
+                    { id: 'tor2', type: 'switch', x: 200, y: 250, emoji: '🔌' },
+                    { id: 'tor3', type: 'switch', x: 400, y: 250, emoji: '🔌' },
+                    { id: 'tor4', type: 'switch', x: 500, y: 250, emoji: '🔌' },
+                    { id: 'srv1', type: 'server', x: 50, y: 350, emoji: '🖥️' },
+                    { id: 'srv2', type: 'server', x: 150, y: 350, emoji: '🖥️' },
+                    { id: 'srv3', type: 'server', x: 250, y: 350, emoji: '🖥️' },
+                    { id: 'srv4', type: 'server', x: 350, y: 350, emoji: '🖥️' },
+                    { id: 'srv5', type: 'server', x: 450, y: 350, emoji: '🖥️' },
+                    { id: 'srv6', type: 'server', x: 550, y: 350, emoji: '🖥️' }
+                ],
+                connections: [
+                    ['core1', 'agg1'], ['core1', 'agg2'],
+                    ['agg1', 'tor1'], ['agg1', 'tor2'],
+                    ['agg2', 'tor3'], ['agg2', 'tor4'],
+                    ['tor1', 'srv1'], ['tor1', 'srv2'],
+                    ['tor2', 'srv3'], ['tor3', 'srv4'],
+                    ['tor4', 'srv5'], ['tor4', 'srv6']
+                ]
+            },
+            home: {
+                name: 'Red Doméstica',
+                nodes: [
+                    { id: 'modem', type: 'router', x: 300, y: 50, emoji: '📡' },
+                    { id: 'router', type: 'router', x: 300, y: 150, emoji: '🔀' },
+                    { id: 'laptop', type: 'computer', x: 150, y: 250, emoji: '💻' },
+                    { id: 'phone', type: 'computer', x: 200, y: 300, emoji: '📱' },
+                    { id: 'tablet', type: 'computer', x: 400, y: 300, emoji: '📱' },
+                    { id: 'smart_tv', type: 'computer', x: 450, y: 250, emoji: '📺' },
+                    { id: 'iot', type: 'computer', x: 350, y: 350, emoji: '🏠' }
+                ],
+                connections: [
+                    ['modem', 'router'],
+                    ['router', 'laptop'], ['router', 'phone'],
+                    ['router', 'tablet'], ['router', 'smart_tv'], ['router', 'iot']
+                ]
+            },
+            campus: {
+                name: 'Campus Universitario',
+                nodes: [
+                    { id: 'core', type: 'router', x: 300, y: 100, emoji: '🔀' },
+                    { id: 'lib_sw', type: 'switch', x: 100, y: 200, emoji: '🔌' },
+                    { id: 'lab_sw', type: 'switch', x: 300, y: 200, emoji: '🔌' },
+                    { id: 'dorm_sw', type: 'switch', x: 500, y: 200, emoji: '🔌' },
+                    { id: 'lib_pc', type: 'computer', x: 50, y: 300, emoji: '💻' },
+                    { id: 'lib_srv', type: 'server', x: 150, y: 300, emoji: '🖥️' },
+                    { id: 'lab_pc1', type: 'computer', x: 250, y: 300, emoji: '💻' },
+                    { id: 'lab_pc2', type: 'computer', x: 350, y: 300, emoji: '💻' },
+                    { id: 'dorm_pc1', type: 'computer', x: 450, y: 300, emoji: '💻' },
+                    { id: 'dorm_pc2', type: 'computer', x: 550, y: 300, emoji: '💻' }
+                ],
+                connections: [
+                    ['core', 'lib_sw'], ['core', 'lab_sw'], ['core', 'dorm_sw'],
+                    ['lib_sw', 'lib_pc'], ['lib_sw', 'lib_srv'],
+                    ['lab_sw', 'lab_pc1'], ['lab_sw', 'lab_pc2'],
+                    ['dorm_sw', 'dorm_pc1'], ['dorm_sw', 'dorm_pc2']
+                ]
+            }
+        };
+
+        // Configuración de simulación
+        let simConfig = {
+            trafficLoad: 30,
+            bandwidth: 100,
+            latency: 20,
+            packetLoss: 1,
+            packetsPerSecond: 10
+        };
+
+        // Métricas de simulación
+        let metrics = {
+            throughput: 0,
+            latency: 0,
+            packetsPerSecond: 0,
+            lostPackets: 0,
+            activeConnections: 0,
+            utilization: 0
+        };
+
+        function loadScenario(scenarioName) {
+            // Actualizar botones
+            document.querySelectorAll('.scenario-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            currentScenario = scenarioName;
+            setupNetwork();
+        }
+
+        function setupNetwork() {
+            const canvas = document.getElementById('trafficCanvas');
+            canvas.innerHTML = '';
+            
+            const scenario = scenarios[currentScenario];
+            networkNodes = scenario.nodes;
+            networkPaths = [];
+
+            // Crear conexiones (paths)
+            scenario.connections.forEach(([from, to]) => {
+                const fromNode = networkNodes.find(n => n.id === from);
+                const toNode = networkNodes.find(n => n.id === to);
+                
+                if (fromNode && toNode) {
+                    createConnectionPath(fromNode, toNode);
+                    networkPaths.push({ from: fromNode, to: toNode });
+                }
+            });
+
+            // Crear nodos
+            networkNodes.forEach(node => {
+                createNetworkNode(node);
+            });
+
+            resetMetrics();
+        }
+
+        function createConnectionPath(node1, node2) {
+            const canvas = document.getElementById('trafficCanvas');
+            const path = document.createElement('div');
+            path.className = 'connection-path';
+            
+            const deltaX = node2.x - node1.x;
+            const deltaY = node2.y - node1.y;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+            
+            path.style.left = node1.x + 20 + 'px';
+            path.style.top = node1.y + 20 + 'px';
+            path.style.width = distance + 'px';
+            path.style.transform = `rotate(${angle}deg)`;
+            path.style.transformOrigin = '0 50%';
+            
+            canvas.appendChild(path);
+        }
+
+        function createNetworkNode(node) {
+            const canvas = document.getElementById('trafficCanvas');
+            const nodeElement = document.createElement('div');
+            nodeElement.className = `network-node node-${node.type}`;
+            nodeElement.style.left = node.x + 'px';
+            nodeElement.style.top = node.y + 'px';
+            nodeElement.innerHTML = node.emoji;
+            nodeElement.title = `${node.id} (${node.type})`;
+            
+            canvas.appendChild(nodeElement);
+        }
+
+        function startSimulation() {
+            if (simulationRunning) return;
+            
+            simulationRunning = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('pauseBtn').style.display = 'inline-flex';
+            
+            simulationInterval = setInterval(() => {
+                generateTrafficBurst();
+                updateMetrics();
+                movePackets();
+            }, 100);
+        }
+
+        function pauseSimulation() {
+            simulationRunning = false;
+            clearInterval(simulationInterval);
+            document.getElementById('startBtn').style.display = 'inline-flex';
+            document.getElementById('pauseBtn').style.display = 'none';
+        }
+
+        function stopSimulation() {
+            simulationRunning = false;
+            clearInterval(simulationInterval);
+            document.getElementById('startBtn').style.display = 'inline-flex';
+            document.getElementById('pauseBtn').style.display = 'none';
+            
+            // Limpiar paquetes
+            const canvas = document.getElementById('trafficCanvas');
+            const packets = canvas.querySelectorAll('.data-packet');
+            packets.forEach(packet => packet.remove());
+            
+            activePackets = [];
+            resetMetrics();
+        }
+
+        function generateTrafficBurst() {
+            const packetsToGenerate = Math.floor(simConfig.trafficLoad / 10);
+            
+            for (let i = 0; i < packetsToGenerate; i++) {
+                if (Math.random() < 0.7) { // 70% de probabilidad de generar paquete
+                    createDataPacket();
+                }
+            }
+        }
+
+        function createDataPacket() {
+            if (networkPaths.length === 0) return;
+            
+            const path = networkPaths[Math.floor(Math.random() * networkPaths.length)];
+            const canvas = document.getElementById('trafficCanvas');
+            
+            const packet = document.createElement('div');
+            packet.className = 'data-packet';
+            
+            // Asignar prioridad aleatoria
+            const priority = Math.random();
+            if (priority > 0.8) {
+                packet.classList.add('priority-high');
+            } else if (priority > 0.5) {
+                packet.classList.add('priority-low');
+            }
+            
+            packet.style.left = path.from.x + 20 + 'px';
+            packet.style.top = path.from.y + 20 + 'px';
+            
+            canvas.appendChild(packet);
+            
+            activePackets.push({
+                element: packet,
+                startX: path.from.x + 20,
+                startY: path.from.y + 20,
+                endX: path.to.x + 20,
+                endY: path.to.y + 20,
+                progress: 0,
+                speed: 0.5 + Math.random() * 0.5,
+                created: Date.now(),
+                path: path
+            });
+            
+            totalPacketsSent++;
+        }
+
+        function movePackets() {
+            activePackets.forEach((packet, index) => {
+                packet.progress += packet.speed / 100;
+                
+                if (packet.progress >= 1) {
+                    // Paquete llegó al destino
+                    packet.element.remove();
+                    activePackets.splice(index, 1);
+                    return;
+                }
+                
+                // Simular pérdida de paquetes
+                if (Math.random() < simConfig.packetLoss / 100) {
+                    packet.element.remove();
+                    activePackets.splice(index, 1);
+                    totalPacketsLost++;
+                    return;
+                }
+                
+                // Mover paquete
+                const currentX = packet.startX + (packet.endX - packet.startX) * packet.progress;
+                const currentY = packet.startY + (packet.endY - packet.startY) * packet.progress;
+                
+                packet.element.style.left = currentX + 'px';
+                packet.element.style.top = currentY + 'px';
+                
+                // Simular congestión (ralentizar paquetes)
+                if (activePackets.length > 20) {
+                    packet.speed *= 0.8;
+                }
+            });
+        }
+
+        function addTrafficBurst() {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => createDataPacket(), i * 50);
+            }
+        }
+
+        function updateTrafficLoad(value) {
+            simConfig.trafficLoad = parseInt(value);
+            document.getElementById('trafficLoadValue').textContent = value + '%';
+        }
+
+        function updateBandwidth(value) {
+            simConfig.bandwidth = parseInt(value) * 20; // 20-200 Mbps
+            document.getElementById('bandwidthValue').textContent = simConfig.bandwidth + ' Mbps';
+        }
+
+        function updateLatency(value) {
+            simConfig.latency = parseInt(value);
+            document.getElementById('latencyValue').textContent = value + ' ms';
+        }
+
+        function updatePacketLoss(value) {
+            simConfig.packetLoss = parseInt(value);
+            document.getElementById('packetLossValue').textContent = value + '%';
+        }
+
+        function updateMetrics() {
+            // Calcular métricas en tiempo real
+            const packetsInTransit = activePackets.length;
+            const avgLatency = simConfig.latency + (packetsInTransit * 2);
+            const throughput = Math.min(simConfig.bandwidth * (simConfig.trafficLoad / 100), simConfig.bandwidth);
+            const utilization = Math.min((packetsInTransit / 30) * 100, 100);
+            const packetsPerSec = Math.floor(simConfig.trafficLoad / 5);
+            
+            // Actualizar display
+            document.getElementById('throughputValue').textContent = Math.floor(throughput);
+            document.getElementById('latencyMetric').textContent = Math.floor(avgLatency);
+            document.getElementById('packetsSecond').textContent = packetsPerSec;
+            document.getElementById('lostPackets').textContent = totalPacketsLost;
+            document.getElementById('activeConnections').textContent = packetsInTransit;
+            document.getElementById('utilizationPercent').textContent = Math.floor(utilization);
+            
+            // Actualizar indicador de congestión
+            const congestionLevel = Math.min(utilization / 100, 1);
+            const pointer = document.getElementById('congestionPointer');
+            pointer.style.left = (congestionLevel * 100) + '%';
+            
+            // Cambiar color del canvas según congestión
+            const canvas = document.getElementById('trafficCanvas');
+            if (congestionLevel > 0.8) {
+                canvas.style.borderColor = '#dc3545';
+            } else if (congestionLevel > 0.6) {
+                canvas.style.borderColor = '#ffc107';
+            } else {
+                canvas.style.borderColor = '#333';
+            }
+        }
+
+        function resetMetrics() {
+            totalPacketsSent = 0;
+            totalPacketsLost = 0;
+            activePackets = [];
+            
+            document.getElementById('throughputValue').textContent = '0';
+            document.getElementById('latencyMetric').textContent = '0';
+            document.getElementById('packetsSecond').textContent = '0';
+            document.getElementById('lostPackets').textContent = '0';
+            document.getElementById('activeConnections').textContent = '0';
+            document.getElementById('utilizationPercent').textContent = '0';
+            
+            const pointer = document.getElementById('congestionPointer');
+            pointer.style.left = '0%';
+        }
+
+        function markCompleted() {
+            if (totalPacketsSent < 50) {
+                alert('⚠️ Para completar la actividad, ejecuta la simulación hasta enviar al menos 50 paquetes.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            // Crear resumen de la actividad
+            const efficiency = ((totalPacketsSent - totalPacketsLost) / totalPacketsSent * 100).toFixed(1);
+            
+            alert(`🎉 ¡Felicidades! Has completado "Controlador de Tráfico Digital".\n\n📊 Resumen de tu simulación:\n• Paquetes enviados: ${totalPacketsSent}\n• Paquetes perdidos: ${totalPacketsLost}\n• Eficiencia de red: ${efficiency}%\n• Escenario: ${scenarios[currentScenario].name}\n\n✅ Actividad completada\n🏆 +200 puntos ganados`);
+        }
+
+        function goBack() {
+            if (simulationRunning) {
+                if (confirm('La simulación está en curso. ¿Seguro que quieres volver al hub?')) {
+                    stopSimulation();
+                    window.location.href = './';
+                }
+            } else {
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            setupNetwork();
+            
+            // Configurar valores iniciales de los sliders
+            updateTrafficLoad(30);
+            updateBandwidth(5);
+            updateLatency(20);
+            updatePacketLoss(1);
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (simulationRunning) {
+                console.log('Progreso de simulación guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

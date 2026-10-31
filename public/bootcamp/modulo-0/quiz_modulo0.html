@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <title>Quiz Final · Módulo 0 · DiveLearn</title>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+  <style>
+    .quiz-wrap { max-width: 740px; margin: 0 auto; padding: 40px 20px 80px; }
+
+    /* Hero */
+    .quiz-hero { text-align: center; margin-bottom: 40px; }
+    .quiz-eyebrow {
+      display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--lime); background: rgba(224,242,74,.12);
+      border: 1px solid rgba(224,242,74,.3); border-radius: 100px; padding: 4px 14px; margin-bottom: 14px;
+    }
+    .quiz-title-big { font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 900; color: var(--text); margin-bottom: 10px; }
+    .quiz-sub { color: var(--text-muted); font-size: 1rem; max-width: 500px; margin: 0 auto 18px; }
+    .quiz-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .quiz-pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 100px; padding: 5px 14px; font-size: .82rem; color: var(--text-muted); }
+
+    /* Card */
+    .quiz-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+
+    /* Progress */
+    .quiz-prog-bar { height: 5px; background: var(--surface2); }
+    .quiz-prog-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--lime)); transition: width .5s ease; }
+
+    .quiz-header {
+      padding: 20px 28px 0; display: flex; justify-content: space-between; align-items: center;
+    }
+    .quiz-counter { font-size: .8rem; font-weight: 700; color: var(--text-muted); }
+    .quiz-score-live { font-size: .8rem; font-weight: 800; color: var(--lime); }
+
+    /* Question panel */
+    .q-panel { padding: 28px; display: none; }
+    .q-panel.active { display: block; animation: fadeUp .3s ease; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .q-text { font-size: 1.12rem; font-weight: 800; color: var(--text); line-height: 1.5; margin-bottom: 22px; }
+    .q-url-ref {
+      background: var(--surface2); border-radius: 8px; padding: 10px 14px;
+      font-family: 'Courier New', monospace; font-size: .85rem; color: var(--purple-light);
+      margin-bottom: 18px; border: 1px solid var(--border); word-break: break-all;
+    }
+
+    .opts { display: flex; flex-direction: column; gap: 10px; }
+    .opt {
+      background: var(--surface2); border: 1.5px solid var(--border); border-radius: 12px;
+      padding: 14px 18px; cursor: pointer; color: var(--text); font-size: .95rem;
+      transition: border-color .15s, background .15s; text-align: left; line-height: 1.45;
+    }
+    .opt:hover:not(.locked) { border-color: var(--purple); background: rgba(84,83,235,.08); }
+    .opt.correct { border-color: #4ade80; background: rgba(74,222,128,.1); color: #4ade80; }
+    .opt.wrong   { border-color: #f87171; background: rgba(248,113,113,.1); color: #f87171; animation: shake .3s ease; }
+    .opt.locked  { cursor: default; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .q-feedback {
+      display: none; margin-top: 16px; padding: 14px 18px; border-radius: 10px;
+      font-size: .9rem; line-height: 1.55;
+    }
+    .q-feedback.show { display: block; }
+    .q-feedback.ok  { background: rgba(74,222,128,.08);  border: 1px solid #4ade80; color: #4ade80; }
+    .q-feedback.bad { background: rgba(248,113,113,.08); border: 1px solid #f87171; color: #f87171; }
+
+    .q-next {
+      display: none; margin-top: 20px; background: var(--purple); color: #fff; border: none;
+      border-radius: 10px; padding: 13px 28px; font-weight: 800; font-size: .95rem; cursor: pointer;
+      transition: opacity .2s;
+    }
+    .q-next.show { display: inline-block; }
+    .q-next:hover { opacity: .85; }
+
+    /* Result */
+    .result-panel { display: none; padding: 40px 28px; text-align: center; }
+    .result-panel.show { display: block; }
+    .result-score-big { font-size: 4rem; font-weight: 900; color: var(--lime); line-height: 1; }
+    .result-of { font-size: 1rem; color: var(--text-muted); margin-bottom: 6px; }
+    .result-xp {
+      display: inline-block; background: rgba(84,83,235,.18); border: 1px solid var(--purple);
+      border-radius: 100px; padding: 8px 24px; font-weight: 800; color: var(--purple-light);
+      font-size: 1.1rem; margin: 16px 0 20px;
+    }
+    .result-msg { font-size: 1rem; color: var(--text-muted); max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
+    .result-stats {
+      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .rstat { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; min-width: 100px; }
+    .rstat-num { font-size: 1.8rem; font-weight: 900; color: var(--text); }
+    .rstat-label { font-size: .75rem; color: var(--text-muted); font-weight: 600; }
+
+    .result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-retry { background: none; border: 1px solid var(--border); border-radius: 10px; padding: 12px 24px; color: var(--text-muted); cursor: pointer; font-size: .9rem; transition: all .2s; }
+    .btn-retry:hover { border-color: var(--purple-light); color: var(--text); }
+    .btn-hub { background: var(--purple); color: #fff; border: none; border-radius: 10px; padding: 12px 28px; font-weight: 800; font-size: .95rem; cursor: pointer; transition: opacity .2s; }
+    .btn-hub:hover { opacity: .85; }
+    .btn-next { background: var(--lime); color: #0d0d1f; border: none; border-radius: 10px; padding: 12px 28px; font-weight: 900; font-size: .95rem; cursor: pointer; transition: opacity .2s; }
+    .btn-next:hover { opacity: .85; }
+
+    .act-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; color: var(--text-muted); font-size: .8rem; flex-wrap: wrap; gap: 10px; }
+  </style>
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="DiveLearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 0</a>
+  </nav>
+
+  <div class="quiz-wrap">
+    <div class="quiz-hero">
+      <div class="quiz-eyebrow">Quiz Final · Módulo 0</div>
+      <h1 class="quiz-title-big">🎮 Demuestra lo que aprendiste</h1>
+      <p class="quiz-sub">8 preguntas sobre el viaje de una petición web, anatomía de URLs y HTTP vs HTTPS.</p>
+      <div class="quiz-pills">
+        <span class="quiz-pill">⏱ ~8 min</span>
+        <span class="quiz-pill">📋 8 preguntas</span>
+        <span class="quiz-pill">⚡ Hasta +200 XP</span>
+      </div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-prog-bar">
+        <div class="quiz-prog-fill" id="progFill" style="width:0%"></div>
+      </div>
+      <div class="quiz-header">
+        <span class="quiz-counter" id="qCounter">Pregunta 1 de 8</span>
+        <span class="quiz-score-live" id="scoreLive">⚡ 0 pts</span>
+      </div>
+
+      <!-- Preguntas generadas por JS -->
+      <div id="qPanels"></div>
+
+      <!-- Resultado -->
+      <div class="result-panel" id="resultPanel">
+        <div class="result-score-big" id="rScore"></div>
+        <div class="result-of">respuestas correctas</div>
+        <div class="result-xp" id="rXP"></div>
+        <div class="result-msg" id="rMsg"></div>
+        <div class="result-stats">
+          <div class="rstat"><div class="rstat-num" id="rCorrect"></div><div class="rstat-label">Correctas</div></div>
+          <div class="rstat"><div class="rstat-num" id="rTime"></div><div class="rstat-label">Tiempo</div></div>
+          <div class="rstat"><div class="rstat-num" id="rPct"></div><div class="rstat-label">Acierto</div></div>
+        </div>
+        <div class="result-actions">
+          <button class="btn-retry" onclick="startQuiz()">↺ Repetir</button>
+          <button class="btn-hub" onclick="location.href='./'">🏠 Hub M0</button>
+          <button class="btn-next" onclick="location.href='/bootcamp/modulo-1/'">Módulo 1 →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="act-footer">
+      <span>⚡ DiveLearn · Bootcamp Técnico</span>
+      <span id="footerHint">Responde cada pregunta para continuar</span>
+    </div>
+  </div>
+
+  <script>
+  const QUESTIONS = [
+    {
+      text: '¿Cuál es el primer paso que ocurre cuando escribes una URL en el navegador y presionas Enter?',
+      opts: [
+        'El navegador se conecta directamente al servidor usando la URL',
+        'El sistema operativo verifica si la IP está en caché local o consulta al DNS',
+        'El router descarga el contenido de la página desde Internet',
+        'El servidor recibe la petición y devuelve el HTML'
+      ],
+      correct: 1,
+      ok:  '✓ Correcto. Antes de conectarse a cualquier servidor, el navegador necesita saber la dirección IP. Primero revisa caché local; si no la encuentra, consulta al DNS.',
+      bad: '✗ El primer paso es resolver el nombre de dominio a una IP — ya sea desde caché local o consultando al DNS. Sin la IP, no hay conexión posible.',
+    },
+    {
+      text: '¿Cuál es la diferencia clave entre HTTP y HTTPS?',
+      opts: [
+        'HTTPS es más rápido porque usa menos datos',
+        'HTTP es más moderno que HTTPS',
+        'HTTPS cifra la comunicación con TLS; HTTP envía datos en texto plano',
+        'HTTPS solo funciona con dominios .com'
+      ],
+      correct: 2,
+      ok:  '✓ Correcto. HTTPS usa TLS (Transport Layer Security) para cifrar todos los datos en tránsito. HTTP los envía en texto plano — cualquiera en la red podría leerlos.',
+      bad: '✗ La diferencia es el cifrado: HTTPS usa TLS para proteger los datos en tránsito. HTTP los envía en texto plano sin protección.',
+    },
+    {
+      text: 'En la URL https://api.tienda.com:8080/ropa?color=rojo#talla — ¿qué parte es el subdominio?',
+      ref: 'https://api.tienda.com:8080/ropa?color=rojo#talla',
+      opts: ['tienda.com', '/ropa', 'api', ':8080'],
+      correct: 2,
+      ok:  '✓ Correcto. "api" es el subdominio — está antes del dominio principal "tienda.com". Permite organizar servicios distintos (api, www, shop, blog...).',
+      bad: '✗ El subdominio es "api". Va antes del dominio principal y permite separar servicios: api.tienda.com, shop.tienda.com, etc.',
+    },
+    {
+      text: '¿Qué función tiene el DNS (Domain Name System)?',
+      opts: [
+        'Almacenar el contenido de las páginas web',
+        'Proteger los sitios de ataques maliciosos',
+        'Traducir nombres de dominio como "google.com" a direcciones IP',
+        'Acelerar la velocidad de descarga de archivos'
+      ],
+      correct: 2,
+      ok:  '✓ Correcto. El DNS es la "guía telefónica" de Internet: traduce nombres legibles (google.com) a direcciones IP numéricas (142.250.80.46) que los routers pueden usar.',
+      bad: '✗ El DNS traduce nombres de dominio a direcciones IP. Sin DNS tendrías que memorizar IPs numéricas como "142.250.80.46" en lugar de "google.com".',
+    },
+    {
+      text: '¿Qué parte de una URL NUNCA llega al servidor web?',
+      opts: [
+        'La ruta (/productos/laptops)',
+        'Los parámetros de query (?color=rojo)',
+        'El fragmento (#reviews)',
+        'El puerto (:443)'
+      ],
+      correct: 2,
+      ok:  '✓ Correcto. El fragmento (#) es procesado exclusivamente por el navegador para navegar a una sección de la página. El servidor nunca lo recibe.',
+      bad: '✗ El fragmento (#) es solo para el navegador — le indica a qué sección de la página ir. El servidor recibe todo lo demás (ruta, query, puerto) pero NO el fragmento.',
+    },
+    {
+      text: 'En https://tienda.com/ropa?color=rojo&talla=M — ¿cómo se separan los parámetros de query?',
+      ref: 'https://tienda.com/ropa?color=rojo&talla=M',
+      opts: ['Con un espacio', 'Con & (ampersand)', 'Con / (barra)', 'Con , (coma)'],
+      correct: 1,
+      ok:  '✓ Correcto. Los parámetros de query se separan con &. El primero va después del ?, los siguientes con &. Ejemplo: ?clave1=val1&clave2=val2.',
+      bad: '✗ Los parámetros se separan con &. Estructura: ?primerParam=valor&segundoParam=valor. La coma o el espacio causarían errores.',
+    },
+    {
+      text: '¿Cuáles son los puertos por defecto para HTTP y HTTPS respectivamente?',
+      opts: ['80 y 443', '443 y 80', '8080 y 8443', '3000 y 3443'],
+      correct: 0,
+      ok:  '✓ Correcto. HTTP usa el puerto 80 y HTTPS el puerto 443. Si no ves el puerto en la URL, está implícito — el navegador lo agrega automáticamente.',
+      bad: '✗ HTTP usa el puerto 80 y HTTPS el puerto 443. Si no aparecen en la URL es porque el navegador los agrega automáticamente al ser los puertos estándar.',
+    },
+    {
+      text: '¿Qué sucede en el paso FINAL del viaje de una petición web?',
+      opts: [
+        'El DNS traduce el dominio a una dirección IP',
+        'El router local envía la petición hacia Internet',
+        'El servidor procesa la petición y consulta la base de datos',
+        'El navegador recibe la respuesta y renderiza la página en pantalla'
+      ],
+      correct: 3,
+      ok:  '✓ Correcto. El ciclo completo termina cuando el navegador recibe el HTML/CSS/JS del servidor, los procesa y los renderiza — mostrando la página en tu pantalla.',
+      bad: '✗ El paso final es que el navegador recibe la respuesta del servidor y renderiza la página. La resolución DNS y el enrutamiento son los primeros pasos, no los últimos.',
+    },
+  ];
+
+  let qIdx = 0, score = 0, answered = false, startMs = 0;
+
+  function startQuiz() {
+    qIdx = 0; score = 0; answered = false;
+    startMs = performance.now();
+    document.getElementById('resultPanel').classList.remove('show');
+    renderAll();
+    showQ(0);
+    updateHeader();
+  }
+
+  function renderAll() {
+    const container = document.getElementById('qPanels');
+    container.innerHTML = '';
+    QUESTIONS.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'q-panel';
+      div.id = 'q' + i;
+
+      const ref = q.ref ? `<div class="q-url-ref">${q.ref}</div>` : '';
+      const opts = q.opts.map((o, j) => `
+        <button class="opt" data-idx="${j}" data-q="${i}">${o}</button>
+      `).join('');
+
+      div.innerHTML = `
+        <p class="q-text">${q.text}</p>
+        ${ref}
+        <div class="opts">${opts}</div>
+        <div class="q-feedback" id="fb${i}"></div>
+        <button class="q-next" id="next${i}" onclick="advance(${i})">
+          ${i < QUESTIONS.length - 1 ? 'Siguiente →' : 'Ver resultado →'}
+        </button>
+      `;
+      container.appendChild(div);
+    });
+
+    // Bind clicks
+    document.querySelectorAll('.opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const qi = parseInt(btn.dataset.q);
+        const oi = parseInt(btn.dataset.idx);
+        if (qi !== qIdx) return;
+        answer(qi, oi, btn);
+      });
+    });
+  }
+
+  function showQ(i) {
+    document.querySelectorAll('.q-panel').forEach(p => p.classList.remove('active'));
+    const panel = document.getElementById('q' + i);
+    if (panel) panel.classList.add('active');
+    answered = false;
+    updateHeader();
+  }
+
+  function updateHeader() {
+    document.getElementById('qCounter').textContent = `Pregunta ${qIdx + 1} de ${QUESTIONS.length}`;
+    document.getElementById('scoreLive').textContent = `⚡ ${score * 25} pts`;
+    document.getElementById('progFill').style.width = (qIdx / QUESTIONS.length * 100) + '%';
+  }
+
+  function answer(qi, oi, btn) {
+    if (answered) return;
+    answered = true;
+
+    const q = QUESTIONS[qi];
+    const opts = document.querySelectorAll(`#q${qi} .opt`);
+    opts.forEach(o => o.classList.add('locked'));
+
+    const fb = document.getElementById('fb' + qi);
+    if (oi === q.correct) {
+      btn.classList.add('correct');
+      fb.className = 'q-feedback show ok';
+      fb.textContent = q.ok;
+      score++;
+    } else {
+      btn.classList.add('wrong');
+      opts[q.correct].classList.add('correct');
+      fb.className = 'q-feedback show bad';
+      fb.textContent = q.bad;
+    }
+
+    updateHeader();
+    document.getElementById('next' + qi).classList.add('show');
+  }
+
+  function advance(qi) {
+    qIdx = qi + 1;
+    if (qIdx < QUESTIONS.length) {
+      showQ(qIdx);
+    } else {
+      showResult();
+    }
+    document.getElementById('progFill').style.width = (qIdx / QUESTIONS.length * 100) + '%';
+  }
+
+  function showResult() {
+    document.querySelectorAll('.q-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('progFill').style.width = '100%';
+    document.getElementById('qCounter').textContent = 'Quiz completado';
+
+    const totalMs = Math.round(performance.now() - startMs);
+    const mins = Math.floor(totalMs / 60000);
+    const secs = Math.floor((totalMs % 60000) / 1000);
+
+    const xp = score >= 7 ? 200 : score >= 5 ? 150 : score >= 3 ? 100 : 50;
+    const pct = Math.round(score / QUESTIONS.length * 100);
+
+    const msgs = {
+      8: '🌟 Puntaje perfecto. Tienes una comprensión sólida de cómo funciona Internet — estás listo para la nube.',
+      7: '🚀 Casi perfecto. Dominas los fundamentos con una pequeña área a repasar.',
+      6: '👍 Buen trabajo. Revisa las preguntas que fallaste antes de continuar.',
+      5: '📖 Vas bien. Te recomendamos repasar la teoría del módulo y las actividades.',
+      0: '📚 Repasa la teoría y las actividades — los fundamentos son la base de todo lo que viene.',
+    };
+    const msgKey = score >= 8 ? 8 : score >= 7 ? 7 : score >= 6 ? 6 : score >= 5 ? 5 : 0;
+
+    document.getElementById('rScore').textContent = `${score}/${QUESTIONS.length}`;
+    document.getElementById('rXP').textContent = `⚡ +${xp} XP ganados`;
+    document.getElementById('rMsg').textContent = msgs[msgKey];
+    document.getElementById('rCorrect').textContent = score;
+    document.getElementById('rTime').textContent = `${mins}:${String(secs).padStart(2,'0')}`;
+    document.getElementById('rPct').textContent = pct + '%';
+    document.getElementById('scoreLive').textContent = `⚡ ${score * 25} pts`;
+
+    localStorage.setItem('dl_mod0_quiz_score', score);
+    localStorage.setItem('dl_mod0_quiz_done', '1');
+
+    document.getElementById('resultPanel').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', startQuiz);
+  </script>
+</body>
+</html>
