@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ff7a8a">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -187,6 +187,7 @@
         }
 </style>
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -201,19 +202,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 2</a> / Actividad 1
             </div>
-            <h1 class="activity-title">🧮 Calculadora de Subredes Interactiva</h1>
+            <h1 class="activity-title"> Calculadora de Subredes Interactiva</h1>
             <p class="activity-subtitle">Domina el cálculo de subredes de forma visual e interactiva</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico-Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 150</span>
                 </div>
             </div>
@@ -221,38 +222,38 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>Aprende a calcular subredes paso a paso, convierte máscaras entre formatos decimal y CIDR, calcula rangos de hosts utilizables y visualiza cómo se divide una red en subredes más pequeñas.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🧮 Calculadora de Subredes</h2>
+                <h2 class="section-title"> Calculadora de Subredes</h2>
                 <div class="calculator-container">
                     <div class="input-row">
                         <div class="input-group">
-                            <label class="input-label" for="networkAddress">🌐 Dirección de Red:</label>
+                            <label class="input-label" for="networkAddress"> Dirección de Red:</label>
                             <input type="text" id="networkAddress" class="input-field" placeholder="192.168.1.0" value="192.168.1.0">
                         </div>
                         <div class="input-group">
-                            <label class="input-label" for="subnetMask">🎭 Máscara de Subred:</label>
+                            <label class="input-label" for="subnetMask"> Máscara de Subred:</label>
                             <input type="text" id="subnetMask" class="input-field" placeholder="255.255.255.0 o /24" value="255.255.255.0">
                         </div>
                     </div>
                     <div class="input-row">
                         <div class="input-group">
-                            <label class="input-label" for="desiredSubnets">📊 Número de Subredes Deseadas:</label>
+                            <label class="input-label" for="desiredSubnets"> Número de Subredes Deseadas:</label>
                             <input type="number" id="desiredSubnets" class="input-field" placeholder="4" value="4" min="1" max="256">
                         </div>
                         <div class="input-group">
-                            <label class="input-label" for="hostsPerSubnet">👥 Hosts por Subred (mínimo):</label>
+                            <label class="input-label" for="hostsPerSubnet"> Hosts por Subred (mínimo):</label>
                             <input type="number" id="hostsPerSubnet" class="input-field" placeholder="30" value="30" min="1">
                         </div>
                     </div>
-                    <button class="calculate-btn" onclick="calculateSubnets()">🚀 Calcular Subredes</button>
+                    <button class="calculate-btn" onclick="calculateSubnets()"> Calcular Subredes</button>
 
                     <div id="resultsArea" class="results-area">
                         <div class="result-card">
-                            <div class="result-title">📋 Información de la Red Original</div>
+                            <div class="result-title"> Información de la Red Original</div>
                             <div class="result-grid">
                                 <div class="result-item">
                                     <div class="result-label">Dirección de Red</div>
@@ -274,14 +275,14 @@
                         </div>
 
                         <div class="result-card">
-                            <div class="result-title">🔢 Representación Binaria</div>
+                            <div class="result-title"> Representación Binaria</div>
                             <div class="binary-display" id="binaryDisplay">
                                 <div class="binary-section">Cargando...</div>
                             </div>
                         </div>
 
                         <div class="result-card">
-                            <div class="result-title">📊 Cálculo de Subredes</div>
+                            <div class="result-title"> Cálculo de Subredes</div>
                             <div class="result-grid">
                                 <div class="result-item">
                                     <div class="result-label">Nueva Máscara CIDR</div>
@@ -303,7 +304,7 @@
                         </div>
 
                         <div class="result-card">
-                            <div class="result-title">🗂️ Lista de Subredes</div>
+                            <div class="result-title"> Lista de Subredes</div>
                             <div id="subnetsList">
                                 <!-- Se llena dinámicamente -->
                             </div>
@@ -313,7 +314,7 @@
             </div>
 
             <div class="example-section">
-                <div class="example-title">📚 Ejemplo Paso a Paso</div>
+                <div class="example-title"> Ejemplo Paso a Paso</div>
                 <div class="example-steps">
                     <div class="step">
                         <span class="step-number">1</span>
@@ -340,19 +341,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips para Maestros del Subneteo
+                     Tips para Maestros del Subneteo
                 </h3>
                 <div class="tip-item">
-                    <strong>🎯 Fórmula mágica:</strong> Para n subredes necesitas log₂(n) bits adicionales. Para 8 subredes: log₂(8) = 3 bits.
+                    <strong> Fórmula mágica:</strong> Para n subredes necesitas log₂(n) bits adicionales. Para 8 subredes: log₂(8) = 3 bits.
                 </div>
                 <div class="tip-item">
-                    <strong>🔢 Hosts utilizables:</strong> Siempre resta 2 del total (primera dirección = red, última = broadcast).
+                    <strong> Hosts utilizables:</strong> Siempre resta 2 del total (primera dirección = red, última = broadcast).
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Truco rápido:</strong> El incremento de subred = 256 - último octeto de la máscara.
+                    <strong> Truco rápido:</strong> El incremento de subred = 256 - último octeto de la máscara.
                 </div>
                 <div class="tip-item">
-                    <strong>📐 Planificación:</strong> Siempre deja espacio para crecimiento. Si necesitas 30 hosts, usa /26 (62 hosts) no /27 (30 hosts).
+                    <strong> Planificación:</strong> Siempre deja espacio para crecimiento. Si necesitas 30 hosts, usa /26 (62 hosts) no /27 (30 hosts).
                 </div>
             </div>
         </div>
@@ -368,12 +369,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -388,7 +389,7 @@
 
             // Validar entrada
             if (!isValidIP(networkAddr)) {
-                alert('❌ Dirección de red inválida. Use formato: 192.168.1.0');
+                alert(' Dirección de red inválida. Use formato: 192.168.1.0');
                 return;
             }
 
@@ -399,7 +400,7 @@
             } else if (subnetMask.includes('.')) {
                 originalCIDR = subnetMaskToCIDR(subnetMask);
             } else {
-                alert('❌ Máscara inválida. Use formato: 255.255.255.0 o /24');
+                alert(' Máscara inválida. Use formato: 255.255.255.0 o /24');
                 return;
             }
 
@@ -413,7 +414,7 @@
             const newCIDR = originalCIDR + bitsNeeded;
             
             if (newCIDR > 30) {
-                alert('❌ Demasiadas subredes solicitadas. Máximo permitido para esta red.');
+                alert(' Demasiadas subredes solicitadas. Máximo permitido para esta red.');
                 return;
             }
 
@@ -424,7 +425,7 @@
 
             // Verificar si cumple con requisitos mínimos de hosts
             if (hostsPerSubnet < minHosts) {
-                alert(`⚠️ Advertencia: Las subredes tendrán ${hostsPerSubnet} hosts, pero solicitaste mínimo ${minHosts}`);
+                alert(` Advertencia: Las subredes tendrán ${hostsPerSubnet} hosts, pero solicitaste mínimo ${minHosts}`);
             }
 
             // Mostrar resultados
@@ -487,7 +488,7 @@
                 html += `
                     <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
                         <div style="font-weight: 600; color: #2E7D32; margin-bottom: 8px;">
-                            🌐 Subred ${i + 1}: ${subnetAddr}/${cidr}
+                             Subred ${i + 1}: ${subnetAddr}/${cidr}
                         </div>
                         <div style="font-size: 0.9rem; color: #8888bb;">
                             Rango: ${firstUsable.join('.')} - ${lastUsable.join('.')} | 
@@ -555,10 +556,10 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             // Mostrar mensaje de éxito
-            alert('🎉 ¡Excelente! Has dominado el cálculo de subredes.\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n🧮 ¡Ya eres un ninja del subneteo!');
+            alert(' ¡Excelente! Has dominado el cálculo de subredes.\n\n Actividad marcada como completada\n +150 puntos ganados\n ¡Ya eres un ninja del subneteo!');
         }
 
         function goBack() {
@@ -576,5 +577,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="2" data-pagina="actividad1_calculadora_subredes" data-total="5" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -199,6 +199,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -214,7 +215,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">🎯 Quiz del Módulo</h1>
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
             <p class="quiz-subtitle">Evalúa tus conocimientos sobre Linux y Administración de Servidores</p>
         </div>
 
@@ -369,7 +370,7 @@
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -410,7 +411,7 @@
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -427,50 +428,50 @@
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. El comando "ls" básico solo muestra nombres de archivos sin detalles adicionales como permisos o fechas.',
-                    'b': '✅ ¡Correcto! "ls -la" muestra todos los archivos (incluyendo ocultos con -a) en formato largo (-l) con permisos, propietario, tamaño y fecha.',
-                    'c': '❌ Incorrecto. "dir" es un comando de Windows. En Linux se usa "ls" para listar archivos.',
-                    'd': '❌ Incorrecto. "list -all" no es un comando válido en Linux. La sintaxis correcta es "ls" con sus opciones.'
+                    'a': ' Incorrecto. El comando "ls" básico solo muestra nombres de archivos sin detalles adicionales como permisos o fechas.',
+                    'b': ' ¡Correcto! "ls -la" muestra todos los archivos (incluyendo ocultos con -a) en formato largo (-l) con permisos, propietario, tamaño y fecha.',
+                    'c': ' Incorrecto. "dir" es un comando de Windows. En Linux se usa "ls" para listar archivos.',
+                    'd': ' Incorrecto. "list -all" no es un comando válido en Linux. La sintaxis correcta es "ls" con sus opciones.'
                 }
             },
             {
                 id: 2,
                 correct: 'a',
                 feedback: {
-                    'a': '✅ ¡Correcto! 755 significa rwxr-xr-x: el propietario tiene todos los permisos (7=4+2+1), grupo y otros tienen lectura y ejecución (5=4+1).',
-                    'b': '❌ Incorrecto. rw-r--r-- corresponde a permisos 644, no 755. El 755 incluye permisos de ejecución.',
-                    'c': '❌ Incorrecto. rwxrwxrwx corresponde a permisos 777, que da todos los permisos a todos los usuarios.',
-                    'd': '❌ Incorrecto. r--r--r-- corresponde a permisos 444, que solo permite lectura a todos los usuarios.'
+                    'a': ' ¡Correcto! 755 significa rwxr-xr-x: el propietario tiene todos los permisos (7=4+2+1), grupo y otros tienen lectura y ejecución (5=4+1).',
+                    'b': ' Incorrecto. rw-r--r-- corresponde a permisos 644, no 755. El 755 incluye permisos de ejecución.',
+                    'c': ' Incorrecto. rwxrwxrwx corresponde a permisos 777, que da todos los permisos a todos los usuarios.',
+                    'd': ' Incorrecto. r--r--r-- corresponde a permisos 444, que solo permite lectura a todos los usuarios.'
                 }
             },
             {
                 id: 3,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. ~/.bashrc no configura el escritorio gráfico. Ese archivo es específico para la configuración del shell bash.',
-                    'b': '✅ ¡Correcto! ~/.bashrc personaliza el entorno de terminal definiendo aliases, variables de entorno, funciones y configuraciones del prompt.',
-                    'c': '❌ Incorrecto. Las contraseñas se gestionan en /etc/passwd, /etc/shadow y otros archivos del sistema de autenticación.',
-                    'd': '❌ Incorrecto. La configuración de red se maneja en archivos como /etc/network/interfaces o /etc/netplan/, no en ~/.bashrc.'
+                    'a': ' Incorrecto. ~/.bashrc no configura el escritorio gráfico. Ese archivo es específico para la configuración del shell bash.',
+                    'b': ' ¡Correcto! ~/.bashrc personaliza el entorno de terminal definiendo aliases, variables de entorno, funciones y configuraciones del prompt.',
+                    'c': ' Incorrecto. Las contraseñas se gestionan en /etc/passwd, /etc/shadow y otros archivos del sistema de autenticación.',
+                    'd': ' Incorrecto. La configuración de red se maneja en archivos como /etc/network/interfaces o /etc/netplan/, no en ~/.bashrc.'
                 }
             },
             {
                 id: 4,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. "connect" no es un comando estándar de SSH en Linux.',
-                    'b': '✅ ¡Correcto! "ssh usuario@servidor.com" es la sintaxis correcta para conectarse a un servidor remoto usando SSH de forma segura.',
-                    'c': '❌ Incorrecto. Telnet no es seguro (transmite datos en texto plano) y generalmente está deshabilitado en servidores modernos.',
-                    'd': '❌ Incorrecto. FTP es para transferencia de archivos, no para obtener acceso a shell remoto como SSH.'
+                    'a': ' Incorrecto. "connect" no es un comando estándar de SSH en Linux.',
+                    'b': ' ¡Correcto! "ssh usuario@servidor.com" es la sintaxis correcta para conectarse a un servidor remoto usando SSH de forma segura.',
+                    'c': ' Incorrecto. Telnet no es seguro (transmite datos en texto plano) y generalmente está deshabilitado en servidores modernos.',
+                    'd': ' Incorrecto. FTP es para transferencia de archivos, no para obtener acceso a shell remoto como SSH.'
                 }
             },
             {
                 id: 5,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Esta expresión no ejecuta cada 2 minutos. El formato cron es: minuto hora día mes día_semana.',
-                    'b': '✅ ¡Correcto! "0 2 * * 1" significa: minuto 0, hora 2, cualquier día del mes (*), cualquier mes (*), lunes (1). Se ejecuta los lunes a las 2:00 AM.',
-                    'c': '❌ Incorrecto. El tercer campo (*) significa cualquier día del mes, no el día 1. El quinto campo (1) se refiere al día de la semana.',
-                    'd': '❌ Incorrecto. Esta expresión no define un rango horario. Los asteriscos (*) significan "cualquier valor" para ese campo.'
+                    'a': ' Incorrecto. Esta expresión no ejecuta cada 2 minutos. El formato cron es: minuto hora día mes día_semana.',
+                    'b': ' ¡Correcto! "0 2 * * 1" significa: minuto 0, hora 2, cualquier día del mes (*), cualquier mes (*), lunes (1). Se ejecuta los lunes a las 2:00 AM.',
+                    'c': ' Incorrecto. El tercer campo (*) significa cualquier día del mes, no el día 1. El quinto campo (1) se refiere al día de la semana.',
+                    'd': ' Incorrecto. Esta expresión no define un rango horario. Los asteriscos (*) significan "cualquier valor" para ese campo.'
                 }
             }
         ];
@@ -618,13 +619,13 @@
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Hub
+                     Volver al Hub
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             
@@ -633,13 +634,13 @@
             // Mostrar mensaje motivacional basado en el puntaje
             let message = '';
             if (score === 5) {
-                message = '🌟 ¡Excelente! Dominas completamente Linux y la administración de servidores.';
+                message = ' ¡Excelente! Dominas completamente Linux y la administración de servidores.';
             } else if (score >= 4) {
-                message = '👏 ¡Muy bien! Tienes una sólida comprensión de Linux.';
+                message = ' ¡Muy bien! Tienes una sólida comprensión de Linux.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Revisa algunos conceptos y estarás listo.';
+                message = ' ¡Buen trabajo! Revisa algunos conceptos y estarás listo.';
             } else {
-                message = '📚 Te recomendamos repasar la teoría del módulo antes de continuar.';
+                message = ' Te recomendamos repasar la teoría del módulo antes de continuar.';
             }
 
             const messageElement = document.createElement('p');
@@ -667,7 +668,7 @@
             // Ocultar resultados
             document.getElementById('resultsContainer').classList.remove('show');
             document.getElementById('resultsContainer').innerHTML = `
-                <h2 class="results-title">🎯 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -704,7 +705,7 @@
         }
 
         function nextModule() {
-            alert('🚀 ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
+            alert(' ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
             goToHub();
         }
 
@@ -743,6 +744,7 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="5" data-pagina="quiz_modulo5" data-total="6" defer></script>
 </body>
 </html>-container {
             padding: 40px;

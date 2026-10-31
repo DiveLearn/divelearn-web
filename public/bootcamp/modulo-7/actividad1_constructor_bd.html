@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#04a8bb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -282,6 +282,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -296,19 +297,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 7</a> / Actividad 1
             </div>
-            <h1 class="activity-title">🗂️ Constructor de Base de Datos Simple</h1>
+            <h1 class="activity-title"> Constructor de Base de Datos Simple</h1>
             <p class="activity-subtitle">Diseña y crea tu primera base de datos relacional paso a paso</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>35 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 150</span>
                 </div>
             </div>
@@ -316,23 +317,23 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a diseñar una base de datos relacional desde cero. Crearás tablas, definirás relaciones y escribirás consultas SQL básicas para entender cómo funcionan las bases de datos en el mundo real.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔧 Constructor Interactivo</h2>
+                <h2 class="section-title"> Constructor Interactivo</h2>
                 
                 <div class="tabs">
-                    <div class="tab active" onclick="showTab('design')">🏗️ Diseño</div>
-                    <div class="tab" onclick="showTab('sql')">💻 SQL</div>
-                    <div class="tab" onclick="showTab('queries')">🔍 Consultas</div>
+                    <div class="tab active" onclick="showTab('design')"> Diseño</div>
+                    <div class="tab" onclick="showTab('sql')"> SQL</div>
+                    <div class="tab" onclick="showTab('queries')"> Consultas</div>
                 </div>
 
                 <div id="design" class="tab-content active">
                     <div class="db-designer">
                         <div class="table-creator">
-                            <h4>📋 Crear Nueva Tabla</h4>
+                            <h4> Crear Nueva Tabla</h4>
                             
                             <div class="input-group">
                                 <label class="input-label">Nombre de la tabla:</label>
@@ -349,18 +350,18 @@
                                         <option value="DECIMAL(10,2)">Decimal</option>
                                         <option value="BOOLEAN">Verdadero/Falso</option>
                                     </select>
-                                    <button class="remove-field" onclick="removeField(this)">❌</button>
+                                    <button class="remove-field" onclick="removeField(this)"></button>
                                 </div>
                             </div>
 
                             <div style="margin: 15px 0;">
-                                <button class="btn secondary" onclick="addField()">➕ Agregar Campo</button>
-                                <button class="btn" onclick="createTable()">🎨 Crear Tabla</button>
+                                <button class="btn secondary" onclick="addField()"> Agregar Campo</button>
+                                <button class="btn" onclick="createTable()"> Crear Tabla</button>
                             </div>
                         </div>
 
                         <div class="table-preview">
-                            <h4>🗄️ Base de Datos Actual</h4>
+                            <h4> Base de Datos Actual</h4>
                             <div id="tablesContainer">
                                 <p style="color: #8888bb; text-align: center; margin-top: 50px;">
                                     Aún no hay tablas creadas.<br>
@@ -372,25 +373,25 @@
                 </div>
 
                 <div id="sql" class="tab-content">
-                    <h4>📜 Código SQL Generado</h4>
+                    <h4> Código SQL Generado</h4>
                     <div class="sql-output" id="sqlOutput">-- El código SQL aparecerá aquí cuando crees tablas</div>
                     
                     <div style="margin: 20px 0;">
-                        <button class="btn" onclick="copySql()">📋 Copiar SQL</button>
-                        <button class="btn secondary" onclick="downloadSql()">💾 Descargar</button>
+                        <button class="btn" onclick="copySql()"> Copiar SQL</button>
+                        <button class="btn secondary" onclick="downloadSql()"> Descargar</button>
                     </div>
                 </div>
 
                 <div id="queries" class="tab-content">
                     <div class="query-executor">
-                        <h4>🔍 Ejecutor de Consultas</h4>
+                        <h4> Ejecutor de Consultas</h4>
                         <p style="color: #8888bb; margin-bottom: 15px;">Escribe consultas SQL para practicar:</p>
                         
                         <textarea id="queryInput" class="query-input" placeholder="SELECT * FROM empleados WHERE salario > 50000;&#10;&#10;-- Prueba estas consultas de ejemplo:&#10;-- SELECT nombre FROM empleados;&#10;-- SELECT COUNT(*) FROM empleados;&#10;-- SELECT * FROM empleados ORDER BY salario DESC;"></textarea>
                         
                         <div style="margin: 15px 0;">
-                            <button class="btn" onclick="executeQuery()">▶️ Ejecutar</button>
-                            <button class="btn secondary" onclick="loadExample()">📝 Cargar Ejemplo</button>
+                            <button class="btn" onclick="executeQuery()">▶ Ejecutar</button>
+                            <button class="btn secondary" onclick="loadExample()"> Cargar Ejemplo</button>
                         </div>
 
                         <div class="query-result" id="queryResult">
@@ -402,19 +403,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips para Diseñar Bases de Datos
+                     Tips para Diseñar Bases de Datos
                 </h3>
                 <div class="tip-item">
-                    <strong>🔑 Clave primaria:</strong> Cada tabla debe tener un campo único que identifique cada registro (como ID).
+                    <strong> Clave primaria:</strong> Cada tabla debe tener un campo único que identifique cada registro (como ID).
                 </div>
                 <div class="tip-item">
-                    <strong>📊 Tipos de datos:</strong> Elige el tipo correcto: números para cálculos, texto para nombres, fechas para eventos.
+                    <strong> Tipos de datos:</strong> Elige el tipo correcto: números para cálculos, texto para nombres, fechas para eventos.
                 </div>
                 <div class="tip-item">
-                    <strong>🔗 Relaciones:</strong> Conecta tablas usando campos en común (como id_empleado en tabla de ventas).
+                    <strong> Relaciones:</strong> Conecta tablas usando campos en común (como id_empleado en tabla de ventas).
                 </div>
                 <div class="tip-item">
-                    <strong>📝 Nombres claros:</strong> Usa nombres descriptivos: "fecha_nacimiento" en lugar de "fn".
+                    <strong> Nombres claros:</strong> Usa nombres descriptivos: "fecha_nacimiento" en lugar de "fn".
                 </div>
             </div>
         </div>
@@ -430,12 +431,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -475,7 +476,7 @@
                     <option value="DECIMAL(10,2)">Decimal</option>
                     <option value="BOOLEAN">Verdadero/Falso</option>
                 </select>
-                <button class="remove-field" onclick="removeField(this)">❌</button>
+                <button class="remove-field" onclick="removeField(this)"></button>
             `;
             fieldsContainer.appendChild(fieldRow);
         }
@@ -519,7 +520,7 @@
             clearForm();
 
             // Mostrar mensaje de éxito
-            alert(`✅ Tabla "${tableName}" creada exitosamente con ${fields.length} campos`);
+            alert(` Tabla "${tableName}" creada exitosamente con ${fields.length} campos`);
         }
 
         function updateTablesDisplay() {
@@ -550,8 +551,8 @@
 
                 tableDiv.innerHTML = `
                     <div class="table-header">
-                        📋 ${table.name}
-                        <button style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer;" onclick="deleteTable(${index})">🗑️</button>
+                         ${table.name}
+                        <button style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer;" onclick="deleteTable(${index})"></button>
                     </div>
                     <div class="table-content">
                         ${fieldsHtml}
@@ -615,7 +616,7 @@
 
         function copySql() {
             navigator.clipboard.writeText(sqlCode).then(() => {
-                alert('📋 Código SQL copiado al portapapeles');
+                alert(' Código SQL copiado al portapapeles');
             });
         }
 
@@ -634,7 +635,7 @@
             const resultDiv = document.getElementById('queryResult');
 
             if (!query) {
-                resultDiv.innerHTML = '<span style="color: #dc3545;">❌ Por favor, escribe una consulta SQL</span>';
+                resultDiv.innerHTML = '<span style="color: #dc3545;"> Por favor, escribe una consulta SQL</span>';
                 return;
             }
 
@@ -643,10 +644,10 @@
 
             if (query.toLowerCase().includes('select')) {
                 if (tables.length === 0) {
-                    result = '<span style="color: #dc3545;">❌ No hay tablas en la base de datos</span>';
+                    result = '<span style="color: #dc3545;"> No hay tablas en la base de datos</span>';
                 } else {
                     result = `
-                        <div style="color: #28a745; margin-bottom: 10px;">✅ Consulta ejecutada exitosamente</div>
+                        <div style="color: #28a745; margin-bottom: 10px;"> Consulta ejecutada exitosamente</div>
                         <div style="background: white; border: 1px solid #ddd; border-radius: 4px; padding: 10px;">
                             <strong>Resultado simulado:</strong><br>
                             <small style="color: #8888bb;">En una base de datos real, aquí verías los datos solicitados.</small>
@@ -654,15 +655,15 @@
                     `;
                 }
             } else if (query.toLowerCase().includes('create')) {
-                result = '<span style="color: #ffc107;">⚠️ Usa el diseñador visual para crear tablas</span>';
+                result = '<span style="color: #ffc107;"> Usa el diseñador visual para crear tablas</span>';
             } else if (query.toLowerCase().includes('insert')) {
-                result = '<span style="color: #17a2b8;">ℹ️ Simulación: Datos insertados correctamente</span>';
+                result = '<span style="color: #17a2b8;"> Simulación: Datos insertados correctamente</span>';
             } else if (query.toLowerCase().includes('update')) {
-                result = '<span style="color: #17a2b8;">ℹ️ Simulación: Registros actualizados</span>';
+                result = '<span style="color: #17a2b8;"> Simulación: Registros actualizados</span>';
             } else if (query.toLowerCase().includes('delete')) {
-                result = '<span style="color: #dc3545;">⚠️ Simulación: Registros eliminados</span>';
+                result = '<span style="color: #dc3545;"> Simulación: Registros eliminados</span>';
             } else {
-                result = '<span style="color: #6c757d;">🤔 Consulta no reconocida. Prueba con SELECT, INSERT, UPDATE o DELETE</span>';
+                result = '<span style="color: #6c757d;"> Consulta no reconocida. Prueba con SELECT, INSERT, UPDATE o DELETE</span>';
             }
 
             resultDiv.innerHTML = result;
@@ -692,7 +693,7 @@ SELECT * FROM ${tableName} ORDER BY id DESC;`;
 
         function markCompleted() {
             if (tables.length === 0) {
-                alert('🎯 Para completar la actividad, crea al menos una tabla con algunos campos.');
+                alert(' Para completar la actividad, crea al menos una tabla con algunos campos.');
                 return;
             }
 
@@ -701,9 +702,9 @@ SELECT * FROM ${tableName} ORDER BY id DESC;`;
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado "Constructor de Base de Datos Simple".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n\n¡Has aprendido los fundamentos del diseño de bases de datos!');
+            alert(' ¡Felicidades! Has completado "Constructor de Base de Datos Simple".\n\n Actividad marcada como completada\n +150 puntos ganados\n\n¡Has aprendido los fundamentos del diseño de bases de datos!');
         }
 
         function goBack() {
@@ -725,6 +726,7 @@ SELECT * FROM ${tableName} ORDER BY id DESC;`;
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="7" data-pagina="actividad1_constructor_bd" data-total="5" defer></script>
 </body>
 </html>
             

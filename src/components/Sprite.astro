@@ -1,0 +1,25 @@
+---
+// Sprite pixel en PNG (diseñado con Gemini y limpiado con scripts/recortar-sprites.py).
+// `escala` multiplica el tamaño real en pixeles para que se vea nítido.
+import tam from "../data/sprites-png.json";
+
+interface Props {
+  nombre: string;
+  escala?: number;
+  alt?: string;
+  class?: string;
+}
+
+const { nombre, escala = 2, alt = "", class: cls = "" } = Astro.props;
+const [w, h] = (tam as Record<string, number[]>)[nombre] ?? [32, 32];
+---
+
+<img
+  class={`px ${cls}`}
+  src={`/img/sprites/${nombre}.png`}
+  width={Math.round(w * escala)}
+  height={Math.round(h * escala)}
+  alt={alt}
+  loading="lazy"
+  decoding="async"
+/>

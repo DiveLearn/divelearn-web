@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#04a8bb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -230,13 +230,13 @@
         }
 
         .pros li::before {
-            content: "✅";
+            content: "";
             position: absolute;
             left: 0;
         }
 
         .cons li::before {
-            content: "❌";
+            content: "";
             position: absolute;
             left: 0;
         }
@@ -276,6 +276,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -290,19 +291,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 7</a> / Actividad 2
             </div>
-            <h1 class="activity-title">📊 Comparador de Tipos de Almacenamiento</h1>
+            <h1 class="activity-title"> Comparador de Tipos de Almacenamiento</h1>
             <p class="activity-subtitle">Analiza escenarios reales y elige la mejor solución de almacenamiento</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>25 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 125</span>
                 </div>
             </div>
@@ -310,7 +311,7 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad analizarás diferentes escenarios empresariales y elegirás el tipo de almacenamiento más adecuado. Aprenderás a evaluar factores como escalabilidad, rendimiento, costo y complejidad de datos.</p>
             </div>
 
@@ -320,34 +321,34 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🎮 Selecciona un Escenario</h2>
+                <h2 class="section-title"> Selecciona un Escenario</h2>
                 <div class="scenario-selector">
                     <div class="scenario-card" onclick="selectScenario('ecommerce')">
-                        <div class="scenario-icon">🛒</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">E-commerce Creciente</div>
                         <div class="scenario-description">Tienda online con catálogo de productos, usuarios y transacciones</div>
                     </div>
 
                     <div class="scenario-card" onclick="selectScenario('social')">
-                        <div class="scenario-icon">📱</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">Red Social</div>
                         <div class="scenario-description">Plataforma con posts, comentarios, fotos y relaciones entre usuarios</div>
                     </div>
 
                     <div class="scenario-card" onclick="selectScenario('analytics')">
-                        <div class="scenario-icon">📈</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">Sistema de Analytics</div>
                         <div class="scenario-description">Análisis de grandes volúmenes de datos de comportamiento web</div>
                     </div>
 
                     <div class="scenario-card" onclick="selectScenario('gaming')">
-                        <div class="scenario-icon">🎮</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">Videojuego Online</div>
                         <div class="scenario-description">MMO con perfiles de jugadores, inventarios y estadísticas en tiempo real</div>
                     </div>
 
                     <div class="scenario-card" onclick="selectScenario('iot')">
-                        <div class="scenario-icon">🌡️</div>
+                        <div class="scenario-icon"></div>
                         <div class="scenario-title">IoT Industrial</div>
                         <div class="scenario-description">Sensores que envían datos de temperatura, presión y vibración</div>
                     </div>
@@ -356,7 +357,7 @@
 
             <div class="comparison-area" id="comparisonArea">
                 <p style="text-align: center; color: #8888bb; font-size: 1.1rem; margin-top: 100px;">
-                    🎯 <strong>Selecciona un escenario arriba para comenzar</strong><br>
+                     <strong>Selecciona un escenario arriba para comenzar</strong><br>
                     <small>Cada escenario presenta desafíos únicos de almacenamiento</small>
                 </p>
             </div>
@@ -366,26 +367,26 @@
                 <div class="result-explanation" id="resultExplanation"></div>
                 <div class="pros-cons" id="prosConsContainer"></div>
                 <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn" onclick="nextScenario()">➡️ Siguiente Escenario</button>
-                    <button class="btn secondary" onclick="resetScenario()">🔄 Intentar de Nuevo</button>
+                    <button class="btn" onclick="nextScenario()"> Siguiente Escenario</button>
+                    <button class="btn secondary" onclick="resetScenario()"> Intentar de Nuevo</button>
                 </div>
             </div>
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Guía para Elegir Almacenamiento
+                     Guía para Elegir Almacenamiento
                 </h3>
                 <div class="tip-item">
-                    <strong>📊 Datos estructurados:</strong> Si tus datos encajan en tablas con relaciones claras, usa bases relacionales.
+                    <strong> Datos estructurados:</strong> Si tus datos encajan en tablas con relaciones claras, usa bases relacionales.
                 </div>
                 <div class="tip-item">
-                    <strong>🌐 Escalabilidad masiva:</strong> Para millones de usuarios y datos variables, considera NoSQL.
+                    <strong> Escalabilidad masiva:</strong> Para millones de usuarios y datos variables, considera NoSQL.
                 </div>
                 <div class="tip-item">
-                    <strong>📁 Archivos grandes:</strong> Videos, imágenes y documentos van mejor en almacenamiento de objetos.
+                    <strong> Archivos grandes:</strong> Videos, imágenes y documentos van mejor en almacenamiento de objetos.
                 </div>
                 <div class="tip-item">
-                    <strong>⚡ Velocidad extrema:</strong> Aplicaciones que requieren latencia mínima necesitan almacenamiento en bloques.
+                    <strong> Velocidad extrema:</strong> Aplicaciones que requieren latencia mínima necesitan almacenamiento en bloques.
                 </div>
             </div>
         </div>
@@ -401,12 +402,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -419,29 +420,29 @@
 
         const scenarios = {
             ecommerce: {
-                title: "🛒 E-commerce Creciente",
+                title: " E-commerce Creciente",
                 description: "Una tienda online que vende productos físicos. Necesitas almacenar: catálogo de productos con categorías, información de usuarios, historial de pedidos, inventario en tiempo real, y sistema de reviews. La empresa planea crecer 10x en los próximos 2 años.",
                 correctAnswer: "relational",
                 explanation: "Para un e-commerce, una base de datos relacional es ideal porque necesitas garantizar consistencia en transacciones (ACID), manejar relaciones claras entre productos, usuarios y pedidos, y ejecutar consultas complejas para reportes de ventas.",
                 options: {
                     relational: {
                         name: "Base de Datos Relacional",
-                        icon: "🗃️",
+                        icon: "",
                         description: "MySQL, PostgreSQL - Estructura en tablas"
                     },
                     nosql: {
                         name: "Base de Datos NoSQL",
-                        icon: "🌐",
+                        icon: "",
                         description: "MongoDB, DynamoDB - Documentos flexibles"
                     },
                     object: {
                         name: "Almacenamiento de Objetos",
-                        icon: "☁️",
+                        icon: "",
                         description: "S3, Google Cloud Storage - Archivos"
                     },
                     file: {
                         name: "Sistema de Archivos",
-                        icon: "📁",
+                        icon: "",
                         description: "NFS, CIFS - Carpetas compartidas"
                     }
                 },
@@ -458,29 +459,29 @@
                 ]
             },
             social: {
-                title: "📱 Red Social",
+                title: " Red Social",
                 description: "Una plataforma social donde usuarios publican contenido, siguen a otros usuarios, comentan y reaccionan. Los datos incluyen: perfiles de usuario, posts con texto/imágenes, comentarios anidados, relaciones sociales complejas, y timeline personalizado. Necesitas escalar para millones de usuarios.",
                 correctAnswer: "nosql",
                 explanation: "NoSQL es perfecto para redes sociales porque maneja datos semi-estructurados (posts con diferentes campos), escala horizontalmente para millones de usuarios, y permite flexibilidad en el esquema para nuevas funcionalidades.",
                 options: {
                     relational: {
                         name: "Base de Datos Relacional",
-                        icon: "🗃️",
+                        icon: "",
                         description: "MySQL, PostgreSQL - Estructura en tablas"
                     },
                     nosql: {
                         name: "Base de Datos NoSQL",
-                        icon: "🌐",
+                        icon: "",
                         description: "MongoDB, DynamoDB - Documentos flexibles"
                     },
                     object: {
                         name: "Almacenamiento de Objetos",
-                        icon: "☁️",
+                        icon: "",
                         description: "S3, Google Cloud Storage - Archivos"
                     },
                     block: {
                         name: "Almacenamiento en Bloques",
-                        icon: "⚡",
+                        icon: "",
                         description: "EBS, SSD - Velocidad extrema"
                     }
                 },
@@ -497,29 +498,29 @@
                 ]
             },
             analytics: {
-                title: "📈 Sistema de Analytics",
+                title: " Sistema de Analytics",
                 description: "Sistema que procesa eventos de comportamiento web: clicks, pageviews, compras, tiempo en página. Recibe millones de eventos diarios que necesitas analizar para generar reportes, dashboards y métricas de negocio. Los datos son principalmente para lectura y análisis.",
                 correctAnswer: "object",
                 explanation: "Para analytics masivos, el almacenamiento de objetos es ideal porque permite guardar grandes volúmenes de datos históricos de forma económica, escala infinitamente, y se integra perfectamente con herramientas de Big Data como Spark y Hadoop.",
                 options: {
                     relational: {
                         name: "Base de Datos Relacional",
-                        icon: "🗃️",
+                        icon: "",
                         description: "MySQL, PostgreSQL - Estructura en tablas"
                     },
                     nosql: {
                         name: "Base de Datos NoSQL",
-                        icon: "🌐",
+                        icon: "",
                         description: "MongoDB, DynamoDB - Documentos flexibles"
                     },
                     object: {
                         name: "Almacenamiento de Objetos",
-                        icon: "☁️",
+                        icon: "",
                         description: "S3, Google Cloud Storage - Archivos"
                     },
                     columnar: {
                         name: "Base de Datos Columnar",
-                        icon: "📊",
+                        icon: "",
                         description: "Redshift, BigQuery - Análisis masivos"
                     }
                 },
@@ -536,29 +537,29 @@
                 ]
             },
             gaming: {
-                title: "🎮 Videojuego Online",
+                title: " Videojuego Online",
                 description: "MMO (juego multijugador masivo) donde necesitas almacenar: perfiles de jugadores, inventarios con miles de items, estadísticas de partidas, rankings en tiempo real, y estado del mundo del juego. Los jugadores esperan respuestas instantáneas y el juego nunca se detiene.",
                 correctAnswer: "block",
                 explanation: "Los videojuegos online requieren almacenamiento en bloques porque necesitan latencia ultra-baja para respuestas instantáneas, alto rendimiento para miles de jugadores simultáneos, y la velocidad de acceso similar a discos locales.",
                 options: {
                     relational: {
                         name: "Base de Datos Relacional",
-                        icon: "🗃️",
+                        icon: "",
                         description: "MySQL, PostgreSQL - Estructura en tablas"
                     },
                     nosql: {
                         name: "Base de Datos NoSQL",
-                        icon: "🌐",
+                        icon: "",
                         description: "MongoDB, DynamoDB - Documentos flexibles"
                     },
                     object: {
                         name: "Almacenamiento de Objetos",
-                        icon: "☁️",
+                        icon: "",
                         description: "S3, Google Cloud Storage - Archivos"
                     },
                     block: {
                         name: "Almacenamiento en Bloques",
-                        icon: "⚡",
+                        icon: "",
                         description: "EBS, SSD - Velocidad extrema"
                     }
                 },
@@ -575,29 +576,29 @@
                 ]
             },
             iot: {
-                title: "🌡️ IoT Industrial",
+                title: " IoT Industrial",
                 description: "Sistema de monitoreo industrial con sensores que envían datos cada segundo: temperatura, presión, vibración, humedad. Necesitas almacenar millones de puntos de datos para análisis histórico, detección de anomalías y mantenimiento predictivo. Los datos son principalmente secuenciales en el tiempo.",
                 correctAnswer: "nosql",
                 explanation: "Para IoT, una base de datos NoSQL especializada en series temporales es ideal porque está optimizada para datos con timestamp, comprime eficientemente datos secuenciales, y maneja escrituras masivas de sensores.",
                 options: {
                     relational: {
                         name: "Base de Datos Relacional",
-                        icon: "🗃️",
+                        icon: "",
                         description: "MySQL, PostgreSQL - Estructura en tablas"
                     },
                     nosql: {
                         name: "Base de Datos NoSQL",
-                        icon: "🌡️",
+                        icon: "",
                         description: "InfluxDB, TimescaleDB - Series temporales"
                     },
                     object: {
                         name: "Almacenamiento de Objetos",
-                        icon: "☁️",
+                        icon: "",
                         description: "S3, Google Cloud Storage - Archivos"
                     },
                     file: {
                         name: "Sistema de Archivos",
-                        icon: "📁",
+                        icon: "",
                         description: "NFS, CIFS - Carpetas compartidas"
                     }
                 },
@@ -692,19 +693,19 @@
             const scenario = currentScenario;
 
             document.getElementById('resultTitle').innerHTML = 
-                isCorrect ? '✅ ¡Excelente elección!' : '❌ No es la mejor opción';
+                isCorrect ? ' ¡Excelente elección!' : ' No es la mejor opción';
 
             document.getElementById('resultExplanation').innerHTML = scenario.explanation;
 
             document.getElementById('prosConsContainer').innerHTML = `
                 <div class="pros">
-                    <h4>✅ Ventajas</h4>
+                    <h4> Ventajas</h4>
                     <ul>
                         ${scenario.pros.map(pro => `<li>${pro}</li>`).join('')}
                     </ul>
                 </div>
                 <div class="cons">
-                    <h4>❌ Desventajas</h4>
+                    <h4> Desventajas</h4>
                     <ul>
                         ${scenario.cons.map(con => `<li>${con}</li>`).join('')}
                     </ul>
@@ -727,7 +728,7 @@
             // Resetear área de comparación
             document.getElementById('comparisonArea').innerHTML = `
                 <p style="text-align: center; color: #8888bb; font-size: 1.1rem; margin-top: 100px;">
-                    🎯 <strong>Selecciona otro escenario para continuar</strong><br>
+                     <strong>Selecciona otro escenario para continuar</strong><br>
                     <small>Completa los 5 escenarios para dominar el tema</small>
                 </p>
             `;
@@ -745,7 +746,7 @@
 
         function markCompleted() {
             if (score < 3) {
-                alert('🎯 Para completar la actividad, resuelve correctamente al menos 3 escenarios de 5.');
+                alert(' Para completar la actividad, resuelve correctamente al menos 3 escenarios de 5.');
                 return;
             }
 
@@ -754,9 +755,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert(`🎉 ¡Felicidades! Has completado "Comparador de Tipos de Almacenamiento".\n\n✅ Actividad marcada como completada\n🏆 +125 puntos ganados\n📊 Puntaje final: ${score}/${totalScenarios}\n\n¡Ahora sabes cómo elegir el almacenamiento adecuado!`);
+            alert(` ¡Felicidades! Has completado "Comparador de Tipos de Almacenamiento".\n\n Actividad marcada como completada\n +125 puntos ganados\n Puntaje final: ${score}/${totalScenarios}\n\n¡Ahora sabes cómo elegir el almacenamiento adecuado!`);
         }
 
         function goBack() {
@@ -771,5 +772,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="7" data-pagina="actividad2_comparador" data-total="5" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -364,6 +364,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -378,19 +379,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 5</a> / Actividad 5
             </div>
-            <h1 class="activity-title">📝 Creador de Scripts Básicos</h1>
+            <h1 class="activity-title"> Creador de Scripts Básicos</h1>
             <p class="activity-subtitle">Crea tus primeros scripts de automatización en Bash</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>35 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 250</span>
                 </div>
             </div>
@@ -398,36 +399,36 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a crear scripts básicos en Bash para automatizar tareas repetitivas. Dominarás conceptos como variables, condicionales, bucles y programación de tareas con Cron.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🛠️ Constructor de Scripts</h2>
+                <h2 class="section-title"> Constructor de Scripts</h2>
                 <div class="script-builder">
                     <div class="script-templates">
                         <div class="templates-title">
-                            📋 Plantillas de Scripts
+                             Plantillas de Scripts
                         </div>
                         <div class="template-list">
                             <div class="template-item active" onclick="loadTemplate('basic')">
-                                <div class="template-name">🏗️ Script Básico</div>
+                                <div class="template-name"> Script Básico</div>
                                 <div class="template-desc">Estructura básica con variables y funciones</div>
                             </div>
                             <div class="template-item" onclick="loadTemplate('backup')">
-                                <div class="template-name">💾 Script de Backup</div>
+                                <div class="template-name"> Script de Backup</div>
                                 <div class="template-desc">Automatizar copias de seguridad</div>
                             </div>
                             <div class="template-item" onclick="loadTemplate('monitoring')">
-                                <div class="template-name">📊 Script de Monitoreo</div>
+                                <div class="template-name"> Script de Monitoreo</div>
                                 <div class="template-desc">Verificar estado del sistema</div>
                             </div>
                             <div class="template-item" onclick="loadTemplate('deployment')">
-                                <div class="template-name">🚀 Script de Deploy</div>
+                                <div class="template-name"> Script de Deploy</div>
                                 <div class="template-desc">Automatizar despliegue de aplicaciones</div>
                             </div>
                             <div class="template-item" onclick="loadTemplate('cleanup')">
-                                <div class="template-name">🧹 Script de Limpieza</div>
+                                <div class="template-name"> Script de Limpieza</div>
                                 <div class="template-desc">Limpiar archivos temporales y logs</div>
                             </div>
                         </div>
@@ -436,11 +437,11 @@
                     <div class="script-editor">
                         <div class="editor-header">
                             <div class="editor-title">
-                                📄 <span id="scriptName">mi_script.sh</span>
+                                 <span id="scriptName">mi_script.sh</span>
                             </div>
                             <div class="editor-actions">
-                                <button class="editor-btn" onclick="saveScript()">💾 Guardar</button>
-                                <button class="editor-btn run" onclick="runScript()">▶️ Ejecutar</button>
+                                <button class="editor-btn" onclick="saveScript()"> Guardar</button>
+                                <button class="editor-btn run" onclick="runScript()">▶ Ejecutar</button>
                             </div>
                         </div>
                         <textarea class="code-editor" id="scriptEditor">#!/bin/bash
@@ -466,9 +467,9 @@ main() {
     # Verificar si es fin de semana
     DIA=$(date +%u)
     if [ "$DIA" -gt 5 ]; then
-        echo "¡Es fin de semana! 🎉"
+        echo "¡Es fin de semana! "
     else
-        echo "Es día laboral. ¡A trabajar! 💪"
+        echo "Es día laboral. ¡A trabajar! "
     fi
     
     echo "=== SCRIPT COMPLETADO ==="
@@ -481,15 +482,15 @@ main</textarea>
 
                 <div class="script-output" id="scriptOutput">
                     <div class="output-line">Terminal lista para ejecutar scripts...</div>
-                    <div class="output-line">Haz clic en "▶️ Ejecutar" para probar tu script</div>
+                    <div class="output-line">Haz clic en "▶ Ejecutar" para probar tu script</div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">⏰ Programador de Tareas (Cron)</h2>
+                <h2 class="section-title"> Programador de Tareas (Cron)</h2>
                 <div class="cron-section">
                     <div class="cron-title">
-                        🕒 Constructor de Expresiones Cron
+                         Constructor de Expresiones Cron
                     </div>
                     <p>Configura cuándo y con qué frecuencia ejecutar tu script:</p>
                     
@@ -521,33 +522,33 @@ main</textarea>
                         <strong>Descripción:</strong> Se ejecutará todos los días a las 2:00 AM
                     </div>
                     
-                    <button class="editor-btn" onclick="updateCronExpression()">🔄 Actualizar Expresión</button>
+                    <button class="editor-btn" onclick="updateCronExpression()"> Actualizar Expresión</button>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">📚 Ejemplos de Scripts Útiles</h2>
+                <h2 class="section-title"> Ejemplos de Scripts Útiles</h2>
                 <div class="examples-grid">
                     <div class="example-card" onclick="loadExample('diskSpace')">
-                        <div class="example-title">💽 Verificar Espacio en Disco</div>
+                        <div class="example-title"> Verificar Espacio en Disco</div>
                         <div class="example-code">df -h | grep -E "(Filesystem|/dev/)" | head -5</div>
                         <div class="example-desc">Monitorea el espacio disponible en disco</div>
                     </div>
                     
                     <div class="example-card" onclick="loadExample('processMonitor')">
-                        <div class="example-title">⚡ Monitor de Procesos</div>
+                        <div class="example-title"> Monitor de Procesos</div>
                         <div class="example-code">ps aux | sort -nrk 3,3 | head -5</div>
                         <div class="example-desc">Muestra los procesos que más CPU consumen</div>
                     </div>
                     
                     <div class="example-card" onclick="loadExample('logRotation')">
-                        <div class="example-title">📜 Rotación de Logs</div>
+                        <div class="example-title"> Rotación de Logs</div>
                         <div class="example-code">find /var/log -name "*.log" -mtime +7 -exec gzip {} \;</div>
                         <div class="example-desc">Comprime logs antiguos para ahorrar espacio</div>
                     </div>
                     
                     <div class="example-card" onclick="loadExample('securityScan')">
-                        <div class="example-title">🔒 Escaneo de Seguridad</div>
+                        <div class="example-title"> Escaneo de Seguridad</div>
                         <div class="example-code">last | head -10; who; w</div>
                         <div class="example-desc">Revisa últimos accesos y usuarios conectados</div>
                     </div>
@@ -556,7 +557,7 @@ main</textarea>
 
             <div class="challenge-section">
                 <h3 class="challenge-title">
-                    🎯 Desafíos de Scripting
+                     Desafíos de Scripting
                 </h3>
                 <div class="challenge-item">
                     <strong>Desafío 1:</strong> Modifica el script básico para que salude con tu nombre real.
@@ -574,22 +575,22 @@ main</textarea>
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Mejores Prácticas de Scripting
+                     Mejores Prácticas de Scripting
                 </h3>
                 <div class="tip-item">
-                    <strong>🔧 Shebang:</strong> Siempre inicia con #!/bin/bash para especificar el intérprete.
+                    <strong> Shebang:</strong> Siempre inicia con #!/bin/bash para especificar el intérprete.
                 </div>
                 <div class="tip-item">
-                    <strong>📝 Comentarios:</strong> Documenta tu código con comentarios claros y útiles.
+                    <strong> Comentarios:</strong> Documenta tu código con comentarios claros y útiles.
                 </div>
                 <div class="tip-item">
-                    <strong>✅ Validación:</strong> Verifica que los archivos existen y los comandos son exitosos.
+                    <strong> Validación:</strong> Verifica que los archivos existen y los comandos son exitosos.
                 </div>
                 <div class="tip-item">
-                    <strong>🔐 Permisos:</strong> Usa chmod +x para hacer ejecutable tu script.
+                    <strong> Permisos:</strong> Usa chmod +x para hacer ejecutable tu script.
                 </div>
                 <div class="tip-item">
-                    <strong>📊 Logging:</strong> Registra la ejecución y errores en archivos de log.
+                    <strong> Logging:</strong> Registra la ejecución y errores en archivos de log.
                 </div>
             </div>
         </div>
@@ -605,12 +606,12 @@ main</textarea>
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -644,9 +645,9 @@ main</textarea>
                     # Verificar si es fin de semana
                     DIA=$(date +%u)
                     if [ "$DIA" -gt 5 ]; then
-                        echo "¡Es fin de semana! 🎉"
+                        echo "¡Es fin de semana! "
                     else
-                        echo "Es día laboral. ¡A trabajar! 💪"
+                        echo "Es día laboral. ¡A trabajar! "
                     fi
                     
                     echo "=== SCRIPT COMPLETADO ==="
@@ -669,31 +670,31 @@ main</textarea>
 
                 # Función de backup
                 crear_backup() {
-                    echo "🚀 Iniciando backup de $SOURCE_DIR"
+                    echo " Iniciando backup de $SOURCE_DIR"
                     
                     # Crear directorio de backup si no existe
                     if [ ! -d "$BACKUP_DIR" ]; then
                         mkdir -p "$BACKUP_DIR"
-                        echo "📁 Directorio de backup creado: $BACKUP_DIR"
+                        echo " Directorio de backup creado: $BACKUP_DIR"
                     fi
                     
                     # Crear backup comprimido
                     tar -czf "$BACKUP_DIR/$BACKUP_NAME" -C "$(dirname "$SOURCE_DIR")" "$(basename "$SOURCE_DIR")"
                     
                     if [ $? -eq 0 ]; then
-                        echo "✅ Backup exitoso: $BACKUP_NAME"
-                        echo "📊 Tamaño: $(du -h "$BACKUP_DIR/$BACKUP_NAME" | cut -f1)"
+                        echo " Backup exitoso: $BACKUP_NAME"
+                        echo " Tamaño: $(du -h "$BACKUP_DIR/$BACKUP_NAME" | cut -f1)"
                     else
-                        echo "❌ Error al crear backup"
+                        echo " Error al crear backup"
                         exit 1
                     fi
                 }
 
                 # Limpiar backups antiguos (más de 7 días)
                 limpiar_backups_antiguos() {
-                    echo "🧹 Limpiando backups antiguos..."
+                    echo " Limpiando backups antiguos..."
                     find "$BACKUP_DIR" -name "backup_*.tar.gz" -mtime +7 -delete
-                    echo "✅ Limpieza completada"
+                    echo " Limpieza completada"
                 }
 
                 # Ejecutar funciones
@@ -730,10 +731,10 @@ main</textarea>
                     CPU_USAGE=${CPU_USAGE%.*}  # Convertir a entero
                     
                     if [ "$CPU_USAGE" -gt "$CPU_THRESHOLD" ]; then
-                        log_message "⚠️  ALERTA: CPU al ${CPU_USAGE}% (Límite: ${CPU_THRESHOLD}%)"
+                        log_message "  ALERTA: CPU al ${CPU_USAGE}% (Límite: ${CPU_THRESHOLD}%)"
                         return 1
                     else
-                        log_message "✅ CPU: ${CPU_USAGE}% - OK"
+                        log_message " CPU: ${CPU_USAGE}% - OK"
                         return 0
                     fi
                 }
@@ -743,10 +744,10 @@ main</textarea>
                     MEMORY_USAGE=$(free | grep Mem | awk '{printf("%.0f", $3/$2 * 100.0)}')
                     
                     if [ "$MEMORY_USAGE" -gt "$MEMORY_THRESHOLD" ]; then
-                        log_message "⚠️  ALERTA: Memoria al ${MEMORY_USAGE}% (Límite: ${MEMORY_THRESHOLD}%)"
+                        log_message "  ALERTA: Memoria al ${MEMORY_USAGE}% (Límite: ${MEMORY_THRESHOLD}%)"
                         return 1
                     else
-                        log_message "✅ Memoria: ${MEMORY_USAGE}% - OK"
+                        log_message " Memoria: ${MEMORY_USAGE}% - OK"
                         return 0
                     fi
                 }
@@ -756,10 +757,10 @@ main</textarea>
                     DISK_USAGE=$(df / | awk 'NR==2{printf("%.0f", $5)}' | sed 's/%//')
                     
                     if [ "$DISK_USAGE" -gt "$DISK_THRESHOLD" ]; then
-                        log_message "⚠️  ALERTA: Disco al ${DISK_USAGE}% (Límite: ${DISK_THRESHOLD}%)"
+                        log_message "  ALERTA: Disco al ${DISK_USAGE}% (Límite: ${DISK_THRESHOLD}%)"
                         return 1
                     else
-                        log_message "✅ Disco: ${DISK_USAGE}% - OK"
+                        log_message " Disco: ${DISK_USAGE}% - OK"
                         return 0
                     fi
                 }
@@ -775,9 +776,9 @@ main</textarea>
                     check_disk || ((ALERTS++))
                     
                     if [ "$ALERTS" -gt 0 ]; then
-                        log_message "❌ $ALERTS alertas detectadas"
+                        log_message " $ALERTS alertas detectadas"
                     else
-                        log_message "✅ Sistema funcionando correctamente"
+                        log_message " Sistema funcionando correctamente"
                     fi
                     
                     log_message "=== MONITOREO COMPLETADO ==="
@@ -801,15 +802,15 @@ main</textarea>
                 # Función de backup
                 crear_backup_deploy() {
                     if [ -d "$DEPLOY_DIR" ]; then
-                        echo "📦 Creando backup del deployment actual..."
+                        echo " Creando backup del deployment actual..."
                         tar -czf "$BACKUP_DIR/backup_$(date +%Y%m%d_%H%M%S).tar.gz" -C "$DEPLOY_DIR" .
-                        echo "✅ Backup creado"
+                        echo " Backup creado"
                     fi
                 }
 
                 # Función de descarga
                 descargar_codigo() {
-                    echo "📥 Descargando último código..."
+                    echo " Descargando último código..."
                     
                     if [ -d "$DEPLOY_DIR/.git" ]; then
                         cd "$DEPLOY_DIR"
@@ -820,16 +821,16 @@ main</textarea>
                     fi
                     
                     if [ $? -eq 0 ]; then
-                        echo "✅ Código descargado exitosamente"
+                        echo " Código descargado exitosamente"
                     else
-                        echo "❌ Error al descargar código"
+                        echo " Error al descargar código"
                         exit 1
                     fi
                 }
 
                 # Función de instalación de dependencias
                 instalar_dependencias() {
-                    echo "📚 Instalando dependencias..."
+                    echo " Instalando dependencias..."
                     cd "$DEPLOY_DIR"
                     
                     if [ -f "package.json" ]; then
@@ -840,18 +841,18 @@ main</textarea>
                         composer install --no-dev
                     fi
                     
-                    echo "✅ Dependencias instaladas"
+                    echo " Dependencias instaladas"
                 }
 
                 # Función de reinicio de servicios
                 reiniciar_servicios() {
-                    echo "🔄 Reiniciando servicios..."
+                    echo " Reiniciando servicios..."
                     systemctl reload "$SERVICE_NAME"
                     
                     if [ $? -eq 0 ]; then
-                        echo "✅ Servicios reiniciados"
+                        echo " Servicios reiniciados"
                     else
-                        echo "❌ Error al reiniciar servicios"
+                        echo " Error al reiniciar servicios"
                     fi
                 }
 
@@ -864,7 +865,7 @@ main</textarea>
                     instalar_dependencias
                     reiniciar_servicios
                     
-                    echo "🎉 ¡Despliegue completado exitosamente!"
+                    echo " ¡Despliegue completado exitosamente!"
                     echo "=== DEPLOY FINALIZADO ==="
                 }
 
@@ -884,7 +885,7 @@ main</textarea>
 
                 # Función de limpieza de temporales
                 limpiar_temporales() {
-                    echo "🗑️  Limpiando archivos temporales..."
+                    echo "  Limpiando archivos temporales..."
                     
                     for dir in "${TEMP_DIRS[@]}"; do
                         if [ -d "$dir" ]; then
@@ -894,12 +895,12 @@ main</textarea>
                         fi
                     done
                     
-                    echo "✅ Temporales limpiados"
+                    echo " Temporales limpiados"
                 }
 
                 # Función de rotación de logs
                 rotar_logs() {
-                    echo "📜 Rotando logs antiguos..."
+                    echo " Rotando logs antiguos..."
                     
                     for dir in "${LOG_DIRS[@]}"; do
                         if [ -d "$dir" ]; then
@@ -911,12 +912,12 @@ main</textarea>
                         fi
                     done
                     
-                    echo "✅ Logs rotados"
+                    echo " Logs rotados"
                 }
 
                 # Función de limpieza de cache
                 limpiar_cache() {
-                    echo "🧹 Limpiando cachés del sistema..."
+                    echo " Limpiando cachés del sistema..."
                     
                     # Limpiar cache de apt (si existe)
                     if command -v apt-get &> /dev/null; then
@@ -932,16 +933,16 @@ main</textarea>
                         fi
                     done
                     
-                    echo "✅ Cachés limpiados"
+                    echo " Cachés limpiados"
                 }
 
                 # Función de reporte de espacio
                 mostrar_reporte() {
-                    echo "📊 REPORTE DE ESPACIO EN DISCO:"
+                    echo " REPORTE DE ESPACIO EN DISCO:"
                     echo "================================"
                     df -h | grep -E "(Filesystem|/dev/)"
                     echo ""
-                    echo "📁 Directorios más grandes:"
+                    echo " Directorios más grandes:"
                     du -sh /var/log /tmp /var/cache 2>/dev/null | sort -hr
                 }
 
@@ -954,7 +955,7 @@ main</textarea>
                     limpiar_cache
                     mostrar_reporte
                     
-                    echo "✅ Limpieza del sistema completada"
+                    echo " Limpieza del sistema completada"
                     echo "=== LIMPIEZA FINALIZADA ==="
                 }
 
@@ -995,7 +996,7 @@ df -h | awk 'NR>1 {print $5 " " $1}' | while read output; do
     partition=$(echo $output | awk '{print $2}')
     
     if [ $usage -ge $THRESHOLD ]; then
-        echo "⚠️  ALERTA: $partition está al $usage%"
+        echo "  ALERTA: $partition está al $usage%"
     fi
 done`,
                 processMonitor: `#!/bin/bash
@@ -1027,25 +1028,25 @@ find $LOG_DIR -name "*.log" -mtime +1 -exec gzip {} \;
 # Eliminar logs comprimidos antiguos
 find $LOG_DIR -name "*.log.gz" -mtime +$RETENTION_DAYS -delete
 
-echo "✅ Rotación completada"`,
+echo " Rotación completada"`,
                 securityScan: `#!/bin/bash
 # Escaneo Básico de Seguridad
 
 echo "=== ESCANEO DE SEGURIDAD ==="
 
-echo "📋 Últimos 10 logins:"
+echo " Últimos 10 logins:"
 last | head -10
 
 echo ""
-echo "👥 Usuarios conectados actualmente:"
+echo " Usuarios conectados actualmente:"
 who
 
 echo ""
-echo "🔍 Procesos sospechosos (alta CPU):"
+echo " Procesos sospechosos (alta CPU):"
 ps aux --sort=-%cpu | head -5
 
 echo ""
-echo "🔒 Intentos de login fallidos:"
+echo " Intentos de login fallidos:"
 grep "Failed password" /var/log/auth.log | tail -5 2>/dev/null || echo "No se encontraron intentos fallidos recientes"`
             };
             
@@ -1076,27 +1077,27 @@ grep "Failed password" /var/log/auth.log | tail -5 2>/dev/null || echo "No se en
                 
                 const day = new Date().getDay();
                 if (day === 0 || day === 6) {
-                    lines.push({ text: "¡Es fin de semana! 🎉", type: 'success' });
+                    lines.push({ text: "¡Es fin de semana! ", type: 'success' });
                 } else {
-                    lines.push({ text: "Es día laboral. ¡A trabajar! 💪", type: 'output' });
+                    lines.push({ text: "Es día laboral. ¡A trabajar! ", type: 'output' });
                 }
                 
                 lines.push({ text: "=== SCRIPT COMPLETADO ===", type: 'success' });
             } else if (script.includes('BACKUP')) {
                 lines.push({ text: "=== SCRIPT DE BACKUP ===", type: 'success' });
-                lines.push({ text: "🚀 Iniciando backup de /home/usuario/documentos", type: 'output' });
-                lines.push({ text: "📁 Directorio de backup creado: /home/usuario/backups", type: 'output' });
-                lines.push({ text: "✅ Backup exitoso: backup_" + new Date().toISOString().slice(0,19).replace(/[-:]/g,'').replace('T','_') + ".tar.gz", type: 'success' });
-                lines.push({ text: "📊 Tamaño: 45.2M", type: 'output' });
-                lines.push({ text: "🧹 Limpiando backups antiguos...", type: 'output' });
-                lines.push({ text: "✅ Limpieza completada", type: 'success' });
+                lines.push({ text: " Iniciando backup de /home/usuario/documentos", type: 'output' });
+                lines.push({ text: " Directorio de backup creado: /home/usuario/backups", type: 'output' });
+                lines.push({ text: " Backup exitoso: backup_" + new Date().toISOString().slice(0,19).replace(/[-:]/g,'').replace('T','_') + ".tar.gz", type: 'success' });
+                lines.push({ text: " Tamaño: 45.2M", type: 'output' });
+                lines.push({ text: " Limpiando backups antiguos...", type: 'output' });
+                lines.push({ text: " Limpieza completada", type: 'success' });
                 lines.push({ text: "=== BACKUP COMPLETADO ===", type: 'success' });
             } else if (script.includes('MONITOREO')) {
                 lines.push({ text: "=== INICIANDO MONITOREO DEL SISTEMA ===", type: 'success' });
-                lines.push({ text: "✅ CPU: 45% - OK", type: 'success' });
-                lines.push({ text: "✅ Memoria: 62% - OK", type: 'success' });
-                lines.push({ text: "✅ Disco: 73% - OK", type: 'success' });
-                lines.push({ text: "✅ Sistema funcionando correctamente", type: 'success' });
+                lines.push({ text: " CPU: 45% - OK", type: 'success' });
+                lines.push({ text: " Memoria: 62% - OK", type: 'success' });
+                lines.push({ text: " Disco: 73% - OK", type: 'success' });
+                lines.push({ text: " Sistema funcionando correctamente", type: 'success' });
                 lines.push({ text: "=== MONITOREO COMPLETADO ===", type: 'success' });
             } else {
                 lines.push({ text: "Script ejecutado exitosamente", type: 'success' });
@@ -1139,10 +1140,10 @@ grep "Failed password" /var/log/auth.log | tail -5 2>/dev/null || echo "No se en
             const output = document.getElementById('scriptOutput');
             
             output.innerHTML = `
-                <div class="output-line output-success">💾 Script guardado: ${scriptName}</div>
+                <div class="output-line output-success"> Script guardado: ${scriptName}</div>
                 <div class="output-line">Ubicación: /home/usuario/scripts/${scriptName}</div>
                 <div class="output-line">Permisos: 755 (ejecutable)</div>
-                <div class="output-line output-success">✅ Listo para usar</div>
+                <div class="output-line output-success"> Listo para usar</div>
             `;
         }
 
@@ -1195,9 +1196,9 @@ grep "Failed password" /var/log/auth.log | tail -5 2>/dev/null || echo "No se en
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado la actividad "Creador de Scripts Básicos".\n\n✅ Actividad marcada como completada\n🏆 +250 puntos ganados\n\n¡Ahora puedes automatizar tareas con scripts de Bash!');
+            alert(' ¡Felicidades! Has completado la actividad "Creador de Scripts Básicos".\n\n Actividad marcada como completada\n +250 puntos ganados\n\n¡Ahora puedes automatizar tareas con scripts de Bash!');
         }
 
         function goBack() {
@@ -1217,5 +1218,6 @@ grep "Failed password" /var/log/auth.log | tail -5 2>/dev/null || echo "No se en
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="5" data-pagina="actividad5_scripts" data-total="6" defer></script>
 </body>
 </html>

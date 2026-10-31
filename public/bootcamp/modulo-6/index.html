@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -407,6 +407,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -424,7 +425,7 @@
                 </a>
             </div>
             
-            <h1 class="module-title">📦 Módulo 6</h1>
+            <h1 class="module-title"> Módulo 6</h1>
             <p class="module-subtitle">Cajas Dentro de Cajas (Virtualización)</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
@@ -434,36 +435,36 @@
         <div class="main-content">
             <div class="tabs">
                 <div class="tab active" onclick="showTab('teoria')">
-                    📚 Teoría
+                     Teoría
                 </div>
                 <div class="tab" onclick="showTab('submodulos')">
-                    🎯 Submódulos
+                     Submódulos
                 </div>
             </div>
 
             <div id="teoria" class="tab-content active">
                 <div class="objetivos-container">
-                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <h3 class="objetivos-title"> Objetivos de Aprendizaje</h3>
                     <div class="objetivo-item">
-                        <strong>📦 Al finalizar este módulo podrás:</strong> Comprender los conceptos fundamentales de virtualización y su impacto en la infraestructura moderna.
+                        <strong> Al finalizar este módulo podrás:</strong> Comprender los conceptos fundamentales de virtualización y su impacto en la infraestructura moderna.
                     </div>
                     <div class="objetivo-item">
-                        <strong>🧭 Dominar:</strong> Tipos de virtualización, diferencias entre VMs y contenedores, conceptos de orquestación y casos de uso prácticos.
+                        <strong> Dominar:</strong> Tipos de virtualización, diferencias entre VMs y contenedores, conceptos de orquestación y casos de uso prácticos.
                     </div>
                     <div class="objetivo-item">
-                        <strong>⚡ Aplicar:</strong> Evaluar cuándo usar cada tipo de virtualización y planificar recursos virtualizados según las necesidades del proyecto.
+                        <strong> Aplicar:</strong> Evaluar cuándo usar cada tipo de virtualización y planificar recursos virtualizados según las necesidades del proyecto.
                     </div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">📦 6.1 El Concepto de Virtualización</h2>
+                    <h2 class="teoria-title"> 6.1 El Concepto de Virtualización</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Qué es la Virtualización?</h3>
                         <div class="subsection-content">
                             La <span class="highlight">virtualización</span> es como tener múltiples computadoras funcionando dentro de una sola máquina física. Imagina un edificio de apartamentos: tienes un solo edificio (servidor físico) pero múltiples apartamentos independientes (máquinas virtuales) que funcionan de manera completamente separada.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🏢 Analogía del Edificio:</div>
+                            <div class="example-title"> Analogía del Edificio:</div>
                             Un servidor con 64GB de RAM puede dividirse en 4 máquinas virtuales de 16GB cada una, donde cada VM funciona como si fuera una computadora completamente independiente con su propio sistema operativo.
                         </div>
                     </div>
@@ -472,22 +473,22 @@
                         <h3 class="subsection-title">Beneficios Principales</h3>
                         <div class="benefit-grid">
                             <div class="benefit-card">
-                                <div class="benefit-icon">🔒</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Aislamiento</div>
                                 <div class="benefit-desc">Cada VM es independiente y segura</div>
                             </div>
                             <div class="benefit-card">
-                                <div class="benefit-icon">⚡</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Eficiencia</div>
                                 <div class="benefit-desc">Mejor uso de recursos del hardware</div>
                             </div>
                             <div class="benefit-card">
-                                <div class="benefit-icon">🔄</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Flexibilidad</div>
                                 <div class="benefit-desc">Crear, modificar y eliminar VMs fácilmente</div>
                             </div>
                             <div class="benefit-card">
-                                <div class="benefit-icon">💰</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Ahorro</div>
                                 <div class="benefit-desc">Menos servidores físicos necesarios</div>
                             </div>
@@ -496,7 +497,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🖥️ 6.2 Tipos de Virtualización</h2>
+                    <h2 class="teoria-title"> 6.2 Tipos de Virtualización</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Hipervisores: Los Administradores de VMs</h3>
                         <div class="subsection-content">
@@ -540,7 +541,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">📦 6.3 La Evolución: Contenedores</h2>
+                    <h2 class="teoria-title"> 6.3 La Evolución: Contenedores</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Contenedores vs Máquinas Virtuales</h3>
                         <div class="subsection-content">
@@ -587,7 +588,7 @@
                         </div>
 
                         <div class="example-box">
-                            <div class="example-title">🚚 Ejemplo práctico:</div>
+                            <div class="example-title"> Ejemplo práctico:</div>
                             Una aplicación web en VM necesita: OS completo (2GB) + aplicación (500MB) = 2.5GB total.
                             La misma aplicación en contenedor: Solo la aplicación (500MB) usando el OS del host.
                         </div>
@@ -595,7 +596,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🎭 6.4 Orquestación Básica</h2>
+                    <h2 class="teoria-title"> 6.4 Orquestación Básica</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">El Director de Orquesta Digital</h3>
                         <div class="subsection-content">
@@ -607,22 +608,22 @@
                         <h3 class="subsection-title">Funciones del Orquestador</h3>
                         <div class="benefit-grid">
                             <div class="benefit-card">
-                                <div class="benefit-icon">📋</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Planificación</div>
                                 <div class="benefit-desc">Decide dónde ejecutar cada contenedor</div>
                             </div>
                             <div class="benefit-card">
-                                <div class="benefit-icon">📈</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Escalamiento</div>
                                 <div class="benefit-desc">Aumenta o reduce contenedores según demanda</div>
                             </div>
                             <div class="benefit-card">
-                                <div class="benefit-icon">🔄</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Auto-reparación</div>
                                 <div class="benefit-desc">Reinicia contenedores que fallan</div>
                             </div>
                             <div class="benefit-card">
-                                <div class="benefit-icon">🌐</div>
+                                <div class="benefit-icon"></div>
                                 <div class="benefit-title">Redes</div>
                                 <div class="benefit-desc">Gestiona comunicación entre contenedores</div>
                             </div>
@@ -631,7 +632,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🎯 6.5 Casos de Uso Prácticos</h2>
+                    <h2 class="teoria-title"> 6.5 Casos de Uso Prácticos</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Desarrollo vs Producción</h3>
                         <div class="subsection-content">
@@ -645,7 +646,7 @@
                             Imagina una tienda online durante Black Friday. El orquestador puede automáticamente crear más contenedores cuando detecta alta demanda y eliminarlos cuando la demanda baja.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🛒 Escenario real:</div>
+                            <div class="example-title"> Escenario real:</div>
                             E-commerce normal: 2 contenedores (50 usuarios simultáneos)
                             <br>Black Friday: 20 contenedores (500 usuarios simultáneos)
                             <br>Después del pico: Vuelve automáticamente a 2 contenedores
@@ -662,49 +663,49 @@
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_simulador_vms.html" class="actividad-card">
                         <div class="actividad-numero">1</div>
-                        <h3 class="actividad-titulo">🏢 Simulador de Máquinas Virtuales</h3>
+                        <h3 class="actividad-titulo"> Simulador de Máquinas Virtuales</h3>
                         <p class="actividad-descripcion">Experimenta creando y gestionando máquinas virtuales. Aprende a asignar recursos y entender las limitaciones del hardware físico.</p>
-                        <span class="actividad-duracion">⏱️ 20 min</span>
+                        <span class="actividad-duracion"> 20 min</span>
                     </a>
 
                     <a href="./actividad2_comparador.html" class="actividad-card">
                         <div class="actividad-numero">2</div>
-                        <h3 class="actividad-titulo">📦 Comparador VM vs Contenedor</h3>
+                        <h3 class="actividad-titulo"> Comparador VM vs Contenedor</h3>
                         <p class="actividad-descripcion">Visualiza las diferencias entre máquinas virtuales y contenedores a través de simulaciones interactivas y comparaciones de recursos.</p>
-                        <span class="actividad-duracion">⏱️ 15 min</span>
+                        <span class="actividad-duracion"> 15 min</span>
                     </a>
 
                     <a href="./actividad3_planificador.html" class="actividad-card">
                         <div class="actividad-numero">3</div>
-                        <h3 class="actividad-titulo">🎯 Planificador de Recursos</h3>
+                        <h3 class="actividad-titulo"> Planificador de Recursos</h3>
                         <p class="actividad-descripcion">Diseña la distribución óptima de recursos virtualizados para diferentes escenarios empresariales y casos de uso.</p>
-                        <span class="actividad-duracion">⏱️ 25 min</span>
+                        <span class="actividad-duracion"> 25 min</span>
                     </a>
 
                     <a href="./actividad4_visualizador.html" class="actividad-card">
                         <div class="actividad-numero">4</div>
-                        <h3 class="actividad-titulo">📊 Visualizador de Beneficios</h3>
+                        <h3 class="actividad-titulo"> Visualizador de Beneficios</h3>
                         <p class="actividad-descripcion">Analiza casos reales de implementación de virtualización y calcula los beneficios económicos y técnicos obtenidos.</p>
-                        <span class="actividad-duracion">⏱️ 18 min</span>
+                        <span class="actividad-duracion"> 18 min</span>
                     </a>
 
                     <a href="./quiz_modulo6.html" class="actividad-card quiz-card">
                         <div class="actividad-numero">Q</div>
                         <h3 class="actividad-titulo">Quiz del Módulo</h3>
                         <p class="actividad-descripcion">Evalúa tus conocimientos sobre virtualización, contenedores y orquestación con 5 preguntas desafiantes.</p>
-                        <span class="actividad-duracion">⏱️ 10 min</span>
+                        <span class="actividad-duracion"> 10 min</span>
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -745,5 +746,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="6" data-pagina="index" data-total="4" defer></script>
 </body>
 </html>

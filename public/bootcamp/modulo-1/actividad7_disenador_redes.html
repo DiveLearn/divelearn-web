@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -237,7 +237,7 @@
         }
 
         .recommendation-item::before {
-            content: '💡';
+            content: '';
             position: absolute;
             left: 0;
         }
@@ -511,6 +511,7 @@
         }
 </style>
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -525,19 +526,19 @@
             <div class="breadcrumb">
                 <a href="/bootcamp/">← Módulo 5</a> / Actividad 7
             </div>
-            <h1 class="activity-title">📐 Diseñador de Redes</h1>
+            <h1 class="activity-title"> Diseñador de Redes</h1>
             <p class="activity-subtitle">Diseño completo de redes desde cero con topologías y segmentación</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>28 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Avanzado</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 300</span>
                 </div>
             </div>
@@ -545,50 +546,50 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad avanzada aprenderás a diseñar redes completas desde cero, aplicando principios de topología, segmentación y optimización. Dominarás el arte de la arquitectura de redes como un verdadero experto.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🏗️ Diseñador de Red Interactivo</h2>
+                <h2 class="section-title"> Diseñador de Red Interactivo</h2>
                 <div class="network-designer">
                     <div class="designer-grid">
                         <!-- Panel de Dispositivos -->
                         <div class="device-panel">
-                            <h3 class="panel-title">📦 Dispositivos</h3>
+                            <h3 class="panel-title"> Dispositivos</h3>
                             
                             <div class="device-item" draggable="true" data-device="router">
-                                <span class="device-icon">🌐</span>
+                                <span class="device-icon"></span>
                                 <div class="device-name">Router</div>
                                 <div class="device-info">Core</div>
                             </div>
                             
                             <div class="device-item" draggable="true" data-device="switch">
-                                <span class="device-icon">🔀</span>
+                                <span class="device-icon"></span>
                                 <div class="device-name">Switch</div>
                                 <div class="device-info">L2/L3</div>
                             </div>
                             
                             <div class="device-item" draggable="true" data-device="ap">
-                                <span class="device-icon">📡</span>
+                                <span class="device-icon"></span>
                                 <div class="device-name">Access Point</div>
                                 <div class="device-info">WiFi</div>
                             </div>
                             
                             <div class="device-item" draggable="true" data-device="firewall">
-                                <span class="device-icon">🛡️</span>
+                                <span class="device-icon"></span>
                                 <div class="device-name">Firewall</div>
                                 <div class="device-info">Security</div>
                             </div>
                             
                             <div class="device-item" draggable="true" data-device="server">
-                                <span class="device-icon">💾</span>
+                                <span class="device-icon"></span>
                                 <div class="device-name">Servidor</div>
                                 <div class="device-info">Data</div>
                             </div>
                             
                             <div class="device-item" draggable="true" data-device="pc">
-                                <span class="device-icon">💻</span>
+                                <span class="device-icon"></span>
                                 <div class="device-name">PC</div>
                                 <div class="device-info">Client</div>
                             </div>
@@ -598,14 +599,14 @@
                         <div class="design-canvas" id="designCanvas">
                             <div class="canvas-grid"></div>
                             <div class="canvas-placeholder">
-                                🎨 Arrastra dispositivos aquí para diseñar tu red<br>
+                                 Arrastra dispositivos aquí para diseñar tu red<br>
                                 <small style="color: #8888bb;">Usa Ctrl+Click para modo conexión</small>
                             </div>
                         </div>
 
                         <!-- Panel de Información -->
                         <div class="info-panel">
-                            <h3 class="panel-title">📊 Estadísticas</h3>
+                            <h3 class="panel-title"> Estadísticas</h3>
                             
                             <div class="network-stats">
                                 <div class="stat-item">
@@ -627,7 +628,7 @@
                             </div>
                             
                             <div class="recommendations">
-                                <h4 style="margin-bottom: 10px; font-size: 0.9rem;">💡 Recomendaciones</h4>
+                                <h4 style="margin-bottom: 10px; font-size: 0.9rem;"> Recomendaciones</h4>
                                 <div id="recommendationsList">
                                     <div class="recommendation-item">Agrega un router principal</div>
                                 </div>
@@ -636,37 +637,37 @@
                     </div>
 
                     <div class="designer-controls">
-                        <button class="control-btn" onclick="toggleConnectionMode()">🔗 Conectar</button>
-                        <button class="control-btn" onclick="autoConnect()">⚡ Auto-Conectar</button>
-                        <button class="control-btn secondary" onclick="validateNetwork()">✅ Validar Red</button>
-                        <button class="control-btn danger" onclick="clearCanvas()">🗑️ Limpiar</button>
+                        <button class="control-btn" onclick="toggleConnectionMode()"> Conectar</button>
+                        <button class="control-btn" onclick="autoConnect()"> Auto-Conectar</button>
+                        <button class="control-btn secondary" onclick="validateNetwork()"> Validar Red</button>
+                        <button class="control-btn danger" onclick="clearCanvas()"> Limpiar</button>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">📐 Selecciona Topología</h2>
+                <h2 class="section-title"> Selecciona Topología</h2>
                 <div class="topology-grid">
                     <div class="topology-card" onclick="selectTopology('star')">
-                        <div class="topology-icon">⭐</div>
+                        <div class="topology-icon"></div>
                         <div class="topology-title">Estrella</div>
                         <div class="topology-description">Todos los dispositivos conectados a un hub central</div>
                     </div>
                     
                     <div class="topology-card" onclick="selectTopology('mesh')">
-                        <div class="topology-icon">🕸️</div>
+                        <div class="topology-icon"></div>
                         <div class="topology-title">Malla</div>
                         <div class="topology-description">Conexiones redundantes entre múltiples dispositivos</div>
                     </div>
                     
                     <div class="topology-card" onclick="selectTopology('tree')">
-                        <div class="topology-icon">🌳</div>
+                        <div class="topology-icon"></div>
                         <div class="topology-title">Árbol</div>
                         <div class="topology-description">Estructura jerárquica con múltiples niveles</div>
                     </div>
                     
                     <div class="topology-card" onclick="selectTopology('hybrid')">
-                        <div class="topology-icon">🔄</div>
+                        <div class="topology-icon"></div>
                         <div class="topology-title">Híbrida</div>
                         <div class="topology-description">Combinación optimizada de topologías</div>
                     </div>
@@ -674,13 +675,13 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🛡️ Implementación de Seguridad</h2>
+                <h2 class="section-title"> Implementación de Seguridad</h2>
                 <div class="security-container">
                     <p style="margin-bottom: 20px; color: #8888bb;">Implementa capas de seguridad para proteger tu red diseñada</p>
                     
                     <div class="security-grid">
                         <div class="security-card" onclick="implementSecurity('firewall')">
-                            <div class="security-icon">🔥</div>
+                            <div class="security-icon"></div>
                             <h4>Firewall</h4>
                             <p><strong>Protección Perimetral</strong></p>
                             <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
@@ -691,7 +692,7 @@
                         </div>
                         
                         <div class="security-card" onclick="implementSecurity('vlan')">
-                            <div class="security-icon">🏢</div>
+                            <div class="security-icon"></div>
                             <h4>VLANs</h4>
                             <p><strong>Segmentación de Red</strong></p>
                             <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
@@ -702,7 +703,7 @@
                         </div>
                         
                         <div class="security-card" onclick="implementSecurity('wifi')">
-                            <div class="security-icon">📶</div>
+                            <div class="security-icon"></div>
                             <h4>WiFi Seguro</h4>
                             <p><strong>Protección Inalámbrica</strong></p>
                             <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
@@ -713,7 +714,7 @@
                         </div>
                         
                         <div class="security-card" onclick="implementSecurity('monitoring')">
-                            <div class="security-icon">👁️</div>
+                            <div class="security-icon"></div>
                             <h4>Monitoreo</h4>
                             <p><strong>Vigilancia Continua</strong></p>
                             <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
@@ -724,7 +725,7 @@
                         </div>
                         
                         <div class="security-card" onclick="implementSecurity('backup')">
-                            <div class="security-icon">💾</div>
+                            <div class="security-icon"></div>
                             <h4>Backup</h4>
                             <p><strong>Continuidad del Negocio</strong></p>
                             <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
@@ -735,7 +736,7 @@
                         </div>
                         
                         <div class="security-card" onclick="implementSecurity('access')">
-                            <div class="security-icon">🔐</div>
+                            <div class="security-icon"></div>
                             <h4>Control de Acceso</h4>
                             <p><strong>Autenticación</strong></p>
                             <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
@@ -747,18 +748,18 @@
                     </div>
 
                     <div style="text-align: center; margin: 20px 0;">
-                        <button class="control-btn secondary" onclick="evaluateSecurity()">🔍 Evaluar Seguridad</button>
+                        <button class="control-btn secondary" onclick="evaluateSecurity()"> Evaluar Seguridad</button>
                     </div>
 
                     <div id="securityAssessment" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-                        <h4>📊 Evaluación de Seguridad</h4>
+                        <h4> Evaluación de Seguridad</h4>
                         <div id="securityResults"></div>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">📊 Optimización de Red</h2>
+                <h2 class="section-title"> Optimización de Red</h2>
                 <div class="optimization-container">
                     <p style="margin-bottom: 20px; color: #8888bb;">Analiza y optimiza el rendimiento de tu red diseñada</p>
                     
@@ -790,21 +791,21 @@
                     </div>
 
                     <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
-                        <button class="control-btn secondary" onclick="runOptimizationAnalysis()">📊 Analizar Red</button>
-                        <button class="control-btn" onclick="optimizeBandwidth()">⚡ Optimizar BW</button>
-                        <button class="control-btn" onclick="optimizeLatency()">🚀 Reducir Latencia</button>
-                        <button class="control-btn" onclick="optimizeQoS()">🎯 Configurar QoS</button>
+                        <button class="control-btn secondary" onclick="runOptimizationAnalysis()"> Analizar Red</button>
+                        <button class="control-btn" onclick="optimizeBandwidth()"> Optimizar BW</button>
+                        <button class="control-btn" onclick="optimizeLatency()"> Reducir Latencia</button>
+                        <button class="control-btn" onclick="optimizeQoS()"> Configurar QoS</button>
                     </div>
 
                     <div id="optimizationResults" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                        <h4>💡 Recomendaciones de Optimización</h4>
+                        <h4> Recomendaciones de Optimización</h4>
                         <p style="color: #8888bb;">Diseña tu red y ejecuta el análisis para recibir recomendaciones personalizadas...</p>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🧠 Quiz de Diseño</h2>
+                <h2 class="section-title"> Quiz de Diseño</h2>
                 <div class="quiz-container">
                     <div class="quiz-question">
                         <p><strong>¿Cuál es la principal ventaja de una topología en malla?</strong></p>
@@ -854,19 +855,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips de Diseño de Redes
+                     Tips de Diseño de Redes
                 </h3>
                 <div class="tip-item">
-                    <strong>🎯 Planificación:</strong> Siempre comienza con un router o switch core como punto central de tu diseño.
+                    <strong> Planificación:</strong> Siempre comienza con un router o switch core como punto central de tu diseño.
                 </div>
                 <div class="tip-item">
-                    <strong>🔒 Seguridad:</strong> Incluye firewalls y segmentación para proteger diferentes áreas de la red.
+                    <strong> Seguridad:</strong> Incluye firewalls y segmentación para proteger diferentes áreas de la red.
                 </div>
                 <div class="tip-item">
-                    <strong>📡 Cobertura:</strong> Posiciona Access Points estratégicamente para optimizar la cobertura WiFi.
+                    <strong> Cobertura:</strong> Posiciona Access Points estratégicamente para optimizar la cobertura WiFi.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Pro tip:</strong> Una red bien diseñada debe ser escalable, segura y fácil de mantener.
+                    <strong> Pro tip:</strong> Una red bien diseñada debe ser escalable, segura y fácil de mantener.
                 </div>
             </div>
         </div>
@@ -882,18 +883,18 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
     <!-- Indicador de Modo Conexión -->
     <div class="connection-mode" id="connectionMode">
-        🔗 Modo Conexión Activo - Click en dispositivos para conectar
+         Modo Conexión Activo - Click en dispositivos para conectar
     </div>
 
     <script>
@@ -924,12 +925,12 @@
 
         // ========== CONFIGURACIÓN DE DISPOSITIVOS ==========
         const deviceConfig = {
-            router: { icon: '🌐', name: 'Router', type: 'network', security: 20 },
-            switch: { icon: '🔀', name: 'Switch', type: 'network', security: 10 },
-            ap: { icon: '📡', name: 'Access Point', type: 'network', security: 15 },
-            firewall: { icon: '🛡️', name: 'Firewall', type: 'security', security: 50 },
-            server: { icon: '💾', name: 'Servidor', type: 'endpoint', security: 5 },
-            pc: { icon: '💻', name: 'PC', type: 'endpoint', security: 5 }
+            router: { icon: '', name: 'Router', type: 'network', security: 20 },
+            switch: { icon: '', name: 'Switch', type: 'network', security: 10 },
+            ap: { icon: '', name: 'Access Point', type: 'network', security: 15 },
+            firewall: { icon: '', name: 'Firewall', type: 'security', security: 50 },
+            server: { icon: '', name: 'Servidor', type: 'endpoint', security: 5 },
+            pc: { icon: '', name: 'PC', type: 'endpoint', security: 5 }
         };
 
         // ========== INICIALIZACIÓN ==========
@@ -1106,7 +1107,7 @@
             );
             
             if (exists) {
-                showNotification('⚠️ Esta conexión ya existe');
+                showNotification(' Esta conexión ya existe');
                 return;
             }
             
@@ -1170,7 +1171,7 @@
             
             if (designerState.connectionMode) {
                 indicator.style.display = 'block';
-                showNotification('🔗 Modo conexión activado');
+                showNotification(' Modo conexión activado');
             } else {
                 indicator.style.display = 'none';
                 if (designerState.selectedDevice) {
@@ -1184,7 +1185,7 @@
         function autoConnect() {
             const routers = designerState.devices.filter(d => d.type === 'router');
             if (routers.length === 0) {
-                showNotification('⚠️ Necesitas al menos un router');
+                showNotification(' Necesitas al menos un router');
                 return;
             }
             
@@ -1217,7 +1218,7 @@
             });
             
             updateConnections();
-            showNotification(`✅ ${connectionsCreated} conexiones automáticas creadas`);
+            showNotification(` ${connectionsCreated} conexiones automáticas creadas`);
         }
 
         function connectionExists(device1Id, device2Id) {
@@ -1252,7 +1253,7 @@
 
         function validateNetwork() {
             if (designerState.devices.length === 0) {
-                showNotification('⚠️ Agrega dispositivos para validar la red');
+                showNotification(' Agrega dispositivos para validar la red');
                 return;
             }
 
@@ -1260,13 +1261,13 @@
             let message = '';
             
             if (score >= 90) {
-                message = '🏆 ¡Excelente diseño de red!';
+                message = ' ¡Excelente diseño de red!';
             } else if (score >= 70) {
-                message = '👍 Buen diseño, algunas mejoras posibles';
+                message = ' Buen diseño, algunas mejoras posibles';
             } else if (score >= 50) {
-                message = '🔧 Red funcional con oportunidades de mejora';
+                message = ' Red funcional con oportunidades de mejora';
             } else {
-                message = '⚠️ La red necesita mejoras importantes';
+                message = ' La red necesita mejoras importantes';
             }
             
             showNotification(`${message} Puntuación: ${score}/100`);
@@ -1294,7 +1295,7 @@
             
             updateStats();
             updateRecommendations();
-            showNotification('🗑️ Diseño limpiado');
+            showNotification(' Diseño limpiado');
         }
 
         // ========== STATISTICS AND RECOMMENDATIONS ==========
@@ -1402,7 +1403,7 @@
                 hybrid: 'Híbrida'
             };
             
-            showNotification(`✅ Topología ${topologyNames[type]} seleccionada`);
+            showNotification(` Topología ${topologyNames[type]} seleccionada`);
             updateStats();
             updateRecommendations();
         }
@@ -1439,10 +1440,10 @@
             feedbackEl.style.display = 'block';
             if (isCorrect) {
                 feedbackEl.className = 'feedback-area feedback-success';
-                feedbackEl.textContent = '✅ ¡Correcto! Excelente conocimiento sobre redes.';
+                feedbackEl.textContent = ' ¡Correcto! Excelente conocimiento sobre redes.';
             } else {
                 feedbackEl.className = 'feedback-area feedback-error';
-                feedbackEl.textContent = '❌ Incorrecto. Revisa los conceptos de topologías de red.';
+                feedbackEl.textContent = ' Incorrecto. Revisa los conceptos de topologías de red.';
             }
             
             designerState.quizAnswers[questionNum] = isCorrect;
@@ -1465,10 +1466,10 @@
                     access: 'Control de Acceso'
                 };
                 
-                showNotification(`✅ ${securityNames[securityType]} implementado`);
+                showNotification(` ${securityNames[securityType]} implementado`);
                 updateStats();
             } else {
-                showNotification(`ℹ️ ${securityNames[securityType]} ya está implementado`);
+                showNotification(` ${securityNames[securityType]} ya está implementado`);
             }
         }
 
@@ -1515,19 +1516,19 @@
                 </div>
                 
                 <div style="background: white; padding: 15px; border-radius: 8px;">
-                    <h5 style="margin-bottom: 10px;">📊 Estado de Implementación:</h5>
+                    <h5 style="margin-bottom: 10px;"> Estado de Implementación:</h5>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.9rem;">
-                        <div>${designerState.implementedSecurity.has('firewall') ? '✅' : '❌'} Firewall</div>
-                        <div>${designerState.implementedSecurity.has('vlan') ? '✅' : '❌'} VLANs</div>
-                        <div>${designerState.implementedSecurity.has('wifi') ? '✅' : '❌'} WiFi Seguro</div>
-                        <div>${designerState.implementedSecurity.has('monitoring') ? '✅' : '❌'} Monitoreo</div>
-                        <div>${designerState.implementedSecurity.has('backup') ? '✅' : '❌'} Backup</div>
-                        <div>${designerState.implementedSecurity.has('access') ? '✅' : '❌'} Control de Acceso</div>
+                        <div>${designerState.implementedSecurity.has('firewall') ? '' : ''} Firewall</div>
+                        <div>${designerState.implementedSecurity.has('vlan') ? '' : ''} VLANs</div>
+                        <div>${designerState.implementedSecurity.has('wifi') ? '' : ''} WiFi Seguro</div>
+                        <div>${designerState.implementedSecurity.has('monitoring') ? '' : ''} Monitoreo</div>
+                        <div>${designerState.implementedSecurity.has('backup') ? '' : ''} Backup</div>
+                        <div>${designerState.implementedSecurity.has('access') ? '' : ''} Control de Acceso</div>
                     </div>
                 </div>
                 
                 <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                    <h5 style="margin-bottom: 10px;">💡 Recomendaciones:</h5>
+                    <h5 style="margin-bottom: 10px;"> Recomendaciones:</h5>
                     <ul style="margin: 0; padding-left: 20px;">
                         ${recommendations.map(rec => `<li style="margin-bottom: 5px; color: #8888bb;">${rec}</li>`).join('')}
                     </ul>
@@ -1535,13 +1536,13 @@
             `;
             
             assessment.style.display = 'block';
-            showNotification(`🔍 Evaluación completada: ${level} (${score}/100)`);
+            showNotification(` Evaluación completada: ${level} (${score}/100)`);
         }
 
         // ========== OPTIMIZATION FUNCTIONALITY ==========
         function runOptimizationAnalysis() {
             if (designerState.devices.length === 0) {
-                showNotification('⚠️ Diseña una red antes de analizar');
+                showNotification(' Diseña una red antes de analizar');
                 return;
             }
             
@@ -1569,7 +1570,7 @@
             updateMetricWithAnimation('networkQuality', designerState.metrics.quality);
             
             generateOptimizationRecommendations();
-            showNotification('📊 Análisis de red completado');
+            showNotification(' Análisis de red completado');
         }
 
         function updateMetricWithAnimation(elementId, value) {
@@ -1590,54 +1591,54 @@
             
             // Análisis de ancho de banda
             if (metrics.bandwidth > 85) {
-                recommendations.push('🔴 <strong>Alta utilización de ancho de banda:</strong> Implementa QoS o aumenta la capacidad');
+                recommendations.push(' <strong>Alta utilización de ancho de banda:</strong> Implementa QoS o aumenta la capacidad');
             } else if (metrics.bandwidth > 75) {
-                recommendations.push('🟡 <strong>Utilización moderada:</strong> Monitorea el crecimiento del tráfico');
+                recommendations.push(' <strong>Utilización moderada:</strong> Monitorea el crecimiento del tráfico');
             }
             
             // Análisis de latencia
             if (metrics.latency > 30) {
-                recommendations.push('🔴 <strong>Latencia elevada:</strong> Optimiza rutas y revisa la topología');
+                recommendations.push(' <strong>Latencia elevada:</strong> Optimiza rutas y revisa la topología');
             } else if (metrics.latency > 20) {
-                recommendations.push('🟡 <strong>Latencia aceptable:</strong> Considera optimizaciones menores');
+                recommendations.push(' <strong>Latencia aceptable:</strong> Considera optimizaciones menores');
             }
             
             // Análisis de pérdida de paquetes
             if (parseFloat(metrics.packetLoss) > 0.2) {
-                recommendations.push('🔴 <strong>Pérdida de paquetes alta:</strong> Revisa interfaces y calidad de enlaces');
+                recommendations.push(' <strong>Pérdida de paquetes alta:</strong> Revisa interfaces y calidad de enlaces');
             }
             
             // Análisis de disponibilidad
             if (parseFloat(metrics.availability) < 99.5) {
-                recommendations.push('🟡 <strong>Disponibilidad mejorable:</strong> Implementa redundancia y monitoreo');
+                recommendations.push(' <strong>Disponibilidad mejorable:</strong> Implementa redundancia y monitoreo');
             }
             
             // Análisis de calidad general
             if (metrics.quality < 80) {
-                recommendations.push('🟡 <strong>Calidad de red mejorable:</strong> Revisa configuración y seguridad');
+                recommendations.push(' <strong>Calidad de red mejorable:</strong> Revisa configuración y seguridad');
             }
             
             // Recomendaciones basadas en el diseño
             if (!designerState.selectedTopology) {
-                recommendations.push('📐 <strong>Topología:</strong> Define una topología específica para tu red');
+                recommendations.push(' <strong>Topología:</strong> Define una topología específica para tu red');
             }
             
             if (designerState.implementedSecurity.size < 3) {
-                recommendations.push('🛡️ <strong>Seguridad:</strong> Implementa más medidas de seguridad');
+                recommendations.push(' <strong>Seguridad:</strong> Implementa más medidas de seguridad');
             }
             
             if (recommendations.length === 0) {
-                recommendations.push('🟢 <strong>Red optimizada:</strong> Todos los parámetros están en rango óptimo');
+                recommendations.push(' <strong>Red optimizada:</strong> Todos los parámetros están en rango óptimo');
             }
             
             const results = document.getElementById('optimizationResults');
             results.innerHTML = `
-                <h4>💡 Recomendaciones de Optimización</h4>
+                <h4> Recomendaciones de Optimización</h4>
                 <div style="margin-top: 15px;">
                     ${recommendations.map(rec => `<p style="margin: 10px 0; line-height: 1.4;">${rec}</p>`).join('')}
                 </div>
                 <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #667eea;">
-                    <h5 style="color: #667eea; margin-bottom: 10px;">📈 Resumen de Rendimiento:</h5>
+                    <h5 style="color: #667eea; margin-bottom: 10px;"> Resumen de Rendimiento:</h5>
                     <p style="margin: 0; color: #8888bb; line-height: 1.5;">
                         Tu red está funcionando con una calidad de ${metrics.quality}/100 y 
                         una disponibilidad del ${metrics.availability}%. 
@@ -1652,21 +1653,21 @@
             const currentBW = parseInt(document.getElementById('bandwidthUtil').textContent);
             const optimizedBW = Math.max(40, currentBW - Math.floor(Math.random() * 20 + 15));
             updateMetricWithAnimation('bandwidthUtil', optimizedBW + '%');
-            showNotification('⚡ Ancho de banda optimizado mediante técnicas de compresión');
+            showNotification(' Ancho de banda optimizado mediante técnicas de compresión');
         }
 
         function optimizeLatency() {
             const currentLatency = parseInt(document.getElementById('latency').textContent);
             const optimizedLatency = Math.max(5, currentLatency - Math.floor(Math.random() * 10 + 5));
             updateMetricWithAnimation('latency', optimizedLatency + 'ms');
-            showNotification('🚀 Latencia reducida mediante optimización de rutas');
+            showNotification(' Latencia reducida mediante optimización de rutas');
         }
 
         function optimizeQoS() {
             const currentQuality = parseInt(document.getElementById('networkQuality').textContent);
             const optimizedQuality = Math.min(100, currentQuality + Math.floor(Math.random() * 10 + 5));
             updateMetricWithAnimation('networkQuality', optimizedQuality);
-            showNotification('🎯 QoS configurado para priorizar tráfico crítico');
+            showNotification(' QoS configurado para priorizar tráfico crítico');
         }
         function showNotification(message) {
             const notification = document.createElement('div');
@@ -1709,7 +1710,7 @@
             const hasQuizAnswers = Object.keys(designerState.quizAnswers).length >= 1;
             
             if (!hasDevices || !hasConnections || !hasTopology || !hasQuizAnswers) {
-                alert('⚠️ Para completar la actividad necesitas:\n\n• Diseñar una red con al menos 3 dispositivos\n• Crear al menos 2 conexiones\n• Seleccionar una topología\n• Responder al menos 1 pregunta del quiz');
+                alert(' Para completar la actividad necesitas:\n\n• Diseñar una red con al menos 3 dispositivos\n• Crear al menos 2 conexiones\n• Seleccionar una topología\n• Responder al menos 1 pregunta del quiz');
                 return;
             }
             
@@ -1718,10 +1719,10 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
             const score = calculateNetworkScore();
-            alert(`🎉 ¡Felicidades! Has completado la actividad "Diseñador de Redes".\n\n✅ Red diseñada con puntuación: ${score}/100\n🏆 +300 puntos ganados\n📐 Topología: ${designerState.selectedTopology}\n🔗 ${designerState.connections.length} conexiones creadas`);
+            alert(` ¡Felicidades! Has completado la actividad "Diseñador de Redes".\n\n Red diseñada con puntuación: ${score}/100\n +300 puntos ganados\n Topología: ${designerState.selectedTopology}\n ${designerState.connections.length} conexiones creadas`);
         }
 
         function goBack() {
@@ -1738,6 +1739,7 @@
         }, 30000);
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="actividad7_disenador_redes" data-total="10" defer></script>
 </body>
 </html>
                 

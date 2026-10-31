@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,6 +111,7 @@
 
     .act-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; color: var(--text-muted); font-size: .8rem; flex-wrap: wrap; gap: 10px; }
   </style>
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -124,12 +125,12 @@
   <div class="quiz-wrap">
     <div class="quiz-hero">
       <div class="quiz-eyebrow">Quiz Final · Módulo 0</div>
-      <h1 class="quiz-title-big">🎮 Demuestra lo que aprendiste</h1>
+      <h1 class="quiz-title-big"> Demuestra lo que aprendiste</h1>
       <p class="quiz-sub">8 preguntas sobre el viaje de una petición web, anatomía de URLs y HTTP vs HTTPS.</p>
       <div class="quiz-pills">
-        <span class="quiz-pill">⏱ ~8 min</span>
-        <span class="quiz-pill">📋 8 preguntas</span>
-        <span class="quiz-pill">⚡ Hasta +200 XP</span>
+        <span class="quiz-pill"> ~8 min</span>
+        <span class="quiz-pill"> 8 preguntas</span>
+        <span class="quiz-pill"> Hasta +200 XP</span>
       </div>
     </div>
 
@@ -139,7 +140,7 @@
       </div>
       <div class="quiz-header">
         <span class="quiz-counter" id="qCounter">Pregunta 1 de 8</span>
-        <span class="quiz-score-live" id="scoreLive">⚡ 0 pts</span>
+        <span class="quiz-score-live" id="scoreLive"> 0 pts</span>
       </div>
 
       <!-- Preguntas generadas por JS -->
@@ -158,14 +159,14 @@
         </div>
         <div class="result-actions">
           <button class="btn-retry" onclick="startQuiz()">↺ Repetir</button>
-          <button class="btn-hub" onclick="location.href='./'">🏠 Hub M0</button>
+          <button class="btn-hub" onclick="location.href='./'"> Hub M0</button>
           <button class="btn-next" onclick="location.href='/bootcamp/modulo-1/'">Módulo 1 →</button>
         </div>
       </div>
     </div>
 
     <div class="act-footer">
-      <span>⚡ DiveLearn · Bootcamp Técnico</span>
+      <span> DiveLearn · Bootcamp Técnico</span>
       <span id="footerHint">Responde cada pregunta para continuar</span>
     </div>
   </div>
@@ -314,7 +315,7 @@
 
   function updateHeader() {
     document.getElementById('qCounter').textContent = `Pregunta ${qIdx + 1} de ${QUESTIONS.length}`;
-    document.getElementById('scoreLive').textContent = `⚡ ${score * 25} pts`;
+    document.getElementById('scoreLive').textContent = ` ${score * 25} pts`;
     document.getElementById('progFill').style.width = (qIdx / QUESTIONS.length * 100) + '%';
   }
 
@@ -366,21 +367,21 @@
     const pct = Math.round(score / QUESTIONS.length * 100);
 
     const msgs = {
-      8: '🌟 Puntaje perfecto. Tienes una comprensión sólida de cómo funciona Internet — estás listo para la nube.',
-      7: '🚀 Casi perfecto. Dominas los fundamentos con una pequeña área a repasar.',
-      6: '👍 Buen trabajo. Revisa las preguntas que fallaste antes de continuar.',
-      5: '📖 Vas bien. Te recomendamos repasar la teoría del módulo y las actividades.',
-      0: '📚 Repasa la teoría y las actividades — los fundamentos son la base de todo lo que viene.',
+      8: ' Puntaje perfecto. Tienes una comprensión sólida de cómo funciona Internet — estás listo para la nube.',
+      7: ' Casi perfecto. Dominas los fundamentos con una pequeña área a repasar.',
+      6: ' Buen trabajo. Revisa las preguntas que fallaste antes de continuar.',
+      5: ' Vas bien. Te recomendamos repasar la teoría del módulo y las actividades.',
+      0: ' Repasa la teoría y las actividades — los fundamentos son la base de todo lo que viene.',
     };
     const msgKey = score >= 8 ? 8 : score >= 7 ? 7 : score >= 6 ? 6 : score >= 5 ? 5 : 0;
 
     document.getElementById('rScore').textContent = `${score}/${QUESTIONS.length}`;
-    document.getElementById('rXP').textContent = `⚡ +${xp} XP ganados`;
+    document.getElementById('rXP').textContent = ` +${xp} XP ganados`;
     document.getElementById('rMsg').textContent = msgs[msgKey];
     document.getElementById('rCorrect').textContent = score;
     document.getElementById('rTime').textContent = `${mins}:${String(secs).padStart(2,'0')}`;
     document.getElementById('rPct').textContent = pct + '%';
-    document.getElementById('scoreLive').textContent = `⚡ ${score * 25} pts`;
+    document.getElementById('scoreLive').textContent = ` ${score * 25} pts`;
 
     localStorage.setItem('dl_mod0_quiz_score', score);
     localStorage.setItem('dl_mod0_quiz_done', '1');
@@ -390,5 +391,6 @@
 
   document.addEventListener('DOMContentLoaded', startQuiz);
   </script>
+<script src="/js/bootcamp-progreso.js" data-modulo="0" data-pagina="quiz_modulo0" data-total="3" defer></script>
 </body>
 </html>

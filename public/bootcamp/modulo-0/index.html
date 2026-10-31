@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,6 +219,7 @@
       .url-display { font-size: 0.78rem; }
     }
   </style>
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
 
@@ -236,25 +237,25 @@
 <!-- HERO -->
 <div class="hub-hero">
   <div class="hero-inner">
-    <div class="mod-eyebrow">⚡ Módulo 0 · Fundamentos</div>
+    <div class="mod-eyebrow"> Módulo 0 · Fundamentos</div>
     <h1>Cómo funciona<br><span>Internet</span></h1>
     <p>
       Antes de hablar de nube, servidores o AWS — necesitas entender qué pasa
       cuando alguien escribe una URL en el navegador. Este módulo te da ese modelo mental.
     </p>
     <div class="hero-chips">
-      <span class="hero-chip">⏱ ~45 min</span>
-      <span class="hero-chip">🎯 2 actividades</span>
-      <span class="hero-chip">🎮 Quiz final</span>
-      <span class="hero-chip">⚡ 100 XP</span>
+      <span class="hero-chip"> ~45 min</span>
+      <span class="hero-chip"> 2 actividades</span>
+      <span class="hero-chip"> Quiz final</span>
+      <span class="hero-chip"> 100 XP</span>
     </div>
   </div>
 </div>
 
 <!-- TABS -->
 <div class="tabs-bar">
-  <button class="tab-btn active" onclick="switchTab('teoria', this)">📖 Teoría</button>
-  <button class="tab-btn" onclick="switchTab('actividades', this)">⚡ Actividades</button>
+  <button class="tab-btn active" onclick="switchTab('teoria', this)"> Teoría</button>
+  <button class="tab-btn" onclick="switchTab('actividades', this)"> Actividades</button>
 </div>
 
 <!-- ── TAB: TEORÍA ────────────────────────────────────────────────── -->
@@ -293,31 +294,31 @@
       <div class="journey">
         <div class="journey-track">
           <div class="journey-node">
-            <div class="j-icon">💻</div>
+            <div class="j-icon"></div>
             <div class="j-label">Tu navegador</div>
             <div class="j-time">~1ms</div>
           </div>
           <div class="journey-arrow">→</div>
           <div class="journey-node">
-            <div class="j-icon">📖</div>
+            <div class="j-icon"></div>
             <div class="j-label">DNS lookup</div>
             <div class="j-time">20–100ms</div>
           </div>
           <div class="journey-arrow">→</div>
           <div class="journey-node">
-            <div class="j-icon">🤝</div>
+            <div class="j-icon"></div>
             <div class="j-label">TCP handshake</div>
             <div class="j-time">30–80ms</div>
           </div>
           <div class="journey-arrow">→</div>
           <div class="journey-node">
-            <div class="j-icon">☁️</div>
+            <div class="j-icon"></div>
             <div class="j-label">Servidor responde</div>
             <div class="j-time">50–200ms</div>
           </div>
           <div class="journey-arrow">→</div>
           <div class="journey-node">
-            <div class="j-icon">🖥️</div>
+            <div class="j-icon"></div>
             <div class="j-label">Navegador renderiza</div>
             <div class="j-time">10–50ms</div>
           </div>
@@ -393,31 +394,31 @@
       </div>
       <div class="eco-grid">
         <div class="eco-card">
-          <div class="eco-icon">🏢</div>
+          <div class="eco-icon"></div>
           <div class="eco-name">Frontend</div>
           <div class="eco-desc">Lo que el usuario ve en el navegador.</div>
           <div class="eco-tech">HTML · CSS · JavaScript</div>
         </div>
         <div class="eco-card">
-          <div class="eco-icon">⚙️</div>
+          <div class="eco-icon"></div>
           <div class="eco-name">Backend</div>
           <div class="eco-desc">Lógica y datos. Procesa tus peticiones.</div>
           <div class="eco-tech">APIs · Bases de datos · Servidores</div>
         </div>
         <div class="eco-card">
-          <div class="eco-icon">🛣️</div>
+          <div class="eco-icon"></div>
           <div class="eco-name">Redes</div>
           <div class="eco-desc">Las carreteras que conectan todo.</div>
           <div class="eco-tech">TCP/IP · DNS · HTTP · VPC</div>
         </div>
         <div class="eco-card">
-          <div class="eco-icon">🔒</div>
+          <div class="eco-icon"></div>
           <div class="eco-name">Seguridad</div>
           <div class="eco-desc">Protege datos y accesos.</div>
           <div class="eco-tech">TLS · Firewall · IAM · VPN</div>
         </div>
         <div class="eco-card">
-          <div class="eco-icon">☁️</div>
+          <div class="eco-icon"></div>
           <div class="eco-name">Cloud</div>
           <div class="eco-desc">Infraestructura como servicio.</div>
           <div class="eco-tech">EC2 · S3 · Lambda · RDS</div>
@@ -441,45 +442,45 @@
 
       <a href="./actividad1_detective.html" class="act-card">
         <div class="act-badge">Actividad 1 · 20 min</div>
-        <span class="act-icon">🕵️</span>
+        <span class="act-icon"></span>
         <div class="act-title">Detective de Requests</div>
         <div class="act-desc">
           Usa <code>fetch()</code> real para rastrear peticiones HTTP. Verás headers, status codes,
           tiempos de respuesta y la diferencia entre HTTP y HTTPS — con datos reales, no simulados.
         </div>
         <div class="act-meta">
-          <span class="act-chip">🔬 fetch() real</span>
-          <span class="act-chip">📊 Headers HTTP</span>
+          <span class="act-chip"> fetch() real</span>
+          <span class="act-chip"> Headers HTTP</span>
           <span class="act-cta">Empezar →</span>
         </div>
       </a>
 
       <a href="./actividad2_laboratorio.html" class="act-card">
         <div class="act-badge">Actividad 2 · 20 min</div>
-        <span class="act-icon">🧬</span>
+        <span class="act-icon"></span>
         <div class="act-title">Laboratorio de URLs</div>
         <div class="act-desc">
           Disecciona y construye URLs complejas. Drag & drop para identificar cada componente,
           más un reto donde tú armas la URL correcta desde requerimientos.
         </div>
         <div class="act-meta">
-          <span class="act-chip">🎯 Drag & drop</span>
-          <span class="act-chip">🏗️ Construye URLs</span>
+          <span class="act-chip"> Drag & drop</span>
+          <span class="act-chip"> Construye URLs</span>
           <span class="act-cta">Empezar →</span>
         </div>
       </a>
 
       <a href="./quiz_modulo0.html" class="act-card quiz">
         <div class="act-badge">Quiz final · 10 min</div>
-        <span class="act-icon">🎮</span>
+        <span class="act-icon"></span>
         <div class="act-title">Quiz Módulo 0</div>
         <div class="act-desc">
           8 preguntas cubriendo el journey de una petición, anatomía de URLs y el ecosistema digital.
           Necesitas 6/8 para ganar el badge y los 100 XP.
         </div>
         <div class="act-meta">
-          <span class="act-chip">🏅 Badge</span>
-          <span class="act-chip">⚡ 100 XP</span>
+          <span class="act-chip"> Badge</span>
+          <span class="act-chip"> 100 XP</span>
           <span class="act-cta" style="color:var(--lime)">Empezar →</span>
         </div>
       </a>
@@ -489,7 +490,7 @@
 </div>
 
 <!-- FOOTER -->
-<div class="footer">⚡ DiveLearn · Módulo 0</div>
+<div class="footer"> DiveLearn · Módulo 0</div>
 
 <script>
 function switchTab(id, btn) {
@@ -499,5 +500,6 @@ function switchTab(id, btn) {
   btn.classList.add('active');
 }
 </script>
+<script src="/js/bootcamp-progreso.js" data-modulo="0" data-pagina="index" data-total="3" defer></script>
 </body>
 </html>

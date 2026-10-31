@@ -1,11 +1,11 @@
 </html>
             <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
-    <title>🏗️ Actividad 5 - Constructor Digital</title>
+    <title> Actividad 5 - Constructor Digital</title>
     <style>
 .breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
   font-size: 1.25rem;
@@ -587,6 +587,7 @@
         }
 </style>
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -601,19 +602,19 @@
             <div class="breadcrumb">
                 <a href="./'">← Módulo 1</a> / Actividad 5
             </div>
-            <h1 class="activity-title">🏗️ Constructor Digital</h1>
+            <h1 class="activity-title"> Constructor Digital</h1>
             <p class="activity-subtitle">Construye la torre de comunicación perfecta del Modelo OSI</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>22 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -622,36 +623,36 @@
         <div class="main-content">
             <!-- Navigation Tabs -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('construction')">🏗️ Construcción</button>
-                <button class="tab-btn" onclick="showTab('simulation')">🔄 Simulación</button>
-                <button class="tab-btn" onclick="showTab('exercises')">📝 Ejercicios</button>
-                <button class="tab-btn" onclick="showTab('quiz')">🎯 Quiz de Capas</button>
+                <button class="tab-btn active" onclick="showTab('construction')"> Construcción</button>
+                <button class="tab-btn" onclick="showTab('simulation')"> Simulación</button>
+                <button class="tab-btn" onclick="showTab('exercises')"> Ejercicios</button>
+                <button class="tab-btn" onclick="showTab('quiz')"> Quiz de Capas</button>
             </div>
 
             <!-- Construcción de Capas -->
             <div id="construction" class="tab-content active">
                 <div class="section">
-                    <h2 class="section-title">🎯 Tu Proyecto de Construcción</h2>
+                    <h2 class="section-title"> Tu Proyecto de Construcción</h2>
                     <p>¡Bienvenido, Constructor! Tu misión es construir la torre de comunicación más importante del mundo digital: el Modelo OSI. Esta torre tiene 7 pisos, y cada uno tiene una función específica que hace posible que las computadoras se comuniquen.</p>
                     <p>Imagina que enviar un mensaje por Internet es como enviar una carta, pero esta carta debe pasar por 7 oficinas diferentes, cada una añadiendo algo especial antes de ser enviada.</p>
 
                     <div class="construction-stats">
-                        <h3>📊 Estado de la Construcción</h3>
+                        <h3> Estado de la Construcción</h3>
                         <div class="stats-grid">
                             <div class="stat-item">
-                                <div>🏗️ Pisos Construidos</div>
+                                <div> Pisos Construidos</div>
                                 <div id="layersBuilt">0/7</div>
                             </div>
                             <div class="stat-item">
-                                <div>🎖️ Insignias de Constructor</div>
+                                <div> Insignias de Constructor</div>
                                 <div id="badgesCount">0</div>
                             </div>
                             <div class="stat-item">
-                                <div>⭐ Nivel Constructor</div>
+                                <div> Nivel Constructor</div>
                                 <div id="constructorLevel">Aprendiz</div>
                             </div>
                             <div class="stat-item">
-                                <div>📈 Progreso Total</div>
+                                <div> Progreso Total</div>
                                 <div id="progressPercent">0%</div>
                             </div>
                         </div>
@@ -660,161 +661,161 @@
 
                 <!-- Torre OSI Interactiva -->
                 <div class="section">
-                    <h2 class="section-title">🏢 La Torre OSI</h2>
+                    <h2 class="section-title"> La Torre OSI</h2>
                     <p>Haz clic en cada piso para construirlo y descubrir su función:</p>
 
                     <div class="osi-tower">
                         <div class="osi-layer layer-7" onclick="buildLayer(7)">
                             <div class="layer-header">
-                                <strong>🎯 Capa 7 - Aplicación</strong>
+                                <strong> Capa 7 - Aplicación</strong>
                                 <div class="layer-number">7</div>
                             </div>
                             <p>Donde vives tú: navegadores, email, juegos</p>
                             <div class="layer-details" id="layer-7-details">
-                                <p><strong>🏠 El Piso del Usuario</strong></p>
+                                <p><strong> El Piso del Usuario</strong></p>
                                 <p>Es donde interactúas directamente con las aplicaciones. Todo lo que ves y usas está aquí.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">🌐 HTTP/HTTPS</div>
-                                    <div class="example-item">📧 SMTP/POP3</div>
-                                    <div class="example-item">📁 FTP</div>
-                                    <div class="example-item">🌐 DNS</div>
-                                    <div class="example-item">🔒 SSH</div>
-                                    <div class="example-item">🗂️ SNMP</div>
+                                    <div class="example-item"> HTTP/HTTPS</div>
+                                    <div class="example-item"> SMTP/POP3</div>
+                                    <div class="example-item"> FTP</div>
+                                    <div class="example-item"> DNS</div>
+                                    <div class="example-item"> SSH</div>
+                                    <div class="example-item"> SNMP</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Interfaz directa con el usuario final y aplicaciones.</p>
-                                <div class="badge">🎯 Maestro de Aplicaciones</div>
+                                <p><strong> Función:</strong> Interfaz directa con el usuario final y aplicaciones.</p>
+                                <div class="badge"> Maestro de Aplicaciones</div>
                             </div>
                         </div>
 
                         <div class="osi-layer layer-6" onclick="buildLayer(6)">
                             <div class="layer-header">
-                                <strong>🎨 Capa 6 - Presentación</strong>
+                                <strong> Capa 6 - Presentación</strong>
                                 <div class="layer-number">6</div>
                             </div>
                             <p>El traductor: cifrado, compresión, formato</p>
                             <div class="layer-details" id="layer-6-details">
-                                <p><strong>🎭 El Piso del Traductor</strong></p>
+                                <p><strong> El Piso del Traductor</strong></p>
                                 <p>Convierte los datos para que diferentes sistemas se entiendan. Como un intérprete universal.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">🔐 SSL/TLS</div>
-                                    <div class="example-item">📦 ZIP/GZIP</div>
-                                    <div class="example-item">🖼️ JPEG/PNG</div>
-                                    <div class="example-item">🎬 MPEG</div>
-                                    <div class="example-item">📄 ASCII</div>
-                                    <div class="example-item">🔢 Unicode</div>
+                                    <div class="example-item"> SSL/TLS</div>
+                                    <div class="example-item"> ZIP/GZIP</div>
+                                    <div class="example-item"> JPEG/PNG</div>
+                                    <div class="example-item"> MPEG</div>
+                                    <div class="example-item"> ASCII</div>
+                                    <div class="example-item"> Unicode</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Cifrado, compresión y traducción de formatos de datos.</p>
-                                <div class="badge">🎨 Traductor Maestro</div>
+                                <p><strong> Función:</strong> Cifrado, compresión y traducción de formatos de datos.</p>
+                                <div class="badge"> Traductor Maestro</div>
                             </div>
                         </div>
 
                         <div class="osi-layer layer-5" onclick="buildLayer(5)">
                             <div class="layer-header">
-                                <strong>🤝 Capa 5 - Sesión</strong>
+                                <strong> Capa 5 - Sesión</strong>
                                 <div class="layer-number">5</div>
                             </div>
                             <p>El coordinador: mantiene conversaciones organizadas</p>                          
                            <div class="layer-details" id="layer-5-details">
-                                <p><strong>📞 El Piso del Coordinador</strong></p>
+                                <p><strong> El Piso del Coordinador</strong></p>
                                 <p>Establece, mantiene y termina las conversaciones entre aplicaciones. Como un moderador de reuniones.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">🗄️ SQL Sessions</div>
-                                    <div class="example-item">🌐 RPC</div>
-                                    <div class="example-item">📂 NetBIOS</div>
-                                    <div class="example-item">🔐 SSH</div>
-                                    <div class="example-item">🖥️ RDP</div>
-                                    <div class="example-item">📡 SIP</div>
+                                    <div class="example-item"> SQL Sessions</div>
+                                    <div class="example-item"> RPC</div>
+                                    <div class="example-item"> NetBIOS</div>
+                                    <div class="example-item"> SSH</div>
+                                    <div class="example-item"> RDP</div>
+                                    <div class="example-item"> SIP</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Gestión de sesiones de comunicación entre aplicaciones.</p>
-                                <div class="badge">🤝 Coordinador Experto</div>
+                                <p><strong> Función:</strong> Gestión de sesiones de comunicación entre aplicaciones.</p>
+                                <div class="badge"> Coordinador Experto</div>
                             </div>
                         </div>
 
                         <div class="osi-layer layer-4" onclick="buildLayer(4)">
                             <div class="layer-header">
-                                <strong>🚚 Capa 4 - Transporte</strong>
+                                <strong> Capa 4 - Transporte</strong>
                                 <div class="layer-number">4</div>
                             </div>
                             <p>El repartidor: entrega confiable de datos</p>
                             <div class="layer-details" id="layer-4-details">
-                                <p><strong>📦 El Piso del Repartidor</strong></p>
+                                <p><strong> El Piso del Repartidor</strong></p>
                                 <p>Se asegura de que los datos lleguen completos y en orden. Como un servicio de paquetería confiable.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">📡 TCP</div>
-                                    <div class="example-item">⚡ UDP</div>
-                                    <div class="example-item">🔌 Puertos</div>
-                                    <div class="example-item">🔢 Secuenciación</div>
-                                    <div class="example-item">✅ Control de Flujo</div>
-                                    <div class="example-item">🔄 Retransmisión</div>
+                                    <div class="example-item"> TCP</div>
+                                    <div class="example-item"> UDP</div>
+                                    <div class="example-item"> Puertos</div>
+                                    <div class="example-item"> Secuenciación</div>
+                                    <div class="example-item"> Control de Flujo</div>
+                                    <div class="example-item"> Retransmisión</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Entrega confiable y control de flujo de datos.</p>
-                                <div class="badge">🚚 Repartidor Confiable</div>
+                                <p><strong> Función:</strong> Entrega confiable y control de flujo de datos.</p>
+                                <div class="badge"> Repartidor Confiable</div>
                             </div>
                         </div>
 
                         <div class="osi-layer layer-3" onclick="buildLayer(3)">
                             <div class="layer-header">
-                                <strong>🗺️ Capa 3 - Red</strong>
+                                <strong> Capa 3 - Red</strong>
                                 <div class="layer-number">3</div>
                             </div>
                             <p>El GPS: encuentra rutas entre redes</p>
                             <div class="layer-details" id="layer-3-details">
-                                <p><strong>🧭 El Piso del Navegador</strong></p>
+                                <p><strong> El Piso del Navegador</strong></p>
                                 <p>Encuentra la mejor ruta para que los datos lleguen a su destino. Como un GPS súper inteligente.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">🌐 IPv4/IPv6</div>
-                                    <div class="example-item">🛣️ Routing</div>
-                                    <div class="example-item">📍 ICMP</div>
-                                    <div class="example-item">🔍 ARP</div>
-                                    <div class="example-item">🎯 OSPF</div>
-                                    <div class="example-item">📡 BGP</div>
+                                    <div class="example-item"> IPv4/IPv6</div>
+                                    <div class="example-item"> Routing</div>
+                                    <div class="example-item"> ICMP</div>
+                                    <div class="example-item"> ARP</div>
+                                    <div class="example-item"> OSPF</div>
+                                    <div class="example-item"> BGP</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Enrutamiento y direccionamiento lógico de paquetes.</p>
-                                <div class="badge">🗺️ Navegador Experto</div>
+                                <p><strong> Función:</strong> Enrutamiento y direccionamiento lógico de paquetes.</p>
+                                <div class="badge"> Navegador Experto</div>
                             </div>
                         </div>
 
                         <div class="osi-layer layer-2" onclick="buildLayer(2)">
                             <div class="layer-header">
-                                <strong>🔗 Capa 2 - Enlace de Datos</strong>
+                                <strong> Capa 2 - Enlace de Datos</strong>
                                 <div class="layer-number">2</div>
                             </div>
                             <p>Control de tráfico entre vecinos</p>
                             <div class="layer-details" id="layer-2-details">
-                                <p><strong>🚦 El Piso del Control de Tráfico</strong></p>
+                                <p><strong> El Piso del Control de Tráfico</strong></p>
                                 <p>Maneja cómo los datos se mueven entre dispositivos vecinos. Como un semáforo inteligente.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">🔗 Ethernet</div>
-                                    <div class="example-item">📱 WiFi (802.11)</div>
-                                    <div class="example-item">🆔 MAC Address</div>
-                                    <div class="example-item">🔄 Switching</div>
-                                    <div class="example-item">🚨 Error Detection</div>
-                                    <div class="example-item">📊 Frame Control</div>
+                                    <div class="example-item"> Ethernet</div>
+                                    <div class="example-item"> WiFi (802.11)</div>
+                                    <div class="example-item"> MAC Address</div>
+                                    <div class="example-item"> Switching</div>
+                                    <div class="example-item"> Error Detection</div>
+                                    <div class="example-item"> Frame Control</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Control de acceso al medio y detección de errores.</p>
-                                <div class="badge">🔗 Controlador de Enlace</div>
+                                <p><strong> Función:</strong> Control de acceso al medio y detección de errores.</p>
+                                <div class="badge"> Controlador de Enlace</div>
                             </div>
                         </div>
 
                         <div class="osi-layer layer-1" onclick="buildLayer(1)">
                             <div class="layer-header">
-                                <strong>⚡ Capa 1 - Físico</strong>
+                                <strong> Capa 1 - Físico</strong>
                                 <div class="layer-number">1</div>
                             </div>
                             <p>Los cimientos: cables, ondas, electricidad</p>
                             <div class="layer-details" id="layer-1-details">
-                                <p><strong>🏗️ El Piso de los Cimientos</strong></p>
+                                <p><strong> El Piso de los Cimientos</strong></p>
                                 <p>Todo lo físico que transporta los datos: cables, ondas de radio, luz. Los cimientos de todo.</p>
                                 <div class="layer-examples">
-                                    <div class="example-item">🔌 Cables UTP</div>
-                                    <div class="example-item">📡 Ondas Radio</div>
-                                    <div class="example-item">💡 Fibra Óptica</div>
-                                    <div class="example-item">⚡ Voltajes</div>
-                                    <div class="example-item">🌊 Frecuencias</div>
-                                    <div class="example-item">🔗 Conectores</div>
+                                    <div class="example-item"> Cables UTP</div>
+                                    <div class="example-item"> Ondas Radio</div>
+                                    <div class="example-item"> Fibra Óptica</div>
+                                    <div class="example-item"> Voltajes</div>
+                                    <div class="example-item"> Frecuencias</div>
+                                    <div class="example-item"> Conectores</div>
                                 </div>
-                                <p><strong>🔧 Función:</strong> Transmisión de bits a través del medio físico.</p>
-                                <div class="badge">⚡ Ingeniero de Cimientos</div>
+                                <p><strong> Función:</strong> Transmisión de bits a través del medio físico.</p>
+                                <div class="badge"> Ingeniero de Cimientos</div>
                             </div>
                         </div>
                     </div>
@@ -823,11 +824,11 @@
                 <!-- Mnemotecnias -->
                 <div class="section">
                     <div class="mnemonics-section">
-                        <h3>🧠 Trucos para Recordar las Capas</h3>
+                        <h3> Trucos para Recordar las Capas</h3>
                         <p>¡Usa estos trucos mnemotécnicos para recordar el orden!</p>
 
                         <div class="mnemonic-card" onclick="showMnemonic('up')">
-                            <strong>📈 De Abajo hacia Arriba (1-7):</strong>
+                            <strong> De Abajo hacia Arriba (1-7):</strong>
                             <div id="mnemonic-up" style="display: none; margin-top: 10px;">
                                 <em>"Por Favor, No Tirar Salsa Picante Aquí"</em><br>
                                 <small><strong>P</strong>hysical → <strong>D</strong>ata Link → <strong>N</strong>etwork →
@@ -837,7 +838,7 @@
                         </div>
 
                         <div class="mnemonic-card" onclick="showMnemonic('down')">
-                            <strong>📉 De Arriba hacia Abajo (7-1):</strong>
+                            <strong> De Arriba hacia Abajo (7-1):</strong>
                             <div id="mnemonic-down" style="display: none; margin-top: 10px;">
                                 <em>"Aplicaciones Presentan Sesiones Tranquilas No Enlazadas Físicamente"</em><br>
                                 <small><strong>A</strong>pplication → <strong>P</strong>resentation →
@@ -848,7 +849,7 @@
                         </div>
 
                         <div class="mnemonic-card" onclick="showMnemonic('english')">
-                            <strong>🌍 En Inglés (Popular):</strong>
+                            <strong> En Inglés (Popular):</strong>
                             <div id="mnemonic-english" style="display: none; margin-top: 10px;">
                                 <em>"All People Seem To Need Data Processing"</em><br>
                                 <small><strong>A</strong>pplication → <strong>P</strong>resentation →
@@ -864,14 +865,14 @@
             <!-- Simulación de Comunicación -->
             <div id="simulation" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">🔄 Simulación de Comunicación</h2>
+                    <h2 class="section-title"> Simulación de Comunicación</h2>
                     <div class="communication-simulator">
-                        <h3>📡 Centro de Simulación OSI</h3>
+                        <h3> Centro de Simulación OSI</h3>
                         <p>Observa cómo un mensaje viaja a través de las 7 capas del modelo OSI</p>
 
                         <div class="message-flow">
                             <div class="computer" id="sender">
-                                <span>💻</span>
+                                <span></span>
                                 <small>Emisor</small>
                                 <div class="layer-stack" id="senderStack">
                                     <div class="stack-layer" style="background: #e53e3e;"></div>
@@ -885,11 +886,11 @@
                             </div>
 
                             <div class="message-path">
-                                <div class="message-packet" id="messagePacket">📦</div>
+                                <div class="message-packet" id="messagePacket"></div>
                             </div>
 
                             <div class="computer" id="receiver">
-                                <span>🖥️</span>
+                                <span></span>
                                 <small>Receptor</small>
                                 <div class="layer-stack" id="receiverStack">
                                     <div class="stack-layer" style="background: #e53e3e;"></div>
@@ -908,11 +909,11 @@
                                 style="padding: 10px; border-radius: 10px; border: 1px solid #4299e1; margin-right: 10px; background: white; color: #8888bb;">
                             <button onclick="startSimulation()"
                                 style="padding: 10px 20px; background: linear-gradient(135deg, #4299e1, #3182ce); color: white; border: none; border-radius: 10px; cursor: pointer;">
-                                🚀 Enviar Mensaje
+                                 Enviar Mensaje
                             </button>
                             <button onclick="resetSimulation()"
                                 style="padding: 10px 20px; background: linear-gradient(135deg, #a0aec0, #718096); color: white; border: none; border-radius: 10px; cursor: pointer; margin-left: 10px;">
-                                🔄 Reiniciar
+                                 Reiniciar
                             </button>
                         </div>
 
@@ -924,37 +925,37 @@
             <!-- Ejercicios Prácticos -->
             <div id="exercises" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">📝 Ejercicios Prácticos</h2>
+                    <h2 class="section-title"> Ejercicios Prácticos</h2>
                     <div class="exercises-panel">
-                        <h3>🎯 Centro de Práctica</h3>
+                        <h3> Centro de Práctica</h3>
                         <p>Refuerza tu conocimiento con estos ejercicios interactivos:</p>
 
                         <div class="exercise-card" onclick="startExercise(1)" id="exercise1">
-                            <h4>🔢 Ejercicio 1: Orden de Capas</h4>
+                            <h4> Ejercicio 1: Orden de Capas</h4>
                             <p><strong>Objetivo:</strong> Arrastra las capas para organizarlas en el orden correcto (de arriba hacia abajo).</p>
-                            <p><strong>Dificultad:</strong> ⭐⭐⚪⚪⚪</p>
-                            <div class="badge" id="badge-exercise1" style="display: none;">🎯 Organizador Maestro</div>
+                            <p><strong>Dificultad:</strong> </p>
+                            <div class="badge" id="badge-exercise1" style="display: none;"> Organizador Maestro</div>
                         </div>
 
                         <div class="exercise-card" onclick="startExercise(2)" id="exercise2">
-                            <h4>🔗 Ejercicio 2: Protocolos por Capa</h4>
+                            <h4> Ejercicio 2: Protocolos por Capa</h4>
                             <p><strong>Objetivo:</strong> Asocia cada protocolo con su capa correspondiente del modelo OSI.</p>
-                            <p><strong>Dificultad:</strong> ⭐⭐⭐⚪⚪</p>
-                            <div class="badge" id="badge-exercise2" style="display: none;">🔗 Experto en Protocolos</div>
+                            <p><strong>Dificultad:</strong> </p>
+                            <div class="badge" id="badge-exercise2" style="display: none;"> Experto en Protocolos</div>
                         </div>
 
                         <div class="exercise-card" onclick="startExercise(3)" id="exercise3">
-                            <h4>🎮 Ejercicio 3: Simulación de Flujo</h4>
+                            <h4> Ejercicio 3: Simulación de Flujo</h4>
                             <p><strong>Objetivo:</strong> Identifica qué sucede en cada capa cuando se envía un email.</p>
-                            <p><strong>Dificultad:</strong> ⭐⭐⭐⭐⚪</p>
-                            <div class="badge" id="badge-exercise3" style="display: none;">🎮 Simulador Experto</div>
+                            <p><strong>Dificultad:</strong> </p>
+                            <div class="badge" id="badge-exercise3" style="display: none;"> Simulador Experto</div>
                         </div>
 
                         <div class="exercise-card" onclick="startExercise(4)" id="exercise4">
-                            <h4>🧩 Ejercicio 4: Resolución de Problemas</h4>
+                            <h4> Ejercicio 4: Resolución de Problemas</h4>
                             <p><strong>Objetivo:</strong> Diagnostica en qué capa OSI podría estar ocurriendo un problema de red.</p>
-                            <p><strong>Dificultad:</strong> ⭐⭐⭐⭐⭐</p>
-                            <div class="badge" id="badge-exercise4" style="display: none;">🧩 Diagnosticador Maestro</div>
+                            <p><strong>Dificultad:</strong> </p>
+                            <div class="badge" id="badge-exercise4" style="display: none;"> Diagnosticador Maestro</div>
                         </div>
 
                         <div id="exercise-area" style="display: none; margin-top: 25px; padding: 25px; background: white; border-radius: 15px; border: 2px solid #667eea;">
@@ -963,11 +964,11 @@
                             <div style="text-align: center; margin-top: 20px;">
                                 <button onclick="checkExercise()" id="checkBtn"
                                     style="padding: 12px 24px; background: linear-gradient(135deg, #48bb78, #38a169); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1em; margin-right: 10px;">
-                                    ✅ Verificar Respuesta
+                                     Verificar Respuesta
                                 </button>
                                 <button onclick="cancelExercise()"
                                     style="padding: 12px 24px; background: linear-gradient(135deg, #a0aec0, #718096); color: white; border: none; border-radius: 10px; cursor: pointer;">
-                                    ❌ Cancelar
+                                     Cancelar
                                 </button>
                             </div>
                             <div id="exercise-feedback" style="margin-top: 15px;"></div>
@@ -975,7 +976,7 @@
 
                         <div style="margin-top: 20px; text-align: center; color: #4a5568;">
                             <small>
-                                <strong>📊 Progreso de Ejercicios:</strong> <span id="exerciseProgress">0/4 completados</span>
+                                <strong> Progreso de Ejercicios:</strong> <span id="exerciseProgress">0/4 completados</span>
                             </small>
                         </div>
                     </div>
@@ -985,7 +986,7 @@
             <!-- Quiz de Capas -->
             <div id="quiz" class="tab-content">
                 <div class="section">
-                    <h2 class="section-title">🎯 Quiz de Capas OSI</h2>
+                    <h2 class="section-title"> Quiz de Capas OSI</h2>
                     <div class="quiz-container">
                         <div class="quiz-question" id="quizQuestion">
                             <!-- La pregunta se cargará dinámicamente -->
@@ -1004,7 +1005,7 @@
 
                     <div id="quizResults" style="display: none;">
                         <div class="construction-stats">
-                            <h4>🏆 Resultados del Quiz</h4>
+                            <h4> Resultados del Quiz</h4>
                             <div class="stats-grid">
                                 <div class="stat-item">
                                     <div id="finalScore">0%</div>
@@ -1027,19 +1028,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips del Constructor Digital
+                     Tips del Constructor Digital
                 </h3>
                 <div class="tip-item">
-                    <strong>🧠 Truco de Memoria:</strong> Recuerda las capas con "Aplicaciones Presentan Sesiones Tranquilas, No Enlazadas Físicamente" (de arriba hacia abajo).
+                    <strong> Truco de Memoria:</strong> Recuerda las capas con "Aplicaciones Presentan Sesiones Tranquilas, No Enlazadas Físicamente" (de arriba hacia abajo).
                 </div>
                 <div class="tip-item">
-                    <strong>🔍 Identificación:</strong> Cada capa tiene un color único en el borde izquierdo para facilitar su reconocimiento.
+                    <strong> Identificación:</strong> Cada capa tiene un color único en el borde izquierdo para facilitar su reconocimiento.
                 </div>
                 <div class="tip-item">
-                    <strong>🎯 Enfoque Práctico:</strong> Piensa en cada capa como una oficina especializada que procesa tu mensaje.
+                    <strong> Enfoque Práctico:</strong> Piensa en cada capa como una oficina especializada que procesa tu mensaje.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Pro Tip:</strong> La comunicación real pasa por TODAS las capas, tanto al enviar como al recibir.
+                    <strong> Pro Tip:</strong> La comunicación real pasa por TODAS las capas, tanto al enviar como al recibir.
                 </div>
             </div>
 
@@ -1057,18 +1058,18 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Completar Actividad
+                 Completar Actividad
             </button>
         </div>
 
         <!-- Elemento de celebración -->
         <div id="celebration" class="celebration">
-            🎉 ¡Piso Construido! 🎉<br>
+             ¡Piso Construido! <br>
             <span style="font-size: 0.8em;">¡Sigue construyendo!</span>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -1093,10 +1094,10 @@
             {
                 question: "¿Cuántas capas tiene el modelo OSI y cuál es su propósito principal?",
                 options: [
-                    "🔢 5 capas para protocolos de Internet",
-                    "🏗️ 7 capas para estandarizar la comunicación de red",
-                    "📊 4 capas para el modelo TCP/IP",
-                    "🌐 6 capas para redes locales"
+                    " 5 capas para protocolos de Internet",
+                    " 7 capas para estandarizar la comunicación de red",
+                    " 4 capas para el modelo TCP/IP",
+                    " 6 capas para redes locales"
                 ],
                 correct: 1,
                 explanation: "El modelo OSI tiene 7 capas que proporcionan un marco estándar para entender cómo los diferentes protocolos y tecnologías trabajan juntos en las comunicaciones de red."
@@ -1104,10 +1105,10 @@
             {
                 question: "¿En qué capa del modelo OSI opera el protocolo HTTP?",
                 options: [
-                    "🔗 Capa 2 - Enlace de Datos",
-                    "🗺️ Capa 3 - Red",
-                    "🚚 Capa 4 - Transporte",
-                    "🎯 Capa 7 - Aplicación"
+                    " Capa 2 - Enlace de Datos",
+                    " Capa 3 - Red",
+                    " Capa 4 - Transporte",
+                    " Capa 7 - Aplicación"
                 ],
                 correct: 3,
                 explanation: "HTTP (Hypertext Transfer Protocol) opera en la Capa 7 (Aplicación), donde los usuarios interactúan directamente con las aplicaciones web."
@@ -1115,10 +1116,10 @@
             {
                 question: "¿Cuál es la función principal de la Capa 4 (Transporte)?",
                 options: [
-                    "🔐 Cifrar y comprimir datos",
-                    "📦 Garantizar entrega confiable y control de flujo",
-                    "🗺️ Enrutar paquetes entre redes",
-                    "⚡ Transmitir bits por el medio físico"
+                    " Cifrar y comprimir datos",
+                    " Garantizar entrega confiable y control de flujo",
+                    " Enrutar paquetes entre redes",
+                    " Transmitir bits por el medio físico"
                 ],
                 correct: 1,
                 explanation: "La Capa de Transporte se encarga de la entrega confiable de datos, control de flujo, y gestión de conexiones usando protocolos como TCP y UDP."
@@ -1126,10 +1127,10 @@
             {
                 question: "¿Qué protocolo es característico de la Capa 3 (Red)?",
                 options: [
-                    "📡 TCP",
-                    "🌐 IP (Internet Protocol)",
-                    "🔗 Ethernet",
-                    "📧 SMTP"
+                    " TCP",
+                    " IP (Internet Protocol)",
+                    " Ethernet",
+                    " SMTP"
                 ],
                 correct: 1,
                 explanation: "IP (Internet Protocol) es el protocolo principal de la Capa 3, responsable del direccionamiento lógico y enrutamiento de paquetes entre redes."
@@ -1137,10 +1138,10 @@
             {
                 question: "¿Cuál es la diferencia principal entre la Capa 1 (Físico) y Capa 2 (Enlace de Datos)?",
                 options: [
-                    "🔌 Capa 1 maneja bits, Capa 2 maneja frames y control de acceso",
-                    "⚡ Capa 1 es software, Capa 2 es hardware",
-                    "📡 Capa 1 es inalámbrica, Capa 2 es cableada",
-                    "🔧 No hay diferencia, son lo mismo"
+                    " Capa 1 maneja bits, Capa 2 maneja frames y control de acceso",
+                    " Capa 1 es software, Capa 2 es hardware",
+                    " Capa 1 es inalámbrica, Capa 2 es cableada",
+                    " No hay diferencia, son lo mismo"
                 ],
                 correct: 0,
                 explanation: "La Capa Físico (1) se encarga de la transmisión de bits crudos, mientras que la Capa de Enlace de Datos (2) organiza estos bits en frames y maneja el control de acceso al medio."
@@ -1149,7 +1150,7 @@
 
         const exercises = {
             1: {
-                title: "🔢 Ordenar las Capas OSI",
+                title: " Ordenar las Capas OSI",
                 type: "drag-drop",
                 items: [
                     { id: "app", text: "Aplicación", correct: 0 },
@@ -1162,7 +1163,7 @@
                 ]
             },
             2: {
-                title: "🔗 Asociar Protocolos con Capas",
+                title: " Asociar Protocolos con Capas",
                 type: "matching",
                 pairs: [
                     { protocol: "HTTP", layer: "Aplicación", correct: true },
@@ -1172,7 +1173,7 @@
                 ]
             },
             3: {
-                title: "🎮 Flujo de Envío de Email",
+                title: " Flujo de Envío de Email",
                 type: "sequence",
                 steps: [
                     "Usuario escribe email en cliente",
@@ -1184,7 +1185,7 @@
                 ]
             },
             4: {
-                title: "🧩 Diagnóstico de Problemas",
+                title: " Diagnóstico de Problemas",
                 type: "scenarios",
                 scenarios: [
                     {
@@ -1230,7 +1231,7 @@
             const completedFactors = completionFactors.filter(Boolean).length;
 
             if (completedFactors >= 3) {
-                statusText.textContent = 'Listo para completar ✅';
+                statusText.textContent = 'Listo para completar ';
                 statusIndicator.style.background = '#28a745';
             } else if (completedFactors >= 2) {
                 statusText.textContent = 'Buen progreso...';
@@ -1248,7 +1249,7 @@
 
         function showCelebration(message) {
             const celebration = document.getElementById('celebration');
-            celebration.innerHTML = `🎉 ${message} 🎉<br><span style="font-size: 0.8em;">¡Sigue construyendo!</span>`;
+            celebration.innerHTML = ` ${message} <br><span style="font-size: 0.8em;">¡Sigue construyendo!</span>`;
             celebration.style.display = 'block';
 
             setTimeout(() => {
@@ -1367,13 +1368,13 @@
 
             // Mostrar feedback
             if (selectedIndex === question.correct) {
-                feedback.textContent = '🎉 ¡Correcto! ' + question.explanation;
+                feedback.textContent = ' ¡Correcto! ' + question.explanation;
                 feedback.className = 'feedback positive show';
                 if (!quizAnswers[currentQuestionIndex].wasCorrectBefore) {
                     addProgress(4); // 4% por pregunta correcta
                 }
             } else {
-                feedback.textContent = '🤔 Incorrecto. ' + question.explanation;
+                feedback.textContent = ' Incorrecto. ' + question.explanation;
                 feedback.className = 'feedback negative show';
             }
 
@@ -1433,11 +1434,11 @@
             const summaryDiv = document.getElementById('quizFeedbackSummary');
             let summaryText = '';
             if (score >= 90) {
-                summaryText = '🏆 ¡Excelente! Eres un verdadero maestro del modelo OSI.';
+                summaryText = ' ¡Excelente! Eres un verdadero maestro del modelo OSI.';
             } else if (score >= 70) {
-                summaryText = '👍 ¡Bien hecho! Tienes un buen entendimiento del modelo OSI.';
+                summaryText = ' ¡Bien hecho! Tienes un buen entendimiento del modelo OSI.';
             } else {
-                summaryText = '📚 Buen intento. Repasa las capas y sus funciones para mejorar.';
+                summaryText = ' Buen intento. Repasa las capas y sus funciones para mejorar.';
             }
             summaryDiv.innerHTML = `<p style="color: #38a169; font-weight: bold;">${summaryText}</p>`;
 
@@ -1446,7 +1447,7 @@
             document.getElementById('quizResults').style.display = 'block';
 
             addProgress(15); // Bonus por completar quiz
-            showCelebration('🎓 Quiz OSI completado');
+            showCelebration(' Quiz OSI completado');
         }
 
         // Funciones de Simulación
@@ -1466,7 +1467,7 @@
             currentLayer = 7;
 
             document.getElementById('messagePacket').style.display = 'block';
-            document.getElementById('simulationSteps').innerHTML = '<h4>📡 Proceso de Encapsulación (Emisor)</h4>';
+            document.getElementById('simulationSteps').innerHTML = '<h4> Proceso de Encapsulación (Emisor)</h4>';
 
             simulateStep();
         }
@@ -1475,7 +1476,7 @@
             if (currentLayer < 1) {
                 // Cambiar a receptor
                 currentLayer = 1;
-                document.getElementById('simulationSteps').innerHTML += '<br><h4>📥 Proceso de Desencapsulación (Receptor)</h4>';
+                document.getElementById('simulationSteps').innerHTML += '<br><h4> Proceso de Desencapsulación (Receptor)</h4>';
                 simulateReceiver();
                 return;
             }
@@ -1511,7 +1512,7 @@
         function simulateReceiver() {
             if (currentLayer > 7) {
                 // Simulación completa
-                document.getElementById('simulationSteps').innerHTML += '<br><h4>✅ ¡Mensaje entregado exitosamente!</h4>';
+                document.getElementById('simulationSteps').innerHTML += '<br><h4> ¡Mensaje entregado exitosamente!</h4>';
                 isSimulating = false;
 
                 if (!simulationCompleted) {
@@ -1667,7 +1668,7 @@
 
             content.innerHTML = `
                 <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin: 15px 0;">
-                    <h5>🚨 Escenario de Problema:</h5>
+                    <h5> Escenario de Problema:</h5>
                     <p><strong>${scenario.problem}</strong></p>
                 </div>
                 <p>¿En qué capa del modelo OSI es más probable que esté el problema?</p>
@@ -1735,9 +1736,9 @@
             });
 
             if (selectedIndex === scenario.correct) {
-                feedback.innerHTML = `<div class="feedback positive show">🎉 ¡Correcto! ${scenario.explanation}</div>`;
+                feedback.innerHTML = `<div class="feedback positive show"> ¡Correcto! ${scenario.explanation}</div>`;
             } else {
-                feedback.innerHTML = `<div class="feedback negative show">🤔 Incorrecto. ${scenario.explanation}</div>`;
+                feedback.innerHTML = `<div class="feedback negative show"> Incorrecto. ${scenario.explanation}</div>`;
             }
         }
 
@@ -1759,7 +1760,7 @@
             const feedback = document.getElementById('exercise-feedback');
 
             if (isCorrect) {
-                feedback.innerHTML = '<div class="feedback positive show">🎉 ¡Excelente! Ejercicio completado correctamente.</div>';
+                feedback.innerHTML = '<div class="feedback positive show"> ¡Excelente! Ejercicio completado correctamente.</div>';
 
                 if (!exercisesCompleted.has(currentExercise)) {
                     exercisesCompleted.add(currentExercise);
@@ -1777,7 +1778,7 @@
                     cancelExercise();
                 }, 2000);
             } else {
-                feedback.innerHTML = '<div class="feedback negative show">🤔 Revisa tus respuestas. Algo no está correcto.</div>';
+                feedback.innerHTML = '<div class="feedback negative show"> Revisa tus respuestas. Algo no está correcto.</div>';
             }
         }
 
@@ -1860,7 +1861,7 @@
             const missingRequirements = requiredProgress.filter(req => !req.condition);
 
             if (missingRequirements.length > 0) {
-                alert('📋 Para completar la actividad necesitas:\n\n' +
+                alert(' Para completar la actividad necesitas:\n\n' +
                     missingRequirements.map(req => '• ' + req.message).join('\n'));
                 return;
             }
@@ -1871,7 +1872,7 @@
                 const statusText = document.getElementById('statusText');
                 
                 indicator.classList.add('completed');
-                statusText.textContent = 'Actividad Completada ✅';
+                statusText.textContent = 'Actividad Completada ';
                 
                 // Calcular puntuación final
                 const basePoints = 200;
@@ -1881,14 +1882,14 @@
                 showCelebration('¡Actividad Completada! Ahora eres un Arquitecto del Modelo OSI');
 
                 setTimeout(() => {
-                    alert('🎓 ¡Felicitaciones! Has completado exitosamente la Actividad 5: Constructor Digital.\n\n' +
+                    alert(' ¡Felicitaciones! Has completado exitosamente la Actividad 5: Constructor Digital.\n\n' +
                         'Has dominado:\n' +
-                        '🏗️ Construcción de las 7 capas OSI\n' +
-                        '🎯 Conocimiento profundo de cada capa\n' +
-                        '🔄 Simulación de comunicación de red\n' +
-                        '📝 Ejercicios prácticos avanzados\n' +
-                        '🧠 Trucos mnemotécnicos para recordar\n\n' +
-                        `🏆 Puntuación total: ${totalPoints} puntos\n\n` +
+                        ' Construcción de las 7 capas OSI\n' +
+                        ' Conocimiento profundo de cada capa\n' +
+                        ' Simulación de comunicación de red\n' +
+                        ' Ejercicios prácticos avanzados\n' +
+                        ' Trucos mnemotécnicos para recordar\n\n' +
+                        ` Puntuación total: ${totalPoints} puntos\n\n` +
                         '¡Ya dominas el Modelo OSI! Has completado la actividad más avanzada del módulo.');
                 }, 2000);
             }
@@ -1912,4 +1913,5 @@
         }, 30000);
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="actividad5_constructor_digital" data-total="10" defer></script>
 </body>

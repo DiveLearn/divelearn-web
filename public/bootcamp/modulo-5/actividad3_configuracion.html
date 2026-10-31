@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -300,6 +300,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -314,19 +315,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 5</a> / Actividad 3
             </div>
-            <h1 class="activity-title">🔧 Editor de Archivos de Configuración</h1>
+            <h1 class="activity-title"> Editor de Archivos de Configuración</h1>
             <p class="activity-subtitle">Edita archivos de configuración importantes usando editores de texto</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico-Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 175</span>
                 </div>
             </div>
@@ -334,37 +335,37 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a editar archivos de configuración importantes en Linux. Trabajarás con archivos como .bashrc, /etc/hosts, variables de entorno y configuraciones de servicios, usando editores de texto simulados.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">📝 Editor de Configuración</h2>
+                <h2 class="section-title"> Editor de Configuración</h2>
                 
                 <div class="file-tabs">
                     <button class="file-tab active" onclick="switchFile('bashrc')">
-                        🏠 ~/.bashrc
+                         ~/.bashrc
                     </button>
                     <button class="file-tab" onclick="switchFile('hosts')">
-                        🌐 /etc/hosts
+                         /etc/hosts
                     </button>
                     <button class="file-tab" onclick="switchFile('env')">
-                        🔧 .env
+                         .env
                     </button>
                     <button class="file-tab" onclick="switchFile('nginx')">
-                        ⚙️ nginx.conf
+                         nginx.conf
                     </button>
                 </div>
 
                 <div class="editor-container">
                     <div class="editor-header">
                         <div class="editor-title">
-                            <span>📄</span>
+                            <span></span>
                             <span id="currentFileName">~/.bashrc</span>
                         </div>
                         <div class="editor-actions">
-                            <button class="editor-btn" onclick="validateConfig()">🔍 Validar</button>
-                            <button class="editor-btn save" onclick="saveConfig()">💾 Guardar</button>
+                            <button class="editor-btn" onclick="validateConfig()"> Validar</button>
+                            <button class="editor-btn save" onclick="saveConfig()"> Guardar</button>
                         </div>
                     </div>
                     <div class="editor-content">
@@ -563,7 +564,7 @@ http {
 
             <div class="config-explanation" id="configExplanation">
                 <div class="explanation-title">
-                    📚 Sobre ~/.bashrc
+                     Sobre ~/.bashrc
                 </div>
                 <div class="explanation-content">
                     El archivo <strong>.bashrc</strong> se ejecuta cada vez que abres una nueva terminal. Aquí puedes configurar aliases, variables de entorno, funciones personalizadas y la apariencia de tu prompt. Es tu espacio personal para personalizar la experiencia de la terminal.
@@ -572,25 +573,25 @@ http {
 
             <div class="config-tips">
                 <div class="tips-title">
-                    💡 Tips de Configuración
+                     Tips de Configuración
                 </div>
                 <div class="tip-item">
-                    <strong>🔄 Recargar configuración:</strong> Usa <code>source ~/.bashrc</code> para aplicar cambios sin reiniciar la terminal.
+                    <strong> Recargar configuración:</strong> Usa <code>source ~/.bashrc</code> para aplicar cambios sin reiniciar la terminal.
                 </div>
                 <div class="tip-item">
-                    <strong>💾 Backups:</strong> Siempre haz backup de archivos de configuración antes de editarlos: <code>cp archivo archivo.backup</code>
+                    <strong> Backups:</strong> Siempre haz backup de archivos de configuración antes de editarlos: <code>cp archivo archivo.backup</code>
                 </div>
                 <div class="tip-item">
-                    <strong>🔒 Permisos:</strong> Algunos archivos de configuración requieren permisos específicos para funcionar correctamente.
+                    <strong> Permisos:</strong> Algunos archivos de configuración requieren permisos específicos para funcionar correctamente.
                 </div>
                 <div class="tip-item">
-                    <strong>📝 Comentarios:</strong> Usa # para comentar líneas y documentar tus configuraciones.
+                    <strong> Comentarios:</strong> Usa # para comentar líneas y documentar tus configuraciones.
                 </div>
             </div>
 
             <div class="challenge-section">
                 <h3 class="challenge-title">
-                    🎯 Desafíos de Configuración
+                     Desafíos de Configuración
                 </h3>
                 <div class="challenge-item">
                     <strong>Desafío 1:</strong> Agrega un alias para mostrar el espacio en disco disponible (df -h).
@@ -618,12 +619,12 @@ http {
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -640,19 +641,19 @@ http {
         
         const explanations = {
             bashrc: {
-                title: '📚 Sobre ~/.bashrc',
+                title: ' Sobre ~/.bashrc',
                 content: 'El archivo <strong>.bashrc</strong> se ejecuta cada vez que abres una nueva terminal. Aquí puedes configurar aliases, variables de entorno, funciones personalizadas y la apariencia de tu prompt. Es tu espacio personal para personalizar la experiencia de la terminal.'
             },
             hosts: {
-                title: '🌐 Sobre /etc/hosts',
+                title: ' Sobre /etc/hosts',
                 content: 'El archivo <strong>/etc/hosts</strong> mapea nombres de host a direcciones IP localmente. Se consulta antes que DNS, permitiendo resolución local de nombres, bloqueo de sitios, y configuración de servicios de desarrollo.'
             },
             env: {
-                title: '🔧 Sobre archivos .env',
+                title: ' Sobre archivos .env',
                 content: 'Los archivos <strong>.env</strong> almacenan variables de entorno para aplicaciones. Contienen configuraciones sensibles como contraseñas y API keys. Nunca deben incluirse en control de versiones por seguridad.'
             },
             nginx: {
-                title: '⚙️ Sobre nginx.conf',
+                title: ' Sobre nginx.conf',
                 content: 'El archivo <strong>nginx.conf</strong> es la configuración principal del servidor web Nginx. Define comportamientos del servidor, virtual hosts, compresión, logging y reglas de enrutamiento para servir contenido web.'
             }
         };
@@ -708,45 +709,45 @@ http {
                 case 'bashrc':
                     if (!content.includes('export')) {
                         isValid = false;
-                        message = '⚠️ No se detectaron variables de entorno (export).';
+                        message = ' No se detectaron variables de entorno (export).';
                     } else if (!content.includes('alias')) {
                         isValid = false;
-                        message = '⚠️ Se recomienda incluir algunos aliases útiles.';
+                        message = ' Se recomienda incluir algunos aliases útiles.';
                     } else {
-                        message = '✅ Configuración de .bashrc válida. Incluye variables de entorno y aliases.';
+                        message = ' Configuración de .bashrc válida. Incluye variables de entorno y aliases.';
                     }
                     break;
                     
                 case 'hosts':
                     if (!content.includes('127.0.0.1') || !content.includes('localhost')) {
                         isValid = false;
-                        message = '⚠️ Falta configuración de localhost (127.0.0.1).';
+                        message = ' Falta configuración de localhost (127.0.0.1).';
                     } else {
-                        message = '✅ Configuración de hosts válida. Incluye localhost y mapeos correctos.';
+                        message = ' Configuración de hosts válida. Incluye localhost y mapeos correctos.';
                     }
                     break;
                     
                 case 'env':
                     if (!content.includes('=')) {
                         isValid = false;
-                        message = '⚠️ No se detectaron variables en formato CLAVE=valor.';
+                        message = ' No se detectaron variables en formato CLAVE=valor.';
                     } else if (content.includes('password') && content.includes('123')) {
                         isValid = false;
-                        message = '⚠️ Evita usar contraseñas débiles como "123".';
+                        message = ' Evita usar contraseñas débiles como "123".';
                     } else {
-                        message = '✅ Archivo .env válido. Variables de entorno configuradas correctamente.';
+                        message = ' Archivo .env válido. Variables de entorno configuradas correctamente.';
                     }
                     break;
                     
                 case 'nginx':
                     if (!content.includes('server {')) {
                         isValid = false;
-                        message = '⚠️ Falta configuración de server block.';
+                        message = ' Falta configuración de server block.';
                     } else if (!content.includes('listen')) {
                         isValid = false;
-                        message = '⚠️ Falta directiva listen para especificar puerto.';
+                        message = ' Falta directiva listen para especificar puerto.';
                     } else {
-                        message = '✅ Configuración de Nginx válida. Server block y directivas correctas.';
+                        message = ' Configuración de Nginx válida. Server block y directivas correctas.';
                     }
                     break;
             }
@@ -759,7 +760,7 @@ http {
         function saveConfig() {
             const result = document.getElementById('validationResult');
             result.className = 'validation-result validation-success';
-            result.innerHTML = '💾 Configuración guardada exitosamente. Los cambios se aplicarán según el tipo de archivo.';
+            result.innerHTML = ' Configuración guardada exitosamente. Los cambios se aplicarán según el tipo de archivo.';
             result.style.display = 'block';
             
             // Simular guardado con un pequeño delay
@@ -774,9 +775,9 @@ http {
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado la actividad "Editor de Archivos de Configuración".\n\n✅ Actividad marcada como completada\n🏆 +175 puntos ganados\n\n¡Ahora sabes editar configuraciones importantes de Linux!');
+            alert(' ¡Felicidades! Has completado la actividad "Editor de Archivos de Configuración".\n\n Actividad marcada como completada\n +175 puntos ganados\n\n¡Ahora sabes editar configuraciones importantes de Linux!');
         }
 
         function goBack() {
@@ -798,6 +799,7 @@ http {
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="5" data-pagina="actividad3_configuracion" data-total="6" defer></script>
 </body>
 </html><!DOCTYPE html>
 <html lang="es">

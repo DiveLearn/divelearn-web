@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ff7a8a">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -222,6 +222,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -236,19 +237,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 3</a> / Actividad 2
             </div>
-            <h1 class="activity-title">🔍 Investigador DNS</h1>
+            <h1 class="activity-title"> Investigador DNS</h1>
             <p class="activity-subtitle">Usa herramientas de consulta DNS para investigar dominios reales</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>25 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 150</span>
                 </div>
             </div>
@@ -256,16 +257,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad usarás herramientas de consulta DNS simuladas para investigar diferentes tipos de registros DNS de dominios reales. Aprenderás a interpretar respuestas DNS y entender cómo funciona la resolución de nombres en la práctica.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🛠️ Herramientas DNS Simuladas</h2>
+                <h2 class="section-title"> Herramientas DNS Simuladas</h2>
                 
                 <div class="dns-tool-container">
                     <div class="tool-section">
-                        <div class="tool-title">🔍 Simulador nslookup</div>
+                        <div class="tool-title"> Simulador nslookup</div>
                         
                         <div class="input-group">
                             <label class="input-label" for="domainInput">Dominio a consultar:</label>
@@ -294,18 +295,18 @@
                         </div>
 
                         <button class="query-btn" onclick="performDNSQuery()" id="queryBtn">
-                            🔍 Ejecutar Consulta DNS
+                             Ejecutar Consulta DNS
                         </button>
 
                         <div class="results-container" id="dnsResults">
-                            <div class="results-title">📋 Resultados de la consulta DNS:</div>
+                            <div class="results-title"> Resultados de la consulta DNS:</div>
                             <p style="color: #8888bb; font-family: 'Segoe UI', sans-serif;">Ingresa un dominio y selecciona un tipo de registro para comenzar...</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="progress-tracker">
-                    <div class="progress-title">📊 Progreso de Investigación</div>
+                    <div class="progress-title"> Progreso de Investigación</div>
                     <div class="progress-item">
                         <div class="progress-checkbox" id="progress-a"></div>
                         <span>Consultar registro A (dirección IPv4)</span>
@@ -331,22 +332,22 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips de Investigación DNS
+                     Tips de Investigación DNS
                 </h3>
                 <div class="tip-item">
-                    <strong>🔍 Registro A:</strong> Muestra la dirección IPv4 donde está alojado el dominio. Un dominio puede tener múltiples registros A para balanceo de carga.
+                    <strong> Registro A:</strong> Muestra la dirección IPv4 donde está alojado el dominio. Un dominio puede tener múltiples registros A para balanceo de carga.
                 </div>
                 <div class="tip-item">
-                    <strong>📧 Registro MX:</strong> Indica qué servidores manejan el correo electrónico. El número es la prioridad (menor = mayor prioridad).
+                    <strong> Registro MX:</strong> Indica qué servidores manejan el correo electrónico. El número es la prioridad (menor = mayor prioridad).
                 </div>
                 <div class="tip-item">
-                    <strong>🔗 Registro CNAME:</strong> Crea un alias. No puede coexistir con otros registros en el mismo nombre.
+                    <strong> Registro CNAME:</strong> Crea un alias. No puede coexistir con otros registros en el mismo nombre.
                 </div>
                 <div class="tip-item">
-                    <strong>📝 Registro TXT:</strong> Almacena texto arbitrario, usado para verificaciones SPF, DKIM, y políticas de seguridad.
+                    <strong> Registro TXT:</strong> Almacena texto arbitrario, usado para verificaciones SPF, DKIM, y políticas de seguridad.
                 </div>
                 <div class="tip-item">
-                    <strong>🌐 TTL:</strong> Time To Live - cuánto tiempo puede ser cacheada la respuesta (en segundos).
+                    <strong> TTL:</strong> Time To Live - cuánto tiempo puede ser cacheada la respuesta (en segundos).
                 </div>
             </div>
         </div>
@@ -362,12 +363,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -486,12 +487,12 @@
 
             // Simular tiempo de consulta
             document.getElementById('queryBtn').disabled = true;
-            document.getElementById('queryBtn').textContent = '🔄 Consultando...';
+            document.getElementById('queryBtn').textContent = ' Consultando...';
 
             setTimeout(() => {
                 displayDNSResults(domain, recordType);
                 document.getElementById('queryBtn').disabled = false;
-                document.getElementById('queryBtn').textContent = '🔍 Ejecutar Consulta DNS';
+                document.getElementById('queryBtn').textContent = ' Ejecutar Consulta DNS';
                 
                 // Marcar progreso
                 markProgress(recordType);
@@ -501,12 +502,12 @@
         function displayDNSResults(domain, recordType) {
             const resultsDiv = document.getElementById('dnsResults');
             
-            let output = `<div class="results-title">📋 Resultados para: ${domain} (${recordType})</div>`;
+            let output = `<div class="results-title"> Resultados para: ${domain} (${recordType})</div>`;
             
             if (dnsDatabase[domain] && dnsDatabase[domain][recordType]) {
                 const records = dnsDatabase[domain][recordType];
                 
-                output += `<div style="color: #2E7D32; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif;">✅ Consulta exitosa - ${records.length} registro(s) encontrado(s)</div>`;
+                output += `<div style="color: #2E7D32; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif;"> Consulta exitosa - ${records.length} registro(s) encontrado(s)</div>`;
                 
                 records.forEach((record, index) => {
                     output += `<div class="result-entry">`;
@@ -526,7 +527,7 @@
                 output += `</div>`;
                 
             } else {
-                output += `<div style="color: #d32f2f; font-family: 'Segoe UI', sans-serif;">❌ No se encontraron registros ${recordType} para ${domain}</div>`;
+                output += `<div style="color: #d32f2f; font-family: 'Segoe UI', sans-serif;"> No se encontraron registros ${recordType} para ${domain}</div>`;
                 output += `<div style="margin-top: 10px; color: #8888bb; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;">Esto podría significar que el dominio no tiene registros de este tipo configurados, o que los servidores DNS no están disponibles.</div>`;
             }
             
@@ -536,25 +537,25 @@
         function getRecordExplanation(recordType, records) {
             switch (recordType) {
                 case 'A':
-                    return `💡 <strong>Registro A:</strong> Este dominio se resuelve a ${records.length} dirección(es) IPv4. El TTL de ${records[0].ttl} segundos indica cuánto tiempo pueden los servidores DNS cachear esta respuesta.`;
+                    return ` <strong>Registro A:</strong> Este dominio se resuelve a ${records.length} dirección(es) IPv4. El TTL de ${records[0].ttl} segundos indica cuánto tiempo pueden los servidores DNS cachear esta respuesta.`;
                 
                 case 'AAAA':
-                    return `💡 <strong>Registro AAAA:</strong> Dirección IPv6 del dominio. IPv6 usa 128 bits y permite muchas más direcciones que IPv4.`;
+                    return ` <strong>Registro AAAA:</strong> Dirección IPv6 del dominio. IPv6 usa 128 bits y permite muchas más direcciones que IPv4.`;
                 
                 case 'MX':
-                    return `💡 <strong>Registro MX:</strong> Los números (${records.map(r => r.priority).join(', ')}) indican prioridad - menor número = mayor prioridad. El correo se intenta enviar al servidor con menor prioridad primero.`;
+                    return ` <strong>Registro MX:</strong> Los números (${records.map(r => r.priority).join(', ')}) indican prioridad - menor número = mayor prioridad. El correo se intenta enviar al servidor con menor prioridad primero.`;
                 
                 case 'CNAME':
-                    return `💡 <strong>Registro CNAME:</strong> Este es un alias que apunta a otro dominio. Cuando consultas este nombre, el DNS te redirige al dominio de destino.`;
+                    return ` <strong>Registro CNAME:</strong> Este es un alias que apunta a otro dominio. Cuando consultas este nombre, el DNS te redirige al dominio de destino.`;
                 
                 case 'TXT':
-                    return `💡 <strong>Registro TXT:</strong> Contiene información adicional en texto plano. Comúnmente usado para verificaciones SPF (correo), verificaciones de propietario, y políticas de seguridad.`;
+                    return ` <strong>Registro TXT:</strong> Contiene información adicional en texto plano. Comúnmente usado para verificaciones SPF (correo), verificaciones de propietario, y políticas de seguridad.`;
                 
                 case 'NS':
-                    return `💡 <strong>Registro NS:</strong> Estos son los servidores de nombres autoritativos para este dominio. Son los únicos que tienen la información definitiva sobre este dominio.`;
+                    return ` <strong>Registro NS:</strong> Estos son los servidores de nombres autoritativos para este dominio. Son los únicos que tienen la información definitiva sobre este dominio.`;
                 
                 default:
-                    return `💡 <strong>Registro ${recordType}:</strong> Información específica del dominio almacenada en el DNS.`;
+                    return ` <strong>Registro ${recordType}:</strong> Información específica del dominio almacenada en el DNS.`;
             }
         }
 
@@ -581,10 +582,10 @@
                 const statusText = document.getElementById('statusText');
                 
                 indicator.classList.add('completed');
-                statusText.textContent = 'Completado ✅';
+                statusText.textContent = 'Completado ';
                 
                 setTimeout(() => {
-                    alert('🎉 ¡Excelente trabajo! Has investigado exitosamente diferentes tipos de registros DNS.\n\n✅ Actividad completada automáticamente\n🏆 +150 puntos ganados');
+                    alert(' ¡Excelente trabajo! Has investigado exitosamente diferentes tipos de registros DNS.\n\n Actividad completada automáticamente\n +150 puntos ganados');
                 }, 1000);
             }
         }
@@ -593,7 +594,7 @@
             if (!isCompleted) {
                 completeActivity();
             } else {
-                alert('🎉 ¡Felicidades! Has completado la actividad "Investigador DNS".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n\n¡Ahora sabes cómo investigar registros DNS!');
+                alert(' ¡Felicidades! Has completado la actividad "Investigador DNS".\n\n Actividad marcada como completada\n +150 puntos ganados\n\n¡Ahora sabes cómo investigar registros DNS!');
             }
         }
 
@@ -618,5 +619,6 @@
         }, 30000);
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="3" data-pagina="actividad2_investigador_dns" data-total="5" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#04a8bb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -189,6 +189,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -204,7 +205,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">🎯 Quiz del Módulo</h1>
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
             <p class="quiz-subtitle">Evalúa tus conocimientos sobre Backup y Recuperación</p>
         </div>
 
@@ -359,7 +360,7 @@
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -400,7 +401,7 @@
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -417,50 +418,50 @@
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. La regla 3-2-1 no se refiere a recursos humanos o servidores, sino a copias de datos.',
-                    'b': '✅ ¡Correcto! La regla 3-2-1 es el estándar de oro: 3 copias de datos importantes (original + 2 backups), en 2 tipos diferentes de medios (disco + cinta/nube), con 1 copia fuera del sitio (offsite).',
-                    'c': '❌ Incorrecto. La regla 3-2-1 no se refiere a cronogramas de tiempo, sino a la distribución física de las copias de datos.',
-                    'd': '❌ Incorrecto. La regla 3-2-1 se enfoca en redundancia y distribución de copias, no en clasificaciones de tipos de backup.'
+                    'a': ' Incorrecto. La regla 3-2-1 no se refiere a recursos humanos o servidores, sino a copias de datos.',
+                    'b': ' ¡Correcto! La regla 3-2-1 es el estándar de oro: 3 copias de datos importantes (original + 2 backups), en 2 tipos diferentes de medios (disco + cinta/nube), con 1 copia fuera del sitio (offsite).',
+                    'c': ' Incorrecto. La regla 3-2-1 no se refiere a cronogramas de tiempo, sino a la distribución física de las copias de datos.',
+                    'd': ' Incorrecto. La regla 3-2-1 se enfoca en redundancia y distribución de copias, no en clasificaciones de tipos de backup.'
                 }
             },
             {
                 id: 2,
                 correct: 'a',
                 feedback: {
-                    'a': '✅ ¡Correcto! RTO (Recovery Time Objective) de 2 horas significa que tu negocio puede tolerar máximo 2 horas sin el servicio. RPO (Recovery Point Objective) de 30 minutos significa que puedes perder máximo 30 minutos de datos.',
-                    'b': '❌ Incorrecto. RTO y RPO no son tiempos de operación de backup, sino objetivos de tolerancia del negocio a interrupciones y pérdida de datos.',
-                    'c': '❌ Incorrecto. RTO y RPO no definen la duración o frecuencia de backups, sino los límites de tolerancia del negocio.',
-                    'd': '❌ Incorrecto. RTO y RPO no se refieren a tiempos de detección y resolución, sino a objetivos de recuperación del negocio.'
+                    'a': ' ¡Correcto! RTO (Recovery Time Objective) de 2 horas significa que tu negocio puede tolerar máximo 2 horas sin el servicio. RPO (Recovery Point Objective) de 30 minutos significa que puedes perder máximo 30 minutos de datos.',
+                    'b': ' Incorrecto. RTO y RPO no son tiempos de operación de backup, sino objetivos de tolerancia del negocio a interrupciones y pérdida de datos.',
+                    'c': ' Incorrecto. RTO y RPO no definen la duración o frecuencia de backups, sino los límites de tolerancia del negocio.',
+                    'd': ' Incorrecto. RTO y RPO no se refieren a tiempos de detección y resolución, sino a objetivos de recuperación del negocio.'
                 }
             },
             {
                 id: 3,
                 correct: 'a',
                 feedback: {
-                    'a': '✅ ¡Correcto! Backup incremental copia solo archivos que cambiaron desde el último backup (sin importar si fue completo, incremental o diferencial). Backup diferencial copia solo archivos que cambiaron desde el último backup COMPLETO.',
-                    'b': '❌ Incorrecto. Aunque es cierto que incremental suele ser más rápido, la diferencia principal está en el punto de referencia para detectar cambios, no en velocidad vs seguridad.',
-                    'c': '❌ Incorrecto. Es al revés: incremental usa menos espacio (solo cambios recientes), diferencial usa más espacio (todos los cambios desde el último completo).',
-                    'd': '❌ Incorrecto. Son conceptos diferentes con estrategias distintas de backup. No son sinónimos.'
+                    'a': ' ¡Correcto! Backup incremental copia solo archivos que cambiaron desde el último backup (sin importar si fue completo, incremental o diferencial). Backup diferencial copia solo archivos que cambiaron desde el último backup COMPLETO.',
+                    'b': ' Incorrecto. Aunque es cierto que incremental suele ser más rápido, la diferencia principal está en el punto de referencia para detectar cambios, no en velocidad vs seguridad.',
+                    'c': ' Incorrecto. Es al revés: incremental usa menos espacio (solo cambios recientes), diferencial usa más espacio (todos los cambios desde el último completo).',
+                    'd': ' Incorrecto. Son conceptos diferentes con estrategias distintas de backup. No son sinónimos.'
                 }
             },
             {
                 id: 4,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Aunque puede ser un requerimiento en algunas regulaciones, la razón principal es técnica, no legal.',
-                    'b': '✅ ¡Correcto! Las pruebas de restauración son cruciales porque un backup que no se ha probado es una falsa sensación de seguridad. Pueden estar corruptos, incompletos, o los procedimientos pueden fallar.',
-                    'c': '❌ Incorrecto. Aunque mantener al personal entrenado es importante, la razón principal es verificar que los backups realmente funcionan.',
-                    'd': '❌ Incorrecto. Las pruebas de restauración no optimizan el rendimiento del backup, sino que verifican que funcionan correctamente.'
+                    'a': ' Incorrecto. Aunque puede ser un requerimiento en algunas regulaciones, la razón principal es técnica, no legal.',
+                    'b': ' ¡Correcto! Las pruebas de restauración son cruciales porque un backup que no se ha probado es una falsa sensación de seguridad. Pueden estar corruptos, incompletos, o los procedimientos pueden fallar.',
+                    'c': ' Incorrecto. Aunque mantener al personal entrenado es importante, la razón principal es verificar que los backups realmente funcionan.',
+                    'd': ' Incorrecto. Las pruebas de restauración no optimizan el rendimiento del backup, sino que verifican que funcionan correctamente.'
                 }
             },
             {
                 id: 5,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Restaurar inmediatamente sin evaluar puede empeorar la situación o ser innecesario según el tipo de incidente.',
-                    'b': '✅ ¡Correcto! El primer paso debe ser evaluar el alcance y severidad del incidente para determinar la respuesta apropiada. Esto incluye entender qué sistemas están afectados y qué nivel de respuesta se requiere.',
-                    'c': '❌ Incorrecto. Notificar usuarios sin entender primero el problema puede causar pánico innecesario o dar información incorrecta.',
-                    'd': '❌ Incorrecto. Aunque documentar es importante, no debe ser la prioridad inicial cuando hay un incidente crítico activo.'
+                    'a': ' Incorrecto. Restaurar inmediatamente sin evaluar puede empeorar la situación o ser innecesario según el tipo de incidente.',
+                    'b': ' ¡Correcto! El primer paso debe ser evaluar el alcance y severidad del incidente para determinar la respuesta apropiada. Esto incluye entender qué sistemas están afectados y qué nivel de respuesta se requiere.',
+                    'c': ' Incorrecto. Notificar usuarios sin entender primero el problema puede causar pánico innecesario o dar información incorrecta.',
+                    'd': ' Incorrecto. Aunque documentar es importante, no debe ser la prioridad inicial cuando hay un incidente crítico activo.'
                 }
             }
         ];
@@ -608,13 +609,13 @@
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Hub
+                     Volver al Hub
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             
@@ -623,13 +624,13 @@
             // Mostrar mensaje motivacional basado en el puntaje
             let message = '';
             if (score === 5) {
-                message = '🌟 ¡Excelente! Dominas completamente los conceptos de backup y recuperación. Estás listo para implementar estrategias de protección de datos en entornos profesionales.';
+                message = ' ¡Excelente! Dominas completamente los conceptos de backup y recuperación. Estás listo para implementar estrategias de protección de datos en entornos profesionales.';
             } else if (score >= 4) {
-                message = '👏 ¡Muy bien! Tienes una sólida comprensión de backup y recuperación. Solo necesitas repasar algunos conceptos específicos.';
+                message = ' ¡Muy bien! Tienes una sólida comprensión de backup y recuperación. Solo necesitas repasar algunos conceptos específicos.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Entiendes los fundamentos, pero te beneficiarías de revisar los conceptos más avanzados como RTO/RPO y estrategias de backup.';
+                message = ' ¡Buen trabajo! Entiendes los fundamentos, pero te beneficiarías de revisar los conceptos más avanzados como RTO/RPO y estrategias de backup.';
             } else {
-                message = '📚 Te recomendamos revisar el contenido del módulo, especialmente los conceptos de la regla 3-2-1, diferencias entre tipos de backup, y planes de contingencia.';
+                message = ' Te recomendamos revisar el contenido del módulo, especialmente los conceptos de la regla 3-2-1, diferencias entre tipos de backup, y planes de contingencia.';
             }
 
             const messageElement = document.createElement('p');
@@ -657,7 +658,7 @@
             // Ocultar resultados
             document.getElementById('resultsContainer').classList.remove('show');
             document.getElementById('resultsContainer').innerHTML = `
-                <h2 class="results-title">🎯 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -694,7 +695,7 @@
         }
 
         function nextModule() {
-            alert('🚀 ¡Excelente progreso! Has completado el Módulo 8 sobre Backup y Recuperación.\n\n🎓 Este es el último módulo disponible del bootcamp.\n\n💪 Has desarrollado habilidades fundamentales en:\n• Estrategias de backup y recuperación\n• Cálculo de RTO/RPO\n• Manejo de crisis y contingencias\n• Protección de datos críticos\n\n¡Felicidades por completar todo el bootcamp!');
+            alert(' ¡Excelente progreso! Has completado el Módulo 8 sobre Backup y Recuperación.\n\n Este es el último módulo disponible del bootcamp.\n\n Has desarrollado habilidades fundamentales en:\n• Estrategias de backup y recuperación\n• Cálculo de RTO/RPO\n• Manejo de crisis y contingencias\n• Protección de datos críticos\n\n¡Felicidades por completar todo el bootcamp!');
             goToHub();
         }
 
@@ -733,5 +734,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="8" data-pagina="quiz_modulo8" data-total="3" defer></script>
 </body>
 </html>

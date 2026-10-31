@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ff7a8a">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -305,6 +305,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -319,19 +320,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 4</a> / Actividad 2
             </div>
-            <h1 class="activity-title">🧪 Verificador de Integridad (Hashing)</h1>
+            <h1 class="activity-title"> Verificador de Integridad (Hashing)</h1>
             <p class="activity-subtitle">Aprende a calcular y verificar hashes para detectar modificaciones</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 120</span>
                 </div>
             </div>
@@ -339,16 +340,16 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a calcular hashes MD5 y SHA-256, verificar la integridad de datos y detectar modificaciones. Comprenderás por qué los hashes son fundamentales para la seguridad digital.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔬 Laboratorio de Hashing</h2>
+                <h2 class="section-title"> Laboratorio de Hashing</h2>
                 
                 <div class="hash-lab">
                     <div class="lab-section">
-                        <h3 class="lab-title">🔍 Calculadora de Hash</h3>
+                        <h3 class="lab-title"> Calculadora de Hash</h3>
                         <p style="margin-bottom: 15px; color: #8888bb;">Genera el hash de cualquier texto para crear su "huella digital" única.</p>
                         
                         <div class="input-group">
@@ -363,9 +364,9 @@
                         </div>
 
                         <div class="button-group">
-                            <button class="hash-btn" onclick="calculateHash()">🔍 Calcular Hash</button>
-                            <button class="hash-btn secondary" onclick="clearAll()">🗑️ Limpiar</button>
-                            <button class="hash-btn warning" onclick="loadDemoFile()">📄 Cargar Ejemplo</button>
+                            <button class="hash-btn" onclick="calculateHash()"> Calcular Hash</button>
+                            <button class="hash-btn secondary" onclick="clearAll()"> Limpiar</button>
+                            <button class="hash-btn warning" onclick="loadDemoFile()"> Cargar Ejemplo</button>
                         </div>
 
                         <div class="result-area" id="hashResult">
@@ -374,7 +375,7 @@
                     </div>
 
                     <div class="lab-section">
-                        <h3 class="lab-title">⚖️ Verificador de Integridad</h3>
+                        <h3 class="lab-title"> Verificador de Integridad</h3>
                         <p style="margin-bottom: 15px; color: #8888bb;">Compara dos hashes para verificar si los datos son idénticos o han sido modificados.</p>
                         
                         <div class="hash-comparison">
@@ -389,8 +390,8 @@
                         </div>
 
                         <div class="button-group">
-                            <button class="hash-btn" onclick="compareHashes()">⚖️ Comparar Hashes</button>
-                            <button class="hash-btn danger" onclick="simulateCorruption()">💥 Simular Corrupción</button>
+                            <button class="hash-btn" onclick="compareHashes()"> Comparar Hashes</button>
+                            <button class="hash-btn danger" onclick="simulateCorruption()"> Simular Corrupción</button>
                         </div>
 
                         <div class="result-area" id="comparisonResult">
@@ -399,22 +400,22 @@
                     </div>
 
                     <div class="lab-section">
-                        <h3 class="lab-title">📁 Archivos de Demostración</h3>
+                        <h3 class="lab-title"> Archivos de Demostración</h3>
                         <p style="margin-bottom: 15px; color: #8888bb;">Selecciona un archivo de ejemplo para ver cómo cambia el hash con diferentes contenidos.</p>
                         
                         <div class="demo-files">
                             <div class="demo-file" onclick="selectDemoFile('document')" data-file="document">
-                                <span class="file-icon">📄</span>
+                                <span class="file-icon"></span>
                                 <div class="file-name">Documento.txt</div>
                                 <div class="file-size">1.2 KB</div>
                             </div>
                             <div class="demo-file" onclick="selectDemoFile('config')" data-file="config">
-                                <span class="file-icon">⚙️</span>
+                                <span class="file-icon"></span>
                                 <div class="file-name">Config.json</div>
                                 <div class="file-size">0.8 KB</div>
                             </div>
                             <div class="demo-file" onclick="selectDemoFile('script')" data-file="script">
-                                <span class="file-icon">💻</span>
+                                <span class="file-icon"></span>
                                 <div class="file-name">Script.js</div>
                                 <div class="file-size">2.1 KB</div>
                             </div>
@@ -429,19 +430,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips sobre Integridad
+                     Tips sobre Integridad
                 </h3>
                 <div class="tip-item">
-                    <strong>🔍 MD5:</strong> Rápido pero vulnerable - úsalo solo para verificaciones básicas, no para seguridad crítica.
+                    <strong> MD5:</strong> Rápido pero vulnerable - úsalo solo para verificaciones básicas, no para seguridad crítica.
                 </div>
                 <div class="tip-item">
-                    <strong>🛡️ SHA-256:</strong> Mucho más seguro - estándar actual para aplicaciones críticas y blockchain.
+                    <strong> SHA-256:</strong> Mucho más seguro - estándar actual para aplicaciones críticas y blockchain.
                 </div>
                 <div class="tip-item">
-                    <strong>⚡ Detección:</strong> Cualquier cambio, por mínimo que sea, genera un hash completamente diferente.
+                    <strong> Detección:</strong> Cualquier cambio, por mínimo que sea, genera un hash completamente diferente.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Uso real:</strong> Verificar descargas, detectar malware, autenticación de software y validación de blockchain.
+                    <strong> Uso real:</strong> Verificar descargas, detectar malware, autenticación de software y validación de blockchain.
                 </div>
             </div>
         </div>
@@ -457,12 +458,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -495,7 +496,7 @@
             });
             document.querySelector(`[data-algorithm="${algorithm}"]`).classList.add('active');
             
-            displayResult('hashResult', `✅ Algoritmo ${algorithm.toUpperCase()} seleccionado`, false);
+            displayResult('hashResult', ` Algoritmo ${algorithm.toUpperCase()} seleccionado`, false);
         }
 
         async function calculateHash() {
@@ -524,7 +525,7 @@
                 lastCalculatedHash = hash;
                 
                 const result = `
-                    <strong>🔍 Hash ${currentAlgorithm.toUpperCase()}:</strong><br>
+                    <strong> Hash ${currentAlgorithm.toUpperCase()}:</strong><br>
                     <div class="hash-output">${hash}</div>
                     <small>Longitud: ${hash.length} caracteres | Algoritmo: ${currentAlgorithm.toUpperCase()}</small>
                 `;
@@ -535,7 +536,7 @@
                 document.getElementById('hash1').value = hash;
                 
             } catch (error) {
-                displayResult('hashResult', '❌ Error al calcular el hash', true, 'error');
+                displayResult('hashResult', ' Error al calcular el hash', true, 'error');
             }
         }
 
@@ -558,7 +559,7 @@
                 hash2Box.classList.remove('no-match');
                 
                 displayResult('comparisonResult', 
-                    '✅ <strong>¡COINCIDENCIA PERFECTA!</strong><br>Los hashes son idénticos. Los datos NO han sido modificados.', 
+                    ' <strong>¡COINCIDENCIA PERFECTA!</strong><br>Los hashes son idénticos. Los datos NO han sido modificados.', 
                     true);
             } else {
                 hash1Box.classList.add('no-match');
@@ -567,7 +568,7 @@
                 hash2Box.classList.remove('match');
                 
                 displayResult('comparisonResult', 
-                    '❌ <strong>NO COINCIDEN</strong><br>Los hashes son diferentes. Los datos HAN sido modificados o son diferentes.', 
+                    ' <strong>NO COINCIDEN</strong><br>Los hashes son diferentes. Los datos HAN sido modificados o son diferentes.', 
                     true, 'error');
             }
         }
@@ -585,7 +586,7 @@
             document.getElementById('inputText').value = corruptedText;
             
             displayResult('demoResult', 
-                `💥 <strong>Simulación de corrupción:</strong><br>Se cambió el último carácter por 'X'.<br>Ahora calcula el hash nuevamente para ver la diferencia.`, 
+                ` <strong>Simulación de corrupción:</strong><br>Se cambió el último carácter por 'X'.<br>Ahora calcula el hash nuevamente para ver la diferencia.`, 
                 true, 'warning');
         }
 
@@ -600,7 +601,7 @@
             document.getElementById('inputText').value = file.content;
             
             displayResult('demoResult', 
-                `📁 <strong>Archivo cargado: ${file.name}</strong><br>Contenido actualizado en el campo de texto. Ahora puedes calcular su hash.`, 
+                ` <strong>Archivo cargado: ${file.name}</strong><br>Contenido actualizado en el campo de texto. Ahora puedes calcular su hash.`, 
                 true);
         }
 
@@ -609,7 +610,7 @@
             document.getElementById('inputText').value = demoText;
             
             displayResult('hashResult', 
-                '📄 Texto de ejemplo cargado. Ahora puedes calcular su hash.', 
+                ' Texto de ejemplo cargado. Ahora puedes calcular su hash.', 
                 false);
         }
 
@@ -689,9 +690,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Excelente trabajo! Has completado el verificador de integridad.\n\n✅ Actividad marcada como completada\n🏆 +120 puntos ganados\n\n🧪 Ahora comprendes cómo los hashes protegen la integridad de los datos.');
+            alert(' ¡Excelente trabajo! Has completado el verificador de integridad.\n\n Actividad marcada como completada\n +120 puntos ganados\n\n Ahora comprendes cómo los hashes protegen la integridad de los datos.');
         }
 
         function goBack() {
@@ -702,9 +703,10 @@
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            displayResult('hashResult', '💡 Tip: Prueba calculando el hash de diferentes textos', false);
+            displayResult('hashResult', ' Tip: Prueba calculando el hash de diferentes textos', false);
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="4" data-pagina="actividad2_integridad" data-total="6" defer></script>
 </body>
 </html>

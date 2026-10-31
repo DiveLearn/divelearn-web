@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,6 +185,7 @@
         }
 </style>
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -200,7 +201,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">🛣️ Quiz: Carreteras Digitales</h1>
+            <h1 class="quiz-title"> Quiz: Carreteras Digitales</h1>
             <p class="quiz-subtitle">Evalúa tus conocimientos sobre redes y conectividad</p>
         </div>
 
@@ -355,7 +356,7 @@
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -396,7 +397,7 @@
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -413,50 +414,50 @@
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Aunque relacionados, ancho de banda y throughput miden aspectos diferentes del rendimiento de red.',
-                    'b': '✅ ¡Correcto! El ancho de banda es la capacidad máxima teórica de la conexión, mientras que el throughput es la velocidad real que experimentas, que puede ser menor debido a congestión, latencia u otros factores.',
-                    'c': '❌ Incorrecto. El throughput nunca puede ser mayor que el ancho de banda, ya que está limitado por la capacidad máxima del canal.',
-                    'd': '❌ Incorrecto. La diferencia no está en las unidades sino en que uno es teórico (ancho de banda) y otro es la medición real (throughput).'
+                    'a': ' Incorrecto. Aunque relacionados, ancho de banda y throughput miden aspectos diferentes del rendimiento de red.',
+                    'b': ' ¡Correcto! El ancho de banda es la capacidad máxima teórica de la conexión, mientras que el throughput es la velocidad real que experimentas, que puede ser menor debido a congestión, latencia u otros factores.',
+                    'c': ' Incorrecto. El throughput nunca puede ser mayor que el ancho de banda, ya que está limitado por la capacidad máxima del canal.',
+                    'd': ' Incorrecto. La diferencia no está en las unidades sino en que uno es teórico (ancho de banda) y otro es la medición real (throughput).'
                 }
             },
             {
                 id: 2,
                 correct: 'c',
                 feedback: {
-                    'a': '❌ Incorrecto. El número de carriles representa el ancho de banda (capacidad), no la latencia.',
-                    'b': '❌ Incorrecto. La cantidad de vehículos representa la carga de tráfico o congestión, no la latencia.',
-                    'c': '✅ ¡Correcto! La latencia es el tiempo que tarda un paquete de datos en viajar desde el origen hasta el destino, igual que el tiempo de viaje en una carretera.',
-                    'd': '❌ Incorrecto. El combustible representaría más bien el consumo de recursos o energía, no el tiempo de viaje.'
+                    'a': ' Incorrecto. El número de carriles representa el ancho de banda (capacidad), no la latencia.',
+                    'b': ' Incorrecto. La cantidad de vehículos representa la carga de tráfico o congestión, no la latencia.',
+                    'c': ' ¡Correcto! La latencia es el tiempo que tarda un paquete de datos en viajar desde el origen hasta el destino, igual que el tiempo de viaje en una carretera.',
+                    'd': ' Incorrecto. El combustible representaría más bien el consumo de recursos o energía, no el tiempo de viaje.'
                 }
             },
             {
                 id: 3,
                 correct: 'd',
                 feedback: {
-                    'a': '❌ Incorrecto. La fibra óptica tiene una latencia muy baja debido a que los datos viajan a la velocidad de la luz.',
-                    'b': '❌ Incorrecto. Las conexiones Ethernet cableadas tienen latencia muy baja, típicamente 1-5ms en redes locales.',
-                    'c': '❌ Incorrecto. Aunque WiFi tiene más latencia que cables, sigue siendo relativamente baja (5-50ms típicamente).',
-                    'd': '✅ ¡Correcto! El internet satelital tiene la mayor latencia (500-800ms) porque los datos deben viajar aproximadamente 36,000 km al espacio y regresar.'
+                    'a': ' Incorrecto. La fibra óptica tiene una latencia muy baja debido a que los datos viajan a la velocidad de la luz.',
+                    'b': ' Incorrecto. Las conexiones Ethernet cableadas tienen latencia muy baja, típicamente 1-5ms en redes locales.',
+                    'c': ' Incorrecto. Aunque WiFi tiene más latencia que cables, sigue siendo relativamente baja (5-50ms típicamente).',
+                    'd': ' ¡Correcto! El internet satelital tiene la mayor latencia (500-800ms) porque los datos deben viajar aproximadamente 36,000 km al espacio y regresar.'
                 }
             },
             {
                 id: 4,
                 correct: 'c',
                 feedback: {
-                    'a': '❌ Incorrecto. En topología de bus, los dispositivos se conectan a un cable principal compartido, no a un punto central.',
-                    'b': '❌ Incorrecto. En topología de anillo, cada dispositivo se conecta al siguiente formando un círculo, sin un punto central.',
-                    'c': '✅ ¡Correcto! La topología de estrella conecta todos los dispositivos a un punto central (switch o hub), facilitando la administración y aislando fallos.',
-                    'd': '❌ Incorrecto. En topología de malla, cada dispositivo se conecta directamente a múltiples o todos los otros dispositivos.'
+                    'a': ' Incorrecto. En topología de bus, los dispositivos se conectan a un cable principal compartido, no a un punto central.',
+                    'b': ' Incorrecto. En topología de anillo, cada dispositivo se conecta al siguiente formando un círculo, sin un punto central.',
+                    'c': ' ¡Correcto! La topología de estrella conecta todos los dispositivos a un punto central (switch o hub), facilitando la administración y aislando fallos.',
+                    'd': ' Incorrecto. En topología de malla, cada dispositivo se conecta directamente a múltiples o todos los otros dispositivos.'
                 }
             },
             {
                 id: 5,
                 correct: 'c',
                 feedback: {
-                    'a': '❌ Incorrecto. La fibra óptica es más costosa de instalar que el cable de cobre, requiere equipos y técnicas especializadas.',
-                    'b': '❌ Incorrecto. La fibra óptica es más delicada y requiere equipos especiales para reparación, siendo más compleja que el cobre.',
-                    'c': '✅ ¡Correcto! La fibra óptica transmite datos usando luz en lugar de electricidad, permitiendo velocidades mucho mayores y distancias más largas sin degradación significativa de la señal.',
-                    'd': '❌ Incorrecto. Aunque la fibra es resistente a interferencias electromagnéticas, esta no es su ventaja principal sobre el cobre.'
+                    'a': ' Incorrecto. La fibra óptica es más costosa de instalar que el cable de cobre, requiere equipos y técnicas especializadas.',
+                    'b': ' Incorrecto. La fibra óptica es más delicada y requiere equipos especiales para reparación, siendo más compleja que el cobre.',
+                    'c': ' ¡Correcto! La fibra óptica transmite datos usando luz en lugar de electricidad, permitiendo velocidades mucho mayores y distancias más largas sin degradación significativa de la señal.',
+                    'd': ' Incorrecto. Aunque la fibra es resistente a interferencias electromagnéticas, esta no es su ventaja principal sobre el cobre.'
                 }
             }
         ];
@@ -604,13 +605,13 @@
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Hub
+                     Volver al Hub
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             
@@ -619,13 +620,13 @@
             // Mostrar mensaje motivacional basado en el puntaje
             let message = '';
             if (score === 5) {
-                message = '🌟 ¡Excelente! Dominas completamente las carreteras digitales.';
+                message = ' ¡Excelente! Dominas completamente las carreteras digitales.';
             } else if (score >= 4) {
-                message = '👏 ¡Muy bien! Tienes una sólida comprensión de las redes.';
+                message = ' ¡Muy bien! Tienes una sólida comprensión de las redes.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Revisa algunos conceptos y estarás listo.';
+                message = ' ¡Buen trabajo! Revisa algunos conceptos y estarás listo.';
             } else {
-                message = '📚 Te recomendamos revisar la teoría antes de continuar.';
+                message = ' Te recomendamos revisar la teoría antes de continuar.';
             }
 
             const messageElement = document.createElement('p');
@@ -653,7 +654,7 @@
             // Ocultar resultados
             document.getElementById('resultsContainer').classList.remove('show');
             document.getElementById('resultsContainer').innerHTML = `
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -690,7 +691,7 @@
         }
 
         function nextModule() {
-            alert('🚀 ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
+            alert(' ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
             goToHub();
         }
 
@@ -729,5 +730,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="quiz_modulo1" data-total="10" defer></script>
 </body>
 </html>

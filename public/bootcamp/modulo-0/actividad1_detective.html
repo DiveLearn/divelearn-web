@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,6 +76,7 @@
     .navigation { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px 0; border-top: 1px solid var(--border); margin-top: 20px; }
     @media (max-width:600px) { .stat-item { min-width: 50%; } .jv-bar-wrap { display: none; } .url-row { flex-wrap: wrap; } }
   </style>
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
 
@@ -95,14 +96,14 @@
       <span class="breadcrumb-sep">/</span>
       <span class="breadcrumb-current">Actividad 1</span>
     </div>
-    <div class="activity-badge">🕵️ Detective · 20 min</div>
+    <div class="activity-badge"> Detective · 20 min</div>
     <h1 class="activity-title">Detective de <span>Requests</span></h1>
     <p class="activity-subtitle">Ejecuta peticiones HTTP reales y observa exactamente qué pasa — tiempos, headers, status codes.</p>
     <div class="activity-meta">
-      <span class="meta-chip">🔬 fetch() real</span>
-      <span class="meta-chip">📊 Headers HTTP</span>
-      <span class="meta-chip">⚡ Status codes</span>
-      <span class="meta-chip">⏱ Timing real</span>
+      <span class="meta-chip"> fetch() real</span>
+      <span class="meta-chip"> Headers HTTP</span>
+      <span class="meta-chip"> Status codes</span>
+      <span class="meta-chip"> Timing real</span>
     </div>
   </div>
 
@@ -112,21 +113,21 @@
       Vas a usar <code>fetch()</code> — la misma función que usan los desarrolladores — para hacer peticiones HTTP reales a APIs públicas. No hay simulación: verás los datos reales que viajan por internet.
     </p>
     <div class="tips-section" style="margin:0;">
-      <div class="tips-title">💡 Antes de empezar</div>
+      <div class="tips-title"> Antes de empezar</div>
       <div class="tip-item">El <strong>status code</strong> te dice si tuvo éxito: <code>200</code> = OK · <code>404</code> = no encontrado · <code>500</code> = error del servidor.</div>
       <div class="tip-item">Los <strong>headers</strong> son metadatos: qué tipo de dato es, cuánto pesa, si puede cachearse.</div>
       <div class="tip-item">El <strong>tiempo de respuesta</strong> en ms es el tiempo real que tardó el servidor en responderte.</div>
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top:28px;">🖥️ Consola HTTP</h2>
+  <h2 class="section-title" style="margin-top:28px;"> Consola HTTP</h2>
   <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:10px;">Selecciona una URL de práctica o escribe la tuya:</p>
   <div class="presets">
-    <button class="preset-btn" onclick="setPreset('https://jsonplaceholder.typicode.com/posts/1')">📄 API REST</button>
-    <button class="preset-btn" onclick="setPreset('https://api.github.com/')">🐙 GitHub API</button>
-    <button class="preset-btn" onclick="setPreset('https://jsonplaceholder.typicode.com/posts/999')">❌ Error 404</button>
-    <button class="preset-btn" onclick="setPreset('https://jsonplaceholder.typicode.com/posts')">📦 Lista grande</button>
-    <button class="preset-btn" onclick="setPreset('https://worldtimeapi.org/api/ip')">🌍 Tu IP</button>
+    <button class="preset-btn" onclick="setPreset('https://jsonplaceholder.typicode.com/posts/1')"> API REST</button>
+    <button class="preset-btn" onclick="setPreset('https://api.github.com/')"> GitHub API</button>
+    <button class="preset-btn" onclick="setPreset('https://jsonplaceholder.typicode.com/posts/999')"> Error 404</button>
+    <button class="preset-btn" onclick="setPreset('https://jsonplaceholder.typicode.com/posts')"> Lista grande</button>
+    <button class="preset-btn" onclick="setPreset('https://worldtimeapi.org/api/ip')"> Tu IP</button>
   </div>
 
   <div class="console">
@@ -162,28 +163,28 @@
   </div>
 
   <div class="journey-vis" id="journeyVis" style="display:none;">
-    <div class="journey-vis-title">⏱ Desglose del viaje</div>
+    <div class="journey-vis-title"> Desglose del viaje</div>
     <div class="jv-steps">
-      <div class="jv-step" id="jv0"><div class="jv-icon">💻</div><div class="jv-info"><div class="jv-name">Navegador procesa</div><div class="jv-detail">Formatea la petición HTTP</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar0"></div></div><div class="jv-ms" id="jvMs0">—</div></div></div>
-      <div class="jv-step" id="jv1"><div class="jv-icon">📖</div><div class="jv-info"><div class="jv-name">DNS lookup</div><div class="jv-detail">Convierte el dominio a IP</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar1"></div></div><div class="jv-ms" id="jvMs1">—</div></div></div>
-      <div class="jv-step" id="jv2"><div class="jv-icon">🤝</div><div class="jv-info"><div class="jv-name">Conexión TCP + TLS</div><div class="jv-detail">Establece canal seguro</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar2"></div></div><div class="jv-ms" id="jvMs2">—</div></div></div>
-      <div class="jv-step" id="jv3"><div class="jv-icon">☁️</div><div class="jv-info"><div class="jv-name">Servidor responde</div><div class="jv-detail">Procesa y envía datos</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar3"></div></div><div class="jv-ms" id="jvMs3">—</div></div></div>
-      <div class="jv-step" id="jv4"><div class="jv-icon">📥</div><div class="jv-info"><div class="jv-name">Descarga del body</div><div class="jv-detail">Los datos llegan a tu navegador</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar4"></div></div><div class="jv-ms" id="jvMs4">—</div></div></div>
+      <div class="jv-step" id="jv0"><div class="jv-icon"></div><div class="jv-info"><div class="jv-name">Navegador procesa</div><div class="jv-detail">Formatea la petición HTTP</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar0"></div></div><div class="jv-ms" id="jvMs0">—</div></div></div>
+      <div class="jv-step" id="jv1"><div class="jv-icon"></div><div class="jv-info"><div class="jv-name">DNS lookup</div><div class="jv-detail">Convierte el dominio a IP</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar1"></div></div><div class="jv-ms" id="jvMs1">—</div></div></div>
+      <div class="jv-step" id="jv2"><div class="jv-icon"></div><div class="jv-info"><div class="jv-name">Conexión TCP + TLS</div><div class="jv-detail">Establece canal seguro</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar2"></div></div><div class="jv-ms" id="jvMs2">—</div></div></div>
+      <div class="jv-step" id="jv3"><div class="jv-icon"></div><div class="jv-info"><div class="jv-name">Servidor responde</div><div class="jv-detail">Procesa y envía datos</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar3"></div></div><div class="jv-ms" id="jvMs3">—</div></div></div>
+      <div class="jv-step" id="jv4"><div class="jv-icon"></div><div class="jv-info"><div class="jv-name">Descarga del body</div><div class="jv-detail">Los datos llegan a tu navegador</div></div><div class="jv-bar-wrap"><div class="jv-bar-bg"><div class="jv-bar-fill" id="jvBar4"></div></div><div class="jv-ms" id="jvMs4">—</div></div></div>
     </div>
   </div>
 
   <div id="conceptSection" style="display:none;">
-    <h2 class="section-title" style="margin-top:28px;">🧠 Lo que acabas de ver</h2>
+    <h2 class="section-title" style="margin-top:28px;"> Lo que acabas de ver</h2>
     <div class="concept-grid">
-      <div class="concept-card"><div class="cc-title">⚡ Status Code</div><div class="cc-body"><code>2xx</code> éxito · <code>3xx</code> redirección · <code>4xx</code> error tuyo · <code>5xx</code> error del servidor. Cada número tiene un significado preciso.</div></div>
-      <div class="concept-card"><div class="cc-title">📋 Headers</div><div class="cc-body"><code>Content-Type</code> indica el formato, <code>Cache-Control</code> cuánto tiempo cachear, <code>Access-Control-Allow-Origin</code> controla CORS.</div></div>
-      <div class="concept-card"><div class="cc-title">⏱ Latencia</div><div class="cc-body">El tiempo depende de: distancia geográfica al servidor, velocidad de tu ISP, carga del servidor, y si el DNS estaba cacheado.</div></div>
-      <div class="concept-card"><div class="cc-title">🔒 HTTPS / TLS</div><div class="cc-body">Todas las APIs modernas usan HTTPS. El TLS handshake añade ~30-80ms la primera vez, pero la conexión se reutiliza en requests siguientes.</div></div>
+      <div class="concept-card"><div class="cc-title"> Status Code</div><div class="cc-body"><code>2xx</code> éxito · <code>3xx</code> redirección · <code>4xx</code> error tuyo · <code>5xx</code> error del servidor. Cada número tiene un significado preciso.</div></div>
+      <div class="concept-card"><div class="cc-title"> Headers</div><div class="cc-body"><code>Content-Type</code> indica el formato, <code>Cache-Control</code> cuánto tiempo cachear, <code>Access-Control-Allow-Origin</code> controla CORS.</div></div>
+      <div class="concept-card"><div class="cc-title"> Latencia</div><div class="cc-body">El tiempo depende de: distancia geográfica al servidor, velocidad de tu ISP, carga del servidor, y si el DNS estaba cacheado.</div></div>
+      <div class="concept-card"><div class="cc-title"> HTTPS / TLS</div><div class="cc-body">Todas las APIs modernas usan HTTPS. El TLS handshake añade ~30-80ms la primera vez, pero la conexión se reutiliza en requests siguientes.</div></div>
     </div>
   </div>
 
   <div class="challenge">
-    <div class="challenge-title">🎯 Desafíos — completa los 4</div>
+    <div class="challenge-title"> Desafíos — completa los 4</div>
     <ul class="challenge-list">
       <li class="challenge-item"><div class="ch-check done" id="chk0">✓</div><span>Haz tu primer request exitoso (status 200)</span></li>
       <li class="challenge-item"><div class="ch-check" id="chk1"></div><span>Provoca un error 404 usando el preset correspondiente</span></li>
@@ -193,7 +194,7 @@
   </div>
 
   <div class="tips-section">
-    <div class="tips-title">🔧 Pro tip: hazlo en el mundo real</div>
+    <div class="tips-title"> Pro tip: hazlo en el mundo real</div>
     <div class="tip-item">Presiona <strong>F12</strong> → pestaña <strong>Network</strong> y recarga cualquier página. Verás las mismas columnas: Status, Type, Size, Time — con todas las peticiones reales de la página.</div>
     <div class="tip-item">Filtra por <strong>XHR/Fetch</strong> para ver solo peticiones a APIs, sin los assets (imágenes, CSS, JS).</div>
   </div>
@@ -227,7 +228,7 @@ async function executeRequest() {
   const url = document.getElementById('urlInput').value.trim();
   if (!url) return;
   const btn = document.getElementById('sendBtn');
-  btn.disabled = true; btn.textContent = '⏳ Enviando...';
+  btn.disabled = true; btn.textContent = ' Enviando...';
   document.getElementById('responsePanel').classList.remove('visible');
   document.getElementById('errorBox').style.display = 'none';
   document.getElementById('journeyVis').style.display = 'block';
@@ -259,9 +260,9 @@ async function executeRequest() {
     const cors = res.headers.get('access-control-allow-origin');
     document.getElementById('explainContent').innerHTML = `
       <p>${res.status < 300 ? `<strong style="color:var(--lime)">✓ ${res.status} ${res.statusText}</strong> — El servidor encontró el recurso y te lo envió.` : res.status === 404 ? `<strong style="color:#e53e3e">✗ 404 Not Found</strong> — El servidor respondió, pero el recurso no existe en esa ruta.` : `<strong style="color:#f59e0b">${res.status} ${res.statusText}</strong>`}</p><br>
-      <p>⏱ <strong>${totalMs}ms</strong> de tiempo total — ${totalMs < 200 ? 'Rápido (servidor cercano o con caché)' : totalMs < 600 ? 'Normal' : 'Lento (servidor lejano o con carga alta)'}.</p><br>
-      <p>📦 <strong>${document.getElementById('statSize').textContent}</strong> de datos. El header <code>Content-Type</code> le dice al navegador cómo interpretar el body.</p>
-      ${cors ? `<br><p>🔒 <code>Access-Control-Allow-Origin: ${cors}</code> — Este header CORS permite que hagas la petición desde el navegador. Sin él, el navegador la bloquearía.</p>` : ''}
+      <p> <strong>${totalMs}ms</strong> de tiempo total — ${totalMs < 200 ? 'Rápido (servidor cercano o con caché)' : totalMs < 600 ? 'Normal' : 'Lento (servidor lejano o con carga alta)'}.</p><br>
+      <p> <strong>${document.getElementById('statSize').textContent}</strong> de datos. El header <code>Content-Type</code> le dice al navegador cómo interpretar el body.</p>
+      ${cors ? `<br><p> <code>Access-Control-Allow-Origin: ${cors}</code> — Este header CORS permite que hagas la petición desde el navegador. Sin él, el navegador la bloquearía.</p>` : ''}
     `;
     updateJourneyDone(totalMs, bodyMs);
     document.getElementById('responsePanel').classList.add('visible');
@@ -322,5 +323,6 @@ function markDone() {
   window.location.href = 'actividad2_laboratorio.html';
 }
 </script>
+<script src="/js/bootcamp-progreso.js" data-modulo="0" data-pagina="actividad1_detective" data-total="3" defer></script>
 </body>
 </html>

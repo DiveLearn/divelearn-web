@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -214,6 +214,7 @@
     .toast.ok  { border-color: #4ade80; }
     .toast.bad { border-color: #f87171; }
   </style>
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <!-- Nav -->
@@ -230,19 +231,19 @@
     <!-- Hero -->
     <div class="act-hero">
       <div class="act-eyebrow">Actividad 2 · Módulo 0</div>
-      <h1 class="act-title">🧬 Laboratorio de URLs</h1>
+      <h1 class="act-title"> Laboratorio de URLs</h1>
       <p class="act-sub">Disecciona direcciones web como un científico digital. Aprende a leer, armar y entender cada pieza de una URL.</p>
       <div class="act-pills">
-        <span class="act-pill">⏱ 20 min</span>
-        <span class="act-pill">🎯 Básico</span>
-        <span class="act-pill">⚡ +150 XP</span>
+        <span class="act-pill"> 20 min</span>
+        <span class="act-pill"> Básico</span>
+        <span class="act-pill"> +150 XP</span>
       </div>
     </div>
 
     <!-- ══ 1. Visualizador ══ -->
     <div class="sec">
       <div class="sec-label">Parte 1 de 4</div>
-      <h2 class="sec-h">🔬 Disecciona una URL en vivo</h2>
+      <h2 class="sec-h"> Disecciona una URL en vivo</h2>
       <p class="sec-desc">Ingresa cualquier URL y ve cómo se divide en sus partes — igual a como un microscópio separa células.</p>
 
       <div class="card">
@@ -258,7 +259,7 @@
     <!-- ══ 2. Drag & Drop ══ -->
     <div class="sec">
       <div class="sec-label">Parte 2 de 4</div>
-      <h2 class="sec-h">🧩 Arrastra cada pieza a su zona</h2>
+      <h2 class="sec-h"> Arrastra cada pieza a su zona</h2>
       <p class="sec-desc">Clasifica los componentes de esta URL: <code style="color:var(--purple-light)">https://shop.ejemplo.com:8080/ropa/camisas?color=rojo#talla</code></p>
 
       <div class="card">
@@ -268,60 +269,60 @@
         </div>
         <div class="pieces-pool" id="piecesPool"></div>
         <div class="zones-grid" id="zonesGrid"></div>
-        <div class="dd-complete-msg" id="ddCompleteMsg">🎉 ¡Perfecto! Clasificaste todos los componentes correctamente.</div>
+        <div class="dd-complete-msg" id="ddCompleteMsg"> ¡Perfecto! Clasificaste todos los componentes correctamente.</div>
       </div>
     </div>
 
     <!-- ══ 3. Builder ══ -->
     <div class="sec">
       <div class="sec-label">Parte 3 de 4</div>
-      <h2 class="sec-h">🏗️ Construye tu propia URL</h2>
+      <h2 class="sec-h"> Construye tu propia URL</h2>
       <p class="sec-desc">Arma una URL desde cero llenando cada campo. Ve cómo cambia en tiempo real.</p>
 
       <div class="card">
         <div class="builder-grid">
           <div class="builder-field">
-            <label>🔐 Protocolo</label>
+            <label> Protocolo</label>
             <select id="bProto" onchange="buildURL()">
               <option value="https://">https://</option>
               <option value="http://">http://</option>
             </select>
           </div>
           <div class="builder-field">
-            <label>🌐 Subdominio (opcional)</label>
+            <label> Subdominio (opcional)</label>
             <input id="bSub" placeholder="ej: api, www, shop" oninput="buildURL()">
           </div>
           <div class="builder-field">
-            <label>🏠 Dominio</label>
+            <label> Dominio</label>
             <input id="bDomain" placeholder="ej: empresa.com" oninput="buildURL()">
           </div>
           <div class="builder-field">
-            <label>🚪 Puerto (opcional)</label>
+            <label> Puerto (opcional)</label>
             <input id="bPort" placeholder="ej: 8080, 3000" oninput="buildURL()">
           </div>
           <div class="builder-field">
-            <label>📁 Ruta (opcional)</label>
+            <label> Ruta (opcional)</label>
             <input id="bPath" placeholder="ej: /usuarios/perfil" oninput="buildURL()">
           </div>
           <div class="builder-field">
-            <label>🔍 Parámetros (opcional)</label>
+            <label> Parámetros (opcional)</label>
             <input id="bQuery" placeholder="ej: id=42&lang=es" oninput="buildURL()">
           </div>
           <div class="builder-field">
-            <label>⚓ Fragmento (opcional)</label>
+            <label> Fragmento (opcional)</label>
             <input id="bFrag" placeholder="ej: contacto" oninput="buildURL()">
           </div>
         </div>
         <div class="sec-desc" style="margin-bottom:8px;font-size:.8rem;">URL resultante:</div>
         <div class="builder-preview" id="builderPreview">← Llena los campos para ver tu URL</div>
-        <button class="copy-btn" id="copyBtn" onclick="copyURL()">📋 Copiar URL</button>
+        <button class="copy-btn" id="copyBtn" onclick="copyURL()"> Copiar URL</button>
       </div>
     </div>
 
     <!-- ══ 4. Quiz ══ -->
     <div class="sec">
       <div class="sec-label">Parte 4 de 4</div>
-      <h2 class="sec-h">🧠 Quiz — ¿Cuánto aprendiste?</h2>
+      <h2 class="sec-h"> Quiz — ¿Cuánto aprendiste?</h2>
       <p class="sec-desc">5 preguntas sobre todos los componentes de una URL. Responde para ganar XP.</p>
 
       <div class="card">
@@ -347,8 +348,8 @@
 
     <!-- Footer -->
     <div class="act-footer">
-      <span class="act-footer-brand">⚡ DiveLearn · Bootcamp Técnico</span>
-      <button class="complete-btn" id="completeBtn" onclick="markDone()">✅ Marcar como completada</button>
+      <span class="act-footer-brand"> DiveLearn · Bootcamp Técnico</span>
+      <button class="complete-btn" id="completeBtn" onclick="markDone()"> Marcar como completada</button>
     </div>
 
   </div><!-- /act-wrap -->
@@ -369,13 +370,13 @@
 
   // ── PART 1: URL Visualizer ────────────────────────────────────────────────
   const PARTS_META = [
-    { key:'proto',  color:'#a78bfa', label:'🔐 Protocolo',  desc:'Define si la conexión es segura (HTTPS) o no (HTTP). HTTPS cifra los datos con TLS.', aws:'En AWS, API Gateway y CloudFront sirven siempre HTTPS. Tu S3 bucket puede forzar HTTPS.' },
-    { key:'sub',    color:'#38bdf8', label:'🌐 Subdominio', desc:'Subdivide el dominio. "www" es el más común, pero también existen "api", "shop", "blog", etc.', aws:'En Route 53 creas registros para cada subdominio apuntando a distintos servicios AWS.' },
-    { key:'domain', color:'#e0f24a', label:'🏠 Dominio',    desc:'El nombre único del sitio en Internet. Se compra y registra — nadie más puede tenerlo.', aws:'Route 53 es el DNS de AWS. Puedes registrar dominios y enrutarlos a CloudFront o EC2.' },
-    { key:'port',   color:'#fb923c', label:'🚪 Puerto',     desc:'La "puerta" del servidor. HTTP=80, HTTPS=443. Si no aparece, se usa el predeterminado.', aws:'Los Security Groups de EC2 controlan qué puertos están abiertos al tráfico externo.' },
-    { key:'path',   color:'#f472b6', label:'📁 Ruta',       desc:'La ubicación del recurso en el servidor — como carpetas en tu computadora.', aws:'En API Gateway defines rutas (/users, /products) que disparan distintas Lambdas.' },
-    { key:'query',  color:'#4ade80', label:'🔍 Parámetros', desc:'Filtros o datos extra enviados al servidor (después del ?). Se separan con &.', aws:'DynamoDB puede filtrar registros usando esos parámetros via API Gateway + Lambda.' },
-    { key:'frag',   color:'#fbbf24', label:'⚓ Fragmento',  desc:'La sección de la página a la que ir. Comienza con #. El servidor NUNCA lo ve — solo el navegador.', aws:'Los fragmentos no llegan a tu servidor. Se procesan 100% en el cliente (SPA React, etc.).' },
+    { key:'proto',  color:'#a78bfa', label:' Protocolo',  desc:'Define si la conexión es segura (HTTPS) o no (HTTP). HTTPS cifra los datos con TLS.', aws:'En AWS, API Gateway y CloudFront sirven siempre HTTPS. Tu S3 bucket puede forzar HTTPS.' },
+    { key:'sub',    color:'#38bdf8', label:' Subdominio', desc:'Subdivide el dominio. "www" es el más común, pero también existen "api", "shop", "blog", etc.', aws:'En Route 53 creas registros para cada subdominio apuntando a distintos servicios AWS.' },
+    { key:'domain', color:'#e0f24a', label:' Dominio',    desc:'El nombre único del sitio en Internet. Se compra y registra — nadie más puede tenerlo.', aws:'Route 53 es el DNS de AWS. Puedes registrar dominios y enrutarlos a CloudFront o EC2.' },
+    { key:'port',   color:'#fb923c', label:' Puerto',     desc:'La "puerta" del servidor. HTTP=80, HTTPS=443. Si no aparece, se usa el predeterminado.', aws:'Los Security Groups de EC2 controlan qué puertos están abiertos al tráfico externo.' },
+    { key:'path',   color:'#f472b6', label:' Ruta',       desc:'La ubicación del recurso en el servidor — como carpetas en tu computadora.', aws:'En API Gateway defines rutas (/users, /products) que disparan distintas Lambdas.' },
+    { key:'query',  color:'#4ade80', label:' Parámetros', desc:'Filtros o datos extra enviados al servidor (después del ?). Se separan con &.', aws:'DynamoDB puede filtrar registros usando esos parámetros via API Gateway + Lambda.' },
+    { key:'frag',   color:'#fbbf24', label:' Fragmento',  desc:'La sección de la página a la que ir. Comienza con #. El servidor NUNCA lo ve — solo el navegador.', aws:'Los fragmentos no llegan a tu servidor. Se procesan 100% en el cliente (SPA React, etc.).' },
   ];
 
   function parseURL(silent = false) {
@@ -421,7 +422,7 @@
         <div class="part-card-name" style="color:${m.color}">${m.label}</div>
         <div class="part-card-val">${val ? val : '<em style="opacity:.4">—</em>'}</div>
         <div class="part-card-desc">${m.desc}</div>
-        <div class="part-card-aws">☁️ ${m.aws}</div>
+        <div class="part-card-aws"> ${m.aws}</div>
       </div>`;
     }).join('');
 
@@ -447,13 +448,13 @@
     { id:'frag',  text:'#talla',      type:'frag'   },
   ];
   const DD_ZONES = [
-    { accepts:'proto',  label:'🔐 Protocolo',  hint:'¿Cómo se conecta?'       },
-    { accepts:'sub',    label:'🌐 Subdominio',  hint:'Antes del dominio'        },
-    { accepts:'domain', label:'🏠 Dominio',     hint:'Nombre del sitio'         },
-    { accepts:'port',   label:'🚪 Puerto',      hint:'Número de puerta'         },
-    { accepts:'path',   label:'📁 Ruta',        hint:'Ubicación del recurso'    },
-    { accepts:'query',  label:'🔍 Parámetros',  hint:'Filtros (?clave=valor)'   },
-    { accepts:'frag',   label:'⚓ Fragmento',   hint:'Sección (#ancla)'         },
+    { accepts:'proto',  label:' Protocolo',  hint:'¿Cómo se conecta?'       },
+    { accepts:'sub',    label:' Subdominio',  hint:'Antes del dominio'        },
+    { accepts:'domain', label:' Dominio',     hint:'Nombre del sitio'         },
+    { accepts:'port',   label:' Puerto',      hint:'Número de puerta'         },
+    { accepts:'path',   label:' Ruta',        hint:'Ubicación del recurso'    },
+    { accepts:'query',  label:' Parámetros',  hint:'Filtros (?clave=valor)'   },
+    { accepts:'frag',   label:' Fragmento',   hint:'Sección (#ancla)'         },
   ];
 
   let ddCorrect = 0;
@@ -559,9 +560,9 @@
     if (!url || url.startsWith('←')) return;
     navigator.clipboard.writeText(url).then(() => {
       const btn = document.getElementById('copyBtn');
-      btn.textContent = '✅ Copiada';
+      btn.textContent = ' Copiada';
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = '📋 Copiar URL'; btn.classList.remove('copied'); }, 2000);
+      setTimeout(() => { btn.textContent = ' Copiar URL'; btn.classList.remove('copied'); }, 2000);
     });
   }
 
@@ -687,8 +688,8 @@
     res.classList.add('show');
     document.getElementById('quizScoreBig').textContent = `${qScore}/${QUIZ.length}`;
     const xp = qScore >= 4 ? 150 : qScore >= 3 ? 100 : 50;
-    document.getElementById('quizXPBadge').textContent = `⚡ +${xp} XP ganados`;
-    if (qScore === QUIZ.length) toast('🏆 ¡Puntaje perfecto!', 'ok', 4000);
+    document.getElementById('quizXPBadge').textContent = ` +${xp} XP ganados`;
+    if (qScore === QUIZ.length) toast(' ¡Puntaje perfecto!', 'ok', 4000);
     else if (qScore >= 3) toast(`Bien! ${qScore}/5 correctas`, 'ok', 3000);
     else toast('Inténtalo de nuevo para mejorar', 'bad', 3000);
   }
@@ -698,7 +699,7 @@
     const key = 'dl_mod0_act2_done';
     localStorage.setItem(key, '1');
     const btn = document.getElementById('completeBtn');
-    btn.textContent = '🏆 ¡Completada!';
+    btn.textContent = ' ¡Completada!';
     btn.classList.add('done');
     toast('Actividad marcada como completada ✓', 'ok', 4000);
   }
@@ -707,10 +708,11 @@
   document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('dl_mod0_act2_done')) {
       const btn = document.getElementById('completeBtn');
-      btn.textContent = '🏆 ¡Completada!';
+      btn.textContent = ' ¡Completada!';
       btn.classList.add('done');
     }
   });
   </script>
+<script src="/js/bootcamp-progreso.js" data-modulo="0" data-pagina="actividad2_laboratorio" data-total="3" defer></script>
 </body>
 </html>

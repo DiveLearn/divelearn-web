@@ -2,8 +2,10 @@
 
 Uso: python3 scripts/importar-bootcamp.py <ruta taller> <public/bootcamp>
 Módulo N → /bootcamp/modulo-N/ (hub) y /bootcamp/modulo-N/<actividad>.html
+Cada página carga /js/bootcamp-progreso.js (XP por actividad) y la lista de páginas por módulo
+queda en src/data/bootcamp-paginas.json para el mapa del juego.
 """
-import re, sys, pathlib, shutil
+import json, re, sys, pathlib, shutil
 
 R, D = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
 T = R / "taller_completo"
@@ -30,7 +32,20 @@ for a, b in {
 }.items():
     css = css.replace(a, b)
 css = css.replace("@font-face {", "@font-face {\n  font-family: 'Questrial';\n  src: url('/fonts/questrial-latin-400-normal.woff2') format('woff2');\n  font-display: swap;\n}\n\n@font-face {", 1)
+# Transiciones suaves entre páginas (View Transitions entre documentos).
+css += "\n@view-transition {\n  navigation: auto;\n}\n"
 (D / "dl-brand.css").write_text(css)
+
+
+# Emojis fuera: el sitio usa sprites e íconos propios. Se respetan ✓ ✔ ✗ ✘ y las flechas.
+EMOJI = re.compile(
+    "[\U0001F000-\U0001FAFF\u2600-\u26FF\u2700-\u2712\u2715\u2716\u2719-\u27BF\u2B00-\u2BFF"
+    "\u231A\u231B\u23E9-\u23FA\u2139\u24C2\u3030\u303D\u3297\u3299\uFE0F\u200D\u20E3]+"
+)
+
+
+def sin_emojis(h: str) -> str:
+    return EMOJI.sub("", h)
 
 
 def limpiar(h: str) -> str:
@@ -55,21 +70,66 @@ def limpiar(h: str) -> str:
     # Terminal en azul noche (no negro) y pastilla "Crítica" ilegible.
     h = h.replace("#1e1e1e", "#1f1d5c").replace("#00ff00", "#e0f24a")
     h = re.sub(r"background: #06B6D4;(\s*)color: #06B6D4;", r"background: #fde2e7;\1color: #b4234a;", h)
+    h = sin_emojis(h)
     if 'name="viewport"' not in h:
         h = re.sub(r'(<meta charset="[^"]*">)', r'\1\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">', h, count=1, flags=re.I)
     return h
 
 
+# Color de la etapa de cada módulo (los mismos que src/data/bootcamp.ts).
+COLOR = {0: "#ffd36e", 1: "#ffd36e", 2: "#ff7a8a", 3: "#ff7a8a", 4: "#ff7a8a", 5: "#7cc6fe", 6: "#7cc6fe", 7: "#04a8bb", 8: "#04a8bb"}
+
+
+def con_progreso(h: str, m: int, pagina: str, total: int) -> str:
+    """Piel de videojuego (al final del head, gana a los estilos propios) + chip de progreso."""
+    h = re.sub(r"<html([^>]*)>", lambda x: f'<html{x.group(1)} style="--c:{COLOR[m]}">', h, count=1)
+    h = h.replace("</head>", '<link rel="stylesheet" href="/css/bootcamp-juego.css">\n</head>', 1)
+    tag = f'<script src="/js/bootcamp-progreso.js" data-modulo="{m}" data-pagina="{pagina}" data-total="{total}" defer></script>'
+    return h.replace("</body>", f"{tag}\n</body>", 1)
+
+
+EN_REPARACION = """<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividad en reparación · DiveLearn</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+<nav class="dl-nav"><a href="/"><img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo"></a><div class="dl-nav-divider"></div><a href="./" class="dl-nav-back">← Módulo</a></nav>
+<main class="container" style="text-align:center;padding-top:80px">
+<h1>Esta actividad está en reparación</h1>
+<p style="max-width:46ch;margin:16px auto 32px">La estamos mejorando para que funcione como se merece. Mientras tanto, sigue con las demás actividades del módulo.</p>
+<a href="./" class="btn btn-primary">Volver al módulo</a>
+</main>
+</body>
+</html>
+"""
+
+paginas = {}
+reparar = []
 for m in range(9):
     src = T / f"modulo_{m}"
     out = D / f"modulo-{m}"
     out.mkdir()
+    todas = sorted((src / "submodulos").glob("*.html"), key=lambda f: (f.stem.startswith("quiz"), f.stem))
+    # Algunas actividades vienen cortadas a la mitad (sin </html>): no cuentan para el juego.
+    subs = [f for f in todas if "</html>" in f.read_text()]
+    for f in todas:
+        if f not in subs:
+            reparar.append(f"modulo-{m}/{f.name}")
+            (out / f.name).write_text(EN_REPARACION)
+    paginas[m] = [f.stem for f in subs]
     hub = limpiar((src / f"hub_modulo{m}.html").read_text())
     # En la portada del módulo, "volver" lleva al mapa del Bootcamp.
     hub = re.sub(r'<a href="\./" class="dl-nav-back">← [^<]*</a>', '<a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>', hub)
-    (out / "index.html").write_text(hub)
-    for f in sorted((src / "submodulos").glob("*.html")):
-        (out / f.name).write_text(limpiar(f.read_text()))
+    (out / "index.html").write_text(con_progreso(hub, m, "index", len(subs)))
+    for f in subs:
+        (out / f.name).write_text(con_progreso(limpiar(f.read_text()), m, f.stem, len(subs)))
+
+(D.parent.parent / "src/data/bootcamp-paginas.json").write_text(json.dumps(paginas, indent=2) + "\n")
 
 # Enlaces internos que no resuelven
 malos = set()
@@ -84,4 +144,5 @@ for f in D.rglob("*.html"):
         if not tgt.exists():
             malos.add(f"{f.relative_to(D)} -> {ref}")
 print(len(list(D.rglob('*.html'))), "páginas")
+print("En reparación (archivo cortado en el origen):", ", ".join(reparar) or "ninguna")
 print("\n".join(sorted(malos)) or "sin enlaces rotos")

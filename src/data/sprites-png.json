@@ -1,0 +1,374 @@
+{
+"agua-orilla": [
+27,
+26
+],
+"algas": [
+27,
+24
+],
+"ancla": [
+22,
+26
+],
+"anemonas": [
+26,
+24
+],
+"anguila-tunelin": [
+81,
+60
+],
+"arena-conchas": [
+27,
+26
+],
+"arena-huellas": [
+27,
+26
+],
+"arena-orilla": [
+27,
+26
+],
+"arena-pasto": [
+27,
+25
+],
+"ballena-lagmor": [
+82,
+58
+],
+"buzo-nada": [
+89,
+44
+],
+"buzo-saluda": [
+44,
+62
+],
+"caballito-clienton": [
+46,
+66
+],
+"calamar-fibron": [
+72,
+68
+],
+"cangrejo-linkpriv": [
+44,
+29
+],
+"caracolin": [
+35,
+24
+],
+"chanclas-pelota": [
+27,
+19
+],
+"cofre-abierto": [
+41,
+39
+],
+"cofre-tesoro": [
+61,
+55
+],
+"coral-morado": [
+25,
+22
+],
+"coral-rojo": [
+27,
+22
+],
+"delfin-bgpardo": [
+71,
+61
+],
+"erizo-wafflor": [
+69,
+66
+],
+"erizo": [
+28,
+25
+],
+"estrella-mar": [
+27,
+17
+],
+"estrella-podlet": [
+61,
+60
+],
+"guardian-cachalote": [
+85,
+45
+],
+"guardian-pez-espada": [
+81,
+55
+],
+"guardiana-manta": [
+44,
+35
+],
+"guardiana-rape-abisal": [
+77,
+60
+],
+"insignia-equipo": [
+60,
+60
+],
+"insignia-inmersion": [
+60,
+59
+],
+"insignia-licencia-b": [
+60,
+59
+],
+"insignia-licencia": [
+60,
+59
+],
+"insignia-piscina": [
+60,
+60
+],
+"insignia-playa": [
+60,
+60
+],
+"jefe-anguila-ha": [
+85,
+47
+],
+"jefe-ballena-almacen": [
+85,
+53
+],
+"jefe-calamar-ruteo": [
+84,
+63
+],
+"jefe-cangrejo-nat": [
+83,
+51
+],
+"jefe-kraken-servidores": [
+81,
+70
+],
+"jefe-manta-cifrado": [
+84,
+54
+],
+"jefe-megalodon": [
+87,
+59
+],
+"jefe-pez-globo-calor": [
+75,
+62
+],
+"jefe-pulpo-ddos": [
+81,
+71
+],
+"jefe-rey-triton": [
+73,
+72
+],
+"licencia": [
+42,
+29
+],
+"linternin": [
+44,
+29
+],
+"manati-campeon": [
+66,
+50
+],
+"mapa-tesoro": [
+33,
+26
+],
+"medusa-flowlug": [
+36,
+40
+],
+"medusa": [
+31,
+44
+],
+"medusas-coral": [
+23,
+26
+],
+"mod-backup": [
+39,
+38
+],
+"mod-datos": [
+42,
+34
+],
+"mod-dns": [
+43,
+32
+],
+"mod-internet": [
+42,
+34
+],
+"mod-ip": [
+40,
+35
+],
+"mod-linux": [
+38,
+33
+],
+"mod-redes": [
+36,
+36
+],
+"mod-seguridad": [
+32,
+37
+],
+"mod-virtualizacion": [
+34,
+37
+],
+"narval-resolveron": [
+81,
+42
+],
+"nautilus-mapamundi": [
+66,
+44
+],
+"nodo-nube": [
+61,
+52
+],
+"ola-grande": [
+27,
+22
+],
+"orca-alto-mando": [
+80,
+48
+],
+"palmera": [
+23,
+25
+],
+"pez-globo-suricaton": [
+64,
+64
+],
+"pez-limpiador-correcta": [
+70,
+39
+],
+"pez-payaso": [
+46,
+32
+],
+"pez-volador-cachemon": [
+72,
+43
+],
+"planta": [
+28,
+22
+],
+"pulpo-hubzilla": [
+44,
+38
+],
+"pulpo-megahub": [
+46,
+47
+],
+"pulpo-ok": [
+70,
+58
+],
+"pulpo-profe": [
+48,
+46
+],
+"pulpo-ups": [
+66,
+48
+],
+"rack-servidores": [
+62,
+56
+],
+"remora-peerlinga": [
+43,
+27
+],
+"roca-musgo": [
+28,
+24
+],
+"rocas": [
+28,
+26
+],
+"sardinas-balanceo": [
+84,
+44
+],
+"sombrilla": [
+24,
+25
+],
+"subnetto": [
+38,
+31
+],
+"tiburon-simulacro": [
+78,
+39
+],
+"timon": [
+29,
+23
+],
+"toalla": [
+27,
+24
+],
+"tortuga-anycastor": [
+66,
+43
+],
+"tortuga": [
+70,
+42
+],
+"trofeo": [
+34,
+40
+],
+"tronco": [
+26,
+22
+],
+"volcan": [
+24,
+26
+]
+}

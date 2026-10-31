@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -391,6 +391,7 @@
         }
 </style>
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -405,19 +406,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 3
             </div>
-            <h1 class="activity-title">📊 Velocímetro de Red</h1>
+            <h1 class="activity-title"> Velocímetro de Red</h1>
             <p class="activity-subtitle">Mide y compara diferentes tipos de conexiones de red</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>15 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 100</span>
                 </div>
             </div>
@@ -425,12 +426,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a medir y comparar diferentes tipos de conexiones de red. Entenderás conceptos como latencia, ancho de banda y throughput mediante simulaciones interactivas que muestran las diferencias entre tecnologías de conexión.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">⚡ Velocímetro de Red</h2>
+                <h2 class="section-title"> Velocímetro de Red</h2>
                 
                 <div class="speedometer-container">
                     <div class="speedometer">
@@ -445,61 +446,61 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔌 Tipos de Conexión</h2>
+                <h2 class="section-title"> Tipos de Conexión</h2>
                 <p style="margin-bottom: 20px;">Selecciona un tipo de conexión para simular su velocidad:</p>
                 
                 <div class="connection-types">
                     <div class="connection-card active" data-connection="dial-up" onclick="selectConnection('dial-up')">
-                        <div class="connection-icon">📞</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">Dial-up</div>
                         <div class="connection-speed">56 Kbps</div>
                         <div class="connection-description">Conexión telefónica tradicional. La más lenta pero históricamente importante.</div>
                     </div>
 
                     <div class="connection-card" data-connection="dsl" onclick="selectConnection('dsl')">
-                        <div class="connection-icon">🏠</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">DSL</div>
                         <div class="connection-speed">1-100 Mbps</div>
                         <div class="connection-description">Línea digital de suscriptor. Usa líneas telefónicas existentes para datos.</div>
                     </div>
 
                     <div class="connection-card" data-connection="cable" onclick="selectConnection('cable')">
-                        <div class="connection-icon">📺</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">Cable</div>
                         <div class="connection-speed">10-300 Mbps</div>
                         <div class="connection-description">Internet por cable coaxial. Compartido con otros usuarios del área.</div>
                     </div>
 
                     <div class="connection-card" data-connection="fiber" onclick="selectConnection('fiber')">
-                        <div class="connection-icon">💎</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">Fibra Óptica</div>
                         <div class="connection-speed">100-1000 Mbps</div>
                         <div class="connection-description">Transmisión por luz. La más rápida y confiable para largas distancias.</div>
                     </div>
 
                     <div class="connection-card" data-connection="wifi" onclick="selectConnection('wifi')">
-                        <div class="connection-icon">📶</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">WiFi</div>
                         <div class="connection-speed">11-1200 Mbps</div>
                         <div class="connection-description">Inalámbrica local. Velocidad depende de la distancia y obstáculos.</div>
                     </div>
 
                     <div class="connection-card" data-connection="5g" onclick="selectConnection('5g')">
-                        <div class="connection-icon">📱</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">5G Celular</div>
                         <div class="connection-speed">50-2000 Mbps</div>
                         <div class="connection-description">Red móvil de quinta generación. Ultra-rápida con baja latencia.</div>
                     </div>
 
                     <div class="connection-card" data-connection="satellite" onclick="selectConnection('satellite')">
-                        <div class="connection-icon">🛰️</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">Satélite</div>
                         <div class="connection-speed">12-100 Mbps</div>
                         <div class="connection-description">Conexión espacial. Disponible en áreas remotas pero con alta latencia.</div>
                     </div>
 
                     <div class="connection-card" data-connection="ethernet" onclick="selectConnection('ethernet')">
-                        <div class="connection-icon">🔌</div>
+                        <div class="connection-icon"></div>
                         <div class="connection-name">Ethernet</div>
                         <div class="connection-speed">10-10000 Mbps</div>
                         <div class="connection-description">Conexión cableada directa. Más estable y rápida que inalámbrica.</div>
@@ -508,26 +509,26 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🧪 Controles de Prueba</h2>
+                <h2 class="section-title"> Controles de Prueba</h2>
                 
                 <div class="test-controls">
                     <button class="test-btn" id="speedTestBtn" onclick="runSpeedTest()">
-                        🚀 Probar Velocidad
+                         Probar Velocidad
                     </button>
                     <button class="test-btn" onclick="runLatencyTest()">
-                        ⏱️ Medir Latencia
+                         Medir Latencia
                     </button>
                     <button class="test-btn" onclick="runStabilityTest()">
-                        📊 Prueba de Estabilidad
+                         Prueba de Estabilidad
                     </button>
                     <button class="test-btn" onclick="compareAll()">
-                        ⚖️ Comparar Todas
+                         Comparar Todas
                     </button>
                 </div>
             </div>
 
             <div class="results-panel" id="resultsPanel">
-                <h3 style="margin-bottom: 20px; color: #8888bb;">📈 Resultados de la Prueba</h3>
+                <h3 style="margin-bottom: 20px; color: #8888bb;"> Resultados de la Prueba</h3>
                 
                 <div class="results-grid">
                     <div class="result-metric">
@@ -568,29 +569,29 @@
                 </div>
 
                 <div class="comparison-chart" id="comparisonChart" style="display: none;">
-                    <h4 style="margin-bottom: 15px; color: #8888bb;">📊 Comparación de Velocidades</h4>
+                    <h4 style="margin-bottom: 15px; color: #8888bb;"> Comparación de Velocidades</h4>
                     <div id="chartContent"></div>
                 </div>
             </div>
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips sobre Velocidades de Red
+                     Tips sobre Velocidades de Red
                 </h3>
                 <div class="tip-item">
-                    <strong>📊 Ancho de Banda vs Throughput:</strong> El ancho de banda es la capacidad máxima, el throughput es la velocidad real que obtienes.
+                    <strong> Ancho de Banda vs Throughput:</strong> El ancho de banda es la capacidad máxima, el throughput es la velocidad real que obtienes.
                 </div>
                 <div class="tip-item">
-                    <strong>⏱️ Latencia:</strong> El tiempo que tarda un paquete en viajar. Crítico para videojuegos y videoconferencias.
+                    <strong> Latencia:</strong> El tiempo que tarda un paquete en viajar. Crítico para videojuegos y videoconferencias.
                 </div>
                 <div class="tip-item">
-                    <strong>📶 Factores que Afectan WiFi:</strong> Distancia, obstáculos, interferencia de otros dispositivos, y número de usuarios conectados.
+                    <strong> Factores que Afectan WiFi:</strong> Distancia, obstáculos, interferencia de otros dispositivos, y número de usuarios conectados.
                 </div>
                 <div class="tip-item">
-                    <strong>🛰️ Latencia de Satélite:</strong> ~600ms debido a la distancia al espacio. No ideal para aplicaciones en tiempo real.
+                    <strong> Latencia de Satélite:</strong> ~600ms debido a la distancia al espacio. No ideal para aplicaciones en tiempo real.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Pro tip:</strong> Para streaming 4K necesitas al menos 25 Mbps. Para videollamadas HD, 5 Mbps es suficiente.
+                    <strong> Pro tip:</strong> Para streaming 4K necesitas al menos 25 Mbps. Para videollamadas HD, 5 Mbps es suficiente.
                 </div>
             </div>
         </div>
@@ -606,12 +607,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -632,7 +633,7 @@
                 latencyMin: 100,
                 latencyMax: 300,
                 stability: 60,
-                icon: '📞'
+                icon: ''
             },
             'dsl': {
                 name: 'DSL',
@@ -643,7 +644,7 @@
                 latencyMin: 20,
                 latencyMax: 80,
                 stability: 75,
-                icon: '🏠'
+                icon: ''
             },
             'cable': {
                 name: 'Cable',
@@ -654,7 +655,7 @@
                 latencyMin: 15,
                 latencyMax: 50,
                 stability: 80,
-                icon: '📺'
+                icon: ''
             },
             'fiber': {
                 name: 'Fibra Óptica',
@@ -665,7 +666,7 @@
                 latencyMin: 1,
                 latencyMax: 10,
                 stability: 95,
-                icon: '💎'
+                icon: ''
             },
             'wifi': {
                 name: 'WiFi',
@@ -676,7 +677,7 @@
                 latencyMin: 5,
                 latencyMax: 100,
                 stability: 70,
-                icon: '📶'
+                icon: ''
             },
             '5g': {
                 name: '5G Celular',
@@ -687,7 +688,7 @@
                 latencyMin: 1,
                 latencyMax: 20,
                 stability: 85,
-                icon: '📱'
+                icon: ''
             },
             'satellite': {
                 name: 'Satélite',
@@ -698,7 +699,7 @@
                 latencyMin: 500,
                 latencyMax: 800,
                 stability: 65,
-                icon: '🛰️'
+                icon: ''
             },
             'ethernet': {
                 name: 'Ethernet',
@@ -709,7 +710,7 @@
                 latencyMin: 1,
                 latencyMax: 5,
                 stability: 99,
-                icon: '🔌'
+                icon: ''
             }
         };
 
@@ -788,7 +789,7 @@
             const btn = document.getElementById('speedTestBtn');
             btn.classList.add('running');
             btn.disabled = true;
-            btn.innerHTML = '⏳ Probando...';
+            btn.innerHTML = ' Probando...';
             
             const config = connectionTypes[currentConnection];
             
@@ -811,7 +812,7 @@
             const btn = document.getElementById('speedTestBtn');
             btn.classList.remove('running');
             btn.disabled = false;
-            btn.innerHTML = '🚀 Probar Velocidad';
+            btn.innerHTML = ' Probar Velocidad';
             
             // Generar resultados simulados
             const downloadSpeed = (config.downloadMin + (config.downloadMax - config.downloadMin) * Math.random()).toFixed(1);
@@ -851,10 +852,10 @@
         }
 
         function runLatencyTest() {
-            alert(`🏓 Prueba de Latencia - ${connectionTypes[currentConnection].name}\n\n` +
-                  `📍 Simulando ping a servidor...\n` +
-                  `⏱️ Tiempo promedio: ${connectionTypes[currentConnection].latencyMin}-${connectionTypes[currentConnection].latencyMax}ms\n\n` +
-                  `💡 Latencia baja es crucial para:\n` +
+            alert(` Prueba de Latencia - ${connectionTypes[currentConnection].name}\n\n` +
+                  ` Simulando ping a servidor...\n` +
+                  ` Tiempo promedio: ${connectionTypes[currentConnection].latencyMin}-${connectionTypes[currentConnection].latencyMax}ms\n\n` +
+                  ` Latencia baja es crucial para:\n` +
                   `• Videojuegos en línea\n` +
                   `• Videoconferencias\n` +
                   `• Trading financiero\n` +
@@ -866,15 +867,15 @@
             const stability = config.stability + Math.floor(Math.random() * 10 - 5);
             
             let stabilityMsg = '';
-            if (stability >= 90) stabilityMsg = '🟢 Excelente - Conexión muy estable';
-            else if (stability >= 75) stabilityMsg = '🟡 Buena - Conexión estable';
-            else if (stability >= 60) stabilityMsg = '🟠 Regular - Algunas fluctuaciones';
-            else stabilityMsg = '🔴 Inestable - Conexión variable';
+            if (stability >= 90) stabilityMsg = ' Excelente - Conexión muy estable';
+            else if (stability >= 75) stabilityMsg = ' Buena - Conexión estable';
+            else if (stability >= 60) stabilityMsg = ' Regular - Algunas fluctuaciones';
+            else stabilityMsg = ' Inestable - Conexión variable';
             
-            alert(`📊 Prueba de Estabilidad - ${config.name}\n\n` +
-                  `📈 Puntuación: ${stability}%\n` +
+            alert(` Prueba de Estabilidad - ${config.name}\n\n` +
+                  ` Puntuación: ${stability}%\n` +
                   `${stabilityMsg}\n\n` +
-                  `💡 Factores que afectan estabilidad:\n` +
+                  ` Factores que afectan estabilidad:\n` +
                   `• Calidad de la infraestructura\n` +
                   `• Congestión de red\n` +
                   `• Condiciones climáticas (satelital/inalámbrica)\n` +
@@ -913,7 +914,7 @@
 
         function markCompleted() {
             if (testsRun < 2) {
-                alert('⚠️ Para completar la actividad, realiza al menos 2 pruebas diferentes (velocidad, latencia, estabilidad o comparación).');
+                alert(' Para completar la actividad, realiza al menos 2 pruebas diferentes (velocidad, latencia, estabilidad o comparación).');
                 return;
             }
 
@@ -922,16 +923,16 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert(`🎉 ¡Felicidades! Has completado "Velocímetro de Red".\n\n` +
-                  `📊 Resumen de tu exploración:\n` +
+            alert(` ¡Felicidades! Has completado "Velocímetro de Red".\n\n` +
+                  ` Resumen de tu exploración:\n` +
                   `• Pruebas realizadas: ${testsRun}\n` +
                   `• Conexión actual: ${connectionTypes[currentConnection].name}\n` +
                   `• Conceptos aprendidos: Ancho de banda, latencia, throughput\n\n` +
-                  `✅ Actividad completada\n` +
-                  `🏆 +100 puntos ganados\n` +
-                  `🎯 Ahora entiendes las diferencias entre tipos de conexión`);
+                  ` Actividad completada\n` +
+                  ` +100 puntos ganados\n` +
+                  ` Ahora entiendes las diferencias entre tipos de conexión`);
         }
 
         function goBack() {
@@ -954,5 +955,6 @@
         }, 30000);
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="actividad3_velocimetro" data-total="10" defer></script>
 </body>
 </html>

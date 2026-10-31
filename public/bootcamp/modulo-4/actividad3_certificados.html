@@ -1,5 +1,5 @@
 </html><!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ff7a8a">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -337,6 +337,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -351,19 +352,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 4</a> / Actividad 3
             </div>
-            <h1 class="activity-title">🔍 Inspector de Certificados SSL</h1>
+            <h1 class="activity-title"> Inspector de Certificados SSL</h1>
             <p class="activity-subtitle">Examina certificados digitales y comprende las cadenas de confianza</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>30 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 180</span>
                 </div>
             </div>
@@ -371,21 +372,21 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a examinar certificados SSL/TLS de sitios web reales, comprender cadenas de confianza, verificar identidades digitales y evaluar la seguridad de las conexiones HTTPS.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔬 Inspector de Certificados</h2>
+                <h2 class="section-title"> Inspector de Certificados</h2>
                 
                 <div class="cert-inspector">
                     <div class="inspector-section">
-                        <h3 class="inspector-title">🌐 Analizador de Sitios Web</h3>
+                        <h3 class="inspector-title"> Analizador de Sitios Web</h3>
                         <p style="margin-bottom: 15px; color: #8888bb;">Ingresa la URL de cualquier sitio web HTTPS para examinar su certificado SSL/TLS.</p>
                         
                         <div class="url-input-group">
                             <input type="text" id="urlInput" class="url-input" placeholder="https://ejemplo.com" value="https://google.com">
-                            <button class="inspect-btn" onclick="inspectCertificate()" id="inspectBtn">🔍 Inspeccionar</button>
+                            <button class="inspect-btn" onclick="inspectCertificate()" id="inspectBtn"> Inspeccionar</button>
                         </div>
 
                         <div id="loadingIndicator" class="loading" style="display: none;">
@@ -401,37 +402,37 @@
                     </div>
 
                     <div class="inspector-section">
-                        <h3 class="inspector-title">🌟 Sitios Populares para Analizar</h3>
+                        <h3 class="inspector-title"> Sitios Populares para Analizar</h3>
                         <p style="margin-bottom: 15px; color: #8888bb;">Haz clic en cualquier sitio para analizarlo automáticamente:</p>
                         
                         <div class="popular-sites">
                             <div class="site-card" onclick="selectSite('https://google.com')" data-site="google">
-                                <span class="site-icon">🔍</span>
+                                <span class="site-icon"></span>
                                 <div class="site-name">Google</div>
                                 <div class="site-url">google.com</div>
                             </div>
                             <div class="site-card" onclick="selectSite('https://github.com')" data-site="github">
-                                <span class="site-icon">💻</span>
+                                <span class="site-icon"></span>
                                 <div class="site-name">GitHub</div>
                                 <div class="site-url">github.com</div>
                             </div>
                             <div class="site-card" onclick="selectSite('https://amazon.com')" data-site="amazon">
-                                <span class="site-icon">🛒</span>
+                                <span class="site-icon"></span>
                                 <div class="site-name">Amazon</div>
                                 <div class="site-url">amazon.com</div>
                             </div>
                             <div class="site-card" onclick="selectSite('https://microsoft.com')" data-site="microsoft">
-                                <span class="site-icon">🪟</span>
+                                <span class="site-icon"></span>
                                 <div class="site-name">Microsoft</div>
                                 <div class="site-url">microsoft.com</div>
                             </div>
                             <div class="site-card" onclick="selectSite('https://cloudflare.com')" data-site="cloudflare">
-                                <span class="site-icon">☁️</span>
+                                <span class="site-icon"></span>
                                 <div class="site-name">Cloudflare</div>
                                 <div class="site-url">cloudflare.com</div>
                             </div>
                             <div class="site-card" onclick="selectSite('https://stackoverflow.com')" data-site="stackoverflow">
-                                <span class="site-icon">📚</span>
+                                <span class="site-icon"></span>
                                 <div class="site-name">Stack Overflow</div>
                                 <div class="site-url">stackoverflow.com</div>
                             </div>
@@ -442,19 +443,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips sobre Certificados SSL
+                     Tips sobre Certificados SSL
                 </h3>
                 <div class="tip-item">
-                    <strong>🔒 Validación:</strong> Los certificados DV validan solo el dominio, EV valida la organización completa.
+                    <strong> Validación:</strong> Los certificados DV validan solo el dominio, EV valida la organización completa.
                 </div>
                 <div class="tip-item">
-                    <strong>🏢 Autoridades:</strong> Las CA (Certificate Authorities) como DigiCert, Let's Encrypt y GlobalSign emiten certificados.
+                    <strong> Autoridades:</strong> Las CA (Certificate Authorities) como DigiCert, Let's Encrypt y GlobalSign emiten certificados.
                 </div>
                 <div class="tip-item">
-                    <strong>⏰ Expiración:</strong> Los certificados tienen fecha de vencimiento - sitios deben renovarlos regularmente.
+                    <strong> Expiración:</strong> Los certificados tienen fecha de vencimiento - sitios deben renovarlos regularmente.
                 </div>
                 <div class="tip-item">
-                    <strong>🔗 Cadena:</strong> La cadena de confianza va desde el certificado del sitio hasta una CA raíz de confianza.
+                    <strong> Cadena:</strong> La cadena de confianza va desde el certificado del sitio hasta una CA raíz de confianza.
                 </div>
             </div>
         </div>
@@ -470,12 +471,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -677,7 +678,7 @@
             } else {
                 loadingIndicator.style.display = 'none';
                 inspectBtn.disabled = false;
-                inspectBtn.textContent = '🔍 Inspeccionar';
+                inspectBtn.textContent = ' Inspeccionar';
             }
         }
 
@@ -689,7 +690,7 @@
                 resultsContainer.innerHTML = `
                     <div class="cert-details error">
                         <div style="color: #dc3545; font-weight: 600; margin-bottom: 10px;">
-                            ❌ Sitio no disponible en la base de datos de demostración
+                             Sitio no disponible en la base de datos de demostración
                         </div>
                         <p>Para esta actividad educativa, solo tenemos datos simulados de algunos sitios populares. En la práctica, usarías herramientas como OpenSSL o el inspector de certificados del navegador.</p>
                     </div>
@@ -703,23 +704,23 @@
             
             let statusClass = 'valid';
             let statusText = 'Válido';
-            let statusIcon = '✅';
+            let statusIcon = '';
             
             if (daysUntilExpiry < 30) {
                 statusClass = 'warning';
                 statusText = 'Próximo a vencer';
-                statusIcon = '⚠️';
+                statusIcon = '';
             }
             
             if (daysUntilExpiry < 0) {
                 statusClass = 'invalid';
                 statusText = 'Expirado';
-                statusIcon = '❌';
+                statusIcon = '';
             }
 
             resultsContainer.innerHTML = `
                 <div class="cert-details ${statusClass}">
-                    <h4 style="margin-bottom: 15px; color: #8888bb;">📜 Información del Certificado</h4>
+                    <h4 style="margin-bottom: 15px; color: #8888bb;"> Información del Certificado</h4>
                     
                     <div class="cert-field">
                         <div class="cert-label">Estado:</div>
@@ -771,7 +772,7 @@
                 </div>
 
                 <div class="cert-chain">
-                    <h4 style="margin-bottom: 15px; color: #8888bb;">🔗 Cadena de Certificados</h4>
+                    <h4 style="margin-bottom: 15px; color: #8888bb;"> Cadena de Certificados</h4>
                     ${certInfo.chain.map((cert, index) => `
                         <div class="chain-item">
                             <div class="chain-level">${cert.level}</div>
@@ -781,30 +782,30 @@
                 </div>
 
                 <div class="security-analysis">
-                    <div class="analysis-title">🛡️ Análisis de Seguridad</div>
+                    <div class="analysis-title"> Análisis de Seguridad</div>
                     
                     <div class="analysis-item">
-                        <span>🔒</span>
+                        <span></span>
                         <span><strong>TLS:</strong> ${certInfo.security.tls}</span>
                     </div>
                     
                     <div class="analysis-item">
-                        <span>🔐</span>
+                        <span></span>
                         <span><strong>Cifrado:</strong> ${certInfo.security.cipher}</span>
                     </div>
                     
                     <div class="analysis-item">
-                        <span>🤝</span>
+                        <span></span>
                         <span><strong>Intercambio de llaves:</strong> ${certInfo.security.keyExchange}</span>
                     </div>
                     
                     <div class="analysis-item">
-                        <span>${certInfo.security.hsts ? '✅' : '❌'}</span>
+                        <span>${certInfo.security.hsts ? '' : ''}</span>
                         <span><strong>HSTS:</strong> ${certInfo.security.hsts ? 'Habilitado (Fuerza HTTPS)' : 'Deshabilitado'}</span>
                     </div>
                     
                     <div class="analysis-item">
-                        <span>${certInfo.security.ocsp ? '✅' : '❌'}</span>
+                        <span>${certInfo.security.ocsp ? '' : ''}</span>
                         <span><strong>OCSP Stapling:</strong> ${certInfo.security.ocsp ? 'Habilitado (Verificación rápida)' : 'Deshabilitado'}</span>
                     </div>
                 </div>
@@ -817,9 +818,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Excelente trabajo! Has completado el inspector de certificados SSL.\n\n✅ Actividad marcada como completada\n🏆 +180 puntos ganados\n\n🔍 Ahora comprendes cómo verificar la autenticidad e integridad de sitios web.');
+            alert(' ¡Excelente trabajo! Has completado el inspector de certificados SSL.\n\n Actividad marcada como completada\n +180 puntos ganados\n\n Ahora comprendes cómo verificar la autenticidad e integridad de sitios web.');
         }
 
         function goBack() {
@@ -840,10 +841,11 @@
             // Mostrar mensaje inicial
             document.getElementById('certResults').innerHTML = `
                 <div style="color: #8888bb; font-style: italic; text-align: center; padding: 40px;">
-                    💡 Tip: Haz clic en uno de los sitios populares arriba para comenzar
+                     Tip: Haz clic en uno de los sitios populares arriba para comenzar
                 </div>
             `;
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="4" data-pagina="actividad3_certificados" data-total="6" defer></script>
 </body>

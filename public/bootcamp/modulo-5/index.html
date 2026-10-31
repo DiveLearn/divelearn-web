@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -357,6 +357,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -374,7 +375,7 @@
                 </a>
             </div>
             
-            <h1 class="module-title">🐧 Módulo 5</h1>
+            <h1 class="module-title"> Módulo 5</h1>
             <p class="module-subtitle">El Sistema Operativo del Servidor (Linux)</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
@@ -384,36 +385,36 @@
         <div class="main-content">
             <div class="tabs">
                 <div class="tab active" onclick="showTab('teoria')">
-                    📚 Teoría
+                     Teoría
                 </div>
                 <div class="tab" onclick="showTab('submodulos')">
-                    🎯 Actividades
+                     Actividades
                 </div>
             </div>
 
             <div id="teoria" class="tab-content active">
                 <div class="objetivos-container">
-                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <h3 class="objetivos-title"> Objetivos de Aprendizaje</h3>
                     <div class="objetivo-item">
-                        <strong>🐧 Al finalizar este módulo podrás:</strong> Navegar con comodidad por Linux, el sistema operativo que domina el mundo de los servidores y ejecutar comandos básicos de administración.
+                        <strong> Al finalizar este módulo podrás:</strong> Navegar con comodidad por Linux, el sistema operativo que domina el mundo de los servidores y ejecutar comandos básicos de administración.
                     </div>
                     <div class="objetivo-item">
-                        <strong>🧭 Dominar:</strong> Terminal/línea de comandos, gestión de archivos y directorios, permisos de usuarios, conexiones SSH y automatización básica.
+                        <strong> Dominar:</strong> Terminal/línea de comandos, gestión de archivos y directorios, permisos de usuarios, conexiones SSH y automatización básica.
                     </div>
                     <div class="objetivo-item">
-                        <strong>⚡ Aplicar:</strong> Administración básica de servidores, configuración de servicios, creación de scripts y gestión de usuarios y permisos.
+                        <strong> Aplicar:</strong> Administración básica de servidores, configuración de servicios, creación de scripts y gestión de usuarios y permisos.
                     </div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🖥️ 5.1 ¿Qué es un Sistema Operativo?</h2>
+                    <h2 class="teoria-title"> 5.1 ¿Qué es un Sistema Operativo?</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">El Director de Orquesta de la Computadora</h3>
                         <div class="subsection-content">
                             Un sistema operativo es como el <span class="highlight">director de orquesta</span> de una computadora. Coordina todos los recursos (CPU, memoria, disco, red) y permite que los programas funcionen de manera organizada. Sin él, la computadora sería solo una caja con componentes electrónicos sin vida.
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🏠 Analogía práctica:</div>
+                            <div class="example-title"> Analogía práctica:</div>
                             Imagina que tu computadora es un edificio de oficinas. El sistema operativo es el administrador del edificio: asigna espacios (memoria), controla el acceso (permisos), mantiene los servicios (procesos) y se asegura de que todo funcione sin problemas.
                         </div>
                     </div>
@@ -441,7 +442,7 @@
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">💻 5.2 La Terminal: Tu Nueva Mejor Amiga</h2>
+                    <h2 class="teoria-title"> 5.2 La Terminal: Tu Nueva Mejor Amiga</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">¿Por qué Texto en vez de Clics?</h3>
                         <div class="subsection-content">
@@ -491,14 +492,14 @@ rm -r carpeta/  # Eliminar carpeta y contenido
 rm -rf /ruta/peligrosa/  # Fuerza eliminación</div>
                         </div>
                         <div class="example-box">
-                            <div class="example-title">⚠️ Consejo de seguridad:</div>
+                            <div class="example-title"> Consejo de seguridad:</div>
                             Siempre usa <code>ls</code> para verificar que estás en el directorio correcto antes de ejecutar comandos destructivos como <code>rm</code>. Una vez eliminado, no hay papelera de reciclaje en Linux.
                         </div>
                     </div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🔐 5.3 Permisos y Usuarios</h2>
+                    <h2 class="teoria-title"> 5.3 Permisos y Usuarios</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Dueños, Grupos y Otros</h3>
                         <div class="subsection-content">
@@ -543,7 +544,7 @@ chmod 644 documento.txt     # rw-r--r--
 chmod 600 archivo_privado   # rw-------</div>
                         </div>
                         <div class="example-box">
-                            <div class="example-title">🔢 Números de permisos:</div>
+                            <div class="example-title"> Números de permisos:</div>
                             4 = lectura (r), 2 = escritura (w), 1 = ejecución (x)<br>
                             Se suman: 7 = rwx, 6 = rw-, 5 = r-x, 4 = r--, 0 = ---
                         </div>
@@ -568,7 +569,7 @@ sudo su -</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">📄 5.4 Archivos de Configuración</h2>
+                    <h2 class="teoria-title"> 5.4 Archivos de Configuración</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Todo es un Archivo en Linux</h3>
                         <div class="subsection-content">
@@ -608,7 +609,7 @@ echo 'export MI_VARIABLE="valor"' >> ~/.bashrc</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🔗 5.5 Conectarse Remotamente</h2>
+                    <h2 class="teoria-title"> 5.5 Conectarse Remotamente</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">SSH: La Conexión Segura</h3>
                         <div class="subsection-content">
@@ -648,7 +649,7 @@ ssh usuario@servidor.com</div>
                 </div>
 
                 <div class="teoria-section">
-                    <h2 class="teoria-title">🤖 5.6 Automatización Básica</h2>
+                    <h2 class="teoria-title"> 5.6 Automatización Básica</h2>
                     <div class="teoria-subsection">
                         <h3 class="subsection-title">Scripts: Automatizar Tareas Repetitivas</h3>
                         <div class="subsection-content">
@@ -706,56 +707,56 @@ journalctl --since "10 minutes ago" -p err</div>
             </div>
 
             <div id="submodulos" class="tab-content">
-                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;"> Actividades Prácticas</h2>
                 
                 <div class="submodulos-grid">
                     <a href="./actividad1_terminal.html" class="actividad-card">
                         <div class="actividad-numero">1</div>
-                        <h3 class="actividad-titulo">🖥️ Terminal Interactiva</h3>
+                        <h3 class="actividad-titulo"> Terminal Interactiva</h3>
                         <p class="actividad-descripcion">Practica comandos básicos de Linux en un simulador de terminal. Aprende navegación, gestión de archivos y comandos esenciales.</p>
-                        <span class="actividad-duracion">⏱️ 25 min</span>
+                        <span class="actividad-duracion"> 25 min</span>
                     </a>
 
                     <a href="./actividad2_permisos.html" class="actividad-card">
                         <div class="actividad-numero">2</div>
-                        <h3 class="actividad-titulo">👥 Gestor de Usuarios y Permisos</h3>
+                        <h3 class="actividad-titulo"> Gestor de Usuarios y Permisos</h3>
                         <p class="actividad-descripcion">Administra usuarios, grupos y permisos de archivos. Comprende el sistema de seguridad de Linux de forma práctica.</p>
-                        <span class="actividad-duracion">⏱️ 30 min</span>
+                        <span class="actividad-duracion"> 30 min</span>
                     </a>
 
                     <a href="./actividad3_configuracion.html" class="actividad-card">
                         <div class="actividad-numero">3</div>
-                        <h3 class="actividad-titulo">🔧 Editor de Archivos de Configuración</h3>
+                        <h3 class="actividad-titulo"> Editor de Archivos de Configuración</h3>
                         <p class="actividad-descripcion">Edita archivos de configuración importantes usando editores de texto. Aprende sobre variables de entorno y configuraciones del sistema.</p>
-                        <span class="actividad-duracion">⏱️ 20 min</span>
+                        <span class="actividad-duracion"> 20 min</span>
                     </a>
 
                     <a href="./actividad4_ssh.html" class="actividad-card">
                         <div class="actividad-numero">4</div>
-                        <h3 class="actividad-titulo">🔑 Generador y Gestor de Llaves SSH</h3>
+                        <h3 class="actividad-titulo"> Generador y Gestor de Llaves SSH</h3>
                         <p class="actividad-descripcion">Genera y gestiona llaves SSH para conexiones seguras. Configura autenticación sin contraseña y mejores prácticas de seguridad.</p>
-                        <span class="actividad-duracion">⏱️ 25 min</span>
+                        <span class="actividad-duracion"> 25 min</span>
                     </a>
 
                     <a href="./actividad5_scripts.html" class="actividad-card">
                         <div class="actividad-numero">5</div>
-                        <h3 class="actividad-titulo">📝 Creador de Scripts Básicos</h3>
+                        <h3 class="actividad-titulo"> Creador de Scripts Básicos</h3>
                         <p class="actividad-descripcion">Crea tus primeros scripts de automatización. Aprende programación básica en Bash y tareas programadas con Cron.</p>
-                        <span class="actividad-duracion">⏱️ 35 min</span>
+                        <span class="actividad-duracion"> 35 min</span>
                     </a>
 
                     <a href="./quiz_modulo5.html" class="actividad-card quiz-card">
                         <div class="actividad-numero">Q</div>
                         <h3 class="actividad-titulo">Quiz del Módulo</h3>
                         <p class="actividad-descripcion">Evalúa tus conocimientos sobre Linux con 5 preguntas sobre comandos, permisos, SSH y automatización.</p>
-                        <span class="actividad-duracion">⏱️ 10 min</span>
+                        <span class="actividad-duracion"> 10 min</span>
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -796,5 +797,6 @@ journalctl --since "10 minutes ago" -p err</div>
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="5" data-pagina="index" data-total="6" defer></script>
 </body>
 </html>

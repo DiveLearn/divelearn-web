@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -340,6 +340,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -354,19 +355,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 5</a> / Actividad 4
             </div>
-            <h1 class="activity-title">🔑 Generador y Gestor de Llaves SSH</h1>
+            <h1 class="activity-title"> Generador y Gestor de Llaves SSH</h1>
             <p class="activity-subtitle">Genera y gestiona llaves SSH para conexiones seguras</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>25 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 200</span>
                 </div>
             </div>
@@ -374,12 +375,12 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a generar y gestionar llaves SSH para autenticación segura sin contraseñas. Comprenderás la diferencia entre llaves públicas y privadas, y cómo configurar conexiones SSH seguras a servidores remotos.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🔐 Generador de Llaves SSH</h2>
+                <h2 class="section-title"> Generador de Llaves SSH</h2>
                 <div class="ssh-generator">
                     <div class="generator-form">
                         <div class="form-row">
@@ -411,23 +412,23 @@
                         </div>
                         
                         <button class="generate-btn" onclick="generateSSHKey()">
-                            🔑 Generar Par de Llaves SSH
+                             Generar Par de Llaves SSH
                         </button>
                     </div>
                     
                     <div class="key-display" id="keyDisplay">
                         <div class="key-section">
                             <div class="key-title">
-                                🔓 Llave Pública (id_rsa.pub)
-                                <button class="copy-btn" onclick="copyToClipboard('publicKey')">📋 Copiar</button>
+                                 Llave Pública (id_rsa.pub)
+                                <button class="copy-btn" onclick="copyToClipboard('publicKey')"> Copiar</button>
                             </div>
                             <div class="key-content" id="publicKey"></div>
                         </div>
                         
                         <div class="key-section">
                             <div class="key-title">
-                                🔒 Llave Privada (id_rsa) - ¡MANTENER SECRETA!
-                                <button class="copy-btn" onclick="copyToClipboard('privateKey')">📋 Copiar</button>
+                                 Llave Privada (id_rsa) - ¡MANTENER SECRETA!
+                                <button class="copy-btn" onclick="copyToClipboard('privateKey')"> Copiar</button>
                             </div>
                             <div class="key-content" id="privateKey"></div>
                         </div>
@@ -436,10 +437,10 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">⚙️ Configuración SSH</h2>
+                <h2 class="section-title"> Configuración SSH</h2>
                 <div class="ssh-config">
                     <div class="config-title">
-                        📝 Archivo ~/.ssh/config
+                         Archivo ~/.ssh/config
                     </div>
                     <p>Configura conexiones predefinidas para facilitar el acceso a servidores:</p>
                     <div class="connection-simulator">
@@ -476,30 +477,30 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🖥️ Simulador de Conexiones</h2>
+                <h2 class="section-title"> Simulador de Conexiones</h2>
                 <p><strong>Haz clic en un servidor para simular la conexión SSH:</strong></p>
                 
                 <div class="server-list">
                     <div class="server-card" onclick="connectToServer('web-server', this)">
-                        <div class="server-name">🌐 Servidor Web</div>
+                        <div class="server-name"> Servidor Web</div>
                         <div class="server-details">usuario@192.168.1.100:22</div>
                         <div class="server-status status-disconnected">Desconectado</div>
                     </div>
                     
                     <div class="server-card" onclick="connectToServer('db-server', this)">
-                        <div class="server-name">🗄️ Servidor BD</div>
+                        <div class="server-name"> Servidor BD</div>
                         <div class="server-details">admin@db.empresa.com:2222</div>
                         <div class="server-status status-disconnected">Desconectado</div>
                     </div>
                     
                     <div class="server-card" onclick="connectToServer('backup-server', this)">
-                        <div class="server-name">💾 Servidor Backup</div>
+                        <div class="server-name"> Servidor Backup</div>
                         <div class="server-details">backup@backup.local:22</div>
                         <div class="server-status status-disconnected">Desconectado</div>
                     </div>
                     
                     <div class="server-card" onclick="connectToServer('dev-server', this)">
-                        <div class="server-name">⚙️ Servidor Desarrollo</div>
+                        <div class="server-name"> Servidor Desarrollo</div>
                         <div class="server-details">dev@localhost:2022</div>
                         <div class="server-status status-disconnected">Desconectado</div>
                     </div>
@@ -517,7 +518,7 @@
 
             <div class="challenge-section">
                 <h3 class="challenge-title">
-                    🎯 Desafíos SSH
+                     Desafíos SSH
                 </h3>
                 <div class="challenge-item">
                     <strong>Desafío 1:</strong> Genera una llave SSH de tipo Ed25519 con tu email personal.
@@ -535,22 +536,22 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Mejores Prácticas SSH
+                     Mejores Prácticas SSH
                 </h3>
                 <div class="tip-item">
-                    <strong>🔒 Seguridad:</strong> Siempre usa passphrase para proteger tu llave privada. Es una capa extra de seguridad.
+                    <strong> Seguridad:</strong> Siempre usa passphrase para proteger tu llave privada. Es una capa extra de seguridad.
                 </div>
                 <div class="tip-item">
-                    <strong>📂 Ubicación:</strong> Las llaves SSH se guardan en ~/.ssh/ (llave privada) y ~/.ssh/id_rsa.pub (llave pública).
+                    <strong> Ubicación:</strong> Las llaves SSH se guardan en ~/.ssh/ (llave privada) y ~/.ssh/id_rsa.pub (llave pública).
                 </div>
                 <div class="tip-item">
-                    <strong>🔑 Permisos:</strong> La llave privada debe tener permisos 600 (solo tú puedes leerla).
+                    <strong> Permisos:</strong> La llave privada debe tener permisos 600 (solo tú puedes leerla).
                 </div>
                 <div class="tip-item">
-                    <strong>📤 Distribución:</strong> Solo compartes la llave PÚBLICA. La privada nunca debe salir de tu computadora.
+                    <strong> Distribución:</strong> Solo compartes la llave PÚBLICA. La privada nunca debe salir de tu computadora.
                 </div>
                 <div class="tip-item">
-                    <strong>🔄 Rotación:</strong> Cambia tus llaves SSH periódicamente, especialmente si sospechas compromiso.
+                    <strong> Rotación:</strong> Cambia tus llaves SSH periódicamente, especialmente si sospechas compromiso.
                 </div>
             </div>
         </div>
@@ -566,12 +567,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -602,7 +603,7 @@
             const log = document.getElementById('connectionLog');
             log.innerHTML = `
                 <div class="terminal-line">
-                    <span class="success">✅ Par de llaves SSH generado exitosamente:</span>
+                    <span class="success"> Par de llaves SSH generado exitosamente:</span>
                 </div>
                 <div class="terminal-line">
                     <span class="output">Tipo: ${keyType.toUpperCase()}</span>
@@ -664,7 +665,7 @@
             navigator.clipboard.writeText(text).then(() => {
                 const btn = event.target;
                 const originalText = btn.textContent;
-                btn.textContent = '✅ Copiado';
+                btn.textContent = ' Copiado';
                 btn.style.background = '#28a745';
                 
                 setTimeout(() => {
@@ -678,10 +679,10 @@
 
         function connectToServer(serverId, element) {
             const serverNames = {
-                'web-server': '🌐 Servidor Web',
-                'db-server': '🗄️ Servidor BD', 
-                'backup-server': '💾 Servidor Backup',
-                'dev-server': '⚙️ Servidor Desarrollo'
+                'web-server': ' Servidor Web',
+                'db-server': ' Servidor BD', 
+                'backup-server': ' Servidor Backup',
+                'dev-server': ' Servidor Desarrollo'
             };
             
             const serverHosts = {
@@ -724,7 +725,7 @@
                         <span class="output">Connecting to ${serverHosts[serverId].split('@')[1]}...</span>
                     </div>
                     <div class="terminal-line">
-                        <span class="success">✅ Authentication successful (SSH key)</span>
+                        <span class="success"> Authentication successful (SSH key)</span>
                     </div>
                     <div class="terminal-line">
                         <span class="success">Welcome to ${serverNames[serverId]}!</span>
@@ -748,9 +749,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert('🎉 ¡Felicidades! Has completado la actividad "Generador y Gestor de Llaves SSH".\n\n✅ Actividad marcada como completada\n🏆 +200 puntos ganados\n\n¡Ahora sabes gestionar autenticación SSH segura!');
+            alert(' ¡Felicidades! Has completado la actividad "Generador y Gestor de Llaves SSH".\n\n Actividad marcada como completada\n +200 puntos ganados\n\n¡Ahora sabes gestionar autenticación SSH segura!');
         }
 
         function goBack() {
@@ -772,5 +773,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="5" data-pagina="actividad4_ssh" data-total="6" defer></script>
 </body>
 </html>

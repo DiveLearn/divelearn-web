@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#ffd36e">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -161,6 +161,7 @@
         }
 </style>
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -175,19 +176,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 1
             </div>
-            <h1 class="activity-title">🗺️ Arquitecto de Redes</h1>
+            <h1 class="activity-title"> Arquitecto de Redes</h1>
             <p class="activity-subtitle">Diseña tu red ideal y aprende sobre topologías de red</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Básico</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 150</span>
                 </div>
             </div>
@@ -195,56 +196,56 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad aprenderás a diseñar redes básicas arrastrando y conectando dispositivos. Experimentarás con diferentes topologías y entenderás cómo se conectan los dispositivos en el mundo real.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🛠️ Paleta de Dispositivos</h2>
+                <h2 class="section-title"> Paleta de Dispositivos</h2>
                 <p style="margin-bottom: 15px;">Arrastra los dispositivos desde aquí hacia el área de diseño:</p>
                 
                 <div class="device-palette">
                     <div class="device-item router" draggable="true" data-device="router">
-                        🔀 Router
+                         Router
                     </div>
                     <div class="device-item switch" draggable="true" data-device="switch">
-                        🔌 Switch
+                         Switch
                     </div>
                     <div class="device-item computer" draggable="true" data-device="computer">
-                        💻 Computadora
+                         Computadora
                     </div>
                     <div class="device-item server" draggable="true" data-device="server">
-                        🖥️ Servidor
+                         Servidor
                     </div>
                     <div class="device-item wifi" draggable="true" data-device="wifi">
-                        📶 Access Point
+                         Access Point
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🏗️ Área de Diseño</h2>
+                <h2 class="section-title"> Área de Diseño</h2>
                 
                 <div class="topology-selector">
-                    <div class="topology-btn active" onclick="selectTopology('libre')">🎨 Diseño Libre</div>
-                    <div class="topology-btn" onclick="selectTopology('estrella')">⭐ Estrella</div>
-                    <div class="topology-btn" onclick="selectTopology('bus')">🚌 Bus</div>
-                    <div class="topology-btn" onclick="selectTopology('anillo')">🔄 Anillo</div>
+                    <div class="topology-btn active" onclick="selectTopology('libre')"> Diseño Libre</div>
+                    <div class="topology-btn" onclick="selectTopology('estrella')"> Estrella</div>
+                    <div class="topology-btn" onclick="selectTopology('bus')"> Bus</div>
+                    <div class="topology-btn" onclick="selectTopology('anillo')"> Anillo</div>
                 </div>
 
                 <div class="design-area">
                     <div class="canvas" id="designCanvas">
                         <p style="text-align: center; margin-top: 100px; color: #8888bb; font-size: 1.1rem;">
-                            🎯 Arrastra dispositivos aquí para construir tu red
+                             Arrastra dispositivos aquí para construir tu red
                         </p>
                     </div>
                 </div>
 
                 <div class="controls">
-                    <button class="control-btn secondary" onclick="analyzeNetwork()">🔍 Analizar Red</button>
-                    <button class="control-btn" onclick="connectDevices()">🔗 Conectar Dispositivos</button>
-                    <button class="control-btn danger" onclick="clearCanvas()">🗑️ Limpiar Todo</button>
-                    <button class="control-btn" onclick="saveDesign()">💾 Guardar Diseño</button>
+                    <button class="control-btn secondary" onclick="analyzeNetwork()"> Analizar Red</button>
+                    <button class="control-btn" onclick="connectDevices()"> Conectar Dispositivos</button>
+                    <button class="control-btn danger" onclick="clearCanvas()"> Limpiar Todo</button>
+                    <button class="control-btn" onclick="saveDesign()"> Guardar Diseño</button>
                 </div>
 
                 <div id="feedback" class="feedback-area"></div>
@@ -252,19 +253,19 @@
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Tips de Arquitecto de Redes
+                     Tips de Arquitecto de Redes
                 </h3>
                 <div class="tip-item">
-                    <strong>🎯 Topología Estrella:</strong> Todos los dispositivos se conectan a un punto central (switch o router). Fácil de administrar pero depende del dispositivo central.
+                    <strong> Topología Estrella:</strong> Todos los dispositivos se conectan a un punto central (switch o router). Fácil de administrar pero depende del dispositivo central.
                 </div>
                 <div class="tip-item">
-                    <strong>🚌 Topología Bus:</strong> Todos los dispositivos comparten un cable principal. Económica pero si se daña el cable principal, toda la red falla.
+                    <strong> Topología Bus:</strong> Todos los dispositivos comparten un cable principal. Económica pero si se daña el cable principal, toda la red falla.
                 </div>
                 <div class="tip-item">
-                    <strong>🔄 Topología Anillo:</strong> Los dispositivos forman un círculo. Los datos viajan en una dirección hasta llegar al destino.
+                    <strong> Topología Anillo:</strong> Los dispositivos forman un círculo. Los datos viajan en una dirección hasta llegar al destino.
                 </div>
                 <div class="tip-item">
-                    <strong>🚀 Pro tip:</strong> En redes reales, se combinan topologías. Por ejemplo, varias redes estrella conectadas por una topología bus.
+                    <strong> Pro tip:</strong> En redes reales, se combinan topologías. Por ejemplo, varias redes estrella conectadas por una topología bus.
                 </div>
             </div>
         </div>
@@ -280,12 +281,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -299,11 +300,11 @@
 
         // Configuración de dispositivos
         const deviceConfig = {
-            router: { icon: '🔀', color: 'linear-gradient(135deg, #28a745 0%, #20c997 100%)', name: 'Router' },
-            switch: { icon: '🔌', color: 'linear-gradient(135deg, #007bff 0%, #6610f2 100%)', name: 'Switch' },
-            computer: { icon: '💻', color: 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100%)', name: 'PC' },
-            server: { icon: '🖥️', color: 'linear-gradient(135deg, #dc3545 0%, #e83e8c 100%)', name: 'Servidor' },
-            wifi: { icon: '📶', color: 'linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%)', name: 'WiFi AP' }
+            router: { icon: '', color: 'linear-gradient(135deg, #28a745 0%, #20c997 100%)', name: 'Router' },
+            switch: { icon: '', color: 'linear-gradient(135deg, #007bff 0%, #6610f2 100%)', name: 'Switch' },
+            computer: { icon: '', color: 'linear-gradient(135deg, #ffc107 0%, #fd7e14 100%)', name: 'PC' },
+            server: { icon: '', color: 'linear-gradient(135deg, #dc3545 0%, #e83e8c 100%)', name: 'Servidor' },
+            wifi: { icon: '', color: 'linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%)', name: 'WiFi AP' }
         };
 
         // Event listeners para drag and drop
@@ -342,7 +343,7 @@
             createDevice(deviceType, x, y);
             
             draggedElement = null;
-            updateFeedback('info', '✅ Dispositivo agregado correctamente. Puedes moverlo arrastrándolo.');
+            updateFeedback('info', ' Dispositivo agregado correctamente. Puedes moverlo arrastrándolo.');
         }
 
         function createDevice(type, x, y) {
@@ -411,7 +412,7 @@
             // Redibujar conexiones
             redrawConnections();
             
-            updateFeedback('info', '🗑️ Dispositivo eliminado correctamente.');
+            updateFeedback('info', ' Dispositivo eliminado correctamente.');
         }
 
         function selectTopology(topology) {
@@ -460,7 +461,7 @@
                 }
             });
 
-            updateFeedback('success', '⭐ Topología estrella aplicada. Todos los dispositivos se conectan al dispositivo central.');
+            updateFeedback('success', ' Topología estrella aplicada. Todos los dispositivos se conectan al dispositivo central.');
         }
 
         function createBusTopology() {
@@ -471,12 +472,12 @@
                 createConnection(droppedDevices[i].id, droppedDevices[i + 1].id);
             }
 
-            updateFeedback('success', '🚌 Topología bus aplicada. Los dispositivos forman una línea conectada.');
+            updateFeedback('success', ' Topología bus aplicada. Los dispositivos forman una línea conectada.');
         }
 
         function createRingTopology() {
             if (droppedDevices.length < 3) {
-                updateFeedback('info', '⚠️ Se necesitan al menos 3 dispositivos para formar un anillo.');
+                updateFeedback('info', ' Se necesitan al menos 3 dispositivos para formar un anillo.');
                 return;
             }
 
@@ -487,12 +488,12 @@
             // Cerrar el anillo
             createConnection(droppedDevices[droppedDevices.length - 1].id, droppedDevices[0].id);
 
-            updateFeedback('success', '🔄 Topología anillo aplicada. Los dispositivos forman un círculo conectado.');
+            updateFeedback('success', ' Topología anillo aplicada. Los dispositivos forman un círculo conectado.');
         }
 
         function connectDevices() {
             if (droppedDevices.length < 2) {
-                updateFeedback('info', '⚠️ Necesitas al menos 2 dispositivos para crear conexiones.');
+                updateFeedback('info', ' Necesitas al menos 2 dispositivos para crear conexiones.');
                 return;
             }
 
@@ -533,7 +534,7 @@
                 });
             }
 
-            updateFeedback('success', '🔗 Dispositivos conectados siguiendo mejores prácticas de red.');
+            updateFeedback('success', ' Dispositivos conectados siguiendo mejores prácticas de red.');
         }
 
         function createConnection(fromId, toId) {
@@ -587,11 +588,11 @@
 
         function analyzeNetwork() {
             if (droppedDevices.length === 0) {
-                updateFeedback('info', '⚠️ No hay dispositivos en la red para analizar.');
+                updateFeedback('info', ' No hay dispositivos en la red para analizar.');
                 return;
             }
 
-            let analysis = '📊 <strong>Análisis de Red:</strong><br><br>';
+            let analysis = ' <strong>Análisis de Red:</strong><br><br>';
             
             // Contar dispositivos
             const counts = {};
@@ -599,35 +600,35 @@
                 counts[device.type] = (counts[device.type] || 0) + 1;
             });
 
-            analysis += '📈 <strong>Inventario:</strong><br>';
+            analysis += ' <strong>Inventario:</strong><br>';
             Object.entries(counts).forEach(([type, count]) => {
                 const config = deviceConfig[type];
                 analysis += `${config.icon} ${config.name}: ${count}<br>`;
             });
 
-            analysis += '<br>🔗 <strong>Conectividad:</strong><br>';
+            analysis += '<br> <strong>Conectividad:</strong><br>';
             analysis += `Total de conexiones: ${connections.length}<br>`;
             
             // Análisis de topología
             if (connections.length === 0) {
-                analysis += '⚠️ No hay conexiones - dispositivos aislados<br>';
+                analysis += ' No hay conexiones - dispositivos aislados<br>';
             } else {
                 analysis += `Promedio de conexiones por dispositivo: ${(connections.length * 2 / droppedDevices.length).toFixed(1)}<br>`;
             }
 
             // Recomendaciones
-            analysis += '<br>💡 <strong>Recomendaciones:</strong><br>';
+            analysis += '<br> <strong>Recomendaciones:</strong><br>';
             
             if (!counts.router && !counts.switch) {
-                analysis += '⚠️ Considera agregar un router o switch como dispositivo central<br>';
+                analysis += ' Considera agregar un router o switch como dispositivo central<br>';
             }
             
             if (counts.computer > 5 && !counts.switch) {
-                analysis += '💡 Para tantas computadoras, un switch mejoraría el rendimiento<br>';
+                analysis += ' Para tantas computadoras, un switch mejoraría el rendimiento<br>';
             }
             
             if (counts.wifi && !counts.router) {
-                analysis += '📶 El Access Point necesita conectarse a un router para acceso a Internet<br>';
+                analysis += ' El Access Point necesita conectarse a un router para acceso a Internet<br>';
             }
 
             updateFeedback('info', analysis);
@@ -638,19 +639,19 @@
             
             if (confirm('¿Estás seguro de que quieres eliminar todos los dispositivos?')) {
                 const canvas = document.getElementById('designCanvas');
-                canvas.innerHTML = '<p style="text-align: center; margin-top: 100px; color: #8888bb; font-size: 1.1rem;">🎯 Arrastra dispositivos aquí para construir tu red</p>';
+                canvas.innerHTML = '<p style="text-align: center; margin-top: 100px; color: #8888bb; font-size: 1.1rem;"> Arrastra dispositivos aquí para construir tu red</p>';
                 
                 droppedDevices = [];
                 connections = [];
                 deviceCount = 0;
                 
-                updateFeedback('info', '🗑️ Área de diseño limpiada correctamente.');
+                updateFeedback('info', ' Área de diseño limpiada correctamente.');
             }
         }
 
         function saveDesign() {
             if (droppedDevices.length === 0) {
-                updateFeedback('info', '⚠️ No hay nada que guardar. Agrega algunos dispositivos primero.');
+                updateFeedback('info', ' No hay nada que guardar. Agrega algunos dispositivos primero.');
                 return;
             }
 
@@ -667,7 +668,7 @@
 
             // Simular guardado
             console.log('Diseño guardado:', design);
-            updateFeedback('success', '💾 Diseño guardado correctamente. Puedes continuar editando o crear uno nuevo.');
+            updateFeedback('success', ' Diseño guardado correctamente. Puedes continuar editando o crear uno nuevo.');
         }
 
         function updateFeedback(type, message) {
@@ -686,7 +687,7 @@
 
         function markCompleted() {
             if (droppedDevices.length < 3 || connections.length < 2) {
-                updateFeedback('info', '⚠️ Para completar la actividad, crea una red con al menos 3 dispositivos y 2 conexiones.');
+                updateFeedback('info', ' Para completar la actividad, crea una red con al menos 3 dispositivos y 2 conexiones.');
                 return;
             }
 
@@ -695,9 +696,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            updateFeedback('success', '🎉 ¡Felicidades! Has completado la actividad "Arquitecto de Redes".<br><br>✅ Actividad marcada como completada<br>🏆 +150 puntos ganados<br>🎯 Has aprendido sobre topologías de red y diseño básico');
+            updateFeedback('success', ' ¡Felicidades! Has completado la actividad "Arquitecto de Redes".<br><br> Actividad marcada como completada<br> +150 puntos ganados<br> Has aprendido sobre topologías de red y diseño básico');
         }
 
         function goBack() {
@@ -748,5 +749,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="actividad1_arquitecto" data-total="10" defer></script>
 </body>
 </html>

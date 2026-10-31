@@ -1,0 +1,41 @@
+---
+// Sprite pixel art en SVG a partir de un mapa de caracteres.
+// Cada carácter es un color de `paleta`; "." es transparente. Se dibuja nítido a cualquier tamaño.
+interface Props {
+  mapa: string[];
+  paleta: Record<string, string>;
+  escala?: number;
+  class?: string;
+  titulo?: string;
+}
+
+const { mapa, paleta, escala = 6, class: cls = "", titulo } = Astro.props;
+const alto = mapa.length;
+const ancho = Math.max(...mapa.map((f) => f.length));
+
+// Une píxeles seguidos del mismo color en un solo rectángulo.
+const rects: { x: number; y: number; w: number; c: string }[] = [];
+mapa.forEach((fila, y) => {
+  let x = 0;
+  while (x < fila.length) {
+    const ch = fila[x];
+    let w = 1;
+    while (fila[x + w] === ch) w++;
+    if (ch !== "." && paleta[ch]) rects.push({ x, y, w, c: paleta[ch] });
+    x += w;
+  }
+});
+---
+
+<svg
+  class={`pixel ${cls}`}
+  viewBox={`0 0 ${ancho} ${alto}`}
+  width={ancho * escala}
+  height={alto * escala}
+  shape-rendering="crispEdges"
+  role={titulo ? "img" : undefined}
+  aria-label={titulo}
+  aria-hidden={titulo ? undefined : "true"}
+>
+  {rects.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.c} />)}
+</svg>

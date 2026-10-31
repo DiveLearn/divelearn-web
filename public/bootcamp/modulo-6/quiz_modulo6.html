@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#7cc6fe">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -189,6 +189,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -204,7 +205,7 @@
         </div>
 
         <div class="header">
-            <h1 class="quiz-title">📦 Quiz del Módulo</h1>
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
             <p class="quiz-subtitle">Evalúa tus conocimientos sobre Cajas Dentro de Cajas (Virtualización)</p>
         </div>
 
@@ -359,7 +360,7 @@
             </div>
 
             <div class="results-container" id="resultsContainer">
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -400,7 +401,7 @@
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-brand"> DiveLearn</div>
             <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
         </div>
     </div>
@@ -417,50 +418,50 @@
                 id: 1,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Los hipervisores Tipo 1 son generalmente más rápidos porque tienen acceso directo al hardware.',
-                    'b': '✅ ¡Correcto! Los hipervisores Tipo 1 (bare metal) se instalan directamente sobre el hardware físico, mientras que los Tipo 2 se ejecutan sobre un sistema operativo host.',
-                    'c': '❌ Incorrecto. Los hipervisores Tipo 1 ofrecen mejor seguridad y aislamiento al ejecutarse directamente sobre el hardware.',
-                    'd': '❌ Incorrecto. Existen diferencias significativas: Tipo 1 para producción empresarial, Tipo 2 para desarrollo y testing.'
+                    'a': ' Incorrecto. Los hipervisores Tipo 1 son generalmente más rápidos porque tienen acceso directo al hardware.',
+                    'b': ' ¡Correcto! Los hipervisores Tipo 1 (bare metal) se instalan directamente sobre el hardware físico, mientras que los Tipo 2 se ejecutan sobre un sistema operativo host.',
+                    'c': ' Incorrecto. Los hipervisores Tipo 1 ofrecen mejor seguridad y aislamiento al ejecutarse directamente sobre el hardware.',
+                    'd': ' Incorrecto. Existen diferencias significativas: Tipo 1 para producción empresarial, Tipo 2 para desarrollo y testing.'
                 }
             },
             {
                 id: 2,
                 correct: 'a',
                 feedback: {
-                    'a': '✅ ¡Correcto! Los contenedores comparten el kernel del sistema operativo host, por lo que no necesitan arrancar un OS completo como las VMs.',
-                    'b': '❌ Incorrecto. Los contenedores y VMs usan los mismos recursos de hardware. La diferencia está en la arquitectura.',
-                    'c': '❌ Incorrecto. Aunque usan menos memoria, esto es consecuencia de compartir el OS, no la causa del arranque rápido.',
-                    'd': '❌ Incorrecto. El tipo de almacenamiento puede afectar el rendimiento, pero no explica la diferencia fundamental de arquitectura.'
+                    'a': ' ¡Correcto! Los contenedores comparten el kernel del sistema operativo host, por lo que no necesitan arrancar un OS completo como las VMs.',
+                    'b': ' Incorrecto. Los contenedores y VMs usan los mismos recursos de hardware. La diferencia está en la arquitectura.',
+                    'c': ' Incorrecto. Aunque usan menos memoria, esto es consecuencia de compartir el OS, no la causa del arranque rápido.',
+                    'd': ' Incorrecto. El tipo de almacenamiento puede afectar el rendimiento, pero no explica la diferencia fundamental de arquitectura.'
                 }
             },
             {
                 id: 3,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. VMware vSphere es una plataforma de virtualización para máquinas virtuales, no para contenedores.',
-                    'b': '✅ ¡Correcto! Kubernetes es la plataforma líder para orquestación de contenedores, manejando despliegue, escalado y gestión automática.',
-                    'c': '❌ Incorrecto. Windows Server es un sistema operativo que puede ejecutar contenedores, pero no es un orquestador.',
-                    'd': '❌ Incorrecto. Apache HTTP Server es un servidor web, no tiene capacidades de orquestación de contenedores.'
+                    'a': ' Incorrecto. VMware vSphere es una plataforma de virtualización para máquinas virtuales, no para contenedores.',
+                    'b': ' ¡Correcto! Kubernetes es la plataforma líder para orquestación de contenedores, manejando despliegue, escalado y gestión automática.',
+                    'c': ' Incorrecto. Windows Server es un sistema operativo que puede ejecutar contenedores, pero no es un orquestador.',
+                    'd': ' Incorrecto. Apache HTTP Server es un servidor web, no tiene capacidades de orquestación de contenedores.'
                 }
             },
             {
                 id: 4,
                 correct: 'c',
                 feedback: {
-                    'a': '❌ Incorrecto. Las aplicaciones web modernas con microservicios son el caso de uso ideal para contenedores.',
-                    'b': '❌ Incorrecto. El desarrollo ágil con despliegues frecuentes se beneficia más de la rapidez y portabilidad de los contenedores.',
-                    'c': '✅ ¡Correcto! Las VMs son preferibles cuando necesitas ejecutar sistemas operativos específicos o aplicaciones legacy que requieren un entorno particular.',
-                    'd': '❌ Incorrecto. Los contenedores son más eficientes en el uso de recursos que las máquinas virtuales.'
+                    'a': ' Incorrecto. Las aplicaciones web modernas con microservicios son el caso de uso ideal para contenedores.',
+                    'b': ' Incorrecto. El desarrollo ágil con despliegues frecuentes se beneficia más de la rapidez y portabilidad de los contenedores.',
+                    'c': ' ¡Correcto! Las VMs son preferibles cuando necesitas ejecutar sistemas operativos específicos o aplicaciones legacy que requieren un entorno particular.',
+                    'd': ' Incorrecto. Los contenedores son más eficientes en el uso de recursos que las máquinas virtuales.'
                 }
             },
             {
                 id: 5,
                 correct: 'b',
                 feedback: {
-                    'a': '❌ Incorrecto. Los orquestadores de contenedores no pueden reparar hardware físico, solo gestionan software.',
-                    'b': '✅ ¡Correcto! La auto-reparación significa que el orquestador monitorea constantemente el estado de los contenedores y reinicia automáticamente aquellos que fallan.',
-                    'c': '❌ Incorrecto. La actualización de código requiere procesos específicos de CI/CD, no es parte de la auto-reparación básica.',
-                    'd': '❌ Incorrecto. Aunque algunos orquestadores incluyen optimización, la auto-reparación se refiere específicamente a mantener los contenedores funcionando.'
+                    'a': ' Incorrecto. Los orquestadores de contenedores no pueden reparar hardware físico, solo gestionan software.',
+                    'b': ' ¡Correcto! La auto-reparación significa que el orquestador monitorea constantemente el estado de los contenedores y reinicia automáticamente aquellos que fallan.',
+                    'c': ' Incorrecto. La actualización de código requiere procesos específicos de CI/CD, no es parte de la auto-reparación básica.',
+                    'd': ' Incorrecto. Aunque algunos orquestadores incluyen optimización, la auto-reparación se refiere específicamente a mantener los contenedores funcionando.'
                 }
             }
         ];
@@ -608,13 +609,13 @@
             
             navigationDiv.innerHTML = `
                 <button class="nav-btn" onclick="retryQuiz()">
-                    🔄 Repetir Quiz
+                     Repetir Quiz
                 </button>
                 <button class="nav-btn primary" onclick="goToHub()">
-                    🏠 Volver al Hub
+                     Volver al Hub
                 </button>
                 <button class="nav-btn success" onclick="nextModule()">
-                    ➡️ Siguiente Módulo
+                     Siguiente Módulo
                 </button>
             `;
             
@@ -623,13 +624,13 @@
             // Mostrar mensaje motivacional basado en el puntaje
             let message = '';
             if (score === 5) {
-                message = '🏆 ¡Excepcional! Dominas completamente la virtualización y contenedores.';
+                message = ' ¡Excepcional! Dominas completamente la virtualización y contenedores.';
             } else if (score >= 4) {
-                message = '🌟 ¡Excelente! Tienes una comprensión sólida de estos conceptos.';
+                message = ' ¡Excelente! Tienes una comprensión sólida de estos conceptos.';
             } else if (score >= 3) {
-                message = '👍 ¡Buen trabajo! Revisa algunos conceptos y estarás perfecto.';
+                message = ' ¡Buen trabajo! Revisa algunos conceptos y estarás perfecto.';
             } else {
-                message = '📚 Te recomendamos repasar la teoría sobre virtualización y contenedores.';
+                message = ' Te recomendamos repasar la teoría sobre virtualización y contenedores.';
             }
 
             const messageElement = document.createElement('p');
@@ -657,7 +658,7 @@
             // Ocultar resultados
             document.getElementById('resultsContainer').classList.remove('show');
             document.getElementById('resultsContainer').innerHTML = `
-                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
                 <div class="score-circle">
                     <div id="finalScore">0</div>
                     <div class="score-text">de 5</div>
@@ -694,7 +695,7 @@
         }
 
         function nextModule() {
-            alert('🚀 ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
+            alert(' ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros contenidos.');
             goToHub();
         }
 
@@ -733,5 +734,6 @@
         });
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="6" data-pagina="quiz_modulo6" data-total="4" defer></script>
 </body>
 </html>

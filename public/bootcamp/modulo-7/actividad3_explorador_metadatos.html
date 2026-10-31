@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="--c:#04a8bb">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -339,6 +339,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
   <nav class="dl-nav">
@@ -353,19 +354,19 @@
             <div class="breadcrumb">
                 <a href="./">← Módulo 7</a> / Actividad 3
             </div>
-            <h1 class="activity-title">🔍 Explorador de Metadatos</h1>
+            <h1 class="activity-title"> Explorador de Metadatos</h1>
             <p class="activity-subtitle">Descubre cómo los metadatos enriquecen la gestión de archivos y datos</p>
             <div class="activity-meta">
                 <div class="meta-item">
-                    <span>⏱️</span>
+                    <span></span>
                     <span>20 minutos</span>
                 </div>
                 <div class="meta-item">
-                    <span>🎯</span>
+                    <span></span>
                     <span>Nivel: Intermedio</span>
                 </div>
                 <div class="meta-item">
-                    <span>🏆</span>
+                    <span></span>
                     <span>Puntos: 100</span>
                 </div>
             </div>
@@ -373,50 +374,50 @@
 
         <div class="main-content">
             <div class="section">
-                <h2 class="section-title">🎯 Objetivo</h2>
+                <h2 class="section-title"> Objetivo</h2>
                 <p>En esta actividad explorarás cómo los metadatos agregan valor a los archivos y objetos. Aprenderás a identificar, interpretar y crear metadatos útiles para mejorar la organización y búsqueda de información.</p>
             </div>
 
             <div class="section">
-                <h2 class="section-title">🗂️ Explorador de Archivos</h2>
+                <h2 class="section-title"> Explorador de Archivos</h2>
                 
                 <div class="explorer-interface">
                     <div class="file-browser">
-                        <h4 style="color: #8888bb; margin-bottom: 15px;">📁 Archivos de Ejemplo</h4>
+                        <h4 style="color: #8888bb; margin-bottom: 15px;"> Archivos de Ejemplo</h4>
                         
                         <div class="file-grid">
                             <div class="file-item" onclick="selectFile('photo1')">
-                                <div class="file-icon">📸</div>
+                                <div class="file-icon"></div>
                                 <div class="file-name">vacaciones.jpg</div>
                                 <div class="file-size">2.4 MB</div>
                             </div>
 
                             <div class="file-item" onclick="selectFile('video1')">
-                                <div class="file-icon">🎥</div>
+                                <div class="file-icon"></div>
                                 <div class="file-name">tutorial.mp4</div>
                                 <div class="file-size">156 MB</div>
                             </div>
 
                             <div class="file-item" onclick="selectFile('document1')">
-                                <div class="file-icon">📄</div>
+                                <div class="file-icon"></div>
                                 <div class="file-name">informe.pdf</div>
                                 <div class="file-size">890 KB</div>
                             </div>
 
                             <div class="file-item" onclick="selectFile('audio1')">
-                                <div class="file-icon">🎵</div>
+                                <div class="file-icon"></div>
                                 <div class="file-name">cancion.mp3</div>
                                 <div class="file-size">4.2 MB</div>
                             </div>
 
                             <div class="file-item" onclick="selectFile('data1')">
-                                <div class="file-icon">📊</div>
+                                <div class="file-icon"></div>
                                 <div class="file-name">ventas.xlsx</div>
                                 <div class="file-size">1.1 MB</div>
                             </div>
 
                             <div class="file-item" onclick="selectFile('web1')">
-                                <div class="file-icon">🌐</div>
+                                <div class="file-icon"></div>
                                 <div class="file-name">sitio.html</div>
                                 <div class="file-size">45 KB</div>
                             </div>
@@ -424,18 +425,18 @@
                     </div>
 
                     <div class="metadata-panel">
-                        <h4 style="color: #8888bb; margin-bottom: 15px;">📋 Panel de Metadatos</h4>
+                        <h4 style="color: #8888bb; margin-bottom: 15px;"> Panel de Metadatos</h4>
                         
                         <div class="metadata-display" id="metadataDisplay">
                             <div class="metadata-empty">
-                                <div style="font-size: 3rem; margin-bottom: 15px;">🔍</div>
+                                <div style="font-size: 3rem; margin-bottom: 15px;"></div>
                                 <div><strong>Selecciona un archivo</strong></div>
                                 <div style="font-size: 0.9rem; margin-top: 5px;">Haz clic en cualquier archivo de la izquierda para ver sus metadatos</div>
                             </div>
                         </div>
 
                         <div class="version-history" id="versionHistory" style="display: none;">
-                            <h5 style="color: #8888bb; margin-bottom: 10px;">📚 Historial de Versiones</h5>
+                            <h5 style="color: #8888bb; margin-bottom: 10px;"> Historial de Versiones</h5>
                             <div id="versionList"></div>
                         </div>
                     </div>
@@ -443,7 +444,7 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">🏗️ Generador de Metadatos</h2>
+                <h2 class="section-title"> Generador de Metadatos</h2>
                 
                 <div class="metadata-generator">
                     <div class="generator-title">Crea metadatos personalizados para tus archivos</div>
@@ -498,35 +499,35 @@
                     </div>
 
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn" onclick="generateCustomMetadata()">🔧 Generar Metadatos</button>
-                        <button class="btn secondary" onclick="clearCustomForm()">🧹 Limpiar</button>
+                        <button class="btn" onclick="generateCustomMetadata()"> Generar Metadatos</button>
+                        <button class="btn secondary" onclick="clearCustomForm()"> Limpiar</button>
                     </div>
                 </div>
 
                 <div class="custom-metadata" id="customMetadataResult" style="display: none;">
-                    <h4 style="color: #8888bb; margin-bottom: 15px;">📄 Metadatos Generados</h4>
+                    <h4 style="color: #8888bb; margin-bottom: 15px;"> Metadatos Generados</h4>
                     <div id="customMetadataContent"></div>
                 </div>
             </div>
 
             <div class="tips-section">
                 <h3 class="tips-title">
-                    💡 Por qué son Importantes los Metadatos
+                     Por qué son Importantes los Metadatos
                 </h3>
                 <div class="tip-item">
-                    <strong>🔍 Búsqueda mejorada:</strong> Los metadatos permiten encontrar archivos rápidamente sin abrirlos.
+                    <strong> Búsqueda mejorada:</strong> Los metadatos permiten encontrar archivos rápidamente sin abrirlos.
                 </div>
                 <div class="tip-item">
-                    <strong>📊 Organización automática:</strong> Los sistemas pueden clasificar y agrupar contenido automáticamente.
+                    <strong> Organización automática:</strong> Los sistemas pueden clasificar y agrupar contenido automáticamente.
                 </div>
                 <div class="tip-item">
-                    <strong>🔒 Control de acceso:</strong> Información sobre permisos, privacidad y propietarios.
+                    <strong> Control de acceso:</strong> Información sobre permisos, privacidad y propietarios.
                 </div>
                 <div class="tip-item">
-                    <strong>📚 Contexto histórico:</strong> Cuándo se creó, modificó y quién lo hizo.
+                    <strong> Contexto histórico:</strong> Cuándo se creó, modificó y quién lo hizo.
                 </div>
                 <div class="tip-item">
-                    <strong>🔗 Relaciones:</strong> Vínculos entre archivos relacionados y dependencias.
+                    <strong> Relaciones:</strong> Vínculos entre archivos relacionados y dependencias.
                 </div>
             </div>
         </div>
@@ -542,12 +543,12 @@
             </div>
 
             <button class="nav-btn secondary" onclick="markCompleted()">
-                ✅ Marcar Completado
+                 Marcar Completado
             </button>
         </div>
 
         <div class="footer">
-            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
         </div>
     </div>
 
@@ -559,7 +560,7 @@
         const fileData = {
             photo1: {
                 name: "vacaciones.jpg",
-                icon: "📸",
+                icon: "",
                 size: "2.4 MB",
                 metadata: {
                     "Tipo de archivo": "JPEG Image",
@@ -584,7 +585,7 @@
             },
             video1: {
                 name: "tutorial.mp4",
-                icon: "🎥",
+                icon: "",
                 size: "156 MB",
                 metadata: {
                     "Tipo de archivo": "MPEG-4 Video",
@@ -609,7 +610,7 @@
             },
             document1: {
                 name: "informe.pdf",
-                icon: "📄",
+                icon: "",
                 size: "890 KB",
                 metadata: {
                     "Tipo de archivo": "PDF Document",
@@ -633,7 +634,7 @@
             },
             audio1: {
                 name: "cancion.mp3",
-                icon: "🎵",
+                icon: "",
                 size: "4.2 MB",
                 metadata: {
                     "Tipo de archivo": "MP3 Audio",
@@ -659,7 +660,7 @@
             },
             data1: {
                 name: "ventas.xlsx",
-                icon: "📊",
+                icon: "",
                 size: "1.1 MB",
                 metadata: {
                     "Tipo de archivo": "Excel Spreadsheet",
@@ -684,7 +685,7 @@
             },
             web1: {
                 name: "sitio.html",
-                icon: "🌐",
+                icon: "",
                 size: "45 KB",
                 metadata: {
                     "Tipo de archivo": "HTML Document",
@@ -767,8 +768,8 @@
                             <div class="version-date">${version.date} • ${version.size}</div>
                         </div>
                         <div class="version-actions">
-                            <button class="version-btn" onclick="viewVersion(${index})">👁️ Ver</button>
-                            <button class="version-btn" onclick="restoreVersion(${index})">↩️ Restaurar</button>
+                            <button class="version-btn" onclick="viewVersion(${index})"> Ver</button>
+                            <button class="version-btn" onclick="restoreVersion(${index})">↩ Restaurar</button>
                         </div>
                     </div>
                 `;
@@ -779,13 +780,13 @@
 
         function viewVersion(versionIndex) {
             const version = selectedFile.versions[versionIndex];
-            alert(`👁️ Visualizando: ${version.version}\n\nFecha: ${version.date}\nTamaño: ${version.size}\n\nEn un sistema real, aquí se abriría la versión específica del archivo.`);
+            alert(` Visualizando: ${version.version}\n\nFecha: ${version.date}\nTamaño: ${version.size}\n\nEn un sistema real, aquí se abriría la versión específica del archivo.`);
         }
 
         function restoreVersion(versionIndex) {
             const version = selectedFile.versions[versionIndex];
             if (confirm(`¿Seguro que quieres restaurar la versión "${version.version}"?\n\nEsto creará una nueva versión basada en la seleccionada.`)) {
-                alert(`✅ Versión "${version.version}" restaurada exitosamente.\n\nSe ha creado una nueva versión con el contenido de la versión seleccionada.`);
+                alert(` Versión "${version.version}" restaurada exitosamente.\n\nSe ha creado una nueva versión con el contenido de la versión seleccionada.`);
             }
         }
 
@@ -881,7 +882,7 @@
                 const tagArray = tags.split(',').map(tag => tag.trim());
                 metadataHtml += `
                     <div style="margin-top: 20px;">
-                        <div style="font-weight: 600; margin-bottom: 10px; color: #8888bb;">🏷️ Etiquetas Visuales:</div>
+                        <div style="font-weight: 600; margin-bottom: 10px; color: #8888bb;"> Etiquetas Visuales:</div>
                         ${tagArray.map(tag => `<span class="metadata-tag">${tag}</span>`).join('')}
                     </div>
                 `;
@@ -931,7 +932,7 @@
 
         function markCompleted() {
             if (exploredFiles.size < 3) {
-                alert('🎯 Para completar la actividad, explora al menos 3 archivos diferentes y genera metadatos personalizados.');
+                alert(' Para completar la actividad, explora al menos 3 archivos diferentes y genera metadatos personalizados.');
                 return;
             }
 
@@ -940,9 +941,9 @@
             const statusText = document.getElementById('statusText');
             
             indicator.classList.add('completed');
-            statusText.textContent = 'Completado ✅';
+            statusText.textContent = 'Completado ';
             
-            alert(`🎉 ¡Felicidades! Has completado "Explorador de Metadatos".\n\n✅ Actividad marcada como completada\n🏆 +100 puntos ganados\n📊 Archivos explorados: ${exploredFiles.size}/6\n\n¡Ahora entiendes el poder de los metadatos!`);
+            alert(` ¡Felicidades! Has completado "Explorador de Metadatos".\n\n Actividad marcada como completada\n +100 puntos ganados\n Archivos explorados: ${exploredFiles.size}/6\n\n¡Ahora entiendes el poder de los metadatos!`);
         }
 
         function goBack() {
@@ -959,5 +960,6 @@
         }, 30000);
     </script>
 
+<script src="/js/bootcamp-progreso.js" data-modulo="7" data-pagina="actividad3_explorador_metadatos" data-total="5" defer></script>
 </body>
 </html>
