@@ -1,0 +1,319 @@
+---
+import Base from "../layouts/Base.astro";
+
+const KIT = "https://mar31orvel.kit.com/inmersion-ans-c01";
+
+const historia = [
+  {
+    n: "8",
+    t: "certificaciones reprobadas",
+    d: "Antes de aprobar, reprobé. Muchas veces. Por eso enseño lo que de verdad sirve en el examen y en el trabajo, no lo que se ve bonito en una diapositiva.",
+  },
+  {
+    n: "AWS",
+    t: "en producción, todos los días",
+    d: "Soy Solutions Architect. Lo que comparto aquí sale de cuentas reales, con incidentes, auditorías y facturas de verdad.",
+  },
+  {
+    n: "ES",
+    t: "desde un pueblito de España",
+    d: "Me mudé de Colombia a un pueblito de Córdoba. Si alguien me hubiera dicho que el cloud me iba a traer hasta aquí, no le creo.",
+  },
+];
+
+const rutas = [
+  {
+    tag: "Gratis",
+    t: "Inmersión ANS-C01",
+    d: "Ruta gamificada para AWS Advanced Networking – Specialty: 30 especies de red, mapas interactivos y tu fecha de examen.",
+    href: "/inmersion-ans-c01/",
+    cta: "Empezar a bucear",
+  },
+  {
+    tag: "Pronto",
+    t: "Blog e infografías",
+    d: "Servicios de AWS explicados con dibujos, historias y labs. Lo que aprendo en el trabajo, contado sin humo.",
+    href: "/blog/",
+    cta: "Ver el blog",
+  },
+  {
+    tag: "Pronto",
+    t: "Cursos DiveLearn",
+    d: "Cursos por niveles de profundidad: entras a la superficie y bajas a tu ritmo, como en un videojuego.",
+    href: "/cursos/",
+    cta: "Ver cursos",
+  },
+];
+---
+
+<Base title="DiveLearn">
+  <section class="hero">
+    <img class="ola" src="/img/ola-lavanda.png" alt="" aria-hidden="true" />
+    <span class="burbuja b1"></span><span class="burbuja b2"></span><span class="burbuja b3"></span>
+    <div class="wrap hero-grid">
+      <div class="hero-txt">
+        <p class="hola">Hola, soy Mar 👋</p>
+        <h1>Educamos para lo real, <em>no para lo perfecto.</em></h1>
+        <p class="sub">
+          Soy arquitecta de AWS y fundadora de DiveLearn. Aquí aprendes cloud como se aprende a bucear:
+          <b>haciéndolo.</b>
+        </p>
+        <div class="acciones">
+          <a class="btn lime" href="/inmersion-ans-c01/">Empieza gratis</a>
+          <a class="btn ghost" href={KIT}>Únete a la lista</a>
+        </div>
+      </div>
+      <figure class="foto">
+        <img src="/img/mar.jpg" alt="Mar Ortiz sonriendo, con su portátil decorado con una ola" width="562" height="620" />
+        <figcaption>Speaker · AWS Community Day Spain 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap bloque">
+    <h2>Mi historia, corta</h2>
+    <div class="tarjetas">
+      {
+        historia.map((h) => (
+          <article class="tarjeta">
+            <p class="num">{h.n}</p>
+            <h3>{h.t}</h3>
+            <p>{h.d}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap bloque">
+    <h2>Por dónde empezar</h2>
+    <div class="tarjetas">
+      {
+        rutas.map((r) => (
+          <a class="tarjeta ruta" href={r.href}>
+            <span class={`tag ${r.tag === "Gratis" ? "on" : ""}`}>{r.tag}</span>
+            <h3>{r.t}</h3>
+            <p>{r.d}</p>
+            <span class="ir">{r.cta} →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="lista">
+      <h2>Lo que vale la pena, <em>directo a tu correo.</em></h2>
+      <p>Recursos nuevos, lo que estoy aprendiendo y avisos de cursos. Sin spam: te sales con un clic.</p>
+      <a class="btn lime" href={KIT}>Quiero recibirlo</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+    background: radial-gradient(120% 140% at 85% 0%, #6463f2 0%, var(--purple) 45%, var(--deep) 100%);
+    padding: 56px 0 72px;
+  }
+  .ola {
+    position: absolute;
+    left: -180px;
+    bottom: -260px;
+    width: 560px;
+    opacity: 0.18;
+    transform: rotate(-8deg);
+    pointer-events: none;
+  }
+  .burbuja {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(178, 202, 253, 0.5);
+    animation: subir 9s ease-in-out infinite;
+  }
+  .b1 {
+    left: 46%;
+    bottom: 18%;
+    width: 22px;
+    height: 22px;
+  }
+  .b2 {
+    left: 49%;
+    bottom: 30%;
+    width: 12px;
+    height: 12px;
+    animation-delay: 1.5s;
+  }
+  .b3 {
+    left: 51%;
+    bottom: 40%;
+    width: 8px;
+    height: 8px;
+    border-color: rgba(224, 242, 74, 0.8);
+    animation-delay: 3s;
+  }
+  @keyframes subir {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-18px);
+    }
+  }
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .hola {
+    color: var(--lav);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .hero h1 {
+    font-size: clamp(2.3rem, 6vw, 4rem);
+  }
+  .hero h1 em {
+    color: var(--lime);
+  }
+  .sub {
+    font-size: 1.15rem;
+    color: var(--lav);
+    max-width: 34ch;
+  }
+  .sub b {
+    color: var(--white);
+  }
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .foto {
+    margin: 0;
+    justify-self: center;
+    max-width: 360px;
+  }
+  .foto img {
+    border-radius: 28px;
+    border: 4px solid var(--lav);
+    box-shadow: 0 20px 50px rgba(20, 16, 120, 0.35);
+  }
+  .foto figcaption {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--lav);
+  }
+  .bloque {
+    padding-top: 64px;
+  }
+  .bloque h2,
+  .lista h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--purple);
+  }
+  .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .tarjeta {
+    background: var(--lav-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .tarjeta h3 {
+    font-size: 1.35rem;
+    color: var(--ink);
+  }
+  .tarjeta p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .num {
+    font-family: var(--title);
+    font-size: 2.6rem !important;
+    line-height: 1;
+    color: var(--purple) !important;
+    margin-bottom: 8px !important;
+  }
+  .ruta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .ruta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(84, 83, 235, 0.18);
+  }
+  .ruta h3 {
+    margin: 0;
+  }
+  .tag {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--muted);
+  }
+  .tag.on {
+    background: var(--lime);
+    color: var(--ink);
+  }
+  .ir {
+    margin-top: auto;
+    padding-top: 8px;
+    font-weight: 700;
+    color: var(--deep);
+  }
+  .lista {
+    margin-top: 64px;
+    padding: 40px 24px;
+    border-radius: 28px;
+    text-align: center;
+    background: var(--purple);
+    color: var(--lav);
+  }
+  .lista h2 {
+    color: var(--white);
+  }
+  .lista h2 em {
+    color: var(--lime);
+  }
+  .lista p {
+    max-width: 46ch;
+    margin: 0 auto 20px;
+  }
+  @media (max-width: 768px) {
+    .hero {
+      padding: 32px 0 48px;
+    }
+    .hero-grid,
+    .tarjetas {
+      grid-template-columns: 1fr;
+    }
+    .foto {
+      order: -1;
+      max-width: 220px;
+    }
+    .burbuja {
+      display: none;
+    }
+  }
+</style>

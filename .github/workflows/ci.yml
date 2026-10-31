@@ -1,6 +1,6 @@
 name: ci
 
-# Revisa la infraestructura en cada PR y en main. No entra a AWS: la cuenta está en el
+# Revisa la infraestructura y que el sitio compile en cada PR y en main. No entra a AWS: la cuenta está en el
 # plan gratis, que bloquea el proveedor OIDC. Al pasar a plan pago se agregan plan/apply
 # y el despliegue del sitio con OIDC (ver README).
 on:
@@ -39,3 +39,14 @@ jobs:
           directory: .
           framework: terraform
           config_file: .checkov.yaml
+
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build

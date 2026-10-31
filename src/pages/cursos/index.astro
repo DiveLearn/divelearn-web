@@ -1,0 +1,54 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+---
+
+<Base title="Cursos" description="Cursos de AWS por niveles de profundidad, gamificados.">
+  <PageHead title="Cursos" lead="Cursos por niveles de profundidad: entras a la superficie y bajas a tu ritmo, como en un videojuego." />
+  <section class="wrap cuerpo">
+    <div class="caja">
+      <span class="tag">Disponible</span>
+      <h2>Inmersión ANS-C01</h2>
+      <p>Gratis. Para quienes van por AWS Advanced Networking – Specialty antes de su retiro.</p>
+      <a class="btn" href="/inmersion-ans-c01/">Empezar</a>
+    </div>
+    <div class="caja">
+      <span class="tag">Próximamente</span>
+      <h2>Nuevos cursos DiveLearn</h2>
+      <p>Estoy preparando los próximos. Los de la lista se enteran primero (y con descuento).</p>
+      <a class="btn" href="https://mar31orvel.kit.com/inmersion-ans-c01">Avísame</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cuerpo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding-top: 40px;
+  }
+  .caja {
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--lav-soft);
+    border: 1px solid var(--line);
+  }
+  h2 {
+    font-size: 1.6rem;
+    color: var(--purple);
+    margin-top: 12px;
+  }
+  p {
+    color: var(--muted);
+  }
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--lime);
+  }
+</style>

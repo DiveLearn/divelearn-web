@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <article class="wrap post">
+    <a class="volver" href="/blog/">← Blog</a>
+    <h1>{post.data.title}</h1>
+    <time datetime={post.data.date.toISOString()}>{fecha.format(post.data.date)}</time>
+    <div class="cuerpo"><Content /></div>
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: 720px;
+    padding-top: 40px;
+  }
+  .volver {
+    font-weight: 700;
+    text-decoration: none;
+  }
+  h1 {
+    margin-top: 16px;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--purple);
+  }
+  time {
+    color: var(--muted);
+  }
+  .cuerpo {
+    margin-top: 24px;
+    font-size: 1.08rem;
+  }
+  .cuerpo :global(h2) {
+    color: var(--purple);
+    margin-top: 1.6em;
+  }
+  .cuerpo :global(img) {
+    border-radius: var(--radius);
+  }
+  .cuerpo :global(pre) {
+    overflow-x: auto;
+    padding: 16px;
+    border-radius: 12px;
+  }
+</style>

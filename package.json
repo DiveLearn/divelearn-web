@@ -1,0 +1,14 @@
+{
+  "name": "divelearn-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource/questrial": "^5.2.6",
+    "astro": "^5.14.0"
+  }
+}

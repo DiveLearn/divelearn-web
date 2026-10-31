@@ -1,0 +1,216 @@
+---
+import "@fontsource/questrial";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Aprende cloud como se aprende a bucear: haciéndolo. Recursos, rutas y cursos de AWS en español, por Mar Ortiz.",
+} = Astro.props;
+const path = Astro.url.pathname;
+const fullTitle = title === "DiveLearn" ? "DiveLearn · Educamos para lo real, no para lo perfecto" : `${title} · DiveLearn`;
+const nav = [
+  { href: "/blog/", label: "Blog" },
+  { href: "/recursos/", label: "Recursos" },
+  { href: "/cursos/", label: "Cursos" },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL("/img/mar.jpg", Astro.site)} />
+    <meta property="og:locale" content="es_ES" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="/" aria-label="DiveLearn, inicio">
+        <img src="/img/logo-divelearn.png" alt="DiveLearn" width="160" height="35" />
+      </a>
+      <nav aria-label="Principal">
+        {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="foot">
+      <p class="slogan">Educamos para lo real, <em>no para lo perfecto.</em></p>
+      <p>
+        <a href="https://www.linkedin.com/in/mar31orvel/">LinkedIn</a> ·
+        <a href="https://github.com/DiveLearn">GitHub</a> ·
+        <a href="https://mar31orvel.kit.com/inmersion-ans-c01">Lista de correo</a>
+      </p>
+      <p class="small">© {new Date().getFullYear()} DiveLearn · Hecho con AWS, Terraform y café.</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    font-family: "Symora";
+    src: url("/fonts/symora.otf") format("opentype");
+    font-display: swap;
+  }
+  :root {
+    --purple: #5453eb;
+    --deep: #3a34d2;
+    --lav: #b2cafd;
+    --lav-soft: #eef2ff;
+    --lime: #e0f24a;
+    --ink: #1f1d5c;
+    --muted: #55538a;
+    --line: #dfe3fb;
+    --white: #ffffff;
+    --radius: 18px;
+    --title: "Symora", "Questrial", "Century Gothic", system-ui, sans-serif;
+    --body: "Century Gothic", "Questrial", system-ui, sans-serif;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    color: var(--ink);
+    font: 17px/1.6 var(--body);
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  a {
+    color: var(--deep);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--title);
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 0 0.5em;
+  }
+  em {
+    font-style: normal;
+  }
+  :focus-visible {
+    outline: 3px solid var(--lime);
+    outline-offset: 3px;
+  }
+  main {
+    flex: 1;
+  }
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 24px;
+    min-height: 48px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--lav);
+    color: var(--ink);
+    transition: transform 0.15s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn.lime {
+    background: var(--lime);
+  }
+  .btn.ghost {
+    background: transparent;
+    color: var(--white);
+    box-shadow: inset 0 0 0 2px var(--lav);
+  }
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--purple);
+  }
+  .top nav {
+    display: flex;
+    gap: 4px;
+  }
+  .top nav a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 999px;
+  }
+  .top nav a:hover,
+  .top nav a[aria-current="page"] {
+    background: rgba(178, 202, 253, 0.25);
+  }
+  .brand img {
+    width: 140px;
+  }
+  .foot {
+    margin-top: 80px;
+    padding: 48px 16px;
+    text-align: center;
+    background: var(--purple);
+    color: var(--lav);
+  }
+  .foot a {
+    color: var(--white);
+  }
+  .foot .slogan {
+    font-family: var(--title);
+    font-size: 1.6rem;
+    color: var(--white);
+    margin: 0 0 12px;
+  }
+  .foot .slogan em {
+    color: var(--lime);
+  }
+  .foot .small {
+    font-size: 0.85rem;
+  }
+  @media (max-width: 480px) {
+    .brand img {
+      width: 110px;
+    }
+    .top nav a {
+      padding: 10px 8px;
+      font-size: 0.95rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>

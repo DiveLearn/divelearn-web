@@ -1,0 +1,96 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+
+const recursos = [
+  {
+    t: "Inmersión ANS-C01",
+    d: "Ruta gamificada para AWS Advanced Networking – Specialty, con fecha de examen editable.",
+    href: "/inmersion-ans-c01/",
+  },
+  {
+    t: "Guía de estudio ANS-C01",
+    d: "La cheat sheet de networking: lo que más pregunta el examen, en una sola página.",
+    href: "/inmersion-ans-c01/guia/",
+  },
+];
+
+const mapas = [
+  ["vpc-fundamentos", "Fundamentos de VPC"],
+  ["peering-endpoints", "Peering y Endpoints"],
+  ["transit-gateway", "Transit Gateway"],
+  ["vpn-bgp", "Site-to-Site VPN con BGP"],
+  ["direct-connect", "Direct Connect"],
+  ["dns-hibrido", "DNS híbrido"],
+  ["edge", "Edge: CloudFront y Global Accelerator"],
+  ["seguridad-red", "Seguridad de red"],
+];
+---
+
+<Base title="Recursos" description="Guías, mapas e infografías gratis para estudiar AWS.">
+  <PageHead title="Recursos" lead="Guías, mapas e infografías gratis para estudiar AWS. Se van sumando más; los avisos llegan primero a la lista de correo." />
+  <section class="wrap grid">
+    {
+      recursos.map((r) => (
+        <a class="item" href={r.href}>
+          <h2>{r.t}</h2>
+          <p>{r.d}</p>
+        </a>
+      ))
+    }
+  </section>
+  <section class="wrap">
+    <h2 class="sub">Mapas interactivos de redes en AWS</h2>
+    <div class="chips">
+      {mapas.map(([slug, nombre]) => <a href={`/inmersion-ans-c01/mapas/${slug}.html`}>{nombre}</a>)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    padding-top: 40px;
+  }
+  .item {
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--lav-soft);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .item:hover {
+    border-color: var(--purple);
+  }
+  h2 {
+    font-size: 1.4rem;
+    color: var(--purple);
+  }
+  p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .sub {
+    margin-top: 48px;
+    font-size: 1.8rem;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chips a {
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--lav);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .chips a:hover {
+    background: var(--lime);
+  }
+</style>
