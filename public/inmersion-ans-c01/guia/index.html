@@ -199,6 +199,8 @@ footer{max-width:1080px;margin:56px auto 0;padding-top:20px;border-top:1px solid
 footer img{height:18px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<link rel="stylesheet" href="arquitecturas.css">
+<script src="arquitecturas.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -289,7 +291,7 @@ function netAnim(cv){
 function domain(d){
   cancelAnimationFrame(rafId);
   const it=domItems(d),p=pct(it);let n=0;
-  const body=d.groups.map(g=>{const multi=d.groups.length>1;return `${multi||d.id==='mapa'?`<div class="ghead">${esc(g.title)}</div>`:''}${g.lead?`<div class="lead">${g.lead}</div>`:''}`+g.items.map(x=>{n++;return `<article class="acc ${done.has(x.id)?'ok':''}" id="${x.id}"><button class="acc-h" aria-expanded="false"><span class="n">${String(n).padStart(2,'0')}</span><span class="t">${esc(x.t)}</span>${x.n?`<span class="pill">${x.n} ${x.n>1?'trampas':'trampa'}</span>`:'<span></span>'}${chev}</button><div class="acc-b" hidden>${x.h}<button class="master" data-id="${x.id}">${done.has(x.id)?'✓ Lo domino':'Marcar como dominado'}</button></div></article>`}).join('')}).join('');
+  const body=d.groups.map(g=>{const multi=d.groups.length>1;return `${multi||d.id==='mapa'?`<div class="ghead">${esc(g.title)}</div>`:''}${g.lead?`<div class="lead">${g.lead}</div>`:''}`+g.items.map(x=>{n++;return `<article class="acc ${done.has(x.id)?'ok':''}" id="${x.id}"><button class="acc-h" aria-expanded="false"><span class="n">${String(n).padStart(2,'0')}</span><span class="t">${esc(x.t)}</span>${x.n?`<span class="pill">${x.n} ${x.n>1?'trampas':'trampa'}</span>`:'<span></span>'}${chev}</button><div class="acc-b" hidden>${window.arqHTML?arqHTML(x.id,x.t):''}${x.h}<button class="master" data-id="${x.id}">${done.has(x.id)?'✓ Lo domino':'Marcar como dominado'}</button></div></article>`}).join('')}).join('');
   n=0;const idx=it.map(x=>{n++;return `<a href="#${d.id}/${x.id}" class="${done.has(x.id)?'ok':''}"><span class="n">${String(n).padStart(2,'0')}</span>${esc(x.t)}</a>`}).join('');
   main.innerHTML=`<div class="view"><header class="dhead"><div><span class="eyebrow">${d.w?`${d.short} · ${d.w}% del examen`:esc(d.short)}</span><h1>${esc(d.label)}</h1><div class="sub">${it.length} temas · ${it.reduce((a,b)=>a+b.n,0)} trampas de examen</div></div>${it.length?`<div class="ring" style="--p:${p}"><b>${p}%</b></div>`:''}</header>
   <div class="dgrid"><nav class="index" aria-label="Temas">${idx}</nav><div>${body}</div></div></div>`;
