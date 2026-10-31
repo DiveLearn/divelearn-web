@@ -203,14 +203,14 @@ footer img{height:18px}
 <body>
 <div class="shell">
   <aside class="rail" aria-label="Navegación">
-    <img class="logo" src="logo-wordmark-white.png" alt="DiveLearn">
+    <a href="/" aria-label="DiveLearn, ir al inicio"><img class="logo" src="logo-wordmark-white.png" alt="DiveLearn"></a>
     <button class="kbtn" data-open-pal><span>Buscar en la guía</span><span class="kbd">⌘K</span></button>
     <nav class="nav" id="nav"></nav>
     <button class="cta" data-go="reto">Reto relámpago <span class="mono">→</span></button>
   </aside>
 
   <div style="min-width:0">
-    <header class="topbar"><img src="logo-wordmark-white.png" alt="DiveLearn"><button class="kbtn" data-open-pal aria-label="Buscar">Buscar</button></header>
+    <header class="topbar"><a href="/" aria-label="DiveLearn, ir al inicio"><img src="logo-wordmark-white.png" alt="DiveLearn"></a><button class="kbtn" data-open-pal aria-label="Buscar">Buscar</button></header>
     <nav class="pills" id="pills" aria-label="Secciones"></nav>
     <main id="main"></main>
   </div>
@@ -353,7 +353,7 @@ function route(path){let h='';try{h=location.hash.slice(1)}catch(e){}const [v,it
   if(d){domain(d);if(item)requestAnimationFrame(()=>openItem(item));else scrollTo(0,0)}
   else if(v==='reto'){reto();scrollTo(0,0)}
   else{home();scrollTo(0,0)}
-  main.insertAdjacentHTML('beforeend',`<footer><img src="logo-wordmark-white.png" alt="DiveLearn"><span>Guía de estudio ANS-C01 · Mar Ortiz. Verifica límites y novedades en la documentación oficial de AWS.</span></footer>`)}
+  main.insertAdjacentHTML('beforeend',`<footer><a href="/" aria-label="DiveLearn, ir al inicio"><img src="logo-wordmark-white.png" alt="DiveLearn"></a><span>Guía de estudio ANS-C01 · Mar Ortiz. Verifica límites y novedades en la documentación oficial de AWS.</span></footer>`)}
 addEventListener('hashchange',()=>route());route();
 </script>
 </body>
