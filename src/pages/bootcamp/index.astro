@@ -1,107 +1,178 @@
 ---
+import "@fontsource/silkscreen/700.css";
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
-import { etapas, rangos } from "../../data/bootcamp";
+import Pixel from "../../components/Pixel.astro";
+import { etapas, rangos, XP } from "../../data/bootcamp";
+import paginas from "../../data/bootcamp-paginas.json";
+import { PALETA, BUZO, PEZ, PEZ2, PALMERA, ISLA, NUBE, COFRE, BURBUJA, TANQUE } from "../../data/sprites";
 
-const modulos = etapas.flatMap((e) => e.modulos);
+const pags = paginas as Record<string, string[]>;
+const xpDe = (slug: string) => (slug.startsWith("quiz") ? XP.quiz : XP.actividad);
+const modulos = etapas.flatMap((e) =>
+  e.modulos.map((m) => ({ ...m, etapa: e.id, color: e.color, paginas: pags[m.n] ?? [], xp: (pags[m.n] ?? []).reduce((a, s) => a + xpDe(s), 0) })),
+);
+const total = modulos.reduce((a, m) => a + m.xp, 0);
 const juego = {
-  modulos: etapas.flatMap((e) => e.modulos.map((m) => ({ n: m.n, xp: m.xp, titulo: m.titulo, etapa: e.id }))),
+  modulos: modulos.map((m) => ({ n: m.n, titulo: m.titulo, etapa: m.etapa, comando: m.comando, paginas: m.paginas, xp: m.xp })),
   etapas: etapas.map((e) => ({ id: e.id })),
-  rangos,
+  rangos: rangos.map((r) => ({ nombre: r.nombre, xp: Math.round(r.parte * total) })),
+  xp: XP,
+  total,
 };
+const camino = [
+  ...etapas.map((e) => ({ id: e.id, icono: e.icono, color: e.color, nombre: e.nombre })),
+  { id: "licencia", icono: "identification-card", color: "#e0f24a", nombre: "Licencia" },
+];
 ---
 
-<Base title="Bootcamp" description="Bootcamp gratis de fundamentos para la nube: redes, IP, DNS, seguridad, Linux, virtualización, datos y backup. Tu escuela de buceo antes de entrar al océano de AWS.">
-  <section class="intro">
-    <div class="wrap intro-grid">
-      <div>
-        <p class="kicker">Bootcamp gratis · Escuela de buceo</p>
-        <h1>Antes del océano, <em>aprende a bucear</em></h1>
-        <p class="lead">
-          {modulos.length} módulos de fundamentos, en orden: de la teoría en la playa a tu primera inmersión de práctica.
-          Al terminar te llevas tu <b>licencia de buceo</b> para entrar a la nube.
-        </p>
-        <a class="btn" href="#playa">Empezar el bootcamp</a>
-      </div>
-      <div class="licencia-mini" aria-hidden="true">
-        <Icon name="identification-card" />
-      </div>
-    </div>
-  </section>
+<Base title="Bootcamp" description="Bootcamp gratis de fundamentos para la nube, como un videojuego: redes, IP, DNS, seguridad, Linux, virtualización, datos y backup. Gana XP, sube de rango y llévate tu licencia de buceo.">
+  <div class="juego">
+    <!-- ── Portada ── -->
+    <section class="wrap portada">
+      <h1 class="titulo-pixel">BOOTCAMP DIVELEARN</h1>
+      <p class="sub-pixel">Aprende cloud. <span>Como un videojuego.</span></p>
 
-  <aside class="hud" aria-label="Tu progreso">
-    <div class="wrap hud-in">
-      <div class="rango">
-        <p class="rango-nombre" data-rango>{rangos[0].nombre}</p>
-        <div class="barra" role="progressbar" aria-label="Progreso hacia tu licencia" aria-valuemin="0" aria-valuemax="100" data-barra-aria>
-          <span data-barra></span>
+      <div class="pantalla" aria-label="Escena del juego: un buzo en el mar junto a una isla">
+        <div class="hud-juego">
+          <div class="tanques" title="Racha de días seguidos" data-tanques>
+            {Array.from({ length: 5 }, () => <Pixel mapa={TANQUE} paleta={PALETA} escala={5} class="tanque" />)}
+          </div>
+          <div class="nivel-hud">
+            <span class="nv">Nv. <b data-nv>1</b></span>
+            <span class="mini-barra"><span data-mini-barra></span></span>
+          </div>
+          <div class="monedas"><b data-xp-hud>0</b> XP</div>
+        </div>
+        <div class="cielo">
+          <Pixel mapa={NUBE} paleta={PALETA} escala={7} class="nube n1" />
+          <Pixel mapa={NUBE} paleta={PALETA} escala={5} class="nube n2" />
+          <span class="sol" aria-hidden="true"></span>
+        </div>
+        <div class="isla">
+          <Pixel mapa={PALMERA} paleta={PALETA} escala={8} class="palmera" />
+          <Pixel mapa={ISLA} paleta={PALETA} escala={8} />
+        </div>
+        <div class="mar">
+          <span class="ola o1"></span><span class="ola o2"></span>
+          <Pixel mapa={BUZO} paleta={PALETA} escala={6} class="buzo" titulo="Buzo de DiveLearn" />
+          <Pixel mapa={PEZ} paleta={PALETA} escala={5} class="pez p1" />
+          <Pixel mapa={PEZ2} paleta={PALETA} escala={5} class="pez p2" />
+          <Pixel mapa={BURBUJA} paleta={PALETA} escala={4} class="burbuja u1" />
+          <Pixel mapa={BURBUJA} paleta={PALETA} escala={3} class="burbuja u2" />
+          <Pixel mapa={COFRE} paleta={PALETA} escala={6} class="cofre" />
+          <span class="fondo-arena"></span>
+        </div>
+        <div class="consola" aria-hidden="true">
+          <span class="puntos"><i></i><i></i><i></i></span>
+          <code>$ divelearn start --bootcamp<br /><em># tu inmersión empieza aquí</em></code>
         </div>
       </div>
-      <p class="stat"><b data-xp>0</b> XP</p>
-      <p class="stat"><b data-hechos>0</b>/{modulos.length} módulos</p>
-      <p class="insignias" aria-label="Insignias por etapa">
+
+      <ol class="camino" aria-label="Etapas del bootcamp">
         {
-          etapas.map((e) => (
-            <span title={`Insignia: ${e.nombre}`} data-insignia={e.id}>
-              <Icon name={e.icono} />
-            </span>
+          camino.map((c, i) => (
+            <li style={`--c:${c.color}`} data-camino={c.id}>
+              <a href={`#${c.id}`}>
+                <span class="bola">
+                  <Icon name={c.icono} />
+                  <span class="n">{i + 1}</span>
+                </span>
+                <span class="etq">{c.nombre}</span>
+              </a>
+            </li>
           ))
         }
-      </p>
-    </div>
-  </aside>
+      </ol>
+    </section>
 
-  <div class="escuela">
+    <!-- ── Progreso + misión ── -->
+    <section class="wrap paneles">
+      <article class="panel">
+        <header class="barra-titulo"><h2>Tu progreso</h2><span class="puntos"><i></i><i></i><i></i></span></header>
+        <div class="perfil">
+          <div class="avatar"><Pixel mapa={BUZO} paleta={PALETA} escala={5} /></div>
+          <div class="perfil-txt">
+            <p class="rango" data-rango>{juego.rangos[0].nombre}</p>
+            <div class="barra-xp"><span data-barra></span></div>
+            <p class="xp-txt"><b data-xp>0</b> / {total.toLocaleString("es-ES")} XP</p>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><Icon name="fire" /><b data-racha>0</b><span>días de racha</span></div>
+          <div class="stat"><Icon name="clock" /><b data-min>0 min</b><span>hoy</span></div>
+          <div class="stat"><Icon name="chart-bar" /><b data-pct>0%</b><span>completado</span></div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <header class="barra-titulo"><h2>Misión del día</h2><span class="puntos"><i></i><i></i><i></i></span></header>
+        <p class="mision"><span class="check" data-mision-check></span><span data-mision>Abre tu primera actividad del bootcamp.</span></p>
+        <div class="terminal">
+          <span class="puntos"><i></i><i></i><i></i></span>
+          <code data-comando>$ curl -I https://divelearn.cloud</code>
+        </div>
+        <a class="btn-jugar" href="/bootcamp/modulo-0/" data-jugar>▶ Jugar</a>
+      </article>
+    </section>
+
+    <!-- ── Etapas ── -->
     {
       etapas.map((e, ei) => (
-        <section class="etapa" id={e.id} aria-labelledby={`t-${e.id}`}>
-          <header class="wrap etapa-head">
-            <span class="etapa-ico">
-              <Icon name={e.icono} />
-            </span>
-            <div>
-              <p class="paso">Etapa {ei + 1} de {etapas.length}</p>
-              <h2 id={`t-${e.id}`}>{e.nombre}</h2>
-              <p class="lema">{e.lema}</p>
-            </div>
-          </header>
-          <ol class="wrap ruta">
-            {e.modulos.map((m) => (
-              <li class={`nivel ${m.n % 2 ? "der" : "izq"}`} data-modulo={m.n}>
-                <a href={`/bootcamp/modulo-${m.n}/`} data-ir={m.n}>
-                  <span class="nodo">
-                    <Icon name={m.icono} />
-                    <span class="num">{m.n}</span>
-                  </span>
-                  <span class="tarjeta">
-                    <span class="estado">
-                      Módulo {m.n} · {m.actividades} actividades + quiz
-                    </span>
-                    <span class="titulo">{m.titulo}</span>
-                    <span class="tema">{m.tema}</span>
-                    <span class="xp">+{m.xp} XP</span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ol>
+        <section class="wrap etapa" id={e.id} style={`--c:${e.color}`} aria-labelledby={`t-${e.id}`}>
+          <div class="panel etapa-panel">
+            <header class="barra-titulo color">
+              <h2 id={`t-${e.id}`}>
+                <Icon name={e.icono} /> Etapa {ei + 1} · {e.nombre}
+              </h2>
+              <span class="avance" data-avance={e.id}>0/{e.modulos.length}</span>
+            </header>
+            <p class="lema">{e.lema}</p>
+            <ol class="modulos">
+              {modulos
+                .filter((m) => m.etapa === e.id)
+                .map((m) => (
+                  <li data-modulo={m.n}>
+                    <a href={`/bootcamp/modulo-${m.n}/`}>
+                      <span class="ico-mod">
+                        <Icon name={m.icono} />
+                      </span>
+                      <span class="mod-txt">
+                        <span class="mod-n">
+                          Módulo {m.n} <span class="estado" data-estado />
+                        </span>
+                        <span class="mod-t">{m.titulo}</span>
+                        <span class="mod-d">{m.tema}</span>
+                        <span class="mod-barra">
+                          <span data-mod-barra />
+                        </span>
+                        <span class="mod-pie">
+                          <span data-mod-cuenta>0/{m.paginas.length} actividades</span>
+                          <span class="mod-xp">+{m.xp} XP</span>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+            </ol>
+          </div>
         </section>
       ))
     }
 
-    <section class="wrap meta" aria-labelledby="t-licencia">
-      <div class="licencia" data-licencia>
-        <span class="licencia-ico"><Icon name="identification-card" /></span>
-        <div>
-          <p class="paso" data-licencia-estado>Se desbloquea al terminar los {modulos.length} módulos</p>
-          <h2 id="t-licencia">Licencia de buceo DiveLearn</h2>
-          <p>
-            Ya sabes cómo viajan los datos, cómo se protegen y dónde viven. Lo que sigue es el océano: tu primera
-            certificación de AWS.
-          </p>
-          <div class="acciones">
-            <a class="btn lime" href="/cursos/">Ver el océano (cursos)</a>
-            <a class="btn ghost" href="https://mar31orvel.kit.com/inmersion-ans-c01">Avísame de las clases en video</a>
+    <!-- ── Licencia ── -->
+    <section class="wrap etapa" id="licencia">
+      <div class="panel licencia" data-licencia>
+        <header class="barra-titulo"><h2><Icon name="identification-card" /> Licencia de buceo</h2><span class="puntos"><i></i><i></i><i></i></span></header>
+        <div class="licencia-cuerpo">
+          <Pixel mapa={COFRE} paleta={PALETA} escala={9} class="cofre-grande" />
+          <div>
+            <p class="estado-licencia" data-licencia-estado>Se desbloquea al completar todo el bootcamp</p>
+            <p>Ya sabes cómo viajan los datos, cómo se protegen y dónde viven. Lo que sigue es el océano: tu primera certificación de AWS.</p>
+            <div class="acciones">
+              <a class="btn-jugar" href="/cursos/">▶ Ir al océano</a>
+              <a class="btn-sec" href="https://mar31orvel.kit.com/inmersion-ans-c01">Avísame de las clases en video</a>
+            </div>
           </div>
         </div>
       </div>
@@ -109,98 +180,187 @@ const juego = {
     </section>
   </div>
 
-  <div class="toast" role="status" aria-live="polite" data-toast></div>
+  <!-- ── Subida de rango ── -->
+  <div class="subida" role="dialog" aria-modal="true" aria-labelledby="t-subida" hidden data-subida>
+    <div class="panel subida-caja">
+      <Icon name="trophy" class="trofeo" />
+      <p class="subida-kicker">¡Subiste de rango!</p>
+      <h2 id="t-subida" data-subida-rango></h2>
+      <button type="button" class="btn-jugar" data-subida-ok>¡Vamos!</button>
+    </div>
+  </div>
+  <canvas class="confeti" aria-hidden="true" data-confeti></canvas>
 
+  <script is:inline src="/js/bootcamp-progreso.js"></script>
   <script is:inline type="application/json" id="juego" set:html={JSON.stringify(juego)} />
   <script>
-    // Progreso guardado solo en este navegador (sin cookies ni servidor).
+    type Mod = { n: number; titulo: string; etapa: string; comando: string; paginas: string[]; xp: number };
     type Juego = {
-      modulos: { n: number; xp: number; titulo: string; etapa: string }[];
+      modulos: Mod[];
       etapas: { id: string }[];
-      rangos: { xp: number; nombre: string }[];
+      rangos: { nombre: string; xp: number }[];
+      xp: { actividad: number; quiz: number };
+      total: number;
     };
-    type Progreso = { hechos: number[]; ultimo?: string };
-
+    type Progreso = {
+      v: 2;
+      visitas: Record<string, string[]>;
+      dias: string[];
+      seg: Record<string, number>;
+      ultimaNueva?: string;
+      xpVisto?: number;
+      rangoVisto?: number;
+    };
+    const api = (window as any).DiveLearnProgreso as { leer: () => Progreso; guardar: (p: Progreso) => void; hoy: string };
     const juego: Juego = JSON.parse(document.getElementById("juego")!.textContent!);
-    const CLAVE = "divelearn-bootcamp";
     const $ = (s: string) => document.querySelector(s) as HTMLElement;
+    const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const xpPagina = (slug: string) => (slug.startsWith("quiz") ? juego.xp.quiz : juego.xp.actividad);
 
-    const leer = (): Progreso => {
-      try {
-        return { hechos: [], ...JSON.parse(localStorage.getItem(CLAVE) || "{}") };
-      } catch {
-        return { hechos: [] };
+    function estado(p: Progreso) {
+      const mods = juego.modulos.map((m) => {
+        const vistas = (p.visitas[m.n] ?? []).filter((s) => m.paginas.includes(s));
+        return { ...m, vistas, xpHecho: vistas.reduce((a, s) => a + xpPagina(s), 0), completo: vistas.length >= m.paginas.length };
+      });
+      const xp = mods.reduce((a, m) => a + m.xpHecho, 0);
+      const rango = juego.rangos.findLastIndex((r) => xp >= r.xp);
+      return { mods, xp, rango };
+    }
+
+    function racha(dias: string[]) {
+      const set = new Set(dias);
+      const d = new Date();
+      if (!set.has(api.hoy)) d.setDate(d.getDate() - 1); // la racha sigue viva hasta que termine hoy
+      let n = 0;
+      while (set.has(d.toLocaleDateString("sv"))) {
+        n++;
+        d.setDate(d.getDate() - 1);
       }
-    };
-    const guardar = (p: Progreso) => {
-      try {
-        localStorage.setItem(CLAVE, JSON.stringify(p));
-      } catch {
-        /* modo privado: el juego funciona, solo no recuerda */
+      return n;
+    }
+
+    function contar(el: HTMLElement, desde: number, hasta: number) {
+      if (reducido || desde === hasta) {
+        el.textContent = hasta.toLocaleString("es-ES");
+        return;
       }
-    };
+      const t0 = performance.now();
+      const paso = (t: number) => {
+        const k = Math.min(1, (t - t0) / 1200);
+        el.textContent = Math.round(desde + (hasta - desde) * (1 - Math.pow(1 - k, 3))).toLocaleString("es-ES");
+        if (k < 1) requestAnimationFrame(paso);
+      };
+      requestAnimationFrame(paso);
+    }
 
-    function pintar(p: Progreso) {
-      const xp = juego.modulos.filter((m) => p.hechos.includes(m.n)).reduce((a, m) => a + m.xp, 0);
-      const total = juego.modulos.reduce((a, m) => a + m.xp, 0);
-      const i = juego.rangos.findLastIndex((r) => xp >= r.xp);
-      const pct = Math.round((xp / total) * 100);
-      $("[data-rango]").textContent = juego.rangos[i].nombre;
-      $("[data-xp]").textContent = xp.toLocaleString("es-ES");
-      $("[data-hechos]").textContent = String(p.hechos.length);
-      $("[data-barra]").style.width = pct + "%";
-      $("[data-barra-aria]").setAttribute("aria-valuenow", String(pct));
+    function pintar(p: Progreso, animar: boolean) {
+      const { mods, xp, rango } = estado(p);
+      const desde = animar ? Math.min(p.xpVisto ?? 0, xp) : xp;
+      contar($("[data-xp]"), desde, xp);
+      contar($("[data-xp-hud]"), desde, xp);
+      const r = juego.rangos[rango];
+      const sig = juego.rangos[rango + 1];
+      $("[data-rango]").textContent = r.nombre;
+      $("[data-nv]").textContent = String(rango + 1);
+      $("[data-barra]").style.width = Math.round((xp / juego.total) * 100) + "%";
+      $("[data-mini-barra]").style.width = (sig ? Math.round(((xp - r.xp) / (sig.xp - r.xp)) * 100) : 100) + "%";
+      $("[data-pct]").textContent = Math.round((xp / juego.total) * 100) + "%";
+      const dias = racha(p.dias);
+      $("[data-racha]").textContent = String(dias);
+      document.querySelectorAll<SVGElement>("[data-tanques] .tanque").forEach((t, i) => t.classList.toggle("vacio", i >= Math.max(1, dias)));
+      $("[data-min]").textContent = Math.round((p.seg[api.hoy] ?? 0) / 60) + " min";
 
-      const siguiente = juego.modulos.find((m) => !p.hechos.includes(m.n));
-      document.querySelectorAll<HTMLElement>("[data-modulo]").forEach((el) => {
-        const n = Number(el.dataset.modulo);
-        el.classList.toggle("hecho", p.hechos.includes(n));
-        el.classList.toggle("siguiente", n === siguiente?.n);
+      // Módulos y etapas
+      const siguiente = mods.find((m) => !m.completo);
+      mods.forEach((m) => {
+        const li = $(`[data-modulo="${m.n}"]`);
+        li.classList.toggle("hecho", m.completo);
+        li.classList.toggle("en-curso", !m.completo && m.vistas.length > 0);
+        li.classList.toggle("siguiente", m.n === siguiente?.n);
+        (li.querySelector("[data-mod-barra]") as HTMLElement).style.width = Math.round((m.vistas.length / m.paginas.length) * 100) + "%";
+        li.querySelector("[data-mod-cuenta]")!.textContent = `${m.vistas.length}/${m.paginas.length} actividades`;
+        li.querySelector("[data-estado]")!.textContent = m.completo ? "✓ completo" : m.n === siguiente?.n ? "▶ sigue aquí" : m.vistas.length ? "en curso" : "";
       });
       juego.etapas.forEach((e) => {
-        const completa = juego.modulos.filter((m) => m.etapa === e.id).every((m) => p.hechos.includes(m.n));
-        $(`[data-insignia="${e.id}"]`).classList.toggle("ganada", completa);
+        const de = mods.filter((m) => m.etapa === e.id);
+        const listos = de.filter((m) => m.completo).length;
+        $(`[data-avance="${e.id}"]`).textContent = `${listos}/${de.length}`;
+        $(`[data-camino="${e.id}"]`).classList.toggle("hecho", listos === de.length);
       });
-      const lista = !siguiente;
-      $("[data-licencia]").classList.toggle("lista", lista);
-      $("[data-licencia-estado]").textContent = lista
-        ? "¡Desbloqueada! 🎉"
-        : `Te faltan ${juego.modulos.length - p.hechos.length} módulos para desbloquearla`;
+      const todo = !siguiente;
+      $(`[data-camino="licencia"]`).classList.toggle("hecho", todo);
+      $("[data-licencia]").classList.toggle("lista", todo);
+      $("[data-licencia-estado]").textContent = todo
+        ? "¡Desbloqueada! Ya eres buzo con licencia 🎉"
+        : `Te faltan ${mods.filter((m) => !m.completo).length} módulos para desbloquearla`;
+
+      // Misión del día: abrir al menos una actividad nueva hoy.
+      if (siguiente) {
+        const pag = siguiente.paginas.find((s) => !siguiente.vistas.includes(s)) ?? siguiente.paginas[0];
+        $("[data-mision]").textContent = `Completa una actividad nueva del Módulo ${siguiente.n}: ${siguiente.titulo}.`;
+        $("[data-comando]").textContent = (siguiente.comando.startsWith("SELECT") ? "" : "$ ") + siguiente.comando;
+        ($("[data-jugar]") as HTMLAnchorElement).href = `/bootcamp/modulo-${siguiente.n}/${pag}.html`;
+        $("[data-jugar]").textContent = mods.some((m) => m.vistas.length) ? "▶ Seguir donde quedaste" : "▶ Jugar";
+      } else {
+        $("[data-mision]").textContent = "¡Bootcamp completo! Reclama tu licencia de buceo.";
+        ($("[data-jugar]") as HTMLAnchorElement).href = "#licencia";
+      }
+      $("[data-mision-check]").classList.toggle("ok", p.ultimaNueva === api.hoy);
+      return { xp, rango };
     }
 
-    function avisar(texto: string) {
-      const t = $("[data-toast]");
-      t.textContent = texto;
-      t.classList.add("ver");
-      setTimeout(() => t.classList.remove("ver"), 3200);
+    // ── Confeti en colores del juego ──
+    function confeti() {
+      if (reducido) return;
+      const cv = $("[data-confeti]") as unknown as HTMLCanvasElement;
+      const cx = cv.getContext("2d")!;
+      cv.width = innerWidth;
+      cv.height = innerHeight;
+      const colores = ["#5453eb", "#e0f24a", "#b2cafd", "#ff7a8a", "#ffd36e", "#7cc6fe", "#04a8bb"];
+      const ps = Array.from({ length: 140 }, () => ({
+        x: innerWidth / 2,
+        y: innerHeight / 3,
+        vx: (Math.random() - 0.5) * 16,
+        vy: Math.random() * -14 - 4,
+        s: 6 + Math.random() * 6,
+        c: colores[Math.floor(Math.random() * colores.length)],
+      }));
+      const t0 = performance.now();
+      const paso = (t: number) => {
+        cx.clearRect(0, 0, cv.width, cv.height);
+        ps.forEach((q) => {
+          q.vy += 0.4;
+          q.x += q.vx;
+          q.y += q.vy;
+          cx.fillStyle = q.c;
+          cx.fillRect(Math.round(q.x), Math.round(q.y), q.s, q.s); // confeti cuadrado, estilo pixel
+        });
+        if (t - t0 < 2600) requestAnimationFrame(paso);
+        else cx.clearRect(0, 0, cv.width, cv.height);
+      };
+      requestAnimationFrame(paso);
     }
 
-    let p = leer();
-    pintar(p);
-    if (p.ultimo) {
-      avisar(p.ultimo);
-      delete p.ultimo;
-      guardar(p);
+    let p = api.leer();
+    const { xp, rango } = pintar(p, true);
+    if (rango > (p.rangoVisto ?? 0)) {
+      $("[data-subida-rango]").textContent = juego.rangos[rango].nombre;
+      $("[data-subida]").hidden = false;
+      ($("[data-subida-ok]") as HTMLButtonElement).focus();
+      confeti();
     }
+    p.xpVisto = xp;
+    p.rangoVisto = rango;
+    api.guardar(p);
 
-    // Al entrar a un módulo se marca como explorado; el aviso de XP sale al volver.
-    document.querySelectorAll<HTMLAnchorElement>("[data-ir]").forEach((a) =>
-      a.addEventListener("click", () => {
-        const m = juego.modulos.find((x) => x.n === Number(a.dataset.ir))!;
-        if (p.hechos.includes(m.n)) return;
-        p.hechos.push(m.n);
-        p.ultimo = `+${m.xp} XP · ${m.titulo}`;
-        guardar(p);
-      }),
-    );
+    $("[data-subida-ok]").addEventListener("click", () => ($("[data-subida]").hidden = true));
     $("[data-reiniciar]").addEventListener("click", () => {
-      p = { hechos: [] };
-      guardar(p);
-      pintar(p);
-      avisar("Progreso reiniciado: de vuelta a la playa");
+      p = { v: 2, visitas: {}, dias: [api.hoy], seg: {} };
+      api.guardar(p);
+      pintar(p, false);
     });
 
-    // Los niveles aparecen al bajar.
+    // Los paneles aparecen al bajar.
     const io = new IntersectionObserver(
       (es) =>
         es.forEach((e) => {
@@ -209,450 +369,754 @@ const juego = {
             io.unobserve(e.target);
           }
         }),
-      { threshold: 0.2 },
+      { threshold: 0.15 },
     );
-    document.querySelectorAll(".nivel, .etapa-head, .licencia").forEach((el) => io.observe(el));
+    document.querySelectorAll(".etapa .panel, .paneles .panel").forEach((el) => io.observe(el));
   </script>
 </Base>
 
 <style>
-  /* Paleta estricta: blanco, morado, lavanda, lima y azul noche para el texto. */
-  .intro {
-    background: var(--purple);
-    color: var(--white);
-    padding: 56px 0;
-    overflow: hidden;
+  /* Estética de videojuego retro: letra pixel, bordes gruesos azul noche y sombra dura.
+     Paleta del juego = marca + arena, coral, cielo y turquesa (una por etapa). */
+  .juego {
+    --borde: 3px solid var(--ink);
+    --sombra: 6px 6px 0 var(--ink);
+    --pixel: "Silkscreen", ui-monospace, monospace;
+    --negrita: 700 1em var(--body);
+    --fondo: #e9e4fb;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(84, 83, 235, 0.12) 1px, transparent 0) 0 0 / 22px 22px,
+      var(--fondo);
+    padding-bottom: 40px;
+    font-family: var(--body);
   }
-  .intro-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 0.6fr;
-    gap: 32px;
-    align-items: center;
+  .juego :global(h2) {
+    font-family: var(--pixel);
   }
-  .kicker {
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    color: var(--lav);
-    margin: 0;
+  .puntos {
+    display: inline-flex;
+    gap: 6px;
   }
-  .intro h1 {
-    font-size: clamp(2.3rem, 6vw, 3.8rem);
-    margin-top: 10px;
+  .puntos i {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: #ff7a8a;
   }
-  .intro h1 em {
-    color: var(--lime);
+  .puntos i:nth-child(2) {
+    background: #ffd36e;
   }
-  .lead {
-    max-width: 48ch;
-    margin: 0 0 24px;
-    color: var(--lav);
-    font-size: 1.1rem;
-  }
-  .lead b {
-    color: var(--white);
-  }
-  .licencia-mini {
-    justify-self: center;
-    font-size: clamp(7rem, 16vw, 12rem);
-    color: var(--white);
-    --duo: var(--lime);
-    animation: flotar 5s ease-in-out infinite;
-    filter: drop-shadow(0 20px 30px rgba(31, 29, 92, 0.35));
-  }
-  @keyframes flotar {
-    50% {
-      transform: translateY(-12px) rotate(-3deg);
-    }
+  .puntos i:nth-child(3) {
+    background: #6fd08c;
   }
 
-  /* ── Marcador ── */
-  .hud {
-    position: sticky;
-    top: 59px;
-    z-index: 5;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
+  /* ── Portada ── */
+  .portada {
+    padding-top: 40px;
+    text-align: center;
   }
-  .hud-in {
+  .titulo-pixel {
+    font-family: var(--pixel);
+    font-weight: 700;
+    font-size: clamp(2rem, 6.4vw, 4.6rem);
+    line-height: 1.05;
+    letter-spacing: 0;
+    color: #ffd36e;
+    margin: 0;
+    text-shadow:
+      3px 0 0 var(--ink),
+      -3px 0 0 var(--ink),
+      0 3px 0 var(--ink),
+      0 -3px 0 var(--ink),
+      3px 3px 0 var(--ink),
+      -3px -3px 0 var(--ink),
+      3px -3px 0 var(--ink),
+      -3px 3px 0 var(--ink),
+      7px 7px 0 var(--purple);
+  }
+  .sub-pixel {
+    font-family: var(--pixel);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.8vw, 1.8rem);
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 18px 0 30px;
+  }
+  .sub-pixel span {
+    color: var(--purple);
+  }
+
+  /* Pantalla del juego */
+  .pantalla {
+    position: relative;
+    height: clamp(300px, 42vw, 440px);
+    border: 8px solid var(--ink);
+    border-radius: 34px;
+    overflow: hidden;
+    box-shadow: 10px 10px 0 rgba(31, 29, 92, 0.35);
+    background: linear-gradient(#9fd8ff, #cdeaff 55%);
+    text-align: left;
+  }
+  .hud-juego {
+    position: absolute;
+    inset: 14px 16px auto;
+    z-index: 5;
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    font: 700 1rem var(--body);
+    color: var(--white);
   }
-  .rango {
-    flex: 1 1 220px;
+  .tanques {
+    display: flex;
+    gap: 4px;
   }
-  .rango-nombre {
-    margin: 0;
-    font-family: var(--title);
-    color: var(--purple);
-    font-size: 1.1rem;
-    line-height: 1.2;
+  .tanques :global(.vacio) {
+    opacity: 0.3;
+    filter: grayscale(1);
   }
-  .barra {
-    height: 8px;
-    max-width: 260px;
-    border-radius: 99px;
-    background: var(--line);
+  .nivel-hud,
+  .monedas {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border: 3px solid var(--ink);
+    border-radius: 10px;
+    background: rgba(31, 29, 92, 0.85);
+  }
+  .nv b,
+  .monedas b {
+    color: var(--lime);
+  }
+  .mini-barra {
+    width: 80px;
+    height: 10px;
+    border: 2px solid var(--white);
+    border-radius: 4px;
     overflow: hidden;
-    margin-top: 6px;
   }
-  .barra span {
+  .mini-barra span {
     display: block;
     height: 100%;
     width: 0;
-    border-radius: 99px;
-    background: var(--purple);
-    transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: var(--lime);
+    transition: width 1s;
   }
-  .stat {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.95rem;
+  .pantalla :global(.cielo .nube) {
+    position: absolute;
+    animation: deriva 40s linear infinite;
   }
-  .stat b {
-    color: var(--ink);
-    font-size: 1.15rem;
+  .pantalla :global(.n1) {
+    top: 70px;
+    left: 10%;
   }
-  .insignias {
+  .pantalla :global(.n2) {
+    top: 120px;
+    left: 60%;
+    animation-duration: 55s !important;
+  }
+  @keyframes deriva {
+    to {
+      transform: translateX(-120vw);
+    }
+  }
+  .sol {
+    position: absolute;
+    top: 70px;
+    left: 34%;
+    width: 56px;
+    height: 56px;
+    background: #ffd36e;
+    box-shadow:
+      0 0 0 6px rgba(255, 211, 110, 0.4),
+      0 0 0 12px rgba(255, 211, 110, 0.2);
+  }
+  .isla {
+    position: absolute;
+    left: 4%;
+    bottom: 44%;
     display: flex;
-    gap: 6px;
-    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
   }
-  .insignias span {
+  .pantalla :global(.palmera) {
+    margin: 0 0 -4px 30px;
+    transform-origin: bottom center;
+    animation: mecer 4s ease-in-out infinite;
+  }
+  @keyframes mecer {
+    50% {
+      transform: rotate(-3deg);
+    }
+  }
+  .mar {
+    position: absolute;
+    inset: 54% 0 0;
+    background: linear-gradient(#5aa9f5, var(--purple) 70%, #3a34d2);
+  }
+  .ola {
+    position: absolute;
+    left: 0;
+    width: 200%;
+    height: 14px;
+    top: -10px;
+    background: repeating-linear-gradient(90deg, #8fd0ff 0 24px, transparent 24px 48px);
+    animation: olas 6s linear infinite;
+  }
+  .o2 {
+    top: -4px;
+    background: repeating-linear-gradient(90deg, transparent 0 24px, #7cc6fe 24px 48px);
+    animation-duration: 9s;
+    animation-direction: reverse;
+  }
+  @keyframes olas {
+    to {
+      transform: translateX(-48px);
+    }
+  }
+  .pantalla :global(.buzo) {
+    position: absolute;
+    left: 42%;
+    top: -58px;
+    z-index: 3;
+    animation: flotar 3s ease-in-out infinite;
+  }
+  @keyframes flotar {
+    50% {
+      transform: translateY(10px) rotate(-3deg);
+    }
+  }
+  .pantalla :global(.pez) {
+    position: absolute;
+    animation: nadar 14s linear infinite;
+  }
+  .pantalla :global(.p1) {
+    top: 40%;
+    left: 100%;
+  }
+  .pantalla :global(.p2) {
+    top: 64%;
+    left: 100%;
+    animation-duration: 19s !important;
+    animation-delay: -6s !important;
+  }
+  @keyframes nadar {
+    to {
+      transform: translateX(-115vw);
+    }
+  }
+  .pantalla :global(.burbuja) {
+    position: absolute;
+    animation: subir 4s ease-in infinite;
+  }
+  .pantalla :global(.u1) {
+    left: 47%;
+    top: 60%;
+  }
+  .pantalla :global(.u2) {
+    left: 50%;
+    top: 70%;
+    animation-delay: 1.6s !important;
+  }
+  @keyframes subir {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-110px);
+      opacity: 0;
+    }
+  }
+  .pantalla :global(.cofre) {
+    position: absolute;
+    right: 24%;
+    bottom: 18px;
+    z-index: 2;
+  }
+  .fondo-arena {
+    position: absolute;
+    inset: auto 0 0;
+    height: 24px;
+    background: repeating-linear-gradient(90deg, #ffd36e 0 16px, #f0b53c 16px 32px);
+    border-top: 3px solid var(--ink);
+  }
+  .consola {
+    position: absolute;
+    right: 18px;
+    top: 72px;
+    z-index: 4;
+    width: min(360px, 44%);
+    border: var(--borde);
+    border-radius: 12px;
+    background: var(--ink);
+    padding: 10px 14px 14px;
+    box-shadow: 4px 4px 0 rgba(31, 29, 92, 0.4);
+  }
+  .consola code,
+  .terminal code {
+    display: block;
+    margin-top: 8px;
+    font: 0.95rem/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    color: var(--white);
+  }
+  .consola em {
+    color: var(--lime);
+    font-style: normal;
+  }
+
+  /* Camino de etapas */
+  .camino {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0;
+    margin: 36px 0 0;
+  }
+  .camino li {
+    display: flex;
+    align-items: center;
+  }
+  .camino li + li::before {
+    content: "→";
+    font: 700 1.6rem var(--pixel);
+    color: var(--ink);
+    margin: 0 10px 28px;
+  }
+  .camino a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .bola {
+    position: relative;
     display: grid;
     place-items: center;
-    width: 36px;
-    height: 36px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
-    font-size: 1.2rem;
-    background: var(--lav-soft);
-    color: var(--lav);
-    --duo: var(--lav-soft);
-    transition:
-      transform 0.4s,
-      background 0.4s,
-      color 0.4s;
+    border: var(--borde);
+    background: var(--c);
+    color: var(--ink);
+    --duo: var(--white);
+    font-size: 2.4rem;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.2s;
   }
-  .insignias span.ganada {
-    background: var(--purple);
-    color: var(--white);
-    --duo: var(--lime);
-    transform: scale(1.1);
+  .camino a:hover .bola {
+    transform: translate(-2px, -4px) rotate(-4deg);
+  }
+  .bola .n,
+  .avance,
+  .stat b,
+  .xp-txt,
+  .mod-pie {
+    font-variant-numeric: tabular-nums;
+  }
+  .bola .n {
+    position: absolute;
+    left: -6px;
+    bottom: -6px;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: var(--borde);
+    background: var(--white);
+    font: 700 0.95rem var(--body);
+  }
+  .camino li.hecho .n {
+    background: var(--lime);
+    font-size: 0;
+  }
+  .camino li.hecho .n::after {
+    content: "✓";
+    font-size: 1rem;
+  }
+  .etq {
+    font: 700 0.85rem/1.3 var(--pixel);
+    text-align: center;
+    max-width: 130px;
+    letter-spacing: 1px;
+  }
+
+  /* ── Paneles tipo ventana ── */
+  .panel {
+    border: var(--borde);
+    border-radius: 14px;
+    background: var(--white);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+  }
+  .barra-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    border-bottom: var(--borde);
+    background: #f6f3ff;
+  }
+  .barra-titulo h2 {
+    margin: 0;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .paneles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .paneles .panel,
+  .etapa .panel {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.5s,
+      transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .paneles .panel.visto,
+  .etapa .panel.visto {
+    opacity: 1;
+    transform: none;
+  }
+  .perfil {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 18px;
+  }
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 104px;
+    height: 104px;
+    flex: 0 0 auto;
+    border: var(--borde);
+    border-radius: 12px;
+    background: linear-gradient(#9fd8ff, #7cc6fe);
+  }
+  .perfil-txt {
+    flex: 1;
+  }
+  .rango {
+    margin: 0 0 8px;
+    font: 700 1.4rem var(--body);
+    color: var(--purple);
+  }
+  .barra-xp {
+    height: 18px;
+    border: var(--borde);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f1effb;
+  }
+  .barra-xp span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: repeating-linear-gradient(90deg, #6fd08c 0 12px, #5cc27c 12px 24px);
+    transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .xp-txt {
+    margin: 6px 0 0;
+    font: 700 1rem var(--body);
+    color: var(--muted);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 18px 18px;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 12px 6px;
+    border: var(--borde);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.9rem;
+  }
+  .stat:nth-child(1) {
+    color: #ff7a8a;
+    --duo: #ffd36e;
+  }
+  .stat:nth-child(2) {
+    color: var(--purple);
+    --duo: var(--lav);
+  }
+  .stat:nth-child(3) {
+    color: #3fa866;
+    --duo: #6fd08c;
+  }
+  .stat b {
+    font: 700 1.3rem var(--body);
+    color: var(--ink);
+  }
+  .stat span {
+    font: 700 0.75rem var(--body);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .mision {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: 0;
+    padding: 18px 18px 12px;
+    font: 1.05rem/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+    color: var(--ink);
+  }
+  .check {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    border: var(--borde);
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+  }
+  .check.ok {
+    background: #6fd08c;
+  }
+  .check.ok::after {
+    content: "✓";
+    font: 700 1.1rem var(--body);
+    color: var(--ink);
+  }
+  .terminal {
+    margin: 0 18px;
+    padding: 10px 14px 14px;
+    border: var(--borde);
+    border-radius: 10px;
+    background: var(--ink);
+  }
+  .terminal code {
+    color: var(--lime);
+    overflow-wrap: anywhere;
+  }
+  .btn-jugar,
+  .btn-sec {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    margin: 18px;
+    padding: 10px 26px;
+    border: var(--borde);
+    border-radius: 10px;
+    background: #6fd08c;
+    color: var(--ink);
+    font: 700 1.15rem/1.3 var(--pixel);
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--ink);
+    cursor: pointer;
+    transition:
+      transform 0.12s,
+      box-shadow 0.12s;
+  }
+  .btn-jugar:hover,
+  .btn-sec:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .btn-jugar:active,
+  .btn-sec:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+  .btn-sec {
+    background: var(--white);
+    font: 700 1rem var(--body);
+    text-transform: none;
   }
 
   /* ── Etapas ── */
-  .escuela {
-    background: linear-gradient(180deg, var(--white), var(--lav-soft));
-    padding-bottom: 32px;
-  }
   .etapa {
-    padding: 64px 0 8px;
+    margin-top: 48px;
+    scroll-margin-top: 90px;
   }
-  .etapa-head {
+  .barra-titulo.color {
+    background: var(--c);
+  }
+  .barra-titulo.color h2 {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 18px;
-    text-align: left;
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.6s,
-      transform 0.6s;
+    gap: 10px;
+    --duo: var(--white);
   }
-  .etapa-ico {
+  .avance {
+    padding: 4px 12px;
+    border: var(--borde);
+    border-radius: 8px;
+    background: var(--white);
+    font: 700 1rem var(--body);
+  }
+  .lema {
+    margin: 0;
+    padding: 14px 18px 0;
+    color: var(--muted);
+  }
+  .modulos {
+    list-style: none;
+    margin: 0;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .modulos a {
+    display: flex;
+    gap: 14px;
+    height: 100%;
+    padding: 16px;
+    border: var(--borde);
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s;
+  }
+  .modulos a:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--ink);
+  }
+  .ico-mod {
     display: grid;
     place-items: center;
     flex: 0 0 auto;
     width: 64px;
     height: 64px;
-    border-radius: 20px;
-    background: var(--purple);
-    color: var(--white);
-    font-size: 2rem;
-    --duo: var(--lime);
-    transform: rotate(-6deg);
-  }
-  .paso {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .etapa-head h2 {
-    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    border: var(--borde);
+    border-radius: 12px;
+    background: var(--c);
     color: var(--ink);
-    margin: 2px 0;
+    --duo: var(--white);
+    font-size: 2.2rem;
   }
-  .lema {
-    margin: 0;
-    color: var(--muted);
-  }
-
-  /* ── Ruta de módulos ── */
-  .ruta {
-    list-style: none;
-    margin: 32px auto 0;
-    max-width: 760px;
-    position: relative;
-  }
-  .ruta::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    border-left: 3px dashed var(--lav);
-    transform: translateX(-50%);
-  }
-  .nivel {
-    position: relative;
-    margin-bottom: 28px;
-    opacity: 0;
-    transform: translateY(30px) scale(0.96);
-    transition:
-      opacity 0.6s,
-      transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .visto {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .nivel a {
-    display: grid;
-    grid-template-columns: 1fr 88px 1fr;
-    align-items: center;
-    gap: 16px;
-    text-decoration: none;
-    color: var(--ink);
-  }
-  .nodo {
-    grid-column: 2;
-    grid-row: 1;
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 88px;
-    height: 88px;
-    border-radius: 28px;
-    background: var(--white);
-    color: var(--purple);
-    font-size: 2.6rem;
-    --duo: var(--lav);
-    border: 2px solid var(--line);
-    box-shadow: 0 12px 30px rgba(84, 83, 235, 0.16);
-    transition:
-      transform 0.25s,
-      background 0.3s;
-  }
-  .num {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: var(--purple);
-    color: var(--white);
-    font-size: 0.85rem;
-    font-weight: 700;
-  }
-  .tarjeta {
-    grid-row: 1;
+  .mod-txt {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 18px 20px;
-    border-radius: var(--radius);
-    background: var(--white);
-    border: 1px solid var(--line);
-    box-shadow: 0 10px 30px rgba(84, 83, 235, 0.08);
-    transition:
-      transform 0.25s,
-      box-shadow 0.25s,
-      border-color 0.25s;
+    flex: 1;
+    min-width: 0;
   }
-  .izq .tarjeta {
-    grid-column: 1;
-    text-align: right;
-  }
-  .der .tarjeta {
-    grid-column: 3;
-  }
-  .estado {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
+  .mod-n {
+    font: 700 0.85rem var(--body);
     text-transform: uppercase;
     color: var(--muted);
   }
-  .titulo {
-    font-family: var(--title);
-    font-size: 1.35rem;
+  .estado {
+    margin-left: 6px;
     color: var(--purple);
-    line-height: 1.15;
   }
-  .tema {
-    font-size: 0.95rem;
+  .mod-t {
+    font: 700 1.25rem/1.15 var(--body);
+    color: var(--ink);
+  }
+  .mod-d {
+    font-size: 0.92rem;
     color: var(--muted);
   }
-  .xp {
-    align-self: flex-start;
-    margin-top: 4px;
-    padding: 2px 10px;
-    border-radius: 99px;
-    background: var(--lav-soft);
-    color: var(--purple);
-    font-size: 0.8rem;
-    font-weight: 700;
+  .mod-barra {
+    height: 10px;
+    margin-top: 6px;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f1effb;
   }
-  .izq .xp {
-    align-self: flex-end;
+  .mod-barra span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--c);
+    transition: width 1s;
   }
-  .nivel a:hover .nodo,
-  .nivel a:focus-visible .nodo {
-    transform: scale(1.08) rotate(-4deg);
+  .mod-pie {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font: 700 0.85rem var(--body);
+    color: var(--muted);
   }
-  .nivel a:hover .tarjeta {
-    transform: translateY(-3px);
-    border-color: var(--lav);
-    box-shadow: 0 16px 36px rgba(84, 83, 235, 0.16);
-  }
-  .siguiente .nodo {
-    background: var(--purple);
-    color: var(--white);
-    --duo: var(--lime);
-    border-color: var(--purple);
-    animation: latir 1.8s ease-in-out infinite;
-  }
-  .siguiente .num {
-    background: var(--lime);
-    color: var(--ink);
-  }
-  .siguiente .estado::before {
-    content: "▶ Sigue aquí · ";
+  .mod-xp {
     color: var(--purple);
   }
-  @keyframes latir {
+  .siguiente a {
+    animation: latido 1.6s ease-in-out infinite;
+    background: #fffdf0;
+  }
+  @keyframes latido {
     50% {
-      box-shadow: 0 0 0 10px rgba(84, 83, 235, 0.15);
+      box-shadow:
+        4px 4px 0 var(--ink),
+        0 0 0 6px var(--lime);
     }
   }
-  .hecho .nodo {
+  .hecho a {
+    background: #f4fbe0;
+  }
+  .hecho .ico-mod {
     background: var(--lime);
-    color: var(--ink);
-    --duo: var(--white);
-    border-color: var(--lime);
-  }
-  .hecho .num {
-    background: var(--ink);
-    font-size: 0;
-  }
-  .hecho .num::after {
-    content: "✓";
-    font-size: 0.95rem;
-  }
-  .hecho .xp {
-    background: var(--lime);
-    color: var(--ink);
-  }
-  .hecho .estado::before {
-    content: "Completado · ";
-    color: var(--ink);
   }
 
   /* ── Licencia ── */
-  .meta {
-    padding-top: 56px;
-    max-width: 760px;
-  }
-  .licencia {
+  .licencia-cuerpo {
     display: flex;
     gap: 24px;
     align-items: center;
-    padding: 28px;
-    border-radius: 28px;
-    border: 2px dashed var(--lav);
-    background: var(--white);
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.6s,
-      transform 0.6s;
+    padding: 20px;
   }
-  .licencia-ico {
+  .licencia :global(.cofre-grande) {
     flex: 0 0 auto;
-    font-size: 5rem;
-    color: var(--lav);
-    --duo: var(--lav-soft);
-    transition: color 0.4s;
+    filter: grayscale(0.8);
+    opacity: 0.6;
+    transition:
+      filter 0.4s,
+      opacity 0.4s;
   }
-  .licencia h2 {
-    color: var(--ink);
-    font-size: 1.8rem;
-    margin: 4px 0 8px;
+  .licencia.lista :global(.cofre-grande) {
+    filter: none;
+    opacity: 1;
+    animation: flotar 2.4s ease-in-out infinite;
   }
-  .licencia p {
-    color: var(--muted);
+  .estado-licencia {
+    font: 700 1.2rem var(--body);
+    color: var(--purple);
+    margin: 0 0 6px;
   }
   .licencia .acciones {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
   }
-  .licencia .btn.ghost {
-    color: var(--purple);
-    box-shadow: inset 0 0 0 2px var(--lav);
+  .licencia .acciones a {
+    margin: 12px 12px 0 0;
   }
-  .licencia.lista {
-    border: 0;
-    background: var(--purple);
-    color: var(--white);
-    box-shadow: 0 20px 50px rgba(84, 83, 235, 0.35);
-    position: relative;
-    overflow: hidden;
-  }
-  .licencia.lista::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
-    transform: translateX(-100%);
-    animation: brillo 3.5s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @keyframes brillo {
-    60%,
-    100% {
-      transform: translateX(100%);
-    }
-  }
-  .licencia.lista h2,
-  .licencia.lista .btn.ghost {
-    color: var(--white);
-  }
-  .licencia.lista p,
-  .licencia.lista .paso {
-    color: var(--lav);
-  }
-  .licencia.lista .licencia-ico {
-    color: var(--white);
-    --duo: var(--lime);
+  .licencia.lista .barra-titulo {
+    background: var(--lime);
   }
   .reiniciar {
     display: block;
-    margin: 24px auto 0;
+    margin: 28px auto 0;
     background: none;
     border: 0;
     color: var(--muted);
@@ -663,74 +1127,96 @@ const juego = {
     min-height: 44px;
   }
 
-  /* ── Aviso de XP ── */
-  .toast {
+  /* ── Subida de rango ── */
+  .subida {
     position: fixed;
-    left: 50%;
-    bottom: 24px;
-    z-index: 20;
-    padding: 14px 22px;
-    border-radius: 99px;
-    background: var(--ink);
-    color: var(--lime);
-    font-weight: 700;
-    box-shadow: 0 12px 30px rgba(31, 29, 92, 0.35);
-    transform: translate(-50%, 140%);
-    visibility: hidden;
-    transition:
-      transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-      visibility 0.45s;
-    max-width: calc(100% - 32px);
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(31, 29, 92, 0.55);
   }
-  .toast.ver {
-    transform: translate(-50%, 0);
-    visibility: visible;
+  .subida[hidden] {
+    display: none;
+  }
+  .subida-caja {
+    max-width: 420px;
+    padding: 28px;
+    text-align: center;
+    animation: aparece 0.5s cubic-bezier(0.2, 1.4, 0.4, 1);
+  }
+  @keyframes aparece {
+    from {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+  }
+  .subida-caja :global(.trofeo) {
+    font-size: 5rem;
+    color: #f0b53c;
+    --duo: #ffd36e;
+  }
+  .subida-kicker {
+    margin: 8px 0 0;
+    font: 700 1rem var(--body);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .subida-caja h2 {
+    font-size: 1.8rem;
+    line-height: 1.5;
+    color: var(--purple);
+    margin: 4px 0 0;
+  }
+  .confeti {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
   }
 
-  @media (max-width: 768px) {
-    .intro-grid {
+  @media (max-width: 860px) {
+    .paneles {
       grid-template-columns: 1fr;
     }
-    .licencia-mini {
+    .consola {
+      display: none;
+    }
+    .camino {
+      flex-wrap: wrap;
+      gap: 14px 6px;
+    }
+    .camino li + li::before {
       display: none;
     }
   }
-  @media (max-width: 640px) {
-    .hud {
-      top: 58px;
+  @media (max-width: 520px) {
+    .pantalla {
+      border-width: 6px;
+      border-radius: 24px;
     }
-    .hud-in {
-      gap: 8px 16px;
+    .hud-juego {
+      font-size: 0.85rem;
     }
-    .rango {
-      flex-basis: 100%;
+    .mini-barra {
+      width: 44px;
     }
-    .etapa-head {
-      justify-content: flex-start;
+    .tanques :global(svg:nth-child(n + 4)) {
+      display: none;
     }
-    .ruta::before {
-      left: 36px;
+    .bola {
+      width: 64px;
+      height: 64px;
+      font-size: 1.8rem;
     }
-    .nivel a {
-      grid-template-columns: 72px 1fr;
-      gap: 12px;
+    .etq {
+      font-size: 0.7rem;
     }
-    .nodo {
-      grid-column: 1;
-      width: 72px;
-      height: 72px;
-      font-size: 2.1rem;
-      border-radius: 22px;
+    .stats {
+      gap: 8px;
     }
-    .izq .tarjeta,
-    .der .tarjeta {
-      grid-column: 2;
-      text-align: left;
-    }
-    .izq .xp {
-      align-self: flex-start;
-    }
-    .licencia {
+    .licencia-cuerpo {
       flex-direction: column;
       text-align: center;
     }
@@ -739,9 +1225,11 @@ const juego = {
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .nivel,
-    .etapa-head,
-    .licencia {
+    .juego :global(*) {
+      animation: none !important;
+    }
+    .paneles .panel,
+    .etapa .panel {
       opacity: 1;
       transform: none;
     }

@@ -1,0 +1,67 @@
+{
+  "0": [
+    "actividad1_detective",
+    "actividad2_laboratorio",
+    "quiz_modulo0"
+  ],
+  "1": [
+    "actividad1_arquitecto",
+    "actividad2_controlador",
+    "actividad3_velocimetro",
+    "actividad4_explorador_digital",
+    "actividad5_constructor_digital",
+    "actividad6_rastreador_digital",
+    "actividad7_disenador_redes",
+    "actividad8_simulador_latencia",
+    "actividad9_carreteras_digitales",
+    "quiz_modulo1"
+  ],
+  "2": [
+    "actividad1_calculadora_subredes",
+    "actividad2_diseno_barrio",
+    "actividad3_conversor_binario",
+    "actividad5_mascaras_red",
+    "quiz_modulo2"
+  ],
+  "3": [
+    "actividad1_navegador_jerarquia",
+    "actividad2_investigador_dns",
+    "actividad3_simulador_ttl",
+    "actividad4_configurar_registros",
+    "quiz_modulo3"
+  ],
+  "4": [
+    "actividad1_encriptacion",
+    "actividad2_integridad",
+    "actividad3_certificados",
+    "actividad4_firewall",
+    "actividad5_vpn",
+    "quiz_modulo4"
+  ],
+  "5": [
+    "actividad1_terminal",
+    "actividad2_permisos",
+    "actividad3_configuracion",
+    "actividad4_ssh",
+    "actividad5_scripts",
+    "quiz_modulo5"
+  ],
+  "6": [
+    "actividad1_simulador_vms",
+    "actividad2_comparador",
+    "actividad3_planificador",
+    "quiz_modulo6"
+  ],
+  "7": [
+    "actividad1_constructor_bd",
+    "actividad2_comparador",
+    "actividad3_explorador_metadatos",
+    "actividad4_calculadora",
+    "quiz_modulo7"
+  ],
+  "8": [
+    "actividad1_planificador_backup",
+    "actividad2_calculadora_rto_rpo",
+    "quiz_modulo8"
+  ]
+}

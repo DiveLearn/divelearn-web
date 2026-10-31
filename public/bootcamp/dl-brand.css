@@ -769,3 +769,7 @@ pre {
   .device-palette { gap: 8px; }
   .device-item { font-size: 0.8rem; padding: 8px 12px; }
 }
+
+@view-transition {
+  navigation: auto;
+}
