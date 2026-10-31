@@ -145,17 +145,6 @@ resource "aws_route53_record" "www" {
   }
 }
 
-# TXT que exige CloudFront para mover un alias entre distribuciones (associate-alias).
-resource "aws_route53_record" "alias_move_auth" {
-  # Raíz: "_." + dominio; subdominio: "_" + nombre (formato de la guía de CloudFront).
-  for_each = toset(["_.${local.domain}", "_www.${local.domain}"])
-  zone_id  = aws_route53_zone.main.zone_id
-  name     = each.value
-  type     = "TXT"
-  ttl      = 300
-  records  = [aws_cloudfront_distribution.site.domain_name]
-}
-
 output "name_servers" {
   description = "Nameservers para poner en Namecheap (Custom DNS)"
   value       = aws_route53_zone.main.name_servers
