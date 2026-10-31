@@ -1,0 +1,87 @@
+"""Copia el bootcamp rebrandeado (contenido/rebranding/taller) al sitio, en fondo claro.
+
+Uso: python3 scripts/importar-bootcamp.py <ruta taller> <public/bootcamp>
+Módulo N → /bootcamp/modulo-N/ (hub) y /bootcamp/modulo-N/<actividad>.html
+"""
+import re, sys, pathlib, shutil
+
+R, D = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
+T = R / "taller_completo"
+if D.exists():
+    shutil.rmtree(D)
+D.mkdir(parents=True)
+
+# Sistema de diseño en versión clara: mismos tokens, fondo blanco (nada de negro).
+css = (R / "dl-brand.css").read_text()
+css = re.sub(r"@import url\('https://fonts.googleapis.com[^)]*\);\n", "", css)
+css = css.replace("url('symora.otf')", "url('/fonts/symora.otf')")
+for a, b in {
+    "--bg:            #0d0d1f": "--bg:            #ffffff",
+    "--surface:       #161630": "--surface:       #f6f7ff",
+    "--surface2:      #1f1f48": "--surface2:      #eef2ff",
+    "--surface3:      #2a2a5e": "--surface3:      #dfe3fb",
+    "--text:          #eeeeff": "--text:          #1f1d5c",
+    "--text-muted:    #8888bb": "--text-muted:    #55538a",
+    "rgba(0,0,0,0.45)": "rgba(84,83,235,0.12)",
+    "rgba(0,0,0,0.4)": "rgba(84,83,235,0.12)",
+    "background: rgba(13,13,31,0.9)": "background: rgba(255,255,255,0.92)",
+    "color: #0d0d1f !important": "color: #1f1d5c !important",
+    "'Nunito', ": "'Questrial', 'Century Gothic', ",
+}.items():
+    css = css.replace(a, b)
+css = css.replace("@font-face {", "@font-face {\n  font-family: 'Questrial';\n  src: url('/fonts/questrial-latin-400-normal.woff2') format('woff2');\n  font-display: swap;\n}\n\n@font-face {", 1)
+(D / "dl-brand.css").write_text(css)
+
+
+def limpiar(h: str) -> str:
+    h = re.sub(r'\s*<link rel="preconnect" href="https://fonts.(googleapis|gstatic).com"[^>]*>', "", h)
+    h = re.sub(r'\s*<link href="https://fonts.googleapis.com[^>]*>', "", h)
+    h = re.sub(r"@import url\(['\"]?https://fonts.googleapis.com[^)]*\);?", "", h)
+    h = re.sub(r'href="(\.\./)*dl-brand.css"', 'href="/bootcamp/dl-brand.css"', h)
+    h = re.sub(r'(href|src)="(\.\./|\./)*favicon.png"', r'\1="/favicon.png"', h)
+    h = re.sub(r'(\.\./)*logo-wordmark-purple.png', "/img/logo-divelearn-morado.png", h)
+    h = re.sub(r'(\.\./)*logo-icon-purple.png', "/favicon.png", h)
+    # Enlaces a otros módulos y nombres que no coinciden con los archivos reales.
+    h = re.sub(r"(\.\./)+modulo_(\d+)/hub_modulo\d+\.html", r"/bootcamp/modulo-\2/", h)
+    h = h.replace("modulo1_redes.html", "./")
+    for a, b in {"actividad2_comparador_vm_contenedor": "actividad2_comparador", "actividad3_planificador_recursos": "actividad3_planificador", "actividad4_visualizador_beneficios": "actividad4_visualizador"}.items():
+        h = h.replace(a + ".html", b + ".html")
+    # Volver al módulo: el rebranding dejó muchos enlaces apuntando al hub del módulo 9.
+    h = re.sub(r"(\.\./)?hub_modulo\d+\.html", "./", h)
+    h = re.sub(r"(\.\./)*(hub_principal|hub)\.html", "/bootcamp/", h)
+    # El logo siempre lleva al inicio del sitio.
+    h = re.sub(r'<a href="[^"]*">(\s*<img[^>]*class="dl-nav-logo")', r'<a href="/">\1', h)
+    h = h.replace('href="./submodulos/', 'href="./').replace("'./submodulos/", "'./")
+    # Terminal en azul noche (no negro) y pastilla "Crítica" ilegible.
+    h = h.replace("#1e1e1e", "#1f1d5c").replace("#00ff00", "#e0f24a")
+    h = re.sub(r"background: #06B6D4;(\s*)color: #06B6D4;", r"background: #fde2e7;\1color: #b4234a;", h)
+    if 'name="viewport"' not in h:
+        h = re.sub(r'(<meta charset="[^"]*">)', r'\1\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">', h, count=1, flags=re.I)
+    return h
+
+
+for m in range(9):
+    src = T / f"modulo_{m}"
+    out = D / f"modulo-{m}"
+    out.mkdir()
+    hub = limpiar((src / f"hub_modulo{m}.html").read_text())
+    # En la portada del módulo, "volver" lleva al mapa del Bootcamp.
+    hub = re.sub(r'<a href="\./" class="dl-nav-back">← [^<]*</a>', '<a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>', hub)
+    (out / "index.html").write_text(hub)
+    for f in sorted((src / "submodulos").glob("*.html")):
+        (out / f.name).write_text(limpiar(f.read_text()))
+
+# Enlaces internos que no resuelven
+malos = set()
+for f in D.rglob("*.html"):
+    for ref in re.findall(r'(?:href|src)=["\']([^"\'#]+)["\']', f.read_text()):
+        if ref.startswith(("http", "mailto", "javascript", "data:")):
+            continue
+        p = (pathlib.Path("/") / ref) if ref.startswith("/") else None
+        tgt = (D.parent / ref.lstrip("/")) if ref.startswith("/") else (f.parent / ref)
+        if ref.endswith("/"):
+            tgt = tgt / "index.html"
+        if not tgt.exists():
+            malos.add(f"{f.relative_to(D)} -> {ref}")
+print(len(list(D.rglob('*.html'))), "páginas")
+print("\n".join(sorted(malos)) or "sin enlaces rotos")
