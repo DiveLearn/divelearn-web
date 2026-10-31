@@ -124,7 +124,7 @@ const camino = [
       <article class="panel">
         <header class="barra-titulo"><h2>Misión del día</h2><span class="puntos"><i></i><i></i><i></i></span></header>
         <div class="profe">
-          <img class="px" {...sprite("pulpo-profe", 48, 46, 1.5)} alt="El pulpo profe" />
+          <img class="px" {...sprite("pulpo-profe", 48, 46, 1.5)} alt="El pulpo profe" data-profe />
           <p class="mision"><span class="check" data-mision-check></span><span data-mision>Abre tu primera actividad del bootcamp.</span></p>
         </div>
         <div class="terminal">
@@ -202,7 +202,7 @@ const camino = [
   <!-- ── Subida de rango ── -->
   <div class="subida" role="dialog" aria-modal="true" aria-labelledby="t-subida" hidden data-subida>
     <div class="panel subida-caja">
-      <Sprite nombre="trofeo" escala={2.6} />
+      <Sprite nombre="buzo-celebra" escala={2} />
       <p class="subida-kicker">¡Subiste de rango!</p>
       <h2 id="t-subida" data-subida-rango></h2>
       <button type="button" class="btn-jugar" data-subida-ok>¡Vamos!</button>
@@ -324,7 +324,9 @@ const camino = [
         $("[data-mision]").textContent = "¡Bootcamp completo! Reclama tu licencia de buceo.";
         ($("[data-jugar]") as HTMLAnchorElement).href = "#licencia";
       }
-      $("[data-mision-check]").classList.toggle("ok", p.ultimaNueva === api.hoy);
+      const misionLista = p.ultimaNueva === api.hoy;
+      $("[data-mision-check]").classList.toggle("ok", misionLista);
+      ($("[data-profe]") as HTMLImageElement).src = `/img/sprites/${misionLista ? "pulpo-ok" : "pulpo-profe"}.png`;
       return { xp, rango };
     }
 
