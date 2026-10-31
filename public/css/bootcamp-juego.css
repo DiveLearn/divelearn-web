@@ -1,0 +1,232 @@
+/* Piel de videojuego para las páginas de los módulos del Bootcamp.
+   Se carga al final del <head> (después de los estilos propios de cada actividad) y usa
+   --c = color de la etapa del módulo, que scripts/importar-bootcamp.py pone en <html>. */
+
+@font-face {
+  font-family: "Silkscreen";
+  src: url("/fonts/silkscreen-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+}
+@font-face {
+  font-family: "Silkscreen";
+  src: url("/fonts/silkscreen-latin-ext-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+html {
+  --c: #b2cafd;
+  --ink: #1f1d5c;
+  --tinte: color-mix(in srgb, var(--c) 22%, #ffffff);
+  --borde: 3px solid var(--ink);
+  --sombra: 5px 5px 0 var(--ink);
+  --pixel: "Silkscreen", ui-monospace, monospace;
+}
+
+html body {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(84, 83, 235, 0.12) 1px, transparent 0) 0 0 / 22px 22px,
+    #e9e4fb !important;
+  color: var(--ink);
+}
+
+/* ── Barra superior ── */
+html body .dl-nav {
+  background: #ffffff;
+  border-bottom: var(--borde);
+}
+html body .dl-nav-back {
+  font-family: var(--pixel);
+  font-weight: 700;
+  color: var(--ink);
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--c);
+}
+
+/* ── Títulos en letra pixel ── */
+html body :is(.activity-title, .module-title, .section-title, .card-title, .teoria-title, .tips-title,
+  .objetivos-title, .results-title) {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor;
+  background-image: none;
+  letter-spacing: 0.5px;
+}
+/* Subtítulos largos: letra normal en negrita (la pixel cansa en frases largas) */
+html body :is(.subsection-title, .example-title) {
+  font-family: "Questrial", "Century Gothic", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--ink) !important;
+}
+html body :is(.activity-title, .module-title) {
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem) !important;
+  line-height: 1.15;
+}
+html body :is(.section-title, .teoria-title, .card-title) {
+  border-bottom: 3px dashed var(--c) !important;
+}
+html body :is(.activity-subtitle, .module-subtitle) {
+  color: #55538a !important;
+}
+
+/* ── Contenedores tipo ventana ── */
+html body :is(.main-content, .card, .quiz-container, .question-card, .tips-section, .tip-box, .info-box,
+  .calculator-container, .input-container, .tool-container, .comparison-container, .simulator-container,
+  .editor-container, .results-container, .teoria-section, .objetivos-container, .tab-content) {
+  background: #ffffff !important;
+  border: var(--borde) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--sombra) !important;
+}
+html body :is(.main-content, .quiz-container) {
+  border-top: 14px solid var(--c) !important;
+}
+
+/* Recuadros internos: tinte del color de la etapa en lugar de rosados/naranjas */
+html body :is(.tip-item, .objetivo-item, .teoria-subsection, .example-box, .feedback-info,
+  .result-info, .feedback-area, .result-card, .highlight-box) {
+  background: var(--tinte) !important;
+  border: 2px solid var(--ink) !important;
+  border-left-width: 6px !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  color: var(--ink) !important;
+}
+/* Dentro de un recuadro, el contenido no lleva otro borde */
+html body .subsection-content {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+}
+html body .teoria-subsection .example-box {
+  background: #ffffff !important;
+}
+html body .highlight {
+  background: var(--tinte) !important;
+  color: var(--ink) !important;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+html body :is(.feedback-success, .result-success, .feedback.correct-feedback) {
+  background: #e3f7e9 !important;
+  border: 2px solid var(--ink) !important;
+  border-left: 6px solid #3fa866 !important;
+  color: var(--ink) !important;
+}
+html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
+  background: #ffe8ec !important;
+  border: 2px solid var(--ink) !important;
+  border-left: 6px solid #ff7a8a !important;
+  color: var(--ink) !important;
+}
+
+/* ── Etiquetas (tiempo, nivel, puntos) ── */
+html body :is(.meta-item, .meta-chip, .activity-badge, .actividad-duracion, .status-indicator) {
+  background: #ffffff !important;
+  border: 2px solid var(--ink) !important;
+  border-radius: 8px !important;
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+
+/* ── Botones de juego ── */
+html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .btn-primary, .btn-lime, .btn-outline, .option-btn,
+  .topology-btn, .selector-btn, .tab) {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  border: var(--borde) !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
+  color: var(--ink) !important;
+  background: #ffffff !important;
+  transition: transform 0.12s, box-shadow 0.12s !important;
+}
+html body :is(.btn-primary, .nav-btn:not(.secondary), .calculate-btn, .control-btn:not(.secondary):not(.danger), .btn-lime) {
+  background: #6fd08c !important;
+}
+html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .option-btn, .topology-btn, .selector-btn, .tab):hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink) !important;
+}
+html body :is(.btn, .nav-btn, .control-btn, .calculate-btn, .option-btn, .topology-btn, .selector-btn, .tab):active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink) !important;
+}
+html body :is(.tab.active, .option-btn.active, .topology-btn.active, .selector-btn.active, .option.selected) {
+  background: var(--c) !important;
+}
+
+/* ── Quiz ── */
+html body .option {
+  background: #ffffff !important;
+  border: var(--borde) !important;
+  border-radius: 10px !important;
+  box-shadow: 3px 3px 0 var(--ink) !important;
+  color: var(--ink) !important;
+}
+html body .option:hover {
+  background: var(--tinte) !important;
+}
+html body :is(.option.correct) {
+  background: #e3f7e9 !important;
+}
+html body :is(.option.incorrect, .option.wrong) {
+  background: #ffe8ec !important;
+}
+html body .progress-header {
+  background: var(--c) !important;
+  border-bottom: var(--borde);
+}
+html body .progress-header :is(*, .progress-info) {
+  color: var(--ink) !important;
+}
+
+/* ── Barras de progreso ── */
+html body .progress-bar {
+  background: #ffffff !important;
+  border: 2px solid var(--ink) !important;
+  border-radius: 8px !important;
+  height: 16px !important;
+}
+html body .progress-fill {
+  background: repeating-linear-gradient(90deg, #6fd08c 0 12px, #5cc27c 12px 24px) !important;
+}
+
+/* ── Tarjetas de actividades en la portada del módulo ── */
+html body .actividad-card {
+  background: #ffffff !important;
+  border: var(--borde) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--sombra) !important;
+  color: var(--ink) !important;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+html body .actividad-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 var(--ink) !important;
+}
+html body .actividad-numero {
+  background: var(--c) !important;
+  color: var(--ink) !important;
+  border: 2px solid var(--ink) !important;
+  font-family: var(--pixel) !important;
+}
+html body .actividad-titulo {
+  font-family: var(--pixel) !important;
+  color: var(--ink) !important;
+}
+
+/* ── Pie ── */
+html body :is(.footer, .divelearn-brand) {
+  color: #55538a !important;
+  background: transparent !important;
+}

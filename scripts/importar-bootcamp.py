@@ -64,7 +64,14 @@ def limpiar(h: str) -> str:
     return h
 
 
+# Color de la etapa de cada módulo (los mismos que src/data/bootcamp.ts).
+COLOR = {0: "#ffd36e", 1: "#ffd36e", 2: "#ff7a8a", 3: "#ff7a8a", 4: "#ff7a8a", 5: "#7cc6fe", 6: "#7cc6fe", 7: "#04a8bb", 8: "#04a8bb"}
+
+
 def con_progreso(h: str, m: int, pagina: str, total: int) -> str:
+    """Piel de videojuego (al final del head, gana a los estilos propios) + chip de progreso."""
+    h = re.sub(r"<html([^>]*)>", lambda x: f'<html{x.group(1)} style="--c:{COLOR[m]}">', h, count=1)
+    h = h.replace("</head>", '<link rel="stylesheet" href="/css/bootcamp-juego.css">\n</head>', 1)
     tag = f'<script src="/js/bootcamp-progreso.js" data-modulo="{m}" data-pagina="{pagina}" data-total="{total}" defer></script>'
     return h.replace("</body>", f"{tag}\n</body>", 1)
 
