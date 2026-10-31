@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - Navegador de Jerarquía DNS</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .dns-tree-container {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--purple);
+            min-height: 400px;
+        }
+
+        .tree-level {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--surface);
+            border-radius: 8px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .level-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--lime);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tree-nodes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tree-node {
+            background: var(--lime);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .tree-node:hover {
+            background: #22C55E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .tree-node.
+
+        .tree-node.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        
+            50% { transform: scale(1.05); }
+        }
+
+        .path-display {
+            background: #e8f5e8;
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+        }
+
+        .path-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 10px;
+        }
+
+        .current-path {
+            color: var(--lime);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .resolution-info {
+            background: rgba(245,158,11,0.15);
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .info-content {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .reset-btn {
+            background: #EF4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .reset-btn:hover {
+            background: #EF4444;
+            transform: translateY(-2px);
+        }
+
+        
+
+        .completion-status.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 3</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 3</a> / Actividad 1
+            </div>
+            <h1 class="activity-title">🌳 Navegador de Jerarquía DNS</h1>
+            <p class="activity-subtitle">Explora la estructura jerárquica del Sistema de Nombres de Dominio</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad navegarás interactivamente por la jerarquía DNS, desde los servidores raíz hasta dominios específicos. Comprenderás cómo se estructura el árbol DNS y cómo se resuelven los nombres de dominio paso a paso.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🌐 Navegador DNS Interactivo</h2>
+                
+                <div class="path-display">
+                    <div class="path-title">📍 Ruta actual:</div>
+                    <div class="current-path" id="currentPath">. (raíz)</div>
+                </div>
+
+                <div class="dns-tree-container">
+                    <!-- Nivel Raíz -->
+                    <div class="tree-level" id="level-root">
+                        <div class="level-title">🌍 Servidores Raíz (Root Servers)</div>
+                        <p style="color: #8888bb; margin-bottom: 10px;">Los 13 servidores raíz que conocen todos los TLD</p>
+                        <div class="tree-nodes">
+                            <div class="tree-node" onclick="selectNode('root', '.')">. (raíz)</div>
+                        </div>
+                    </div>
+
+                    <!-- Nivel TLD -->
+                    <div class="tree-level" id="level-tld" style="display: none;">
+                        <div class="level-title">🏢 Dominios de Nivel Superior (TLD)</div>
+                        <p style="color: #8888bb; margin-bottom: 10px;">Dominios genéricos y de países</p>
+                        <div class="tree-nodes">
+                            <div class="tree-node" onclick="selectNode('tld', 'com')">com</div>
+                            <div class="tree-node" onclick="selectNode('tld', 'org')">org</div>
+                            <div class="tree-node" onclick="selectNode('tld', 'net')">net</div>
+                            <div class="tree-node" onclick="selectNode('tld', 'edu')">edu</div>
+                            <div class="tree-node" onclick="selectNode('tld', 'mx')">mx</div>
+                            <div class="tree-node" onclick="selectNode('tld', 'es')">es</div>
+                        </div>
+                    </div>
+
+                    <!-- Nivel Dominio -->
+                    <div class="tree-level" id="level-domain" style="display: none;">
+                        <div class="level-title">🏪 Dominios de Segundo Nivel</div>
+                        <p style="color: #8888bb; margin-bottom: 10px;">Los dominios que registran las organizaciones</p>
+                        <div class="tree-nodes" id="domainNodes">
+                            <!-- Se llenan dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Nivel Subdominio -->
+                    <div class="tree-level" id="level-subdomain" style="display: none;">
+                        <div class="level-title">🔗 Subdominios</div>
+                        <p style="color: #8888bb; margin-bottom: 10px;">Servicios específicos dentro del dominio</p>
+                        <div class="tree-nodes" id="subdomainNodes">
+                            <!-- Se llenan dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resolution-info" id="resolutionInfo" style="display: none;">
+                    <div class="info-title">🔍 Información de Resolución</div>
+                    <div class="info-content" id="resolutionContent">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+
+                <button class="reset-btn" onclick="resetExploration()">🔄 Reiniciar Exploración</button>
+
+                <div class="completion-status" id="completionStatus">
+                    <h3 style="color: #155724; margin-bottom: 10px;">🎉 ¡Exploración Completada!</h3>
+                    <p style="color: #155724;">Has navegado exitosamente por la jerarquía DNS completa. Ahora entiendes cómo se estructura el árbol de nombres de dominio.</p>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Navegación
+                </h3>
+                <div class="tip-item">
+                    <strong>🌍 Raíz:</strong> Todos los nombres DNS comienzan en la raíz (.), que conoce dónde encontrar cada TLD.
+                </div>
+                <div class="tip-item">
+                    <strong>🏢 TLD:</strong> Los dominios de nivel superior (.com, .org, .mx) son administrados por registries especializados.
+                </div>
+                <div class="tip-item">
+                    <strong>🔍 Resolución:</strong> Cada nivel en la jerarquía conoce únicamente al siguiente nivel, no a todos los niveles inferiores.
+                </div>
+                <div class="tip-item">
+                    <strong>📊 Autoridad:</strong> Solo los servidores autoritativos tienen la información definitiva de un dominio.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentLevel = 'root';
+        let currentPath = ['.'];
+        let selectedTLD = '';
+        let selectedDomain = '';
+        let isCompleted = false;
+        let explorationSteps = 0;
+
+        const domainData = {
+            'com': ['google', 'facebook', 'amazon', 'microsoft', 'apple', 'netflix'],
+            'org': ['wikipedia', 'mozilla', 'apache', 'openssl', 'gnu', 'debian'],
+            'net': ['cloudflare', 'speedtest', 'sourceforge', 'archive', 'telegram', 'discord'],
+            'edu': ['mit', 'stanford', 'harvard', 'berkeley', 'cmu', 'caltech'],
+            'mx': ['gob', 'unam', 'ipn', 'tec', 'banxico', 'sat'],
+            'es': ['gob', 'rae', 'elpais', 'marca', 'bbva', 'telefonica']
+        };
+
+        const subdomainData = {
+            'google': ['www', 'mail', 'drive', 'maps', 'translate', 'youtube'],
+            'facebook': ['www', 'mobile', 'api', 'developers', 'business', 'help'],
+            'amazon': ['www', 'aws', 'marketplace', 'prime', 'alexa', 'kindle'],
+            'microsoft': ['www', 'azure', 'office', 'outlook', 'teams', 'xbox'],
+            'wikipedia': ['www', 'en', 'es', 'fr', 'de', 'mobile'],
+            'mozilla': ['www', 'developer', 'support', 'addons', 'blog', 'foundation'],
+            'mit': ['www', 'web', 'student', 'libraries', 'news', 'admissions'],
+            'gob': ['www', 'transparencia', 'datos', 'participa', 'servicios', 'tramites']
+        };
+
+        const resolutionExplanations = {
+            'root': 'Los servidores raíz son la base de toda resolución DNS. Hay 13 servidores raíz (A-M) distribuidos globalmente que conocen dónde encontrar información sobre todos los TLD.',
+            'tld': 'Los dominios de nivel superior (TLD) son administrados por registries. Por ejemplo, .com es administrado por Verisign, .org por PIR, y .mx por NIC México.',
+            'domain': 'Los dominios de segundo nivel son registrados por individuos u organizaciones. Cada registro incluye información sobre qué servidores DNS son autoritativos para ese dominio.',
+            'subdomain': 'Los subdominios son creados por el propietario del dominio principal. Pueden apuntar a diferentes servicios o servidores dentro de la organización.'
+        };
+
+        function selectNode(level, value) {
+            explorationSteps++;
+            
+            if (level === 'root') {
+                currentLevel = 'tld';
+                currentPath = ['.'];
+                showLevel('level-tld');
+                updatePath();
+                showResolutionInfo('tld');
+            } else if (level === 'tld') {
+                selectedTLD = value;
+                currentLevel = 'domain';
+                currentPath = ['.', value];
+                showDomainLevel(value);
+                updatePath();
+                showResolutionInfo('domain');
+            } else if (level === 'domain') {
+                selectedDomain = value;
+                currentLevel = 'subdomain';
+                currentPath = ['.', selectedTLD, value];
+                showSubdomainLevel(value);
+                updatePath();
+                showResolutionInfo('subdomain');
+                
+                // Completar actividad si ha navegado suficientemente
+                if (explorationSteps >= 4) {
+                    completeActivity();
+                }
+            } else if (level === 'subdomain') {
+                currentPath = ['.', selectedTLD, selectedDomain, value];
+                updatePath();
+                showFinalResolution(value);
+                
+                if (!isCompleted) {
+                    completeActivity();
+                }
+            }
+
+            // Marcar nodo como seleccionado
+            document.querySelectorAll('.tree-node').forEach(node => {
+                node.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        function showLevel(levelId) {
+            document.getElementById(levelId).style.display = 'block';
+        }
+
+        function showDomainLevel(tld) {
+            const domainNodes = document.getElementById('domainNodes');
+            const domains = domainData[tld] || ['ejemplo1', 'ejemplo2', 'ejemplo3'];
+            
+            domainNodes.innerHTML = '';
+            domains.forEach(domain => {
+                const node = document.createElement('div');
+                node.className = 'tree-node';
+                node.textContent = domain;
+                node.onclick = () => selectNode('domain', domain);
+                domainNodes.appendChild(node);
+            });
+            
+            showLevel('level-domain');
+        }
+
+        function showSubdomainLevel(domain) {
+            const subdomainNodes = document.getElementById('subdomainNodes');
+            const subdomains = subdomainData[domain] || ['www', 'mail', 'ftp', 'blog', 'api', 'admin'];
+            
+            subdomainNodes.innerHTML = '';
+            subdomains.forEach(subdomain => {
+                const node = document.createElement('div');
+                node.className = 'tree-node';
+                node.textContent = subdomain;
+                node.onclick = () => selectNode('subdomain', subdomain);
+                subdomainNodes.appendChild(node);
+            });
+            
+            showLevel('level-subdomain');
+        }
+
+        function updatePath() {
+            const pathDisplay = document.getElementById('currentPath');
+            let displayPath;
+            
+            if (currentPath.length === 1) {
+                displayPath = '. (raíz)';
+            } else {
+                displayPath = currentPath.slice(1).reverse().join('.') + '.';
+            }
+            
+            pathDisplay.textContent = displayPath;
+        }
+
+        function showResolutionInfo(level) {
+            const infoDiv = document.getElementById('resolutionInfo');
+            const contentDiv = document.getElementById('resolutionContent');
+            
+            contentDiv.textContent = resolutionExplanations[level];
+            infoDiv.style.display = 'block';
+        }
+
+        function showFinalResolution(subdomain) {
+            const infoDiv = document.getElementById('resolutionInfo');
+            const contentDiv = document.getElementById('resolutionContent');
+            
+            const fullDomain = `${subdomain}.${selectedDomain}.${selectedTLD}`;
+            contentDiv.innerHTML = `
+                <strong>🎯 Resolución Completa:</strong><br>
+                El dominio completo <strong>${fullDomain}</strong> ahora puede ser resuelto a una dirección IP específica. 
+                En un escenario real, el servidor autoritativo de ${selectedDomain}.${selectedTLD} proporcionaría 
+                la dirección IP para el subdominio ${subdomain}.<br><br>
+                <strong>Ejemplo:</strong> ${fullDomain} → 192.168.1.100
+            `;
+            infoDiv.style.display = 'block';
+        }
+
+        function resetExploration() {
+            currentLevel = 'root';
+            currentPath = ['.'];
+            selectedTLD = '';
+            selectedDomain = '';
+            explorationSteps = 0;
+            
+            // Ocultar todos los niveles excepto root
+            document.getElementById('level-tld').style.display = 'none';
+            document.getElementById('level-domain').style.display = 'none';
+            document.getElementById('level-subdomain').style.display = 'none';
+            document.getElementById('resolutionInfo').style.display = 'none';
+            document.getElementById('completionStatus').classList.remove('show');
+            
+            // Limpiar selecciones
+            document.querySelectorAll('.tree-node').forEach(node => {
+                node.classList.remove('selected');
+            });
+            
+            updatePath();
+        }
+
+        function completeActivity() {
+            isCompleted = true;
+            document.getElementById('completionStatus').classList.add('show');
+            
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+        }
+
+        function markCompleted() {
+            if (!isCompleted) {
+                completeActivity();
+            }
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Navegador de Jerarquía DNS".\n\n✅ Actividad marcada como completada\n🏆 +100 puntos ganados\n\n¡Ahora entiendes cómo se estructura la jerarquía DNS!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar la actividad
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePath();
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 - Explorador de Metadatos</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .explorer-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .file-browser {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .metadata-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .file-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .file-item:hover {
+            border-color: var(--purple);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .file-item.
+
+        .file-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .file-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text);
+            word-break: break-word;
+        }
+
+        .file-size {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .metadata-display {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+            min-height: 300px;
+        }
+
+        .metadata-empty {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 20px;
+        }
+
+        .metadata-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .metadata-item:last-child {
+            border-bottom: none;
+        }
+
+        .metadata-key {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .metadata-value {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+
+        .metadata-generator {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #ffc107;
+        }
+
+        .generator-title {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        
+
+        .btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: #6c757d;
+        }
+
+        .btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn.success {
+            background: #22C55E;
+        }
+
+        .btn.success:hover {
+            background: #22C55E;
+        }
+
+        .custom-metadata {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px dashed var(--border);
+        }
+
+        .metadata-tag {
+            display: inline-block;
+            background: var(--purple);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .metadata-tag:hover {
+            background: var(--purple);
+            transform: scale(1.05);
+        }
+
+        .metadata-tag.remove {
+            background: #EF4444;
+        }
+
+        .metadata-tag.remove:hover {
+            background: #EF4444;
+        }
+
+        .version-history {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .version-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .version-item:last-child {
+            border-bottom: none;
+        }
+
+        .version-info {
+            flex: 1;
+        }
+
+        .version-number {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .version-date {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .version-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .version-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .version-btn:hover {
+            background: var(--purple);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .explorer-interface {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .file-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 7</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 7</a> / Actividad 3
+            </div>
+            <h1 class="activity-title">🔍 Explorador de Metadatos</h1>
+            <p class="activity-subtitle">Descubre cómo los metadatos enriquecen la gestión de archivos y datos</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad explorarás cómo los metadatos agregan valor a los archivos y objetos. Aprenderás a identificar, interpretar y crear metadatos útiles para mejorar la organización y búsqueda de información.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🗂️ Explorador de Archivos</h2>
+                
+                <div class="explorer-interface">
+                    <div class="file-browser">
+                        <h4 style="color: #8888bb; margin-bottom: 15px;">📁 Archivos de Ejemplo</h4>
+                        
+                        <div class="file-grid">
+                            <div class="file-item" onclick="selectFile('photo1')">
+                                <div class="file-icon">📸</div>
+                                <div class="file-name">vacaciones.jpg</div>
+                                <div class="file-size">2.4 MB</div>
+                            </div>
+
+                            <div class="file-item" onclick="selectFile('video1')">
+                                <div class="file-icon">🎥</div>
+                                <div class="file-name">tutorial.mp4</div>
+                                <div class="file-size">156 MB</div>
+                            </div>
+
+                            <div class="file-item" onclick="selectFile('document1')">
+                                <div class="file-icon">📄</div>
+                                <div class="file-name">informe.pdf</div>
+                                <div class="file-size">890 KB</div>
+                            </div>
+
+                            <div class="file-item" onclick="selectFile('audio1')">
+                                <div class="file-icon">🎵</div>
+                                <div class="file-name">cancion.mp3</div>
+                                <div class="file-size">4.2 MB</div>
+                            </div>
+
+                            <div class="file-item" onclick="selectFile('data1')">
+                                <div class="file-icon">📊</div>
+                                <div class="file-name">ventas.xlsx</div>
+                                <div class="file-size">1.1 MB</div>
+                            </div>
+
+                            <div class="file-item" onclick="selectFile('web1')">
+                                <div class="file-icon">🌐</div>
+                                <div class="file-name">sitio.html</div>
+                                <div class="file-size">45 KB</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metadata-panel">
+                        <h4 style="color: #8888bb; margin-bottom: 15px;">📋 Panel de Metadatos</h4>
+                        
+                        <div class="metadata-display" id="metadataDisplay">
+                            <div class="metadata-empty">
+                                <div style="font-size: 3rem; margin-bottom: 15px;">🔍</div>
+                                <div><strong>Selecciona un archivo</strong></div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">Haz clic en cualquier archivo de la izquierda para ver sus metadatos</div>
+                            </div>
+                        </div>
+
+                        <div class="version-history" id="versionHistory" style="display: none;">
+                            <h5 style="color: #8888bb; margin-bottom: 10px;">📚 Historial de Versiones</h5>
+                            <div id="versionList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🏗️ Generador de Metadatos</h2>
+                
+                <div class="metadata-generator">
+                    <div class="generator-title">Crea metadatos personalizados para tus archivos</div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label">Nombre del archivo:</label>
+                                <input type="text" id="customFileName" class="input-field" placeholder="mi_archivo.pdf">
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">Autor/Creador:</label>
+                                <input type="text" id="customAuthor" class="input-field" placeholder="Tu nombre">
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">Descripción:</label>
+                                <input type="text" id="customDescription" class="input-field" placeholder="Breve descripción del contenido">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label">Categoría:</label>
+                                <select id="customCategory" class="input-field">
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="documents">Documentos</option>
+                                    <option value="images">Imágenes</option>
+                                    <option value="videos">Videos</option>
+                                    <option value="audio">Audio</option>
+                                    <option value="data">Datos</option>
+                                    <option value="web">Web</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">Etiquetas (separadas por comas):</label>
+                                <input type="text" id="customTags" class="input-field" placeholder="trabajo, importante, 2024">
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">Nivel de privacidad:</label>
+                                <select id="customPrivacy" class="input-field">
+                                    <option value="public">Público</option>
+                                    <option value="internal">Interno</option>
+                                    <option value="confidential">Confidencial</option>
+                                    <option value="restricted">Restringido</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn" onclick="generateCustomMetadata()">🔧 Generar Metadatos</button>
+                        <button class="btn secondary" onclick="clearCustomForm()">🧹 Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="custom-metadata" id="customMetadataResult" style="display: none;">
+                    <h4 style="color: #8888bb; margin-bottom: 15px;">📄 Metadatos Generados</h4>
+                    <div id="customMetadataContent"></div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Por qué son Importantes los Metadatos
+                </h3>
+                <div class="tip-item">
+                    <strong>🔍 Búsqueda mejorada:</strong> Los metadatos permiten encontrar archivos rápidamente sin abrirlos.
+                </div>
+                <div class="tip-item">
+                    <strong>📊 Organización automática:</strong> Los sistemas pueden clasificar y agrupar contenido automáticamente.
+                </div>
+                <div class="tip-item">
+                    <strong>🔒 Control de acceso:</strong> Información sobre permisos, privacidad y propietarios.
+                </div>
+                <div class="tip-item">
+                    <strong>📚 Contexto histórico:</strong> Cuándo se creó, modificó y quién lo hizo.
+                </div>
+                <div class="tip-item">
+                    <strong>🔗 Relaciones:</strong> Vínculos entre archivos relacionados y dependencias.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let selectedFile = null;
+        let isCompleted = false;
+        let exploredFiles = new Set();
+
+        const fileData = {
+            photo1: {
+                name: "vacaciones.jpg",
+                icon: "📸",
+                size: "2.4 MB",
+                metadata: {
+                    "Tipo de archivo": "JPEG Image",
+                    "Dimensiones": "3840 × 2160 px",
+                    "Profundidad de color": "24 bits",
+                    "Cámara": "iPhone 13 Pro",
+                    "Fecha de captura": "15 de agosto, 2024 - 14:23",
+                    "Ubicación GPS": "Cartagena, Colombia",
+                    "Orientación": "Horizontal (Landscape)",
+                    "ISO": "100",
+                    "Apertura": "f/1.5",
+                    "Velocidad": "1/120s",
+                    "Flash": "No utilizado",
+                    "Espacio de color": "sRGB",
+                    "Software": "iOS 17.5.1"
+                },
+                versions: [
+                    { version: "Original", date: "15 ago 2024", size: "2.4 MB" },
+                    { version: "Editada", date: "16 ago 2024", size: "2.1 MB" },
+                    { version: "Comprimida", date: "17 ago 2024", size: "890 KB" }
+                ]
+            },
+            video1: {
+                name: "tutorial.mp4",
+                icon: "🎥",
+                size: "156 MB",
+                metadata: {
+                    "Tipo de archivo": "MPEG-4 Video",
+                    "Duración": "12:34 minutos",
+                    "Resolución": "1920 × 1080 (Full HD)",
+                    "Frame rate": "30 fps",
+                    "Bitrate": "2.5 Mbps",
+                    "Codec de video": "H.264",
+                    "Codec de audio": "AAC",
+                    "Canales de audio": "Estéreo (2 canales)",
+                    "Creado con": "OBS Studio 29.0",
+                    "Fecha de creación": "22 de julio, 2024 - 09:15",
+                    "Idioma": "Español",
+                    "Subtítulos": "Disponibles en español e inglés",
+                    "Etiquetas": "tutorial, programación, javascript"
+                },
+                versions: [
+                    { version: "Grabación original", date: "22 jul 2024", size: "2.1 GB" },
+                    { version: "Editado", date: "23 jul 2024", size: "890 MB" },
+                    { version: "Comprimido", date: "24 jul 2024", size: "156 MB" }
+                ]
+            },
+            document1: {
+                name: "informe.pdf",
+                icon: "📄",
+                size: "890 KB",
+                metadata: {
+                    "Tipo de archivo": "PDF Document",
+                    "Páginas": "24 páginas",
+                    "Autor": "María González",
+                    "Título": "Informe Trimestral Q3 2024",
+                    "Asunto": "Análisis de ventas y proyecciones",
+                    "Palabras clave": "ventas, análisis, Q3, 2024, trimestral",
+                    "Aplicación": "Microsoft Word para Microsoft 365",
+                    "Fecha de creación": "28 de septiembre, 2024 - 16:45",
+                    "Última modificación": "30 de septiembre, 2024 - 11:20",
+                    "Seguridad": "Protegido contra copia",
+                    "Idioma": "Español",
+                    "Versión PDF": "1.7"
+                },
+                versions: [
+                    { version: "Borrador v1", date: "28 sep 2024", size: "654 KB" },
+                    { version: "Revisión v2", date: "29 sep 2024", size: "780 KB" },
+                    { version: "Final v3", date: "30 sep 2024", size: "890 KB" }
+                ]
+            },
+            audio1: {
+                name: "cancion.mp3",
+                icon: "🎵",
+                size: "4.2 MB",
+                metadata: {
+                    "Tipo de archivo": "MP3 Audio",
+                    "Duración": "3:47 minutos",
+                    "Bitrate": "320 kbps",
+                    "Frecuencia": "44.1 kHz",
+                    "Canales": "Estéreo",
+                    "Artista": "Los Creativos",
+                    "Álbum": "Melodías Digitales",
+                    "Título": "Código y Café",
+                    "Género": "Electrónica",
+                    "Año": "2024",
+                    "Pista": "3 de 12",
+                    "Compositor": "Ana Ruiz, Carlos López",
+                    "Discográfica": "Tech Records",
+                    "Copyright": "© 2024 Tech Records"
+                },
+                versions: [
+                    { version: "Master", date: "05 oct 2024", size: "42 MB" },
+                    { version: "High Quality", date: "05 oct 2024", size: "12 MB" },
+                    { version: "Standard", date: "05 oct 2024", size: "4.2 MB" }
+                ]
+            },
+            data1: {
+                name: "ventas.xlsx",
+                icon: "📊",
+                size: "1.1 MB",
+                metadata: {
+                    "Tipo de archivo": "Excel Spreadsheet",
+                    "Hojas": "5 hojas de cálculo",
+                    "Filas de datos": "2,847 filas",
+                    "Columnas": "15 columnas",
+                    "Autor": "Sistema de Ventas",
+                    "Última modificación": "01 de noviembre, 2024 - 18:30",
+                    "Aplicación": "Microsoft Excel 365",
+                    "Período de datos": "Enero - Octubre 2024",
+                    "Región": "Colombia",
+                    "Moneda": "COP (Pesos Colombianos)",
+                    "Fórmulas": "127 celdas con fórmulas",
+                    "Gráficos": "8 gráficos incluidos",
+                    "Protección": "Hoja protegida con contraseña"
+                },
+                versions: [
+                    { version: "Enero-Marzo", date: "31 mar 2024", size: "340 KB" },
+                    { version: "Enero-Junio", date: "30 jun 2024", size: "680 KB" },
+                    { version: "Enero-Octubre", date: "01 nov 2024", size: "1.1 MB" }
+                ]
+            },
+            web1: {
+                name: "sitio.html",
+                icon: "🌐",
+                size: "45 KB",
+                metadata: {
+                    "Tipo de archivo": "HTML Document",
+                    "Codificación": "UTF-8",
+                    "Título de página": "Mi Portfolio Personal",
+                    "Descripción": "Portfolio de desarrollador web con proyectos y experiencia",
+                    "Palabras clave": "desarrollador, web, javascript, react, portfolio",
+                    "Autor": "Diego Martínez",
+                    "Idioma": "es-CO",
+                    "Viewport": "Responsive, mobile-first",
+                    "Framework CSS": "Bootstrap 5.3",
+                    "Librerías JS": "jQuery 3.6, AOS animations",
+                    "Fecha de creación": "12 de octubre, 2024 - 20:15",
+                    "Última actualización": "15 de octubre, 2024 - 14:22",
+                    "Estado SEO": "Optimizado para motores de búsqueda"
+                },
+                versions: [
+                    { version: "Versión inicial", date: "12 oct 2024", size: "28 KB" },
+                    { version: "Con proyectos", date: "14 oct 2024", size: "38 KB" },
+                    { version: "Optimizada", date: "15 oct 2024", size: "45 KB" }
+                ]
+            }
+        };
+
+        function selectFile(fileKey) {
+            // Remover selección anterior
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // Seleccionar nuevo archivo
+            event.target.closest('.file-item').classList.add('selected');
+            
+            // Guardar archivo seleccionado
+            selectedFile = fileData[fileKey];
+            exploredFiles.add(fileKey);
+
+            // Mostrar metadatos
+            displayMetadata();
+            displayVersionHistory();
+        }
+
+        function displayMetadata() {
+            const metadataDisplay = document.getElementById('metadataDisplay');
+            const file = selectedFile;
+
+            let metadataHtml = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">${file.icon}</div>
+                    <div style="font-weight: 600; color: #8888bb; font-size: 1.1rem;">${file.name}</div>
+                    <div style="color: #8888bb; font-size: 0.9rem;">${file.size}</div>
+                </div>
+            `;
+
+            Object.entries(file.metadata).forEach(([key, value]) => {
+                metadataHtml += `
+                    <div class="metadata-item">
+                        <div class="metadata-key">${key}</div>
+                        <div class="metadata-value">${value}</div>
+                    </div>
+                `;
+            });
+
+            metadataDisplay.innerHTML = metadataHtml;
+        }
+
+        function displayVersionHistory() {
+            const versionHistory = document.getElementById('versionHistory');
+            const versionList = document.getElementById('versionList');
+            const file = selectedFile;
+
+            versionHistory.style.display = 'block';
+
+            let versionsHtml = '';
+            file.versions.forEach((version, index) => {
+                versionsHtml += `
+                    <div class="version-item">
+                        <div class="version-info">
+                            <div class="version-number">v${file.versions.length - index} - ${version.version}</div>
+                            <div class="version-date">${version.date} • ${version.size}</div>
+                        </div>
+                        <div class="version-actions">
+                            <button class="version-btn" onclick="viewVersion(${index})">👁️ Ver</button>
+                            <button class="version-btn" onclick="restoreVersion(${index})">↩️ Restaurar</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            versionList.innerHTML = versionsHtml;
+        }
+
+        function viewVersion(versionIndex) {
+            const version = selectedFile.versions[versionIndex];
+            alert(`👁️ Visualizando: ${version.version}\n\nFecha: ${version.date}\nTamaño: ${version.size}\n\nEn un sistema real, aquí se abriría la versión específica del archivo.`);
+        }
+
+        function restoreVersion(versionIndex) {
+            const version = selectedFile.versions[versionIndex];
+            if (confirm(`¿Seguro que quieres restaurar la versión "${version.version}"?\n\nEsto creará una nueva versión basada en la seleccionada.`)) {
+                alert(`✅ Versión "${version.version}" restaurada exitosamente.\n\nSe ha creado una nueva versión con el contenido de la versión seleccionada.`);
+            }
+        }
+
+        function generateCustomMetadata() {
+            const fileName = document.getElementById('customFileName').value.trim();
+            const author = document.getElementById('customAuthor').value.trim();
+            const description = document.getElementById('customDescription').value.trim();
+            const category = document.getElementById('customCategory').value;
+            const tags = document.getElementById('customTags').value.trim();
+            const privacy = document.getElementById('customPrivacy').value;
+
+            if (!fileName) {
+                alert('Por favor, ingresa un nombre de archivo');
+                return;
+            }
+
+            // Generar metadatos automáticos
+            const now = new Date();
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            const currentDate = now.toLocaleDateString('es-CO', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // Determinar tipo de archivo basado en extensión
+            const fileTypes = {
+                jpg: 'Imagen JPEG',
+                jpeg: 'Imagen JPEG',
+                png: 'Imagen PNG',
+                gif: 'Imagen GIF',
+                pdf: 'Documento PDF',
+                doc: 'Documento Word',
+                docx: 'Documento Word',
+                xls: 'Hoja de cálculo Excel',
+                xlsx: 'Hoja de cálculo Excel',
+                mp4: 'Video MPEG-4',
+                avi: 'Video AVI',
+                mp3: 'Audio MP3',
+                wav: 'Audio WAV',
+                html: 'Documento HTML',
+                css: 'Hoja de estilos CSS',
+                js: 'Archivo JavaScript',
+                txt: 'Documento de texto'
+            };
+
+            const fileType = fileTypes[fileExtension] || 'Archivo desconocido';
+
+            // Crear objeto de metadatos
+            const metadata = {
+                "Nombre del archivo": fileName,
+                "Tipo de archivo": fileType,
+                "Fecha de creación": currentDate,
+                "Autor/Creador": author || "No especificado",
+                "Descripción": description || "Sin descripción",
+                "Categoría": category || "Sin categoría",
+                "Nivel de privacidad": privacy,
+                "Tamaño estimado": getEstimatedSize(fileExtension),
+                "ID único": generateUniqueId(),
+                "Checksum (MD5)": generateFakeChecksum(),
+                "Ubicación": "Colombia, Rionegro",
+                "Sistema operativo": navigator.platform,
+                "Navegador": navigator.userAgent.split(' ')[0]
+            };
+
+            // Agregar etiquetas si existen
+            if (tags) {
+                metadata["Etiquetas"] = tags.split(',').map(tag => tag.trim()).join(', ');
+            }
+
+            // Mostrar metadatos generados
+            displayCustomMetadata(metadata, tags);
+        }
+
+        function displayCustomMetadata(metadata, tags) {
+            const resultDiv = document.getElementById('customMetadataResult');
+            const contentDiv = document.getElementById('customMetadataContent');
+
+            let metadataHtml = '';
+            Object.entries(metadata).forEach(([key, value]) => {
+                metadataHtml += `
+                    <div class="metadata-item">
+                        <div class="metadata-key">${key}</div>
+                        <div class="metadata-value">${value}</div>
+                    </div>
+                `;
+            });
+
+            // Agregar etiquetas visuales si existen
+            if (tags) {
+                const tagArray = tags.split(',').map(tag => tag.trim());
+                metadataHtml += `
+                    <div style="margin-top: 20px;">
+                        <div style="font-weight: 600; margin-bottom: 10px; color: #8888bb;">🏷️ Etiquetas Visuales:</div>
+                        ${tagArray.map(tag => `<span class="metadata-tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+            }
+
+            contentDiv.innerHTML = metadataHtml;
+            resultDiv.style.display = 'block';
+
+            // Scroll hacia el resultado
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getEstimatedSize(extension) {
+            const sizes = {
+                jpg: '2-5 MB', jpeg: '2-5 MB', png: '1-8 MB', gif: '500 KB - 2 MB',
+                pdf: '100 KB - 10 MB', doc: '50-500 KB', docx: '50-500 KB',
+                xls: '100 KB - 5 MB', xlsx: '100 KB - 5 MB',
+                mp4: '10-500 MB', avi: '50-1000 MB',
+                mp3: '3-8 MB', wav: '30-50 MB',
+                html: '5-100 KB', css: '5-50 KB', js: '5-200 KB', txt: '1-50 KB'
+            };
+            return sizes[extension] || '1 KB - 1 GB';
+        }
+
+        function generateUniqueId() {
+            return 'FILE-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        function generateFakeChecksum() {
+            const chars = '0123456789abcdef';
+            let result = '';
+            for (let i = 0; i < 32; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function clearCustomForm() {
+            document.getElementById('customFileName').value = '';
+            document.getElementById('customAuthor').value = '';
+            document.getElementById('customDescription').value = '';
+            document.getElementById('customCategory').selectedIndex = 0;
+            document.getElementById('customTags').value = '';
+            document.getElementById('customPrivacy').selectedIndex = 0;
+            document.getElementById('customMetadataResult').style.display = 'none';
+        }
+
+        function markCompleted() {
+            if (exploredFiles.size < 3) {
+                alert('🎯 Para completar la actividad, explora al menos 3 archivos diferentes y genera metadatos personalizados.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert(`🎉 ¡Felicidades! Has completado "Explorador de Metadatos".\n\n✅ Actividad marcada como completada\n🏆 +100 puntos ganados\n📊 Archivos explorados: ${exploredFiles.size}/6\n\n¡Ahora entiendes el poder de los metadatos!`);
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (exploredFiles.size > 0) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 0 — Cómo Funciona Internet · DiveLearn</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+  <style>
+    /* ── Hub-specific styles ── */
+    .hub-hero {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: clamp(36px,6vw,64px) clamp(20px,5vw,48px);
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .hub-hero::before {
+      content: ''; position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      background: var(--purple); opacity: 0.07; border-radius: 50%;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .hero-chips { justify-content: center; }
+    .mod-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--purple-pale); border: 1px solid var(--border);
+      color: var(--purple-light); padding: 5px 14px; border-radius: 999px;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .hub-hero h1 {
+      font-size: clamp(1.8rem,4vw,3rem); font-weight: 900;
+      color: var(--text); line-height: 1.1; margin-bottom: 0.75rem;
+    }
+    .hub-hero h1 span { color: var(--lime); }
+    .hub-hero p {
+      color: var(--text-muted); font-size: 1rem; line-height: 1.75;
+      max-width: 580px; margin: 0 auto 1.5rem;
+    }
+    .hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-chip {
+      background: var(--surface3); border: 1px solid var(--border);
+      color: var(--text-muted); padding: 6px 14px; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* ── Tabs ── */
+    .tabs-bar {
+      display: flex; border-bottom: 1px solid var(--border);
+      background: var(--surface); position: sticky; top: 52px; z-index: 50;
+    }
+    .tab-btn {
+      padding: 16px 28px; font-family: var(--font); font-weight: 700;
+      font-size: 0.9rem; color: var(--text-muted);
+      background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: var(--transition);
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--purple-light); border-bottom-color: var(--purple); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Theory content ── */
+    .theory-body { max-width: 800px; margin: 0 auto; padding: clamp(24px,4vw,48px) clamp(20px,4vw,40px); }
+
+    .concept-block { margin-bottom: 40px; }
+    .concept-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      font-size: 0.78rem; font-weight: 900;
+      margin-right: 10px; flex-shrink: 0;
+    }
+    .concept-title {
+      font-size: 1.2rem; font-weight: 800; color: var(--text);
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .concept-title-text { display: flex; align-items: center; gap: 8px; }
+    .concept-body { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; }
+    .concept-body strong { color: var(--text); }
+
+    /* ── Journey diagram ── */
+    .journey {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 24px;
+      margin: 20px 0; overflow-x: auto;
+    }
+    .journey-track {
+      display: flex; align-items: stretch; gap: 0;
+      min-width: 600px;
+    }
+    .journey-node {
+      flex: 1; text-align: center;
+      background: var(--surface3); border-radius: var(--radius-sm);
+      padding: 18px 10px; position: relative;
+    }
+    .journey-node + .journey-arrow {
+      display: flex; align-items: center;
+      color: var(--purple-light); font-size: 1rem; padding: 0 6px;
+      flex-shrink: 0;
+    }
+    .journey-arrow { display: flex; align-items: center; color: var(--purple-light); padding: 0 6px; }
+    .j-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .j-label { font-size: 0.75rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .j-time { font-size: 0.68rem; color: var(--lime); font-weight: 700; }
+
+    /* ── URL anatomy ── */
+    .url-display {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 16px 20px;
+      font-family: var(--font-mono); font-size: 0.9rem;
+      display: flex; flex-wrap: wrap; gap: 0;
+      margin: 16px 0; overflow-x: auto;
+    }
+    .url-part { padding: 4px 0; white-space: nowrap; cursor: default; transition: var(--transition); }
+    .url-part:hover .url-tooltip { opacity: 1; transform: translateY(0); }
+    .p-proto  { color: #e0f24a; }
+    .p-domain { color: #7b7aff; }
+    .p-port   { color: #f59e0b; }
+    .p-path   { color: #22c55e; }
+    .p-params { color: #f472b6; }
+    .p-anchor { color: #60a5fa; }
+
+    .url-legend {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px; margin: 16px 0;
+    }
+    .legend-item {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-xs); padding: 10px 14px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+    .legend-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+    .legend-text strong { color: var(--text); display: block; font-size: 0.85rem; }
+
+    /* ── Ecosystem map ── */
+    .eco-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;
+      margin: 16px 0;
+    }
+    .eco-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 16px;
+    }
+    .eco-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .eco-name { font-size: 0.85rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .eco-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+    .eco-tech { font-size: 0.72rem; color: var(--purple-light); font-weight: 700; margin-top: 6px; }
+
+    /* ── Key insight box ── */
+    .insight {
+      background: var(--purple-pale); border: 1px solid var(--border);
+      border-left: 4px solid var(--purple);
+      border-radius: var(--radius-sm); padding: 18px 20px; margin: 16px 0;
+      font-size: 0.9rem; color: var(--text); line-height: 1.7;
+    }
+    .insight strong { color: var(--purple-light); }
+
+    /* ── Activities tab ── */
+    .activities-body { max-width: 960px; margin: 0 auto; padding: clamp(24px,4vw,48px) clamp(20px,4vw,40px); }
+    .act-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem; max-width: 900px;
+    }
+    .act-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem;
+      text-decoration: none; color: var(--text);
+      transition: var(--transition); display: block;
+      position: relative; overflow: hidden;
+    }
+    .act-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--purple); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.3s ease;
+    }
+    .act-card:hover { border-color: var(--border-hover); box-shadow: var(--glow-purple); transform: translateY(-3px); }
+    .act-card:hover::before { transform: scaleX(1); }
+    .act-card.quiz::before { background: var(--lime); }
+    .act-card.quiz { border-color: rgba(224,242,74,0.2); }
+    .act-card.quiz:hover { box-shadow: var(--glow-lime); }
+
+    .act-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--purple-pale); border: 1px solid var(--border);
+      color: var(--purple-light); padding: 4px 12px; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .act-card.quiz .act-badge { background: var(--lime-pale); color: #c5d63e; border-color: rgba(224,242,74,0.25); }
+    .act-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .act-title { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem; }
+    .act-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .act-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .act-chip {
+      background: var(--surface3); border: 1px solid var(--border);
+      color: var(--text-muted); padding: 5px 12px; border-radius: 999px;
+      font-size: 0.77rem; font-weight: 600;
+    }
+    .act-cta {
+      margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+      color: var(--purple-light); font-size: 0.82rem; font-weight: 700;
+    }
+    .act-card.quiz .act-cta { color: var(--lime); }
+
+    @media (max-width: 600px) {
+      .tabs-bar { top: 48px; }
+      .tab-btn { padding: 14px 18px; font-size: 0.82rem; }
+      .journey-track { min-width: 480px; }
+      .url-display { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="dl-nav">
+  <a href="/">
+    <img class="dl-nav-logo" src="/img/logo-divelearn-morado.png" alt="DiveLearn">
+  </a>
+  <div class="dl-nav-divider"></div>
+  <a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>
+  <div style="flex:1"></div>
+  <span style="font-size:0.78rem;font-weight:700;color:var(--text-muted);">Módulo 0</span>
+</nav>
+
+<!-- HERO -->
+<div class="hub-hero">
+  <div class="hero-inner">
+    <div class="mod-eyebrow">⚡ Módulo 0 · Fundamentos</div>
+    <h1>Cómo funciona<br><span>Internet</span></h1>
+    <p>
+      Antes de hablar de nube, servidores o AWS — necesitas entender qué pasa
+      cuando alguien escribe una URL en el navegador. Este módulo te da ese modelo mental.
+    </p>
+    <div class="hero-chips">
+      <span class="hero-chip">⏱ ~45 min</span>
+      <span class="hero-chip">🎯 2 actividades</span>
+      <span class="hero-chip">🎮 Quiz final</span>
+      <span class="hero-chip">⚡ 100 XP</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="switchTab('teoria', this)">📖 Teoría</button>
+  <button class="tab-btn" onclick="switchTab('actividades', this)">⚡ Actividades</button>
+</div>
+
+<!-- ── TAB: TEORÍA ────────────────────────────────────────────────── -->
+<div id="teoria" class="tab-panel active">
+  <div class="theory-body">
+
+    <!-- 0.1 Por qué importan los fundamentos -->
+    <div class="concept-block">
+      <div class="concept-title">
+        <span class="concept-num">1</span>
+        <span class="concept-title-text">¿Por qué necesitas esto antes de AWS?</span>
+      </div>
+      <div class="concept-body">
+        <p>AWS, Azure, Google Cloud — todos son servicios que corren sobre infraestructura de internet.
+        Si no entiendes cómo funciona internet, usar la nube se convierte en copiar comandos sin entender qué hacen.</p>
+        <br>
+        <p>Con este módulo vas a construir el modelo mental que te falta: qué pasa entre que escribes <code>google.com</code>
+        y aparece la página. Ese proceso de milisegundos es la base de todo lo que viene.</p>
+      </div>
+      <div class="insight">
+        <strong>Dato clave:</strong> Cuando despliegas una app en AWS, tú eres el "servidor web" del diagrama de abajo.
+        Entender el journey completo te ayuda a debuggear problemas reales.
+      </div>
+    </div>
+
+    <!-- 0.2 El journey -->
+    <div class="concept-block">
+      <div class="concept-title">
+        <span class="concept-num">2</span>
+        <span class="concept-title-text">El viaje de una petición web</span>
+      </div>
+      <div class="concept-body">
+        <p>Escribes <code>https://github.com</code> y presionas Enter. En los siguientes <strong>~200ms</strong> pasan 5 cosas en orden:</p>
+      </div>
+
+      <div class="journey">
+        <div class="journey-track">
+          <div class="journey-node">
+            <div class="j-icon">💻</div>
+            <div class="j-label">Tu navegador</div>
+            <div class="j-time">~1ms</div>
+          </div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-node">
+            <div class="j-icon">📖</div>
+            <div class="j-label">DNS lookup</div>
+            <div class="j-time">20–100ms</div>
+          </div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-node">
+            <div class="j-icon">🤝</div>
+            <div class="j-label">TCP handshake</div>
+            <div class="j-time">30–80ms</div>
+          </div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-node">
+            <div class="j-icon">☁️</div>
+            <div class="j-label">Servidor responde</div>
+            <div class="j-time">50–200ms</div>
+          </div>
+          <div class="journey-arrow">→</div>
+          <div class="journey-node">
+            <div class="j-icon">🖥️</div>
+            <div class="j-label">Navegador renderiza</div>
+            <div class="j-time">10–50ms</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept-body">
+        <strong>1. Tu navegador</strong> — Primero revisa si ya conoce la IP de github.com (caché local). Si no, pregunta al DNS.<br><br>
+        <strong>2. DNS lookup</strong> — El DNS es la "guía telefónica de internet". Traduce <code>github.com</code> → <code>140.82.121.4</code> (una IP real).<br><br>
+        <strong>3. TCP handshake</strong> — Tu navegador y el servidor "se saludan" para establecer una conexión segura (SYN → SYN-ACK → ACK). Con HTTPS hay un paso adicional de cifrado (TLS).<br><br>
+        <strong>4. Servidor responde</strong> — El servidor recibe tu petición HTTP GET, procesa, y devuelve el HTML/CSS/JS.<br><br>
+        <strong>5. Navegador renderiza</strong> — El navegador convierte el código recibido en la página visual que ves.
+      </div>
+      <div class="insight">
+        <strong>¿Dónde entra AWS?</strong> GitHub corre sus servidores en la nube. Cuando llegas al paso 4, estás hablando con una instancia EC2, una función Lambda, o un contenedor corriendo en algún datacenter de Amazon.
+      </div>
+    </div>
+
+    <!-- 0.3 URL anatomy -->
+    <div class="concept-block">
+      <div class="concept-title">
+        <span class="concept-num">3</span>
+        <span class="concept-title-text">Anatomía de una URL</span>
+      </div>
+      <div class="concept-body">
+        <p>Una URL no es solo un "link". Cada parte tiene una función específica. Analicemos esta:</p>
+      </div>
+
+      <div class="url-display">
+        <span class="url-part p-proto">https://</span><span class="url-part p-domain">tienda.ejemplo.com</span><span class="url-part p-port">:443</span><span class="url-part p-path">/productos/laptops</span><span class="url-part p-params">?marca=dell&precio=max</span><span class="url-part p-anchor">#resultados</span>
+      </div>
+
+      <div class="url-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#e0f24a"></div>
+          <div class="legend-text"><strong>https://</strong> Protocolo — define cómo se comunican. HTTP = sin cifrar, HTTPS = con TLS cifrado.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#7b7aff"></div>
+          <div class="legend-text"><strong>tienda.ejemplo.com</strong> Dominio — nombre del sitio. El DNS lo convierte a una IP.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f59e0b"></div>
+          <div class="legend-text"><strong>:443</strong> Puerto — "puerta" de entrada. 443 = HTTPS por defecto (no suele verse). 80 = HTTP.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#22c55e"></div>
+          <div class="legend-text"><strong>/productos/laptops</strong> Ruta — qué recurso específico pides dentro del servidor.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f472b6"></div>
+          <div class="legend-text"><strong>?marca=dell&precio=max</strong> Parámetros — filtros o datos extra enviados al servidor.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#60a5fa"></div>
+          <div class="legend-text"><strong>#resultados</strong> Fragmento — sección dentro de la página. El servidor no lo procesa, es solo para el navegador.</div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <strong>Tip práctico:</strong> En AWS, cuando configuras un Application Load Balancer, defines reglas basadas en la <span style="color:var(--lime)">ruta</span> (<code>/api/*</code> → backend, <code>/static/*</code> → S3). Entender URLs te permite configurar esto correctamente.
+      </div>
+    </div>
+
+    <!-- 0.4 Ecosistema -->
+    <div class="concept-block">
+      <div class="concept-title">
+        <span class="concept-num">4</span>
+        <span class="concept-title-text">El ecosistema digital: cómo se conecta todo</span>
+      </div>
+      <div class="concept-body">
+        <p>Cada tecnología en el stack tiene su rol. En el curso vas a tocar casi todas estas capas:</p>
+      </div>
+      <div class="eco-grid">
+        <div class="eco-card">
+          <div class="eco-icon">🏢</div>
+          <div class="eco-name">Frontend</div>
+          <div class="eco-desc">Lo que el usuario ve en el navegador.</div>
+          <div class="eco-tech">HTML · CSS · JavaScript</div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-icon">⚙️</div>
+          <div class="eco-name">Backend</div>
+          <div class="eco-desc">Lógica y datos. Procesa tus peticiones.</div>
+          <div class="eco-tech">APIs · Bases de datos · Servidores</div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-icon">🛣️</div>
+          <div class="eco-name">Redes</div>
+          <div class="eco-desc">Las carreteras que conectan todo.</div>
+          <div class="eco-tech">TCP/IP · DNS · HTTP · VPC</div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-icon">🔒</div>
+          <div class="eco-name">Seguridad</div>
+          <div class="eco-desc">Protege datos y accesos.</div>
+          <div class="eco-tech">TLS · Firewall · IAM · VPN</div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-icon">☁️</div>
+          <div class="eco-name">Cloud</div>
+          <div class="eco-desc">Infraestructura como servicio.</div>
+          <div class="eco-tech">EC2 · S3 · Lambda · RDS</div>
+        </div>
+      </div>
+      <div class="insight">
+        <strong>La conexión:</strong> Cuando en este curso veamos VPC (red virtual privada en AWS), estarás configurando las "carreteras" del diagrama de arriba, pero en la nube. El módulo de redes (Módulo 1) profundiza exactamente en eso.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── TAB: ACTIVIDADES ───────────────────────────────────────────── -->
+<div id="actividades" class="tab-panel">
+  <div class="activities-body">
+    <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.75rem;max-width:600px;">
+      Haz las actividades en orden — cada una construye sobre la anterior. El quiz al final cubre los 3 temas.
+    </p>
+    <div class="act-grid">
+
+      <a href="./actividad1_detective.html" class="act-card">
+        <div class="act-badge">Actividad 1 · 20 min</div>
+        <span class="act-icon">🕵️</span>
+        <div class="act-title">Detective de Requests</div>
+        <div class="act-desc">
+          Usa <code>fetch()</code> real para rastrear peticiones HTTP. Verás headers, status codes,
+          tiempos de respuesta y la diferencia entre HTTP y HTTPS — con datos reales, no simulados.
+        </div>
+        <div class="act-meta">
+          <span class="act-chip">🔬 fetch() real</span>
+          <span class="act-chip">📊 Headers HTTP</span>
+          <span class="act-cta">Empezar →</span>
+        </div>
+      </a>
+
+      <a href="./actividad2_laboratorio.html" class="act-card">
+        <div class="act-badge">Actividad 2 · 20 min</div>
+        <span class="act-icon">🧬</span>
+        <div class="act-title">Laboratorio de URLs</div>
+        <div class="act-desc">
+          Disecciona y construye URLs complejas. Drag & drop para identificar cada componente,
+          más un reto donde tú armas la URL correcta desde requerimientos.
+        </div>
+        <div class="act-meta">
+          <span class="act-chip">🎯 Drag & drop</span>
+          <span class="act-chip">🏗️ Construye URLs</span>
+          <span class="act-cta">Empezar →</span>
+        </div>
+      </a>
+
+      <a href="./quiz_modulo0.html" class="act-card quiz">
+        <div class="act-badge">Quiz final · 10 min</div>
+        <span class="act-icon">🎮</span>
+        <div class="act-title">Quiz Módulo 0</div>
+        <div class="act-desc">
+          8 preguntas cubriendo el journey de una petición, anatomía de URLs y el ecosistema digital.
+          Necesitas 6/8 para ganar el badge y los 100 XP.
+        </div>
+        <div class="act-meta">
+          <span class="act-chip">🏅 Badge</span>
+          <span class="act-chip">⚡ 100 XP</span>
+          <span class="act-cta" style="color:var(--lime)">Empezar →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">⚡ DiveLearn · Módulo 0</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 - Simulador de TTL y Caché</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .simulator-container {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #FF9800;
+        }
+
+        .control-panel {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .control-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #FF9800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .simulation-area {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 300px;
+        }
+
+        .cache-visualization {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .cache-entry {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .cache-entry.fresh {
+            border-color: #22C55E;
+            background: var(--surface2);
+        }
+
+        .cache-entry.stale {
+            border-color: #F59E0B;
+            background: var(--surface2);
+        }
+
+        .cache-entry.expired {
+            border-color: #EF4444;
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        }
+
+        .cache-domain {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .cache-ip {
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .cache-ttl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .ttl-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--surface2);
+            border-radius: 3px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .ttl-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .ttl-fill.fresh {
+            background: #22C55E;
+        }
+
+        .ttl-fill.stale {
+            background: #F59E0B;
+        }
+
+        .ttl-fill.expired {
+            background: #EF4444;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .action-btn {
+            background: #FF9800;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #F57C00;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: #6c757d;
+        }
+
+        .action-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .action-btn.danger {
+            background: #EF4444;
+        }
+
+        .action-btn.danger:hover {
+            background: #EF4444;
+        }
+
+        .timeline {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #FF9800;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .timeline-entry {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+
+        .timeline-entry:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-time {
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .timeline-action {
+            color: var(--text);
+        }
+
+        .stats-panel {
+            background: #e8f5e8;
+            border: 2px solid var(--purple);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .stats-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #22C55E;
+        }
+        @media (max-width: 768px) {            .control-group {
+                grid-template-columns: 1fr;
+            }
+
+            .cache-visualization {
+                grid-template-columns: 1fr;
+            }
+
+            
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 3</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 3</a> / Actividad 3
+            </div>
+            <h1 class="activity-title">⏰ Simulador de TTL y Caché</h1>
+            <p class="activity-subtitle">Comprende cómo funciona el sistema de caché DNS y el impacto del TTL</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 120</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad experimentarás con el comportamiento del caché DNS y los valores TTL. Verás cómo diferentes configuraciones afectan la velocidad de respuesta y la frecuencia de consultas DNS.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔧 Simulador de Caché DNS</h2>
+                
+                <div class="simulator-container">
+                    <div class="control-panel">
+                        <div class="control-title">⚙️ Panel de Control</div>
+                        
+                        <div class="control-group">
+                            <div class="input-group">
+                                <label class="input-label" for="domainInput">Dominio a consultar:</label>
+                                <input type="text" id="domainInput" class="input-field" placeholder="ejemplo.com" value="google.com">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="ttlInput">TTL (segundos):</label>
+                                <input type="number" id="ttlInput" class="input-field" placeholder="300" value="300" min="30" max="86400">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="speedInput">Velocidad de tiempo:</label>
+                                <select id="speedInput" class="input-field">
+                                    <option value="1">Tiempo real (1x)</option>
+                                    <option value="10" selected>Rápido (10x)</option>
+                                    <option value="30">Muy rápido (30x)</option>
+                                    <option value="60">Ultra rápido (60x)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="queryDomain()">🔍 Consultar DNS</button>
+                            <button class="action-btn secondary" onclick="startSimulation()">▶️ Iniciar Simulación</button>
+                            <button class="action-btn secondary" onclick="pauseSimulation()">⏸️ Pausar</button>
+                            <button class="action-btn danger" onclick="clearCache()">🗑️ Limpiar Caché</button>
+                        </div>
+                    </div>
+
+                    <div class="simulation-area">
+                        <h3 style="margin-bottom: 15px; color: #8888bb;">📦 Estado del Caché DNS</h3>
+                        <div class="cache-visualization" id="cacheVisualization">
+                            <div style="grid-column: 1/-1; text-align: center; color: #8888bb; padding: 40px;">
+                                El caché está vacío. Haz una consulta DNS para comenzar.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-title">📜 Registro de Actividad</div>
+                        <div id="timelineEntries">
+                            <div style="color: #8888bb; font-style: italic;">No hay actividad registrada aún...</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-panel">
+                        <div class="stats-title">📊 Estadísticas de la Simulación</div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number" id="totalQueries">0</div>
+                                <div class="stat-label">Consultas Totales</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="cacheHits">0</div>
+                                <div class="stat-label">Cache Hits</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="cacheMisses">0</div>
+                                <div class="stat-label">Cache Misses</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="hitRate">0%</div>
+                                <div class="stat-label">Tasa de Acierto</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips sobre TTL y Caché
+                </h3>
+                <div class="tip-item">
+                    <strong>⏰ TTL Bajo (30-300s):</strong> Cambios rápidos en DNS, pero más tráfico y consultas frecuentes.
+                </div>
+                <div class="tip-item">
+                    <strong>⏰ TTL Alto (3600-86400s):</strong> Menos tráfico DNS, pero los cambios tardan más en propagarse.
+                </div>
+                <div class="tip-item">
+                    <strong>🎯 Cache Hit:</strong> Cuando la respuesta está disponible en caché (rápido, no requiere consulta externa).
+                </div>
+                <div class="tip-item">
+                    <strong>❌ Cache Miss:</strong> Cuando hay que consultar al servidor autoritativo (lento, requiere red).
+                </div>
+                <div class="tip-item">
+                    <strong>🔄 Propagación:</strong> Tiempo que tarda un cambio DNS en ser visible globalmente.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let cache = new Map();
+        let timelineData = [];
+        let simulationTime = 0;
+        let simulationInterval = null;
+        let isRunning = false;
+        let isCompleted = false;
+        let stats = {
+            totalQueries: 0,
+            cacheHits: 0,
+            cacheMisses: 0
+        };
+
+        const domains = {
+            'google.com': '172.217.14.238',
+            'facebook.com': '157.240.25.35',
+            'github.com': '140.82.112.3',
+            'stackoverflow.com': '151.101.1.69',
+            'wikipedia.org': '198.35.26.96',
+            'example.com': '93.184.216.34',
+            'cloudflare.com': '104.16.132.229',
+            'amazon.com': '176.32.103.205'
+        };
+
+        function queryDomain() {
+            const domain = document.getElementById('domainInput').value.trim().toLowerCase();
+            const ttl = parseInt(document.getElementById('ttlInput').value) || 300;
+
+            if (!domain) {
+                alert('Por favor ingresa un dominio para consultar');
+                return;
+            }
+
+            stats.totalQueries++;
+            
+            // Verificar si está en caché
+            if (cache.has(domain)) {
+                const entry = cache.get(domain);
+                if (simulationTime < entry.expireTime) {
+                    // Cache hit
+                    stats.cacheHits++;
+                    addTimelineEntry(`Cache HIT para ${domain} (TTL restante: ${Math.ceil((entry.expireTime - simulationTime) / 1000)}s)`, 'success');
+                } else {
+                    // Cache miss (expirado)
+                    stats.cacheMisses++;
+                    addTimelineEntry(`Cache MISS para ${domain} (entrada expirada)`, 'warning');
+                    performDNSQuery(domain, ttl);
+                }
+            } else {
+                // Cache miss (no existe)
+                stats.cacheMisses++;
+                addTimelineEntry(`Cache MISS para ${domain} (primera consulta)`, 'warning');
+                performDNSQuery(domain, ttl);
+            }
+
+            updateStats();
+            updateCacheVisualization();
+        }
+
+        function performDNSQuery(domain, ttl) {
+            // Simular tiempo de consulta DNS
+            setTimeout(() => {
+                const ip = domains[domain] || generateRandomIP();
+                const expireTime = simulationTime + (ttl * 1000);
+                
+                cache.set(domain, {
+                    ip: ip,
+                    ttl: ttl,
+                    timestamp: simulationTime,
+                    expireTime: expireTime
+                });
+
+                addTimelineEntry(`DNS Query exitosa: ${domain} → ${ip} (TTL: ${ttl}s)`, 'info');
+                updateCacheVisualization();
+                
+                // Completar actividad si ha experimentado con diferentes TTL
+                if (stats.totalQueries >= 5 && !isCompleted) {
+                    completeActivity();
+                }
+            }, 500);
+        }
+
+        function generateRandomIP() {
+            return `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+        }
+
+        function startSimulation() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            const speed = parseInt(document.getElementById('speedInput').value) || 10;
+            
+            simulationInterval = setInterval(() => {
+                simulationTime += 100 * speed; // Incrementar tiempo simulado
+                updateCacheVisualization();
+            }, 100);
+
+            addTimelineEntry('⏯️ Simulación iniciada', 'info');
+        }
+
+        function pauseSimulation() {
+            if (!isRunning) return;
+            
+            isRunning = false;
+            clearInterval(simulationInterval);
+            addTimelineEntry('⏸️ Simulación pausada', 'info');
+        }
+
+        function clearCache() {
+            cache.clear();
+            addTimelineEntry('🗑️ Caché limpiado completamente', 'warning');
+            updateCacheVisualization();
+        }
+
+        function updateCacheVisualization() {
+            const container = document.getElementById('cacheVisualization');
+            
+            if (cache.size === 0) {
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #8888bb; padding: 40px;">El caché está vacío. Haz una consulta DNS para comenzar.</div>';
+                return;
+            }
+
+            let html = '';
+            cache.forEach((entry, domain) => {
+                const timeLeft = Math.max(0, entry.expireTime - simulationTime);
+                const percentLeft = (timeLeft / (entry.ttl * 1000)) * 100;
+                
+                let status = 'fresh';
+                if (timeLeft <= 0) {
+                    status = 'expired';
+                } else if (percentLeft < 30) {
+                    status = 'stale';
+                }
+
+                html += `
+                    <div class="cache-entry ${status}">
+                        <div class="cache-domain">${domain}</div>
+                        <div class="cache-ip">${entry.ip}</div>
+                        <div class="ttl-bar">
+                            <div class="ttl-fill ${status}" style="width: ${Math.max(0, percentLeft)}%"></div>
+                        </div>
+                        <div class="cache-ttl">
+                            TTL: ${Math.ceil(timeLeft / 1000)}s / ${entry.ttl}s
+                            ${status === 'expired' ? ' (EXPIRADO)' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function addTimelineEntry(message, type = 'info') {
+            const timestamp = new Date(Date.now() + simulationTime).toLocaleTimeString();
+            timelineData.unshift({ time: timestamp, message, type });
+            
+            // Mantener solo las últimas 10 entradas
+            if (timelineData.length > 10) {
+                timelineData = timelineData.slice(0, 10);
+            }
+
+            updateTimeline();
+        }
+
+        function updateTimeline() {
+            const container = document.getElementById('timelineEntries');
+            
+            if (timelineData.length === 0) {
+                container.innerHTML = '<div style="color: #8888bb; font-style: italic;">No hay actividad registrada aún...</div>';
+                return;
+            }
+
+            let html = '';
+            timelineData.forEach(entry => {
+                html += `
+                    <div class="timeline-entry">
+                        <span class="timeline-time">${entry.time}</span>
+                        <span class="timeline-action">${entry.message}</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function updateStats() {
+            document.getElementById('totalQueries').textContent = stats.totalQueries;
+            document.getElementById('cacheHits').textContent = stats.cacheHits;
+            document.getElementById('cacheMisses').textContent = stats.cacheMisses;
+            
+            const hitRate = stats.totalQueries > 0 ? Math.round((stats.cacheHits / stats.totalQueries) * 100) : 0;
+            document.getElementById('hitRate').textContent = hitRate + '%';
+        }
+
+        function completeActivity() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            setTimeout(() => {
+                alert('🎉 ¡Excelente! Has experimentado con el comportamiento del caché DNS y TTL.\n\n✅ Actividad completada automáticamente\n🏆 +120 puntos ganados');
+            }, 1000);
+        }
+
+        function markCompleted() {
+            if (!isCompleted) {
+                completeActivity();
+            } else {
+                alert('🎉 ¡Felicidades! Has completado la actividad "Simulador de TTL y Caché".\n\n✅ Actividad marcada como completada\n🏆 +120 puntos ganados\n\n¡Ahora entiendes cómo funciona el caché DNS!');
+            }
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                pauseSimulation();
+                window.location.href = './';
+            }
+        }
+
+        // Precargar algunos dominios comunes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar ejemplos predefinidos
+            const exampleDomains = ['google.com', 'facebook.com'];
+            exampleDomains.forEach((domain, index) => {
+                setTimeout(() => {
+                    document.getElementById('domainInput').value = domain;
+                    document.getElementById('ttlInput').value = 300 + (index * 300);
+                    queryDomain();
+                }, index * 1000);
+            });
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 7 - Dónde Guardar las Cosas (Almacenamiento y Datos)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        .navigation-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .module-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            
+        }
+
+        .module-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        
+
+        
+
+        
+
+        .tabs {
+            display: flex;
+            background: var(--surface);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .tab.active {
+            background: var(--surface);
+            color: var(--purple);
+            border-bottom-color: var(--purple);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--surface2);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            min-height: 400px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .teoria-section {
+            margin-bottom: 40px;
+        }
+
+        .teoria-title {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .teoria-subsection {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subsection-content {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1B5E20;
+        }
+
+        .example-box {
+            background: var(--surface2);
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .objetivos-container {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .objetivos-title {
+            font-size: 1.4rem;
+            color: #1565C0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objetivo-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .submodulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .actividad-card {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .actividad-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .actividad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border-color: var(--purple);
+        }
+
+        .actividad-card:hover::before {
+            left: 100%;
+        }
+
+        .actividad-numero {
+            display: inline-block;
+            background: var(--purple);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .actividad-titulo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .actividad-descripcion {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .actividad-duracion {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--purple);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .quiz-card {
+            background: var(--bg);
+            color: white;
+        }
+
+        .quiz-card .actividad-numero {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .quiz-card .actividad-titulo {
+            color: white;
+        }
+
+        .quiz-card .actividad-descripcion {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .quiz-card .actividad-duracion {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        
+
+        
+
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        
+        @media (max-width: 768px) {
+            
+
+            
+
+            .navigation-back {
+                position: relative;
+                margin-bottom: 20px;
+                text-align: left;
+            }
+
+            .module-title {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .submodulos-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .back-btn {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="navigation-back">
+                <a href="/bootcamp/" class="back-btn">
+                    ← Hub del Bootcamp
+                </a>
+            </div>
+            
+            <h1 class="module-title">🗃️ Módulo 7</h1>
+            <p class="module-subtitle">Dónde Guardar las Cosas (Almacenamiento y Datos)</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('teoria')">
+                    📚 Teoría
+                </div>
+                <div class="tab" onclick="showTab('submodulos')">
+                    🎯 Submódulos
+                </div>
+            </div>
+
+            <div id="teoria" class="tab-content active">
+                <div class="objetivos-container">
+                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <div class="objetivo-item">
+                        <strong>🗄️ Al finalizar este módulo podrás:</strong> Comprender los diferentes tipos de almacenamiento de datos y cuándo usar cada uno según las necesidades del proyecto.
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>🔍 Dominar:</strong> Bases de datos relacionales, NoSQL, almacenamiento de objetos, sistemas de archivos y sus casos de uso específicos.
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>⚡ Aplicar:</strong> Criterios técnicos para seleccionar la solución de almacenamiento más adecuada para cada escenario.
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">📊 7.1 Bases de Datos Relacionales</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Tablas, Filas y Columnas</h3>
+                        <div class="subsection-content">
+                            Las bases de datos relacionales funcionan como <span class="highlight">hojas de cálculo muy avanzadas</span>. Imagina Excel, pero con súper poderes: puedes relacionar información entre diferentes hojas, hacer búsquedas complejas y garantizar que los datos siempre estén correctos.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🏢 Ejemplo práctico:</div>
+                            Una empresa tiene una tabla de "Empleados" (con nombre, cargo, salario) y otra de "Departamentos" (con nombre del departamento, presupuesto). Puedes relacionarlas para saber cuánto gasta cada departamento en salarios.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">SQL: El Lenguaje de las Consultas</h3>
+                        <div class="subsection-content">
+                            <span class="highlight">SQL (Structured Query Language)</span> es como preguntarle cosas a tu base de datos en un idioma que ella entiende. Es sorprendentemente parecido al inglés: "SELECT nombre FROM empleados WHERE salario > 50000" significa "dime los nombres de empleados que ganan más de 50,000".
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">ACID: Las Reglas de Oro</h3>
+                        <div class="subsection-content">
+                            ACID son las reglas que garantizan que tus datos estén siempre correctos: <span class="highlight">Atomicidad</span> (todo o nada), <span class="highlight">Consistencia</span> (siempre válidos), <span class="highlight">Aislamiento</span> (sin interferencias) y <span class="highlight">Durabilidad</span> (permanentes una vez guardados).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🌐 7.2 Bases de Datos NoSQL</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Cuando las Tablas no son Suficientes</h3>
+                        <div class="subsection-content">
+                            A veces los datos no encajan bien en tablas. ¿Qué pasa si quieres guardar posts de redes sociales con comentarios anidados, o relaciones complejas entre personas? Ahí entran las bases de datos <span class="highlight">NoSQL</span> (Not Only SQL).
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">📱 Ejemplo práctico:</div>
+                            Instagram usa bases de datos NoSQL para manejar millones de fotos, cada una con metadata diferente (ubicación, filtros, etiquetas). No todas las fotos tienen la misma información, algo imposible de manejar eficientemente en tablas tradicionales.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Tipos de NoSQL</h3>
+                        <div class="subsection-content">
+                            Existen cuatro tipos principales: <span class="highlight">Documentos</span> (como MongoDB, para datos complejos), <span class="highlight">Clave-Valor</span> (como Redis, súper rápido), <span class="highlight">Columnar</span> (como Cassandra, para análisis masivos) y <span class="highlight">Grafos</span> (como Neo4j, para relaciones complejas).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">☁️ 7.3 Almacenamiento de Objetos</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Archivos como Ciudadanos de Primera Clase</h3>
+                        <div class="subsection-content">
+                            El almacenamiento de objetos trata cada archivo como un <span class="highlight">objeto independiente</span> con su propia información (metadatos). Es como tener una biblioteca infinita donde cada libro tiene una ficha técnica completa y una dirección única.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🎬 Ejemplo práctico:</div>
+                            Netflix almacena películas como objetos. Cada película tiene metadatos (resolución, idioma, subtítulos) y varias versiones (4K, HD, móvil). El sistema puede servir automáticamente la versión correcta según tu dispositivo.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Versionado y Metadatos</h3>
+                        <div class="subsection-content">
+                            Los sistemas de objetos pueden mantener <span class="highlight">múltiples versiones</span> del mismo archivo y almacenar información rica sobre cada objeto: cuándo se creó, quién lo modificó, qué tipo de contenido es, etc.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">⚡ 7.4 Almacenamiento en Bloques</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Discos Duros Virtuales</h3>
+                        <div class="subsection-content">
+                            El almacenamiento en bloques funciona como <span class="highlight">discos duros que puedes conectar por internet</span>. Son extremadamente rápidos porque el sistema operativo los ve como discos locales, pero están en la nube.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🏎️ Ejemplo práctico:</div>
+                            Una base de datos que necesita velocidad extrema (como las de un banco) usa almacenamiento en bloques. Cada transacción se guarda instantáneamente, sin esperas.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">📁 7.5 Sistemas de Archivos</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">La Organización Tradicional</h3>
+                        <div class="subsection-content">
+                            Los sistemas de archivos organizan información en <span class="highlight">carpetas y subcarpetas</span>, como siempre hemos hecho. Son perfectos cuando múltiples aplicaciones necesitan compartir archivos o cuando quieres una estructura jerárquica clara.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🎨 Ejemplo práctico:</div>
+                            Un estudio de diseño usa sistemas de archivos compartidos donde todos pueden acceder a las carpetas de proyectos, con subcarpetas para "Borradores", "Finales", "Recursos", etc.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="submodulos" class="tab-content">
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                
+                <div class="submodulos-grid">
+                    <a href="./actividad1_constructor_bd.html" class="actividad-card">
+                        <div class="actividad-numero">1</div>
+                        <h3 class="actividad-titulo">🗂️ Constructor de Base de Datos Simple</h3>
+                        <p class="actividad-descripcion">Diseña una base de datos relacional paso a paso, creando tablas, definiendo relaciones y escribiendo consultas SQL básicas.</p>
+                        <span class="actividad-duracion">⏱️ 35 min</span>
+                    </a>
+
+                    <a href="./actividad2_comparador.html" class="actividad-card">
+                        <div class="actividad-numero">2</div>
+                        <h3 class="actividad-titulo">📊 Comparador de Tipos de Almacenamiento</h3>
+                        <p class="actividad-descripcion">Analiza diferentes escenarios y elige el tipo de almacenamiento más adecuado: relacional, NoSQL, objetos o archivos.</p>
+                        <span class="actividad-duracion">⏱️ 25 min</span>
+                    </a>
+
+                    <a href="./actividad3_explorador_metadatos.html" class="actividad-card">
+                        <div class="actividad-numero">3</div>
+                        <h3 class="actividad-titulo">🔍 Explorador de Metadatos</h3>
+                        <p class="actividad-descripcion">Experimenta con metadatos de archivos y objetos, entendiendo cómo la información adicional mejora la gestión de datos.</p>
+                        <span class="actividad-duracion">⏱️ 20 min</span>
+                    </a>
+
+                    <a href="./actividad4_calculadora.html" class="actividad-card">
+                        <div class="actividad-numero">4</div>
+                        <h3 class="actividad-titulo">📈 Calculadora de Rendimiento vs Costo</h3>
+                        <p class="actividad-descripcion">Evalúa el balance entre rendimiento, capacidad y costo para diferentes soluciones de almacenamiento.</p>
+                        <span class="actividad-duracion">⏱️ 30 min</span>
+                    </a>
+
+                    <a href="./quiz_modulo7.html" class="actividad-card quiz-card">
+                        <div class="actividad-numero">Q</div>
+                        <h3 class="actividad-titulo">Quiz del Módulo</h3>
+                        <p class="actividad-descripcion">Evalúa tus conocimientos sobre almacenamiento y bases de datos con 5 preguntas progresivas.</p>
+                        <span class="actividad-duracion">⏱️ 10 min</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remover clase active de todos los tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el tab correspondiente
+            event.target.classList.add('active');
+
+            // Actualizar barra de progreso (simulado)
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const randomProgress = Math.floor(Math.random() * 60) + 20; // 20-80%
+            progressBar.style.width = randomProgress + '%';
+        }
+
+        // Inicializar progreso al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+
+</body>
+</html>

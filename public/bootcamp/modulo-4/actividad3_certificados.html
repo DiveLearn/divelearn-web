@@ -1,0 +1,849 @@
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 - Inspector de Certificados SSL</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .cert-inspector {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #17a2b8;
+        }
+
+        .inspector-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 10px;
+            border-left: 5px solid #17a2b8;
+        }
+
+        .inspector-title {
+            font-size: 1.2rem;
+            color: #06B6D4;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .url-
+        .inspect-btn {
+            background: #06B6D4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .inspect-btn:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+
+        .inspect-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .popular-sites {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .site-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .site-card:hover {
+            border-color: #06B6D4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .site-card.
+
+        .site-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .site-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .site-url {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .cert-details {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .cert-details.warning {
+            border-left-color: #F59E0B;
+            background: #fff8e1;
+        }
+
+        .cert-details.error {
+            border-left-color: #EF4444;
+            background: #fff5f5;
+        }
+
+        .cert-field {
+            display: flex;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .cert-field:last-child {
+            border-bottom: none;
+        }
+        .cert-value {
+            flex: 1;
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .cert-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .cert-status.valid {
+            background: rgba(34,197,94,0.15);
+            color: var(--text-muted);
+        }
+
+        .cert-status.warning {
+            background: rgba(245,158,11,0.15);
+            color: var(--text-muted);
+        }
+
+        .cert-status.invalid {
+            background: rgba(239,68,68,0.15);
+            color: #721c24;
+        }
+
+        .cert-chain {
+            margin: 20px 0;
+        }
+
+        .chain-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .chain-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 8px solid #dee2e6;
+        }
+
+        .chain-item:first-child::before {
+            display: none;
+        }
+
+        .chain-level {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .chain-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .security-analysis {
+            background: var(--surface2);
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .analysis-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .analysis-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+            color: #22C55E;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #17a2b8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        
+        @media (max-width: 768px) {            .url-
+            .popular-sites {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-field {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 4</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 4</a> / Actividad 3
+            </div>
+            <h1 class="activity-title">🔍 Inspector de Certificados SSL</h1>
+            <p class="activity-subtitle">Examina certificados digitales y comprende las cadenas de confianza</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>30 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 180</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a examinar certificados SSL/TLS de sitios web reales, comprender cadenas de confianza, verificar identidades digitales y evaluar la seguridad de las conexiones HTTPS.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔬 Inspector de Certificados</h2>
+                
+                <div class="cert-inspector">
+                    <div class="inspector-section">
+                        <h3 class="inspector-title">🌐 Analizador de Sitios Web</h3>
+                        <p style="margin-bottom: 15px; color: #8888bb;">Ingresa la URL de cualquier sitio web HTTPS para examinar su certificado SSL/TLS.</p>
+                        
+                        <div class="url-input-group">
+                            <input type="text" id="urlInput" class="url-input" placeholder="https://ejemplo.com" value="https://google.com">
+                            <button class="inspect-btn" onclick="inspectCertificate()" id="inspectBtn">🔍 Inspeccionar</button>
+                        </div>
+
+                        <div id="loadingIndicator" class="loading" style="display: none;">
+                            <div class="spinner"></div>
+                            <span>Analizando certificado...</span>
+                        </div>
+
+                        <div id="certResults" style="margin-top: 20px;">
+                            <div style="color: #8888bb; font-style: italic; text-align: center; padding: 40px;">
+                                Selecciona un sitio web para comenzar el análisis
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inspector-section">
+                        <h3 class="inspector-title">🌟 Sitios Populares para Analizar</h3>
+                        <p style="margin-bottom: 15px; color: #8888bb;">Haz clic en cualquier sitio para analizarlo automáticamente:</p>
+                        
+                        <div class="popular-sites">
+                            <div class="site-card" onclick="selectSite('https://google.com')" data-site="google">
+                                <span class="site-icon">🔍</span>
+                                <div class="site-name">Google</div>
+                                <div class="site-url">google.com</div>
+                            </div>
+                            <div class="site-card" onclick="selectSite('https://github.com')" data-site="github">
+                                <span class="site-icon">💻</span>
+                                <div class="site-name">GitHub</div>
+                                <div class="site-url">github.com</div>
+                            </div>
+                            <div class="site-card" onclick="selectSite('https://amazon.com')" data-site="amazon">
+                                <span class="site-icon">🛒</span>
+                                <div class="site-name">Amazon</div>
+                                <div class="site-url">amazon.com</div>
+                            </div>
+                            <div class="site-card" onclick="selectSite('https://microsoft.com')" data-site="microsoft">
+                                <span class="site-icon">🪟</span>
+                                <div class="site-name">Microsoft</div>
+                                <div class="site-url">microsoft.com</div>
+                            </div>
+                            <div class="site-card" onclick="selectSite('https://cloudflare.com')" data-site="cloudflare">
+                                <span class="site-icon">☁️</span>
+                                <div class="site-name">Cloudflare</div>
+                                <div class="site-url">cloudflare.com</div>
+                            </div>
+                            <div class="site-card" onclick="selectSite('https://stackoverflow.com')" data-site="stackoverflow">
+                                <span class="site-icon">📚</span>
+                                <div class="site-name">Stack Overflow</div>
+                                <div class="site-url">stackoverflow.com</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips sobre Certificados SSL
+                </h3>
+                <div class="tip-item">
+                    <strong>🔒 Validación:</strong> Los certificados DV validan solo el dominio, EV valida la organización completa.
+                </div>
+                <div class="tip-item">
+                    <strong>🏢 Autoridades:</strong> Las CA (Certificate Authorities) como DigiCert, Let's Encrypt y GlobalSign emiten certificados.
+                </div>
+                <div class="tip-item">
+                    <strong>⏰ Expiración:</strong> Los certificados tienen fecha de vencimiento - sitios deben renovarlos regularmente.
+                </div>
+                <div class="tip-item">
+                    <strong>🔗 Cadena:</strong> La cadena de confianza va desde el certificado del sitio hasta una CA raíz de confianza.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentSite = '';
+
+        // Datos simulados de certificados para sitios populares
+        const certificateData = {
+            'google.com': {
+                commonName: '*.google.com',
+                organization: 'Google LLC',
+                country: 'US',
+                validFrom: '2024-02-15',
+                validTo: '2025-05-15',
+                issuer: 'GTS CA 1C3',
+                algorithm: 'RSA 2048 bits',
+                san: ['*.google.com', 'google.com'],
+                chain: [
+                    { name: '*.google.com', level: 'Certificado del Sitio', type: 'end-entity' },
+                    { name: 'GTS CA 1C3', level: 'Autoridad Intermedia', type: 'intermediate' },
+                    { name: 'GTS Root R1', level: 'Autoridad Raíz', type: 'root' }
+                ],
+                status: 'valid',
+                security: {
+                    tls: 'TLS 1.3',
+                    cipher: 'TLS_AES_256_GCM_SHA384',
+                    keyExchange: 'X25519',
+                    hsts: true,
+                    ocsp: true
+                }
+            },
+            'github.com': {
+                commonName: 'github.com',
+                organization: 'GitHub, Inc.',
+                country: 'US',
+                validFrom: '2024-03-20',
+                validTo: '2025-03-20',
+                issuer: 'DigiCert SHA2 High Assurance Server CA',
+                algorithm: 'RSA 2048 bits',
+                san: ['github.com', 'www.github.com'],
+                chain: [
+                    { name: 'github.com', level: 'Certificado del Sitio', type: 'end-entity' },
+                    { name: 'DigiCert SHA2 High Assurance Server CA', level: 'Autoridad Intermedia', type: 'intermediate' },
+                    { name: 'DigiCert High Assurance EV Root CA', level: 'Autoridad Raíz', type: 'root' }
+                ],
+                status: 'valid',
+                security: {
+                    tls: 'TLS 1.3',
+                    cipher: 'TLS_AES_128_GCM_SHA256',
+                    keyExchange: 'X25519',
+                    hsts: true,
+                    ocsp: true
+                }
+            },
+            'amazon.com': {
+                commonName: '*.amazon.com',
+                organization: 'Amazon.com, Inc.',
+                country: 'US',
+                validFrom: '2024-01-10',
+                validTo: '2025-02-08',
+                issuer: 'Amazon',
+                algorithm: 'RSA 2048 bits',
+                san: ['*.amazon.com', 'amazon.com'],
+                chain: [
+                    { name: '*.amazon.com', level: 'Certificado del Sitio', type: 'end-entity' },
+                    { name: 'Amazon', level: 'Autoridad Intermedia', type: 'intermediate' },
+                    { name: 'Amazon Root CA 1', level: 'Autoridad Raíz', type: 'root' }
+                ],
+                status: 'valid',
+                security: {
+                    tls: 'TLS 1.3',
+                    cipher: 'TLS_AES_256_GCM_SHA384',
+                    keyExchange: 'ECDHE',
+                    hsts: true,
+                    ocsp: true
+                }
+            },
+            'microsoft.com': {
+                commonName: 'www.microsoft.com',
+                organization: 'Microsoft Corporation',
+                country: 'US',
+                validFrom: '2024-04-01',
+                validTo: '2025-03-31',
+                issuer: 'Microsoft IT TLS CA 5',
+                algorithm: 'RSA 2048 bits',
+                san: ['www.microsoft.com', 'microsoft.com'],
+                chain: [
+                    { name: 'www.microsoft.com', level: 'Certificado del Sitio', type: 'end-entity' },
+                    { name: 'Microsoft IT TLS CA 5', level: 'Autoridad Intermedia', type: 'intermediate' },
+                    { name: 'Baltimore CyberTrust Root', level: 'Autoridad Raíz', type: 'root' }
+                ],
+                status: 'valid',
+                security: {
+                    tls: 'TLS 1.3',
+                    cipher: 'TLS_AES_256_GCM_SHA384',
+                    keyExchange: 'X25519',
+                    hsts: true,
+                    ocsp: true
+                }
+            },
+            'cloudflare.com': {
+                commonName: 'cloudflare.com',
+                organization: 'Cloudflare, Inc.',
+                country: 'US',
+                validFrom: '2024-05-15',
+                validTo: '2025-05-15',
+                issuer: 'Cloudflare Inc ECC CA-3',
+                algorithm: 'ECDSA P-256',
+                san: ['cloudflare.com', 'www.cloudflare.com'],
+                chain: [
+                    { name: 'cloudflare.com', level: 'Certificado del Sitio', type: 'end-entity' },
+                    { name: 'Cloudflare Inc ECC CA-3', level: 'Autoridad Intermedia', type: 'intermediate' },
+                    { name: 'Baltimore CyberTrust Root', level: 'Autoridad Raíz', type: 'root' }
+                ],
+                status: 'valid',
+                security: {
+                    tls: 'TLS 1.3',
+                    cipher: 'TLS_AES_256_GCM_SHA384',
+                    keyExchange: 'X25519',
+                    hsts: true,
+                    ocsp: true
+                }
+            },
+            'stackoverflow.com': {
+                commonName: '*.stackoverflow.com',
+                organization: 'Stack Exchange Inc.',
+                country: 'US',
+                validFrom: '2024-03-01',
+                validTo: '2025-03-01',
+                issuer: 'DigiCert TLS RSA SHA256 2020 CA1',
+                algorithm: 'RSA 2048 bits',
+                san: ['*.stackoverflow.com', 'stackoverflow.com'],
+                chain: [
+                    { name: '*.stackoverflow.com', level: 'Certificado del Sitio', type: 'end-entity' },
+                    { name: 'DigiCert TLS RSA SHA256 2020 CA1', level: 'Autoridad Intermedia', type: 'intermediate' },
+                    { name: 'DigiCert Global Root CA', level: 'Autoridad Raíz', type: 'root' }
+                ],
+                status: 'valid',
+                security: {
+                    tls: 'TLS 1.3',
+                    cipher: 'TLS_AES_256_GCM_SHA384',
+                    keyExchange: 'X25519',
+                    hsts: true,
+                    ocsp: true
+                }
+            }
+        };
+
+        function selectSite(url) {
+            // Actualizar selección visual
+            document.querySelectorAll('.site-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const domain = url.replace('https://', '').replace('www.', '');
+            const cardElement = document.querySelector(`[data-site="${domain.split('.')[0]}"]`);
+            if (cardElement) {
+                cardElement.classList.add('selected');
+            }
+
+            document.getElementById('urlInput').value = url;
+            currentSite = domain;
+            inspectCertificate();
+        }
+
+        function inspectCertificate() {
+            const url = document.getElementById('urlInput').value.trim();
+            
+            if (!url) {
+                alert('Por favor ingresa una URL para inspeccionar');
+                return;
+            }
+
+            if (!url.startsWith('https://')) {
+                alert('Solo se pueden inspeccionar sitios HTTPS (que comienzan con https://)');
+                return;
+            }
+
+            const domain = url.replace('https://', '').replace('www.', '').split('/')[0];
+            
+            showLoading(true);
+            
+            // Simular tiempo de carga
+            setTimeout(() => {
+                showLoading(false);
+                displayCertificateInfo(domain);
+            }, 2000);
+        }
+
+        function showLoading(show) {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const inspectBtn = document.getElementById('inspectBtn');
+            
+            if (show) {
+                loadingIndicator.style.display = 'flex';
+                inspectBtn.disabled = true;
+                inspectBtn.textContent = 'Analizando...';
+            } else {
+                loadingIndicator.style.display = 'none';
+                inspectBtn.disabled = false;
+                inspectBtn.textContent = '🔍 Inspeccionar';
+            }
+        }
+
+        function displayCertificateInfo(domain) {
+            const resultsContainer = document.getElementById('certResults');
+            const certInfo = certificateData[domain];
+            
+            if (!certInfo) {
+                resultsContainer.innerHTML = `
+                    <div class="cert-details error">
+                        <div style="color: #dc3545; font-weight: 600; margin-bottom: 10px;">
+                            ❌ Sitio no disponible en la base de datos de demostración
+                        </div>
+                        <p>Para esta actividad educativa, solo tenemos datos simulados de algunos sitios populares. En la práctica, usarías herramientas como OpenSSL o el inspector de certificados del navegador.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const validUntil = new Date(certInfo.validTo);
+            const now = new Date();
+            const daysUntilExpiry = Math.ceil((validUntil - now) / (1000 * 60 * 60 * 24));
+            
+            let statusClass = 'valid';
+            let statusText = 'Válido';
+            let statusIcon = '✅';
+            
+            if (daysUntilExpiry < 30) {
+                statusClass = 'warning';
+                statusText = 'Próximo a vencer';
+                statusIcon = '⚠️';
+            }
+            
+            if (daysUntilExpiry < 0) {
+                statusClass = 'invalid';
+                statusText = 'Expirado';
+                statusIcon = '❌';
+            }
+
+            resultsContainer.innerHTML = `
+                <div class="cert-details ${statusClass}">
+                    <h4 style="margin-bottom: 15px; color: #8888bb;">📜 Información del Certificado</h4>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Estado:</div>
+                        <div class="cert-value">
+                            <span class="cert-status ${statusClass}">${statusIcon} ${statusText}</span>
+                            ${daysUntilExpiry > 0 ? `(${daysUntilExpiry} días restantes)` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Nombre Común:</div>
+                        <div class="cert-value">${certInfo.commonName}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Organización:</div>
+                        <div class="cert-value">${certInfo.organization}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">País:</div>
+                        <div class="cert-value">${certInfo.country}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Válido desde:</div>
+                        <div class="cert-value">${certInfo.validFrom}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Válido hasta:</div>
+                        <div class="cert-value">${certInfo.validTo}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Emisor:</div>
+                        <div class="cert-value">${certInfo.issuer}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">Algoritmo:</div>
+                        <div class="cert-value">${certInfo.algorithm}</div>
+                    </div>
+                    
+                    <div class="cert-field">
+                        <div class="cert-label">SAN (Nombres Alternativos):</div>
+                        <div class="cert-value">${certInfo.san.join(', ')}</div>
+                    </div>
+                </div>
+
+                <div class="cert-chain">
+                    <h4 style="margin-bottom: 15px; color: #8888bb;">🔗 Cadena de Certificados</h4>
+                    ${certInfo.chain.map((cert, index) => `
+                        <div class="chain-item">
+                            <div class="chain-level">${cert.level}</div>
+                            <div class="chain-name">${cert.name}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="security-analysis">
+                    <div class="analysis-title">🛡️ Análisis de Seguridad</div>
+                    
+                    <div class="analysis-item">
+                        <span>🔒</span>
+                        <span><strong>TLS:</strong> ${certInfo.security.tls}</span>
+                    </div>
+                    
+                    <div class="analysis-item">
+                        <span>🔐</span>
+                        <span><strong>Cifrado:</strong> ${certInfo.security.cipher}</span>
+                    </div>
+                    
+                    <div class="analysis-item">
+                        <span>🤝</span>
+                        <span><strong>Intercambio de llaves:</strong> ${certInfo.security.keyExchange}</span>
+                    </div>
+                    
+                    <div class="analysis-item">
+                        <span>${certInfo.security.hsts ? '✅' : '❌'}</span>
+                        <span><strong>HSTS:</strong> ${certInfo.security.hsts ? 'Habilitado (Fuerza HTTPS)' : 'Deshabilitado'}</span>
+                    </div>
+                    
+                    <div class="analysis-item">
+                        <span>${certInfo.security.ocsp ? '✅' : '❌'}</span>
+                        <span><strong>OCSP Stapling:</strong> ${certInfo.security.ocsp ? 'Habilitado (Verificación rápida)' : 'Deshabilitado'}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Excelente trabajo! Has completado el inspector de certificados SSL.\n\n✅ Actividad marcada como completada\n🏆 +180 puntos ganados\n\n🔍 Ahora comprendes cómo verificar la autenticidad e integridad de sitios web.');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Permitir inspección con Enter
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                inspectCertificate();
+            }
+        });
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar mensaje inicial
+            document.getElementById('certResults').innerHTML = `
+                <div style="color: #8888bb; font-style: italic; text-align: center; padding: 40px;">
+                    💡 Tip: Haz clic en uno de los sitios populares arriba para comenzar
+                </div>
+            `;
+        });
+    </script>
+
+</body>

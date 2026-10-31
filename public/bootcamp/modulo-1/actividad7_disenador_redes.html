@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 7 - Diseñador de Redes</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        .network-designer {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--border);
+        }
+
+        .designer-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .device-panel {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text);
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        
+
+        
+
+        .device-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .device-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .device-name {
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .device-info {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .design-canvas {
+            background: var(--surface);
+            border-radius: 10px;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+            border: 2px dashed var(--border);
+        }
+
+        .canvas-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, transparent 1px, transparent 20px, rgba(0,0,0,0.03) 21px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, transparent 1px, transparent 20px, rgba(0,0,0,0.03) 21px);
+            pointer-events: none;
+        }
+
+        .canvas-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .placed-device {
+            position: absolute;
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            cursor: move;
+            transition: all 0.3s ease;
+            z-index: 10;
+            min-width: 60px;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .placed-device:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .placed-device.connected {
+            border-color: #22C55E;
+        }
+
+        .placed-device.
+
+        .placed-device .device-icon {
+            font-size: 1.5rem;
+            margin-bottom: 3px;
+        }
+
+        .placed-device .device-name {
+            font-size: 0.7rem;
+            color: var(--text);
+        }
+
+        
+
+        @keyframes dataFlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        
+            50% { transform: scale(1.1); }
+        }
+
+        .info-panel {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .network-stats {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: var(--purple);
+        }
+
+        .recommendations {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .recommendation-item {
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .recommendation-item::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+        }
+
+        .designer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        .topology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .topology-card {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .topology-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .topology-card.
+
+        .topology-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .topology-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .topology-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        
+        .connection-mode {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 100;
+            display: none;
+            animation: bounceIn 0.5s ease;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: translateX(-50%) scale(0); }
+            50% { transform: translateX(-50%) scale(1.1); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        
+        
+
+        .quiz-question {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quiz-option {
+            background: var(--surface);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: var(--surface2);
+            border-color: var(--purple);
+        }
+
+        .quiz-option.
+
+        .quiz-option.correct {
+            background: #22C55E;
+            color: white;
+        }
+
+        .quiz-option.incorrect {
+            background: #EF4444;
+            color: white;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .security-container, .optimization-container {
+            margin: 20px 0;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .security-card {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #f56565;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .security-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 101, 101, 0.2);
+        }
+
+        .security-card.implemented {
+            border-left-color: #48bb78;
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+        }
+
+        .security-card.implemented .security-icon {
+            filter: hue-rotate(120deg);
+        }
+
+        .security-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .security-card h4 {
+            margin: 8px 0;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .security-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .security-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .security-card li {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .security-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #f56565;
+        }
+
+        .security-card.implemented li::before {
+            color: #48bb78;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border-left: 4px solid #4299e1;
+        }
+
+        .metric-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 1024px) {
+            .designer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .device-panel, .info-panel {
+                max-height: 150px;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="/bootcamp/">← Módulo 5</a> / Actividad 7
+            </div>
+            <h1 class="activity-title">📐 Diseñador de Redes</h1>
+            <p class="activity-subtitle">Diseño completo de redes desde cero con topologías y segmentación</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>28 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Avanzado</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 300</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad avanzada aprenderás a diseñar redes completas desde cero, aplicando principios de topología, segmentación y optimización. Dominarás el arte de la arquitectura de redes como un verdadero experto.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🏗️ Diseñador de Red Interactivo</h2>
+                <div class="network-designer">
+                    <div class="designer-grid">
+                        <!-- Panel de Dispositivos -->
+                        <div class="device-panel">
+                            <h3 class="panel-title">📦 Dispositivos</h3>
+                            
+                            <div class="device-item" draggable="true" data-device="router">
+                                <span class="device-icon">🌐</span>
+                                <div class="device-name">Router</div>
+                                <div class="device-info">Core</div>
+                            </div>
+                            
+                            <div class="device-item" draggable="true" data-device="switch">
+                                <span class="device-icon">🔀</span>
+                                <div class="device-name">Switch</div>
+                                <div class="device-info">L2/L3</div>
+                            </div>
+                            
+                            <div class="device-item" draggable="true" data-device="ap">
+                                <span class="device-icon">📡</span>
+                                <div class="device-name">Access Point</div>
+                                <div class="device-info">WiFi</div>
+                            </div>
+                            
+                            <div class="device-item" draggable="true" data-device="firewall">
+                                <span class="device-icon">🛡️</span>
+                                <div class="device-name">Firewall</div>
+                                <div class="device-info">Security</div>
+                            </div>
+                            
+                            <div class="device-item" draggable="true" data-device="server">
+                                <span class="device-icon">💾</span>
+                                <div class="device-name">Servidor</div>
+                                <div class="device-info">Data</div>
+                            </div>
+                            
+                            <div class="device-item" draggable="true" data-device="pc">
+                                <span class="device-icon">💻</span>
+                                <div class="device-name">PC</div>
+                                <div class="device-info">Client</div>
+                            </div>
+                        </div>
+
+                        <!-- Canvas de Diseño -->
+                        <div class="design-canvas" id="designCanvas">
+                            <div class="canvas-grid"></div>
+                            <div class="canvas-placeholder">
+                                🎨 Arrastra dispositivos aquí para diseñar tu red<br>
+                                <small style="color: #8888bb;">Usa Ctrl+Click para modo conexión</small>
+                            </div>
+                        </div>
+
+                        <!-- Panel de Información -->
+                        <div class="info-panel">
+                            <h3 class="panel-title">📊 Estadísticas</h3>
+                            
+                            <div class="network-stats">
+                                <div class="stat-item">
+                                    <span>Dispositivos:</span>
+                                    <span class="stat-value" id="deviceCount">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span>Conexiones:</span>
+                                    <span class="stat-value" id="connectionCount">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span>Seguridad:</span>
+                                    <span class="stat-value" id="securityLevel">Básica</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span>Eficiencia:</span>
+                                    <span class="stat-value" id="efficiency">0%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="recommendations">
+                                <h4 style="margin-bottom: 10px; font-size: 0.9rem;">💡 Recomendaciones</h4>
+                                <div id="recommendationsList">
+                                    <div class="recommendation-item">Agrega un router principal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="designer-controls">
+                        <button class="control-btn" onclick="toggleConnectionMode()">🔗 Conectar</button>
+                        <button class="control-btn" onclick="autoConnect()">⚡ Auto-Conectar</button>
+                        <button class="control-btn secondary" onclick="validateNetwork()">✅ Validar Red</button>
+                        <button class="control-btn danger" onclick="clearCanvas()">🗑️ Limpiar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📐 Selecciona Topología</h2>
+                <div class="topology-grid">
+                    <div class="topology-card" onclick="selectTopology('star')">
+                        <div class="topology-icon">⭐</div>
+                        <div class="topology-title">Estrella</div>
+                        <div class="topology-description">Todos los dispositivos conectados a un hub central</div>
+                    </div>
+                    
+                    <div class="topology-card" onclick="selectTopology('mesh')">
+                        <div class="topology-icon">🕸️</div>
+                        <div class="topology-title">Malla</div>
+                        <div class="topology-description">Conexiones redundantes entre múltiples dispositivos</div>
+                    </div>
+                    
+                    <div class="topology-card" onclick="selectTopology('tree')">
+                        <div class="topology-icon">🌳</div>
+                        <div class="topology-title">Árbol</div>
+                        <div class="topology-description">Estructura jerárquica con múltiples niveles</div>
+                    </div>
+                    
+                    <div class="topology-card" onclick="selectTopology('hybrid')">
+                        <div class="topology-icon">🔄</div>
+                        <div class="topology-title">Híbrida</div>
+                        <div class="topology-description">Combinación optimizada de topologías</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🛡️ Implementación de Seguridad</h2>
+                <div class="security-container">
+                    <p style="margin-bottom: 20px; color: #8888bb;">Implementa capas de seguridad para proteger tu red diseñada</p>
+                    
+                    <div class="security-grid">
+                        <div class="security-card" onclick="implementSecurity('firewall')">
+                            <div class="security-icon">🔥</div>
+                            <h4>Firewall</h4>
+                            <p><strong>Protección Perimetral</strong></p>
+                            <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
+                                <li>Filtrado de tráfico</li>
+                                <li>Control de puertos</li>
+                                <li>Bloqueo de amenazas</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="security-card" onclick="implementSecurity('vlan')">
+                            <div class="security-icon">🏢</div>
+                            <h4>VLANs</h4>
+                            <p><strong>Segmentación de Red</strong></p>
+                            <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
+                                <li>Aislamiento de tráfico</li>
+                                <li>Control de acceso</li>
+                                <li>Mejor rendimiento</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="security-card" onclick="implementSecurity('wifi')">
+                            <div class="security-icon">📶</div>
+                            <h4>WiFi Seguro</h4>
+                            <p><strong>Protección Inalámbrica</strong></p>
+                            <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
+                                <li>WPA3 Enterprise</li>
+                                <li>Red de invitados</li>
+                                <li>Detección de intrusos</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="security-card" onclick="implementSecurity('monitoring')">
+                            <div class="security-icon">👁️</div>
+                            <h4>Monitoreo</h4>
+                            <p><strong>Vigilancia Continua</strong></p>
+                            <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
+                                <li>Detección de anomalías</li>
+                                <li>Logs de seguridad</li>
+                                <li>Alertas automáticas</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="security-card" onclick="implementSecurity('backup')">
+                            <div class="security-icon">💾</div>
+                            <h4>Backup</h4>
+                            <p><strong>Continuidad del Negocio</strong></p>
+                            <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
+                                <li>Respaldo automático</li>
+                                <li>Recuperación rápida</li>
+                                <li>Versionado de datos</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="security-card" onclick="implementSecurity('access')">
+                            <div class="security-icon">🔐</div>
+                            <h4>Control de Acceso</h4>
+                            <p><strong>Autenticación</strong></p>
+                            <ul style="margin-top: 8px; font-size: 0.85em; text-align: left;">
+                                <li>Autenticación multifactor</li>
+                                <li>Gestión de usuarios</li>
+                                <li>Políticas de acceso</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="control-btn secondary" onclick="evaluateSecurity()">🔍 Evaluar Seguridad</button>
+                    </div>
+
+                    <div id="securityAssessment" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                        <h4>📊 Evaluación de Seguridad</h4>
+                        <div id="securityResults"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📊 Optimización de Red</h2>
+                <div class="optimization-container">
+                    <p style="margin-bottom: 20px; color: #8888bb;">Analiza y optimiza el rendimiento de tu red diseñada</p>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value" id="bandwidthUtil">0%</div>
+                            <div class="metric-label">Ancho de Banda</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="latency">0ms</div>
+                            <div class="metric-label">Latencia</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="packetLoss">0%</div>
+                            <div class="metric-label">Pérdida Paquetes</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="availability">99.9%</div>
+                            <div class="metric-label">Disponibilidad</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="throughput">0Gbps</div>
+                            <div class="metric-label">Throughput</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="networkQuality">0</div>
+                            <div class="metric-label">Calidad Global</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                        <button class="control-btn secondary" onclick="runOptimizationAnalysis()">📊 Analizar Red</button>
+                        <button class="control-btn" onclick="optimizeBandwidth()">⚡ Optimizar BW</button>
+                        <button class="control-btn" onclick="optimizeLatency()">🚀 Reducir Latencia</button>
+                        <button class="control-btn" onclick="optimizeQoS()">🎯 Configurar QoS</button>
+                    </div>
+
+                    <div id="optimizationResults" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <h4>💡 Recomendaciones de Optimización</h4>
+                        <p style="color: #8888bb;">Diseña tu red y ejecuta el análisis para recibir recomendaciones personalizadas...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🧠 Quiz de Diseño</h2>
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <p><strong>¿Cuál es la principal ventaja de una topología en malla?</strong></p>
+                        <div class="quiz-options" data-question="1">
+                            <div class="quiz-option" data-answer="0">Mayor velocidad de transmisión</div>
+                            <div class="quiz-option" data-answer="1" data-correct="true">Alta redundancia y tolerancia a fallos</div>
+                            <div class="quiz-option" data-answer="2">Menor costo de implementación</div>
+                            <div class="quiz-option" data-answer="3">Configuración más simple</div>
+                        </div>
+                        <div class="feedback-area" id="feedback1"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p><strong>¿Qué dispositivo es esencial para segmentar una red en VLANs?</strong></p>
+                        <div class="quiz-options" data-question="2">
+                            <div class="quiz-option" data-answer="0">Hub</div>
+                            <div class="quiz-option" data-answer="1" data-correct="true">Switch Layer 3</div>
+                            <div class="quiz-option" data-answer="2">Repetidor</div>
+                            <div class="quiz-option" data-answer="3">Access Point</div>
+                        </div>
+                        <div class="feedback-area" id="feedback2"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p><strong>¿Cuál es el estándar de seguridad WiFi más recomendado actualmente?</strong></p>
+                        <div class="quiz-options" data-question="3">
+                            <div class="quiz-option" data-answer="0">WEP</div>
+                            <div class="quiz-option" data-answer="1">WPA</div>
+                            <div class="quiz-option" data-answer="2">WPA2</div>
+                            <div class="quiz-option" data-answer="3" data-correct="true">WPA3</div>
+                        </div>
+                        <div class="feedback-area" id="feedback3"></div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <p><strong>¿Qué técnica es más efectiva para priorizar tráfico crítico?</strong></p>
+                        <div class="quiz-options" data-question="4">
+                            <div class="quiz-option" data-answer="0">Aumentar ancho de banda</div>
+                            <div class="quiz-option" data-answer="1" data-correct="true">Implementar QoS (Quality of Service)</div>
+                            <div class="quiz-option" data-answer="2">Agregar más switches</div>
+                            <div class="quiz-option" data-answer="3">Cambiar a fibra óptica</div>
+                        </div>
+                        <div class="feedback-area" id="feedback4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Diseño de Redes
+                </h3>
+                <div class="tip-item">
+                    <strong>🎯 Planificación:</strong> Siempre comienza con un router o switch core como punto central de tu diseño.
+                </div>
+                <div class="tip-item">
+                    <strong>🔒 Seguridad:</strong> Incluye firewalls y segmentación para proteger diferentes áreas de la red.
+                </div>
+                <div class="tip-item">
+                    <strong>📡 Cobertura:</strong> Posiciona Access Points estratégicamente para optimizar la cobertura WiFi.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Pro tip:</strong> Una red bien diseñada debe ser escalable, segura y fácil de mantener.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <!-- Indicador de Modo Conexión -->
+    <div class="connection-mode" id="connectionMode">
+        🔗 Modo Conexión Activo - Click en dispositivos para conectar
+    </div>
+
+    <script>
+        // ========== ESTADO GLOBAL ==========
+        let designerState = {
+            devices: [],
+            connections: [],
+            connectionMode: false,
+            selectedDevice: null,
+            deviceIdCounter: 0,
+            selectedTopology: null,
+            quizAnswers: {},
+            isCompleted: false,
+            
+            // Security state
+            implementedSecurity: new Set(),
+            
+            // Optimization state
+            metrics: {
+                bandwidth: 0,
+                latency: 0,
+                packetLoss: 0,
+                availability: 99.9,
+                throughput: 0,
+                quality: 0
+            }
+        };
+
+        // ========== CONFIGURACIÓN DE DISPOSITIVOS ==========
+        const deviceConfig = {
+            router: { icon: '🌐', name: 'Router', type: 'network', security: 20 },
+            switch: { icon: '🔀', name: 'Switch', type: 'network', security: 10 },
+            ap: { icon: '📡', name: 'Access Point', type: 'network', security: 15 },
+            firewall: { icon: '🛡️', name: 'Firewall', type: 'security', security: 50 },
+            server: { icon: '💾', name: 'Servidor', type: 'endpoint', security: 5 },
+            pc: { icon: '💻', name: 'PC', type: 'endpoint', security: 5 }
+        };
+
+        // ========== INICIALIZACIÓN ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDragAndDrop();
+            initializeQuiz();
+            updateStats();
+            
+            // Atajos de teclado
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'c') {
+                    e.preventDefault();
+                    toggleConnectionMode();
+                }
+                if (e.key === 'Escape' && designerState.connectionMode) {
+                    toggleConnectionMode();
+                }
+            });
+        });
+
+        // ========== DRAG AND DROP FUNCTIONALITY ==========
+        function initializeDragAndDrop() {
+            const deviceItems = document.querySelectorAll('.device-item');
+            deviceItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+
+            const canvas = document.getElementById('designCanvas');
+            canvas.addEventListener('dragover', handleDragOver);
+            canvas.addEventListener('drop', handleDrop);
+        }
+
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.device);
+            e.target.classList.add('dragging');
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function calculateSecurityLevel() {
+            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
+            const securityImplemented = designerState.implementedSecurity.size;
+            
+            if ((hasFirewall && securityImplemented >= 4) || securityImplemented >= 5) return 'Alta';
+            if ((hasFirewall && securityImplemented >= 2) || securityImplemented >= 3) return 'Media';
+            return 'Básica';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const deviceType = e.dataTransfer.getData('text/plain');
+            
+            if (!deviceType) return;
+            
+            const canvas = document.getElementById('designCanvas');
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left - 30;
+            const y = e.clientY - rect.top - 30;
+            
+            addDevice(deviceType, x, y);
+        }
+
+        function addDevice(type, x, y) {
+            const id = 'device-' + designerState.deviceIdCounter++;
+            const config = deviceConfig[type];
+            
+            const device = {
+                id: id,
+                type: type,
+                x: x,
+                y: y,
+                connected: false
+            };
+            
+            designerState.devices.push(device);
+            
+            const deviceEl = document.createElement('div');
+            deviceEl.className = 'placed-device';
+            deviceEl.id = id;
+            deviceEl.style.left = x + 'px';
+            deviceEl.style.top = y + 'px';
+            deviceEl.innerHTML = `
+                <span class="device-icon">${config.icon}</span>
+                <div class="device-name">${config.name}</div>
+            `;
+            
+            deviceEl.addEventListener('click', () => handleDeviceClick(id));
+            makeDraggable(deviceEl);
+            
+            document.getElementById('designCanvas').appendChild(deviceEl);
+            
+            // Remover placeholder si existe
+            const placeholder = document.querySelector('.canvas-placeholder');
+            if (placeholder && designerState.devices.length === 1) {
+                placeholder.style.display = 'none';
+            }
+            
+            updateStats();
+            updateRecommendations();
+        }
+
+        function makeDraggable(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            element.onmousedown = dragMouseDown;
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                
+                const newTop = element.offsetTop - pos2;
+                const newLeft = element.offsetLeft - pos1;
+                
+                element.style.top = newTop + "px";
+                element.style.left = newLeft + "px";
+                
+                const device = designerState.devices.find(d => d.id === element.id);
+                if (device) {
+                    device.x = newLeft;
+                    device.y = newTop;
+                }
+                
+                updateConnections();
+            }
+            
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        function handleDeviceClick(deviceId) {
+            if (!designerState.connectionMode) return;
+            
+            const device = document.getElementById(deviceId);
+            
+            if (!designerState.selectedDevice) {
+                designerState.selectedDevice = deviceId;
+                device.classList.add('selected');
+                showNotification('Dispositivo seleccionado. Click en otro para conectar.');
+            } else if (designerState.selectedDevice !== deviceId) {
+                createConnection(designerState.selectedDevice, deviceId);
+                
+                document.getElementById(designerState.selectedDevice).classList.remove('selected');
+                designerState.selectedDevice = null;
+                showNotification('¡Conexión creada!');
+            }
+        }
+
+        function createConnection(device1Id, device2Id) {
+            const exists = designerState.connections.some(conn => 
+                (conn.from === device1Id && conn.to === device2Id) ||
+                (conn.from === device2Id && conn.to === device1Id)
+            );
+            
+            if (exists) {
+                showNotification('⚠️ Esta conexión ya existe');
+                return;
+            }
+            
+            designerState.connections.push({
+                from: device1Id,
+                to: device2Id
+            });
+            
+            drawConnection(device1Id, device2Id);
+            updateStats();
+            updateRecommendations();
+        }
+
+        function drawConnection(device1Id, device2Id) {
+            const device1 = document.getElementById(device1Id);
+            const device2 = document.getElementById(device2Id);
+            
+            if (!device1 || !device2) return;
+            
+            const canvas = document.getElementById('designCanvas');
+            const rect1 = device1.getBoundingClientRect();
+            const rect2 = device2.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
+            
+            const x1 = rect1.left - canvasRect.left + rect1.width / 2;
+            const y1 = rect1.top - canvasRect.top + rect1.height / 2;
+            const x2 = rect2.left - canvasRect.left + rect2.width / 2;
+            const y2 = rect2.top - canvasRect.top + rect2.height / 2;
+            
+            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+            
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            line.style.width = length + 'px';
+            line.style.left = x1 + 'px';
+            line.style.top = y1 + 'px';
+            line.style.transform = `rotate(${angle}deg)`;
+            line.dataset.from = device1Id;
+            line.dataset.to = device2Id;
+            
+            canvas.appendChild(line);
+            
+            device1.classList.add('connected');
+            device2.classList.add('connected');
+        }
+
+        function updateConnections() {
+            const lines = document.querySelectorAll('.connection-line');
+            lines.forEach(line => line.remove());
+            
+            designerState.connections.forEach(conn => {
+                drawConnection(conn.from, conn.to);
+            });
+        }
+
+        // ========== CONTROL FUNCTIONS ==========
+        function toggleConnectionMode() {
+            designerState.connectionMode = !designerState.connectionMode;
+            const indicator = document.getElementById('connectionMode');
+            
+            if (designerState.connectionMode) {
+                indicator.style.display = 'block';
+                showNotification('🔗 Modo conexión activado');
+            } else {
+                indicator.style.display = 'none';
+                if (designerState.selectedDevice) {
+                    document.getElementById(designerState.selectedDevice).classList.remove('selected');
+                    designerState.selectedDevice = null;
+                }
+                showNotification('Modo conexión desactivado');
+            }
+        }
+
+        function autoConnect() {
+            const routers = designerState.devices.filter(d => d.type === 'router');
+            if (routers.length === 0) {
+                showNotification('⚠️ Necesitas al menos un router');
+                return;
+            }
+            
+            const mainRouter = routers[0];
+            let connectionsCreated = 0;
+            
+            // Conectar dispositivos de red al router
+            const networkDevices = designerState.devices.filter(d => 
+                deviceConfig[d.type].type === 'network' && d.id !== mainRouter.id
+            );
+            
+            networkDevices.forEach(device => {
+                if (!connectionExists(mainRouter.id, device.id)) {
+                    createConnection(mainRouter.id, device.id);
+                    connectionsCreated++;
+                }
+            });
+            
+            // Conectar endpoints al dispositivo más cercano
+            const endpoints = designerState.devices.filter(d => 
+                deviceConfig[d.type].type === 'endpoint' || deviceConfig[d.type].type === 'security'
+            );
+            
+            endpoints.forEach(endpoint => {
+                const nearest = findNearestNetworkDevice(endpoint);
+                if (nearest && !connectionExists(endpoint.id, nearest.id)) {
+                    createConnection(endpoint.id, nearest.id);
+                    connectionsCreated++;
+                }
+            });
+            
+            updateConnections();
+            showNotification(`✅ ${connectionsCreated} conexiones automáticas creadas`);
+        }
+
+        function connectionExists(device1Id, device2Id) {
+            return designerState.connections.some(conn => 
+                (conn.from === device1Id && conn.to === device2Id) ||
+                (conn.from === device2Id && conn.to === device1Id)
+            );
+        }
+
+        function findNearestNetworkDevice(device) {
+            const networkDevices = designerState.devices.filter(d => 
+                deviceConfig[d.type].type === 'network' && d.id !== device.id
+            );
+            
+            let nearest = null;
+            let minDistance = Infinity;
+            
+            networkDevices.forEach(netDevice => {
+                const distance = Math.sqrt(
+                    Math.pow(device.x - netDevice.x, 2) + 
+                    Math.pow(device.y - netDevice.y, 2)
+                );
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearest = netDevice;
+                }
+            });
+            
+            return nearest;
+        }
+
+        function validateNetwork() {
+            if (designerState.devices.length === 0) {
+                showNotification('⚠️ Agrega dispositivos para validar la red');
+                return;
+            }
+
+            const score = calculateNetworkScore();
+            let message = '';
+            
+            if (score >= 90) {
+                message = '🏆 ¡Excelente diseño de red!';
+            } else if (score >= 70) {
+                message = '👍 Buen diseño, algunas mejoras posibles';
+            } else if (score >= 50) {
+                message = '🔧 Red funcional con oportunidades de mejora';
+            } else {
+                message = '⚠️ La red necesita mejoras importantes';
+            }
+            
+            showNotification(`${message} Puntuación: ${score}/100`);
+        }
+
+        function clearCanvas() {
+            if (!confirm('¿Seguro que quieres limpiar el diseño?')) return;
+            
+            document.querySelectorAll('.placed-device').forEach(device => device.remove());
+            document.querySelectorAll('.connection-line').forEach(line => line.remove());
+            
+            designerState.devices = [];
+            designerState.connections = [];
+            designerState.deviceIdCounter = 0;
+            designerState.selectedDevice = null;
+            
+            if (designerState.connectionMode) {
+                toggleConnectionMode();
+            }
+            
+            const placeholder = document.querySelector('.canvas-placeholder');
+            if (placeholder) {
+                placeholder.style.display = 'block';
+            }
+            
+            updateStats();
+            updateRecommendations();
+            showNotification('🗑️ Diseño limpiado');
+        }
+
+        // ========== STATISTICS AND RECOMMENDATIONS ==========
+        function updateStats() {
+            document.getElementById('deviceCount').textContent = designerState.devices.length;
+            document.getElementById('connectionCount').textContent = designerState.connections.length;
+            
+            const securityLevel = calculateSecurityLevel();
+            document.getElementById('securityLevel').textContent = securityLevel;
+            
+            const efficiency = calculateEfficiency();
+            document.getElementById('efficiency').textContent = efficiency + '%';
+        }
+
+        function calculateSecurityLevel() {
+            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
+            const securityDevices = designerState.devices.filter(d => deviceConfig[d.type].type === 'security');
+            
+            if (hasFirewall && securityDevices.length > 0) return 'Alta';
+            if (hasFirewall || securityDevices.length > 0) return 'Media';
+            return 'Básica';
+        }
+
+        function calculateEfficiency() {
+            if (designerState.devices.length === 0) return 0;
+            
+            let score = 0;
+            
+            // Conectividad
+            const connectedDevices = designerState.devices.filter(d => {
+                return designerState.connections.some(conn => 
+                    conn.from === d.id || conn.to === d.id
+                );
+            });
+            score += (connectedDevices.length / designerState.devices.length) * 40;
+            
+            // Tipos de dispositivos
+            const deviceTypes = new Set(designerState.devices.map(d => d.type));
+            score += Math.min(30, deviceTypes.size * 6);
+            
+            // Topología
+            if (designerState.selectedTopology) score += 20;
+            
+            // Seguridad
+            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
+            if (hasFirewall) score += 10;
+            
+            return Math.min(100, Math.round(score));
+        }
+
+        function calculateNetworkScore() {
+            return calculateEfficiency();
+        }
+
+        function updateRecommendations() {
+            const recommendations = [];
+            
+            const hasRouter = designerState.devices.some(d => d.type === 'router');
+            if (!hasRouter) {
+                recommendations.push('Agrega un router principal');
+            }
+            
+            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
+            if (!hasFirewall && designerState.devices.length > 2) {
+                recommendations.push('Considera agregar un firewall');
+            }
+            
+            const unconnectedDevices = designerState.devices.filter(d => {
+                return !designerState.connections.some(conn => 
+                    conn.from === d.id || conn.to === d.id
+                );
+            });
+            
+            if (unconnectedDevices.length > 0) {
+                recommendations.push(`${unconnectedDevices.length} dispositivos sin conectar`);
+            }
+            
+            if (!designerState.selectedTopology && designerState.devices.length > 3) {
+                recommendations.push('Selecciona una topología apropiada');
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push('¡Red bien diseñada!');
+            }
+            
+            const listEl = document.getElementById('recommendationsList');
+            listEl.innerHTML = recommendations.map(rec => 
+                `<div class="recommendation-item">${rec}</div>`
+            ).join('');
+        }
+
+        // ========== TOPOLOGY SELECTION ==========
+        function selectTopology(type) {
+            document.querySelectorAll('.topology-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            event.target.closest('.topology-card').classList.add('selected');
+            designerState.selectedTopology = type;
+            
+            const topologyNames = {
+                star: 'Estrella',
+                mesh: 'Malla',
+                tree: 'Árbol',
+                hybrid: 'Híbrida'
+            };
+            
+            showNotification(`✅ Topología ${topologyNames[type]} seleccionada`);
+            updateStats();
+            updateRecommendations();
+        }
+
+        // ========== QUIZ FUNCTIONALITY ==========
+        function initializeQuiz() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    handleQuizAnswer(this);
+                });
+            });
+        }
+
+        function handleQuizAnswer(selectedOption) {
+            const optionsContainer = selectedOption.closest('.quiz-options');
+            const questionNum = optionsContainer.dataset.question;
+            const feedbackEl = document.getElementById('feedback' + questionNum);
+            
+            if (designerState.quizAnswers[questionNum]) return;
+            
+            const isCorrect = selectedOption.hasAttribute('data-correct');
+            
+            optionsContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if (opt.hasAttribute('data-correct')) {
+                    opt.classList.add('correct');
+                } else if (opt === selectedOption && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            selectedOption.classList.add('selected');
+            
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+                feedbackEl.className = 'feedback-area feedback-success';
+                feedbackEl.textContent = '✅ ¡Correcto! Excelente conocimiento sobre redes.';
+            } else {
+                feedbackEl.className = 'feedback-area feedback-error';
+                feedbackEl.textContent = '❌ Incorrecto. Revisa los conceptos de topologías de red.';
+            }
+            
+            designerState.quizAnswers[questionNum] = isCorrect;
+        }
+
+        // ========== SECURITY FUNCTIONALITY ==========
+        function implementSecurity(securityType) {
+            const card = event.target.closest('.security-card');
+            
+            if (!designerState.implementedSecurity.has(securityType)) {
+                designerState.implementedSecurity.add(securityType);
+                card.classList.add('implemented');
+                
+                const securityNames = {
+                    firewall: 'Firewall',
+                    vlan: 'VLANs',
+                    wifi: 'WiFi Seguro',
+                    monitoring: 'Monitoreo',
+                    backup: 'Backup',
+                    access: 'Control de Acceso'
+                };
+                
+                showNotification(`✅ ${securityNames[securityType]} implementado`);
+                updateStats();
+            } else {
+                showNotification(`ℹ️ ${securityNames[securityType]} ya está implementado`);
+            }
+        }
+
+        function evaluateSecurity() {
+            const implemented = designerState.implementedSecurity.size;
+            const total = 6;
+            const score = Math.round((implemented / total) * 100);
+            
+            let level = 'Básico';
+            let color = '#f56565';
+            let recommendations = [];
+            
+            if (score >= 80) {
+                level = 'Avanzado';
+                color = '#48bb78';
+                recommendations.push('Excelente nivel de seguridad implementado');
+            } else if (score >= 60) {
+                level = 'Intermedio';
+                color = '#f6ad55';
+                recommendations.push('Buen nivel de seguridad, considera implementar más medidas');
+            } else {
+                recommendations.push('Nivel de seguridad básico, implementa más medidas de protección');
+            }
+            
+            // Recomendaciones específicas
+            if (!designerState.implementedSecurity.has('firewall')) {
+                recommendations.push('Implementa un firewall para protección perimetral');
+            }
+            if (!designerState.implementedSecurity.has('vlan')) {
+                recommendations.push('Usa VLANs para segmentar y aislar el tráfico');
+            }
+            if (!designerState.implementedSecurity.has('monitoring')) {
+                recommendations.push('Agrega monitoreo para detectar amenazas');
+            }
+            
+            const assessment = document.getElementById('securityAssessment');
+            const results = document.getElementById('securityResults');
+            
+            results.innerHTML = `
+                <div style="border-left: 4px solid ${color}; padding-left: 15px; margin-bottom: 15px;">
+                    <h5 style="color: ${color}; margin-bottom: 5px;">Nivel de Seguridad: ${level}</h5>
+                    <p style="margin: 0;"><strong>Puntuación:</strong> ${score}/100</p>
+                    <p style="margin: 0;"><strong>Implementado:</strong> ${implemented}/${total} medidas</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px;">
+                    <h5 style="margin-bottom: 10px;">📊 Estado de Implementación:</h5>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.9rem;">
+                        <div>${designerState.implementedSecurity.has('firewall') ? '✅' : '❌'} Firewall</div>
+                        <div>${designerState.implementedSecurity.has('vlan') ? '✅' : '❌'} VLANs</div>
+                        <div>${designerState.implementedSecurity.has('wifi') ? '✅' : '❌'} WiFi Seguro</div>
+                        <div>${designerState.implementedSecurity.has('monitoring') ? '✅' : '❌'} Monitoreo</div>
+                        <div>${designerState.implementedSecurity.has('backup') ? '✅' : '❌'} Backup</div>
+                        <div>${designerState.implementedSecurity.has('access') ? '✅' : '❌'} Control de Acceso</div>
+                    </div>
+                </div>
+                
+                <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <h5 style="margin-bottom: 10px;">💡 Recomendaciones:</h5>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        ${recommendations.map(rec => `<li style="margin-bottom: 5px; color: #8888bb;">${rec}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            assessment.style.display = 'block';
+            showNotification(`🔍 Evaluación completada: ${level} (${score}/100)`);
+        }
+
+        // ========== OPTIMIZATION FUNCTIONALITY ==========
+        function runOptimizationAnalysis() {
+            if (designerState.devices.length === 0) {
+                showNotification('⚠️ Diseña una red antes de analizar');
+                return;
+            }
+            
+            // Simular métricas basadas en el diseño actual
+            const deviceCount = designerState.devices.length;
+            const connectionCount = designerState.connections.length;
+            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
+            const networkComplexity = Math.min(deviceCount / 6, 1); // Normalizar a 0-1
+            
+            designerState.metrics = {
+                bandwidth: Math.floor(Math.random() * 30 + 60 + (connectionCount * 2)), // 60-90% + bonus
+                latency: Math.floor(Math.random() * 30 + 10 - (connectionCount * 2)), // 10-40ms - penalty for complexity
+                packetLoss: (Math.random() * 0.4 + (networkComplexity * 0.2)).toFixed(2), // 0-0.6%
+                availability: (99.2 + Math.random() * 0.7 + (hasFirewall ? 0.1 : 0)).toFixed(1), // 99.2-99.9%
+                throughput: (Math.random() * 4 + 1 + (deviceCount * 0.2)).toFixed(1), // 1-5+ Gbps
+                quality: Math.floor(Math.random() * 20 + 75 + (designerState.implementedSecurity.size * 2)) // 75-95 + security bonus
+            };
+            
+            // Actualizar métricas con animación
+            updateMetricWithAnimation('bandwidthUtil', designerState.metrics.bandwidth + '%');
+            updateMetricWithAnimation('latency', Math.max(5, designerState.metrics.latency) + 'ms');
+            updateMetricWithAnimation('packetLoss', designerState.metrics.packetLoss + '%');
+            updateMetricWithAnimation('availability', designerState.metrics.availability + '%');
+            updateMetricWithAnimation('throughput', designerState.metrics.throughput + 'Gbps');
+            updateMetricWithAnimation('networkQuality', designerState.metrics.quality);
+            
+            generateOptimizationRecommendations();
+            showNotification('📊 Análisis de red completado');
+        }
+
+        function updateMetricWithAnimation(elementId, value) {
+            const element = document.getElementById(elementId);
+            element.style.transform = 'scale(1.1)';
+            element.style.color = '#667eea';
+            
+            setTimeout(() => {
+                element.textContent = value;
+                element.style.transform = 'scale(1)';
+                element.style.color = '#2d3748';
+            }, 300);
+        }
+
+        function generateOptimizationRecommendations() {
+            const recommendations = [];
+            const metrics = designerState.metrics;
+            
+            // Análisis de ancho de banda
+            if (metrics.bandwidth > 85) {
+                recommendations.push('🔴 <strong>Alta utilización de ancho de banda:</strong> Implementa QoS o aumenta la capacidad');
+            } else if (metrics.bandwidth > 75) {
+                recommendations.push('🟡 <strong>Utilización moderada:</strong> Monitorea el crecimiento del tráfico');
+            }
+            
+            // Análisis de latencia
+            if (metrics.latency > 30) {
+                recommendations.push('🔴 <strong>Latencia elevada:</strong> Optimiza rutas y revisa la topología');
+            } else if (metrics.latency > 20) {
+                recommendations.push('🟡 <strong>Latencia aceptable:</strong> Considera optimizaciones menores');
+            }
+            
+            // Análisis de pérdida de paquetes
+            if (parseFloat(metrics.packetLoss) > 0.2) {
+                recommendations.push('🔴 <strong>Pérdida de paquetes alta:</strong> Revisa interfaces y calidad de enlaces');
+            }
+            
+            // Análisis de disponibilidad
+            if (parseFloat(metrics.availability) < 99.5) {
+                recommendations.push('🟡 <strong>Disponibilidad mejorable:</strong> Implementa redundancia y monitoreo');
+            }
+            
+            // Análisis de calidad general
+            if (metrics.quality < 80) {
+                recommendations.push('🟡 <strong>Calidad de red mejorable:</strong> Revisa configuración y seguridad');
+            }
+            
+            // Recomendaciones basadas en el diseño
+            if (!designerState.selectedTopology) {
+                recommendations.push('📐 <strong>Topología:</strong> Define una topología específica para tu red');
+            }
+            
+            if (designerState.implementedSecurity.size < 3) {
+                recommendations.push('🛡️ <strong>Seguridad:</strong> Implementa más medidas de seguridad');
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push('🟢 <strong>Red optimizada:</strong> Todos los parámetros están en rango óptimo');
+            }
+            
+            const results = document.getElementById('optimizationResults');
+            results.innerHTML = `
+                <h4>💡 Recomendaciones de Optimización</h4>
+                <div style="margin-top: 15px;">
+                    ${recommendations.map(rec => `<p style="margin: 10px 0; line-height: 1.4;">${rec}</p>`).join('')}
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h5 style="color: #667eea; margin-bottom: 10px;">📈 Resumen de Rendimiento:</h5>
+                    <p style="margin: 0; color: #8888bb; line-height: 1.5;">
+                        Tu red está funcionando con una calidad de ${metrics.quality}/100 y 
+                        una disponibilidad del ${metrics.availability}%. 
+                        ${metrics.quality >= 85 ? '¡Excelente rendimiento!' : 'Hay oportunidades de mejora.'}
+                        ${designerState.implementedSecurity.size >= 4 ? ' La seguridad está bien implementada.' : ' Considera mejorar la seguridad.'}
+                    </p>
+                </div>
+            `;
+        }
+
+        function optimizeBandwidth() {
+            const currentBW = parseInt(document.getElementById('bandwidthUtil').textContent);
+            const optimizedBW = Math.max(40, currentBW - Math.floor(Math.random() * 20 + 15));
+            updateMetricWithAnimation('bandwidthUtil', optimizedBW + '%');
+            showNotification('⚡ Ancho de banda optimizado mediante técnicas de compresión');
+        }
+
+        function optimizeLatency() {
+            const currentLatency = parseInt(document.getElementById('latency').textContent);
+            const optimizedLatency = Math.max(5, currentLatency - Math.floor(Math.random() * 10 + 5));
+            updateMetricWithAnimation('latency', optimizedLatency + 'ms');
+            showNotification('🚀 Latencia reducida mediante optimización de rutas');
+        }
+
+        function optimizeQoS() {
+            const currentQuality = parseInt(document.getElementById('networkQuality').textContent);
+            const optimizedQuality = Math.min(100, currentQuality + Math.floor(Math.random() * 10 + 5));
+            updateMetricWithAnimation('networkQuality', optimizedQuality);
+            showNotification('🎯 QoS configurado para priorizar tráfico crítico');
+        }
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 10px;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                animation: slideInRight 0.5s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+                style.remove();
+            }, 3000);
+        }
+
+        function markCompleted() {
+            const hasDevices = designerState.devices.length >= 3;
+            const hasConnections = designerState.connections.length >= 2;
+            const hasTopology = designerState.selectedTopology !== null;
+            const hasQuizAnswers = Object.keys(designerState.quizAnswers).length >= 1;
+            
+            if (!hasDevices || !hasConnections || !hasTopology || !hasQuizAnswers) {
+                alert('⚠️ Para completar la actividad necesitas:\n\n• Diseñar una red con al menos 3 dispositivos\n• Crear al menos 2 conexiones\n• Seleccionar una topología\n• Responder al menos 1 pregunta del quiz');
+                return;
+            }
+            
+            designerState.isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            const score = calculateNetworkScore();
+            alert(`🎉 ¡Felicidades! Has completado la actividad "Diseñador de Redes".\n\n✅ Red diseñada con puntuación: ${score}/100\n🏆 +300 puntos ganados\n📐 Topología: ${designerState.selectedTopology}\n🔗 ${designerState.connections.length} conexiones creadas`);
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = '/bootcamp/';
+            }
+        }
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (designerState.isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>
+                

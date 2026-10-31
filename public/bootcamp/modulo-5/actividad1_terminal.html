@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1 - Terminal Interactiva</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .terminal-container {
+            background: #1f1d5c;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        .terminal-
+        .terminal-
+
+        .terminal-title {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .terminal-output {
+            color: #e0f24a;
+            font-family: 'Courier New', Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .terminal-prompt {
+            color: #e0f24a;
+            font-family: 'Courier New', Monaco, monospace;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        .command-help {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .command-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .command-item:hover {
+            border-color: var(--purple);
+            background: var(--surface);
+        }
+
+        .command-name {
+            font-family: 'Courier New', Monaco, monospace;
+            font-weight: bold;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .command-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .challenge-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-item {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .challenge-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 5</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 5</a> / Actividad 1
+            </div>
+            <h1 class="activity-title">🖥️ Terminal Interactiva</h1>
+            <p class="activity-subtitle">Practica comandos básicos de Linux en un simulador de terminal</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 150</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás y practicarás los comandos básicos de Linux usando un simulador de terminal interactivo. Dominarás la navegación, gestión de archivos y comandos esenciales para el trabajo diario con servidores.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">💻 Terminal Simulada</h2>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-button close"></div>
+                        <div class="terminal-button minimize"></div>
+                        <div class="terminal-button maximize"></div>
+                        <div class="terminal-title">Terminal - Linux Simulator</div>
+                    </div>
+                    <div class="terminal-output" id="terminalOutput">Bienvenido al simulador de terminal de Linux!
+Escribe 'help' para ver los comandos disponibles.
+
+usuario@linux:~$ </div>
+                    <div class="terminal-input-line">
+                        <span class="terminal-prompt">usuario@linux:~$ </span>
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="Escribe tu comando aquí..." autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📚 Comandos Disponibles</h2>
+                <div class="command-help">
+                    <p><strong>Haz clic en cualquier comando para probarlo:</strong></p>
+                    <div class="command-grid">
+                        <div class="command-item" onclick="executeCommand('pwd')">
+                            <div class="command-name">pwd</div>
+                            <div class="command-desc">Mostrar directorio actual</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('ls')">
+                            <div class="command-name">ls</div>
+                            <div class="command-desc">Listar archivos y carpetas</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('ls -la')">
+                            <div class="command-name">ls -la</div>
+                            <div class="command-desc">Listar con detalles</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('cd documentos')">
+                            <div class="command-name">cd documentos</div>
+                            <div class="command-desc">Cambiar directorio</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('mkdir nueva_carpeta')">
+                            <div class="command-name">mkdir nueva_carpeta</div>
+                            <div class="command-desc">Crear directorio</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('touch archivo.txt')">
+                            <div class="command-name">touch archivo.txt</div>
+                            <div class="command-desc">Crear archivo</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('cat archivo.txt')">
+                            <div class="command-name">cat archivo.txt</div>
+                            <div class="command-desc">Ver contenido</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('whoami')">
+                            <div class="command-name">whoami</div>
+                            <div class="command-desc">Usuario actual</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('date')">
+                            <div class="command-name">date</div>
+                            <div class="command-desc">Fecha y hora</div>
+                        </div>
+                        <div class="command-item" onclick="executeCommand('clear')">
+                            <div class="command-name">clear</div>
+                            <div class="command-desc">Limpiar terminal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-section">
+                <h3 class="challenge-title">
+                    🎯 Desafíos Prácticos
+                </h3>
+                <div class="challenge-item">
+                    <strong>Desafío 1:</strong> Navega al directorio "documentos" y lista su contenido con detalles.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 2:</strong> Crea una carpeta llamada "mi_proyecto" y dentro de ella crea un archivo "readme.txt".
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 3:</strong> Usa el comando "find" para buscar todos los archivos .txt en el sistema.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 4:</strong> Combina comandos usando pipes (|) para filtrar resultados.
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips y Trucos
+                </h3>
+                <div class="tip-item">
+                    <strong>🎯 Autocompletar:</strong> En Linux real, usa la tecla TAB para autocompletar nombres de archivos y comandos.
+                </div>
+                <div class="tip-item">
+                    <strong>🔍 Historial:</strong> Usa las flechas ↑ y ↓ para navegar por comandos anteriores.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Combinaciones:</strong> Puedes combinar comandos con && (si el anterior es exitoso) o || (si el anterior falla).
+                </div>
+                <div class="tip-item">
+                    <strong>📁 Rutas:</strong> Usa ~ para referirte a tu directorio home, y .. para subir un nivel.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentDirectory = "/home/usuario";
+        let fileSystem = {
+            "/home/usuario": {
+                type: "directory",
+                files: ["documentos", "descargas", "scripts", "archivo_personal.txt"]
+            },
+            "/home/usuario/documentos": {
+                type: "directory", 
+                files: ["proyecto.txt", "notas.md", "backup"]
+            },
+            "/home/usuario/descargas": {
+                type: "directory",
+                files: ["imagen.jpg", "video.mp4"]
+            },
+            "/home/usuario/scripts": {
+                type: "directory",
+                files: ["backup.sh", "monitor.sh"]
+            },
+            "/home/usuario/documentos/backup": {
+                type: "directory",
+                files: ["backup_2024.tar.gz"]
+            }
+        };
+
+        const commandHistory = [];
+        let historyIndex = -1;
+
+        function addToOutput(text, isCommand = false) {
+            const output = document.getElementById('terminalOutput');
+            if (isCommand) {
+                output.innerHTML += `<span style="color: #e0f24a;">usuario@linux:${currentDirectory.replace('/home/usuario', '~')}$ ${text}</span>\n`;
+            } else {
+                output.innerHTML += `${text}\n`;
+            }
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function executeCommand(command) {
+            if (!command) return;
+            
+            commandHistory.push(command);
+            historyIndex = commandHistory.length;
+            
+            addToOutput(command, true);
+            
+            const parts = command.trim().split(' ');
+            const cmd = parts[0];
+            const args = parts.slice(1);
+
+            switch(cmd) {
+                case 'help':
+                    addToOutput(`Comandos disponibles:
+pwd     - Mostrar directorio actual
+ls      - Listar archivos y carpetas
+cd      - Cambiar directorio
+mkdir   - Crear directorio
+touch   - Crear archivo
+cat     - Mostrar contenido de archivo
+rm      - Eliminar archivo
+cp      - Copiar archivo
+mv      - Mover/renombrar archivo
+find    - Buscar archivos
+grep    - Buscar texto en archivos
+whoami  - Mostrar usuario actual
+date    - Mostrar fecha y hora
+clear   - Limpiar terminal`);
+                    break;
+                    
+                case 'pwd':
+                    addToOutput(currentDirectory);
+                    break;
+                    
+                case 'ls':
+                    if (args.includes('-la') || args.includes('-l')) {
+                        addToOutput('total 12');
+                        if (fileSystem[currentDirectory]) {
+                            fileSystem[currentDirectory].files.forEach(file => {
+                                const isDir = fileSystem[currentDirectory + '/' + file];
+                                const permissions = isDir ? 'drwxr-xr-x' : '-rw-r--r--';
+                                const size = isDir ? '4096' : '1024';
+                                addToOutput(`${permissions} 1 usuario usuario ${size} Oct 15 10:30 ${file}`);
+                            });
+                        }
+                    } else {
+                        if (fileSystem[currentDirectory]) {
+                            addToOutput(fileSystem[currentDirectory].files.join('  '));
+                        }
+                    }
+                    break;
+                    
+                case 'cd':
+                    if (args.length === 0 || args[0] === '~') {
+                        currentDirectory = '/home/usuario';
+                    } else if (args[0] === '..') {
+                        const parts = currentDirectory.split('/');
+                        if (parts.length > 3) {
+                            currentDirectory = parts.slice(0, -1).join('/');
+                        }
+                    } else {
+                        const newPath = currentDirectory + '/' + args[0];
+                        if (fileSystem[newPath]) {
+                            currentDirectory = newPath;
+                        } else {
+                            addToOutput(`cd: ${args[0]}: No such file or directory`);
+                        }
+                    }
+                    break;
+                    
+                case 'mkdir':
+                    if (args.length > 0) {
+                        const newDir = currentDirectory + '/' + args[0];
+                        if (!fileSystem[newDir]) {
+                            fileSystem[newDir] = { type: "directory", files: [] };
+                            fileSystem[currentDirectory].files.push(args[0]);
+                            addToOutput(`Directorio '${args[0]}' creado.`);
+                        } else {
+                            addToOutput(`mkdir: cannot create directory '${args[0]}': File exists`);
+                        }
+                    } else {
+                        addToOutput('mkdir: missing operand');
+                    }
+                    break;
+                    
+                case 'touch':
+                    if (args.length > 0) {
+                        fileSystem[currentDirectory].files.push(args[0]);
+                        addToOutput(`Archivo '${args[0]}' creado.`);
+                    } else {
+                        addToOutput('touch: missing file operand');
+                    }
+                    break;
+                    
+                case 'cat':
+                    if (args.length > 0) {
+                        if (fileSystem[currentDirectory].files.includes(args[0])) {
+                            addToOutput(`Contenido de ${args[0]}:
+Este es un archivo de ejemplo.
+Puedes editarlo con nano o vim.
+¡Practica con diferentes comandos!`);
+                        } else {
+                            addToOutput(`cat: ${args[0]}: No such file or directory`);
+                        }
+                    } else {
+                        addToOutput('cat: missing file operand');
+                    }
+                    break;
+                    
+                case 'whoami':
+                    addToOutput('usuario');
+                    break;
+                    
+                case 'date':
+                    addToOutput(new Date().toString());
+                    break;
+                    
+                case 'find':
+                    if (args.includes('*.txt') || args.includes('-name "*.txt"')) {
+                        addToOutput(`/home/usuario/archivo_personal.txt
+/home/usuario/documentos/proyecto.txt`);
+                    } else {
+                        addToOutput('find: especifica un patrón de búsqueda (ej: find . -name "*.txt")');
+                    }
+                    break;
+                    
+                case 'clear':
+                    document.getElementById('terminalOutput').innerHTML = 'usuario@linux:~$ ';
+                    break;
+                    
+                default:
+                    addToOutput(`${cmd}: command not found`);
+            }
+            
+            // Limpiar input
+            document.getElementById('terminalInput').value = '';
+        }
+
+        // Event listeners
+        document.getElementById('terminalInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand(this.value);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    this.value = '';
+                }
+            }
+        });
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Terminal Interactiva".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n\n¡Ahora dominas los comandos básicos de Linux!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Enfocar en el input al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('terminalInput').focus();
+        });
+    </script>
+
+</body>
+</html>

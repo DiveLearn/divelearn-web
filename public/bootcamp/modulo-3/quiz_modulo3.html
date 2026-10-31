@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Módulo 3: La Guía Telefónica Digital (DNS)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .question {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            to { opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .results-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 2.2rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5453eb, #7b7aff);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .score-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 3</a>
+  </nav>
+  <div class="container">
+        <div class="breadcrumb">
+            <a href="./">← Volver al Módulo 3</a>
+        </div>
+
+        <div class="header">
+            <h1 class="quiz-title">📞 Quiz del Módulo</h1>
+            <p class="quiz-subtitle">Evalúa tus conocimientos sobre la Guía Telefónica Digital (DNS)</p>
+        </div>
+
+        <div class="quiz-container">
+            <div class="progress-header">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> de <span id="totalQuestions">5</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="currentScore">0</span> puntos
+                </div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <!-- Pregunta 1 -->
+                <div class="question active" data-question="1">
+                    <div class="question-number">1</div>
+                    <h2 class="question-text">¿Cuál es la función principal del Sistema de Nombres de Dominio (DNS)?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Encriptar las comunicaciones de Internet</div>
+                            <div class="option-text">Proteger datos durante la transmisión</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Traducir nombres de dominio a direcciones IP</div>
+                            <div class="option-text">Convertir nombres amigables en direcciones numéricas</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Distribuir contenido web a nivel global</div>
+                            <div class="option-text">Acelerar la entrega de páginas web</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Gestionar el tráfico de red</div>
+                            <div class="option-text">Controlar el flujo de datos en Internet</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback1">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="question" data-question="2">
+                    <div class="question-number">2</div>
+                    <h2 class="question-text">¿Cuántos servidores raíz DNS existen en todo el mundo?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) 7 servidores raíz</div>
+                            <div class="option-text">Un número pequeño para simplicidad</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) 13 servidores raíz</div>
+                            <div class="option-text">Nombrados de la A a la M</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) 25 servidores raíz</div>
+                            <div class="option-text">Uno por cada letra del alfabeto</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) 50 servidores raíz</div>
+                            <div class="option-text">Distribuidos geográficamente</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback2">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="question" data-question="3">
+                    <div class="question-number">3</div>
+                    <h2 class="question-text">¿Qué significa TTL en el contexto de DNS y para qué sirve?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Total Transfer Limit - limita transferencias</div>
+                            <div class="option-text">Controla cuántos datos se pueden transferir</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Time To Live - tiempo de vida del caché</div>
+                            <div class="option-text">Especifica cuánto tiempo mantener una respuesta en caché</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Top Level Type - tipo de dominio superior</div>
+                            <div class="option-text">Clasifica los diferentes TLD</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Traffic Load Tracker - seguimiento de carga</div>
+                            <div class="option-text">Monitorea el tráfico de consultas DNS</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback3">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="question" data-question="4">
+                    <div class="question-number">4</div>
+                    <h2 class="question-text">¿Cuál es la diferencia principal entre un registro A y un registro CNAME?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) A es para IPv4, CNAME es para IPv6</div>
+                            <div class="option-text">Diferentes versiones del protocolo IP</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) A apunta a una IP, CNAME apunta a otro nombre</div>
+                            <div class="option-text">A resuelve directamente, CNAME crea un alias</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) A es temporal, CNAME es permanente</div>
+                            <div class="option-text">Diferentes duraciones de validez</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) A es público, CNAME es privado</div>
+                            <div class="option-text">Diferentes niveles de acceso</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback4">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="question" data-question="5">
+                    <div class="question-number">5</div>
+                    <h2 class="question-text">¿Qué información contiene un registro MX y cómo se interpreta el número de prioridad?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Información de correo, mayor número = mayor prioridad</div>
+                            <div class="option-text">Números altos tienen precedencia</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Información de correo, menor número = mayor prioridad</div>
+                            <div class="option-text">Números bajos se intentan primero</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Información de multimedia, número indica tipo de archivo</div>
+                            <div class="option-text">Clasifica diferentes formatos de contenido</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Información de proxy, número indica puerto</div>
+                            <div class="option-text">Especifica dónde conectarse</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback5">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 3: La Guía Telefónica Digital (DNS)</strong>
+                </p>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" disabled>
+                    ← Anterior
+                </button>
+                
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="nav-btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Siguiente →
+                    </button>
+                    <button class="nav-btn success" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                        Finalizar Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let score = 0;
+        let startTime = Date.now();
+        let questionAnswered = false;
+
+        const questions = [
+            {
+                id: 1,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. La encriptación de comunicaciones es función de protocolos como HTTPS/TLS, no del DNS.',
+                    'b': '✅ ¡Correcto! DNS es el "directorio telefónico de Internet" que traduce nombres amigables como google.com a direcciones IP numéricas como 172.217.14.238.',
+                    'c': '❌ Incorrecto. La distribución de contenido global es función de CDNs (Content Delivery Networks), no del DNS.',
+                    'd': '❌ Incorrecto. La gestión del tráfico de red es función de routers y protocolos de enrutamiento, no del DNS.'
+                }
+            },
+            {
+                id: 2,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. 7 servidores serían insuficientes para la redundancia y distribución geográfica necesaria.',
+                    'b': '✅ ¡Correcto! Existen exactamente 13 servidores raíz DNS, nombrados de la A a la M (a.root-servers.net hasta m.root-servers.net), distribuidos globalmente para redundancia.',
+                    'c': '❌ Incorrecto. No hay 25 servidores raíz. El sistema está diseñado con 13 para balance entre redundancia y eficiencia.',
+                    'd': '❌ Incorrecto. 50 servidores serían excesivos y innecesarios para la función de los servidores raíz.'
+                }
+            },
+            {
+                id: 3,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. TTL no se relaciona con límites de transferencia de datos.',
+                    'b': '✅ ¡Correcto! TTL (Time To Live) especifica en segundos cuánto tiempo puede un servidor DNS mantener una respuesta en caché antes de necesitar consultar nuevamente la fuente autoritativa.',
+                    'c': '❌ Incorrecto. TTL no clasifica tipos de dominios de nivel superior.',
+                    'd': '❌ Incorrecto. TTL no monitorea tráfico de consultas DNS.'
+                }
+            },
+            {
+                id: 4,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. Los registros AAAA son para IPv6, no CNAME. Los registros A son para IPv4.',
+                    'b': '✅ ¡Correcto! Un registro A apunta directamente a una dirección IP (ej: ejemplo.com → 192.168.1.1), mientras que CNAME crea un alias que apunta a otro nombre de dominio (ej: www.ejemplo.com → ejemplo.com).',
+                    'c': '❌ Incorrecto. Tanto A como CNAME pueden tener TTL configurables, no hay diferencia inherente de permanencia.',
+                    'd': '❌ Incorrecto. Tanto A como CNAME pueden ser públicos o privados dependiendo de la configuración del servidor DNS.'
+                }
+            },
+            {
+                id: 5,
+                correct: 'b',
+                feedback: {
+                    'a': '❌ Incorrecto. En registros MX, menor número indica mayor prioridad, no mayor número.',
+                    'b': '✅ ¡Correcto! Los registros MX especifican qué servidores manejan correo electrónico para un dominio. El número de prioridad indica orden de preferencia: menor número = mayor prioridad (se intenta primero).',
+                    'c': '❌ Incorrecto. MX significa "Mail Exchange", no tiene relación con archivos multimedia.',
+                    'd': '❌ Incorrecto. MX no se relaciona con información de proxy ni especifica puertos.'
+                }
+            }
+        ];
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+        }
+
+        function showQuestion(index) {
+            // Ocultar todas las preguntas
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+
+            // Mostrar pregunta actual
+            const currentQuestion = document.querySelector(`[data-question="${index + 1}"]`);
+            if (currentQuestion) {
+                currentQuestion.classList.add('active');
+            }
+
+            // Actualizar botones de navegación
+            document.getElementById('prevBtn').disabled = index === 0;
+            
+            if (index === questions.length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('finishBtn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-flex';
+                document.getElementById('finishBtn').style.display = 'none';
+            }
+
+            // Verificar si ya se respondió esta pregunta
+            questionAnswered = answers[index + 1] !== undefined;
+            updateNextButton();
+
+            updateProgress();
+        }
+
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                finishBtn.disabled = !questionAnswered;
+            } else {
+                nextBtn.disabled = !questionAnswered;
+            }
+        }
+
+        function selectOption(element, questionId, option) {
+            // Marcar opción seleccionada
+            const questionElement = document.querySelector(`[data-question="${questionId}"]`);
+            questionElement.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            answers[questionId] = option;
+            questionAnswered = true;
+
+            // Mostrar feedback inmediato
+            setTimeout(() => {
+                const question = questions[questionId - 1];
+                const isCorrect = option === question.correct;
+                
+                // Marcar opción correcta e incorrecta
+                questionElement.querySelectorAll('.option').forEach(opt => {
+                    const optionValue = opt.getAttribute('data-option');
+                    if (optionValue === question.correct) {
+                        opt.classList.add('correct');
+                    } else if (optionValue === option && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                // Mostrar feedback
+                const feedback = document.getElementById(`feedback${questionId}`);
+                const feedbackContent = feedback.querySelector('.feedback-content');
+                
+                feedbackContent.innerHTML = question.feedback[option];
+                feedback.className = `feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                // Actualizar puntaje
+                if (isCorrect && answers[questionId] !== 'scored') {
+                    score++;
+                    answers[questionId] = 'scored'; // Evitar doble conteo
+                }
+
+                updateNextButton();
+                updateProgress();
+            }, 500);
+        }
+
+        function nextQuestion() {
+            if (questionAnswered && currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                questionAnswered = false;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                questionAnswered = answers[currentQuestionIndex + 1] !== undefined;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function finishQuiz() {
+            if (!questionAnswered) return;
+
+            // Calcular tiempo total
+            const endTime = Date.now();
+            const totalTimeMs = endTime - startTime;
+            const minutes = Math.floor(totalTimeMs / 60000);
+            const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Calcular puntos (30 puntos por respuesta correcta)
+            const points = score * 30;
+
+            // Ocultar contenedor de preguntas
+            document.getElementById('questionContainer').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+
+            // Mostrar resultados
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            // Actualizar estadísticas
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('totalTime').textContent = timeString;
+            document.getElementById('finalPoints').textContent = points;
+
+            // Crear botones de navegación en resultados
+            const navigationDiv = document.createElement('div');
+            navigationDiv.style.cssText = 'margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;';
+            
+            navigationDiv.innerHTML = `
+                <button class="nav-btn" onclick="retryQuiz()">
+                    🔄 Repetir Quiz
+                </button>
+                <button class="nav-btn primary" onclick="goToHub()">
+                    🏠 Volver al Módulo
+                </button>
+                <button class="nav-btn success" onclick="nextModule()">
+                    ➡️ Siguiente Módulo
+                </button>
+            `;
+            
+            resultsContainer.appendChild(navigationDiv);
+
+            // Mostrar mensaje motivacional basado en el puntaje
+            let message = '';
+            if (score === 5) {
+                message = '🌟 ¡Excelente! Dominas completamente el DNS y la resolución de nombres.';
+            } else if (score >= 4) {
+                message = '👏 ¡Muy bien! Tienes una comprensión sólida del sistema DNS.';
+            } else if (score >= 3) {
+                message = '👍 ¡Buen trabajo! Revisa algunos conceptos sobre registros DNS y estarás listo.';
+            } else {
+                message = '📚 Te recomendamos revisar la teoría sobre jerarquía DNS y tipos de registros antes de continuar.';
+            }
+
+            const messageElement = document.createElement('p');
+            messageElement.style.cssText = 'color: #8888bb; margin: 20px 0; font-size: 1rem; font-weight: 500;';
+            messageElement.innerHTML = message;
+            resultsContainer.insertBefore(messageElement, navigationDiv);
+        }
+
+        function retryQuiz() {
+            // Reiniciar variables
+            currentQuestionIndex = 0;
+            answers = {};
+            score = 0;
+            startTime = Date.now();
+            questionAnswered = false;
+
+            // Limpiar todas las opciones y feedback
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.classList.remove('show', 'correct', 'incorrect');
+            });
+
+            // Ocultar resultados
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('resultsContainer').innerHTML = `
+                <h2 class="results-title">🎉 ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #8888bb; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 3: La Guía Telefónica Digital (DNS)</strong>
+                </p>
+            `;
+
+            // Mostrar contenedor de preguntas y navegación
+            document.getElementById('questionContainer').style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+
+            // Mostrar primera pregunta
+            showQuestion(0);
+        }
+
+        function goToHub() {
+            window.location.href = './';
+        }
+
+        function nextModule() {
+            alert('🚀 ¡Excelente progreso! El siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros módulos del bootcamp.');
+            goToHub();
+        }
+
+        // Event listeners para las opciones
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionElement = this.closest('.question');
+                    const questionId = parseInt(questionElement.getAttribute('data-question'));
+                    const optionValue = this.getAttribute('data-option');
+                    
+                    // Solo permitir selección si no se ha respondido o es la primera vez
+                    if (!questionElement.querySelector('.option.correct') && !questionElement.querySelector('.option.incorrect')) {
+                        selectOption(this, questionId, optionValue);
+                    }
+                });
+            });
+
+            // Inicializar
+            showQuestion(0);
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' && !document.getElementById('prevBtn').disabled) {
+                previousQuestion();
+            } else if (e.key === 'ArrowRight' && !document.getElementById('nextBtn').disabled) {
+                nextQuestion();
+            } else if (e.key === 'Enter') {
+                if (currentQuestionIndex === questions.length - 1 && questionAnswered) {
+                    finishQuiz();
+                } else if (questionAnswered) {
+                    nextQuestion();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>  {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a

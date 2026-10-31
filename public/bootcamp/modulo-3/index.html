@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Módulo 3 - La Guía Telefónica Digital (DNS)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        .navigation-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .module-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            
+        }
+
+        .module-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        
+
+        
+
+        
+
+        .tabs {
+            display: flex;
+            background: var(--surface);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .tab.active {
+            background: var(--surface);
+            color: var(--lime);
+            border-bottom-color: var(--lime);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--surface2);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            min-height: 400px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .teoria-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .teoria-section {
+            margin-bottom: 40px;
+        }
+
+        .teoria-title {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4CAF50;
+        }
+
+        .teoria-subsection {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subsection-content {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1B5E20;
+        }
+
+        .example-box {
+            background: var(--surface2);
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dns-tree {
+            background: var(--surface);
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .submodulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .actividad-card {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .actividad-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .actividad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border-color: var(--lime);
+        }
+
+        .actividad-card:hover::before {
+            left: 100%;
+        }
+
+        .actividad-numero {
+            display: inline-block;
+            background: var(--lime);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .actividad-titulo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .actividad-descripcion {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .actividad-duracion {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--lime);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .quiz-card {
+            background: linear-gradient(135deg, #FF9800 0%, #FFB74D 100%);
+            color: white;
+        }
+
+        .quiz-card .actividad-numero {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .quiz-card .actividad-titulo {
+            color: white;
+        }
+
+        .quiz-card .actividad-descripcion {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .quiz-card .actividad-duracion {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .objetivos-container {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .objetivos-title {
+            font-size: 1.4rem;
+            color: #22C55E;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objetivo-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        
+
+        
+
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        
+        @media (max-width: 768px) {
+            
+
+            
+
+            .navigation-back {
+                position: relative;
+                margin-bottom: 20px;
+                text-align: left;
+            }
+
+            .module-title {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .submodulos-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="navigation-back">
+                <a href="/bootcamp/" class="back-btn">
+                    ← Hub del Bootcamp
+                </a>
+            </div>
+            
+            <h1 class="module-title">📞 Módulo 3</h1>
+            <p class="module-subtitle">La Guía Telefónica Digital (DNS)</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('teoria')">
+                    📚 Teoría
+                </div>
+                <div class="tab" onclick="showTab('submodulos')">
+                    🎯 Submódulos
+                </div>
+            </div>
+
+            <div id="teoria" class="tab-content active">
+                <div class="objetivos-container">
+                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <div class="objetivo-item">
+                        <strong>🌐 Al finalizar este módulo podrás:</strong> Comprender cómo funciona el Sistema de Nombres de Dominio (DNS) y su papel crucial en Internet.
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>🔍 Dominar:</strong> Resolución de nombres, jerarquía DNS, tipos de registros y herramientas de consulta.
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>⚡ Aplicar:</strong> Configuración básica de DNS, troubleshooting de problemas de resolución y uso de herramientas como nslookup y dig.
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">📖 3.1 El Problema de la Memoria</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">¿Por qué no usamos números directamente?</h3>
+                        <div class="subsection-content">
+                            Imagina que para llamar a tu mejor amigo tuvieras que memorizar el número 192.168.1.147 en lugar de simplemente buscar "Juan" en tu agenda. Esto es exactamente lo que pasaría en Internet sin DNS. Las computadoras usan direcciones IP numéricas (como 172.217.14.238) para comunicarse, pero los humanos necesitamos algo más fácil de recordar como <span class="highlight">google.com</span>.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">📱 Analogía con tu teléfono:</div>
+                            Tu contacto "Mamá" en realidad apunta al número +52-55-1234-5678. DNS funciona igual: "google.com" apunta a 172.217.14.238.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Nombres vs direcciones: la solución humana</h3>
+                        <div class="subsection-content">
+                            El <span class="highlight">DNS (Domain Name System)</span> actúa como una guía telefónica gigante y distribuida que traduce nombres amigables para humanos en direcciones IP que entienden las máquinas. Esta traducción se llama <span class="highlight">resolución de nombres</span> y sucede cada vez que escribes una URL en tu navegador.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">El sistema de nombres jerárquico</h3>
+                        <div class="subsection-content">
+                            DNS usa una estructura de árbol invertido, donde cada nivel tiene autoridad sobre los niveles inferiores. Esto permite que nadie tenga que mantener una lista completa de todos los nombres en Internet.
+                        </div>
+                        <div class="dns-tree">
+                            . (raíz)
+                            ├── com
+                            │   ├── google
+                            │   │   ├── www
+                            │   │   └── mail
+                            │   └── facebook
+                            ├── org
+                            │   └── wikipedia
+                            └── mx
+                                └── gob
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🏢 3.2 La Jerarquía Global</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Raíz: los jefes supremos del Internet</h3>
+                        <div class="subsection-content">
+                            En la cima del sistema DNS están los <span class="highlight">servidores raíz</span>, solo 13 en todo el mundo (nombrados de la A a la M). Estos "jefes supremos" conocen dónde encontrar información sobre todos los dominios de nivel superior como .com, .org, .mx, etc.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Dominios de nivel superior: .com, .org, .mx</h3>
+                        <div class="subsection-content">
+                            Los <span class="highlight">TLD (Top Level Domains)</span> son como los "jefes regionales". Por ejemplo, .com maneja todos los dominios comerciales, .mx maneja dominios mexicanos, y .edu maneja instituciones educativas. Cada TLD tiene sus propios servidores autoritativos.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🌍 Ejemplos comunes:</div>
+                            <strong>gTLD (genéricos):</strong> .com, .org, .net, .info<br>
+                            <strong>ccTLD (países):</strong> .mx (México), .es (España), .uk (Reino Unido)
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Dominios autoritativos: quien tiene la respuesta final</h3>
+                        <div class="subsection-content">
+                            Los <span class="highlight">servidores autoritativos</span> son los que tienen la información definitiva sobre un dominio específico. Cuando registras "miempresa.com", designas qué servidores serán autoritativos para ese dominio y todos sus subdominios.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🛣️ 3.3 El Viaje de una Consulta</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">"Walking the tree": siguiendo la cadena de preguntas</h3>
+                        <div class="subsection-content">
+                            Cuando escribes "www.google.com" en tu navegador, se inicia una cadena de preguntas que "camina por el árbol" DNS:
+                            <br><br>
+                            1. Tu computadora pregunta al servidor DNS local: "¿Dónde está www.google.com?"<br>
+                            2. Si no lo sabe, pregunta a un servidor raíz: "¿Quién maneja .com?"<br>
+                            3. El servidor .com responde: "¿Quién maneja google.com?"<br>
+                            4. Finalmente obtiene la dirección IP de www.google.com
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Caché: recordar respuestas para ser más rápido</h3>
+                        <div class="subsection-content">
+                            Para evitar hacer este viaje completo cada vez, los servidores DNS <span class="highlight">cachean (guardan temporalmente)</span> las respuestas. Es como si tu cerebro recordara que "google.com = 172.217.14.238" por un tiempo determinado.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">TTL: cuánto tiempo recordar una respuesta</h3>
+                        <div class="subsection-content">
+                            El <span class="highlight">TTL (Time To Live)</span> especifica cuánto tiempo puede un servidor mantener una respuesta en caché antes de preguntar de nuevo. Un TTL de 3600 segundos significa "recuerda esta respuesta por 1 hora".
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">⏰ TTL en la práctica:</div>
+                            TTL bajo (300s) = Cambios rápidos, más tráfico DNS<br>
+                            TTL alto (86400s) = Menos tráfico, cambios más lentos
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">📋 3.4 Tipos de Registros</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Los diferentes tipos de información DNS</h3>
+                        <div class="subsection-content">
+                            DNS no solo traduce nombres a direcciones IP. Puede almacenar diferentes tipos de información usando <span class="highlight">registros DNS</span>:
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Registro A: dirección IPv4</h3>
+                        <div class="subsection-content">
+                            El registro más común. Mapea un nombre a una dirección IPv4.
+                            <br><strong>Ejemplo:</strong> www.ejemplo.com → 192.168.1.100
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Registro AAAA: dirección IPv6</h3>
+                        <div class="subsection-content">
+                            Como el registro A, pero para direcciones IPv6 (128 bits).
+                            <br><strong>Ejemplo:</strong> www.ejemplo.com → 2001:db8::1
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Registro CNAME: alias o apodo</h3>
+                        <div class="subsection-content">
+                            Crea un "apodo" o alias para otro nombre de dominio.
+                            <br><strong>Ejemplo:</strong> ftp.ejemplo.com → servidor.ejemplo.com
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Registro MX: para correo electrónico</h3>
+                        <div class="subsection-content">
+                            Especifica qué servidor maneja el correo electrónico para un dominio.
+                            <br><strong>Ejemplo:</strong> ejemplo.com → mail.ejemplo.com (prioridad 10)
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Registro TXT: información extra</h3>
+                        <div class="subsection-content">
+                            Almacena texto arbitrario, usado para verificaciones, políticas de seguridad, etc.
+                            <br><strong>Ejemplo:</strong> ejemplo.com → "v=spf1 include:_spf.google.com ~all"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">⚙️ 3.5 Gestión de Dominios</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">¿Qué pasa cuando registras un dominio?</h3>
+                        <div class="subsection-content">
+                            Cuando registras un dominio, estás esencialmente "alquilando" ese nombre por un período específico. El registrar actualiza la base de datos del TLD correspondiente para incluir tu dominio y los servidores DNS que especifiques.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Propagación: esperar que todos se enteren</h3>
+                        <div class="subsection-content">
+                            Cuando cambias la configuración DNS, la información nueva debe <span class="highlight">propagarse</span> por toda la red mundial de servidores DNS. Este proceso puede tomar de minutos a 48 horas, dependiendo de los TTL configurados.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Problemas comunes y soluciones</h3>
+                        <div class="subsection-content">
+                            <strong>Problema:</strong> "No puedo acceder a mi sitio web después de cambiar DNS"<br>
+                            <strong>Solución:</strong> Verificar propagación, limpiar caché DNS local, verificar TTL
+                            <br><br>
+                            <strong>Problema:</strong> "Mi correo no funciona"<br>
+                            <strong>Solución:</strong> Revisar registros MX, verificar prioridades
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🔧 Herramientas útiles:</div>
+                            <strong>nslookup</strong> - Consultas DNS básicas<br>
+                            <strong>dig</strong> - Consultas DNS avanzadas<br>
+                            <strong>whatsmydns.net</strong> - Verificar propagación global
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="submodulos" class="tab-content">
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                
+                <div class="submodulos-grid">
+                    <a href="./actividad1_navegador_jerarquia.html" class="actividad-card">
+                        <div class="actividad-numero">1</div>
+                        <h3 class="actividad-titulo">🌳 Navegador de Jerarquía DNS</h3>
+                        <p class="actividad-descripcion">Explora interactivamente la estructura jerárquica del DNS navegando desde la raíz hasta dominios específicos</p>
+                        <span class="actividad-duracion">⏱️ 20 min</span>
+                    </a>
+
+                    <a href="./actividad2_investigador_dns.html" class="actividad-card">
+                        <div class="actividad-numero">2</div>
+                        <h3 class="actividad-titulo">🔍 Investigador DNS</h3>
+                        <p class="actividad-descripcion">Usa herramientas de consulta DNS para investigar registros de dominios reales y entender el proceso de resolución</p>
+                        <span class="actividad-duracion">⏱️ 25 min</span>
+                    </a>
+
+                    <a href="./actividad3_simulador_ttl.html" class="actividad-card">
+                        <div class="actividad-numero">3</div>
+                        <h3 class="actividad-titulo">⏰ Simulador de TTL y Caché</h3>
+                        <p class="actividad-descripcion">Comprende cómo funciona el sistema de caché DNS y el impacto del TTL en la propagación</p>
+                        <span class="actividad-duracion">⏱️ 20 min</span>
+                    </a>
+
+                    <a href="./actividad4_configurar_registros.html" class="actividad-card">
+                        <div class="actividad-numero">4</div>
+                        <h3 class="actividad-titulo">📧 Configurador de Registros DNS</h3>
+                        <p class="actividad-descripcion">Aprende a configurar diferentes tipos de registros DNS para servicios web, correo y otros</p>
+                        <span class="actividad-duracion">⏱️ 30 min</span>
+                    </a>
+
+                    <a href="./quiz_modulo3.html" class="actividad-card quiz-card">
+                        <div class="actividad-numero">Q</div>
+                        <h3 class="actividad-titulo">Quiz del Módulo</h3>
+                        <p class="actividad-descripcion">Evalúa tus conocimientos sobre DNS con 5 preguntas sobre resolución de nombres, jerarquía y registros</p>
+                        <span class="actividad-duracion">⏱️ 10 min</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remover clase active de todos los tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el tab correspondiente
+            event.target.classList.add('active');
+
+            // Actualizar barra de progreso (simulado)
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const randomProgress = Math.floor(Math.random() * 60) + 20; // 20-80%
+            progressBar.style.width = randomProgress + '%';
+        }
+
+        // Inicializar progreso al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+
+</body>
+</html>

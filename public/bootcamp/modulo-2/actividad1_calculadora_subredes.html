@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 1 - Calculadora de Subredes Interactiva</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .calculator-container {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--purple);
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .
+
+        
+
+        
+
+        .results-area {
+            margin-top: 30px;
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .results-area.show {
+            display: block;
+        }
+
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        .result-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .result-item {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #22C55E;
+            font-family: 'Courier New', monospace;
+        }
+
+        .binary-display {
+            background: #1a1a1a;
+            color: #e0f24a;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .binary-section {
+            margin: 5px 0;
+        }
+
+        
+
+        
+
+        
+
+        .example-section {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #1565C0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .example-steps {
+            display: grid;
+            gap: 15px;
+        }
+
+        .step {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .step-number {
+            background: #2196F3;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 2</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 2</a> / Actividad 1
+            </div>
+            <h1 class="activity-title">🧮 Calculadora de Subredes Interactiva</h1>
+            <p class="activity-subtitle">Domina el cálculo de subredes de forma visual e interactiva</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico-Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 150</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>Aprende a calcular subredes paso a paso, convierte máscaras entre formatos decimal y CIDR, calcula rangos de hosts utilizables y visualiza cómo se divide una red en subredes más pequeñas.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🧮 Calculadora de Subredes</h2>
+                <div class="calculator-container">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label class="input-label" for="networkAddress">🌐 Dirección de Red:</label>
+                            <input type="text" id="networkAddress" class="input-field" placeholder="192.168.1.0" value="192.168.1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="subnetMask">🎭 Máscara de Subred:</label>
+                            <input type="text" id="subnetMask" class="input-field" placeholder="255.255.255.0 o /24" value="255.255.255.0">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label class="input-label" for="desiredSubnets">📊 Número de Subredes Deseadas:</label>
+                            <input type="number" id="desiredSubnets" class="input-field" placeholder="4" value="4" min="1" max="256">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="hostsPerSubnet">👥 Hosts por Subred (mínimo):</label>
+                            <input type="number" id="hostsPerSubnet" class="input-field" placeholder="30" value="30" min="1">
+                        </div>
+                    </div>
+                    <button class="calculate-btn" onclick="calculateSubnets()">🚀 Calcular Subredes</button>
+
+                    <div id="resultsArea" class="results-area">
+                        <div class="result-card">
+                            <div class="result-title">📋 Información de la Red Original</div>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <div class="result-label">Dirección de Red</div>
+                                    <div class="result-value" id="originalNetwork">-</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Máscara CIDR</div>
+                                    <div class="result-value" id="originalCIDR">-</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Hosts Totales</div>
+                                    <div class="result-value" id="totalHosts">-</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Hosts Utilizables</div>
+                                    <div class="result-value" id="usableHosts">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-title">🔢 Representación Binaria</div>
+                            <div class="binary-display" id="binaryDisplay">
+                                <div class="binary-section">Cargando...</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-title">📊 Cálculo de Subredes</div>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <div class="result-label">Nueva Máscara CIDR</div>
+                                    <div class="result-value" id="newCIDR">-</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Subredes Creadas</div>
+                                    <div class="result-value" id="subnetsCreated">-</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Hosts por Subred</div>
+                                    <div class="result-value" id="hostsPerSubnetResult">-</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Incremento de Subred</div>
+                                    <div class="result-value" id="subnetIncrement">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-title">🗂️ Lista de Subredes</div>
+                            <div id="subnetsList">
+                                <!-- Se llena dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <div class="example-title">📚 Ejemplo Paso a Paso</div>
+                <div class="example-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Red Original:</strong> 192.168.1.0/24 (puede alojar 254 hosts)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Objetivo:</strong> Crear 4 subredes (necesitamos 2 bits adicionales: 2² = 4)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Nueva Máscara:</strong> /24 + 2 bits = /26 (255.255.255.192)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Hosts por Subred:</strong> 2⁶ - 2 = 62 hosts utilizables
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Subredes Resultantes:</strong> 192.168.1.0/26, 192.168.1.64/26, 192.168.1.128/26, 192.168.1.192/26
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips para Maestros del Subneteo
+                </h3>
+                <div class="tip-item">
+                    <strong>🎯 Fórmula mágica:</strong> Para n subredes necesitas log₂(n) bits adicionales. Para 8 subredes: log₂(8) = 3 bits.
+                </div>
+                <div class="tip-item">
+                    <strong>🔢 Hosts utilizables:</strong> Siempre resta 2 del total (primera dirección = red, última = broadcast).
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Truco rápido:</strong> El incremento de subred = 256 - último octeto de la máscara.
+                </div>
+                <div class="tip-item">
+                    <strong>📐 Planificación:</strong> Siempre deja espacio para crecimiento. Si necesitas 30 hosts, usa /26 (62 hosts) no /27 (30 hosts).
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+
+        function calculateSubnets() {
+            const networkAddr = document.getElementById('networkAddress').value;
+            const subnetMask = document.getElementById('subnetMask').value;
+            const desiredSubnets = parseInt(document.getElementById('desiredSubnets').value);
+            const minHosts = parseInt(document.getElementById('hostsPerSubnet').value);
+
+            // Validar entrada
+            if (!isValidIP(networkAddr)) {
+                alert('❌ Dirección de red inválida. Use formato: 192.168.1.0');
+                return;
+            }
+
+            // Determinar máscara original en formato CIDR
+            let originalCIDR;
+            if (subnetMask.includes('/')) {
+                originalCIDR = parseInt(subnetMask.replace('/', ''));
+            } else if (subnetMask.includes('.')) {
+                originalCIDR = subnetMaskToCIDR(subnetMask);
+            } else {
+                alert('❌ Máscara inválida. Use formato: 255.255.255.0 o /24');
+                return;
+            }
+
+            // Calcular información básica
+            const hostBitsOriginal = 32 - originalCIDR;
+            const totalHostsOriginal = Math.pow(2, hostBitsOriginal);
+            const usableHostsOriginal = totalHostsOriginal - 2;
+
+            // Calcular bits necesarios para subredes
+            const bitsNeeded = Math.ceil(Math.log2(desiredSubnets));
+            const newCIDR = originalCIDR + bitsNeeded;
+            
+            if (newCIDR > 30) {
+                alert('❌ Demasiadas subredes solicitadas. Máximo permitido para esta red.');
+                return;
+            }
+
+            const hostBitsNew = 32 - newCIDR;
+            const hostsPerSubnet = Math.pow(2, hostBitsNew) - 2;
+            const subnetsCreated = Math.pow(2, bitsNeeded);
+            const subnetIncrement = Math.pow(2, hostBitsNew);
+
+            // Verificar si cumple con requisitos mínimos de hosts
+            if (hostsPerSubnet < minHosts) {
+                alert(`⚠️ Advertencia: Las subredes tendrán ${hostsPerSubnet} hosts, pero solicitaste mínimo ${minHosts}`);
+            }
+
+            // Mostrar resultados
+            updateResults({
+                originalNetwork: networkAddr + '/' + originalCIDR,
+                originalCIDR: '/' + originalCIDR,
+                totalHosts: totalHostsOriginal.toLocaleString(),
+                usableHosts: usableHostsOriginal.toLocaleString(),
+                newCIDR: '/' + newCIDR,
+                subnetsCreated: subnetsCreated,
+                hostsPerSubnetResult: hostsPerSubnet,
+                subnetIncrement: subnetIncrement,
+                networkAddr: networkAddr,
+                originalCIDRNum: originalCIDR,
+                newCIDRNum: newCIDR
+            });
+
+            generateSubnetsList(networkAddr, newCIDR, subnetsCreated, subnetIncrement);
+            generateBinaryDisplay(networkAddr, originalCIDR, newCIDR);
+
+            document.getElementById('resultsArea').classList.add('show');
+        }
+
+        function updateResults(data) {
+            document.getElementById('originalNetwork').textContent = data.originalNetwork;
+            document.getElementById('originalCIDR').textContent = data.originalCIDR;
+            document.getElementById('totalHosts').textContent = data.totalHosts;
+            document.getElementById('usableHosts').textContent = data.usableHosts;
+            document.getElementById('newCIDR').textContent = data.newCIDR;
+            document.getElementById('subnetsCreated').textContent = data.subnetsCreated;
+            document.getElementById('hostsPerSubnetResult').textContent = data.hostsPerSubnetResult;
+            document.getElementById('subnetIncrement').textContent = data.subnetIncrement;
+        }
+
+        function generateSubnetsList(networkAddr, cidr, subnetsCount, increment) {
+            const container = document.getElementById('subnetsList');
+            const parts = networkAddr.split('.');
+            const baseAddr = [parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]), parseInt(parts[3])];
+            
+            let html = '<div style="display: grid; gap: 10px;">';
+            
+            for (let i = 0; i < Math.min(subnetsCount, 8); i++) { // Mostrar máximo 8 para no saturar
+                const subnetBase = [...baseAddr];
+                subnetBase[3] += i * increment;
+                
+                // Manejar overflow a octetos superiores
+                if (subnetBase[3] >= 256) {
+                    subnetBase[2] += Math.floor(subnetBase[3] / 256);
+                    subnetBase[3] = subnetBase[3] % 256;
+                }
+                
+                const subnetAddr = subnetBase.join('.');
+                const firstUsable = [...subnetBase];
+                firstUsable[3] += 1;
+                const lastUsable = [...subnetBase];
+                lastUsable[3] += increment - 2;
+                const broadcast = [...subnetBase];
+                broadcast[3] += increment - 1;
+
+                html += `
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                        <div style="font-weight: 600; color: #2E7D32; margin-bottom: 8px;">
+                            🌐 Subred ${i + 1}: ${subnetAddr}/${cidr}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #8888bb;">
+                            Rango: ${firstUsable.join('.')} - ${lastUsable.join('.')} | 
+                            Broadcast: ${broadcast.join('.')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (subnetsCount > 8) {
+                html += `<div style="text-align: center; color: #8888bb; font-style: italic;">... y ${subnetsCount - 8} subredes más</div>`;
+            }
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function generateBinaryDisplay(networkAddr, originalCIDR, newCIDR) {
+            const parts = networkAddr.split('.').map(Number);
+            const container = document.getElementById('binaryDisplay');
+            
+            let html = '';
+            
+            // Mostrar dirección en binario
+            html += '<div class="binary-section">';
+            html += '<strong style="color: #00ffff;">Dirección IP:</strong><br>';
+            parts.forEach((octet, index) => {
+                const binary = octet.toString(2).padStart(8, '0');
+                html += `<span style="color: ${index === 3 ? '#ffff00' : '#e0f24a'}">${binary}</span>`;
+                if (index < 3) html += '.';
+            });
+            html += ` (${networkAddr})<br><br>`;
+            
+            // Mostrar división de bits
+            html += '<strong style="color: #00ffff;">División de bits:</strong><br>';
+            html += `<span style="color: #ff6b6b;">Red original (${originalCIDR} bits)</span> | `;
+            html += `<span style="color: #4ecdc4;">Subred (${newCIDR - originalCIDR} bits)</span> | `;
+            html += `<span style="color: #ffe66d;">Host (${32 - newCIDR} bits)</span>`;
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+
+        function isValidIP(ip) {
+            const parts = ip.split('.');
+            if (parts.length !== 4) return false;
+            return parts.every(part => {
+                const num = parseInt(part);
+                return num >= 0 && num <= 255;
+            });
+        }
+
+        function subnetMaskToCIDR(mask) {
+            const parts = mask.split('.').map(Number);
+            let cidr = 0;
+            parts.forEach(part => {
+                cidr += part.toString(2).replace(/0/g, '').length;
+            });
+            return cidr;
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            // Mostrar mensaje de éxito
+            alert('🎉 ¡Excelente! Has dominado el cálculo de subredes.\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n🧮 ¡Ya eres un ninja del subneteo!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar con ejemplo por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-calcular ejemplo inicial después de 1 segundo
+            setTimeout(() => {
+                calculateSubnets();
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>

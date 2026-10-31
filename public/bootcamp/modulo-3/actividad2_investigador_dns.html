@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2 - Investigador DNS</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .dns-tool-container {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .tool-section {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .tool-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2196F3;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .query-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .query-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .query-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-container {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .results-title {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .result-entry {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: var(--surface);
+            border-radius: 4px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .result-record {
+            color: #22C55E;
+            font-weight: bold;
+        }
+
+        .result-value {
+            color: #1976D2;
+        }
+
+        .result-ttl {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .example-queries {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .example-btn {
+            background: #E3F2FD;
+            color: #1976D2;
+            border: 1px solid #BBDEFB;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .example-btn:hover {
+            background: #BBDEFB;
+        }
+
+        .progress-tracker {
+            background: #E8F5E8;
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 15px;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+
+        .progress-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--purple);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+        }
+
+        .progress-checkbox.completed {
+            background: var(--lime);
+            color: white;
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 3</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 3</a> / Actividad 2
+            </div>
+            <h1 class="activity-title">🔍 Investigador DNS</h1>
+            <p class="activity-subtitle">Usa herramientas de consulta DNS para investigar dominios reales</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 150</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad usarás herramientas de consulta DNS simuladas para investigar diferentes tipos de registros DNS de dominios reales. Aprenderás a interpretar respuestas DNS y entender cómo funciona la resolución de nombres en la práctica.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🛠️ Herramientas DNS Simuladas</h2>
+                
+                <div class="dns-tool-container">
+                    <div class="tool-section">
+                        <div class="tool-title">🔍 Simulador nslookup</div>
+                        
+                        <div class="input-group">
+                            <label class="input-label" for="domainInput">Dominio a consultar:</label>
+                            <input type="text" id="domainInput" class="input-field" placeholder="Ejemplo: google.com" value="google.com">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label" for="recordType">Tipo de registro:</label>
+                            <select id="recordType" class="select-field">
+                                <option value="A">A - Dirección IPv4</option>
+                                <option value="AAAA">AAAA - Dirección IPv6</option>
+                                <option value="CNAME">CNAME - Alias</option>
+                                <option value="MX">MX - Servidor de correo</option>
+                                <option value="TXT">TXT - Información adicional</option>
+                                <option value="NS">NS - Servidores de nombres</option>
+                                <option value="SOA">SOA - Autoridad del dominio</option>
+                            </select>
+                        </div>
+
+                        <div class="example-queries">
+                            <button class="example-btn" onclick="setExample('google.com', 'A')">google.com A</button>
+                            <button class="example-btn" onclick="setExample('facebook.com', 'MX')">facebook.com MX</button>
+                            <button class="example-btn" onclick="setExample('github.com', 'CNAME')">github.com CNAME</button>
+                            <button class="example-btn" onclick="setExample('cloudflare.com', 'TXT')">cloudflare.com TXT</button>
+                            <button class="example-btn" onclick="setExample('netflix.com', 'NS')">netflix.com NS</button>
+                        </div>
+
+                        <button class="query-btn" onclick="performDNSQuery()" id="queryBtn">
+                            🔍 Ejecutar Consulta DNS
+                        </button>
+
+                        <div class="results-container" id="dnsResults">
+                            <div class="results-title">📋 Resultados de la consulta DNS:</div>
+                            <p style="color: #8888bb; font-family: 'Segoe UI', sans-serif;">Ingresa un dominio y selecciona un tipo de registro para comenzar...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-tracker">
+                    <div class="progress-title">📊 Progreso de Investigación</div>
+                    <div class="progress-item">
+                        <div class="progress-checkbox" id="progress-a"></div>
+                        <span>Consultar registro A (dirección IPv4)</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-checkbox" id="progress-mx"></div>
+                        <span>Consultar registro MX (servidor de correo)</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-checkbox" id="progress-cname"></div>
+                        <span>Consultar registro CNAME (alias)</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-checkbox" id="progress-txt"></div>
+                        <span>Consultar registro TXT (información adicional)</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-checkbox" id="progress-ns"></div>
+                        <span>Consultar registro NS (servidores de nombres)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips de Investigación DNS
+                </h3>
+                <div class="tip-item">
+                    <strong>🔍 Registro A:</strong> Muestra la dirección IPv4 donde está alojado el dominio. Un dominio puede tener múltiples registros A para balanceo de carga.
+                </div>
+                <div class="tip-item">
+                    <strong>📧 Registro MX:</strong> Indica qué servidores manejan el correo electrónico. El número es la prioridad (menor = mayor prioridad).
+                </div>
+                <div class="tip-item">
+                    <strong>🔗 Registro CNAME:</strong> Crea un alias. No puede coexistir con otros registros en el mismo nombre.
+                </div>
+                <div class="tip-item">
+                    <strong>📝 Registro TXT:</strong> Almacena texto arbitrario, usado para verificaciones SPF, DKIM, y políticas de seguridad.
+                </div>
+                <div class="tip-item">
+                    <strong>🌐 TTL:</strong> Time To Live - cuánto tiempo puede ser cacheada la respuesta (en segundos).
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let completedQueries = new Set();
+        let isCompleted = false;
+
+        const dnsDatabase = {
+            'google.com': {
+                'A': [
+                    { value: '172.217.14.238', ttl: 300 },
+                    { value: '172.217.14.206', ttl: 300 }
+                ],
+                'AAAA': [
+                    { value: '2607:f8b0:4004:c1b::65', ttl: 300 }
+                ],
+                'MX': [
+                    { value: 'smtp.google.com', priority: 10, ttl: 3600 },
+                    { value: 'smtp2.google.com', priority: 20, ttl: 3600 }
+                ],
+                'TXT': [
+                    { value: 'v=spf1 include:_spf.google.com ~all', ttl: 3600 },
+                    { value: 'google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ', ttl: 3600 }
+                ],
+                'NS': [
+                    { value: 'ns1.google.com', ttl: 172800 },
+                    { value: 'ns2.google.com', ttl: 172800 },
+                    { value: 'ns3.google.com', ttl: 172800 },
+                    { value: 'ns4.google.com', ttl: 172800 }
+                ]
+            },
+            'facebook.com': {
+                'A': [
+                    { value: '157.240.25.35', ttl: 300 }
+                ],
+                'MX': [
+                    { value: 'smtpin.vvv.facebook.com', priority: 10, ttl: 3600 }
+                ],
+                'TXT': [
+                    { value: 'v=spf1 redirect=_spf.facebook.com', ttl: 3600 }
+                ],
+                'NS': [
+                    { value: 'a.ns.facebook.com', ttl: 172800 },
+                    { value: 'b.ns.facebook.com', ttl: 172800 }
+                ]
+            },
+            'github.com': {
+                'A': [
+                    { value: '140.82.112.3', ttl: 60 }
+                ],
+                'CNAME': [
+                    { value: 'github.github.io', ttl: 3600 }
+                ],
+                'MX': [
+                    { value: 'aspmx.l.google.com', priority: 1, ttl: 3600 },
+                    { value: 'alt1.aspmx.l.google.com', priority: 5, ttl: 3600 }
+                ],
+                'TXT': [
+                    { value: 'v=spf1 include:_spf.google.com include:esp.github.com ~all', ttl: 3600 }
+                ],
+                'NS': [
+                    { value: 'dns1.p08.nsone.net', ttl: 172800 },
+                    { value: 'dns2.p08.nsone.net', ttl: 172800 }
+                ]
+            },
+            'cloudflare.com': {
+                'A': [
+                    { value: '104.16.132.229', ttl: 300 },
+                    { value: '104.16.133.229', ttl: 300 }
+                ],
+                'MX': [
+                    { value: 'isaac.mx.cloudflare.com', priority: 46, ttl: 3600 },
+                    { value: 'linda.mx.cloudflare.com', priority: 59, ttl: 3600 }
+                ],
+                'TXT': [
+                    { value: 'v=spf1 include:_spf.cloudflare.com ~all', ttl: 3600 },
+                    { value: 'google-site-verification=NQB_TIjAHR4yJVE2ZMC7Z6RB_2vCr2Bhl6eZWZnOFd0', ttl: 3600 }
+                ],
+                'NS': [
+                    { value: 'ns3.cloudflare.com', ttl: 86400 },
+                    { value: 'ns4.cloudflare.com', ttl: 86400 }
+                ]
+            },
+            'netflix.com': {
+                'A': [
+                    { value: '52.206.243.21', ttl: 60 },
+                    { value: '44.227.65.245', ttl: 60 }
+                ],
+                'MX': [
+                    { value: 'aspmx.l.google.com', priority: 10, ttl: 3600 }
+                ],
+                'TXT': [
+                    { value: 'v=spf1 include:_spf.google.com ~all', ttl: 3600 }
+                ],
+                'NS': [
+                    { value: 'ns-1371.awsdns-43.org', ttl: 172800 },
+                    { value: 'ns-1984.awsdns-56.co.uk', ttl: 172800 }
+                ]
+            }
+        };
+
+        function setExample(domain, recordType) {
+            document.getElementById('domainInput').value = domain;
+            document.getElementById('recordType').value = recordType;
+        }
+
+        function performDNSQuery() {
+            const domain = document.getElementById('domainInput').value.toLowerCase().trim();
+            const recordType = document.getElementById('recordType').value;
+            const resultsDiv = document.getElementById('dnsResults');
+
+            if (!domain) {
+                alert('Por favor ingresa un dominio para consultar');
+                return;
+            }
+
+            // Simular tiempo de consulta
+            document.getElementById('queryBtn').disabled = true;
+            document.getElementById('queryBtn').textContent = '🔄 Consultando...';
+
+            setTimeout(() => {
+                displayDNSResults(domain, recordType);
+                document.getElementById('queryBtn').disabled = false;
+                document.getElementById('queryBtn').textContent = '🔍 Ejecutar Consulta DNS';
+                
+                // Marcar progreso
+                markProgress(recordType);
+            }, 1500);
+        }
+
+        function displayDNSResults(domain, recordType) {
+            const resultsDiv = document.getElementById('dnsResults');
+            
+            let output = `<div class="results-title">📋 Resultados para: ${domain} (${recordType})</div>`;
+            
+            if (dnsDatabase[domain] && dnsDatabase[domain][recordType]) {
+                const records = dnsDatabase[domain][recordType];
+                
+                output += `<div style="color: #2E7D32; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif;">✅ Consulta exitosa - ${records.length} registro(s) encontrado(s)</div>`;
+                
+                records.forEach((record, index) => {
+                    output += `<div class="result-entry">`;
+                    
+                    if (recordType === 'MX') {
+                        output += `<span class="result-record">${domain}.</span> <span class="result-ttl">${record.ttl}</span> IN MX <span class="result-value">${record.priority} ${record.value}</span>`;
+                    } else {
+                        output += `<span class="result-record">${domain}.</span> <span class="result-ttl">${record.ttl}</span> IN ${recordType} <span class="result-value">${record.value}</span>`;
+                    }
+                    
+                    output += `</div>`;
+                });
+
+                // Añadir explicación del resultado
+                output += `<div style="margin-top: 15px; padding: 10px; background: #E3F2FD; border-radius: 6px; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;">`;
+                output += getRecordExplanation(recordType, records);
+                output += `</div>`;
+                
+            } else {
+                output += `<div style="color: #d32f2f; font-family: 'Segoe UI', sans-serif;">❌ No se encontraron registros ${recordType} para ${domain}</div>`;
+                output += `<div style="margin-top: 10px; color: #8888bb; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;">Esto podría significar que el dominio no tiene registros de este tipo configurados, o que los servidores DNS no están disponibles.</div>`;
+            }
+            
+            resultsDiv.innerHTML = output;
+        }
+
+        function getRecordExplanation(recordType, records) {
+            switch (recordType) {
+                case 'A':
+                    return `💡 <strong>Registro A:</strong> Este dominio se resuelve a ${records.length} dirección(es) IPv4. El TTL de ${records[0].ttl} segundos indica cuánto tiempo pueden los servidores DNS cachear esta respuesta.`;
+                
+                case 'AAAA':
+                    return `💡 <strong>Registro AAAA:</strong> Dirección IPv6 del dominio. IPv6 usa 128 bits y permite muchas más direcciones que IPv4.`;
+                
+                case 'MX':
+                    return `💡 <strong>Registro MX:</strong> Los números (${records.map(r => r.priority).join(', ')}) indican prioridad - menor número = mayor prioridad. El correo se intenta enviar al servidor con menor prioridad primero.`;
+                
+                case 'CNAME':
+                    return `💡 <strong>Registro CNAME:</strong> Este es un alias que apunta a otro dominio. Cuando consultas este nombre, el DNS te redirige al dominio de destino.`;
+                
+                case 'TXT':
+                    return `💡 <strong>Registro TXT:</strong> Contiene información adicional en texto plano. Comúnmente usado para verificaciones SPF (correo), verificaciones de propietario, y políticas de seguridad.`;
+                
+                case 'NS':
+                    return `💡 <strong>Registro NS:</strong> Estos son los servidores de nombres autoritativos para este dominio. Son los únicos que tienen la información definitiva sobre este dominio.`;
+                
+                default:
+                    return `💡 <strong>Registro ${recordType}:</strong> Información específica del dominio almacenada en el DNS.`;
+            }
+        }
+
+        function markProgress(recordType) {
+            const progressId = `progress-${recordType.toLowerCase()}`;
+            const checkbox = document.getElementById(progressId);
+            
+            if (checkbox && !completedQueries.has(recordType)) {
+                checkbox.classList.add('completed');
+                checkbox.textContent = '✓';
+                completedQueries.add(recordType);
+                
+                // Verificar si se completaron suficientes consultas
+                if (completedQueries.size >= 3) {
+                    completeActivity();
+                }
+            }
+        }
+
+        function completeActivity() {
+            if (!isCompleted) {
+                isCompleted = true;
+                const indicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                
+                indicator.classList.add('completed');
+                statusText.textContent = 'Completado ✅';
+                
+                setTimeout(() => {
+                    alert('🎉 ¡Excelente trabajo! Has investigado exitosamente diferentes tipos de registros DNS.\n\n✅ Actividad completada automáticamente\n🏆 +150 puntos ganados');
+                }, 1000);
+            }
+        }
+
+        function markCompleted() {
+            if (!isCompleted) {
+                completeActivity();
+            } else {
+                alert('🎉 ¡Felicidades! Has completado la actividad "Investigador DNS".\n\n✅ Actividad marcada como completada\n🏆 +150 puntos ganados\n\n¡Ahora sabes cómo investigar registros DNS!');
+            }
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Permitir consulta con Enter
+        document.getElementById('domainInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performDNSQuery();
+            }
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

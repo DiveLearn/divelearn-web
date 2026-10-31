@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Calculadora de Rendimiento vs Costo</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .calculator-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .
+
+        .results-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid var(--border);
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .slider-container {
+            margin: 15px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--surface2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--purple);
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--purple);
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        
+
+        .btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .btn.secondary {
+            background: #6c757d;
+        }
+
+        .btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .storage-option-card {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .storage-option-card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .storage-option-card.recommended {
+            border-color: #22C55E;
+            background: var(--surface2);
+        }
+
+        .option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .option-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .option-icon {
+            font-size: 2rem;
+        }
+
+        .option-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .spec-item {
+            background: var(--surface);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .cost-breakdown {
+            background: rgba(245,158,11,0.15);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .cost-total {
+            border-top: 2px solid #ffc107;
+            margin-top: 10px;
+            padding-top: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .recommendation-badge {
+            background: #22C55E;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .comparison-chart {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .performance-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .indicator-bar {
+            flex: 1;
+            height: 12px;
+            background: var(--surface2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .indicator-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .indicator-fill.excellent {
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+        }
+
+        .indicator-fill.good {
+            background: linear-gradient(90deg, #ffc107, #fd7e14);
+        }
+
+        .indicator-fill.fair {
+            background: linear-gradient(90deg, #fd7e14, #dc3545);
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .calculator-interface {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .option-specs {
+                grid-template-columns: 1fr;
+            }
+
+            
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 7</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 7</a> / Actividad 4
+            </div>
+            <h1 class="activity-title">📈 Calculadora de Rendimiento vs Costo</h1>
+            <p class="activity-subtitle">Evalúa el balance perfecto entre performance, capacidad y presupuesto</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>30 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 125</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a evaluar diferentes opciones de almacenamiento considerando factores críticos como rendimiento, capacidad, costo y escalabilidad. Usarás una calculadora interactiva para tomar decisiones informadas.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🧮 Calculadora Interactiva</h2>
+                
+                <div class="calculator-interface">
+                    <div class="input-panel">
+                        <h4 style="color: #8888bb; margin-bottom: 20px;">📊 Parámetros del Proyecto</h4>
+                        
+                        <div class="input-group">
+                            <label class="input-label">Capacidad requerida (GB):</label>
+                            <input type="number" id="capacity" class="input-field" value="1000" min="1" max="100000" onchange="calculateOptions()">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Usuarios concurrentes:</label>
+                            <input type="number" id="users" class="input-field" value="100" min="1" max="10000" onchange="calculateOptions()">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Presupuesto mensual (USD):</label>
+                            <input type="number" id="budget" class="input-field" value="500" min="10" max="10000" onchange="calculateOptions()">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Prioridad de rendimiento:</label>
+                            <div class="slider-container">
+                                <input type="range" id="performance" class="slider" min="1" max="10" value="5" onchange="updateSliderValue('performance'); calculateOptions()">
+                                <div class="slider-labels">
+                                    <span>Económico</span>
+                                    <span>Balanceado</span>
+                                    <span>Máximo</span>
+                                </div>
+                                <div style="text-align: center; margin-top: 5px; font-weight: 600; color: #667eea;">
+                                    Nivel: <span id="performanceValue">5</span>/10
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Tipo de carga de trabajo:</label>
+                            <select id="workload" class="input-field" onchange="calculateOptions()">
+                                <option value="general">Aplicación general</option>
+                                <option value="database">Base de datos</option>
+                                <option value="analytics">Analytics/Big Data</option>
+                                <option value="media">Archivos multimedia</option>
+                                <option value="backup">Backup/Archivo</option>
+                                <option value="gaming">Gaming/Tiempo real</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Escalabilidad requerida:</label>
+                            <div class="slider-container">
+                                <input type="range" id="scalability" class="slider" min="1" max="10" value="5" onchange="updateSliderValue('scalability'); calculateOptions()">
+                                <div class="slider-labels">
+                                    <span>Fija</span>
+                                    <span>Moderada</span>
+                                    <span>Ilimitada</span>
+                                </div>
+                                <div style="text-align: center; margin-top: 5px; font-weight: 600; color: #667eea;">
+                                    Nivel: <span id="scalabilityValue">5</span>/10
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="calculateOptions()">🔄 Recalcular Opciones</button>
+                        <button class="btn secondary" onclick="resetCalculator()">🧹 Limpiar</button>
+                    </div>
+
+                    <div class="results-panel">
+                        <h4 style="color: #8888bb; margin-bottom: 20px;">📋 Opciones Recomendadas</h4>
+                        <div id="recommendationsContainer">
+                            <div style="text-align: center; color: #8888bb; padding: 40px 20px;">
+                                <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
+                                <div><strong>Configura tus parámetros</strong></div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">Ajusta los valores en el panel izquierdo para ver recomendaciones personalizadas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📊 Análisis Comparativo</h2>
+                
+                <div class="comparison-chart">
+                    <h4 style="color: #8888bb; margin-bottom: 15px;">Rendimiento vs Costo - Análisis Visual</h4>
+                    <div class="chart-container" id="chartContainer">
+                        <div class="chart-placeholder">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">📈</div>
+                            <div><strong>Gráfico de Comparación</strong></div>
+                            <div style="font-size: 0.9rem; margin-top: 5px; color: #8888bb;">
+                                Configura tus parámetros para ver un análisis visual detallado
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="performanceMetrics" style="display: none;">
+                    <h4 style="color: #8888bb; margin: 20px 0 15px 0;">🎯 Métricas de Rendimiento</h4>
+                    
+                    <div class="performance-indicator">
+                        <span style="width: 120px; font-weight: 600;">Velocidad:</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" id="speedIndicator"></div>
+                        </div>
+                        <span id="speedValue" style="width: 60px; text-align: right; font-weight: 600;"></span>
+                    </div>
+
+                    <div class="performance-indicator">
+                        <span style="width: 120px; font-weight: 600;">Escalabilidad:</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" id="scaleIndicator"></div>
+                        </div>
+                        <span id="scaleValue" style="width: 60px; text-align: right; font-weight: 600;"></span>
+                    </div>
+
+                    <div class="performance-indicator">
+                        <span style="width: 120px; font-weight: 600;">Costo/Beneficio:</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" id="costIndicator"></div>
+                        </div>
+                        <span id="costValue" style="width: 60px; text-align: right; font-weight: 600;"></span>
+                    </div>
+
+                    <div class="performance-indicator">
+                        <span style="width: 120px; font-weight: 600;">Confiabilidad:</span>
+                        <div class="indicator-bar">
+                            <div class="indicator-fill" id="reliabilityIndicator"></div>
+                        </div>
+                        <span id="reliabilityValue" style="width: 60px; text-align: right; font-weight: 600;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Factores Clave en la Selección de Almacenamiento
+                </h3>
+                <div class="tip-item">
+                    <strong>💰 Costo total:</strong> Considera no solo el precio inicial, sino también costos de transferencia, operación y escalamiento.
+                </div>
+                <div class="tip-item">
+                    <strong>⚡ Rendimiento necesario:</strong> Evalúa IOPS, latencia y throughput según tu tipo de aplicación.
+                </div>
+                <div class="tip-item">
+                    <strong>📈 Escalabilidad futura:</strong> Planifica para el crecimiento esperado en los próximos 2-3 años.
+                </div>
+                <div class="tip-item">
+                    <strong>🔒 Durabilidad y disponibilidad:</strong> Crítico para datos importantes - busca 99.999999999% (11 nueves) de durabilidad.
+                </div>
+                <div class="tip-item">
+                    <strong>🌍 Ubicación geográfica:</strong> La proximidad a usuarios reduce latencia y puede afectar costos.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let calculations = 0;
+        let isCompleted = false;
+
+        // Definir opciones de almacenamiento con sus características
+        const storageOptions = {
+            s3: {
+                name: "Amazon S3",
+                icon: "☁️",
+                type: "Almacenamiento de Objetos",
+                baseCost: 0.023, // por GB/mes
+                iops: 1000,
+                latency: 100, // ms
+                scalability: 10,
+                durability: 99.999999999,
+                useCase: ["backup", "media", "analytics"]
+            },
+            ebs: {
+                name: "Amazon EBS",
+                icon: "⚡",
+                type: "Almacenamiento en Bloques",
+                baseCost: 0.10,
+                iops: 16000,
+                latency: 1,
+                scalability: 7,
+                durability: 99.999,
+                useCase: ["database", "gaming", "general"]
+            },
+            rds: {
+                name: "Amazon RDS",
+                icon: "🗃️",
+                type: "Base de Datos Relacional",
+                baseCost: 0.15,
+                iops: 12000,
+                latency: 5,
+                scalability: 8,
+                durability: 99.99,
+                useCase: ["database", "general"]
+            },
+            dynamodb: {
+                name: "Amazon DynamoDB",
+                icon: "🌐",
+                type: "Base de Datos NoSQL",
+                baseCost: 0.25,
+                iops: 40000,
+                latency: 1,
+                scalability: 10,
+                durability: 99.999,
+                useCase: ["gaming", "general", "analytics"]
+            },
+            efs: {
+                name: "Amazon EFS",
+                icon: "📁",
+                type: "Sistema de Archivos",
+                baseCost: 0.30,
+                iops: 7000,
+                latency: 10,
+                scalability: 9,
+                durability: 99.999999,
+                useCase: ["general", "media"]
+            }
+        };
+
+        function updateSliderValue(sliderId) {
+            const slider = document.getElementById(sliderId);
+            const valueSpan = document.getElementById(sliderId + 'Value');
+            valueSpan.textContent = slider.value;
+        }
+
+        function calculateOptions() {
+            calculations++;
+            
+            const capacity = parseInt(document.getElementById('capacity').value) || 1000;
+            const users = parseInt(document.getElementById('users').value) || 100;
+            const budget = parseInt(document.getElementById('budget').value) || 500;
+            const performance = parseInt(document.getElementById('performance').value) || 5;
+            const workload = document.getElementById('workload').value;
+            const scalability = parseInt(document.getElementById('scalability').value) || 5;
+
+            // Calcular scores para cada opción
+            const recommendations = [];
+            
+            Object.entries(storageOptions).forEach(([key, option]) => {
+                const monthlyCost = calculateMonthlyCost(option, capacity, users, performance);
+                const score = calculateScore(option, workload, performance, scalability, budget, monthlyCost);
+                
+                recommendations.push({
+                    key,
+                    option,
+                    monthlyCost,
+                    score,
+                    fit: calculateFit(option, workload, performance, scalability)
+                });
+            });
+
+            // Ordenar por score descendente
+            recommendations.sort((a, b) => b.score - a.score);
+
+            // Mostrar recomendaciones
+            displayRecommendations(recommendations, budget);
+            
+            // Mostrar métricas de rendimiento
+            displayPerformanceMetrics(recommendations[0]);
+            
+            // Mostrar gráfico
+            displayChart(recommendations);
+        }
+
+        function calculateMonthlyCost(option, capacity, users, performance) {
+            let baseCost = option.baseCost * capacity;
+            
+            // Ajustar por usuarios (simulando transferencia y operaciones)
+            baseCost += users * 0.01;
+            
+            // Ajustar por nivel de rendimiento
+            if (performance > 7) {
+                baseCost *= 1.5; // Premium performance
+            } else if (performance > 5) {
+                baseCost *= 1.2; // High performance
+            }
+            
+            return Math.round(baseCost * 100) / 100;
+        }
+
+        function calculateScore(option, workload, performance, scalability, budget, monthlyCost) {
+            let score = 0;
+            
+            // Score por adecuación al caso de uso (40%)
+            if (option.useCase.includes(workload)) {
+                score += 40;
+            } else {
+                score += 10; // Penalty por no ser óptimo
+            }
+            
+            // Score por rendimiento (25%)
+            const performanceMatch = Math.min(option.iops / 1000, 10) * (performance / 10);
+            score += performanceMatch * 2.5;
+            
+            // Score por escalabilidad (20%)
+            const scalabilityMatch = (option.scalability / 10) * (scalability / 10);
+            score += scalabilityMatch * 20;
+            
+            // Score por presupuesto (15%)
+            if (monthlyCost <= budget) {
+                score += 15 * (1 - monthlyCost / budget);
+            } else {
+                score -= 10; // Penalty por exceder presupuesto
+            }
+            
+            return Math.max(0, Math.min(100, score));
+        }
+
+        function calculateFit(option, workload, performance, scalability) {
+            const workloadFit = option.useCase.includes(workload);
+            const performanceFit = (option.iops / 40000) * 100;
+            const scalabilityFit = (option.scalability / 10) * 100;
+            
+            if (workloadFit && performanceFit > 70 && scalabilityFit > 70) {
+                return 'excellent';
+            } else if (workloadFit && (performanceFit > 40 || scalabilityFit > 40)) {
+                return 'good';
+            } else {
+                return 'fair';
+            }
+        }
+
+        function displayRecommendations(recommendations, budget) {
+            const container = document.getElementById('recommendationsContainer');
+            
+            let html = '';
+            recommendations.forEach((rec, index) => {
+                const isRecommended = index === 0;
+                const isOverBudget = rec.monthlyCost > budget;
+                
+                html += `
+                    <div class="storage-option-card ${isRecommended ? 'recommended' : ''}" style="${isOverBudget ? 'opacity: 0.7;' : ''}">
+                        <div class="option-header">
+                            <div class="option-name">${rec.option.name}</div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div class="option-icon">${rec.option.icon}</div>
+                                ${isRecommended ? '<span class="recommendation-badge">🏆 Recomendado</span>' : ''}
+                            </div>
+                        </div>
+                        
+                        <div style="color: #8888bb; font-size: 0.9rem; margin-bottom: 15px;">
+                            ${rec.option.type}
+                        </div>
+                        
+                        <div class="option-specs">
+                            <div class="spec-item">
+                                <div class="spec-value">${rec.monthlyCost.toLocaleString()} USD</div>
+                                <div class="spec-label">Costo Mensual</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-value">${rec.option.iops.toLocaleString()}</div>
+                                <div class="spec-label">IOPS Máximos</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-value">${rec.option.latency}ms</div>
+                                <div class="spec-label">Latencia</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-value">${rec.score.toFixed(1)}/100</div>
+                                <div class="spec-label">Score de Ajuste</div>
+                            </div>
+                        </div>
+                        
+                        <div class="cost-breakdown">
+                            <div style="font-weight: 600; margin-bottom: 8px; color: #856404;">💰 Desglose de Costos:</div>
+                            <div class="cost-item">
+                                <span>Almacenamiento base:</span>
+                                <span>${(rec.option.baseCost * parseInt(document.getElementById('capacity').value)).toFixed(2)}</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Operaciones/Transferencias:</span>
+                                <span>${(parseInt(document.getElementById('users').value) * 0.01).toFixed(2)}</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Ajuste por rendimiento:</span>
+                                <span>${parseInt(document.getElementById('performance').value) > 5 ? '+20-50%' : 'Incluido'}</span>
+                            </div>
+                            <div class="cost-item cost-total">
+                                <span>Total mensual:</span>
+                                <span style="color: ${isOverBudget ? '#dc3545' : '#28a745'};">
+                                    ${rec.monthlyCost.toLocaleString()} USD
+                                    ${isOverBudget ? '⚠️' : '✅'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        ${isOverBudget ? 
+                            '<div style="color: #dc3545; font-size: 0.9rem; text-align: center; margin-top: 10px;">⚠️ Excede el presupuesto definido</div>' : 
+                            ''
+                        }
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function displayPerformanceMetrics(topRecommendation) {
+            const metricsDiv = document.getElementById('performanceMetrics');
+            metricsDiv.style.display = 'block';
+            
+            const option = topRecommendation.option;
+            
+            // Calcular porcentajes para las barras
+            const speedPercent = Math.min((option.iops / 40000) * 100, 100);
+            const scalePercent = (option.scalability / 10) * 100;
+            const costPercent = Math.max(100 - (topRecommendation.monthlyCost / 1000) * 100, 10);
+            const reliabilityPercent = (option.durability / 99.999999999) * 100;
+            
+            // Actualizar indicadores
+            updateIndicator('speed', speedPercent, 'IOPS');
+            updateIndicator('scale', scalePercent, 'Scale');
+            updateIndicator('cost', costPercent, 'Value');
+            updateIndicator('reliability', reliabilityPercent, 'Uptime');
+        }
+
+        function updateIndicator(type, percent, label) {
+            const indicator = document.getElementById(type + 'Indicator');
+            const value = document.getElementById(type + 'Value');
+            
+            indicator.style.width = percent + '%';
+            value.textContent = Math.round(percent) + '%';
+            
+            // Determinar clase de color
+            if (percent >= 80) {
+                indicator.className = 'indicator-fill excellent';
+            } else if (percent >= 60) {
+                indicator.className = 'indicator-fill good';
+            } else {
+                indicator.className = 'indicator-fill fair';
+            }
+        }
+
+        function displayChart(recommendations) {
+            const chartContainer = document.getElementById('chartContainer');
+            
+            // Crear un gráfico simple con barras
+            let chartHtml = '<div style="display: flex; align-items: end; justify-content: space-around; height: 100%; padding: 20px;">';
+            
+            recommendations.forEach((rec, index) => {
+                const height = (rec.score / 100) * 200; // Max 200px
+                const color = index === 0 ? '#28a745' : '#667eea';
+                
+                chartHtml += `
+                    <div style="text-align: center;">
+                        <div style="
+                            width: 60px; 
+                            height: ${height}px; 
+                            background: ${color}; 
+                            border-radius: 4px 4px 0 0;
+                            margin-bottom: 10px;
+                            display: flex;
+                            align-items: end;
+                            justify-content: center;
+                            color: white;
+                            font-weight: 600;
+                            font-size: 0.8rem;
+                            padding-bottom: 5px;
+                        ">
+                            ${rec.score.toFixed(0)}
+                        </div>
+                        <div style="font-size: 0.8rem; font-weight: 600; max-width: 80px; word-break: break-word;">
+                            ${rec.option.name.split(' ')[1] || rec.option.name}
+                        </div>
+                        <div style="font-size: 0.7rem; color: #8888bb;">
+                            ${rec.monthlyCost}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            chartHtml += '</div>';
+            chartContainer.innerHTML = chartHtml;
+        }
+
+        function resetCalculator() {
+            document.getElementById('capacity').value = 1000;
+            document.getElementById('users').value = 100;
+            document.getElementById('budget').value = 500;
+            document.getElementById('performance').value = 5;
+            document.getElementById('workload').selectedIndex = 0;
+            document.getElementById('scalability').value = 5;
+            
+            updateSliderValue('performance');
+            updateSliderValue('scalability');
+            
+            // Limpiar resultados
+            document.getElementById('recommendationsContainer').innerHTML = `
+                <div style="text-align: center; color: #8888bb; padding: 40px 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
+                    <div><strong>Configura tus parámetros</strong></div>
+                    <div style="font-size: 0.9rem; margin-top: 5px;">Ajusta los valores en el panel izquierdo para ver recomendaciones personalizadas</div>
+                </div>
+            `;
+            
+            document.getElementById('performanceMetrics').style.display = 'none';
+            
+            document.getElementById('chartContainer').innerHTML = `
+                <div class="chart-placeholder">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📈</div>
+                    <div><strong>Gráfico de Comparación</strong></div>
+                    <div style="font-size: 0.9rem; margin-top: 5px; color: #8888bb;">
+                        Configura tus parámetros para ver un análisis visual detallado
+                    </div>
+                </div>
+            `;
+        }
+
+        function markCompleted() {
+            if (calculations < 3) {
+                alert('🎯 Para completar la actividad, realiza al menos 3 cálculos con diferentes parámetros para explorar las opciones.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert(`🎉 ¡Felicidades! Has completado "Calculadora de Rendimiento vs Costo".\n\n✅ Actividad marcada como completada\n🏆 +125 puntos ganados\n📊 Cálculos realizados: ${calculations}\n\n¡Ahora sabes cómo evaluar opciones de almacenamiento considerando múltiples factores!`);
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar sliders
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSliderValue('performance');
+            updateSliderValue('scalability');
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (calculations > 0) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>
+</html>

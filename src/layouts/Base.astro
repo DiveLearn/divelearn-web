@@ -13,6 +13,7 @@ const {
 const path = Astro.url.pathname;
 const fullTitle = title === "DiveLearn" ? "DiveLearn · Educamos para lo real, no para lo perfecto" : `${title} · DiveLearn`;
 const nav = [
+  { href: "/bootcamp/", label: "Bootcamp" },
   { href: "/blog/", label: "Blog" },
   { href: "/recursos/", label: "Recursos" },
   { href: "/cursos/", label: "Cursos" },
@@ -37,7 +38,10 @@ const nav = [
   <body>
     <header class="top">
       <a class="brand" href="/" aria-label="DiveLearn, inicio">
-        <img src="/img/logo-divelearn.png" alt="DiveLearn" width="160" height="35" />
+        <picture>
+          <source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png" />
+          <img src="/img/logo-divelearn.png" alt="DiveLearn" width="160" height="35" />
+        </picture>
       </a>
       <nav aria-label="Principal">
         {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
@@ -199,12 +203,23 @@ const nav = [
     font-size: 0.85rem;
   }
   @media (max-width: 480px) {
+    .top {
+      gap: 8px;
+      padding: 12px;
+    }
+    .brand {
+      flex-shrink: 0;
+    }
     .brand img {
-      width: 110px;
+      width: auto;
+      height: 34px;
+    }
+    .top nav {
+      gap: 0;
     }
     .top nav a {
-      padding: 10px 8px;
-      font-size: 0.95rem;
+      padding: 10px 7px;
+      font-size: 0.9rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {

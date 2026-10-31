@@ -1,0 +1,1583 @@
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 4 - Explorador Digital</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #2d3748;
+            z-index: 10;
+        }
+
+        
+
+        
+
+        
+
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #4a5568;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .exploration-stats {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #4fd1c7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .network-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px dashed #cbd5e0;
+        }
+
+        .network-node {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+            font-size: 0.85em;
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+        }
+
+        .network-node:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(66, 153, 225, 0.4);
+        }
+
+        .network-node.explored {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        
+            50% { transform: scale(1.05); }
+        }
+
+        .network-connection {
+            height: 4px;
+            background: linear-gradient(90deg, #4299e1, #3182ce);
+            flex: 1;
+            margin: 0 15px;
+            border-radius: 2px;
+            animation: dataFlow 2s ease-in-out infinite;
+            position: relative;
+            cursor: pointer;
+            min-width: 30px;
+        }
+
+        .network-connection:hover {
+            height: 6px;
+            box-shadow: 0 2px 10px rgba(66, 153, 225, 0.4);
+        }
+
+        @keyframes dataFlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .device-info {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .device-info.show {
+            transform: scale(1);
+            opacity: 1;
+            border-color: #4299e1;
+            box-shadow: 0 10px 25px rgba(66, 153, 225, 0.2);
+        }
+
+        .device-info h3 {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .device-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--bg);
+            color: #744210;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 5px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .simulation-arena {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .simulation-device {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed #4299e1;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .simulation-device:hover {
+            background: rgba(66, 153, 225, 0.2);
+            border-style: solid;
+        }
+
+        .simulation-device.occupied {
+            background: rgba(72, 187, 120, 0.3);
+            border-color: #48bb78;
+            border-style: solid;
+        }
+
+        .device-sprite {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .draggable-device {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 5px;
+            cursor: grab;
+            user-
+
+        .drag-drop-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 5px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .drag-drop-area.drag-over {
+            border-color: #4299e1;
+            background: rgba(66, 153, 225, 0.1);
+        }
+
+        .remove-device-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background: #fc8181;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .remove-device-btn:hover {
+            background: #e53e3e;
+            transform: scale(1.1);
+        }
+
+        .config-panel {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #cbd5e0;
+        }
+
+        .config-item {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: var(--surface);
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+        .config-btn {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .config-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+        }
+
+        .action-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .action-btn:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.success {
+            background: #48bb78;
+        }
+
+        .action-btn.success:hover {
+            background: #38a169;
+        }
+
+        .action-btn.secondary {
+            background: #a0aec0;
+        }
+
+        .action-btn.secondary:hover {
+            background: #718096;
+        }
+
+        .challenge-scenario {
+            background: linear-gradient(135deg, #fef5e7, #fed7aa);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #f6ad55;
+        }
+
+        .scenario-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #f6ad55;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(246, 173, 85, 0.3);
+        }
+
+        .scenario-card.completed {
+            border-left-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .feedback-warning {
+            background: rgba(245,158,11,0.15);
+            border: 1px solid #ffeaa7;
+            color: var(--text-muted);
+        }
+
+        
+        @media (max-width: 768px) {            .network-diagram {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .network-connection {
+                width: 4px;
+                height: 30px;
+                margin: 10px 0;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .device-features {
+                grid-template-columns: 1fr;
+            }
+
+            .simulation-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .config-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 1: Carreteras Digitales</a> / Actividad 4
+            </div>
+            <h1 class="activity-title">🧭 Explorador Digital</h1>
+            <p class="activity-subtitle">Descubre los dispositivos esenciales que hacen posible la comunicación en red</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>18 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="progress-text">Expedición: <span id="progressText">0%</span></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta expedición digital explorarás los dispositivos esenciales de red, aprenderás a configurarlos y resolverás desafíos prácticos para dominar el mundo de los dispositivos de networking.</p>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="showTab('identification')">🔍 Identificación</button>
+                <button class="tab-btn" onclick="showTab('simulation')">🔄 Simulación</button>
+                <button class="tab-btn" onclick="showTab('configuration')">📝 Configuración</button>
+                <button class="tab-btn" onclick="showTab('challenge')">🎮 Desafío</button>
+            </div>
+
+            <!-- Tab 1: Identificación de Dispositivos -->
+            <div id="identification" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">🗺️ Expedición Digital</h2>
+                    <p>¡Saludos, Explorador! Imagina que las redes son como autopistas llenas de tráfico de datos. Para que todo funcione sin problemas, necesitamos dispositivos especiales que actúan como semáforos, puentes y guardias de seguridad.</p>
+                    <p>Tu misión es explorar cada dispositivo y descubrir su función secreta en la gran red digital. ¡Haz clic en cada dispositivo para comenzar tu exploración!</p>
+                    
+                    <div class="exploration-stats">
+                        <h3>📊 Estado de la Expedición</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div>🔍 Dispositivos Explorados</div>
+                                <div id="exploredCount">0/5</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>🏆 Badges Ganados</div>
+                                <div id="badgesCount">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>⭐ Nivel Explorador</div>
+                                <div id="explorerLevel">Novato</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>📈 Progreso</div>
+                                <div id="progressPercent">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">🌐 Laboratorio de Dispositivos</h2>
+                    <p>Haz clic en cada dispositivo para explorar su función:</p>
+                    
+                    <div class="network-diagram">
+                        <div class="network-node" onclick="exploreDevice('router')" id="router">
+                            🛣️<br>Router
+                        </div>
+                        <div class="network-connection"></div>
+                        <div class="network-node" onclick="exploreDevice('switch')" id="switch">
+                            🔄<br>Switch
+                        </div>
+                        <div class="network-connection"></div>
+                        <div class="network-node" onclick="exploreDevice('firewall')" id="firewall">
+                            🛡️<br>Firewall
+                        </div>
+                        <div class="network-connection"></div>
+                        <div class="network-node" onclick="exploreDevice('access_point')" id="access_point">
+                            📶<br>Access Point
+                        </div>
+                        <div class="network-connection"></div>
+                        <div class="network-node" onclick="exploreDevice('modem')" id="modem">
+                            📡<br>Módem
+                        </div>
+                    </div>
+                    
+                    <div id="device-info" class="device-info">
+                        <div id="device-details">
+                            <h3>👆 ¡Selecciona un dispositivo para comenzar tu exploración!</h3>
+                            <p>Cada dispositivo tiene secretos únicos que descubrir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Simulación de Conexiones -->
+            <div id="simulation" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🔄 Simulación de Conexiones</h2>
+                    <div class="simulation-arena">
+                        <h3>🎮 Arena de Simulación</h3>
+                        <p>Arrastra los dispositivos para crear tu red. Observa cómo se conectan entre sí.</p>
+                        
+                        <div class="device-features" style="margin-bottom: 20px;">
+                            <div class="feature-card">
+                                <h4>Dispositivos Disponibles</h4>
+                                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                                    <div class="draggable-device" draggable="true" ondragstart="drag(event)" data-device="router">🛣️ Router</div>
+                                    <div class="draggable-device" draggable="true" ondragstart="drag(event)" data-device="switch">🔄 Switch</div>
+                                    <div class="draggable-device" draggable="true" ondragstart="drag(event)" data-device="firewall">🛡️ Firewall</div>
+                                    <div class="draggable-device" draggable="true" ondragstart="drag(event)" data-device="access_point">📶 Access Point</div>
+                                    <div class="draggable-device" draggable="true" ondragstart="drag(event)" data-device="modem">📡 Módem</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="simulation-grid" id="simulationGrid">
+                            <div class="simulation-device drag-drop-area" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" data-slot="1">
+                                <span class="device-sprite">📍</span>
+                                <div>Zona Internet</div>
+                            </div>
+                            <div class="simulation-device drag-drop-area" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" data-slot="2">
+                                <span class="device-sprite">📍</span>
+                                <div>Zona Gateway</div>
+                            </div>
+                            <div class="simulation-device drag-drop-area" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" data-slot="3">
+                                <span class="device-sprite">📍</span>
+                                <div>Zona Seguridad</div>
+                            </div>
+                            <div class="simulation-device drag-drop-area" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" data-slot="4">
+                                <span class="device-sprite">📍</span>
+                                <div>Zona Red Local</div>
+                            </div>
+                            <div class="simulation-device drag-drop-area" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" data-slot="5">
+                                <span class="device-sprite">📍</span>
+                                <div>Zona WiFi</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button class="action-btn success" onclick="simulateConnection()">⚡ Simular Conexiones</button>
+                            <button class="action-btn secondary" onclick="resetSimulation()">🔄 Reiniciar</button>
+                        </div>                     
+                        
+                        <div id="simulation-feedback" style="margin-top: 20px; color: #4fd1c7;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Configuración Básica -->
+            <div id="configuration" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">📝 Configuración Básica</h2>
+                    <div class="config-panel">
+                        <h3>⚙️ Centro de Configuración</h3>
+                        <p>Aprende a configurar los parámetros básicos de cada dispositivo de red.</p>
+                        
+                        <div class="device-features">
+                            <div class="feature-card">
+                                <h4>🛣️ Configuración de Router</h4>
+                                <div class="config-item">
+                                    <strong>IP WAN:</strong>
+                                    <input type="text" class="config-input" placeholder="192.168.1.1" id="routerWanIp">
+                                    <button class="config-btn" onclick="configureDevice('router', 'wan')">Aplicar</button>
+                                </div>
+                                <div class="config-item">
+                                    <strong>Red LAN:</strong>
+                                    <input type="text" class="config-input" placeholder="192.168.0.0/24" id="routerLanNet">
+                                    <button class="config-btn" onclick="configureDevice('router', 'lan')">Aplicar</button>
+                                </div>
+                                <div id="router-config-status" style="margin-top: 10px; font-weight: bold; color: #4a5568;"></div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <h4>🔄 Configuración de Switch</h4>
+                                <div class="config-item">
+                                    <strong>VLAN ID:</strong>
+                                    <input type="number" class="config-input" placeholder="100" id="switchVlan">
+                                    <button class="config-btn" onclick="configureDevice('switch', 'vlan')">Aplicar</button>
+                                </div>
+                                <div class="config-item">
+                                    <strong>Puertos Activos:</strong>
+                                    <input type="number" class="config-input" placeholder="24" id="switchPorts">
+                                    <button class="config-btn" onclick="configureDevice('switch', 'ports')">Aplicar</button>
+                                </div>
+                                <div id="switch-config-status" style="margin-top: 10px; font-weight: bold; color: #4a5568;"></div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <h4>🛡️ Configuración de Firewall</h4>
+                                <div class="config-item">
+                                    <strong>Regla de Entrada:</strong>
+                                    <input type="text" class="config-input" placeholder="ALLOW HTTP" id="firewallInbound">
+                                    <button class="config-btn" onclick="configureDevice('firewall', 'inbound')">Aplicar</button>
+                                </div>
+                                <div class="config-item">
+                                    <strong>Regla de Salida:</strong>
+                                    <input type="text" class="config-input" placeholder="DENY ALL" id="firewallOutbound">
+                                    <button class="config-btn" onclick="configureDevice('firewall', 'outbound')">Aplicar</button>
+                                </div>
+                                <div id="firewall-config-status" style="margin-top: 10px; font-weight: bold; color: #4a5568;"></div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <h4>📶 Configuración de Access Point</h4>
+                                <div class="config-item">
+                                    <strong>SSID:</strong>
+                                    <input type="text" class="config-input" placeholder="MiRed_WiFi" id="apSsid">
+                                    <button class="config-btn" onclick="configureDevice('ap', 'ssid')">Aplicar</button>
+                                </div>
+                                <div class="config-item">
+                                    <strong>Seguridad:</strong>
+                                    <select class="config-input" id="apSecurity">
+                                        <option value="WPA3">WPA3</option>
+                                        <option value="WPA2">WPA2</option>
+                                        <option value="WEP">WEP</option>
+                                        <option value="Open">Abierta</option>
+                                    </select>
+                                    <button class="config-btn" onclick="configureDevice('ap', 'security')">Aplicar</button>
+                                </div>
+                                <div id="ap-config-status" style="margin-top: 10px; font-weight: bold; color: #4a5568;"></div>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <h4>📡 Configuración de Módem</h4>
+                                <div class="config-item">
+                                    <strong>Tipo de Conexión:</strong>
+                                    <select class="config-input" id="modemType">
+                                        <option value="ADSL">ADSL</option>
+                                        <option value="Cable">Cable</option>
+                                        <option value="Fibra">Fibra Óptica</option>
+                                        <option value="Satelite">Satélite</option>
+                                    </select>
+                                    <button class="config-btn" onclick="configureDevice('modem', 'type')">Aplicar</button>
+                                </div>
+                                <div class="config-item">
+                                    <strong>Velocidad:</strong>
+                                    <input type="text" class="config-input" placeholder="100 Mbps" id="modemSpeed">
+                                    <button class="config-btn" onclick="configureDevice('modem', 'speed')">Aplicar</button>
+                                </div>
+                                <div id="modem-config-status" style="margin-top: 10px; font-weight: bold; color: #4a5568;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="action-btn success" onclick="validateAllConfigurations()" style="font-size: 1.1em; padding: 12px 24px;">
+                                ✅ Validar Todas las Configuraciones
+                            </button>
+                        </div>
+                        
+                        <div id="config-summary" class="feedback-area"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Desafío Interactivo -->
+            <div id="challenge" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🎮 Desafío Interactivo</h2>
+                    <div class="challenge-scenario">
+                        <h3>🎯 Centro de Resolución de Problemas</h3>
+                        <p><strong>📋 Instrucciones:</strong> Lee cada escenario y decide qué dispositivos necesitas para resolver el problema. Haz clic en un escenario para ver los pasos detallados que debes seguir.</p>
+                        
+                        <div style="background: rgba(66, 153, 225, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #4299e1;">
+                            <h4>💡 ¿Cómo funciona?</h4>
+                            <ol style="margin: 10px 0; padding-left: 20px;">
+                                <li><strong>Selecciona un escenario</strong> haciendo clic en él</li>
+                                <li><strong>Lee los pasos</strong> que aparecerán debajo</li>
+                                <li><strong>Piensa en la solución</strong> antes de completar</li>
+                                <li><strong>Haz clic en "Completar"</strong> cuando entiendas la solución</li>
+                                <li><strong>Gana una insignia</strong> por cada escenario resuelto</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="scenario-card" onclick="startScenario(1)" id="scenario1">
+                            <h4>🏢 Escenario 1: Oficina Pequeña</h4>
+                            <p><strong>🎯 Problema:</strong> Una oficina de 10 empleados necesita acceso a Internet y compartir una impresora de red.</p>
+                            <p><strong>🔧 Dispositivos necesarios:</strong> Router, Switch, Access Point</p>
+                            <p><strong>📝 Tu tarea:</strong> Diseñar una red que permita a todos conectarse a Internet y usar la impresora.</p>
+                            <div class="badge" id="badge1" style="display: none;">🏆 Arquitecto de Oficina</div>
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                                <strong>💼 Situación real:</strong> El jefe quiere que todos puedan trabajar desde sus computadoras y imprimir documentos.
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card" onclick="startScenario(2)" id="scenario2">
+                            <h4>🏠 Escenario 2: Red Doméstica Inteligente</h4>
+                            <p><strong>🎯 Problema:</strong> Una familia quiere WiFi en toda la casa con controles parentales para los hijos.</p>
+                            <p><strong>🔧 Dispositivos necesarios:</strong> Módem, Router con WiFi, Firewall</p>
+                            <p><strong>📝 Tu tarea:</strong> Crear una red segura con diferentes niveles de acceso.</p>
+                            <div class="badge" id="badge2" style="display: none;">🏠 Guardián Digital</div>
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                                <strong>👨‍👩‍👧‍👦 Situación real:</strong> Los padres quieren que los niños no accedan a contenido inapropiado por las noches.
+                            </div>
+                        </div>
+                        
+                        <div class="scenario-card" onclick="startScenario(3)" id="scenario3">
+                            <h4>🏭 Escenario 3: Empresa con Invitados</h4>
+                            <p><strong>🎯 Problema:</strong> Empresa con 50 empleados necesita red segura y una zona para visitantes.</p>
+                            <p><strong>🔧 Dispositivos necesarios:</strong> Firewall corporativo, Switch gestionado, múltiples APs</p>
+                            <p><strong>📝 Tu tarea:</strong> Separar la red de empleados de la red de invitados por seguridad.</p>
+                            <div class="badge" id="badge3" style="display: none;">🏢 Arquitecto Empresarial</div>
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                                <strong>🛡️ Situación real:</strong> Los invitados necesitan Internet pero no deben acceder a datos de la empresa.
+                            </div>
+                        </div>
+                        
+                        <div id="scenario-details" style="display: none; margin-top: 25px; padding: 25px; background: white; border-radius: 15px; border: 2px solid #4299e1;">
+                            <h4 id="scenario-title" style="color: #2d3748; margin-bottom: 15px;"></h4>
+                            
+                            <div style="background: #f7fafc; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                                <h5 style="color: #4299e1; margin-bottom: 10px;">🎯 Objetivo del Desafío:</h5>
+                                <div id="scenario-objective"></div>
+                            </div>
+                            
+                            <div style="background: #ebf8ff; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                                <h5 style="color: #3182ce; margin-bottom: 10px;">📋 Pasos de Implementación:</h5>
+                                <div id="scenario-steps"></div>
+                            </div>
+                            
+                            <div style="background: #f0fff4; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                                <h5 style="color: #38a169; margin-bottom: 10px;">💡 Explicación Técnica:</h5>
+                                <div id="scenario-explanation"></div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 20px;">
+                                <button class="action-btn success" onclick="completeScenario()" style="font-size: 1.1em; padding: 12px 24px;">
+                                    ✅ ¡Entendido! Completar Escenario
+                                </button>
+                                <button class="action-btn secondary" onclick="cancelScenario()" style="margin-left: 10px;">
+                                    ❌ Cancelar
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; text-align: center; color: #4a5568;">
+                            <small>
+                                <strong>🎮 Progreso de Desafíos:</strong> <span id="challengeProgress">0/3 completados</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips del Explorador Maestro
+                </h3>
+                <div class="tip-item">
+                    <strong>🛣️ Router:</strong> El director de tráfico - conecta diferentes redes y encuentra las mejores rutas para los datos.
+                </div>
+                <div class="tip-item">
+                    <strong>🔄 Switch:</strong> El organizador inteligente - conecta dispositivos en la misma red y mejora la eficiencia.
+                </div>
+                <div class="tip-item">
+                    <strong>🛡️ Firewall:</strong> El guardián protector - bloquea amenazas y controla el acceso a la red.
+                </div>
+                <div class="tip-item">
+                    <strong>📶 Access Point:</strong> El puente inalámbrico - extiende la red WiFi y conecta dispositivos móviles.
+                </div>
+                <div class="tip-item">
+                    <strong>📡 Módem:</strong> El traductor universal - conecta tu red local con el proveedor de Internet.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Pro tip:</strong> Una red empresarial típica usa todos estos dispositivos trabajando en conjunto para máxima eficiencia y seguridad.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let progress = 0;
+        let exploredDevices = new Set();
+        let totalDevices = 5;
+        let badgesEarned = 0;
+        let configurationsCompleted = new Set();
+        let simulationCompleted = false;
+        let scenariosCompleted = new Set();
+
+        // Simulation variables
+        let placedDevices = {};
+
+        const deviceData = {
+            router: {
+                title: "🛣️ Router - El Director de Tráfico",
+                description: "¡Excelente elección! El router es como un director de tráfico súper inteligente.",
+                features: [
+                    "🎯 Conecta diferentes redes (LAN con Internet)",
+                    "🗺️ Encuentra la mejor ruta para los datos",
+                    "🏠 Asigna direcciones IP a dispositivos (DHCP)",
+                    "🔒 Incluye funciones básicas de seguridad (NAT)",
+                    "📊 Gestiona el ancho de banda y QoS",
+                    "🌐 Traduce direcciones IP públicas y privadas"
+                ],
+                analogy: "Es como el GPS de los datos: siempre encuentra el camino más rápido.",
+                badge: "🚦 Maestro del Tráfico",
+                usage: "Conecta tu red local con Internet y otras redes.",
+                ports: "Típicamente 4 puertos LAN + 1 puerto WAN"
+            },
+            switch: {
+                title: "🔄 Switch - El Organizador Inteligente",
+                description: "¡Fantástico! El switch es el organizador más eficiente de la red.",
+                features: [
+                    "🔗 Conecta dispositivos en la misma red local",
+                    "🧠 Aprende direcciones MAC automáticamente",
+                    "⚡ Crea conexiones directas entre dispositivos",
+                    "🚀 Elimina colisiones de datos (full-duplex)",
+                    "📈 Mejora la velocidad y eficiencia de la red",
+                    "🏢 Admite VLANs para segmentación"
+                ],
+                analogy: "Como un operador telefónico que conecta llamadas directamente.",
+                badge: "🔗 Conector Maestro",
+                usage: "Expande el número de dispositivos en una red local.",
+                ports: "Desde 5 hasta 48+ puertos Ethernet"
+            },
+            firewall: {
+                title: "🛡️ Firewall - El Guardián Protector",
+                description: "¡Increíble! El firewall es el héroe silencioso de la seguridad.",
+                features: [
+                    "🛡️ Bloquea tráfico malicioso y no autorizado",
+                    "🔍 Inspecciona paquetes de datos en profundidad",
+                    "📋 Aplica reglas de seguridad personalizadas",
+                    "🚨 Detecta y previene intentos de intrusión",
+                    "📊 Registra y audita toda la actividad de red",
+                    "🌐 Controla acceso a sitios web y aplicaciones"
+                ],
+                analogy: "Como un guardia de seguridad que revisa quién entra y sale.",
+                badge: "🛡️ Defensor Digital",
+                usage: "Protege la red de amenazas internas y externas.",
+                ports: "Múltiples zonas de seguridad (LAN, WAN, DMZ)"
+            },
+            access_point: {
+                title: "📶 Access Point - El Puente Inalámbrico",
+                description: "¡Genial! El Access Point es el puente entre lo cableado e inalámbrico.",
+                features: [
+                    "📶 Extiende la red WiFi a nuevas áreas",
+                    "🔗 Conecta dispositivos inalámbricos a la red cableada",
+                    "🎯 Mejora la cobertura en espacios grandes",
+                    "👥 Maneja múltiples conexiones simultáneas",
+                    "🔐 Proporciona seguridad inalámbrica (WPA3)",
+                    "📊 Controla el roaming entre access points"
+                ],
+                analogy: "Como una torre de radio que transmite la red por el aire.",
+                badge: "📡 Maestro Inalámbrico",
+                usage: "Proporciona conectividad WiFi en la red.",
+                ports: "1 puerto Ethernet + antenas WiFi"
+            },
+            modem: {
+                title: "📡 Módem - El Traductor Universal",
+                description: "¡Perfecto! El módem es el traductor entre tu casa e Internet.",
+                features: [
+                    "🔄 Convierte señales digitales a analógicas y viceversa",
+                    "🌐 Conecta tu red local con el proveedor de Internet",
+                    "📞 Compatible con líneas telefónicas, cable o fibra",
+                    "🏠 Primer punto de entrada de Internet al hogar",
+                    "⚡ Determina la velocidad máxima de conexión",
+                    "📊 Sincroniza con la red del ISP"
+                ],
+                analogy: "Como un intérprete que traduce entre diferentes idiomas.",
+                badge: "🌍 Conector Global",
+                usage: "Conecta tu red con el proveedor de Internet.",
+                ports: "1 puerto hacia ISP + 1-4 puertos Ethernet"
+            }
+        };
+
+        const scenarios = {
+            1: {
+                title: "🏢 Configuración de Oficina Pequeña",
+                objective: "Diseñar una red que permita a 10 empleados conectarse a Internet, compartir archivos y usar una impresora de red de manera eficiente y segura.",
+                steps: [
+                    "1. 📡 Conectar módem al servicio de Internet del ISP",
+                    "2. 🛣️ Conectar router al módem para crear la red local (192.168.1.0/24)",
+                    "3. 🔄 Conectar switch al router para añadir puertos adicionales (24 puertos)",
+                    "4. 📶 Instalar Access Point para conectividad WiFi en la oficina",
+                    "5. 🖨️ Conectar impresora de red al switch con IP fija",
+                    "6. 🔐 Configurar contraseña WiFi y reglas básicas de firewall"
+                ],
+                explanation: "Esta configuración permite que múltiples empleados compartan la conexión a Internet de manera eficiente. El switch proporciona puertos adicionales para computadoras, mientras que el Access Point permite dispositivos móviles. La impresora de red se configura con IP fija para que todos puedan encontrarla fácilmente."
+            },
+            2: {
+                title: "🏠 Red Doméstica Inteligente con Controles",
+                objective: "Crear una red familiar segura con WiFi completo, controles parentales para los hijos y separación entre dispositivos de invitados.",
+                steps: [
+                    "1. 📡 Configurar módem con conexión de fibra óptica del ISP",
+                    "2. 🛣️ Configurar router con WiFi 6 integrado y doble banda",
+                    "3. 👨‍👩‍👧‍👦 Crear red principal para la familia (MiFamilia_WiFi)",
+                    "4. 👥 Configurar red de invitados separada (Invitados_WiFi)",
+                    "5. ⏰ Establecer horarios de acceso para dispositivos de niños",
+                    "6. 🛡️ Activar filtro de contenido y controles parentales por edad"
+                ],
+                explanation: "Los controles parentales permiten limitar el acceso a contenido inapropiado y establecer horarios de uso. La red de invitados aísla los dispositivos externos de los familiares. El router moderno con WiFi 6 proporciona mejor velocidad y cobertura."
+            },
+            3: {
+                title: "🏭 Red Empresarial Segura con Segmentación",
+                objective: "Implementar una red empresarial robusta que separe el tráfico de empleados, invitados y servidores, con alta seguridad y monitoreo.",
+                steps: [
+                    "1. 🛡️ Implementar firewall empresarial en el perímetro de red",
+                    "2. 🔄 Configurar switches gestionados con VLANs por departamento",
+                    "3. 👥 VLAN 10: Empleados | VLAN 20: Invitados | VLAN 30: Servidores",
+                    "4. 📶 Desplegar múltiples Access Points para cobertura completa",
+                    "5. 🔐 Implementar autenticación 802.1X para acceso seguro",
+                    "6. 📊 Configurar monitoreo de red y logs de seguridad"
+                ],
+                explanation: "Las VLANs segmentan el tráfico por función, evitando que invitados accedan a recursos internos. El firewall empresarial proporciona protección avanzada contra amenazas. La autenticación 802.1X asegura que solo usuarios autorizados accedan a la red."
+            }
+        };
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            progressBar.style.width = progress + '%';
+            progressText.textContent = Math.round(progress) + '%';
+            
+            // Actualizar estadísticas
+            document.getElementById('exploredCount').textContent = `${exploredDevices.size}/${totalDevices}`;
+            document.getElementById('badgesCount').textContent = badgesEarned;
+            document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+            
+            // Actualizar nivel
+            let level = 'Novato';
+            if (progress >= 90) level = 'Maestro';
+            else if (progress >= 70) level = 'Experto';
+            else if (progress >= 40) level = 'Explorador';
+            else if (progress >= 20) level = 'Aprendiz';
+            document.getElementById('explorerLevel').textContent = level;
+        }
+
+        function addProgress(amount) {
+            progress = Math.min(100, progress + amount);
+            updateProgress();
+        }
+
+        function showCelebration(message) {
+            alert(`🎉 ${message} 🎉\n\n¡Sigue explorando!`);
+        }
+
+        function exploreDevice(deviceType) {
+            const deviceInfo = document.getElementById('device-info');
+            const deviceDetails = document.getElementById('device-details');
+            const deviceNode = document.getElementById(deviceType);
+            const data = deviceData[deviceType];
+            
+            // Marcar como explorado
+            if (!exploredDevices.has(deviceType)) {
+                exploredDevices.add(deviceType);
+                deviceNode.classList.add('explored');
+                addProgress(15); // 15% por cada dispositivo explorado
+                badgesEarned++;
+                showCelebration(`¡${data.title.split(' - ')[0]} explorado!`);
+            }
+            
+            // Mostrar información del dispositivo
+            const featuresHTML = data.features.map(feature => 
+                `<div class="feature-card">${feature}</div>`
+            ).join('');
+            
+            deviceDetails.innerHTML = `
+                <h3>${data.title}</h3>
+                <p><strong>${data.description}</strong></p>
+                <div class="device-features">
+                    ${featuresHTML}
+                </div>
+                <div style="margin: 15px 0;">
+                    <p><em>💡 Analogía: ${data.analogy}</em></p>
+                    <p><strong>🔧 Uso típico:</strong> ${data.usage}</p>
+                    <p><strong>🔌 Conectividad:</strong> ${data.ports}</p>
+                </div>
+                <div class="badge">${data.badge}</div>
+            `;
+            
+            deviceInfo.classList.add('show');
+            
+            // Comprobar si todos los dispositivos han sido explorados
+            if (exploredDevices.size === totalDevices) {
+                setTimeout(() => {
+                    showCelebration('¡Todos los dispositivos explorados! Continúa con las siguientes actividades.');
+                    addProgress(10); // Bonus por explorar todo
+                }, 1000);
+            }
+        }
+
+        // Funciones de Simulación
+        function dragEnter(ev) {
+            ev.preventDefault();
+            ev.target.classList.add('drag-over');
+        }
+
+        function dragLeave(ev) {
+            ev.preventDefault();
+            if (!ev.target.contains(ev.relatedTarget)) {
+                ev.target.classList.remove('drag-over');
+            }
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.getAttribute('data-device'));
+            ev.dataTransfer.effectAllowed = "move";
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.target.classList.remove('drag-over');
+            
+            const deviceType = ev.dataTransfer.getData("text");
+            const dropTarget = ev.currentTarget;
+            const slot = dropTarget.getAttribute('data-slot');
+            
+            if (slot && !placedDevices[slot]) {
+                const deviceEmojis = {
+                    router: '🛣️',
+                    switch: '🔄',
+                    firewall: '🛡️',
+                    access_point: '📶',
+                    modem: '📡'
+                };
+                
+                const deviceNames = {
+                    router: 'Router',
+                    switch: 'Switch',
+                    firewall: 'Firewall',
+                    access_point: 'Access Point',
+                    modem: 'Módem'
+                };
+                
+                placedDevices[slot] = deviceType;
+                dropTarget.classList.add('occupied');
+                dropTarget.innerHTML = `
+                    <button class="remove-device-btn" onclick="removeDevice('${slot}')" title="Quitar dispositivo">×</button>
+                    <span class="device-sprite">${deviceEmojis[deviceType]}</span>
+                    <div>${deviceNames[deviceType]}</div>
+                `;
+                
+                updateSimulationFeedback();
+                
+                dropTarget.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    dropTarget.style.transform = 'scale(1)';
+                }, 200);
+            } else if (placedDevices[slot]) {
+                showTemporaryMessage(dropTarget, '⚠️ Zona ocupada');
+            }
+        }
+
+        function removeDevice(slot) {
+            if (placedDevices[slot]) {
+                delete placedDevices[slot];
+                const slotElement = document.querySelector(`[data-slot="${slot}"]`);
+                slotElement.classList.remove('occupied');
+                
+                const zoneNames = {
+                    '1': 'Zona Internet',
+                    '2': 'Zona Gateway', 
+                    '3': 'Zona Seguridad',
+                    '4': 'Zona Red Local',
+                    '5': 'Zona WiFi'
+                };
+                
+                slotElement.innerHTML = `
+                    <span class="device-sprite">📍</span>
+                    <div>${zoneNames[slot]}</div>
+                `;
+                
+                updateSimulationFeedback();
+            }
+        }
+
+        function showTemporaryMessage(element, message) {
+            const originalContent = element.innerHTML;
+            element.innerHTML = `<div style="color: #fc8181; font-weight: bold;">${message}</div>`;
+            element.style.borderColor = '#fc8181';
+            
+            setTimeout(() => {
+                element.innerHTML = originalContent;
+                element.style.borderColor = '';
+            }, 1500);
+        }
+
+        function simulateConnection() {
+            const placedCount = Object.keys(placedDevices).length;
+            
+            if (placedCount < 2) {
+                document.getElementById('simulation-feedback').innerHTML = 
+                    '⚠️ Necesitas al menos 2 dispositivos para simular conexiones.<br>📋 Arrastra dispositivos desde la sección superior a las zonas.';
+                return;
+            }
+            
+            let feedback = '⚡ <strong>Simulación de Red Activa:</strong><br><br>';
+            const devices = Object.values(placedDevices);
+            
+            // Análisis de conectividad
+            if (devices.includes('modem')) {
+                feedback += '🌐 <strong>Conectividad a Internet:</strong> ✅ Módem detectado - Conexión con ISP establecida<br>';
+            } else {
+                feedback += '🌐 <strong>Conectividad a Internet:</strong> ⚠️ Sin módem - No hay conexión externa<br>';
+            }
+            
+            if (devices.includes('router')) {
+                feedback += '🛣️ <strong>Gestión de Red:</strong> ✅ Router activo - Enrutamiento y DHCP funcionando<br>';
+            } else {
+                feedback += '🛣️ <strong>Gestión de Red:</strong> ⚠️ Sin router - Red local limitada<br>';
+            }
+            
+            if (devices.includes('firewall')) {
+                feedback += '🛡️ <strong>Seguridad:</strong> ✅ Firewall activo - Red protegida contra amenazas<br>';
+            } else {
+                feedback += '🛡️ <strong>Seguridad:</strong> ⚠️ Sin firewall - Red vulnerable<br>';
+            }
+            
+            if (devices.includes('switch')) {
+                feedback += '🔄 <strong>Conectividad Local:</strong> ✅ Switch disponible - Múltiples dispositivos conectables<br>';
+            } else {
+                feedback += '🔄 <strong>Conectividad Local:</strong> ⚠️ Sin switch - Puertos limitados<br>';
+            }
+            
+            if (devices.includes('access_point')) {
+                feedback += '📶 <strong>WiFi:</strong> ✅ Access Point activo - Conectividad inalámbrica disponible<br>';
+            } else {
+                feedback += '📶 <strong>WiFi:</strong> ⚠️ Sin Access Point - Solo conexiones cableadas<br>';
+            }
+            
+            // Evaluación general de la red
+            feedback += '<br><strong>📊 Evaluación de la Red:</strong><br>';
+            
+            const score = devices.length;
+            if (score === 5) {
+                feedback += '🏆 <strong>Red Completa:</strong> Configuración profesional con todos los componentes esenciales!';
+            } else if (score >= 4) {
+                feedback += '✅ <strong>Red Funcional:</strong> Buena configuración, considera añadir los componentes faltantes.';
+            } else if (score >= 3) {
+                feedback += '👍 <strong>Red Básica:</strong> Configuración funcional pero con limitaciones.';
+            } else {
+                feedback += '⚠️ <strong>Red Limitada:</strong> Configuración básica, muchas funcionalidades faltantes.';
+            }
+            
+            document.getElementById('simulation-feedback').innerHTML = feedback;
+            
+            if (!simulationCompleted) {
+                simulationCompleted = true;
+                addProgress(20);
+                showCelebration('¡Simulación completada con éxito!');
+            }
+        }
+
+        function resetSimulation() {
+            placedDevices = {};
+            document.querySelectorAll('.simulation-device').forEach((device, index) => {
+                device.classList.remove('occupied');
+                const slot = device.getAttribute('data-slot');
+                
+                const zoneNames = {
+                    '1': 'Zona Internet',
+                    '2': 'Zona Gateway', 
+                    '3': 'Zona Seguridad',
+                    '4': 'Zona Red Local',
+                    '5': 'Zona WiFi'
+                };
+                
+                device.innerHTML = `
+                    <span class="device-sprite">📍</span>
+                    <div>${zoneNames[slot]}</div>
+                `;
+            });
+            
+            document.getElementById('simulation-feedback').innerHTML = '';
+        }
+
+        function updateSimulationFeedback() {
+            const count = Object.keys(placedDevices).length;
+            const feedback = document.getElementById('simulation-feedback');
+            
+            if (count === 0) {
+                feedback.innerHTML = '📋 Arrastra dispositivos a las zonas correspondientes para crear tu red.';
+            } else if (count === 1) {
+                feedback.innerHTML = `📊 ${count}/5 dispositivo colocado. Añade más dispositivos para crear conexiones.`;
+            } else {
+                feedback.innerHTML = `📊 ${count}/5 dispositivos colocados. Haz clic en "Simular Conexiones" para ver cómo se comunican.`;
+            }
+        }
+
+        // Funciones de Configuración
+        function configureDevice(device, configType) {
+            let inputId, statusId, message;
+            
+            switch(device) {
+                case 'router':
+                    if (configType === 'wan') {
+                        inputId = 'routerWanIp';
+                        message = `IP WAN configurada: ${document.getElementById(inputId).value}`;
+                    } else {
+                        inputId = 'routerLanNet';
+                        message = `Red LAN configurada: ${document.getElementById(inputId).value}`;
+                    }
+                    statusId = 'router-config-status';
+                    break;
+                case 'switch':
+                    if (configType === 'vlan') {
+                        inputId = 'switchVlan';
+                        message = `VLAN ${document.getElementById(inputId).value} configurada`;
+                    } else {
+                        inputId = 'switchPorts';
+                        message = `${document.getElementById(inputId).value} puertos activos`;
+                    }
+                    statusId = 'switch-config-status';
+                    break;
+                case 'firewall':
+                    if (configType === 'inbound') {
+                        inputId = 'firewallInbound';
+                        message = `Regla entrada: ${document.getElementById(inputId).value}`;
+                    } else {
+                        inputId = 'firewallOutbound';
+                        message = `Regla salida: ${document.getElementById(inputId).value}`;
+                    }
+                    statusId = 'firewall-config-status';
+                    break;
+                case 'ap':
+                    if (configType === 'ssid') {
+                        inputId = 'apSsid';
+                        message = `SSID: "${document.getElementById(inputId).value}"`;
+                    } else {
+                        inputId = 'apSecurity';
+                        message = `Seguridad: ${document.getElementById(inputId).value}`;
+                    }
+                    statusId = 'ap-config-status';
+                    break;
+                case 'modem':
+                    if (configType === 'type') {
+                        inputId = 'modemType';
+                        message = `Tipo: ${document.getElementById(inputId).value}`;
+                    } else {
+                        inputId = 'modemSpeed';
+                        message = `Velocidad: ${document.getElementById(inputId).value}`;
+                    }
+                    statusId = 'modem-config-status';
+                    break;
+            }
+            
+            const input = document.getElementById(inputId);
+            if (input.value.trim()) {
+                document.getElementById(statusId).innerHTML = `✅ ${message}`;
+                document.getElementById(statusId).style.color = '#38a169';
+                
+                configurationsCompleted.add(`${device}-${configType}`);
+                
+                if (configurationsCompleted.size % 2 === 0) {
+                    addProgress(5); // 5% cada 2 configuraciones
+                }
+            } else {
+                document.getElementById(statusId).innerHTML = '❌ Campo requerido';
+                document.getElementById(statusId).style.color = '#e53e3e';
+            }
+        }
+
+        function validateAllConfigurations() {
+            const totalConfigs = 10;
+            const completed = configurationsCompleted.size;
+            
+            const summary = document.getElementById('config-summary');
+            let summaryHTML = `
+                <div class="exploration-stats">
+                    <h4>📊 Resumen de Configuraciones</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div>${completed}/${totalConfigs}</div>
+                            <div>Configuraciones Aplicadas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div>${Math.round((completed/totalConfigs)*100)}%</div>
+                            <div>Progreso de Configuración</div>
+                        </div>
+                        <div class="stat-item">
+                            <div>${completed >= 5 ? '✅' : '⏳'}</div>
+                            <div>Estado</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            summary.innerHTML = summaryHTML;
+            summary.className = 'feedback-area ' + (completed >= 5 ? 'feedback-success' : 'feedback-info');
+            summary.style.display = 'block';
+            
+            if (completed >= 5) {
+                addProgress(15);
+                showCelebration('¡Configuraciones validadas correctamente!');
+            }
+        }
+
+        // Funciones de Escenarios
+        function startScenario(scenarioNum) {
+            const scenario = scenarios[scenarioNum];
+            document.getElementById('scenario-title').textContent = scenario.title;
+            document.getElementById('scenario-objective').textContent = scenario.objective;
+            
+            const stepsHTML = scenario.steps.map(step => 
+                `<div style="padding: 8px; margin: 5px 0; background: white; border-radius: 5px; border-left: 3px solid #3182ce;">${step}</div>`
+            ).join('');
+            
+            document.getElementById('scenario-steps').innerHTML = stepsHTML;
+            document.getElementById('scenario-explanation').textContent = scenario.explanation;
+            document.getElementById('scenario-details').style.display = 'block';
+            
+            document.getElementById('scenario-details').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function completeScenario() {
+            const title = document.getElementById('scenario-title').textContent;
+            const scenarioNum = title.includes('Oficina') ? 1 : title.includes('Doméstica') ? 2 : 3;
+            
+            if (!scenariosCompleted.has(scenarioNum)) {
+                scenariosCompleted.add(scenarioNum);
+                document.getElementById(`scenario${scenarioNum}`).classList.add('completed');
+                document.getElementById(`badge${scenarioNum}`).style.display = 'inline-block';
+                
+                document.getElementById('challengeProgress').textContent = `${scenariosCompleted.size}/3 completados`;
+                
+                addProgress(10);
+                
+                const badgeNames = {
+                    1: 'Arquitecto de Oficina',
+                    2: 'Guardián Digital', 
+                    3: 'Arquitecto Empresarial'
+                };
+                
+                showCelebration(`¡${badgeNames[scenarioNum]} desbloqueado!`);
+            }
+            
+            cancelScenario();
+        }
+
+        function cancelScenario() {
+            document.getElementById('scenario-details').style.display = 'none';
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function markCompleted() {
+            const requiredProgress = [
+                { condition: exploredDevices.size >= 3, message: 'Explora al menos 3 dispositivos' },
+                { condition: simulationCompleted, message: 'Completa la simulación de conexiones' },
+                { condition: configurationsCompleted.size >= 3, message: 'Realiza al menos 3 configuraciones' },
+                { condition: scenariosCompleted.size >= 1, message: 'Completa al menos 1 escenario de desafío' }
+            ];
+
+            const missingRequirements = requiredProgress.filter(req => !req.condition);
+
+            if (missingRequirements.length > 0) {
+                alert('📋 Para completar la actividad necesitas:\n\n' +
+                    missingRequirements.map(req => '• ' + req.message).join('\n') +
+                    '\n\n💡 Usa las pestañas de arriba para completar cada sección.');
+                return;
+            }
+
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert(`🎉 ¡Felicidades! Has completado "Explorador Digital".\n\n` +
+                  `📊 Resumen de tu exploración:\n` +
+                  `• Dispositivos explorados: ${exploredDevices.size}/${totalDevices}\n` +
+                  `• Badges ganados: ${badgesEarned}\n` +
+                  `• Configuraciones realizadas: ${configurationsCompleted.size}\n` +
+                  `• Simulación completada: ${simulationCompleted ? 'Sí' : 'No'}\n` +
+                  `• Escenarios resueltos: ${scenariosCompleted.size}/3\n` +
+                  `• Progreso total: ${Math.round(progress)}%\n\n` +
+                  `✅ Actividad completada\n` +
+                  `🏆 +200 puntos ganados\n` +
+                  `🎯 Ahora dominas los dispositivos esenciales de red`);
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (progress > 0) {
+                console.log('Progreso guardado automáticamente:', progress + '%');
+            }
+        }, 30000);
+    </script>
+
+</body>

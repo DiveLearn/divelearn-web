@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Actividad 5 - Aprende Máscaras de Red</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .visualizer-container {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid var(--purple);
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .cidr-
+
+        .cidr-slider {
+            width: 300px;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .cidr-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .cidr-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .cidr-value {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--lime);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-network { background: #4ade80; }
+        .legend-host { background: #f87171; }
+
+        .binary-container {
+            margin-bottom: 30px;
+        }
+
+        .binary-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .octets-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .octet {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .octet.octet-1 { border-color: #ff6b6b; }
+        .octet.octet-2 { border-color: #4ecdc4; }
+        .octet.octet-3 { border-color: #45b7d1; }
+        .octet.octet-4 { border-color: #96ceb4; }
+
+        .octet-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .octet-1 .octet-
+        .octet-2 .octet-
+        .octet-3 .octet-
+        .octet-4 .octet-
+
+        .octet-decimal {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .binary-display {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 3px;
+            margin-top: 15px;
+        }
+
+        .bit {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .bit.network {
+            background: #4ade80;
+            color: white;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+        }
+
+        .bit.host {
+            background: #f87171;
+            color: white;
+            box-shadow: 0 4px 15px rgba(248, 113, 113, 0.3);
+        }
+
+        .bit:hover {
+            transform: scale(1.1);
+            border-color: var(--text);
+        }
+
+        .bit-positions {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 3px;
+            margin-top: 5px;
+        }
+
+        .bit-position {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .ip-display {
+            background: linear-gradient(135deg, #2d3748, #1a202c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .ip-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .ip-address {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .ip-octet {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 0 3px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .ip-octet.octet-1 { background: rgba(255, 107, 107, 0.2); }
+        .ip-octet.octet-2 { background: rgba(78, 205, 196, 0.2); }
+        .ip-octet.octet-3 { background: rgba(69, 183, 209, 0.2); }
+        .ip-octet.octet-4 { background: rgba(150, 206, 180, 0.2); }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border-left: 5px solid #4CAF50;
+        }
+
+        .info-card h3 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .info-value {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: var(--lime);
+            font-size: 1.1rem;
+        }
+
+        .examples-section {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .examples-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1565C0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .example-btn {
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        .example-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+
+        .conversion-helper {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .conversion-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: center;
+        }        .binary-table 
+        .binary-table 
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+            animation: slideInRight 0.5s ease;
+            max-width: 350px;
+            display: none;
+        }
+
+        .notification.detailed {
+            background: var(--surface);
+            color: var(--text);
+            border-left: 5px solid #4CAF50;
+            max-width: 400px;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--lime);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        
+            50% { transform: scale(1.02); }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        
+        .tutorial-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .help-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--lime);
+            border: 2px solid var(--purple);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        
+        @media (max-width: 768px) {            .octets-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .bit {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+
+            .bit-position {
+                width: 25px;
+                font-size: 0.6rem;
+            }
+
+            .ip-address {
+                font-size: 1.5rem;
+            }
+
+            .cidr-slider {
+                width: 200px;
+            }
+
+            .legend {
+                gap: 15px;
+            }
+
+            
+        }
+
+        @media (max-width: 480px) {
+            .octets-container {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 2</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 2</a> / Actividad 5
+            </div>
+            <h1 class="activity-title">🎭 Aprende Máscaras de Red</h1>
+            <p class="activity-subtitle">Visualiza cómo los bits definen redes y hosts en direcciones IP</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>16 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico-Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 140</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>Comprende visualmente cómo las máscaras de subred dividen una dirección IP en partes de red y host. Explora interactivamente diferentes configuraciones de máscara y observa cómo afectan la capacidad de la red.</p>
+            </div>
+
+            <div class="visualizer-container">
+                <div class="controls">
+                    <div class="cidr-input">
+                        <label for="cidrSlider">Máscara CIDR:</label>
+                        <input type="range" id="cidrSlider" class="cidr-slider" min="8" max="30" value="24" oninput="updateMask()">
+                        <div class="cidr-value">/<span id="cidrValue">24</span></div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color legend-network"></div>
+                        <span>Bits de Red (Network)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-host"></div>
+                        <span>Bits de Host</span>
+                    </div>
+                </div>
+
+                <!-- Binary Display -->
+                <div class="binary-container">
+                    <h3 class="binary-title">Representación Binaria de la Máscara de Subred</h3>
+                    
+                    <div class="octets-container">
+                        <!-- Octeto 1 -->
+                        <div class="octet octet-1">
+                            <div class="octet-header">
+                                <div class="octet-label">Octeto 1</div>
+                                <div class="octet-decimal" id="octet1-decimal">255</div>
+                            </div>
+                            <div class="binary-display" id="octet1-binary">
+                                <!-- Se llenará dinámicamente -->
+                            </div>
+                            <div class="bit-positions">
+                                <div class="bit-position">128</div>
+                                <div class="bit-position">64</div>
+                                <div class="bit-position">32</div>
+                                <div class="bit-position">16</div>
+                                <div class="bit-position">8</div>
+                                <div class="bit-position">4</div>
+                                <div class="bit-position">2</div>
+                                <div class="bit-position">1</div>
+                            </div>
+                        </div>
+
+                        <!-- Octeto 2 -->
+                        <div class="octet octet-2">
+                            <div class="octet-header">
+                                <div class="octet-label">Octeto 2</div>
+                                <div class="octet-decimal" id="octet2-decimal">255</div>
+                            </div>
+                            <div class="binary-display" id="octet2-binary">
+                                <!-- Se llenará dinámicamente -->
+                            </div>
+                            <div class="bit-positions">
+                                <div class="bit-position">128</div>
+                                <div class="bit-position">64</div>
+                                <div class="bit-position">32</div>
+                                <div class="bit-position">16</div>
+                                <div class="bit-position">8</div>
+                                <div class="bit-position">4</div>
+                                <div class="bit-position">2</div>
+                                <div class="bit-position">1</div>
+                            </div>
+                        </div>
+
+                        <!-- Octeto 3 -->
+                        <div class="octet octet-3">
+                            <div class="octet-header">
+                                <div class="octet-label">Octeto 3</div>
+                                <div class="octet-decimal" id="octet3-decimal">255</div>
+                            </div>
+                            <div class="binary-display" id="octet3-binary">
+                                <!-- Se llenará dinámicamente -->
+                            </div>
+                            <div class="bit-positions">
+                                <div class="bit-position">128</div>
+                                <div class="bit-position">64</div>
+                                <div class="bit-position">32</div>
+                                <div class="bit-position">16</div>
+                                <div class="bit-position">8</div>
+                                <div class="bit-position">4</div>
+                                <div class="bit-position">2</div>
+                                <div class="bit-position">1</div>
+                            </div>
+                        </div>
+
+                        <!-- Octeto 4 -->
+                        <div class="octet octet-4">
+                            <div class="octet-header">
+                                <div class="octet-label">Octeto 4</div>
+                                <div class="octet-decimal" id="octet4-decimal">0</div>
+                            </div>
+                            <div class="binary-display" id="octet4-binary">
+                                <!-- Se llenará dinámicamente -->
+                            </div>
+                            <div class="bit-positions">
+                                <div class="bit-position">128</div>
+                                <div class="bit-position">64</div>
+                                <div class="bit-position">32</div>
+                                <div class="bit-position">16</div>
+                                <div class="bit-position">8</div>
+                                <div class="bit-position">4</div>
+                                <div class="bit-position">2</div>
+                                <div class="bit-position">1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IP Address Display -->
+                    <div class="ip-display">
+                        <div class="ip-title">Máscara de Subred en Notación Decimal</div>
+                        <div class="ip-address" id="ipAddress">
+                            <span class="ip-octet octet-1" id="ip-octet1">255</span>.<span class="ip-octet octet-2" id="ip-octet2">255</span>.<span class="ip-octet octet-3" id="ip-octet3">255</span>.<span class="ip-octet octet-4" id="ip-octet4">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Information Grid -->
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>📊 Información de la Máscara</h3>
+                            <p><strong>Notación CIDR:</strong> <span class="info-value" id="info-cidr">/24</span></p>
+                            <p><strong>Bits de Red:</strong> <span class="info-value" id="info-network-bits">24</span></p>
+                            <p><strong>Bits de Host:</strong> <span class="info-value" id="info-host-bits">8</span></p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🏠 Capacidad de Hosts</h3>
+                            <p><strong>Total de direcciones:</strong> <span class="info-value" id="info-total-addresses">256</span></p>
+                            <p><strong>Hosts utilizables:</strong> <span class="info-value" id="info-usable-hosts">254</span></p>
+                            <p><strong>Subredes posibles:</strong> <span class="info-value" id="info-subnets">1</span></p>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🎯 Clase de Red</h3>
+                            <p><strong>Clase:</strong> <span class="info-value" id="info-class">C</span></p>
+                            <p><strong>Tipo:</strong> <span class="info-value" id="info-type">Estándar</span></p>
+                            <p><strong>Uso común:</strong> <span class="info-value" id="info-usage">Redes pequeñas</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <div class="examples-section">
+                <h3 class="examples-title">📚 Ejemplos Comunes de Máscaras</h3>
+                <div class="examples-grid">
+                    <button class="example-btn" onclick="setMask(8)">/8 - 255.0.0.0</button>
+                    <button class="example-btn" onclick="setMask(16)">/16 - 255.255.0.0</button>
+                    <button class="example-btn" onclick="setMask(24)">/24 - 255.255.255.0</button>
+                    <button class="example-btn" onclick="setMask(25)">/25 - 255.255.255.128</button>
+                    <button class="example-btn" onclick="setMask(26)">/26 - 255.255.255.192</button>
+                    <button class="example-btn" onclick="setMask(27)">/27 - 255.255.255.224</button>
+                    <button class="example-btn" onclick="setMask(28)">/28 - 255.255.255.240</button>
+                    <button class="example-btn" onclick="setMask(30)">/30 - 255.255.255.252</button>
+                </div>
+            </div>
+
+            <!-- Binary Conversion Helper -->
+            <div class="conversion-helper">
+                <h3 class="conversion-title">🔢 Tabla de Conversión Binario-Decimal</h3>
+                <table class="binary-table">
+                    <thead>
+                        <tr>
+                            <th>Posición del Bit</th>
+                            <th>128</th>
+                            <th>64</th>
+                            <th>32</th>
+                            <th>16</th>
+                            <th>8</th>
+                            <th>4</th>
+                            <th>2</th>
+                            <th>1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Potencia de 2</strong></td>
+                            <td>2⁷</td>
+                            <td>2⁶</td>
+                            <td>2⁵</td>
+                            <td>2⁴</td>
+                            <td>2³</td>
+                            <td>2²</td>
+                            <td>2¹</td>
+                            <td>2⁰</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ejemplo: 255</strong></td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ejemplo: 192</strong></td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #4ade80; color: white;">1</td>
+                            <td style="background: #f87171; color: white;">0</td>
+                            <td style="background: #f87171; color: white;">0</td>
+                            <td style="background: #f87171; color: white;">0</td>
+                            <td style="background: #f87171; color: white;">0</td>
+                            <td style="background: #f87171; color: white;">0</td>
+                            <td style="background: #f87171; color: white;">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <!-- Notification container -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Tutorial and Help buttons -->
+    <button class="tutorial-btn" onclick="startTutorial()">🎓 Tutorial Interactivo</button>
+    <button class="help-btn" onclick="showHelp()">❓</button>
+
+    <script>
+        // Estado global
+        let currentCIDR = 24;
+        let isCompleted = false;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMask();
+            showNotification('🎯 ¡Explora las máscaras de red! Usa el slider para cambiar el CIDR', 4000);
+        });
+
+        // Función principal para actualizar la máscara
+        function updateMask() {
+            currentCIDR = parseInt(document.getElementById('cidrSlider').value);
+            document.getElementById('cidrValue').textContent = currentCIDR;
+
+            // Calcular los octetos decimales
+            const octets = calculateSubnetMask(currentCIDR);
+            
+            // Actualizar displays decimales
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`octet${i + 1}-decimal`).textContent = octets[i];
+                document.getElementById(`ip-octet${i + 1}`).textContent = octets[i];
+                updateBinaryDisplay(i + 1, octets[i], (i * 8) < currentCIDR ? Math.min(8, currentCIDR - (i * 8)) : 0);
+            }
+
+            // Actualizar información
+            updateInformation();
+        }
+
+        // Calcular máscara de subred en decimal
+        function calculateSubnetMask(cidr) {
+            const octets = [0, 0, 0, 0];
+            let bitsLeft = cidr;
+
+            for (let i = 0; i < 4; i++) {
+                if (bitsLeft >= 8) {
+                    octets[i] = 255;
+                    bitsLeft -= 8;
+                } else if (bitsLeft > 0) {
+                    octets[i] = (255 << (8 - bitsLeft)) & 255;
+                    bitsLeft = 0;
+                } else {
+                    octets[i] = 0;
+                }
+            }
+
+            return octets;
+        }
+
+        // Actualizar display binario de un octeto
+        function updateBinaryDisplay(octetNumber, decimalValue, networkBits) {
+            const binaryContainer = document.getElementById(`octet${octetNumber}-binary`);
+            const binary = decimalValue.toString(2).padStart(8, '0');
+            
+            binaryContainer.innerHTML = '';
+
+            for (let i = 0; i < 8; i++) {
+                const bit = document.createElement('div');
+                bit.className = 'bit';
+                bit.textContent = binary[i];
+                
+                // Determinar si es bit de red o host
+                const globalBitPosition = (octetNumber - 1) * 8 + i;
+                if (globalBitPosition < currentCIDR) {
+                    bit.classList.add('network');
+                } else {
+                    bit.classList.add('host');
+                }
+
+                // Agregar tooltip con información
+                bit.title = `Bit ${globalBitPosition + 1}: ${binary[i] === '1' ? 'Activo' : 'Inactivo'} (${globalBitPosition < currentCIDR ? 'Red' : 'Host'})`;
+
+                // Agregar evento click para explicación
+                bit.addEventListener('click', () => explainBit(globalBitPosition + 1, binary[i], globalBitPosition < currentCIDR));
+
+                binaryContainer.appendChild(bit);
+            }
+        }
+
+        // Actualizar información de la máscara
+        function updateInformation() {
+            const hostBits = 32 - currentCIDR;
+            const totalAddresses = Math.pow(2, hostBits);
+            const usableHosts = totalAddresses - 2;
+            const subnets = Math.pow(2, currentCIDR - getDefaultCIDR());
+
+            document.getElementById('info-cidr').textContent = `/${currentCIDR}`;
+            document.getElementById('info-network-bits').textContent = currentCIDR;
+            document.getElementById('info-host-bits').textContent = hostBits;
+            document.getElementById('info-total-addresses').textContent = totalAddresses.toLocaleString();
+            document.getElementById('info-usable-hosts').textContent = usableHosts.toLocaleString();
+            document.getElementById('info-subnets').textContent = subnets.toLocaleString();
+
+            // Determinar clase y tipo
+            const classInfo = getNetworkClass(currentCIDR);
+            document.getElementById('info-class').textContent = classInfo.class;
+            document.getElementById('info-type').textContent = classInfo.type;
+            document.getElementById('info-usage').textContent = classInfo.usage;
+        }
+
+        // Obtener CIDR por defecto según la clase
+        function getDefaultCIDR() {
+            if (currentCIDR <= 8) return 8;
+            if (currentCIDR <= 16) return 16;
+            return 24;
+        }
+
+        // Determinar clase de red
+        function getNetworkClass(cidr) {
+            if (cidr <= 8) {
+                return {
+                    class: 'A',
+                    type: 'Clase A',
+                    usage: 'Redes muy grandes (ISPs)'
+                };
+            } else if (cidr <= 16) {
+                return {
+                    class: 'B',
+                    type: 'Clase B',
+                    usage: 'Redes medianas (Empresas)'
+                };
+            } else if (cidr <= 24) {
+                return {
+                    class: 'C',
+                    type: 'Clase C',
+                    usage: 'Redes pequeñas (Oficinas)'
+                };
+            } else if (cidr <= 30) {
+                return {
+                    class: 'VLSM',
+                    type: 'Subneteo Variable',
+                    usage: 'Optimización de direcciones'
+                };
+            } else {
+                return {
+                    class: 'P2P',
+                    type: 'Punto a Punto',
+                    usage: 'Enlaces entre routers'
+                };
+            }
+        }
+
+        // Establecer máscara específica
+        function setMask(cidr) {
+            document.getElementById('cidrSlider').value = cidr;
+            updateMask();
+            
+            // Efecto visual
+            document.querySelector('.visualizer-container').classList.add('pulse');
+            setTimeout(() => {
+                document.querySelector('.visualizer-container').classList.remove('pulse');
+            }, 2000);
+
+            showNotification(`🎯 Máscara cambiada a /${cidr}`, 2000);
+        }
+
+        // Explicar un bit específico
+        function explainBit(position, value, isNetwork) {
+            const type = isNetwork ? 'Red' : 'Host';
+            const color = isNetwork ? '#4ade80' : '#f87171';
+            const explanation = isNetwork ? 
+                'Este bit forma parte de la identificación de la red. Todos los dispositivos en la misma red comparten estos bits.' :
+                'Este bit se usa para identificar dispositivos específicos (hosts) dentro de la red.';
+
+            showDetailedNotification(
+                `🔍 Bit ${position}: ${value}`,
+                `<strong style="color: ${color}">Tipo:</strong> ${type}<br>
+                 <strong>Posición:</strong> ${position} de 32<br>
+                 <strong>Valor:</strong> ${value === '1' ? 'Activo (1)' : 'Inactivo (0)'}<br>
+                 <strong>Función:</strong> ${explanation}`,
+                4000
+            );
+        }
+
+        // Sistema de notificaciones
+        function showNotification(message, duration = 3000) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification';
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.5s ease reverse';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.style.animation = 'slideInRight 0.5s ease';
+                }, 500);
+            }, duration);
+        }
+
+        function showDetailedNotification(title, content, duration = 5000) {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = `
+                <div class="notification-title">${title}</div>
+                <div style="line-height: 1.5;">${content}</div>
+            `;
+            notification.className = 'notification detailed';
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.5s ease reverse';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.style.animation = 'slideInRight 0.5s ease';
+                }, 500);
+            }, duration);
+        }
+
+        // Tutorial interactivo
+        function startTutorial() {
+            const steps = [
+                {
+                    action: () => setMask(24),
+                    message: "🎯 Comenzemos con /24, la máscara más común para redes pequeñas"
+                },
+                {
+                    action: () => setMask(16),
+                    message: "🏢 /16 se usa para redes medianas - ¡Observa cómo cambian los bits!"
+                },
+                {
+                    action: () => setMask(8),
+                    message: "🌐 /8 para redes muy grandes - Máximo espacio para hosts"
+                },
+                {
+                    action: () => setMask(30),
+                    message: "🔗 /30 para enlaces punto a punto - Solo 2 hosts utilizables"
+                },
+                {
+                    action: () => setMask(24),
+                    message: "✅ ¡Tutorial completado! Ahora experimenta con el slider"
+                }
+            ];
+
+            let currentStep = 0;
+            
+            function nextStep() {
+                if (currentStep < steps.length) {
+                    const step = steps[currentStep];
+                    step.action();
+                    showNotification(step.message, 3000);
+                    currentStep++;
+                    
+                    if (currentStep < steps.length) {
+                        setTimeout(nextStep, 3500);
+                    }
+                }
+            }
+
+            nextStep();
+        }
+
+        // Funcionalidad de ayuda contextual
+        function showHelp() {
+            const helpContent = `
+                <h3 style="color: #4CAF50; margin-bottom: 15px;">🎯 Cómo usar el Visualizador</h3>
+                <ul style="line-height: 1.8; color: #8888bb;">
+                    <li><strong>Slider CIDR:</strong> Cambia la máscara de /8 a /30</li>
+                    <li><strong>Bits verdes:</strong> Identifican la red</li>
+                    <li><strong>Bits rojos:</strong> Identifican hosts individuales</li>
+                    <li><strong>Click en bits:</strong> Obtén explicación detallada</li>
+                    <li><strong>Botones de ejemplo:</strong> Prueba máscaras comunes</li>
+                    <li><strong>Tabla de conversión:</strong> Aprende binario-decimal</li>
+                </ul>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 8px;">
+                    <strong>💡 Tip:</strong> Mientras más bits de red tengas, menos hosts pero más subredes puedes crear.
+                </div>
+            `;
+
+            showDetailedNotification('📚 Guía de Uso', helpContent, 8000);
+        }
+
+        // Validación y manejo de errores
+        function validateCIDR(cidr) {
+            if (cidr < 8 || cidr > 32) {
+                showNotification('⚠️ CIDR debe estar entre /8 y /32', 3000);
+                return false;
+            }
+            return true;
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            // Mostrar mensaje de éxito
+            alert('🎉 ¡Excelente! Has dominado las máscaras de red.\n\n✅ Actividad marcada como completada\n🏆 +140 puntos ganados\n🎭 ¡Ahora entiendes cómo los bits definen redes y hosts!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Event listeners para botones flotantes
+        document.querySelector('.tutorial-btn').addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+            this.style.boxShadow = '0 12px 35px rgba(78, 205, 196, 0.4)';
+        });
+
+        document.querySelector('.tutorial-btn').addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 8px 25px rgba(78, 205, 196, 0.3)';
+        });
+
+        document.querySelector('.help-btn').addEventListener('mouseenter', function() {
+            this.style.background = '#4CAF50';
+            this.style.color = 'white';
+            this.style.transform = 'scale(1.1)';
+        });
+
+        document.querySelector('.help-btn').addEventListener('mouseleave', function() {
+            this.style.background = 'rgba(255, 255, 255, 0.9)';
+            this.style.color = '#4CAF50';
+            this.style.transform = 'scale(1)';
+        });
+    </script>
+
+</body>
+</html>

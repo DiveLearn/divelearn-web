@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>🛰️ Actividad 6 - Rastreador Digital</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .interactive-area {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px dashed var(--border);
+            text-align: center;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .terminal {
+            background: #1a202c;
+            color: #68d391;
+            padding: 25px;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 2px solid #2d3748;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .terminal-header {
+            color: #e2e8f0;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .hop {
+            padding: 8px 0;
+            border-left: 3px solid transparent;
+            padding-left: 15px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .hop:hover {
+            border-left-color: #68d391;
+            background: rgba(104, 211, 145, 0.1);
+            transform: translateX(5px);
+        }
+
+        .hop.traced {
+            border-left-color: #68d391;
+            background: rgba(104, 211, 145, 0.15);
+            animation: hopTrace 0.5s ease;
+        }
+
+        @keyframes hopTrace {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .hop-number {
+            color: #f6ad55;
+            font-weight: bold;
+            display: inline-block;
+            width: 30px;
+        }
+
+        .hop-ip {
+            color: #63b3ed;
+            font-weight: bold;
+        }
+
+        .hop-name {
+            color: #e2e8f0;
+        }
+
+        .hop-time {
+            color: #68d391;
+            float: right;
+        }
+
+        .hop-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 10px;
+            padding: 0 15px;
+            background: rgba(26, 32, 44, 0.5);
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+        }
+
+        .hop-details.show {
+            max-height: 300px;
+            padding: 15px;
+        }
+
+        .route-visualization {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .route-node {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #4a5568;
+            text-align: center;
+            position: relative;
+        }
+
+        .route-node:hover {
+            transform: scale(1.1);
+            border-color: var(--purple);
+            box-shadow: var(--glow);
+        }
+
+        .route-node.active {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            border-color: var(--purple);
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        
+            50% { transform: scale(1.05); }
+        }
+
+        .route-connection {
+            height: 4px;
+            background: #4a5568;
+            flex: 1;
+            margin: 0 10px;
+            border-radius: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .route-connection.active {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            animation: dataFlow 2s ease-in-out infinite;
+        }
+
+        .route-connection::after {
+            content: '→';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--purple);
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .route-connection.active::after {
+            opacity: 1;
+            animation: arrowFlow 1s ease-in-out infinite;
+        }
+
+        @keyframes dataFlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes arrowFlow {
+            0% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-3px); }
+            100% { transform: translateX(-50%) translateY(0); }
+        }
+
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #4fd1c7;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--purple);
+            margin-bottom: 5px;
+        }
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #4a5568;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .analysis-panel {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #ffc107;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .analysis-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .analysis-card h4 {
+            color: var(--purple);
+            margin-bottom: 15px;
+        }
+
+        
+
+        .quiz-question {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #7b341e;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--purple);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #f0fff4;
+            border-color: #48bb78;
+            color: #22543d;
+        }
+
+        .quiz-option.incorrect {
+            background: #fff5f5;
+            border-color: #fc8181;
+            color: #742a2a;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .quiz-nav-btn {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .quiz-nav-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        .diagnostic-report {
+            background: linear-gradient(135deg, #f0f4ff, #e6edff);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid var(--purple);
+        }
+
+        .diagnostic-item {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .diagnostic-item.warning {
+            border-left-color: #f6ad55;
+        }
+
+        .diagnostic-item.error {
+            border-left-color: #fc8181;
+        }
+
+        .report-section {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .node-info {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .node-info h5 {
+            color: var(--purple);
+            margin-bottom: 10px;
+        }
+
+        .packet-animation {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--purple);
+            border-radius: 50%;
+            top: 50%;
+            left: -10px;
+            transform: translateY(-50%);
+            animation: packetMove 2s ease-in-out infinite;
+        }
+
+        @keyframes packetMove {
+            0% { left: -10px; opacity: 1; }
+            50% { left: 50%; opacity: 0.7; }
+            100% { left: calc(100% + 10px); opacity: 1; }
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 768px) {            .route-visualization {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .route-connection {
+                width: 4px;
+                height: 30px;
+                margin: 5px 0;
+            }
+
+            .route-connection::after {
+                content: '↓';
+                top: 50%;
+                left: -15px;
+                transform: translateY(-50%);
+            }
+
+            .tab-navigation {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 1</a> / Actividad 6
+            </div>
+            <h1 class="activity-title">🛰️ Rastreador Digital</h1>
+            <p class="activity-subtitle">Sigue el viaje épico de los datos por Internet usando traceroute</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>16 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Avanzado</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 250</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Navigation Tabs -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="showTab('simulation')">🛰️ Simulación</button>
+                <button class="tab-btn" onclick="showTab('analysis')">📊 Análisis</button>
+                <button class="tab-btn" onclick="showTab('nodes')">🔍 Nodos</button>
+                <button class="tab-btn" onclick="showTab('diagnostics')">📝 Diagnóstico</button>
+                <button class="tab-btn" onclick="showTab('quiz')">🧠 Quiz</button>
+            </div>
+
+            <!-- Simulación Interactiva -->
+            <div id="simulation" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">🌐 Tu Misión de Rastreo</h2>
+                    <p>¡Saludos, Rastreador Digital! Tu misión es seguir el viaje de un paquete de datos desde tu computadora hasta un servidor remoto. Utilizarás una herramienta especial llamada <strong>traceroute</strong>, que es como un GPS que muestra cada parada en el camino.</p>
+                    <p>Imagina que envías una carta digital, pero en lugar de ir directamente, debe pasar por varias oficinas postales (routers) antes de llegar a su destino. ¡Vamos a rastrear cada paso!</p>
+                    
+                    <div class="stats-dashboard">
+                        <div class="stat-card">
+                            <div class="stat-value" id="hopCount">0</div>
+                            <div class="stat-label">🔍 Saltos Rastreados</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalTime">0ms</div>
+                            <div class="stat-label">⏱️ Tiempo Total</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="currentStatus">Esperando</div>
+                            <div class="stat-label">📡 Estado</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="avgLatency">0ms</div>
+                            <div class="stat-label">📈 Latencia Promedio</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles de Simulación -->
+                <div class="section">
+                    <h2 class="section-title">🎮 Centro de Control</h2>
+                    <div class="interactive-area">
+                        <h3>🎯 Selecciona un destino y comienza el rastreo:</h3>
+                        <button class="control-btn" onclick="startTrace('google')">🔍 Rastrear a Google</button>
+                        <button class="control-btn" onclick="startTrace('youtube')">🎬 Rastrear a YouTube</button>
+                        <button class="control-btn" onclick="startTrace('github')">💻 Rastrear a GitHub</button>
+                        <button class="control-btn" onclick="startTrace('cloudflare')">☁️ Rastrear a Cloudflare</button>
+                        <button class="control-btn secondary" onclick="resetTrace()" id="resetBtn" disabled>🔄 Reiniciar</button>
+                    </div>
+                </div>
+
+                <!-- Visualización de Ruta -->
+                <div class="section">
+                    <h2 class="section-title">🗺️ Mapa de Ruta</h2>
+                    <div class="route-visualization" id="routeViz">
+                        <div class="route-node" id="node0">
+                            🏠<br><small>Tu PC</small>
+                        </div>
+                        <div class="route-connection" id="conn0"></div>
+                        <div class="route-node" id="node1">
+                            🛣️<br><small>Router</small>
+                        </div>
+                        <div class="route-connection" id="conn1"></div>
+                        <div class="route-node" id="node2">
+                            🏢<br><small>ISP</small>
+                        </div>
+                        <div class="route-connection" id="conn2"></div>
+                        <div class="route-node" id="node3">
+                            🌆<br><small>Regional</small>
+                        </div>
+                        <div class="route-connection" id="conn3"></div>
+                        <div class="route-node" id="node4">
+                            🌍<br><small>Destino</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal de Traceroute -->
+                <div class="section">
+                    <h2 class="section-title">💻 Terminal de Rastreo</h2>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            C:\> tracert <span id="currentTarget">selecciona-destino.com</span>
+                            <br>Rastreando la ruta hacia <span id="targetDisplay">Selecciona un destino...</span>
+                        </div>
+                        <div id="traceOutput">
+                            <div style="color: #cbd5e0; font-style: italic;">
+                                Haz clic en un botón de destino para comenzar el rastreo...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Análisis de Rutas -->
+            <div id="analysis" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">📊 Análisis de Rutas</h2>
+                    <div class="analysis-panel">
+                        <h3>🔬 Centro de Análisis</h3>
+                        <p>Analiza los patrones de enrutamiento y rendimiento de las rutas trazadas.</p>
+                        
+                        <div class="analysis-grid">
+                            <div class="analysis-card">
+                                <h4>📈 Análisis de Latencia</h4>
+                                <div id="latencyAnalysis">
+                                    <p><strong>Latencia más baja:</strong> <span id="minLatency">N/A</span></p>
+                                    <p><strong>Latencia más alta:</strong> <span id="maxLatency">N/A</span></p>
+                                    <p><strong>Variación:</strong> <span id="latencyVariation">N/A</span></p>
+                                    <p><strong>Evaluación:</strong> <span id="latencyEvaluation">Ejecuta un rastreo primero</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h4>🌐 Análisis Geográfico</h4>
+                                <div id="geoAnalysis">
+                                    <p><strong>Saltos locales:</strong> <span id="localHops">0</span></p>
+                                    <p><strong>Saltos ISP:</strong> <span id="ispHops">0</span></p>
+                                    <p><strong>Saltos intercontinentales:</strong> <span id="globalHops">0</span></p>
+                                    <p><strong>Eficiencia de ruta:</strong> <span id="routeEfficiency">N/A</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h4>🔧 Análisis Técnico</h4>
+                                <div id="techAnalysis">
+                                    <p><strong>TTL inicial:</strong> <span id="initialTTL">64</span></p>
+                                    <p><strong>Protocolo:</strong> <span id="protocol">ICMP</span></p>
+                                    <p><strong>Pérdida de paquetes:</strong> <span id="packetLoss">0%</span></p>
+                                    <p><strong>Calidad de ruta:</strong> <span id="routeQuality">N/A</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h4>⚡ Comparación de Destinos</h4>
+                                <div id="comparisonAnalysis">
+                                    <div class="comparison-item">
+                                        <strong>Google:</strong> <span id="googleStats">No ejecutado</span>
+                                    </div>
+                                    <div class="comparison-item">
+                                        <strong>YouTube:</strong> <span id="youtubeStats">No ejecutado</span>
+                                    </div>
+                                    <div class="comparison-item">
+                                        <strong>GitHub:</strong> <span id="githubStats">No ejecutado</span>
+                                    </div>
+                                    <div class="comparison-item">
+                                        <strong>Cloudflare:</strong> <span id="cloudflareStats">No ejecutado</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Identificación de Nodos -->
+            <div id="nodes" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🔍 Identificación de Nodos</h2>
+                    <div class="analysis-panel">
+                        <h3>🏗️ Explorador de Infraestructura</h3>
+                        <p>Identifica y analiza cada nodo en la ruta de red.</p>
+                        
+                        <div id="nodeIdentification">
+                            <div class="node-info" style="text-align: center; color: #8888bb;">
+                                Ejecuta un rastreo para identificar nodos en la ruta...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reportes de Diagnóstico -->
+            <div id="diagnostics" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">📝 Reportes de Diagnóstico</h2>
+                    <div class="diagnostic-report">
+                        <h3>🔧 Centro de Diagnóstico</h3>
+                        <p>Genera reportes detallados sobre el rendimiento y problemas de red.</p>
+                        
+                        <div class="report-section">
+                            <h4>📋 Resumen Ejecutivo</h4>
+                            <div id="executiveSummary">
+                                <p>Estado de la conexión: <strong id="connectionStatus">No evaluado</strong></p>
+                                <p>Tiempo total de respuesta: <strong id="totalResponseTime">N/A</strong></p>
+                                <p>Número de saltos: <strong id="totalHopsReport">N/A</strong></p>
+                                <p>Recomendación general: <strong id="generalRecommendation">Ejecuta un diagnóstico</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div class="report-section">
+                            <h4>⚠️ Problemas Identificados</h4>
+                            <div id="problemsIdentified">
+                                <div class="diagnostic-item">
+                                    <strong>Estado:</strong> Esperando análisis de red...
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-section">
+                            <h4>💡 Recomendaciones</h4>
+                            <div id="recommendations">
+                                <div class="diagnostic-item">
+                                    <strong>Acción:</strong> Ejecuta al menos un rastreo para generar recomendaciones personalizadas.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-section">
+                            <h4>📊 Métricas Detalladas</h4>
+                            <div id="detailedMetrics">
+                                <table style="width: 100%; color: #8888bb; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                                            <th style="padding: 10px; text-align: left;">Métrica</th>
+                                            <th style="padding: 10px; text-align: left;">Valor</th>
+                                            <th style="padding: 10px; text-align: left;">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="metricsTable">
+                                        <tr>
+                                            <td style="padding: 8px;">Latencia promedio</td>
+                                            <td style="padding: 8px;" id="avgLatencyMetric">N/A</td>
+                                            <td style="padding: 8px;" id="avgLatencyStatus">⏳ Pendiente</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px;">Estabilidad de ruta</td>
+                                            <td style="padding: 8px;" id="routeStabilityMetric">N/A</td>
+                                            <td style="padding: 8px;" id="routeStabilityStatus">⏳ Pendiente</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 8px;">Eficiencia de saltos</td>
+                                            <td style="padding: 8px;" id="hopEfficiencyMetric">N/A</td>
+                                            <td style="padding: 8px;" id="hopEfficiencyStatus">⏳ Pendiente</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <button class="control-btn" onclick="generateDetailedReport()" id="generateReportBtn">
+                            📄 Generar Reporte Completo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Expandido -->
+            <div id="quiz" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🧠 Desafío del Rastreador Maestro</h2>
+                    <div class="quiz-container">
+                        <div class="quiz-question" id="quizQuestion">
+                            <!-- La pregunta se cargará dinámicamente -->
+                        </div>
+                        <div class="quiz-options" id="quizOptions">
+                            <!-- Las opciones se cargarán dinámicamente -->
+                        </div>
+                        <div id="quiz-feedback" class="feedback"></div>
+                        
+                        <div class="quiz-navigation">
+                            <button class="quiz-nav-btn" onclick="previousQuestion()" id="prevBtn" disabled>← Anterior</button>
+                            <span id="questionCounter">Pregunta 1 de 5</span>
+                            <button class="quiz-nav-btn" onclick="nextQuestion()" id="nextBtn" disabled>Siguiente →</button>
+                        </div>
+                    </div>
+                    
+                    <div id="quizResults" style="display: none;">
+                        <div class="report-section">
+                            <h4>🏆 Resultados del Quiz</h4>
+                            <div class="stats-dashboard">
+                                <div class="stat-card">
+                                    <div class="stat-value" id="finalScore">0</div>
+                                    <div class="stat-label">Puntuación Final</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" id="correctAnswers">0/5</div>
+                                    <div class="stat-label">Respuestas Correctas</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" id="quizGrade">F</div>
+                                    <div class="stat-label">Calificación</div>
+                                </div>
+                            </div>
+                            <div id="quizFeedbackSummary"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips del Rastreador Digital
+                </h3>
+                <div class="tip-item">
+                    <strong>🛰️ Traceroute:</strong> Es una herramienta que mapea la ruta que toman los paquetes de datos hacia un destino específico.
+                </div>
+                <div class="tip-item">
+                    <strong>⏱️ TTL (Time To Live):</strong> Campo que previene bucles infinitos decrementándose en cada salto hasta llegar a cero.
+                </div>
+                <div class="tip-item">
+                    <strong>🔍 Asteriscos (* * *):</strong> Indican timeouts, que pueden ser por filtros ICMP, sobrecarga o problemas de conectividad.
+                </div>
+                <div class="tip-item">
+                    <strong>🌐 Rutas dinámicas:</strong> Los paquetes pueden tomar diferentes caminos basándose en la congestión y disponibilidad de la red.
+                </div>
+            </div>
+
+            <div id="feedback" class="feedback-area"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">Preparando rastreo...</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Completar Actividad
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentHop = 0;
+        let isTracing = false;
+        let tracedHops = 0;
+        let currentDestination = '';
+        let routeData = {};
+        let executedTraces = {};
+        let isCompleted = false;
+
+        // Quiz variables
+        let currentQuestionIndex = 0;
+        let quizAnswers = [];
+        let quizCompleted = false;
+
+        const destinations = {
+            google: {
+                name: 'www.google.com',
+                display: 'Google DNS (8.8.8.8)',
+                hops: [
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: '🏠 Tu router casero - La primera parada en el viaje digital', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 15, type: 'isp', description: '🏢 Gateway ISP - Tu conexión al mundo digital', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '172.16.1.1', name: 'Nodo Regional ISP', time: 45, type: 'regional', description: '🌆 Nodo Regional - Conecta tu ciudad con otras regiones', asn: 'AS-ISP-12345', location: 'Región' },
+                    { ip: '8.8.8.8', name: 'Google Public DNS', time: 120, type: 'destination', description: '🌍 Servidores DNS de Google - El destino final', asn: 'AS-15169', location: 'Global' }
+                ]
+            },
+            youtube: {
+                name: 'www.youtube.com',
+                display: 'YouTube CDN',
+                hops: [
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: '🏠 Tu router casero - Iniciando la aventura del streaming', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 18, type: 'isp', description: '🏢 ISP Local - Preparando el ancho de banda para videos', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '203.0.113.1', name: 'CDN Edge Server', time: 32, type: 'cdn', description: '📡 Servidor CDN - Contenido cerca de ti para videos rápidos', asn: 'AS-13335', location: 'Nacional' },
+                    { ip: '142.250.1.1', name: 'YouTube Servers', time: 89, type: 'destination', description: '🎬 Servidores de YouTube - Donde viven todos los videos', asn: 'AS-15169', location: 'Global' }
+                ]
+            },
+            github: {
+                name: 'github.com',
+                display: 'GitHub Platform',
+                hops: [
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 2, type: 'local', description: '🏠 Tu router casero - Comenzando el viaje al código', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 22, type: 'isp', description: '🏢 ISP Local - Conectando con el mundo del desarrollo', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '198.51.100.1', name: 'Internet Backbone', time: 67, type: 'backbone', description: '🌐 Backbone de Internet - Las autopistas principales de datos', asn: 'AS-174', location: 'Internacional' },
+                    { ip: '140.82.112.1', name: 'GitHub Infrastructure', time: 145, type: 'destination', description: '💻 Infraestructura de GitHub - El hogar del código', asn: 'AS-36459', location: 'Global' }
+                ]
+            },
+            cloudflare: {
+                name: 'cloudflare.com',
+                display: 'Cloudflare CDN',
+                hops: [
+                    { ip: '192.168.1.1', name: 'Router Casero', time: 1, type: 'local', description: '🏠 Tu router casero - Iniciando conexión a CDN global', asn: 'AS-LOCAL', location: 'Casa' },
+                    { ip: '10.0.1.1', name: 'ISP Gateway', time: 12, type: 'isp', description: '🏢 ISP Local - Ruteo hacia red de borde', asn: 'AS-ISP-12345', location: 'Ciudad' },
+                    { ip: '104.16.124.96', name: 'Cloudflare Edge', time: 28, type: 'cdn', description: '☁️ Servidor de Borde - CDN ultrarrápido y global', asn: 'AS-13335', location: 'Nacional' }
+                ]
+            }
+        };
+
+        const quizQuestions = [
+            {
+                question: "¿Qué comando se utiliza en Windows para realizar un traceroute?",
+                options: [
+                    "🖥️ tracert",
+                    "🌐 traceroute", 
+                    "📡 ping",
+                    "🔧 netstat"
+                ],
+                correct: 0,
+                explanation: "En Windows se usa 'tracert', mientras que en Linux/Mac se usa 'traceroute'. Ambos realizan la misma función pero con sintaxis diferente."
+            },
+            {
+                question: "¿Por qué un paquete de datos puede tomar diferentes rutas para llegar al mismo destino?",
+                options: [
+                    "🚫 Porque siempre toma la ruta más larga para ser más seguro",
+                    "🛣️ Porque los routers eligen la mejor ruta disponible dinámicamente",
+                    "🎲 Porque los paquetes eligen rutas completamente al azar",
+                    "⏰ Porque siempre esperan a que haya menos tráfico"
+                ],
+                correct: 1,
+                explanation: "Los routers utilizan algoritmos de enrutamiento para seleccionar la mejor ruta basándose en factores como congestión, costo, distancia y disponibilidad en tiempo real."
+            },
+            {
+                question: "¿Qué significa cuando un salto en traceroute muestra '* * *' o 'Request timed out'?",
+                options: [
+                    "🔥 El router está sobrecargado y no puede responder",
+                    "🛡️ El router está configurado para no responder a ICMP",
+                    "💥 Hay un problema grave de conectividad",
+                    "✅ Todas las opciones anteriores son posibles"
+                ],
+                correct: 3,
+                explanation: "Los asteriscos pueden indicar filtrado ICMP, sobrecarga del router, problemas de conectividad, o políticas de seguridad. Es importante analizar el contexto completo."
+            },
+            {
+                question: "¿Cuál es el propósito principal del campo TTL (Time To Live) en traceroute?",
+                options: [
+                    "⏱️ Medir el tiempo exacto que tarda cada paquete",
+                    "🔢 Limitar el número de saltos para evitar bucles infinitos",
+                    "🔐 Proporcionar seguridad adicional a los paquetes",
+                    "📊 Calcular el ancho de banda disponible"
+                ],
+                correct: 1,
+                explanation: "TTL previene bucles infinitos decrementándose en cada salto. Cuando llega a 0, el router descarta el paquete y envía un mensaje ICMP 'Time Exceeded', permitiendo a traceroute mapear la ruta."
+            },
+            {
+                question: "¿Qué información NO puedes obtener típicamente de un traceroute básico?",
+                options: [
+                    "📍 La ruta que toman los paquetes",
+                    "⏱️ La latencia de cada salto",
+                    "🌍 Las direcciones IP de los routers intermedios",
+                    "💾 El ancho de banda disponible en cada enlace"
+                ],
+                correct: 3,
+                explanation: "Traceroute muestra ruta, latencia e IPs de routers, pero no mide ancho de banda. Para eso se necesitan herramientas específicas como iperf, speedtest, o análisis de tráfico continuo."
+            }
+        ];
+
+        function updateCompletionStatus() {
+            const statusText = document.getElementById('statusText');
+            const statusIndicator = document.getElementById('statusIndicator');
+
+            const completionFactors = [
+                Object.keys(routeData).length >= 2,
+                quizCompleted,
+                Object.keys(executedTraces).length >= 3
+            ];
+
+            const completedFactors = completionFactors.filter(Boolean).length;
+
+            if (completedFactors >= 2) {
+                statusText.textContent = 'Listo para completar ✅';
+                statusIndicator.style.background = '#28a745';
+            } else if (completedFactors >= 1) {
+                statusText.textContent = 'Buen progreso...';
+                statusIndicator.style.background = '#ffc107';
+            } else {
+                statusText.textContent = 'Preparando rastreo...';
+                statusIndicator.style.background = '#dc3545';
+            }
+        }
+
+        function showFeedback(message, type) {
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = message;
+            feedback.className = `feedback-area feedback-${type}`;
+            feedback.style.display = 'block';
+            
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 3000);
+        }
+
+        function updateStats() {
+            document.getElementById('hopCount').textContent = tracedHops;
+            
+            if (currentDestination && destinations[currentDestination]) {
+                const dest = destinations[currentDestination];
+                const totalTime = dest.hops
+                    .slice(0, tracedHops)
+                    .reduce((sum, hop) => sum + hop.time, 0);
+                document.getElementById('totalTime').textContent = totalTime + 'ms';
+                
+                // Calcular latencia promedio
+                const avgLatency = tracedHops > 0 ? Math.round(totalTime / tracedHops) : 0;
+                document.getElementById('avgLatency').textContent = avgLatency + 'ms';
+            }
+            
+            const status = isTracing ? 'Rastreando...' : (tracedHops > 0 ? 'Completado' : 'Esperando');
+            document.getElementById('currentStatus').textContent = status;
+        }
+
+        function startTrace(destination) {
+            if (isTracing) return;
+            
+            currentDestination = destination;
+            isTracing = true;
+            currentHop = 0;
+            tracedHops = 0;
+            
+            // Resetear visualización
+            resetVisualization();
+            
+            // Actualizar UI
+            document.getElementById('currentTarget').textContent = destinations[destination].name;
+            document.getElementById('targetDisplay').textContent = destinations[destination].display;
+            document.getElementById('traceOutput').innerHTML = '';
+            document.getElementById('resetBtn').disabled = false;
+            
+            // Deshabilitar botones de destino
+            const buttons = document.querySelectorAll('.control-btn:not(#resetBtn)');
+            buttons.forEach(btn => btn.disabled = true);
+            
+            // Iniciar el rastreo
+            traceNextHop();
+        }
+
+        function traceNextHop() {
+            if (!isTracing || !currentDestination) return;
+            
+            const dest = destinations[currentDestination];
+            if (currentHop >= dest.hops.length) {
+                finishTrace();
+                return;
+            }
+            
+            const hop = dest.hops[currentHop];
+            const hopNumber = currentHop + 1;
+            
+            // Activar nodo y conexión en la visualización
+            activateRouteElement(currentHop);
+            
+            // Añadir hop al terminal con retraso realista
+            setTimeout(() => {
+                addHopToTerminal(hopNumber, hop);
+                tracedHops++;
+                currentHop++;
+                updateStats();
+                
+                showFeedback(`🛰️ Salto ${hopNumber} rastreado: ${hop.name}`, 'success');
+                
+                // Continuar con el siguiente hop
+                setTimeout(() => traceNextHop(), 1000);
+            }, Math.random() * 1000 + 500); // Simular latencia variable
+        }
+
+        function addHopToTerminal(hopNumber, hop) {
+            const output = document.getElementById('traceOutput');
+            const hopElement = document.createElement('div');
+            hopElement.className = 'hop';
+            hopElement.onclick = () => showHopDetails(hopElement, hop);
+            
+            hopElement.innerHTML = `
+                <span class="hop-number">${hopNumber}</span>
+                <span class="hop-ip">${hop.ip}</span>
+                <span class="hop-name">[${hop.name}]</span>
+                <span class="hop-time">${hop.time}ms</span>
+                <div class="hop-details">
+                    <strong>${hop.description}</strong>
+                    <br><small>ASN: ${hop.asn} | Ubicación: ${hop.location}</small>
+                    <br><small>Tipo: ${hop.type} | Latencia: ${hop.time}ms</small>
+                    <br><small>Haz clic para alternar detalles del salto.</small>
+                </div>
+            `;
+            
+            output.appendChild(hopElement);
+            hopElement.classList.add('traced');
+        }
+
+        function showHopDetails(element, hop) {
+            const details = element.querySelector('.hop-details');
+            details.classList.toggle('show');
+        }
+
+        function activateRouteElement(index) {
+            // Activar nodo
+            const node = document.getElementById(`node${index}`);
+            if (node) {
+                node.classList.add('active');
+            }
+            
+            // Activar conexión
+            const connection = document.getElementById(`conn${index}`);
+            if (connection) {
+                connection.classList.add('active');
+                
+                // Añadir animación de paquete
+                const packet = document.createElement('div');
+                packet.className = 'packet-animation';
+                connection.appendChild(packet);
+                
+                setTimeout(() => packet.remove(), 2000);
+            }
+        }
+
+        function resetVisualization() {
+            // Resetear todos los nodos y conexiones
+            for (let i = 0; i < 5; i++) {
+                const node = document.getElementById(`node${i}`);
+                const conn = document.getElementById(`conn${i}`);
+                
+                if (node) node.classList.remove('active');
+                if (conn) {
+                    conn.classList.remove('active');
+                    // Remover paquetes existentes
+                    const packets = conn.querySelectorAll('.packet-animation');
+                    packets.forEach(p => p.remove());
+                }
+            }
+        }
+
+        function finishTrace() {
+            isTracing = false;
+            
+            // Guardar datos del rastreo
+            routeData[currentDestination] = {
+                hops: destinations[currentDestination].hops,
+                totalTime: destinations[currentDestination].hops.reduce((sum, hop) => sum + hop.time, 0),
+                avgLatency: Math.round(destinations[currentDestination].hops.reduce((sum, hop) => sum + hop.time, 0) / destinations[currentDestination].hops.length)
+            };
+            
+            executedTraces[currentDestination] = true;
+            
+            // Habilitar botones de destino
+            const buttons = document.querySelectorAll('.control-btn:not(#resetBtn)');
+            buttons.forEach(btn => btn.disabled = false);
+            
+            updateStats();
+            updateAnalysis();
+            updateNodeIdentification();
+            updateDiagnostics();
+            updateCompletionStatus();
+            
+            setTimeout(() => {
+                showFeedback('🎉 ¡Rastreo completado con éxito!', 'success');
+            }, 500);
+        }
+
+        function resetTrace() {
+            isTracing = false;
+            currentHop = 0;
+            tracedHops = 0;
+            currentDestination = '';
+            
+            // Resetear UI
+            document.getElementById('currentTarget').textContent = 'selecciona-destino.com';
+            document.getElementById('targetDisplay').textContent = 'Selecciona un destino...';
+            document.getElementById('traceOutput').innerHTML = '<div style="color: #cbd5e0; font-style: italic;">Haz clic en un botón de destino para comenzar el rastreo...</div>';
+            document.getElementById('resetBtn').disabled = true;
+            
+            // Habilitar botones de destino
+            const buttons = document.querySelectorAll('.control-btn:not(#resetBtn)');
+            buttons.forEach(btn => btn.disabled = false);
+            
+            // Resetear visualización
+            resetVisualization();
+            updateStats();
+        }
+
+        function updateAnalysis() {
+            if (!currentDestination || !routeData[currentDestination]) return;
+            
+            const data = routeData[currentDestination];
+            const hops = data.hops;
+            
+            // Análisis de latencia
+            const latencies = hops.map(hop => hop.time);
+            const minLatency = Math.min(...latencies);
+            const maxLatency = Math.max(...latencies);
+            const latencyVariation = maxLatency - minLatency;
+            
+            document.getElementById('minLatency').textContent = minLatency + 'ms';
+            document.getElementById('maxLatency').textContent = maxLatency + 'ms';
+            document.getElementById('latencyVariation').textContent = latencyVariation + 'ms';
+            
+            let latencyEval = 'Excelente';
+            if (data.avgLatency > 100) latencyEval = 'Aceptable';
+            if (data.avgLatency > 200) latencyEval = 'Lenta';
+            if (data.avgLatency > 500) latencyEval = 'Muy lenta';
+            document.getElementById('latencyEvaluation').textContent = latencyEval;
+            
+            // Análisis geográfico
+            const localHops = hops.filter(hop => hop.type === 'local').length;
+            const ispHops = hops.filter(hop => hop.type === 'isp').length;
+            const globalHops = hops.filter(hop => hop.type === 'backbone' || hop.type === 'destination').length;
+            
+            document.getElementById('localHops').textContent = localHops;
+            document.getElementById('ispHops').textContent = ispHops;
+            document.getElementById('globalHops').textContent = globalHops;
+            
+            const efficiency = hops.length <= 4 ? 'Óptima' : hops.length <= 6 ? 'Buena' : 'Subóptima';
+            document.getElementById('routeEfficiency').textContent = efficiency;
+            
+            // Análisis técnico
+            const packetLoss = Math.random() > 0.8 ? (Math.random() * 5).toFixed(1) + '%' : '0%';
+            document.getElementById('packetLoss').textContent = packetLoss;
+            
+            const routeQuality = data.avgLatency < 50 ? 'Excelente' : 
+                               data.avgLatency < 100 ? 'Buena' : 
+                               data.avgLatency < 200 ? 'Regular' : 'Pobre';
+            document.getElementById('routeQuality').textContent = routeQuality;
+            
+            // Actualizar comparación
+            updateComparisonStats();
+        }
+
+        function updateComparisonStats() {
+            Object.keys(executedTraces).forEach(dest => {
+                if (routeData[dest]) {
+                    const data = routeData[dest];
+                    const statsText = `${data.hops.length} saltos, ${data.avgLatency}ms avg`;
+                    document.getElementById(dest + 'Stats').textContent = statsText;
+                }
+            });
+        }
+
+        function updateNodeIdentification() {
+            if (!currentDestination || !routeData[currentDestination]) return;
+            
+            const hops = routeData[currentDestination].hops;
+            const nodeContainer = document.getElementById('nodeIdentification');
+            
+            nodeContainer.innerHTML = '';
+            
+            hops.forEach((hop, index) => {
+                const nodeDiv = document.createElement('div');
+                nodeDiv.className = 'node-info';
+                nodeDiv.innerHTML = `
+                    <h5>🔍 Salto ${index + 1}: ${hop.name}</h5>
+                    <p><strong>IP:</strong> ${hop.ip}</p>
+                    <p><strong>Tipo:</strong> ${hop.type.charAt(0).toUpperCase() + hop.type.slice(1)}</p>
+                    <p><strong>ASN:</strong> ${hop.asn}</p>
+                    <p><strong>Ubicación:</strong> ${hop.location}</p>
+                    <p><strong>Latencia:</strong> ${hop.time}ms</p>
+                    <p><strong>Función:</strong> ${hop.description}</p>
+                `;
+                nodeContainer.appendChild(nodeDiv);
+            });
+        }
+
+        function updateDiagnostics() {
+            if (!currentDestination || !routeData[currentDestination]) return;
+            
+            const data = routeData[currentDestination];
+            
+            // Resumen ejecutivo
+            document.getElementById('connectionStatus').textContent = 'Activa y funcionando';
+            document.getElementById('totalResponseTime').textContent = data.totalTime + 'ms';
+            document.getElementById('totalHopsReport').textContent = data.hops.length;
+            
+            let recommendation = 'Conexión óptima';
+            if (data.avgLatency > 100) recommendation = 'Considerar optimización de red';
+            if (data.avgLatency > 200) recommendation = 'Revisar configuración de red';
+            if (data.avgLatency > 500) recommendation = 'Contactar ISP para diagnóstico';
+            
+            document.getElementById('generalRecommendation').textContent = recommendation;
+            
+            // Problemas identificados
+            const problemsDiv = document.getElementById('problemsIdentified');
+            problemsDiv.innerHTML = '';
+            
+            if (data.avgLatency > 200) {
+                const problem = document.createElement('div');
+                problem.className = 'diagnostic-item warning';
+                problem.innerHTML = '<strong>⚠️ Latencia elevada:</strong> La latencia promedio supera los 200ms, lo que puede afectar aplicaciones en tiempo real.';
+                problemsDiv.appendChild(problem);
+            }
+            
+            if (data.hops.length > 6) {
+                const problem = document.createElement('div');
+                problem.className = 'diagnostic-item warning';
+                problem.innerHTML = '<strong>⚠️ Ruta larga:</strong> La ruta tiene más saltos de lo óptimo, lo que puede indicar enrutamiento subóptimo.';
+                problemsDiv.appendChild(problem);
+            }
+            
+            if (problemsDiv.children.length === 0) {
+                const problem = document.createElement('div');
+                problem.className = 'diagnostic-item';
+                problem.innerHTML = '<strong>✅ Sin problemas:</strong> La ruta funciona correctamente sin problemas identificados.';
+                problemsDiv.appendChild(problem);
+            }
+            
+            // Recomendaciones
+            const recDiv = document.getElementById('recommendations');
+            recDiv.innerHTML = '';
+            
+            if (data.avgLatency < 50) {
+                const rec = document.createElement('div');
+                rec.className = 'diagnostic-item';
+                rec.innerHTML = '<strong>🎯 Rendimiento óptimo:</strong> La conexión funciona excelentemente. Mantén la configuración actual.';
+                recDiv.appendChild(rec);
+            } else if (data.avgLatency < 100) {
+                const rec = document.createElement('div');
+                rec.className = 'diagnostic-item';
+                rec.innerHTML = '<strong>📈 Buen rendimiento:</strong> Considera usar DNS más rápidos como 1.1.1.1 o 8.8.8.8 para optimizar.';
+                recDiv.appendChild(rec);
+            } else {
+                const rec = document.createElement('div');
+                rec.className = 'diagnostic-item warning';
+                rec.innerHTML = '<strong>🔧 Optimización necesaria:</strong> Verifica la calidad de tu conexión a Internet y considera contactar a tu ISP.';
+                recDiv.appendChild(rec);
+            }
+            
+            // Métricas detalladas
+            document.getElementById('avgLatencyMetric').textContent = data.avgLatency + 'ms';
+            document.getElementById('avgLatencyStatus').textContent = data.avgLatency < 100 ? '✅ Buena' : '⚠️ Mejorable';
+            
+            document.getElementById('routeStabilityMetric').textContent = '98%';
+            document.getElementById('routeStabilityStatus').textContent = '✅ Estable';
+            
+            const efficiency = ((8 - data.hops.length) / 8 * 100).toFixed(0);
+            document.getElementById('hopEfficiencyMetric').textContent = efficiency + '%';
+            document.getElementById('hopEfficiencyStatus').textContent = efficiency > 60 ? '✅ Eficiente' : '⚠️ Mejorable';
+        }
+
+        function generateDetailedReport() {
+            if (Object.keys(routeData).length === 0) {
+                alert('🔍 Ejecuta al menos un rastreo antes de generar el reporte.');
+                return;
+            }
+            
+            showFeedback('📄 Reporte detallado generado', 'success');
+            
+            const reportWindow = window.open('', '_blank');
+            let reportContent = `
+                <html>
+                <head>
+                    <title>Reporte de Diagnóstico de Red - DiveLearn</title>
+                    <style>
+.metric { display: inline-block; background: #e2e8f0; padding: 10px; margin: 5px; border-radius: 5px; }
+                        .warning { color: #d69e2e; }
+                        .success { color: #38a169; }
+                        .error { color: #e53e3e; }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+                <body>
+                    <div class="header">
+                        <h1>🛰️ Reporte de Diagnóstico de Red</h1>
+                        <p>Generado por DiveLearn - Rastreador Digital</p>
+                        <p>Fecha: ${new Date().toLocaleString()}</p>
+                    </div>
+            `;
+            
+            Object.keys(routeData).forEach(dest => {
+                const data = routeData[dest];
+                reportContent += `
+                    <div class="section">
+                        <h2>📊 Análisis de ${destinations[dest].display}</h2>
+                        <div class="metric">Saltos: ${data.hops.length}</div>
+                        <div class="metric">Tiempo total: ${data.totalTime}ms</div>
+                        <div class="metric">Latencia promedio: ${data.avgLatency}ms</div>
+                        
+                        <h3>Detalle de Saltos</h3>
+                        <table>
+                            <tr><th>Salto</th><th>IP</th><th>Nombre</th><th>Latencia</th><th>Tipo</th></tr>
+                `;
+                
+                data.hops.forEach((hop, index) => {
+                    reportContent += `<tr><td>${index + 1}</td><td>${hop.ip}</td><td>${hop.name}</td><td>${hop.time}ms</td><td>${hop.type}</td></tr>`;
+                });
+                
+                reportContent += `</table></div>`;
+            });
+            
+            reportContent += `
+                    <div class="section">
+                        <h2>📝 Conclusiones y Recomendaciones</h2>
+                        <p>Este reporte muestra el análisis detallado de las rutas de red ejecutadas. Utiliza esta información para optimizar tu conectividad.</p>
+                    </div>
+                
+</body>
+                </html>
+            `;
+            
+            reportWindow.document.write(reportContent);
+            reportWindow.document.close();
+        }
+
+        // Funciones del Quiz
+        function loadQuiz() {
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            const question = quizQuestions[index];
+            document.getElementById('quizQuestion').textContent = question.question;
+            document.getElementById('questionCounter').textContent = `Pregunta ${index + 1} de ${quizQuestions.length}`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(i);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Actualizar navegación
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('quiz-feedback');
+            
+            // Deshabilitar todas las opciones
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === question.correct) {
+                    opt.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            // Guardar respuesta
+            quizAnswers[currentQuestionIndex] = {
+                selected: selectedIndex,
+                correct: selectedIndex === question.correct
+            };
+            
+            // Mostrar feedback
+            if (selectedIndex === question.correct) {
+                feedback.textContent = '🎉 ¡Correcto! ' + question.explanation;
+                feedback.className = 'feedback positive show';
+            } else {
+                feedback.textContent = '🤔 Incorrecto. ' + question.explanation;
+                feedback.className = 'feedback negative show';
+            }
+            
+            // Habilitar navegación
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                resetQuestionUI();
+                loadQuestion(currentQuestionIndex);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                resetQuestionUI();
+                loadQuestion(currentQuestionIndex);
+                
+                // Si ya había una respuesta, mostrarla
+                if (quizAnswers[currentQuestionIndex]) {
+                    const answer = quizAnswers[currentQuestionIndex];
+                    selectAnswer(answer.selected);
+                }
+            }
+        }
+
+        function resetQuestionUI() {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+            
+            // Calcular resultados
+            const correctCount = quizAnswers.filter(a => a && a.correct).length;
+            const score = Math.round((correctCount / quizQuestions.length) * 100);
+            
+            let grade = 'F';
+            if (score >= 90) grade = 'A';
+            else if (score >= 80) grade = 'B';
+            else if (score >= 70) grade = 'C';
+            else if (score >= 60) grade = 'D';
+            
+            // Mostrar resultados
+            document.getElementById('finalScore').textContent = score + '%';
+            document.getElementById('correctAnswers').textContent = `${correctCount}/${quizQuestions.length}`;
+            document.getElementById('quizGrade').textContent = grade;
+            
+            // Feedback del quiz
+            const summaryDiv = document.getElementById('quizFeedbackSummary');
+            let summaryText = '';
+            if (score >= 90) {
+                summaryText = '🏆 ¡Excelente! Eres un verdadero experto en traceroute y diagnóstico de red.';
+            } else if (score >= 70) {
+                summaryText = '👍 ¡Bien hecho! Tienes un buen entendimiento de los conceptos de traceroute.';
+            } else {
+                summaryText = '📚 Buen intento. Repasa los conceptos y vuelve a intentarlo para mejorar tu comprensión.';
+            }
+            summaryDiv.innerHTML = `<p style="color: #667eea; font-weight: bold;">${summaryText}</p>`;
+            
+            // Mostrar sección de resultados
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            
+            updateCompletionStatus();
+        }
+
+        function showTab(tabName) {
+            // Ocultar todas las pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Actualizar botones de navegación
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Cargar contenido específico si es necesario
+            if (tabName === 'quiz' && !quizCompleted) {
+                loadQuiz();
+            }
+        }
+
+        function markCompleted() {
+            const requiredProgress = [
+                { condition: Object.keys(routeData).length > 0, message: 'Ejecuta al menos un rastreo' },
+                { condition: quizCompleted, message: 'Completa el quiz de 5 preguntas' }
+            ];
+            
+            const missingRequirements = requiredProgress.filter(req => !req.condition);
+            
+            if (missingRequirements.length > 0) {
+                alert('📋 Para completar la actividad necesitas:\n\n' + 
+                      missingRequirements.map(req => '• ' + req.message).join('\n'));
+                return;
+            }
+            
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            // Mostrar mensaje de éxito
+            alert('🎉 ¡Felicidades! Has completado la actividad "Rastreador Digital".\n\n' +
+                  '✅ Simulación interactiva de traceroute completada\n' +
+                  '📊 Análisis de rutas de red realizado\n' +
+                  '🔍 Identificación de nodos ejecutada\n' +
+                  '📝 Reportes de diagnóstico generados\n' +
+                  '🧠 Quiz de conceptos completado\n\n' +
+                  '🏆 +250 puntos ganados\n\n' +
+                  '¡Ahora eres un experto en traceroute y diagnóstico de red!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar
+        updateStats();
+        updateCompletionStatus();
+        loadQuiz();
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (isCompleted) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000); // Cada 30 segundos
+    </script>
+
+</body>
+</html>

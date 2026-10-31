@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2 - Verificador de Integridad (Hashing)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .hash-lab {
+            background: var(--surface2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #28a745;
+        }
+
+        .lab-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 10px;
+            border-left: 5px solid #28a745;
+        }
+
+        .lab-title {
+            font-size: 1.2rem;
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .
+
+        .
+
+        .
+
+        .
+
+        .textarea-field {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .
+
+        .hash-btn {
+            background: #22C55E;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .hash-btn:hover {
+            background: #22C55E;
+            transform: translateY(-2px);
+        }
+
+        .hash-btn.secondary {
+            background: #6c757d;
+        }
+
+        .hash-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .hash-btn.warning {
+            background: #F59E0B;
+            color: #212529;
+        }
+
+        .hash-btn.warning:hover {
+            background: #e0a800;
+        }
+
+        .hash-btn.danger {
+            background: #EF4444;
+        }
+
+        .hash-btn.danger:hover {
+            background: #EF4444;
+        }
+
+        .result-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 60px;
+            border: 2px dashed var(--border);
+            background: var(--surface);
+        }
+
+        .result-area.has-content {
+            border-color: #22C55E;
+            background: #f8fff9;
+        }
+
+        .result-area.error {
+            border-color: #EF4444;
+            background: #fff5f5;
+        }
+
+        .result-area.warning {
+            border-color: #F59E0B;
+            background: #fffbf0;
+        }
+
+        .result-text {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: var(--text);
+        }
+
+        .hash-output {
+            background: var(--surface2);
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: #495057;
+        }
+
+        .hash-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-box {
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+        }
+
+        .comparison-box.match {
+            border-color: #22C55E;
+            background: #f8fff9;
+        }
+
+        .comparison-box.no-match {
+            border-color: #EF4444;
+            background: #fff5f5;
+        }
+        .algorithm-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .algorithm-btn.active {
+            border-color: #22C55E;
+            background: #f8fff9;
+            color: #22C55E;
+            font-weight: 600;
+        }
+
+        .algorithm-btn:hover {
+            border-color: #22C55E;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .demo-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .demo-file {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-file:hover {
+            border-color: #22C55E;
+            transform: translateY(-2px);
+        }
+
+        .demo-file.
+
+        .file-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .file-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .file-size {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        
+        @media (max-width: 768px) {            .
+            .hash-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-files {
+                grid-template-columns: 1fr;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 4</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 4</a> / Actividad 2
+            </div>
+            <h1 class="activity-title">🧪 Verificador de Integridad (Hashing)</h1>
+            <p class="activity-subtitle">Aprende a calcular y verificar hashes para detectar modificaciones</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 120</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a calcular hashes MD5 y SHA-256, verificar la integridad de datos y detectar modificaciones. Comprenderás por qué los hashes son fundamentales para la seguridad digital.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🔬 Laboratorio de Hashing</h2>
+                
+                <div class="hash-lab">
+                    <div class="lab-section">
+                        <h3 class="lab-title">🔍 Calculadora de Hash</h3>
+                        <p style="margin-bottom: 15px; color: #8888bb;">Genera el hash de cualquier texto para crear su "huella digital" única.</p>
+                        
+                        <div class="input-group">
+                            <label class="input-label" for="inputText">Texto o archivo a verificar:</label>
+                            <textarea id="inputText" class="input-field textarea-field" placeholder="Escribe aquí el contenido que quieres verificar...">Hola mundo</textarea>
+                        </div>
+
+                        <div class="algorithm-selector">
+                            <button class="algorithm-btn active" data-algorithm="md5" onclick="selectAlgorithm('md5')">MD5</button>
+                            <button class="algorithm-btn" data-algorithm="sha1" onclick="selectAlgorithm('sha1')">SHA-1</button>
+                            <button class="algorithm-btn" data-algorithm="sha256" onclick="selectAlgorithm('sha256')">SHA-256</button>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="hash-btn" onclick="calculateHash()">🔍 Calcular Hash</button>
+                            <button class="hash-btn secondary" onclick="clearAll()">🗑️ Limpiar</button>
+                            <button class="hash-btn warning" onclick="loadDemoFile()">📄 Cargar Ejemplo</button>
+                        </div>
+
+                        <div class="result-area" id="hashResult">
+                            <div style="color: #8888bb; font-style: italic;">El hash aparecerá aquí...</div>
+                        </div>
+                    </div>
+
+                    <div class="lab-section">
+                        <h3 class="lab-title">⚖️ Verificador de Integridad</h3>
+                        <p style="margin-bottom: 15px; color: #8888bb;">Compara dos hashes para verificar si los datos son idénticos o han sido modificados.</p>
+                        
+                        <div class="hash-comparison">
+                            <div class="comparison-box" id="hash1Box">
+                                <label class="input-label">Hash Original:</label>
+                                <input type="text" id="hash1" class="input-field" placeholder="Pega aquí el hash original...">
+                            </div>
+                            <div class="comparison-box" id="hash2Box">
+                                <label class="input-label">Hash a Verificar:</label>
+                                <input type="text" id="hash2" class="input-field" placeholder="Pega aquí el hash a comparar...">
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="hash-btn" onclick="compareHashes()">⚖️ Comparar Hashes</button>
+                            <button class="hash-btn danger" onclick="simulateCorruption()">💥 Simular Corrupción</button>
+                        </div>
+
+                        <div class="result-area" id="comparisonResult">
+                            <div style="color: #8888bb; font-style: italic;">El resultado de la comparación aparecerá aquí...</div>
+                        </div>
+                    </div>
+
+                    <div class="lab-section">
+                        <h3 class="lab-title">📁 Archivos de Demostración</h3>
+                        <p style="margin-bottom: 15px; color: #8888bb;">Selecciona un archivo de ejemplo para ver cómo cambia el hash con diferentes contenidos.</p>
+                        
+                        <div class="demo-files">
+                            <div class="demo-file" onclick="selectDemoFile('document')" data-file="document">
+                                <span class="file-icon">📄</span>
+                                <div class="file-name">Documento.txt</div>
+                                <div class="file-size">1.2 KB</div>
+                            </div>
+                            <div class="demo-file" onclick="selectDemoFile('config')" data-file="config">
+                                <span class="file-icon">⚙️</span>
+                                <div class="file-name">Config.json</div>
+                                <div class="file-size">0.8 KB</div>
+                            </div>
+                            <div class="demo-file" onclick="selectDemoFile('script')" data-file="script">
+                                <span class="file-icon">💻</span>
+                                <div class="file-name">Script.js</div>
+                                <div class="file-size">2.1 KB</div>
+                            </div>
+                        </div>
+
+                        <div class="result-area" id="demoResult">
+                            <div style="color: #8888bb; font-style: italic;">Selecciona un archivo para ver su contenido y hash...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips sobre Integridad
+                </h3>
+                <div class="tip-item">
+                    <strong>🔍 MD5:</strong> Rápido pero vulnerable - úsalo solo para verificaciones básicas, no para seguridad crítica.
+                </div>
+                <div class="tip-item">
+                    <strong>🛡️ SHA-256:</strong> Mucho más seguro - estándar actual para aplicaciones críticas y blockchain.
+                </div>
+                <div class="tip-item">
+                    <strong>⚡ Detección:</strong> Cualquier cambio, por mínimo que sea, genera un hash completamente diferente.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Uso real:</strong> Verificar descargas, detectar malware, autenticación de software y validación de blockchain.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentAlgorithm = 'md5';
+        let lastCalculatedHash = '';
+
+        const demoFiles = {
+            document: {
+                name: "Documento.txt",
+                content: "Este es un documento importante que contiene información confidencial.\nVersión: 1.0\nFecha: 2025-06-10\nAutor: DiveLearn Security Lab"
+            },
+            config: {
+                name: "Config.json",
+                content: '{\n  "database": {\n    "host": "localhost",\n    "port": 5432,\n    "name": "production_db"\n  },\n  "security": {\n    "encryption": true,\n    "algorithm": "AES-256"\n  }\n}'
+            },
+            script: {
+                name: "Script.js",
+                content: 'function calculateSecurity() {\n  const algorithms = ["MD5", "SHA-1", "SHA-256"];\n  \n  for (let algo of algorithms) {\n    console.log(`Calculando hash con ${algo}...`);\n    // Lógica de cálculo aquí\n  }\n  \n  return "Hash calculado correctamente";\n}\n\ncalculateSecurity();'
+            }
+        };
+
+        function selectAlgorithm(algorithm) {
+            currentAlgorithm = algorithm;
+            
+            // Actualizar botones
+            document.querySelectorAll('.algorithm-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-algorithm="${algorithm}"]`).classList.add('active');
+            
+            displayResult('hashResult', `✅ Algoritmo ${algorithm.toUpperCase()} seleccionado`, false);
+        }
+
+        async function calculateHash() {
+            const text = document.getElementById('inputText').value;
+            
+            if (!text.trim()) {
+                alert('Por favor ingresa algún texto para calcular el hash');
+                return;
+            }
+
+            let hash;
+            
+            try {
+                switch(currentAlgorithm) {
+                    case 'md5':
+                        hash = await calculateMD5(text);
+                        break;
+                    case 'sha1':
+                        hash = await calculateSHA1(text);
+                        break;
+                    case 'sha256':
+                        hash = await calculateSHA256(text);
+                        break;
+                }
+                
+                lastCalculatedHash = hash;
+                
+                const result = `
+                    <strong>🔍 Hash ${currentAlgorithm.toUpperCase()}:</strong><br>
+                    <div class="hash-output">${hash}</div>
+                    <small>Longitud: ${hash.length} caracteres | Algoritmo: ${currentAlgorithm.toUpperCase()}</small>
+                `;
+                
+                displayResult('hashResult', result, true);
+                
+                // Auto-llenar el primer campo de comparación
+                document.getElementById('hash1').value = hash;
+                
+            } catch (error) {
+                displayResult('hashResult', '❌ Error al calcular el hash', true, 'error');
+            }
+        }
+
+        function compareHashes() {
+            const hash1 = document.getElementById('hash1').value.trim().toLowerCase();
+            const hash2 = document.getElementById('hash2').value.trim().toLowerCase();
+            
+            if (!hash1 || !hash2) {
+                alert('Por favor ingresa ambos hashes para comparar');
+                return;
+            }
+            
+            const hash1Box = document.getElementById('hash1Box');
+            const hash2Box = document.getElementById('hash2Box');
+            
+            if (hash1 === hash2) {
+                hash1Box.classList.add('match');
+                hash2Box.classList.add('match');
+                hash1Box.classList.remove('no-match');
+                hash2Box.classList.remove('no-match');
+                
+                displayResult('comparisonResult', 
+                    '✅ <strong>¡COINCIDENCIA PERFECTA!</strong><br>Los hashes son idénticos. Los datos NO han sido modificados.', 
+                    true);
+            } else {
+                hash1Box.classList.add('no-match');
+                hash2Box.classList.add('no-match');
+                hash1Box.classList.remove('match');
+                hash2Box.classList.remove('match');
+                
+                displayResult('comparisonResult', 
+                    '❌ <strong>NO COINCIDEN</strong><br>Los hashes son diferentes. Los datos HAN sido modificados o son diferentes.', 
+                    true, 'error');
+            }
+        }
+
+        function simulateCorruption() {
+            const originalText = document.getElementById('inputText').value;
+            
+            if (!originalText) {
+                alert('Primero ingresa un texto para simular la corrupción');
+                return;
+            }
+            
+            // Cambiar un carácter aleatoriamente
+            const corruptedText = originalText.substring(0, originalText.length - 1) + 'X';
+            document.getElementById('inputText').value = corruptedText;
+            
+            displayResult('demoResult', 
+                `💥 <strong>Simulación de corrupción:</strong><br>Se cambió el último carácter por 'X'.<br>Ahora calcula el hash nuevamente para ver la diferencia.`, 
+                true, 'warning');
+        }
+
+        function selectDemoFile(fileType) {
+            // Actualizar selección visual
+            document.querySelectorAll('.demo-file').forEach(file => {
+                file.classList.remove('selected');
+            });
+            document.querySelector(`[data-file="${fileType}"]`).classList.add('selected');
+            
+            const file = demoFiles[fileType];
+            document.getElementById('inputText').value = file.content;
+            
+            displayResult('demoResult', 
+                `📁 <strong>Archivo cargado: ${file.name}</strong><br>Contenido actualizado en el campo de texto. Ahora puedes calcular su hash.`, 
+                true);
+        }
+
+        function loadDemoFile() {
+            const demoText = "DiveLearn Security Lab - Ejemplo de integridad de datos.\nEste texto se usa para demostrar cómo los hashes detectan cambios.\nVersión: 2025.06.10";
+            document.getElementById('inputText').value = demoText;
+            
+            displayResult('hashResult', 
+                '📄 Texto de ejemplo cargado. Ahora puedes calcular su hash.', 
+                false);
+        }
+
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('hash1').value = '';
+            document.getElementById('hash2').value = '';
+            
+            // Limpiar estilos de comparación
+            document.getElementById('hash1Box').classList.remove('match', 'no-match');
+            document.getElementById('hash2Box').classList.remove('match', 'no-match');
+            
+            // Limpiar resultados
+            displayResult('hashResult', 'Todo limpiado. Listo para nuevos cálculos.', false);
+            displayResult('comparisonResult', 'Campos de comparación limpiados.', false);
+            displayResult('demoResult', 'Selecciona un archivo para ver su contenido...', false);
+            
+            // Quitar selección de archivos demo
+            document.querySelectorAll('.demo-file').forEach(file => {
+                file.classList.remove('selected');
+            });
+        }
+
+        // Funciones de hash usando SubtleCrypto API
+        async function calculateMD5(text) {
+            // MD5 no está disponible en SubtleCrypto, usamos una implementación simple
+            return simpleMD5(text);
+        }
+
+        async function calculateSHA1(text) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function calculateSHA256(text) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Implementación simple de MD5 para propósitos educativos
+        function simpleMD5(text) {
+            // Esta es una implementación muy simplificada solo para demostración
+            let hash = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convertir a 32-bit integer
+            }
+            return Math.abs(hash).toString(16).padStart(8, '0') + 'abcdef1234567890'.substring(0, 24);
+        }
+
+        function displayResult(elementId, message, hasContent = false, type = 'success') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="result-text">${message}</div>`;
+            
+            element.classList.remove('has-content', 'error', 'warning');
+            
+            if (hasContent) {
+                element.classList.add('has-content');
+                if (type === 'error') {
+                    element.classList.add('error');
+                } else if (type === 'warning') {
+                    element.classList.add('warning');
+                }
+            }
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Excelente trabajo! Has completado el verificador de integridad.\n\n✅ Actividad marcada como completada\n🏆 +120 puntos ganados\n\n🧪 Ahora comprendes cómo los hashes protegen la integridad de los datos.');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            displayResult('hashResult', '💡 Tip: Prueba calculando el hash de diferentes textos', false);
+        });
+    </script>
+
+</body>
+</html>

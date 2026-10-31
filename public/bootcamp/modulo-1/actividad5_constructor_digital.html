@@ -1,0 +1,1915 @@
+</html>
+            <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>🏗️ Actividad 5 - Constructor Digital</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #4a5568;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .construction-stats {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #4fd1c7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .osi-tower {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            max-width: 700px;
+            margin: 30px auto;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #cbd5e0;
+        }
+
+        .osi-layer {
+            background: var(--surface);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            transform: scale(0.98);
+            opacity: 0.8;
+        }
+
+        .osi-layer:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .osi-layer.built {
+            opacity: 1;
+            transform: scale(1);
+            animation: buildComplete 0.5s ease;
+        }
+
+        .osi-layer.layer-7 {
+            border-left: 6px solid #e53e3e;
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+        }
+
+        .osi-layer.layer-6 {
+            border-left: 6px solid #dd6b20;
+            background: linear-gradient(135deg, #fffaf0, #feebc8);
+        }
+
+        .osi-layer.layer-5 {
+            border-left: 6px solid #d69e2e;
+            background: linear-gradient(135deg, #fffff0, #fefcbf);
+        }
+
+        .osi-layer.layer-4 {
+            border-left: 6px solid #38a169;
+            background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+        }
+
+        .osi-layer.layer-3 {
+            border-left: 6px solid #3182ce;
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+        }
+
+        .osi-layer.layer-2 {
+            border-left: 6px solid #805ad5;
+            background: linear-gradient(135deg, #faf5ff, #e9d8fd);
+        }
+
+        .osi-layer.layer-1 {
+            border-left: 6px solid #d53f8c;
+            background: linear-gradient(135deg, #fff5f7, #fed7e2);
+        }
+
+        @keyframes buildComplete {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .layer-number {
+            background: #2d3748;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .layer-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 15px;
+        }
+
+        .layer-details.show {
+            max-height: 500px;
+        }
+
+        .layer-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .example-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9em;
+            border: 1px solid #e2e8f0;
+        }
+
+        .communication-simulator {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .computer {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(66, 153, 225, 0.3);
+        }
+
+        .message-path {
+            flex: 1;
+            height: 4px;
+            background: linear-gradient(90deg, #4299e1, #3182ce);
+            margin: 0 20px;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .message-packet {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #68d391;
+            border-radius: 50%;
+            top: -8px;
+            left: 0;
+            animation: packetMove 3s ease-in-out infinite;
+            display: none;
+        }
+
+        @keyframes packetMove {
+            0% { left: 0; opacity: 1; }
+            50% { left: 50%; opacity: 0.7; }
+            100% { left: calc(100% - 20px); opacity: 1; }
+        }
+
+        .layer-stack {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 80px;
+        }
+
+        .stack-layer {
+            height: 8px;
+            border-radius: 2px;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .stack-layer.active {
+            opacity: 1;
+            transform: scaleX(1.1);
+        }
+
+        .exercises-panel {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #cbd5e0;
+        }
+
+        .exercise-card {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .exercise-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--glow);
+        }
+
+        .exercise-card.completed {
+            border-left-color: #48bb78;
+            background: #f0fff4;
+        }
+
+        .draggable-layer {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 5px;
+            cursor: grab;
+            user-
+
+        
+
+        .drop-zone.drag-over {
+            border-color: var(--purple);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .drop-zone.correct {
+            background: rgba(72, 187, 120, 0.1);
+            border-color: #48bb78;
+        }
+
+        .drop-zone.incorrect {
+            background: rgba(245, 101, 101, 0.1);
+            border-color: #f56565;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--bg);
+            color: #744210;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin: 5px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .mnemonics-section {
+            background: linear-gradient(135deg, #fef5e7, #fed7aa);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #f6ad55;
+        }
+
+        .mnemonic-card {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #f6ad55;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mnemonic-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(246, 173, 85, 0.2);
+        }
+
+        
+
+        .quiz-question {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #7b341e;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--purple);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #f0fff4;
+            border-color: #48bb78;
+            color: #22543d;
+        }
+
+        .quiz-option.incorrect {
+            background: #fff5f5;
+            border-color: #fc8181;
+            color: #742a2a;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .quiz-nav-btn {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .quiz-nav-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        .
+
+        .
+
+        .
+
+        .
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg);
+            color: #744210;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            display: none;
+            animation: celebrationBounce 0.5s ease;
+        }
+
+        @keyframes celebrationBounce {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        
+        @media (max-width: 768px) {            .tab-navigation {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+
+            .message-flow {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .message-path {
+                width: 4px;
+                height: 50px;
+                margin: 10px 0;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 1</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./'">← Módulo 1</a> / Actividad 5
+            </div>
+            <h1 class="activity-title">🏗️ Constructor Digital</h1>
+            <p class="activity-subtitle">Construye la torre de comunicación perfecta del Modelo OSI</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>22 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Navigation Tabs -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="showTab('construction')">🏗️ Construcción</button>
+                <button class="tab-btn" onclick="showTab('simulation')">🔄 Simulación</button>
+                <button class="tab-btn" onclick="showTab('exercises')">📝 Ejercicios</button>
+                <button class="tab-btn" onclick="showTab('quiz')">🎯 Quiz de Capas</button>
+            </div>
+
+            <!-- Construcción de Capas -->
+            <div id="construction" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">🎯 Tu Proyecto de Construcción</h2>
+                    <p>¡Bienvenido, Constructor! Tu misión es construir la torre de comunicación más importante del mundo digital: el Modelo OSI. Esta torre tiene 7 pisos, y cada uno tiene una función específica que hace posible que las computadoras se comuniquen.</p>
+                    <p>Imagina que enviar un mensaje por Internet es como enviar una carta, pero esta carta debe pasar por 7 oficinas diferentes, cada una añadiendo algo especial antes de ser enviada.</p>
+
+                    <div class="construction-stats">
+                        <h3>📊 Estado de la Construcción</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div>🏗️ Pisos Construidos</div>
+                                <div id="layersBuilt">0/7</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>🎖️ Insignias de Constructor</div>
+                                <div id="badgesCount">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>⭐ Nivel Constructor</div>
+                                <div id="constructorLevel">Aprendiz</div>
+                            </div>
+                            <div class="stat-item">
+                                <div>📈 Progreso Total</div>
+                                <div id="progressPercent">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Torre OSI Interactiva -->
+                <div class="section">
+                    <h2 class="section-title">🏢 La Torre OSI</h2>
+                    <p>Haz clic en cada piso para construirlo y descubrir su función:</p>
+
+                    <div class="osi-tower">
+                        <div class="osi-layer layer-7" onclick="buildLayer(7)">
+                            <div class="layer-header">
+                                <strong>🎯 Capa 7 - Aplicación</strong>
+                                <div class="layer-number">7</div>
+                            </div>
+                            <p>Donde vives tú: navegadores, email, juegos</p>
+                            <div class="layer-details" id="layer-7-details">
+                                <p><strong>🏠 El Piso del Usuario</strong></p>
+                                <p>Es donde interactúas directamente con las aplicaciones. Todo lo que ves y usas está aquí.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">🌐 HTTP/HTTPS</div>
+                                    <div class="example-item">📧 SMTP/POP3</div>
+                                    <div class="example-item">📁 FTP</div>
+                                    <div class="example-item">🌐 DNS</div>
+                                    <div class="example-item">🔒 SSH</div>
+                                    <div class="example-item">🗂️ SNMP</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Interfaz directa con el usuario final y aplicaciones.</p>
+                                <div class="badge">🎯 Maestro de Aplicaciones</div>
+                            </div>
+                        </div>
+
+                        <div class="osi-layer layer-6" onclick="buildLayer(6)">
+                            <div class="layer-header">
+                                <strong>🎨 Capa 6 - Presentación</strong>
+                                <div class="layer-number">6</div>
+                            </div>
+                            <p>El traductor: cifrado, compresión, formato</p>
+                            <div class="layer-details" id="layer-6-details">
+                                <p><strong>🎭 El Piso del Traductor</strong></p>
+                                <p>Convierte los datos para que diferentes sistemas se entiendan. Como un intérprete universal.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">🔐 SSL/TLS</div>
+                                    <div class="example-item">📦 ZIP/GZIP</div>
+                                    <div class="example-item">🖼️ JPEG/PNG</div>
+                                    <div class="example-item">🎬 MPEG</div>
+                                    <div class="example-item">📄 ASCII</div>
+                                    <div class="example-item">🔢 Unicode</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Cifrado, compresión y traducción de formatos de datos.</p>
+                                <div class="badge">🎨 Traductor Maestro</div>
+                            </div>
+                        </div>
+
+                        <div class="osi-layer layer-5" onclick="buildLayer(5)">
+                            <div class="layer-header">
+                                <strong>🤝 Capa 5 - Sesión</strong>
+                                <div class="layer-number">5</div>
+                            </div>
+                            <p>El coordinador: mantiene conversaciones organizadas</p>                          
+                           <div class="layer-details" id="layer-5-details">
+                                <p><strong>📞 El Piso del Coordinador</strong></p>
+                                <p>Establece, mantiene y termina las conversaciones entre aplicaciones. Como un moderador de reuniones.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">🗄️ SQL Sessions</div>
+                                    <div class="example-item">🌐 RPC</div>
+                                    <div class="example-item">📂 NetBIOS</div>
+                                    <div class="example-item">🔐 SSH</div>
+                                    <div class="example-item">🖥️ RDP</div>
+                                    <div class="example-item">📡 SIP</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Gestión de sesiones de comunicación entre aplicaciones.</p>
+                                <div class="badge">🤝 Coordinador Experto</div>
+                            </div>
+                        </div>
+
+                        <div class="osi-layer layer-4" onclick="buildLayer(4)">
+                            <div class="layer-header">
+                                <strong>🚚 Capa 4 - Transporte</strong>
+                                <div class="layer-number">4</div>
+                            </div>
+                            <p>El repartidor: entrega confiable de datos</p>
+                            <div class="layer-details" id="layer-4-details">
+                                <p><strong>📦 El Piso del Repartidor</strong></p>
+                                <p>Se asegura de que los datos lleguen completos y en orden. Como un servicio de paquetería confiable.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">📡 TCP</div>
+                                    <div class="example-item">⚡ UDP</div>
+                                    <div class="example-item">🔌 Puertos</div>
+                                    <div class="example-item">🔢 Secuenciación</div>
+                                    <div class="example-item">✅ Control de Flujo</div>
+                                    <div class="example-item">🔄 Retransmisión</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Entrega confiable y control de flujo de datos.</p>
+                                <div class="badge">🚚 Repartidor Confiable</div>
+                            </div>
+                        </div>
+
+                        <div class="osi-layer layer-3" onclick="buildLayer(3)">
+                            <div class="layer-header">
+                                <strong>🗺️ Capa 3 - Red</strong>
+                                <div class="layer-number">3</div>
+                            </div>
+                            <p>El GPS: encuentra rutas entre redes</p>
+                            <div class="layer-details" id="layer-3-details">
+                                <p><strong>🧭 El Piso del Navegador</strong></p>
+                                <p>Encuentra la mejor ruta para que los datos lleguen a su destino. Como un GPS súper inteligente.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">🌐 IPv4/IPv6</div>
+                                    <div class="example-item">🛣️ Routing</div>
+                                    <div class="example-item">📍 ICMP</div>
+                                    <div class="example-item">🔍 ARP</div>
+                                    <div class="example-item">🎯 OSPF</div>
+                                    <div class="example-item">📡 BGP</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Enrutamiento y direccionamiento lógico de paquetes.</p>
+                                <div class="badge">🗺️ Navegador Experto</div>
+                            </div>
+                        </div>
+
+                        <div class="osi-layer layer-2" onclick="buildLayer(2)">
+                            <div class="layer-header">
+                                <strong>🔗 Capa 2 - Enlace de Datos</strong>
+                                <div class="layer-number">2</div>
+                            </div>
+                            <p>Control de tráfico entre vecinos</p>
+                            <div class="layer-details" id="layer-2-details">
+                                <p><strong>🚦 El Piso del Control de Tráfico</strong></p>
+                                <p>Maneja cómo los datos se mueven entre dispositivos vecinos. Como un semáforo inteligente.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">🔗 Ethernet</div>
+                                    <div class="example-item">📱 WiFi (802.11)</div>
+                                    <div class="example-item">🆔 MAC Address</div>
+                                    <div class="example-item">🔄 Switching</div>
+                                    <div class="example-item">🚨 Error Detection</div>
+                                    <div class="example-item">📊 Frame Control</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Control de acceso al medio y detección de errores.</p>
+                                <div class="badge">🔗 Controlador de Enlace</div>
+                            </div>
+                        </div>
+
+                        <div class="osi-layer layer-1" onclick="buildLayer(1)">
+                            <div class="layer-header">
+                                <strong>⚡ Capa 1 - Físico</strong>
+                                <div class="layer-number">1</div>
+                            </div>
+                            <p>Los cimientos: cables, ondas, electricidad</p>
+                            <div class="layer-details" id="layer-1-details">
+                                <p><strong>🏗️ El Piso de los Cimientos</strong></p>
+                                <p>Todo lo físico que transporta los datos: cables, ondas de radio, luz. Los cimientos de todo.</p>
+                                <div class="layer-examples">
+                                    <div class="example-item">🔌 Cables UTP</div>
+                                    <div class="example-item">📡 Ondas Radio</div>
+                                    <div class="example-item">💡 Fibra Óptica</div>
+                                    <div class="example-item">⚡ Voltajes</div>
+                                    <div class="example-item">🌊 Frecuencias</div>
+                                    <div class="example-item">🔗 Conectores</div>
+                                </div>
+                                <p><strong>🔧 Función:</strong> Transmisión de bits a través del medio físico.</p>
+                                <div class="badge">⚡ Ingeniero de Cimientos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mnemotecnias -->
+                <div class="section">
+                    <div class="mnemonics-section">
+                        <h3>🧠 Trucos para Recordar las Capas</h3>
+                        <p>¡Usa estos trucos mnemotécnicos para recordar el orden!</p>
+
+                        <div class="mnemonic-card" onclick="showMnemonic('up')">
+                            <strong>📈 De Abajo hacia Arriba (1-7):</strong>
+                            <div id="mnemonic-up" style="display: none; margin-top: 10px;">
+                                <em>"Por Favor, No Tirar Salsa Picante Aquí"</em><br>
+                                <small><strong>P</strong>hysical → <strong>D</strong>ata Link → <strong>N</strong>etwork →
+                                    <strong>T</strong>ransport → <strong>S</strong>ession → <strong>P</strong>resentation →
+                                    <strong>A</strong>pplication</small>
+                            </div>
+                        </div>
+
+                        <div class="mnemonic-card" onclick="showMnemonic('down')">
+                            <strong>📉 De Arriba hacia Abajo (7-1):</strong>
+                            <div id="mnemonic-down" style="display: none; margin-top: 10px;">
+                                <em>"Aplicaciones Presentan Sesiones Tranquilas No Enlazadas Físicamente"</em><br>
+                                <small><strong>A</strong>pplication → <strong>P</strong>resentation →
+                                    <strong>S</strong>ession →
+                                    <strong>T</strong>ransport → <strong>N</strong>etwork → <strong>D</strong>ata Link →
+                                    <strong>P</strong>hysical</small>
+                            </div>
+                        </div>
+
+                        <div class="mnemonic-card" onclick="showMnemonic('english')">
+                            <strong>🌍 En Inglés (Popular):</strong>
+                            <div id="mnemonic-english" style="display: none; margin-top: 10px;">
+                                <em>"All People Seem To Need Data Processing"</em><br>
+                                <small><strong>A</strong>pplication → <strong>P</strong>resentation →
+                                    <strong>S</strong>ession →
+                                    <strong>T</strong>ransport → <strong>N</strong>etwork → <strong>D</strong>ata Link →
+                                    <strong>P</strong>hysical</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulación de Comunicación -->
+            <div id="simulation" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🔄 Simulación de Comunicación</h2>
+                    <div class="communication-simulator">
+                        <h3>📡 Centro de Simulación OSI</h3>
+                        <p>Observa cómo un mensaje viaja a través de las 7 capas del modelo OSI</p>
+
+                        <div class="message-flow">
+                            <div class="computer" id="sender">
+                                <span>💻</span>
+                                <small>Emisor</small>
+                                <div class="layer-stack" id="senderStack">
+                                    <div class="stack-layer" style="background: #e53e3e;"></div>
+                                    <div class="stack-layer" style="background: #dd6b20;"></div>
+                                    <div class="stack-layer" style="background: #d69e2e;"></div>
+                                    <div class="stack-layer" style="background: #38a169;"></div>
+                                    <div class="stack-layer" style="background: #3182ce;"></div>
+                                    <div class="stack-layer" style="background: #805ad5;"></div>
+                                    <div class="stack-layer" style="background: #d53f8c;"></div>
+                                </div>
+                            </div>
+
+                            <div class="message-path">
+                                <div class="message-packet" id="messagePacket">📦</div>
+                            </div>
+
+                            <div class="computer" id="receiver">
+                                <span>🖥️</span>
+                                <small>Receptor</small>
+                                <div class="layer-stack" id="receiverStack">
+                                    <div class="stack-layer" style="background: #e53e3e;"></div>
+                                    <div class="stack-layer" style="background: #dd6b20;"></div>
+                                    <div class="stack-layer" style="background: #d69e2e;"></div>
+                                    <div class="stack-layer" style="background: #38a169;"></div>
+                                    <div class="stack-layer" style="background: #3182ce;"></div>
+                                    <div class="stack-layer" style="background: #805ad5;"></div>
+                                    <div class="stack-layer" style="background: #d53f8c;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin: 20px 0;">
+                            <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí..."
+                                style="padding: 10px; border-radius: 10px; border: 1px solid #4299e1; margin-right: 10px; background: white; color: #8888bb;">
+                            <button onclick="startSimulation()"
+                                style="padding: 10px 20px; background: linear-gradient(135deg, #4299e1, #3182ce); color: white; border: none; border-radius: 10px; cursor: pointer;">
+                                🚀 Enviar Mensaje
+                            </button>
+                            <button onclick="resetSimulation()"
+                                style="padding: 10px 20px; background: linear-gradient(135deg, #a0aec0, #718096); color: white; border: none; border-radius: 10px; cursor: pointer; margin-left: 10px;">
+                                🔄 Reiniciar
+                            </button>
+                        </div>
+
+                        <div id="simulationSteps" style="margin-top: 20px; color: #4fd1c7;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicios Prácticos -->
+            <div id="exercises" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">📝 Ejercicios Prácticos</h2>
+                    <div class="exercises-panel">
+                        <h3>🎯 Centro de Práctica</h3>
+                        <p>Refuerza tu conocimiento con estos ejercicios interactivos:</p>
+
+                        <div class="exercise-card" onclick="startExercise(1)" id="exercise1">
+                            <h4>🔢 Ejercicio 1: Orden de Capas</h4>
+                            <p><strong>Objetivo:</strong> Arrastra las capas para organizarlas en el orden correcto (de arriba hacia abajo).</p>
+                            <p><strong>Dificultad:</strong> ⭐⭐⚪⚪⚪</p>
+                            <div class="badge" id="badge-exercise1" style="display: none;">🎯 Organizador Maestro</div>
+                        </div>
+
+                        <div class="exercise-card" onclick="startExercise(2)" id="exercise2">
+                            <h4>🔗 Ejercicio 2: Protocolos por Capa</h4>
+                            <p><strong>Objetivo:</strong> Asocia cada protocolo con su capa correspondiente del modelo OSI.</p>
+                            <p><strong>Dificultad:</strong> ⭐⭐⭐⚪⚪</p>
+                            <div class="badge" id="badge-exercise2" style="display: none;">🔗 Experto en Protocolos</div>
+                        </div>
+
+                        <div class="exercise-card" onclick="startExercise(3)" id="exercise3">
+                            <h4>🎮 Ejercicio 3: Simulación de Flujo</h4>
+                            <p><strong>Objetivo:</strong> Identifica qué sucede en cada capa cuando se envía un email.</p>
+                            <p><strong>Dificultad:</strong> ⭐⭐⭐⭐⚪</p>
+                            <div class="badge" id="badge-exercise3" style="display: none;">🎮 Simulador Experto</div>
+                        </div>
+
+                        <div class="exercise-card" onclick="startExercise(4)" id="exercise4">
+                            <h4>🧩 Ejercicio 4: Resolución de Problemas</h4>
+                            <p><strong>Objetivo:</strong> Diagnostica en qué capa OSI podría estar ocurriendo un problema de red.</p>
+                            <p><strong>Dificultad:</strong> ⭐⭐⭐⭐⭐</p>
+                            <div class="badge" id="badge-exercise4" style="display: none;">🧩 Diagnosticador Maestro</div>
+                        </div>
+
+                        <div id="exercise-area" style="display: none; margin-top: 25px; padding: 25px; background: white; border-radius: 15px; border: 2px solid #667eea;">
+                            <h4 id="exercise-title"></h4>
+                            <div id="exercise-content"></div>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <button onclick="checkExercise()" id="checkBtn"
+                                    style="padding: 12px 24px; background: linear-gradient(135deg, #48bb78, #38a169); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1em; margin-right: 10px;">
+                                    ✅ Verificar Respuesta
+                                </button>
+                                <button onclick="cancelExercise()"
+                                    style="padding: 12px 24px; background: linear-gradient(135deg, #a0aec0, #718096); color: white; border: none; border-radius: 10px; cursor: pointer;">
+                                    ❌ Cancelar
+                                </button>
+                            </div>
+                            <div id="exercise-feedback" style="margin-top: 15px;"></div>
+                        </div>
+
+                        <div style="margin-top: 20px; text-align: center; color: #4a5568;">
+                            <small>
+                                <strong>📊 Progreso de Ejercicios:</strong> <span id="exerciseProgress">0/4 completados</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz de Capas -->
+            <div id="quiz" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">🎯 Quiz de Capas OSI</h2>
+                    <div class="quiz-container">
+                        <div class="quiz-question" id="quizQuestion">
+                            <!-- La pregunta se cargará dinámicamente -->
+                        </div>
+                        <div class="quiz-options" id="quizOptions">
+                            <!-- Las opciones se cargarán dinámicamente -->
+                        </div>
+                        <div id="quiz-feedback" class="feedback"></div>
+
+                        <div class="quiz-navigation">
+                            <button class="quiz-nav-btn" onclick="previousQuestion()" id="prevBtn" disabled>← Anterior</button>
+                            <span id="questionCounter">Pregunta 1 de 5</span>
+                            <button class="quiz-nav-btn" onclick="nextQuestion()" id="nextBtn" disabled>Siguiente →</button>
+                        </div>
+                    </div>
+
+                    <div id="quizResults" style="display: none;">
+                        <div class="construction-stats">
+                            <h4>🏆 Resultados del Quiz</h4>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div id="finalScore">0%</div>
+                                    <div>Puntuación Final</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div id="correctAnswers">0/5</div>
+                                    <div>Respuestas Correctas</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div id="quizGrade">F</div>
+                                    <div>Calificación</div>
+                                </div>
+                            </div>
+                            <div id="quizFeedbackSummary" style="margin-top: 15px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                    💡 Tips del Constructor Digital
+                </h3>
+                <div class="tip-item">
+                    <strong>🧠 Truco de Memoria:</strong> Recuerda las capas con "Aplicaciones Presentan Sesiones Tranquilas, No Enlazadas Físicamente" (de arriba hacia abajo).
+                </div>
+                <div class="tip-item">
+                    <strong>🔍 Identificación:</strong> Cada capa tiene un color único en el borde izquierdo para facilitar su reconocimiento.
+                </div>
+                <div class="tip-item">
+                    <strong>🎯 Enfoque Práctico:</strong> Piensa en cada capa como una oficina especializada que procesa tu mensaje.
+                </div>
+                <div class="tip-item">
+                    <strong>🚀 Pro Tip:</strong> La comunicación real pasa por TODAS las capas, tanto al enviar como al recibir.
+                </div>
+            </div>
+
+            <div id="feedback" class="feedback-area"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">Construyendo torre...</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Completar Actividad
+            </button>
+        </div>
+
+        <!-- Elemento de celebración -->
+        <div id="celebration" class="celebration">
+            🎉 ¡Piso Construido! 🎉<br>
+            <span style="font-size: 0.8em;">¡Sigue construyendo!</span>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let progress = 0;
+        let layersBuilt = new Set();
+        let totalLayers = 7;
+        let badgesEarned = 0;
+        let quizCompleted = false;
+        let simulationCompleted = false;
+        let exercisesCompleted = new Set();
+        let isCompleted = false;
+
+        // Quiz variables
+        let currentQuestionIndex = 0;
+        let quizAnswers = [];
+
+        // Exercise variables
+        let currentExercise = 0;
+
+        const quizQuestions = [
+            {
+                question: "¿Cuántas capas tiene el modelo OSI y cuál es su propósito principal?",
+                options: [
+                    "🔢 5 capas para protocolos de Internet",
+                    "🏗️ 7 capas para estandarizar la comunicación de red",
+                    "📊 4 capas para el modelo TCP/IP",
+                    "🌐 6 capas para redes locales"
+                ],
+                correct: 1,
+                explanation: "El modelo OSI tiene 7 capas que proporcionan un marco estándar para entender cómo los diferentes protocolos y tecnologías trabajan juntos en las comunicaciones de red."
+            },
+            {
+                question: "¿En qué capa del modelo OSI opera el protocolo HTTP?",
+                options: [
+                    "🔗 Capa 2 - Enlace de Datos",
+                    "🗺️ Capa 3 - Red",
+                    "🚚 Capa 4 - Transporte",
+                    "🎯 Capa 7 - Aplicación"
+                ],
+                correct: 3,
+                explanation: "HTTP (Hypertext Transfer Protocol) opera en la Capa 7 (Aplicación), donde los usuarios interactúan directamente con las aplicaciones web."
+            },
+            {
+                question: "¿Cuál es la función principal de la Capa 4 (Transporte)?",
+                options: [
+                    "🔐 Cifrar y comprimir datos",
+                    "📦 Garantizar entrega confiable y control de flujo",
+                    "🗺️ Enrutar paquetes entre redes",
+                    "⚡ Transmitir bits por el medio físico"
+                ],
+                correct: 1,
+                explanation: "La Capa de Transporte se encarga de la entrega confiable de datos, control de flujo, y gestión de conexiones usando protocolos como TCP y UDP."
+            },
+            {
+                question: "¿Qué protocolo es característico de la Capa 3 (Red)?",
+                options: [
+                    "📡 TCP",
+                    "🌐 IP (Internet Protocol)",
+                    "🔗 Ethernet",
+                    "📧 SMTP"
+                ],
+                correct: 1,
+                explanation: "IP (Internet Protocol) es el protocolo principal de la Capa 3, responsable del direccionamiento lógico y enrutamiento de paquetes entre redes."
+            },
+            {
+                question: "¿Cuál es la diferencia principal entre la Capa 1 (Físico) y Capa 2 (Enlace de Datos)?",
+                options: [
+                    "🔌 Capa 1 maneja bits, Capa 2 maneja frames y control de acceso",
+                    "⚡ Capa 1 es software, Capa 2 es hardware",
+                    "📡 Capa 1 es inalámbrica, Capa 2 es cableada",
+                    "🔧 No hay diferencia, son lo mismo"
+                ],
+                correct: 0,
+                explanation: "La Capa Físico (1) se encarga de la transmisión de bits crudos, mientras que la Capa de Enlace de Datos (2) organiza estos bits en frames y maneja el control de acceso al medio."
+            }
+        ];
+
+        const exercises = {
+            1: {
+                title: "🔢 Ordenar las Capas OSI",
+                type: "drag-drop",
+                items: [
+                    { id: "app", text: "Aplicación", correct: 0 },
+                    { id: "pres", text: "Presentación", correct: 1 },
+                    { id: "sess", text: "Sesión", correct: 2 },
+                    { id: "trans", text: "Transporte", correct: 3 },
+                    { id: "net", text: "Red", correct: 4 },
+                    { id: "link", text: "Enlace de Datos", correct: 5 },
+                    { id: "phys", text: "Físico", correct: 6 }
+                ]
+            },
+            2: {
+                title: "🔗 Asociar Protocolos con Capas",
+                type: "matching",
+                pairs: [
+                    { protocol: "HTTP", layer: "Aplicación", correct: true },
+                    { protocol: "TCP", layer: "Transporte", correct: true },
+                    { protocol: "IP", layer: "Red", correct: true },
+                    { protocol: "Ethernet", layer: "Enlace de Datos", correct: true }
+                ]
+            },
+            3: {
+                title: "🎮 Flujo de Envío de Email",
+                type: "sequence",
+                steps: [
+                    "Usuario escribe email en cliente",
+                    "Aplicación usa protocolo SMTP",
+                    "TCP establece conexión confiable",
+                    "IP enruta paquetes al servidor",
+                    "Ethernet envía frames localmente",
+                    "Señales viajan por cables/WiFi"
+                ]
+            },
+            4: {
+                title: "🧩 Diagnóstico de Problemas",
+                type: "scenarios",
+                scenarios: [
+                    {
+                        problem: "No hay conexión a Internet, pero la red local funciona",
+                        options: ["Capa 1 - Físico", "Capa 3 - Red", "Capa 7 - Aplicación"],
+                        correct: 1,
+                        explanation: "Problema en Capa 3 (Red) - posiblemente configuración de gateway o routing."
+                    }
+                ]
+            }
+        };
+
+        function updateProgress() {
+            const progressPercent = Math.round((progress / 100) * 100);
+            
+            // Actualizar estadísticas
+            document.getElementById('layersBuilt').textContent = `${layersBuilt.size}/${totalLayers}`;
+            document.getElementById('badgesCount').textContent = badgesEarned;
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+
+            // Actualizar nivel
+            let level = 'Aprendiz';
+            if (progress >= 90) level = 'Arquitecto Maestro';
+            else if (progress >= 70) level = 'Constructor Experto';
+            else if (progress >= 50) level = 'Constructor Avanzado';
+            else if (progress >= 25) level = 'Constructor Junior';
+            document.getElementById('constructorLevel').textContent = level;
+
+            updateCompletionStatus();
+        }
+
+        function updateCompletionStatus() {
+            const statusText = document.getElementById('statusText');
+            const statusIndicator = document.getElementById('statusIndicator');
+
+            const completionFactors = [
+                layersBuilt.size >= 5,
+                quizCompleted,
+                simulationCompleted,
+                exercisesCompleted.size >= 2
+            ];
+
+            const completedFactors = completionFactors.filter(Boolean).length;
+
+            if (completedFactors >= 3) {
+                statusText.textContent = 'Listo para completar ✅';
+                statusIndicator.style.background = '#28a745';
+            } else if (completedFactors >= 2) {
+                statusText.textContent = 'Buen progreso...';
+                statusIndicator.style.background = '#ffc107';
+            } else {
+                statusText.textContent = 'Construyendo torre...';
+                statusIndicator.style.background = '#dc3545';
+            }
+        }
+
+        function addProgress(amount) {
+            progress = Math.min(100, progress + amount);
+            updateProgress();
+        }
+
+        function showCelebration(message) {
+            const celebration = document.getElementById('celebration');
+            celebration.innerHTML = `🎉 ${message} 🎉<br><span style="font-size: 0.8em;">¡Sigue construyendo!</span>`;
+            celebration.style.display = 'block';
+
+            setTimeout(() => {
+                celebration.style.display = 'none';
+            }, 2500);
+        }
+
+        function showMnemonic(type) {
+            // Cerrar todas las mnemotecnias primero
+            document.querySelectorAll('[id^="mnemonic-"]').forEach(div => {
+                if (div.id !== `mnemonic-${type}`) {
+                    div.style.display = 'none';
+                }
+            });
+
+            const mnemonicDiv = document.getElementById(`mnemonic-${type}`);
+            if (mnemonicDiv.style.display === 'none' || mnemonicDiv.style.display === '') {
+                mnemonicDiv.style.display = 'block';
+            } else {
+                mnemonicDiv.style.display = 'none';
+            }
+        }
+
+        function buildLayer(layerNumber) {
+            const layerElement = document.querySelector(`.layer-${layerNumber}`);
+            const layerDetails = document.getElementById(`layer-${layerNumber}-details`);
+
+            // Marcar como construido
+            if (!layersBuilt.has(layerNumber)) {
+                layersBuilt.add(layerNumber);
+                layerElement.classList.add('built');
+                addProgress(8); // 8% por cada capa construida
+                badgesEarned++;
+
+                const layerNames = {
+                    7: 'Aplicación',
+                    6: 'Presentación',
+                    5: 'Sesión',
+                    4: 'Transporte',
+                    3: 'Red',
+                    2: 'Enlace de Datos',
+                    1: 'Físico'
+                };
+
+                showCelebration(`¡Capa ${layerNumber} (${layerNames[layerNumber]}) construida!`);
+            }
+
+            // Mostrar/ocultar detalles
+            if (layerDetails.classList.contains('show')) {
+                layerDetails.classList.remove('show');
+            } else {
+                // Cerrar otros detalles
+                document.querySelectorAll('.layer-details').forEach(detail => {
+                    detail.classList.remove('show');
+                });
+                layerDetails.classList.add('show');
+            }
+
+            // Comprobar si todas las capas han sido construidas
+            if (layersBuilt.size === totalLayers) {
+                setTimeout(() => {
+                    showCelebration('¡Torre OSI completa! Continúa con las otras actividades.');
+                    addProgress(10); // Bonus por completar toda la torre
+                }, 1000);
+            }
+        }
+
+        // Funciones del Quiz
+        function loadQuiz() {
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            const question = quizQuestions[index];
+            document.getElementById('quizQuestion').textContent = question.question;
+            document.getElementById('questionCounter').textContent = `Pregunta ${index + 1} de ${quizQuestions.length}`;
+
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, i) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(i);
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // Actualizar navegación
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('quiz-feedback');
+
+            // Deshabilitar todas las opciones
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === question.correct) {
+                    opt.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    opt.classList.add('incorrect');
+                } else if (index !== question.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Guardar respuesta
+            quizAnswers[currentQuestionIndex] = {
+                selected: selectedIndex,
+                correct: selectedIndex === question.correct
+            };
+
+            // Mostrar feedback
+            if (selectedIndex === question.correct) {
+                feedback.textContent = '🎉 ¡Correcto! ' + question.explanation;
+                feedback.className = 'feedback positive show';
+                if (!quizAnswers[currentQuestionIndex].wasCorrectBefore) {
+                    addProgress(4); // 4% por pregunta correcta
+                }
+            } else {
+                feedback.textContent = '🤔 Incorrecto. ' + question.explanation;
+                feedback.className = 'feedback negative show';
+            }
+
+            // Habilitar navegación
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                resetQuestionUI();
+                loadQuestion(currentQuestionIndex);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                resetQuestionUI();
+                loadQuestion(currentQuestionIndex);
+
+                // Si ya había una respuesta, mostrarla
+                if (quizAnswers[currentQuestionIndex]) {
+                    const answer = quizAnswers[currentQuestionIndex];
+                    selectAnswer(answer.selected);
+                }
+            }
+        }
+
+        function resetQuestionUI() {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.className = 'feedback';
+            feedback.textContent = '';
+        }
+
+        function finishQuiz() {
+            quizCompleted = true;
+
+            // Calcular resultados
+            const correctCount = quizAnswers.filter(a => a && a.correct).length;
+            const score = Math.round((correctCount / quizQuestions.length) * 100);
+
+            let grade = 'F';
+            if (score >= 90) grade = 'A';
+            else if (score >= 80) grade = 'B';
+            else if (score >= 70) grade = 'C';
+            else if (score >= 60) grade = 'D';
+
+            // Mostrar resultados
+            document.getElementById('finalScore').textContent = score + '%';
+            document.getElementById('correctAnswers').textContent = `${correctCount}/${quizQuestions.length}`;
+            document.getElementById('quizGrade').textContent = grade;
+
+            // Feedback del quiz
+            const summaryDiv = document.getElementById('quizFeedbackSummary');
+            let summaryText = '';
+            if (score >= 90) {
+                summaryText = '🏆 ¡Excelente! Eres un verdadero maestro del modelo OSI.';
+            } else if (score >= 70) {
+                summaryText = '👍 ¡Bien hecho! Tienes un buen entendimiento del modelo OSI.';
+            } else {
+                summaryText = '📚 Buen intento. Repasa las capas y sus funciones para mejorar.';
+            }
+            summaryDiv.innerHTML = `<p style="color: #38a169; font-weight: bold;">${summaryText}</p>`;
+
+            // Mostrar sección de resultados
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+
+            addProgress(15); // Bonus por completar quiz
+            showCelebration('🎓 Quiz OSI completado');
+        }
+
+        // Funciones de Simulación
+        let currentLayer = 0;
+        let isSimulating = false;
+
+        function startSimulation() {
+            const message = document.getElementById('messageInput').value;
+            if (!message.trim()) {
+                alert('Por favor, escribe un mensaje para enviar.');
+                return;
+            }
+
+            if (isSimulating) return;
+
+            isSimulating = true;
+            currentLayer = 7;
+
+            document.getElementById('messagePacket').style.display = 'block';
+            document.getElementById('simulationSteps').innerHTML = '<h4>📡 Proceso de Encapsulación (Emisor)</h4>';
+
+            simulateStep();
+        }
+
+        function simulateStep() {
+            if (currentLayer < 1) {
+                // Cambiar a receptor
+                currentLayer = 1;
+                document.getElementById('simulationSteps').innerHTML += '<br><h4>📥 Proceso de Desencapsulación (Receptor)</h4>';
+                simulateReceiver();
+                return;
+            }
+
+            const layerNames = {
+                7: 'Aplicación - Prepara el mensaje del usuario',
+                6: 'Presentación - Cifra y comprime los datos',
+                5: 'Sesión - Establece la sesión de comunicación',
+                4: 'Transporte - Añade información de puerto y control',
+                3: 'Red - Añade direcciones IP de origen y destino',
+                2: 'Enlace de Datos - Añade direcciones MAC y control de errores',
+                1: 'Físico - Convierte a señales eléctricas/ópticas'
+            };
+
+            // Activar capa en el emisor
+            const senderLayers = document.querySelectorAll('#senderStack .stack-layer');
+            senderLayers[7 - currentLayer].classList.add('active');
+
+            // Añadir paso
+            const stepDiv = document.createElement('div');
+            stepDiv.innerHTML = `<strong>Capa ${currentLayer}:</strong> ${layerNames[currentLayer]}`;
+            stepDiv.style.margin = '5px 0';
+            stepDiv.style.padding = '8px';
+            stepDiv.style.background = 'rgba(66, 153, 225, 0.1)';
+            stepDiv.style.borderRadius = '5px';
+            document.getElementById('simulationSteps').appendChild(stepDiv);
+
+            currentLayer--;
+
+            setTimeout(simulateStep, 1000);
+        }
+
+        function simulateReceiver() {
+            if (currentLayer > 7) {
+                // Simulación completa
+                document.getElementById('simulationSteps').innerHTML += '<br><h4>✅ ¡Mensaje entregado exitosamente!</h4>';
+                isSimulating = false;
+
+                if (!simulationCompleted) {
+                    simulationCompleted = true;
+                    addProgress(15);
+                    showCelebration('¡Simulación OSI completada!');
+                }
+                return;
+            }
+
+            const layerNames = {
+                1: 'Físico - Recibe señales y las convierte a bits',
+                2: 'Enlace de Datos - Verifica direcciones MAC y errores',
+                3: 'Red - Verifica dirección IP de destino',
+                4: 'Transporte - Verifica puerto y reensambla datos',
+                5: 'Sesión - Mantiene la sesión activa',
+                6: 'Presentación - Descifra y descomprime',
+                7: 'Aplicación - Entrega mensaje al usuario'
+            };
+
+            // Activar capa en el receptor
+            const receiverLayers = document.querySelectorAll('#receiverStack .stack-layer');
+            receiverLayers[7 - currentLayer].classList.add('active');
+
+            // Añadir paso
+            const stepDiv = document.createElement('div');
+            stepDiv.innerHTML = `<strong>Capa ${currentLayer}:</strong> ${layerNames[currentLayer]}`;
+            stepDiv.style.margin = '5px 0';
+            stepDiv.style.padding = '8px';
+            stepDiv.style.background = 'rgba(72, 187, 120, 0.1)';
+            stepDiv.style.borderRadius = '5px';
+            document.getElementById('simulationSteps').appendChild(stepDiv);
+
+            currentLayer++;
+
+            setTimeout(simulateReceiver, 1000);
+        }
+
+        function resetSimulation() {
+            isSimulating = false;
+            currentLayer = 0;
+
+            document.getElementById('messagePacket').style.display = 'none';
+            document.getElementById('messageInput').value = '';
+            document.getElementById('simulationSteps').innerHTML = '';
+
+            // Resetear capas
+            document.querySelectorAll('.stack-layer').forEach(layer => {
+                layer.classList.remove('active');
+            });
+        }
+
+        // Funciones de Ejercicios
+        function startExercise(exerciseNum) {
+            currentExercise = exerciseNum;
+            const exercise = exercises[exerciseNum];
+
+            document.getElementById('exercise-title').textContent = exercise.title;
+            document.getElementById('exercise-area').style.display = 'block';
+
+            const content = document.getElementById('exercise-content');
+            content.innerHTML = '';
+
+            if (exercise.type === 'drag-drop') {
+                setupDragDropExercise(exercise);
+            } else if (exercise.type === 'matching') {
+                setupMatchingExercise(exercise);
+            } else if (exercise.type === 'sequence') {
+                setupSequenceExercise(exercise);
+            } else if (exercise.type === 'scenarios') {
+                setupScenariosExercise(exercise);
+            }
+
+            // Scroll al ejercicio
+            document.getElementById('exercise-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function setupDragDropExercise(exercise) {
+            const content = document.getElementById('exercise-content');
+
+            content.innerHTML = `
+                <p>Arrastra las capas al orden correcto (de arriba hacia abajo):</p>
+                <div style="margin: 20px 0;">
+                    <h5>Capas disponibles:</h5>
+                    <div id="available-items" style="border: 2px dashed #cbd5e0; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        ${exercise.items.map(item =>
+                `<div class="draggable-layer" draggable="true" data-id="${item.id}" ondragstart="drag(event)">${item.text}</div>`
+            ).join('')}
+                    </div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <h5>Orden correcto (Capa 7 → Capa 1):</h5>
+                    ${Array.from({ length: 7 }, (_, i) =>
+                `<div class="drop-zone" data-position="${i}" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                            Capa ${7 - i}: Arrastra aquí
+                        </div>`
+            ).join('')}
+                </div>
+            `;
+        }
+
+        function setupMatchingExercise(exercise) {
+            const content = document.getElementById('exercise-content');
+            content.innerHTML = `
+                <p>Asocia cada protocolo con su capa correspondiente:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div>
+                        <h5>Protocolos:</h5>
+                        ${exercise.pairs.map((pair, i) =>
+                `<div class="draggable-layer" draggable="true" data-protocol="${pair.protocol}" ondragstart="drag(event)">${pair.protocol}</div>`
+            ).join('')}
+                    </div>
+                    <div>
+                        <h5>Capas:</h5>
+                        ${exercise.pairs.map((pair, i) =>
+                `<div class="drop-zone" data-layer="${pair.layer}" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                                ${pair.layer}
+                            </div>`
+            ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupSequenceExercise(exercise) {
+            const content = document.getElementById('exercise-content');
+            const shuffled = [...exercise.steps].sort(() => Math.random() - 0.5);
+
+            content.innerHTML = `
+                <p>Ordena los pasos del proceso de envío de email:</p>
+                <div style="margin: 20px 0;">
+                    <h5>Pasos desordenados:</h5>
+                    <div id="available-steps" style="border: 2px dashed #cbd5e0; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        ${shuffled.map((step, i) =>
+                `<div class="draggable-layer" draggable="true" data-step="${step}" ondragstart="drag(event)">${step}</div>`
+            ).join('')}
+                    </div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <h5>Orden correcto:</h5>
+                    ${Array.from({ length: exercise.steps.length }, (_, i) =>
+                `<div class="drop-zone" data-position="${i}" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                            Paso ${i + 1}: Arrastra aquí
+                        </div>`
+            ).join('')}
+                </div>
+            `;
+        }
+
+        function setupScenariosExercise(exercise) {
+            const content = document.getElementById('exercise-content');
+            const scenario = exercise.scenarios[0];
+
+            content.innerHTML = `
+                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <h5>🚨 Escenario de Problema:</h5>
+                    <p><strong>${scenario.problem}</strong></p>
+                </div>
+                <p>¿En qué capa del modelo OSI es más probable que esté el problema?</p>
+                <div style="margin: 20px 0;">
+                    ${scenario.options.map((option, i) =>
+                `<div class="quiz-option" onclick="selectScenarioAnswer(${i})" data-scenario-option="${i}">
+                            ${option}
+                        </div>`
+            ).join('')}
+                </div>
+                <div id="scenario-feedback" style="margin-top: 15px;"></div>
+            `;
+        }
+
+        // Drag and Drop functions
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function dragEnter(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.add('drag-over');
+        }
+
+        function dragLeave(ev) {
+            ev.preventDefault();
+            if (!ev.currentTarget.contains(ev.relatedTarget)) {
+                ev.currentTarget.classList.remove('drag-over');
+            }
+        }
+
+        function drag(ev) {
+            const data = ev.target.dataset.id || ev.target.dataset.protocol || ev.target.dataset.step;
+            ev.dataTransfer.setData("text", data);
+            ev.dataTransfer.setData("content", ev.target.textContent);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+
+            const data = ev.dataTransfer.getData("text");
+            const content = ev.dataTransfer.getData("content");
+
+            if (ev.currentTarget.classList.contains('drop-zone') && !ev.currentTarget.querySelector('.draggable-layer')) {
+                ev.currentTarget.innerHTML = content;
+                ev.currentTarget.style.background = 'rgba(66, 153, 225, 0.1)';
+                ev.currentTarget.dataset.dropped = data;
+            }
+        }
+
+        function selectScenarioAnswer(selectedIndex) {
+            const exercise = exercises[currentExercise];
+            const scenario = exercise.scenarios[0];
+            const options = document.querySelectorAll('[data-scenario-option]');
+            const feedback = document.getElementById('scenario-feedback');
+
+            options.forEach((opt, index) => {
+                opt.style.pointerEvents = 'none';
+                if (index === scenario.correct) {
+                    opt.classList.add('correct');
+                } else {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === scenario.correct) {
+                feedback.innerHTML = `<div class="feedback positive show">🎉 ¡Correcto! ${scenario.explanation}</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback negative show">🤔 Incorrecto. ${scenario.explanation}</div>`;
+            }
+        }
+
+        function checkExercise() {
+            const exercise = exercises[currentExercise];
+            let isCorrect = false;
+
+            if (exercise.type === 'drag-drop') {
+                isCorrect = checkDragDropExercise(exercise);
+            } else if (exercise.type === 'matching') {
+                isCorrect = checkMatchingExercise(exercise);
+            } else if (exercise.type === 'sequence') {
+                isCorrect = checkSequenceExercise(exercise);
+            } else if (exercise.type === 'scenarios') {
+                // Para escenarios, verificamos si ya se seleccionó una respuesta
+                isCorrect = document.querySelector('.quiz-option.correct') !== null;
+            }
+
+            const feedback = document.getElementById('exercise-feedback');
+
+            if (isCorrect) {
+                feedback.innerHTML = '<div class="feedback positive show">🎉 ¡Excelente! Ejercicio completado correctamente.</div>';
+
+                if (!exercisesCompleted.has(currentExercise)) {
+                    exercisesCompleted.add(currentExercise);
+                    document.getElementById(`exercise${currentExercise}`).classList.add('completed');
+                    document.getElementById(`badge-exercise${currentExercise}`).style.display = 'inline-block';
+
+                    // Actualizar progreso
+                    document.getElementById('exerciseProgress').textContent = `${exercisesCompleted.size}/4 completados`;
+
+                    addProgress(7); // 7% por ejercicio
+                    showCelebration(`¡Ejercicio ${currentExercise} completado!`);
+                }
+
+                setTimeout(() => {
+                    cancelExercise();
+                }, 2000);
+            } else {
+                feedback.innerHTML = '<div class="feedback negative show">🤔 Revisa tus respuestas. Algo no está correcto.</div>';
+            }
+        }
+
+        function checkDragDropExercise(exercise) {
+            const dropZones = document.querySelectorAll('.drop-zone[data-position]');
+
+            for (let i = 0; i < dropZones.length; i++) {
+                const zone = dropZones[i];
+                const expectedItem = exercise.items.find(item => item.correct === i);
+
+                if (!zone.dataset.dropped || zone.dataset.dropped !== expectedItem.id) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function checkMatchingExercise(exercise) {
+            const dropZones = document.querySelectorAll('.drop-zone[data-layer]');
+
+            for (const zone of dropZones) {
+                const layer = zone.dataset.layer;
+                const expectedPair = exercise.pairs.find(pair => pair.layer === layer);
+
+                if (!zone.textContent.includes(expectedPair.protocol)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function checkSequenceExercise(exercise) {
+            const dropZones = document.querySelectorAll('.drop-zone[data-position]');
+
+            for (let i = 0; i < dropZones.length; i++) {
+                const zone = dropZones[i];
+                const expectedStep = exercise.steps[i];
+
+                if (!zone.dataset.dropped || zone.dataset.dropped !== expectedStep) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function cancelExercise() {
+            document.getElementById('exercise-area').style.display = 'none';
+            currentExercise = 0;
+        }
+
+        function showTab(tabName) {
+            // Ocultar todas las pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+
+            // Actualizar botones de navegación
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Cargar contenido específico si es necesario
+            if (tabName === 'quiz' && !quizCompleted) {
+                loadQuiz();
+            }
+        }
+
+        function markCompleted() {
+            const requiredProgress = [
+                { condition: layersBuilt.size >= 5, message: 'Construye al menos 5 capas de la torre OSI' },
+                { condition: quizCompleted, message: 'Completa el quiz de 5 preguntas' },
+                { condition: simulationCompleted, message: 'Ejecuta la simulación de comunicación' },
+                { condition: exercisesCompleted.size >= 2, message: 'Completa al menos 2 ejercicios prácticos' }
+            ];
+
+            const missingRequirements = requiredProgress.filter(req => !req.condition);
+
+            if (missingRequirements.length > 0) {
+                alert('📋 Para completar la actividad necesitas:\n\n' +
+                    missingRequirements.map(req => '• ' + req.message).join('\n'));
+                return;
+            }
+
+            if (!isCompleted) {
+                isCompleted = true;
+                const indicator = document.getElementById('statusIndicator');
+                const statusText = document.getElementById('statusText');
+                
+                indicator.classList.add('completed');
+                statusText.textContent = 'Actividad Completada ✅';
+                
+                // Calcular puntuación final
+                const basePoints = 200;
+                const bonusPoints = (layersBuilt.size * 10) + (exercisesCompleted.size * 20) + (quizCompleted ? 50 : 0) + (simulationCompleted ? 30 : 0);
+                const totalPoints = basePoints + bonusPoints;
+
+                showCelebration('¡Actividad Completada! Ahora eres un Arquitecto del Modelo OSI');
+
+                setTimeout(() => {
+                    alert('🎓 ¡Felicitaciones! Has completado exitosamente la Actividad 5: Constructor Digital.\n\n' +
+                        'Has dominado:\n' +
+                        '🏗️ Construcción de las 7 capas OSI\n' +
+                        '🎯 Conocimiento profundo de cada capa\n' +
+                        '🔄 Simulación de comunicación de red\n' +
+                        '📝 Ejercicios prácticos avanzados\n' +
+                        '🧠 Trucos mnemotécnicos para recordar\n\n' +
+                        `🏆 Puntuación total: ${totalPoints} puntos\n\n` +
+                        '¡Ya dominas el Modelo OSI! Has completado la actividad más avanzada del módulo.');
+                }, 2000);
+            }
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar
+        updateProgress();
+        loadQuiz();
+
+        // Autoguardado simulado
+        setInterval(() => {
+            if (layersBuilt.size > 0 || simulationCompleted || quizCompleted || exercisesCompleted.size > 0) {
+                console.log('Progreso guardado automáticamente');
+            }
+        }, 30000);
+    </script>
+
+</body>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4 - Los Guardianes Digitales (Seguridad)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        .navigation-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .back-btn:active {
+            transform: translateY(0);
+        }
+
+        .module-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            
+        }
+
+        .module-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        
+
+        
+
+        
+
+        .tabs {
+            display: flex;
+            background: var(--surface);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .tab.active {
+            background: var(--surface);
+            color: var(--purple);
+            border-bottom-color: var(--purple);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--surface2);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            min-height: 400px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .teoria-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .teoria-section {
+            margin-bottom: 40px;
+        }
+
+        .teoria-title {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .teoria-subsection {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #dc3545;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subsection-content {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #721c24;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border: 2px solid #FF9800;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #E65100;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submodulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .actividad-card {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .actividad-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .actividad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border-color: #EF4444;
+        }
+
+        .actividad-card:hover::before {
+            left: 100%;
+        }
+
+        .actividad-numero {
+            display: inline-block;
+            background: #EF4444;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .actividad-titulo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .actividad-descripcion {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .actividad-duracion {
+            display: inline-block;
+            background: rgba(220, 53, 69, 0.1);
+            color: #EF4444;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .quiz-card {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+
+        .quiz-card .actividad-numero {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .quiz-card .actividad-titulo {
+            color: white;
+        }
+
+        .quiz-card .actividad-descripcion {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .quiz-card .actividad-duracion {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .objetivos-container {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #dc3545;
+        }
+
+        .objetivos-title {
+            font-size: 1.4rem;
+            color: #c62828;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objetivo-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .security-note {
+            background: var(--bg);
+            border: 2px solid #FFC107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #FF8F00;
+        }
+
+        .security-note-title {
+            font-weight: 600;
+            color: #E65100;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        
+
+        
+
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        
+        @media (max-width: 768px) {
+            
+
+            
+
+            .navigation-back {
+                position: relative;
+                margin-bottom: 20px;
+                text-align: left;
+            }
+
+            .module-title {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .submodulos-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .back-btn {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="navigation-back">
+                <a href="/bootcamp/" class="back-btn">
+                    ← Hub del Bootcamp
+                </a>
+            </div>
+            
+            <h1 class="module-title">🛡️ Módulo 4</h1>
+            <p class="module-subtitle">Los Guardianes Digitales (Seguridad)</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('teoria')">
+                    📚 Teoría
+                </div>
+                <div class="tab" onclick="showTab('submodulos')">
+                    🎯 Submódulos
+                </div>
+            </div>
+
+            <div id="teoria" class="tab-content active">
+                <div class="objetivos-container">
+                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <div class="objetivo-item">
+                        <strong>🛡️ Al finalizar este módulo podrás:</strong> Comprender los fundamentos de la seguridad digital y protección de comunicaciones en redes modernas.
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>🔐 Dominar:</strong> Conceptos de encriptación, autenticación, integridad de datos, firewalls y VPNs para proteger sistemas y comunicaciones.
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>⚡ Aplicar:</strong> Técnicas de seguridad básicas para proteger redes, verificar identidades y establecer comunicaciones seguras.
+                    </div>
+                </div>
+
+                <div class="security-note">
+                    <div class="security-note-title">⚠️ Nota de Seguridad</div>
+                    En el mundo digital actual, la seguridad no es opcional. Cada bit de información que viaja por Internet puede ser interceptado, modificado o falsificado. Los guardianes digitales son las técnicas y protocolos que mantienen nuestros datos seguros.
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🔐 4.1 Los Secretos Digitales</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">¿Por qué necesitamos secretos en Internet?</h3>
+                        <div class="subsection-content">
+                            Internet es como una ciudad enorme donde millones de conversaciones ocurren simultáneamente. Sin protección, sería como gritar tus secretos en una plaza pública. La <span class="highlight">encriptación</span> es nuestro método para susurrar en un idioma que solo el destinatario entiende.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🏠 Analogía práctica:</div>
+                            Imagina que quieres enviar una carta secreta. Puedes escribirla en un código que solo tú y tu amigo conocen, o puedes ponerla en una caja fuerte donde solo ustedes tienen la llave.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Encriptación Simétrica: Una llave para todo</h3>
+                        <div class="subsection-content">
+                            En la encriptación simétrica, tanto el emisor como el receptor usan la <span class="highlight">misma llave</span> para cifrar y descifrar. Es rápida y eficiente, pero tiene un problema: ¿cómo compartir la llave de forma segura?
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Encriptación Asimétrica: Llaves públicas y privadas</h3>
+                        <div class="subsection-content">
+                            La encriptación asimétrica resuelve el problema anterior usando <span class="highlight">dos llaves relacionadas</span>: una pública (que todos pueden conocer) y una privada (que solo tú tienes). Es como tener un buzón público donde cualquiera puede depositar cartas, pero solo tú puedes abrirlo.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🔍 4.2 Verificar la Integridad</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Hashing: La huella digital de los datos</h3>
+                        <div class="subsection-content">
+                            Un <span class="highlight">hash</span> es como la huella digital de un archivo. Sin importar cuán grande sea el archivo, el hash siempre tiene el mismo tamaño y cambia completamente si se modifica aunque sea un bit del original.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🔬 Ejemplo práctico:</div>
+                            Si descargas un archivo y su hash MD5 es "a1b2c3d4", pero después de la descarga calculas el hash y obtienes "x9y8z7w6", sabes que algo se corrompió o modificó durante la transferencia.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Algoritmos comunes: MD5, SHA-256</h3>
+                        <div class="subsection-content">
+                            <strong>MD5:</strong> Rápido pero ya no se considera seguro para aplicaciones críticas.<br>
+                            <strong>SHA-256:</strong> Más lento pero mucho más seguro, usado en blockchain y aplicaciones modernas.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">✍️ 4.3 Confirmar Identidad</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Firmas Digitales: El sello personal</h3>
+                        <div class="subsection-content">
+                            Una <span class="highlight">firma digital</span> combina hashing con encriptación asimétrica. Es como firmar un documento, pero matemáticamente imposible de falsificar.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Certificados Digitales: La cédula de Internet</h3>
+                        <div class="subsection-content">
+                            Un <span class="highlight">certificado digital</span> es como una cédula de identidad que garantiza que una llave pública realmente pertenece a quien dice ser. Las Autoridades de Certificación (CA) son como las oficinas gubernamentales que emiten estas "cédulas".
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Cadenas de Confianza</h3>
+                        <div class="subsection-content">
+                            La confianza en Internet funciona como una cadena: confías en tu navegador, que confía en una CA raíz, que confía en una CA intermedia, que certifica el sitio web que visitas.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🔒 4.4 Comunicaciones Seguras</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">HTTP vs HTTPS: La diferencia del candado</h3>
+                        <div class="subsection-content">
+                            <strong>HTTP:</strong> Como enviar postales - cualquiera puede leer el contenido.<br>
+                            <strong>HTTPS:</strong> Como enviar cartas en sobres lacrados - el contenido está protegido durante el tránsito.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">SSL/TLS: El túnel seguro</h3>
+                        <div class="subsection-content">
+                            <span class="highlight">TLS (Transport Layer Security)</span> es el protocolo que hace posible HTTPS. Crea un "túnel" encriptado entre tu navegador y el servidor, donde nadie más puede ver lo que pasa adentro.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Intercambio de Llaves</h3>
+                        <div class="subsection-content">
+                            Antes de establecer una comunicación segura, ambas partes deben acordar qué llaves usar. Este proceso, llamado <span class="highlight">"handshake"</span>, es como dos personas acordando hablar en un idioma secreto antes de iniciar la conversación.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🏰 4.5 Muros de Protección (Firewalls)</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Firewalls: Los guardias de seguridad</h3>
+                        <div class="subsection-content">
+                            Un <span class="highlight">firewall</span> es como un guardia de seguridad en la entrada de un edificio. Examina cada persona (paquete) que quiere entrar o salir, y decide si puede pasar basándose en las reglas establecidas.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Stateful vs Stateless</h3>
+                        <div class="subsection-content">
+                            <strong>Stateless:</strong> Como un guardia que no recuerda a nadie - cada vez debe verificar desde cero.<br>
+                            <strong>Stateful:</strong> Como un guardia con buena memoria - recuerda conversaciones anteriores y puede tomar decisiones más inteligentes.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Puertos y Protocolos</h3>
+                        <div class="subsection-content">
+                            Los <span class="highlight">puertos</span> son como las diferentes puertas de un edificio. Puerto 80 para HTTP, puerto 443 para HTTPS, puerto 22 para SSH. El firewall puede abrir o cerrar estas puertas según sea necesario.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🌉 4.6 Túneles Seguros (VPN)</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">VPN: El túnel privado en Internet público</h3>
+                        <div class="subsection-content">
+                            Una <span class="highlight">VPN (Virtual Private Network)</span> es como construir un túnel privado a través de una autopista pública. Tu tráfico viaja encriptado desde tu dispositivo hasta el servidor VPN, ocultando tu ubicación y protegiendo tus datos.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Casos de Uso</h3>
+                        <div class="subsection-content">
+                            <strong>Oficinas remotas:</strong> Conectar sucursales como si estuvieran en la misma red.<br>
+                            <strong>Trabajadores móviles:</strong> Acceso seguro a recursos corporativos desde cualquier lugar.<br>
+                            <strong>Privacidad personal:</strong> Ocultar tu ubicación y proteger tu navegación.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">IPsec: El protocolo de los túneles</h3>
+                        <div class="subsection-content">
+                            <span class="highlight">IPsec</span> es uno de los protocolos más usados para crear VPNs. Opera en la capa de red y puede proteger todo el tráfico IP entre dos puntos, sin que las aplicaciones necesiten saber que están siendo protegidas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="submodulos" class="tab-content">
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🛡️ Actividades Prácticas de Seguridad</h2>
+                
+                <div class="submodulos-grid">
+                    <a href="./actividad1_encriptacion.html" class="actividad-card">
+                        <div class="actividad-numero">1</div>
+                        <h3 class="actividad-titulo">🔐 Laboratorio de Encriptación Simple</h3>
+                        <p class="actividad-descripcion">Experimenta con encriptación simétrica y asimétrica. Cifra y descifra mensajes usando diferentes algoritmos y comprende la importancia de las llaves.</p>
+                        <span class="actividad-duracion">⏱️ 25 min</span>
+                    </a>
+
+                    <a href="./actividad2_integridad.html" class="actividad-card">
+                        <div class="actividad-numero">2</div>
+                        <h3 class="actividad-titulo">🧪 Verificador de Integridad (Hashing)</h3>
+                        <p class="actividad-descripcion">Aprende a calcular y verificar hashes MD5 y SHA-256. Descubre cómo detectar modificaciones en archivos y datos.</p>
+                        <span class="actividad-duracion">⏱️ 20 min</span>
+                    </a>
+
+                    <a href="./actividad3_certificados.html" class="actividad-card">
+                        <div class="actividad-numero">3</div>
+                        <h3 class="actividad-titulo">🔍 Inspector de Certificados SSL</h3>
+                        <p class="actividad-descripcion">Examina certificados digitales de sitios web reales. Comprende cadenas de confianza y validación de identidades.</p>
+                        <span class="actividad-duracion">⏱️ 30 min</span>
+                    </a>
+
+                    <a href="./actividad4_firewall.html" class="actividad-card">
+                        <div class="actividad-numero">4</div>
+                        <h3 class="actividad-titulo">🚪 Configurador de Reglas de Firewall</h3>
+                        <p class="actividad-descripcion">Diseña y configura reglas de firewall para proteger una red. Aprende sobre puertos, protocolos y políticas de seguridad.</p>
+                        <span class="actividad-duracion">⏱️ 35 min</span>
+                    </a>
+
+                    <a href="./actividad5_vpn.html" class="actividad-card">
+                        <div class="actividad-numero">5</div>
+                        <h3 class="actividad-titulo">🌉 Simulador de Túnel VPN</h3>
+                        <p class="actividad-descripcion">Simula el establecimiento de conexiones VPN entre oficinas remotas. Comprende túneles seguros y protocolos IPsec.</p>
+                        <span class="actividad-duracion">⏱️ 40 min</span>
+                    </a>
+
+                    <a href="./quiz_modulo4.html" class="actividad-card quiz-card">
+                        <div class="actividad-numero">Q</div>
+                        <h3 class="actividad-titulo">Quiz de Seguridad Digital</h3>
+                        <p class="actividad-descripcion">Evalúa tus conocimientos sobre encriptación, autenticación, firewalls y VPNs con 5 preguntas desafiantes.</p>
+                        <span class="actividad-duracion">⏱️ 15 min</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remover clase active de todos los tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el tab correspondiente
+            event.target.classList.add('active');
+
+            // Actualizar barra de progreso (simulado)
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const randomProgress = Math.floor(Math.random() * 60) + 30; // 30-90%
+            progressBar.style.width = randomProgress + '%';
+        }
+
+        // Inicializar progreso al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+
+</body>
+</html>

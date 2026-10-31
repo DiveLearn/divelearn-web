@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 - Editor de Archivos de Configuración</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .file-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .file-tab {
+            background: var(--surface);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-tab.active {
+            background: var(--purple);
+            color: white;
+        }
+
+        .file-tab:hover:not(.active) {
+            background: var(--surface2);
+        }
+
+        .editor-container {
+            background: #1f1d5c;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .editor-header {
+            background: #2d2d30;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .editor-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editor-btn {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .editor-btn:hover {
+            background: #005a9e;
+        }
+
+        .editor-btn.save {
+            background: #22C55E;
+        }
+
+        .editor-btn.save:hover {
+            background: #22C55E;
+        }
+
+        .editor-content {
+            position: relative;
+        }
+
+        .line-numbers {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #252526;
+            color: #858585;
+            padding: 15px 10px;
+            font-family: 'Courier New', Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+            user-
+
+        .file-content {
+            display: none;
+        }
+
+        .file-content.active {
+            display: block;
+        }
+
+        .config-explanation {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .explanation-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation-content {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .config-tips {
+            background: var(--surface2);
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        
+
+        
+
+        .challenge-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-item {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .challenge-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .validation-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .validation-success {
+            background: rgba(34,197,94,0.15);
+            border: 1px solid var(--purple);
+            color: var(--text-muted);
+        }
+
+        .validation-error {
+            background: rgba(239,68,68,0.15);
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        .comment { color: #6a9955; }
+        .variable { color: #9cdcfe; }
+        .value { color: #ce9178; }
+        
+
+        
+        @media (max-width: 768px) {            .file-tabs {
+                flex-wrap: wrap;
+            }
+
+            
+
+            .code-editor {
+                font-size: 12px;
+                padding-left: 55px;
+            }
+
+            .line-numbers {
+                min-width: 40px;
+                font-size: 12px;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 5</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 5</a> / Actividad 3
+            </div>
+            <h1 class="activity-title">🔧 Editor de Archivos de Configuración</h1>
+            <p class="activity-subtitle">Edita archivos de configuración importantes usando editores de texto</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span>⏱️</span>
+                    <span>20 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span>🎯</span>
+                    <span>Nivel: Básico-Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span>🏆</span>
+                    <span>Puntos: 175</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">🎯 Objetivo</h2>
+                <p>En esta actividad aprenderás a editar archivos de configuración importantes en Linux. Trabajarás con archivos como .bashrc, /etc/hosts, variables de entorno y configuraciones de servicios, usando editores de texto simulados.</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">📝 Editor de Configuración</h2>
+                
+                <div class="file-tabs">
+                    <button class="file-tab active" onclick="switchFile('bashrc')">
+                        🏠 ~/.bashrc
+                    </button>
+                    <button class="file-tab" onclick="switchFile('hosts')">
+                        🌐 /etc/hosts
+                    </button>
+                    <button class="file-tab" onclick="switchFile('env')">
+                        🔧 .env
+                    </button>
+                    <button class="file-tab" onclick="switchFile('nginx')">
+                        ⚙️ nginx.conf
+                    </button>
+                </div>
+
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <div class="editor-title">
+                            <span>📄</span>
+                            <span id="currentFileName">~/.bashrc</span>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn" onclick="validateConfig()">🔍 Validar</button>
+                            <button class="editor-btn save" onclick="saveConfig()">💾 Guardar</button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="line-numbers" id="lineNumbers">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</div>
+                        
+                        <!-- ~/.bashrc -->
+                        <div class="file-content active" id="bashrc-content">
+                            <textarea class="code-editor" id="bashrc-editor"># ~/.bashrc: executed by bash(1) for non-login shells
+
+# Configuración básica del shell
+export PS1='\u@\h:\w$ '
+export EDITOR=nano
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+
+# Alias útiles
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Variables de entorno personalizadas
+export PATH=$PATH:/home/usuario/scripts
+export PROJECTS_DIR=/home/usuario/proyectos
+
+# Función personalizada para crear backups
+backup() {
+    if [ $# -eq 0 ]; then
+        echo "Uso: backup <archivo>"
+        return 1
+    fi
+    cp "$1" "$1.backup.$(date +%Y%m%d)"
+    echo "Backup creado: $1.backup.$(date +%Y%m%d)"
+}</textarea>
+                        </div>
+
+                        <!-- /etc/hosts -->
+                        <div class="file-content" id="hosts-content">
+                            <textarea class="code-editor" id="hosts-editor"># /etc/hosts: static table lookup for hostnames
+# Configuración de resolución de nombres local
+
+# Localhost
+127.0.0.1    localhost
+127.0.1.1    mi-servidor
+::1          localhost ip6-localhost ip6-loopback
+
+# Red local
+192.168.1.100    servidor-web
+192.168.1.101    servidor-bd
+192.168.1.102    servidor-cache
+
+# Servicios de desarrollo
+127.0.0.1    miapp.local
+127.0.0.1    api.local
+127.0.0.1    admin.local
+
+# Bloqueo de sitios (opcional)
+# 0.0.0.0    sitio-malicioso.com
+# 0.0.0.0    publicidad-molesta.net
+
+# Servicios externos
+# 8.8.8.8      dns.google
+# 1.1.1.1      one.one.one.one</textarea>
+                        </div>
+
+                        <!-- .env -->
+                        <div class="file-content" id="env-content">
+                            <textarea class="code-editor" id="env-editor"># Archivo .env - Variables de entorno para aplicación
+# No incluir en control de versiones (agregar a .gitignore)
+
+# Configuración de la aplicación
+APP_NAME=MiAplicacion
+APP_ENV=development
+APP_DEBUG=true
+APP_URL=http://localhost:3000
+
+# Base de datos
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mi_base_datos
+DB_USERNAME=usuario
+DB_PASSWORD=contraseña_segura
+
+# Redis (Cache)
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+# Servicios externos
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=usuario@gmail.com
+MAIL_PASSWORD=contraseña_app
+
+# API Keys (nunca hardcodear en código)
+GOOGLE_API_KEY=tu_api_key_aqui
+AWS_ACCESS_KEY_ID=tu_access_key
+AWS_SECRET_ACCESS_KEY=tu_secret_key
+AWS_DEFAULT_REGION=us-east-1
+
+# Configuración de sesiones
+SESSION_LIFETIME=120
+SESSION_DRIVER=file</textarea>
+                        </div>
+
+                        <!-- nginx.conf -->
+                        <div class="file-content" id="nginx-content">
+                            <textarea class="code-editor" id="nginx-editor"># /etc/nginx/nginx.conf - Configuración principal de Nginx
+
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 1024;
+    use epoll;
+    multi_accept on;
+}
+
+http {
+    # Configuración básica
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    
+    # MIME types
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    
+    # Logging
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+    
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css application/json application/javascript;
+    
+    # Server block para sitio web
+    server {
+        listen 80;
+        server_name ejemplo.com www.ejemplo.com;
+        root /var/www/html;
+        index index.html index.php;
+        
+        location / {
+            try_files $uri $uri/ =404;
+        }
+        
+        location ~ \.php$ {
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            fastcgi_index index.php;
+            include fastcgi_params;
+        }
+        
+        # Archivos estáticos
+        location ~* \.(jpg|jpeg|png|gif|css|js)$ {
+            expires 1y;
+            add_header Cache-Control "public, immutable";
+        }
+    }
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="validation-result" id="validationResult"></div>
+            </div>
+
+            <div class="config-explanation" id="configExplanation">
+                <div class="explanation-title">
+                    📚 Sobre ~/.bashrc
+                </div>
+                <div class="explanation-content">
+                    El archivo <strong>.bashrc</strong> se ejecuta cada vez que abres una nueva terminal. Aquí puedes configurar aliases, variables de entorno, funciones personalizadas y la apariencia de tu prompt. Es tu espacio personal para personalizar la experiencia de la terminal.
+                </div>
+            </div>
+
+            <div class="config-tips">
+                <div class="tips-title">
+                    💡 Tips de Configuración
+                </div>
+                <div class="tip-item">
+                    <strong>🔄 Recargar configuración:</strong> Usa <code>source ~/.bashrc</code> para aplicar cambios sin reiniciar la terminal.
+                </div>
+                <div class="tip-item">
+                    <strong>💾 Backups:</strong> Siempre haz backup de archivos de configuración antes de editarlos: <code>cp archivo archivo.backup</code>
+                </div>
+                <div class="tip-item">
+                    <strong>🔒 Permisos:</strong> Algunos archivos de configuración requieren permisos específicos para funcionar correctamente.
+                </div>
+                <div class="tip-item">
+                    <strong>📝 Comentarios:</strong> Usa # para comentar líneas y documentar tus configuraciones.
+                </div>
+            </div>
+
+            <div class="challenge-section">
+                <h3 class="challenge-title">
+                    🎯 Desafíos de Configuración
+                </h3>
+                <div class="challenge-item">
+                    <strong>Desafío 1:</strong> Agrega un alias para mostrar el espacio en disco disponible (df -h).
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 2:</strong> Configura una entrada en /etc/hosts para mapear "miservidor.local" a 127.0.0.1.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 3:</strong> Añade una variable de entorno personalizada en el archivo .env.
+                </div>
+                <div class="challenge-item">
+                    <strong>Desafío 4:</strong> Modifica la configuración de Nginx para servir archivos desde un directorio diferente.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Hub
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">No completado</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                ✅ Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentFile = 'bashrc';
+        
+        const fileNames = {
+            bashrc: '~/.bashrc',
+            hosts: '/etc/hosts',
+            env: '.env',
+            nginx: '/etc/nginx/nginx.conf'
+        };
+        
+        const explanations = {
+            bashrc: {
+                title: '📚 Sobre ~/.bashrc',
+                content: 'El archivo <strong>.bashrc</strong> se ejecuta cada vez que abres una nueva terminal. Aquí puedes configurar aliases, variables de entorno, funciones personalizadas y la apariencia de tu prompt. Es tu espacio personal para personalizar la experiencia de la terminal.'
+            },
+            hosts: {
+                title: '🌐 Sobre /etc/hosts',
+                content: 'El archivo <strong>/etc/hosts</strong> mapea nombres de host a direcciones IP localmente. Se consulta antes que DNS, permitiendo resolución local de nombres, bloqueo de sitios, y configuración de servicios de desarrollo.'
+            },
+            env: {
+                title: '🔧 Sobre archivos .env',
+                content: 'Los archivos <strong>.env</strong> almacenan variables de entorno para aplicaciones. Contienen configuraciones sensibles como contraseñas y API keys. Nunca deben incluirse en control de versiones por seguridad.'
+            },
+            nginx: {
+                title: '⚙️ Sobre nginx.conf',
+                content: 'El archivo <strong>nginx.conf</strong> es la configuración principal del servidor web Nginx. Define comportamientos del servidor, virtual hosts, compresión, logging y reglas de enrutamiento para servir contenido web.'
+            }
+        };
+
+        function switchFile(fileName) {
+            // Remover active de todos los tabs
+            document.querySelectorAll('.file-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.file-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Activar tab y contenido seleccionado
+            event.target.classList.add('active');
+            document.getElementById(fileName + '-content').classList.add('active');
+            
+            // Actualizar título del archivo
+            document.getElementById('currentFileName').textContent = fileNames[fileName];
+            
+            // Actualizar explicación
+            const explanation = explanations[fileName];
+            document.querySelector('.explanation-title').innerHTML = explanation.title;
+            document.querySelector('.explanation-content').innerHTML = explanation.content;
+            
+            // Actualizar numeración de líneas
+            updateLineNumbers(fileName + '-editor');
+            
+            currentFile = fileName;
+        }
+
+        function updateLineNumbers(editorId) {
+            const editor = document.getElementById(editorId);
+            const lineNumbers = document.getElementById('lineNumbers');
+            
+            const lines = editor.value.split('\n').length;
+            let numbers = '';
+            for (let i = 1; i <= Math.max(lines, 20); i++) {
+                numbers += i + '\n';
+            }
+            lineNumbers.textContent = numbers;
+        }
+
+        function validateConfig() {
+            const result = document.getElementById('validationResult');
+            const editor = document.getElementById(currentFile + '-editor');
+            const content = editor.value;
+            
+            let isValid = true;
+            let message = '';
+            
+            switch(currentFile) {
+                case 'bashrc':
+                    if (!content.includes('export')) {
+                        isValid = false;
+                        message = '⚠️ No se detectaron variables de entorno (export).';
+                    } else if (!content.includes('alias')) {
+                        isValid = false;
+                        message = '⚠️ Se recomienda incluir algunos aliases útiles.';
+                    } else {
+                        message = '✅ Configuración de .bashrc válida. Incluye variables de entorno y aliases.';
+                    }
+                    break;
+                    
+                case 'hosts':
+                    if (!content.includes('127.0.0.1') || !content.includes('localhost')) {
+                        isValid = false;
+                        message = '⚠️ Falta configuración de localhost (127.0.0.1).';
+                    } else {
+                        message = '✅ Configuración de hosts válida. Incluye localhost y mapeos correctos.';
+                    }
+                    break;
+                    
+                case 'env':
+                    if (!content.includes('=')) {
+                        isValid = false;
+                        message = '⚠️ No se detectaron variables en formato CLAVE=valor.';
+                    } else if (content.includes('password') && content.includes('123')) {
+                        isValid = false;
+                        message = '⚠️ Evita usar contraseñas débiles como "123".';
+                    } else {
+                        message = '✅ Archivo .env válido. Variables de entorno configuradas correctamente.';
+                    }
+                    break;
+                    
+                case 'nginx':
+                    if (!content.includes('server {')) {
+                        isValid = false;
+                        message = '⚠️ Falta configuración de server block.';
+                    } else if (!content.includes('listen')) {
+                        isValid = false;
+                        message = '⚠️ Falta directiva listen para especificar puerto.';
+                    } else {
+                        message = '✅ Configuración de Nginx válida. Server block y directivas correctas.';
+                    }
+                    break;
+            }
+            
+            result.className = `validation-result ${isValid ? 'validation-success' : 'validation-error'}`;
+            result.innerHTML = message;
+            result.style.display = 'block';
+        }
+
+        function saveConfig() {
+            const result = document.getElementById('validationResult');
+            result.className = 'validation-result validation-success';
+            result.innerHTML = '💾 Configuración guardada exitosamente. Los cambios se aplicarán según el tipo de archivo.';
+            result.style.display = 'block';
+            
+            // Simular guardado con un pequeño delay
+            setTimeout(() => {
+                result.style.display = 'none';
+            }, 3000);
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ✅';
+            
+            alert('🎉 ¡Felicidades! Has completado la actividad "Editor de Archivos de Configuración".\n\n✅ Actividad marcada como completada\n🏆 +175 puntos ganados\n\n¡Ahora sabes editar configuraciones importantes de Linux!');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al hub? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Event listeners para actualizar líneas
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.code-editor').forEach(editor => {
+                editor.addEventListener('input', function() {
+                    updateLineNumbers(this.id);
+                });
+                
+                // Inicializar numeración
+                updateLineNumbers(editor.id);
+            });
+        });
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    

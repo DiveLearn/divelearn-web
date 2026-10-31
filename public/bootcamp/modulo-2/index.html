@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Módulo 2 - Las Direcciones Secretas (Direccionamiento IP)</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        .module-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            
+        }
+
+        .module-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        
+
+        
+
+        
+
+        .tabs {
+            display: flex;
+            background: var(--surface);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .tab.active {
+            background: var(--surface);
+            color: var(--lime);
+            border-bottom-color: var(--lime);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--surface2);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            min-height: 400px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .teoria-section {
+            margin-bottom: 40px;
+        }
+
+        .teoria-title {
+            font-size: 1.8rem;
+            color: #22C55E;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teoria-subsection {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            color: #22C55E;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subsection-content {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1B5E20;
+        }
+
+        .example-box {
+            background: var(--surface2);
+            border: 2px solid var(--purple);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #22C55E;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submodulos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .actividad-card {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .actividad-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .actividad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            border-color: var(--lime);
+        }
+
+        .actividad-card:hover::before {
+            left: 100%;
+        }
+
+        .actividad-numero {
+            display: inline-block;
+            background: var(--lime);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .actividad-titulo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .actividad-descripcion {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .actividad-duracion {
+            display: inline-block;
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--lime);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .quiz-card {
+            background: linear-gradient(135deg, #FF7043 0%, #FFAB91 100%);
+            color: white;
+        }
+
+        .quiz-card .actividad-numero {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .quiz-card .actividad-titulo {
+            color: white;
+        }
+
+        .quiz-card .actividad-descripcion {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .quiz-card .actividad-duracion {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .objetivos-container {
+            background: var(--surface2);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .objetivos-title {
+            font-size: 1.4rem;
+            color: #1565C0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objetivo-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        
+
+        
+
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        
+        @media (max-width: 768px) {
+            
+
+            .module-title {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .submodulos-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+</style>
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+</head>
+<body>
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div style="text-align: left; margin-bottom: 20px;">
+                <a href="/bootcamp/" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    color: #4CAF50;
+                    text-decoration: none;
+                    font-weight: 600;
+                    padding: 10px 15px;
+                    border-radius: 8px;
+                    background: rgba(76, 175, 80, 0.1);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.background='#4CAF50'; this.style.color='white';" onmouseout="this.style.background='rgba(76, 175, 80, 0.1)'; this.style.color='#4CAF50';">
+                    ← Hub de Módulos
+                </a>
+            </div>
+            <h1 class="module-title">🔢 Módulo 2</h1>
+            <p class="module-subtitle">Las Direcciones Secretas (Direccionamiento IP)</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('teoria')">
+                    📚 Teoría
+                </div>
+                <div class="tab" onclick="showTab('submodulos')">
+                    🎯 Submódulos
+                </div>
+            </div>
+
+            <div id="teoria" class="tab-content active">
+                <div class="objetivos-container">
+                    <h3 class="objetivos-title">🎯 Objetivos de Aprendizaje</h3>
+                    <div class="objetivo-item">
+                        <strong>🎪 Al finalizar este módulo podrás:</strong> Comprender y manejar el sistema de direccionamiento IP como un experto en navegación digital
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>🧭 Dominar:</strong> IPv4, IPv6, direcciones públicas vs privadas, máscaras de red y subneteo básico
+                    </div>
+                    <div class="objetivo-item">
+                        <strong>⚡ Aplicar:</strong> Técnicas de planificación de direcciones para redes empresariales reales
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🌐 2.1 El Sistema de Direcciones Universal</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">¿Por qué necesitamos direcciones numéricas?</h3>
+                        <div class="subsection-content">
+                            Imagina Internet como una ciudad gigantesca con millones de edificios (dispositivos). Para que los mensajes lleguen a su destino, cada edificio necesita una <span class="highlight">dirección única</span>. Las direcciones IP son como códigos postales súper precisos que permiten que los datos viajen exactamente donde deben ir.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🏠 Analogía del mundo real:</div>
+                            Tu casa: "Calle Principal 123, Ciudad, País"<br>
+                            Tu computadora: "192.168.1.100" (en tu red local)
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">IPv4: El sistema actual (como códigos postales)</h3>
+                        <div class="subsection-content">
+                            <strong>IPv4</strong> usa direcciones de <span class="highlight">32 bits</span> escritas como cuatro números del 0 al 255, separados por puntos. Ejemplo: <code>192.168.1.1</code>. Este sistema puede crear aproximadamente <span class="highlight">4.3 mil millones</span> de direcciones únicas.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🔢 Ejemplos de IPv4:</div>
+                            • <strong>8.8.8.8</strong> - DNS de Google<br>
+                            • <strong>192.168.1.1</strong> - Router doméstico típico<br>
+                            • <strong>127.0.0.1</strong> - Tu propia computadora (localhost)
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">IPv6: El futuro (coordenadas GPS súper precisas)</h3>
+                        <div class="subsection-content">
+                            <strong>IPv6</strong> usa direcciones de <span class="highlight">128 bits</span> escritas en hexadecimal. Permite <span class="highlight">340 sextillones</span> de direcciones (suficientes para dar una dirección a cada átomo visible del universo). Ejemplo: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🏢 2.2 Direcciones Públicas vs Privadas</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Direcciones públicas: Tu casa en la calle principal</h3>
+                        <div class="subsection-content">
+                            Las <span class="highlight">direcciones públicas</span> son únicas en todo Internet. Son como direcciones de casas en calles principales que cualquier servicio de delivery puede encontrar directamente.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Direcciones privadas: Apartamentos dentro de un edificio</h3>
+                        <div class="subsection-content">
+                            Las <span class="highlight">direcciones privadas</span> solo funcionan dentro de tu red local. Son como números de apartamento - el apartamento 3B solo tiene sentido si sabes en qué edificio está.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🏠 Rangos de direcciones privadas:</div>
+                            • <strong>10.0.0.0 - 10.255.255.255</strong> (Clase A)<br>
+                            • <strong>172.16.0.0 - 172.31.255.255</strong> (Clase B)<br>
+                            • <strong>192.168.0.0 - 192.168.255.255</strong> (Clase C)
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Traducción: Cómo los privados se conectan al mundo</h3>
+                        <div class="subsection-content">
+                            El <span class="highlight">NAT (Network Address Translation)</span> actúa como un traductor que convierte direcciones privadas en públicas cuando salen a Internet. Es como tener un recepcionista que recibe toda la correspondencia del edificio y la distribuye a los apartamentos correctos.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🎭 2.3 Máscaras y Rangos</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Máscaras de red: Definir el vecindario</h3>
+                        <div class="subsection-content">
+                            Las <span class="highlight">máscaras de subred</span> definen qué parte de una dirección IP identifica la red y qué parte identifica el dispositivo específico. Es como definir los límites de un barrio.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🎭 Máscaras comunes:</div>
+                            • <strong>255.255.255.0 (/24)</strong> - 254 dispositivos<br>
+                            • <strong>255.255.0.0 (/16)</strong> - 65,534 dispositivos<br>
+                            • <strong>255.0.0.0 (/8)</strong> - 16,777,214 dispositivos
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Notación CIDR: La forma corta de escribir rangos</h3>
+                        <div class="subsection-content">
+                            <span class="highlight">CIDR</span> (Classless Inter-Domain Routing) es una forma compacta de escribir máscaras. En lugar de escribir 255.255.255.0, simplemente escribes /24 (porque los primeros 24 bits definen la red).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">📐 2.4 Planificación de Direcciones</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Dividir una red grande en pedazos pequeños (subneteo)</h3>
+                        <div class="subsection-content">
+                            El <span class="highlight">subneteo</span> es como dividir un edificio grande en apartamentos más pequeños. Tomas una red grande y la divides en subredes más manejables para diferentes departamentos o propósitos.
+                        </div>
+                    </div>
+
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Reservar espacio para crecimiento</h3>
+                        <div class="subsection-content">
+                            Siempre planifica con espacio extra. Si hoy necesitas 50 direcciones, reserva espacio para 100 o 200. Es como comprar una casa más grande de lo que necesitas ahora, pensando en el futuro.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="teoria-section">
+                    <h2 class="teoria-title">🧮 2.5 Práctica de Subneteo</h2>
+                    <div class="teoria-subsection">
+                        <h3 class="subsection-title">Método visual para dividir redes</h3>
+                        <div class="subsection-content">
+                            Usa el <span class="highlight">método de potencias de 2</span>: para saber cuántas subredes puedes crear, pregúntate "¿cuántos bits puedo tomar prestados?". Cada bit prestado duplica el número de subredes posibles.
+                        </div>
+                        <div class="example-box">
+                            <div class="example-title">🧮 Ejemplo práctico:</div>
+                            Red original: <strong>192.168.1.0/24</strong><br>
+                            Divides en 4 subredes: <strong>/26</strong> (tomas prestados 2 bits)<br>
+                            Resultado: 4 subredes de 62 hosts cada una
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="submodulos" class="tab-content">
+                <h2 style="margin-bottom: 30px; color: #8888bb; text-align: center;">🎯 Actividades Prácticas</h2>
+                
+                <div class="submodulos-grid">
+                    <a href="./actividad1_calculadora_subredes.html" class="actividad-card">
+                        <div class="actividad-numero">1</div>
+                        <h3 class="actividad-titulo">🧮 Calculadora de Subredes Interactiva</h3>
+                        <p class="actividad-descripcion">Aprende a calcular subredes de forma visual e interactiva. Convierte máscaras, calcula hosts y visualiza rangos de IP paso a paso.</p>
+                        <span class="actividad-duracion">⏱️ 20 min</span>
+                    </a>
+
+                    <a href="./actividad2_diseno_barrio.html" class="actividad-card">
+                        <div class="actividad-numero">2</div>
+                        <h3 class="actividad-titulo">🏘️ Diseñar el Barrio Digital</h3>
+                        <p class="actividad-descripcion">Planifica la red completa de una empresa ficticia. Asigna direcciones IP a diferentes departamentos y servicios.</p>
+                        <span class="actividad-duracion">⏱️ 25 min</span>
+                    </a>
+
+                    <a href="./actividad3_conversor_binario.html" class="actividad-card">
+                        <div class="actividad-numero">3</div>
+                        <h3 class="actividad-titulo">🔢 Conversor Binario Gamificado</h3>
+                        <p class="actividad-descripcion">Domina la conversión entre binario y decimal a través de juegos y desafíos progresivos. ¡Conviértete en un ninja del binario!</p>
+                        <span class="actividad-duracion">⏱️ 15 min</span>
+                    </a>
+
+                    <a href="./actividad4_planificacion_crecimiento.html" class="actividad-card">
+                        <div class="actividad-numero">4</div>
+                        <h3 class="actividad-titulo">📋 Planificación de Crecimiento</h3>
+                        <p class="actividad-descripcion">Simula el crecimiento de una red a lo largo del tiempo. Aprende a planificar direcciones IP para expansiones futuras.</p>
+                        <span class="actividad-duracion">⏱️ 18 min</span>
+                    </a>
+
+                    <a href="./actividad5_mascaras_red.html" class="actividad-card">
+                        <div class="actividad-numero">5</div>
+                        <h3 class="actividad-titulo">🎭 Aprende Máscaras de Red</h3>
+                        <p class="actividad-descripcion">Visualiza cómo los bits definen redes y hosts en direcciones IP. Comprende las máscaras de subred de forma interactiva.</p>
+                        <span class="actividad-duracion">⏱️ 16 min</span>
+                    </a>
+
+                    <a href="./quiz_modulo2.html" class="actividad-card quiz-card">
+                        <div class="actividad-numero">Q</div>
+                        <h3 class="actividad-titulo">Quiz del Módulo</h3>
+                        <p class="actividad-descripcion">Evalúa tu dominio del direccionamiento IP con 5 preguntas progresivas que cubren desde conceptos básicos hasta subneteo avanzado.</p>
+                        <span class="actividad-duracion">⏱️ 12 min</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand">⚡ DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Ocultar todos los contenidos
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remover clase active de todos los tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar el contenido seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el tab correspondiente
+            event.target.classList.add('active');
+
+            // Actualizar barra de progreso (simulado)
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const randomProgress = Math.floor(Math.random() * 60) + 25; // 25-85%
+            progressBar.style.width = randomProgress + '%';
+        }
+
+        // Inicializar progreso al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+
+</body>
+</html>
