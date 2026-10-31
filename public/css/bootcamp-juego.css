@@ -18,6 +18,8 @@
 }
 
 html {
+  --lime-texto: #4f5c00;
+  --lav-texto: #4b49c9;
   --c: #b2cafd;
   --ink: #1f1d5c;
   --tinte: color-mix(in srgb, var(--c) 22%, #ffffff);
@@ -229,4 +231,212 @@ html body .actividad-titulo {
 html body :is(.footer, .divelearn-brand) {
   color: #55538a !important;
   background: transparent !important;
+}
+
+/* Dentro de lo que sigue siendo oscuro (terminales, código), el lima y la lavanda vuelven a su color */
+html body :is(.terminal, [class*="terminal"], .console, pre, .code-block, .output, [class*="output"]) {
+  --lime-texto: #e0f24a;
+  --lav-texto: #b2cafd;
+}
+html body code {
+  background: var(--tinte) !important;
+  color: var(--ink) !important;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+html body :is(.terminal, [class*="terminal"], pre) code {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* ── Cabecera de juego (la misma cara que el mapa del bootcamp) ── */
+html body .dl-nav,
+html body .breadcrumb,
+html body .dl-nav-back {
+  display: none !important;
+}
+.dl-jh {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 18px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: "Questrial", "Century Gothic", system-ui, sans-serif;
+}
+.dl-jh-logo img {
+  display: block;
+  width: 140px;
+  height: auto;
+}
+.dl-jh-panel {
+  border: var(--borde);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+.dl-jh-barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--c);
+  border-bottom: var(--borde);
+  font: 700 1rem/1.3 var(--pixel);
+  color: var(--ink);
+}
+.dl-jh-puntos {
+  display: inline-flex;
+  gap: 6px;
+}
+.dl-jh-puntos i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: #ff7a8a;
+}
+.dl-jh-puntos i:nth-child(2) {
+  background: #ffd36e;
+}
+.dl-jh-puntos i:nth-child(3) {
+  background: #6fd08c;
+}
+.dl-jh-cuerpo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+.dl-jh-ico {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  flex: 0 0 auto;
+  border: var(--borde);
+  border-radius: 12px;
+  background: var(--c);
+}
+.dl-jh-ico img {
+  image-rendering: pixelated;
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+}
+.dl-jh-txt {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 240px;
+  gap: 2px;
+}
+.dl-jh-mod {
+  font: 700 0.9rem var(--pixel);
+  color: #55538a;
+}
+.dl-jh-tit {
+  font: 700 clamp(1.3rem, 3vw, 1.9rem) / 1.15 var(--pixel);
+  color: var(--ink);
+}
+.dl-jh-nav {
+  display: flex;
+  gap: 10px;
+}
+.dl-jh-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 16px;
+  border: var(--borde);
+  border-radius: 10px;
+  background: #6fd08c;
+  color: var(--ink) !important;
+  font: 700 1rem var(--pixel);
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.dl-jh-btn + .dl-jh-btn {
+  background: #fff;
+}
+.dl-jh-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+/* ── Plantilla del módulo 0 (distinta a las demás) con la misma piel ── */
+html body .hub-hero {
+  display: none !important; /* la cabecera de juego ya dice el módulo y el título */
+}
+html body .tabs-bar {
+  max-width: 1080px;
+  margin: 8px auto 0 !important;
+  padding: 0 16px !important;
+  background: transparent !important;
+  border: 0 !important;
+  display: flex;
+  gap: 12px;
+}
+html body .tab-btn {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  border: var(--borde) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: var(--ink) !important;
+  box-shadow: 4px 4px 0 var(--ink) !important;
+  padding: 10px 20px !important;
+}
+html body .tab-btn.active {
+  background: var(--c) !important;
+}
+html body :is(.concept-block, .eco-card, .act-card, .journey, .url-display) {
+  background: #fff !important;
+  border: var(--borde) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--sombra) !important;
+  color: var(--ink) !important;
+  padding: 20px !important;
+  margin-bottom: 22px;
+}
+html body .concept-title-text,
+html body .act-title,
+html body .eco-name {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+}
+html body .concept-num {
+  background: var(--c) !important;
+  color: var(--ink) !important;
+  border: 2px solid var(--ink);
+  font-family: var(--pixel);
+}
+html body :is(.journey-node, .legend-item, .act-chip, .eco-tech, .act-badge) {
+  background: var(--tinte) !important;
+  border: 2px solid var(--ink) !important;
+  border-radius: 10px !important;
+  color: var(--ink) !important;
+}
+html body .insight {
+  background: var(--tinte) !important;
+  border: 2px solid var(--ink) !important;
+  border-left-width: 6px !important;
+  color: var(--ink) !important;
+}
+html body .act-cta {
+  font-family: var(--pixel) !important;
+  color: var(--ink) !important;
+}
+html body .tabs-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #e9e4fb !important;
+  padding: 10px 16px !important;
+  max-width: none;
+  justify-content: center;
 }

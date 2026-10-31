@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 4 - Explorador Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -535,6 +535,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -698,7 +710,7 @@
                             <button class="action-btn secondary" onclick="resetSimulation()"> Reiniciar</button>
                         </div>                     
                         
-                        <div id="simulation-feedback" style="margin-top: 20px; color: #4fd1c7;"></div>
+                        <div id="simulation-feedback" style="margin-top: 20px; color: #0f7f86;"></div>
                     </div>
                 </div>
             </div>
@@ -834,7 +846,7 @@
                             <p><strong> Dispositivos necesarios:</strong> Router, Switch, Access Point</p>
                             <p><strong> Tu tarea:</strong> Diseñar una red que permita a todos conectarse a Internet y usar la impresora.</p>
                             <div class="badge" id="badge1" style="display: none;"> Arquitecto de Oficina</div>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #55538a;">
                                 <strong> Situación real:</strong> El jefe quiere que todos puedan trabajar desde sus computadoras y imprimir documentos.
                             </div>
                         </div>
@@ -845,7 +857,7 @@
                             <p><strong> Dispositivos necesarios:</strong> Módem, Router con WiFi, Firewall</p>
                             <p><strong> Tu tarea:</strong> Crear una red segura con diferentes niveles de acceso.</p>
                             <div class="badge" id="badge2" style="display: none;"> Guardián Digital</div>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #55538a;">
                                 <strong> Situación real:</strong> Los padres quieren que los niños no accedan a contenido inapropiado por las noches.
                             </div>
                         </div>
@@ -856,7 +868,7 @@
                             <p><strong> Dispositivos necesarios:</strong> Firewall corporativo, Switch gestionado, múltiples APs</p>
                             <p><strong> Tu tarea:</strong> Separar la red de empleados de la red de invitados por seguridad.</p>
                             <div class="badge" id="badge3" style="display: none;"> Arquitecto Empresarial</div>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #8888bb;">
+                            <div style="margin-top: 10px; font-size: 0.9em; color: #55538a;">
                                 <strong> Situación real:</strong> Los invitados necesitan Internet pero no deben acceder a datos de la empresa.
                             </div>
                         </div>
@@ -1247,7 +1259,7 @@
 
         function showTemporaryMessage(element, message) {
             const originalContent = element.innerHTML;
-            element.innerHTML = `<div style="color: #fc8181; font-weight: bold;">${message}</div>`;
+            element.innerHTML = `<div style="color: #c0392b; font-weight: bold;">${message}</div>`;
             element.style.borderColor = '#fc8181';
             
             setTimeout(() => {

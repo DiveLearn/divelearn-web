@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 4 - Configurador de Registros DNS</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -306,7 +306,7 @@
 
         .progress-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 15px;
         }
 
@@ -376,6 +376,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-dns.png" alt="" width="86" height="64"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 3</span><span class="dl-jh-tit">La guía telefónica digital</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 3</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -595,7 +607,7 @@
                              Registros DNS Configurados
                         </div>
                         <div class="table-content" id="recordsTable">
-                            <div style="padding: 30px; text-align: center; color: #8888bb;">
+                            <div style="padding: 30px; text-align: center; color: #55538a;">
                                 No hay registros configurados aún. Agrega tu primer registro DNS arriba.
                             </div>
                         </div>
@@ -898,7 +910,7 @@
             const container = document.getElementById('recordsTable');
             
             if (dnsRecords.length === 0) {
-                container.innerHTML = '<div style="padding: 30px; text-align: center; color: #8888bb;">No hay registros configurados aún. Agrega tu primer registro DNS arriba.</div>';
+                container.innerHTML = '<div style="padding: 30px; text-align: center; color: #55538a;">No hay registros configurados aún. Agrega tu primer registro DNS arriba.</div>';
                 return;
             }
 

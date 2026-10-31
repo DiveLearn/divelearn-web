@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 9 - Las Carreteras Digitales</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -360,6 +360,18 @@
 </head>
 
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -632,19 +644,19 @@
                             style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Paquetes Enviados</h5>
-                                <div id="packets-sent" style="font-size: 2em; color: #68d391;">0</div>
+                                <div id="packets-sent" style="font-size: 2em; color: #2f8a3c;">0</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Paquetes Recibidos</h5>
-                                <div id="packets-received" style="font-size: 2em; color: #4fd1c7;">0</div>
+                                <div id="packets-received" style="font-size: 2em; color: #0f7f86;">0</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Latencia</h5>
-                                <div id="avg-latency" style="font-size: 2em; color: #f6ad55;">0ms</div>
+                                <div id="avg-latency" style="font-size: 2em; color: #b5651d;">0ms</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                                 <h5> Ancho de Banda</h5>
-                                <div id="bandwidth-usage" style="font-size: 2em; color: #fc8181;">0%</div>
+                                <div id="bandwidth-usage" style="font-size: 2em; color: #c0392b;">0%</div>
                             </div>
                         </div>
 
@@ -655,7 +667,7 @@
                             <button class="action-btn" onclick="simulateTrafficSpike()"> Simular Congestión</button>
                         </div>
 
-                        <div id="flow-insights" style="margin-top: 20px; color: #4fd1c7;"></div>
+                        <div id="flow-insights" style="margin-top: 20px; color: #0f7f86;"></div>
                     </div>
 
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -953,7 +965,7 @@
             document.getElementById('design-scenario').innerHTML = `
                 <strong>${currentScenario.name}</strong><br>
                 ${currentScenario.description}<br>
-                <small style="color: #8888bb;">Tipo de red recomendado: ${currentScenario.networkType}</small>
+                <small style="color: #55538a;">Tipo de red recomendado: ${currentScenario.networkType}</small>
             `;
 
             // Reset device selection
@@ -995,7 +1007,7 @@
 
             if (missingRequired.length === 0) {
                 score = 80;
-                feedbackHTML += '<h4 style="color: #48bb78;"> ¡Diseño Funcional!</h4>';
+                feedbackHTML += '<h4 style="color: #2f8a3c;"> ¡Diseño Funcional!</h4>';
                 feedbackHTML += '<p>Has incluido todos los dispositivos esenciales.</p>';
 
                 if (hasOptional.length > 0) {
@@ -1009,7 +1021,7 @@
                     showCelebration('¡Diseño de red completado exitosamente!');
                 }
             } else {
-                feedbackHTML += '<h4 style="color: #fc8181;"> Diseño Incompleto</h4>';
+                feedbackHTML += '<h4 style="color: #c0392b;"> Diseño Incompleto</h4>';
                 feedbackHTML += `<p>Te faltan estos dispositivos esenciales: <strong>${missingRequired.join(', ')}</strong></p>`;
                 feedbackHTML += '<p> Tip: Cada escenario requiere dispositivos específicos para funcionar correctamente.</p>';
             }

@@ -7,6 +7,31 @@ queda en src/data/bootcamp-paginas.json para el mapa del juego.
 """
 import json, re, sys, pathlib, shutil
 
+# Colores de TEXTO pensados para fondo oscuro → versiones que se leen sobre fondo claro.
+# Lima y lavanda pasan por variables que vuelven a su color dentro de las terminales (ver bootcamp-juego.css).
+TEXTO_CLARO = {
+    "var(--lime)": "var(--lime-texto)",
+    "#e0f24a": "var(--lime-texto)",
+    "#E0F24A": "var(--lime-texto)",
+    "var(--purple-light)": "var(--lav-texto)",
+    "#8888bb": "#55538a",
+    "#4ade80": "#2f8a3c", "#68d391": "#2f8a3c", "#48bb78": "#2f8a3c", "#22C55E": "#2f8a3c", "#22c55e": "#2f8a3c",
+    "#fc8181": "#c0392b", "#f87171": "#c0392b", "#ff6b6b": "#c0392b",
+    "#4fd1c7": "#0f7f86", "#06B6D4": "#0f7f86",
+    "#f6ad55": "#b5651d", "#d4d4d4": "#55538a", "#e2e8f0": "#55538a",
+}
+
+
+def texto_legible(h: str) -> str:
+    def cambiar(m):
+        val = m.group(2).strip()
+        nuevo = TEXTO_CLARO.get(val)
+        return m.group(1) + nuevo if nuevo else m.group(0)
+    # solo "color:", no background-color ni border-color
+    return re.sub(r"((?<![-\w])color\s*:\s*)([^;}\"!]+?)(?=\s*[;}\"!])", cambiar, h)
+
+
+
 R, D = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
 T = R / "taller_completo"
 if D.exists():
@@ -34,6 +59,7 @@ for a, b in {
 css = css.replace("@font-face {", "@font-face {\n  font-family: 'Questrial';\n  src: url('/fonts/questrial-latin-400-normal.woff2') format('woff2');\n  font-display: swap;\n}\n\n@font-face {", 1)
 # Transiciones suaves entre páginas (View Transitions entre documentos).
 css += "\n@view-transition {\n  navigation: auto;\n}\n"
+css = texto_legible(css)
 (D / "dl-brand.css").write_text(css)
 
 
@@ -71,6 +97,7 @@ def limpiar(h: str) -> str:
     h = h.replace("#1e1e1e", "#1f1d5c").replace("#00ff00", "#e0f24a")
     h = re.sub(r"background: #06B6D4;(\s*)color: #06B6D4;", r"background: #fde2e7;\1color: #b4234a;", h)
     h = sin_emojis(h)
+    h = texto_legible(h)
     if 'name="viewport"' not in h:
         h = re.sub(r'(<meta charset="[^"]*">)', r'\1\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">', h, count=1, flags=re.I)
     return h
@@ -80,10 +107,41 @@ def limpiar(h: str) -> str:
 COLOR = {0: "#ffd36e", 1: "#ffd36e", 2: "#ff7a8a", 3: "#ff7a8a", 4: "#ff7a8a", 5: "#7cc6fe", 6: "#7cc6fe", 7: "#04a8bb", 8: "#04a8bb"}
 
 
+# Datos de cada módulo (etapa, título, sprite) leídos de src/data/bootcamp.ts, para la cabecera de juego.
+RAIZ = D.parent.parent
+_ts = (RAIZ / "src/data/bootcamp.ts").read_text()
+_tam = json.loads((RAIZ / "src/data/sprites-png.json").read_text())
+MODULO = {}
+for ei, bloque in enumerate(_ts.split("    id: ")[1:]):
+    nombre_etapa = re.search(r'nombre: "([^"]+)"', bloque).group(1)
+    for n, spr, tit in re.findall(r'\{ n: (\d+), sprite: "([^"]+)", titulo: "([^"]+)"', bloque):
+        MODULO[int(n)] = {"etapa": f"Etapa {ei + 1} · {nombre_etapa}", "sprite": spr, "titulo": tit}
+
+
+def cabecera(m: int, pagina: str) -> str:
+    """Panel tipo ventana igual al del mapa del bootcamp (bootcamp-juego.css)."""
+    d = MODULO[m]
+    w, h = _tam.get(d["sprite"], [40, 40])
+    volver = '<a class="dl-jh-btn" href="./">Módulo ' + str(m) + "</a>" if pagina != "index" else ""
+    return f"""<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>{d["etapa"]}</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/{d["sprite"]}.png" alt="" width="{w * 2}" height="{h * 2}"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo {m}</span><span class="dl-jh-tit">{d["titulo"]}</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a>{volver}</nav>
+    </div>
+  </div>
+</header>
+"""
+
+
 def con_progreso(h: str, m: int, pagina: str, total: int) -> str:
     """Piel de videojuego (al final del head, gana a los estilos propios) + chip de progreso."""
     h = re.sub(r"<html([^>]*)>", lambda x: f'<html{x.group(1)} style="--c:{COLOR[m]}">', h, count=1)
     h = h.replace("</head>", '<link rel="stylesheet" href="/css/bootcamp-juego.css">\n</head>', 1)
+    h = re.sub(r"(<body[^>]*>)", lambda x: x.group(1) + "\n" + cabecera(m, pagina), h, count=1)
     tag = f'<script src="/js/bootcamp-progreso.js" data-modulo="{m}" data-pagina="{pagina}" data-total="{total}" defer></script>'
     return h.replace("</body>", f"{tag}\n</body>", 1)
 

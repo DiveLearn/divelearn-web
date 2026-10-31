@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 2 - Calculadora RTO/RPO</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -169,7 +169,7 @@
 
         .result-title {
             font-size: 1.4rem;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -198,7 +198,7 @@
         }
         .result-interpretation {
             font-size: 0.8rem;
-            color: #22C55E;
+            color: #2f8a3c;
             font-weight: 600;
         }
 
@@ -321,6 +321,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-backup.png" alt="" width="78" height="76"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 8</span><span class="dl-jh-tit">Proteger lo importante</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 8</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -396,7 +408,7 @@
                     </div>
 
                     <div id="rto-calc" class="calc-content active">
-                        <h3 style="margin-bottom: 20px; color: #8888bb;"> Cálculo de Recovery Time Objective (RTO)</h3>
+                        <h3 style="margin-bottom: 20px; color: #55538a;"> Cálculo de Recovery Time Objective (RTO)</h3>
                         
                         <div class="form-group">
                             <label class="form-label"> Costo por hora de inactividad (USD)</label>
@@ -437,7 +449,7 @@
                     </div>
 
                     <div id="rpo-calc" class="calc-content">
-                        <h3 style="margin-bottom: 20px; color: #8888bb;"> Cálculo de Recovery Point Objective (RPO)</h3>
+                        <h3 style="margin-bottom: 20px; color: #55538a;"> Cálculo de Recovery Point Objective (RPO)</h3>
                         
                         <div class="form-group">
                             <label class="form-label"> Volumen de datos generados por hora</label>
@@ -488,8 +500,8 @@
                     </div>
 
                     <div id="scenarios-calc" class="calc-content">
-                        <h3 style="margin-bottom: 20px; color: #8888bb;"> Escenarios de Ejemplo</h3>
-                        <p style="color: #8888bb; margin-bottom: 20px;">Haz clic en cualquier escenario para cargar los valores automáticamente:</p>
+                        <h3 style="margin-bottom: 20px; color: #55538a;"> Escenarios de Ejemplo</h3>
+                        <p style="color: #55538a; margin-bottom: 20px;">Haz clic en cualquier escenario para cargar los valores automáticamente:</p>
                         
                         <div class="scenario-examples">
                             <div class="scenario-card" onclick="loadScenario('ecommerce')">

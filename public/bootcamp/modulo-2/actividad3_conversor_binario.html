@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 3 - Conversor Binario Gamificado</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -73,7 +73,7 @@
         .stat-number {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #22C55E;
+            color: #2f8a3c;
         }
         .game-container {
             background: var(--surface2);
@@ -117,14 +117,14 @@
         .challenge-number {
             font-size: 3rem;
             font-weight: 700;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 20px;
             font-family: 'Courier New', monospace;
         }
 
         .binary-display {
             background: #1a1a1a;
-            color: #e0f24a;
+            color: var(--lime-texto);
             padding: 20px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
@@ -295,6 +295,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-ip.png" alt="" width="80" height="70"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 2</span><span class="dl-jh-tit">Las direcciones secretas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 2</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -404,7 +416,7 @@
                                 <button class="bit-button" data-value="1" onclick="toggleBit(this)">0</button>
                             </div>
                             <div style="margin-top: 20px;">
-                                <span style="font-size: 1.2rem; color: #8888bb;">Suma total: </span>
+                                <span style="font-size: 1.2rem; color: #55538a;">Suma total: </span>
                                 <span id="bitSum" style="font-size: 1.5rem; font-weight: 700; color: #2E7D32;">0</span>
                             </div>
                         </div>
@@ -422,7 +434,7 @@
                 <div class="level-progress">
                     <div class="level-fill" id="levelProgress" style="width: 0%"></div>
                 </div>
-                <div style="font-size: 0.9rem; color: #8888bb; margin-top: 5px;">
+                <div style="font-size: 0.9rem; color: #55538a; margin-top: 5px;">
                     <span id="currentXP">0</span> / <span id="requiredXP">100</span> XP para siguiente nivel
                 </div>
             </div>

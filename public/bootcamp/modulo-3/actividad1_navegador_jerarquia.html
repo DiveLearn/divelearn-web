@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 1 - Navegador de Jerarquía DNS</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -74,7 +74,7 @@
         .level-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--lime);
+            color: var(--lime-texto);
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -128,12 +128,12 @@
 
         .path-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 10px;
         }
 
         .current-path {
-            color: var(--lime);
+            color: var(--lime-texto);
             font-size: 1.2rem;
             font-weight: bold;
         }
@@ -196,6 +196,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-dns.png" alt="" width="86" height="64"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 3</span><span class="dl-jh-tit">La guía telefónica digital</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 3</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -244,7 +256,7 @@
                     <!-- Nivel Raíz -->
                     <div class="tree-level" id="level-root">
                         <div class="level-title"> Servidores Raíz (Root Servers)</div>
-                        <p style="color: #8888bb; margin-bottom: 10px;">Los 13 servidores raíz que conocen todos los TLD</p>
+                        <p style="color: #55538a; margin-bottom: 10px;">Los 13 servidores raíz que conocen todos los TLD</p>
                         <div class="tree-nodes">
                             <div class="tree-node" onclick="selectNode('root', '.')">. (raíz)</div>
                         </div>
@@ -253,7 +265,7 @@
                     <!-- Nivel TLD -->
                     <div class="tree-level" id="level-tld" style="display: none;">
                         <div class="level-title"> Dominios de Nivel Superior (TLD)</div>
-                        <p style="color: #8888bb; margin-bottom: 10px;">Dominios genéricos y de países</p>
+                        <p style="color: #55538a; margin-bottom: 10px;">Dominios genéricos y de países</p>
                         <div class="tree-nodes">
                             <div class="tree-node" onclick="selectNode('tld', 'com')">com</div>
                             <div class="tree-node" onclick="selectNode('tld', 'org')">org</div>
@@ -267,7 +279,7 @@
                     <!-- Nivel Dominio -->
                     <div class="tree-level" id="level-domain" style="display: none;">
                         <div class="level-title"> Dominios de Segundo Nivel</div>
-                        <p style="color: #8888bb; margin-bottom: 10px;">Los dominios que registran las organizaciones</p>
+                        <p style="color: #55538a; margin-bottom: 10px;">Los dominios que registran las organizaciones</p>
                         <div class="tree-nodes" id="domainNodes">
                             <!-- Se llenan dinámicamente -->
                         </div>
@@ -276,7 +288,7 @@
                     <!-- Nivel Subdominio -->
                     <div class="tree-level" id="level-subdomain" style="display: none;">
                         <div class="level-title"> Subdominios</div>
-                        <p style="color: #8888bb; margin-bottom: 10px;">Servicios específicos dentro del dominio</p>
+                        <p style="color: #55538a; margin-bottom: 10px;">Servicios específicos dentro del dominio</p>
                         <div class="tree-nodes" id="subdomainNodes">
                             <!-- Se llenan dinámicamente -->
                         </div>

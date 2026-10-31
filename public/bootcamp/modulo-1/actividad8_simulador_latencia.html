@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 8 - Simulador de Latencia</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -519,6 +519,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -561,7 +573,7 @@
                     <div class="simulator-grid">
                         <!-- Panel de Controles -->
                         <div class="controls-panel">
-                            <h3 style="color: #8888bb; margin-bottom: 15px; text-align: center; font-size: 1rem;"> Controles</h3>
+                            <h3 style="color: #55538a; margin-bottom: 15px; text-align: center; font-size: 1rem;"> Controles</h3>
                             
                             <div class="control-group">
                                 <label> Distancia (km)</label>
@@ -590,7 +602,7 @@
 
                         <!-- Área de Visualización -->
                         <div class="visualization-area">
-                            <h3 style="color: #8888bb; margin-bottom: 12px; font-size: 1rem;"> Visualización de Red</h3>
+                            <h3 style="color: #55538a; margin-bottom: 12px; font-size: 1rem;"> Visualización de Red</h3>
                             <div class="network-path" id="networkPath">
                                 <!-- Los nodos se generarán dinámicamente -->
                             </div>
@@ -623,8 +635,8 @@
                 </div>
 
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                    <h3 style="color: #8888bb; margin-bottom: 15px; font-size: 1.1rem;"> ¿Qué es la Latencia?</h3>
-                    <p style="color: #8888bb; line-height: 1.6; margin-bottom: 15px;">
+                    <h3 style="color: #55538a; margin-bottom: 15px; font-size: 1.1rem;"> ¿Qué es la Latencia?</h3>
+                    <p style="color: #55538a; line-height: 1.6; margin-bottom: 15px;">
                         La latencia es el tiempo que tarda un paquete de datos en viajar desde su origen hasta su destino. 
                         Es como el tiempo que tarda un mensajero en entregar una carta de una ciudad a otra.
                     </p>
@@ -632,19 +644,19 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 15px;">
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
                             <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Distancia</h4>
-                            <p style="font-size: 0.8rem; color: #8888bb;">Más lejos = más tiempo</p>
+                            <p style="font-size: 0.8rem; color: #55538a;">Más lejos = más tiempo</p>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
                             <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Routers</h4>
-                            <p style="font-size: 0.8rem; color: #8888bb;">Cada uno añade delay</p>
+                            <p style="font-size: 0.8rem; color: #55538a;">Cada uno añade delay</p>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
                             <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Congestión</h4>
-                            <p style="font-size: 0.8rem; color: #8888bb;">Tráfico aumenta espera</p>
+                            <p style="font-size: 0.8rem; color: #55538a;">Tráfico aumenta espera</p>
                         </div>
                         <div style="background: white; padding: 12px; border-radius: 8px; text-align: center;">
                             <h4 style="color: #667eea; margin-bottom: 8px; font-size: 0.9rem;"> Velocidad</h4>
-                            <p style="font-size: 0.8rem; color: #8888bb;">Más rápido = menos latencia</p>
+                            <p style="font-size: 0.8rem; color: #55538a;">Más rápido = menos latencia</p>
                         </div>
                     </div>
                 </div>
@@ -653,7 +665,7 @@
             <div class="section">
                 <h2 class="section-title"> Análisis de Métricas</h2>
                 <div class="analysis-container">
-                    <p style="margin-bottom: 15px; color: #8888bb;">Analiza las métricas de rendimiento de tu simulación</p>
+                    <p style="margin-bottom: 15px; color: #55538a;">Analiza las métricas de rendimiento de tu simulación</p>
                     
                     <div class="analysis-grid" id="analysisGrid">
                         <div class="analysis-card">
@@ -679,19 +691,19 @@
                     </div>
 
                     <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                        <h4 style="color: #8888bb; margin-bottom: 10px;"> Interpretación de Métricas</h4>
+                        <h4 style="color: #55538a; margin-bottom: 10px;"> Interpretación de Métricas</h4>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
                             <div>
-                                <strong style="color: #48bb78;"> Excelente:</strong>
-                                <p style="color: #8888bb; font-size: 0.85rem; margin: 3px 0;">Latencia < 20ms, Jitter < 5ms</p>
+                                <strong style="color: #2f8a3c;"> Excelente:</strong>
+                                <p style="color: #55538a; font-size: 0.85rem; margin: 3px 0;">Latencia < 20ms, Jitter < 5ms</p>
                             </div>
                             <div>
-                                <strong style="color: #f6ad55;"> Aceptable:</strong>
-                                <p style="color: #8888bb; font-size: 0.85rem; margin: 3px 0;">Latencia 20-100ms, Jitter 5-15ms</p>
+                                <strong style="color: #b5651d;"> Aceptable:</strong>
+                                <p style="color: #55538a; font-size: 0.85rem; margin: 3px 0;">Latencia 20-100ms, Jitter 5-15ms</p>
                             </div>
                             <div>
-                                <strong style="color: #fc8181;"> Problemático:</strong>
-                                <p style="color: #8888bb; font-size: 0.85rem; margin: 3px 0;">Latencia > 100ms, Jitter > 15ms</p>
+                                <strong style="color: #c0392b;"> Problemático:</strong>
+                                <p style="color: #55538a; font-size: 0.85rem; margin: 3px 0;">Latencia > 100ms, Jitter > 15ms</p>
                             </div>
                         </div>
                     </div>
@@ -701,7 +713,7 @@
             <div class="section">
                 <h2 class="section-title"> Configuración de Parámetros</h2>
                 <div class="parameters-container">
-                    <p style="margin-bottom: 15px; color: #8888bb;">Experimenta con diferentes configuraciones de red</p>
+                    <p style="margin-bottom: 15px; color: #55538a;">Experimenta con diferentes configuraciones de red</p>
                     
                     <div class="parameters-grid">
                         <div class="parameter-group">
@@ -771,7 +783,7 @@
                     </div>
 
                     <div id="parameterResults" style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; display: none;">
-                        <h4 style="color: #8888bb; margin-bottom: 10px;"> Impacto de la Configuración</h4>
+                        <h4 style="color: #55538a; margin-bottom: 10px;"> Impacto de la Configuración</h4>
                         <div id="parameterAnalysis"></div>
                     </div>
                 </div>
@@ -1228,19 +1240,19 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
                     <div style="text-align: center;">
                         <h5 style="color: #667eea; margin-bottom: 5px;">Latencia</h5>
-                        <p style="font-weight: bold; color: #8888bb;">${(latencyMultiplier * 100).toFixed(0)}% del baseline</p>
+                        <p style="font-weight: bold; color: #55538a;">${(latencyMultiplier * 100).toFixed(0)}% del baseline</p>
                     </div>
                     <div style="text-align: center;">
                         <h5 style="color: #667eea; margin-bottom: 5px;">Throughput</h5>
-                        <p style="font-weight: bold; color: #8888bb;">${(throughputMultiplier * 100).toFixed(0)}% del baseline</p>
+                        <p style="font-weight: bold; color: #55538a;">${(throughputMultiplier * 100).toFixed(0)}% del baseline</p>
                     </div>
                     <div style="text-align: center;">
                         <h5 style="color: #667eea; margin-bottom: 5px;">Protocolo</h5>
-                        <p style="font-weight: bold; color: #8888bb;">${protocol.toUpperCase()}</p>
+                        <p style="font-weight: bold; color: #55538a;">${protocol.toUpperCase()}</p>
                     </div>
                 </div>
                 <div style="margin-top: 12px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
-                    <p style="color: #8888bb; font-size: 0.85rem; margin: 0;">
+                    <p style="color: #55538a; font-size: 0.85rem; margin: 0;">
                         <strong>Configuración:</strong> ${networkType.toUpperCase()} sobre ${medium} 
                         ${latencyMultiplier > 5 ? '-  Alta latencia esperada' : ''}
                         ${throughputMultiplier < 0.5 ? '-  Throughput limitado' : ''}

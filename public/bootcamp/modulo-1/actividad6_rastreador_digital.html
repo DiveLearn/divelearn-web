@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title> Actividad 6 - Rastreador Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -76,7 +76,7 @@
 
         .terminal {
             background: #1a202c;
-            color: #68d391;
+            color: #2f8a3c;
             padding: 25px;
             border-radius: 15px;
             font-family: 'Courier New', monospace;
@@ -89,7 +89,7 @@
         }
 
         .terminal-header {
-            color: #e2e8f0;
+            color: #55538a;
             border-bottom: 1px solid #4a5568;
             padding-bottom: 10px;
             margin-bottom: 15px;
@@ -125,7 +125,7 @@
         }
 
         .hop-number {
-            color: #f6ad55;
+            color: #b5651d;
             font-weight: bold;
             display: inline-block;
             width: 30px;
@@ -137,11 +137,11 @@
         }
 
         .hop-name {
-            color: #e2e8f0;
+            color: #55538a;
         }
 
         .hop-time {
-            color: #68d391;
+            color: #2f8a3c;
             float: right;
         }
 
@@ -179,7 +179,7 @@
             height: 80px;
             border-radius: 50%;
             background: linear-gradient(135deg, #4a5568, #2d3748);
-            color: #e2e8f0;
+            color: #55538a;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -563,6 +563,18 @@
 </head>
 
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -756,7 +768,7 @@
                         <p>Identifica y analiza cada nodo en la ruta de red.</p>
                         
                         <div id="nodeIdentification">
-                            <div class="node-info" style="text-align: center; color: #8888bb;">
+                            <div class="node-info" style="text-align: center; color: #55538a;">
                                 Ejecuta un rastreo para identificar nodos en la ruta...
                             </div>
                         </div>
@@ -803,7 +815,7 @@
                         <div class="report-section">
                             <h4> Métricas Detalladas</h4>
                             <div id="detailedMetrics">
-                                <table style="width: 100%; color: #8888bb; border-collapse: collapse;">
+                                <table style="width: 100%; color: #55538a; border-collapse: collapse;">
                                     <thead>
                                         <tr style="border-bottom: 1px solid #e2e8f0;">
                                             <th style="padding: 10px; text-align: left;">Métrica</th>

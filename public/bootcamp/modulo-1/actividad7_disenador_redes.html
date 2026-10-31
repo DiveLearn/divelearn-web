@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 7 - Diseñador de Redes</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -476,7 +476,7 @@
         }
 
         .security-card.implemented li::before {
-            color: #48bb78;
+            color: #2f8a3c;
         }
 
         .metrics-grid {
@@ -514,6 +514,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -600,7 +612,7 @@
                             <div class="canvas-grid"></div>
                             <div class="canvas-placeholder">
                                  Arrastra dispositivos aquí para diseñar tu red<br>
-                                <small style="color: #8888bb;">Usa Ctrl+Click para modo conexión</small>
+                                <small style="color: #55538a;">Usa Ctrl+Click para modo conexión</small>
                             </div>
                         </div>
 
@@ -677,7 +689,7 @@
             <div class="section">
                 <h2 class="section-title"> Implementación de Seguridad</h2>
                 <div class="security-container">
-                    <p style="margin-bottom: 20px; color: #8888bb;">Implementa capas de seguridad para proteger tu red diseñada</p>
+                    <p style="margin-bottom: 20px; color: #55538a;">Implementa capas de seguridad para proteger tu red diseñada</p>
                     
                     <div class="security-grid">
                         <div class="security-card" onclick="implementSecurity('firewall')">
@@ -761,7 +773,7 @@
             <div class="section">
                 <h2 class="section-title"> Optimización de Red</h2>
                 <div class="optimization-container">
-                    <p style="margin-bottom: 20px; color: #8888bb;">Analiza y optimiza el rendimiento de tu red diseñada</p>
+                    <p style="margin-bottom: 20px; color: #55538a;">Analiza y optimiza el rendimiento de tu red diseñada</p>
                     
                     <div class="metrics-grid">
                         <div class="metric-card">
@@ -799,7 +811,7 @@
 
                     <div id="optimizationResults" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
                         <h4> Recomendaciones de Optimización</h4>
-                        <p style="color: #8888bb;">Diseña tu red y ejecuta el análisis para recibir recomendaciones personalizadas...</p>
+                        <p style="color: #55538a;">Diseña tu red y ejecuta el análisis para recibir recomendaciones personalizadas...</p>
                     </div>
                 </div>
             </div>
@@ -1530,7 +1542,7 @@
                 <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-top: 15px;">
                     <h5 style="margin-bottom: 10px;"> Recomendaciones:</h5>
                     <ul style="margin: 0; padding-left: 20px;">
-                        ${recommendations.map(rec => `<li style="margin-bottom: 5px; color: #8888bb;">${rec}</li>`).join('')}
+                        ${recommendations.map(rec => `<li style="margin-bottom: 5px; color: #55538a;">${rec}</li>`).join('')}
                     </ul>
                 </div>
             `;
@@ -1639,7 +1651,7 @@
                 </div>
                 <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #667eea;">
                     <h5 style="color: #667eea; margin-bottom: 10px;"> Resumen de Rendimiento:</h5>
-                    <p style="margin: 0; color: #8888bb; line-height: 1.5;">
+                    <p style="margin: 0; color: #55538a; line-height: 1.5;">
                         Tu red está funcionando con una calidad de ${metrics.quality}/100 y 
                         una disponibilidad del ${metrics.availability}%. 
                         ${metrics.quality >= 85 ? '¡Excelente rendimiento!' : 'Hay oportunidades de mejora.'}

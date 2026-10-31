@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 2 - Investigador DNS</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -144,7 +144,7 @@
         }
 
         .result-record {
-            color: #22C55E;
+            color: #2f8a3c;
             font-weight: bold;
         }
 
@@ -189,7 +189,7 @@
 
         .progress-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 15px;
         }
 
@@ -225,6 +225,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-dns.png" alt="" width="86" height="64"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 3</span><span class="dl-jh-tit">La guía telefónica digital</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 3</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -300,7 +312,7 @@
 
                         <div class="results-container" id="dnsResults">
                             <div class="results-title"> Resultados de la consulta DNS:</div>
-                            <p style="color: #8888bb; font-family: 'Segoe UI', sans-serif;">Ingresa un dominio y selecciona un tipo de registro para comenzar...</p>
+                            <p style="color: #55538a; font-family: 'Segoe UI', sans-serif;">Ingresa un dominio y selecciona un tipo de registro para comenzar...</p>
                         </div>
                     </div>
                 </div>
@@ -528,7 +540,7 @@
                 
             } else {
                 output += `<div style="color: #d32f2f; font-family: 'Segoe UI', sans-serif;"> No se encontraron registros ${recordType} para ${domain}</div>`;
-                output += `<div style="margin-top: 10px; color: #8888bb; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;">Esto podría significar que el dominio no tiene registros de este tipo configurados, o que los servidores DNS no están disponibles.</div>`;
+                output += `<div style="margin-top: 10px; color: #55538a; font-family: 'Segoe UI', sans-serif; font-size: 0.9rem;">Esto podría significar que el dominio no tiene registros de este tipo configurados, o que los servidores DNS no están disponibles.</div>`;
             }
             
             resultsDiv.innerHTML = output;

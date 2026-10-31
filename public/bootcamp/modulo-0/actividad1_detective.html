@@ -29,10 +29,10 @@
     .stat-item:last-child { border-right: none; }
     .stat-label { font-size: 0.68rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
     .stat-val { font-size: 1.25rem; font-weight: 900; font-family: var(--font-mono); }
-    .val-ok { color: var(--lime); } .val-warn { color: #f59e0b; } .val-err { color: #e53e3e; } .val-time { color: var(--purple-light); }
+    .val-ok { color: var(--lime-texto); } .val-warn { color: #f59e0b; } .val-err { color: #e53e3e; } .val-time { color: var(--lav-texto); }
     .tabs-mini { display: flex; border-bottom: 1px solid var(--border); background: var(--surface); }
     .tab-mini { padding: 10px 18px; font-size: 0.82rem; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: var(--transition); background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font); }
-    .tab-mini.active { color: var(--purple-light); border-bottom-color: var(--purple); }
+    .tab-mini.active { color: var(--lav-texto); border-bottom-color: var(--purple); }
     .tab-mini:hover:not(.active) { color: var(--text); }
     .tab-pane { display: none; padding: 16px; }
     .tab-pane.active { display: block; }
@@ -40,9 +40,9 @@
     .header-table tr { border-bottom: 1px solid var(--border); }
     .header-table tr:last-child { border-bottom: none; }
     .header-table td { padding: 8px 12px; font-size: 0.82rem; vertical-align: top; }
-    .header-table .h-key { color: var(--purple-light); width: 35%; word-break: break-all; }
+    .header-table .h-key { color: var(--lav-texto); width: 35%; word-break: break-all; }
     .header-table .h-val { color: var(--text-muted); word-break: break-all; }
-    .body-pre { font-family: var(--font-mono); font-size: 0.82rem; color: var(--lime); background: var(--bg); padding: 16px; border-radius: var(--radius-xs); overflow-x: auto; white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow-y: auto; line-height: 1.6; margin: 0; }
+    .body-pre { font-family: var(--font-mono); font-size: 0.82rem; color: var(--lime-texto); background: var(--bg); padding: 16px; border-radius: var(--radius-xs); overflow-x: auto; white-space: pre-wrap; word-break: break-word; max-height: 260px; overflow-y: auto; line-height: 1.6; margin: 0; }
     .journey-vis { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin: 20px 0; }
     .journey-vis-title { font-size: 0.82rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
     .jv-steps { display: flex; flex-direction: column; gap: 8px; }
@@ -60,25 +60,37 @@
     .jv-ms { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; text-align: right; }
     .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
     .preset-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 14px; border-radius: var(--radius-xs); font-size: 0.8rem; font-weight: 700; cursor: pointer; font-family: var(--font); transition: var(--transition); }
-    .preset-btn:hover { border-color: var(--purple); color: var(--purple-light); }
+    .preset-btn:hover { border-color: var(--purple); color: var(--lav-texto); }
     .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 12px; margin: 16px 0; }
     .concept-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; }
     .cc-title { font-size: 0.85rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
     .cc-body { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
     .challenge { background: var(--purple-pale); border: 1px solid var(--border); border-left: 4px solid var(--purple); border-radius: var(--radius-sm); padding: 18px 20px; margin: 20px 0; }
-    .challenge-title { font-size: 0.85rem; font-weight: 800; color: var(--purple-light); margin-bottom: 10px; }
+    .challenge-title { font-size: 0.85rem; font-weight: 800; color: var(--lav-texto); margin-bottom: 10px; }
     .challenge-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .challenge-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted); }
     .ch-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; transition: var(--transition); }
     .ch-check.done { background: var(--lime); border-color: var(--lime); color: #0d0d1f; font-weight: 900; }
     .error-box { background: rgba(229,62,62,0.08); border: 1px solid rgba(229,62,62,0.25); border-left: 4px solid #e53e3e; border-radius: var(--radius-sm); padding: 14px 18px; font-size: 0.85rem; color: var(--text); line-height: 1.6; }
-    .error-box strong { color: #fc8181; }
+    .error-box strong { color: #c0392b; }
     .navigation { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px 0; border-top: 1px solid var(--border); margin-top: 20px; }
     @media (max-width:600px) { .stat-item { min-width: 50%; } .jv-bar-wrap { display: none; } .url-row { flex-wrap: wrap; } }
   </style>
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-internet.png" alt="" width="84" height="68"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 0</span><span class="dl-jh-tit">Cómo funciona Internet</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 0</a></nav>
+    </div>
+  </div>
+</header>
+
 
 <nav class="dl-nav">
   <a href="/">
@@ -259,7 +271,7 @@ async function executeRequest() {
     });
     const cors = res.headers.get('access-control-allow-origin');
     document.getElementById('explainContent').innerHTML = `
-      <p>${res.status < 300 ? `<strong style="color:var(--lime)">✓ ${res.status} ${res.statusText}</strong> — El servidor encontró el recurso y te lo envió.` : res.status === 404 ? `<strong style="color:#e53e3e">✗ 404 Not Found</strong> — El servidor respondió, pero el recurso no existe en esa ruta.` : `<strong style="color:#f59e0b">${res.status} ${res.statusText}</strong>`}</p><br>
+      <p>${res.status < 300 ? `<strong style="color:var(--lime-texto)">✓ ${res.status} ${res.statusText}</strong> — El servidor encontró el recurso y te lo envió.` : res.status === 404 ? `<strong style="color:#e53e3e">✗ 404 Not Found</strong> — El servidor respondió, pero el recurso no existe en esa ruta.` : `<strong style="color:#f59e0b">${res.status} ${res.statusText}</strong>`}</p><br>
       <p> <strong>${totalMs}ms</strong> de tiempo total — ${totalMs < 200 ? 'Rápido (servidor cercano o con caché)' : totalMs < 600 ? 'Normal' : 'Lento (servidor lejano o con carga alta)'}.</p><br>
       <p> <strong>${document.getElementById('statSize').textContent}</strong> de datos. El header <code>Content-Type</code> le dice al navegador cómo interpretar el body.</p>
       ${cors ? `<br><p> <code>Access-Control-Allow-Origin: ${cors}</code> — Este header CORS permite que hagas la petición desde el navegador. Sin él, el navegador la bloquearía.</p>` : ''}

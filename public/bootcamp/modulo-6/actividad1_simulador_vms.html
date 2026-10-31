@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 1 - Simulador de Máquinas Virtuales</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -381,6 +381,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 3 · La piscina</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-virtualizacion.png" alt="" width="68" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 6</span><span class="dl-jh-tit">Cajas dentro de cajas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 6</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -533,7 +545,7 @@
                 <h2 class="section-title"> Máquinas Virtuales Activas</h2>
                 <div class="vms-list">
                     <div id="vmsList">
-                        <p style="text-align: center; color: #8888bb; font-style: italic; padding: 20px;">
+                        <p style="text-align: center; color: #55538a; font-style: italic; padding: 20px;">
                             No hay máquinas virtuales creadas aún. ¡Crea tu primera VM arriba!
                         </p>
                     </div>
@@ -745,7 +757,7 @@
             
             if (virtualMachines.length === 0) {
                 vmsList.innerHTML = `
-                    <p style="text-align: center; color: #8888bb; font-style: italic; padding: 20px;">
+                    <p style="text-align: center; color: #55538a; font-style: italic; padding: 20px;">
                         No hay máquinas virtuales creadas aún. ¡Crea tu primera VM arriba!
                     </p>
                 `;

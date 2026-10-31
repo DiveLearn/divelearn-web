@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 1 - Arquitecto de Redes</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -164,6 +164,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -235,7 +247,7 @@
 
                 <div class="design-area">
                     <div class="canvas" id="designCanvas">
-                        <p style="text-align: center; margin-top: 100px; color: #8888bb; font-size: 1.1rem;">
+                        <p style="text-align: center; margin-top: 100px; color: #55538a; font-size: 1.1rem;">
                              Arrastra dispositivos aquí para construir tu red
                         </p>
                     </div>
@@ -639,7 +651,7 @@
             
             if (confirm('¿Estás seguro de que quieres eliminar todos los dispositivos?')) {
                 const canvas = document.getElementById('designCanvas');
-                canvas.innerHTML = '<p style="text-align: center; margin-top: 100px; color: #8888bb; font-size: 1.1rem;"> Arrastra dispositivos aquí para construir tu red</p>';
+                canvas.innerHTML = '<p style="text-align: center; margin-top: 100px; color: #55538a; font-size: 1.1rem;"> Arrastra dispositivos aquí para construir tu red</p>';
                 
                 droppedDevices = [];
                 connections = [];

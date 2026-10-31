@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 1 - Calculadora de Subredes Interactiva</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -98,7 +98,7 @@
 
         .result-title {
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 15px;
             font-size: 1.2rem;
             display: flex;
@@ -121,13 +121,13 @@
         .result-value {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             font-family: 'Courier New', monospace;
         }
 
         .binary-display {
             background: #1a1a1a;
-            color: #e0f24a;
+            color: var(--lime-texto);
             padding: 15px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
@@ -190,6 +190,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-ip.png" alt="" width="80" height="70"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 2</span><span class="dl-jh-tit">Las direcciones secretas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 2</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -490,7 +502,7 @@
                         <div style="font-weight: 600; color: #2E7D32; margin-bottom: 8px;">
                              Subred ${i + 1}: ${subnetAddr}/${cidr}
                         </div>
-                        <div style="font-size: 0.9rem; color: #8888bb;">
+                        <div style="font-size: 0.9rem; color: #55538a;">
                             Rango: ${firstUsable.join('.')} - ${lastUsable.join('.')} | 
                             Broadcast: ${broadcast.join('.')}
                         </div>
@@ -499,7 +511,7 @@
             }
             
             if (subnetsCount > 8) {
-                html += `<div style="text-align: center; color: #8888bb; font-style: italic;">... y ${subnetsCount - 8} subredes más</div>`;
+                html += `<div style="text-align: center; color: #55538a; font-style: italic;">... y ${subnetsCount - 8} subredes más</div>`;
             }
             
             html += '</div>';
@@ -524,7 +536,7 @@
             
             // Mostrar división de bits
             html += '<strong style="color: #00ffff;">División de bits:</strong><br>';
-            html += `<span style="color: #ff6b6b;">Red original (${originalCIDR} bits)</span> | `;
+            html += `<span style="color: #c0392b;">Red original (${originalCIDR} bits)</span> | `;
             html += `<span style="color: #4ecdc4;">Subred (${newCIDR - originalCIDR} bits)</span> | `;
             html += `<span style="color: #ffe66d;">Host (${32 - newCIDR} bits)</span>`;
             html += '</div>';

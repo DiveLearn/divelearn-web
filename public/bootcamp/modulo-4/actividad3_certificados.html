@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 3 - Inspector de Certificados SSL</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -72,7 +72,7 @@
 
         .inspector-title {
             font-size: 1.2rem;
-            color: #06B6D4;
+            color: #0f7f86;
             margin-bottom: 15px;
             font-weight: 600;
             display: flex;
@@ -255,7 +255,7 @@
         .analysis-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -267,7 +267,7 @@
             align-items: center;
             gap: 10px;
             margin: 8px 0;
-            color: #22C55E;
+            color: #2f8a3c;
         }
 
         
@@ -340,6 +340,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-seguridad.png" alt="" width="64" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 4</span><span class="dl-jh-tit">Los guardianes digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 4</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -382,7 +394,7 @@
                 <div class="cert-inspector">
                     <div class="inspector-section">
                         <h3 class="inspector-title"> Analizador de Sitios Web</h3>
-                        <p style="margin-bottom: 15px; color: #8888bb;">Ingresa la URL de cualquier sitio web HTTPS para examinar su certificado SSL/TLS.</p>
+                        <p style="margin-bottom: 15px; color: #55538a;">Ingresa la URL de cualquier sitio web HTTPS para examinar su certificado SSL/TLS.</p>
                         
                         <div class="url-input-group">
                             <input type="text" id="urlInput" class="url-input" placeholder="https://ejemplo.com" value="https://google.com">
@@ -395,7 +407,7 @@
                         </div>
 
                         <div id="certResults" style="margin-top: 20px;">
-                            <div style="color: #8888bb; font-style: italic; text-align: center; padding: 40px;">
+                            <div style="color: #55538a; font-style: italic; text-align: center; padding: 40px;">
                                 Selecciona un sitio web para comenzar el análisis
                             </div>
                         </div>
@@ -403,7 +415,7 @@
 
                     <div class="inspector-section">
                         <h3 class="inspector-title"> Sitios Populares para Analizar</h3>
-                        <p style="margin-bottom: 15px; color: #8888bb;">Haz clic en cualquier sitio para analizarlo automáticamente:</p>
+                        <p style="margin-bottom: 15px; color: #55538a;">Haz clic en cualquier sitio para analizarlo automáticamente:</p>
                         
                         <div class="popular-sites">
                             <div class="site-card" onclick="selectSite('https://google.com')" data-site="google">
@@ -720,7 +732,7 @@
 
             resultsContainer.innerHTML = `
                 <div class="cert-details ${statusClass}">
-                    <h4 style="margin-bottom: 15px; color: #8888bb;"> Información del Certificado</h4>
+                    <h4 style="margin-bottom: 15px; color: #55538a;"> Información del Certificado</h4>
                     
                     <div class="cert-field">
                         <div class="cert-label">Estado:</div>
@@ -772,7 +784,7 @@
                 </div>
 
                 <div class="cert-chain">
-                    <h4 style="margin-bottom: 15px; color: #8888bb;"> Cadena de Certificados</h4>
+                    <h4 style="margin-bottom: 15px; color: #55538a;"> Cadena de Certificados</h4>
                     ${certInfo.chain.map((cert, index) => `
                         <div class="chain-item">
                             <div class="chain-level">${cert.level}</div>
@@ -840,7 +852,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Mostrar mensaje inicial
             document.getElementById('certResults').innerHTML = `
-                <div style="color: #8888bb; font-style: italic; text-align: center; padding: 40px;">
+                <div style="color: #55538a; font-style: italic; text-align: center; padding: 40px;">
                      Tip: Haz clic en uno de los sitios populares arriba para comenzar
                 </div>
             `;

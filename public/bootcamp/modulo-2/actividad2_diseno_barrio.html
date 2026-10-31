@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 2 - Diseñar el Barrio Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -176,7 +176,7 @@
         .base-network-title {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 10px;
         }
 
@@ -221,7 +221,7 @@
         .subnet-info {
             font-family: 'Courier New', monospace;
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
         }
 
         .subnet-department {
@@ -301,7 +301,7 @@
         .results-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -324,7 +324,7 @@
         .summary-value {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #22C55E;
+            color: #2f8a3c;
         }
 
         
@@ -386,6 +386,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-ip.png" alt="" width="80" height="70"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 2</span><span class="dl-jh-tit">Las direcciones secretas</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 2</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -526,7 +538,7 @@
                 <div class="base-network">
                     <div class="base-network-title">Red Base de TechNova Corp</div>
                     <div class="base-network-value">192.168.0.0/22</div>
-                    <div style="font-size: 0.9rem; color: #8888bb; margin-top: 5px;">
+                    <div style="font-size: 0.9rem; color: #55538a; margin-top: 5px;">
                         1024 direcciones IP disponibles (192.168.0.0 - 192.168.3.255)
                     </div>
                 </div>
@@ -550,20 +562,20 @@
                 <div class="network-designer">
                     <div class="subnets-container" id="subnetsContainer">
                         <div class="subnet-slot" data-subnet="0">
-                            <div style="color: #8888bb;">Arrastra un departamento aquí</div>
-                            <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">Subred 1</div>
+                            <div style="color: #55538a;">Arrastra un departamento aquí</div>
+                            <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">Subred 1</div>
                         </div>
                         <div class="subnet-slot" data-subnet="1">
-                            <div style="color: #8888bb;">Arrastra un departamento aquí</div>
-                            <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">Subred 2</div>
+                            <div style="color: #55538a;">Arrastra un departamento aquí</div>
+                            <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">Subred 2</div>
                         </div>
                         <div class="subnet-slot" data-subnet="2">
-                            <div style="color: #8888bb;">Arrastra un departamento aquí</div>
-                            <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">Subred 3</div>
+                            <div style="color: #55538a;">Arrastra un departamento aquí</div>
+                            <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">Subred 3</div>
                         </div>
                         <div class="subnet-slot" data-subnet="3">
-                            <div style="color: #8888bb;">Arrastra un departamento aquí</div>
-                            <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">Subred 4</div>
+                            <div style="color: #55538a;">Arrastra un departamento aquí</div>
+                            <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">Subred 4</div>
                         </div>
                     </div>
                 </div>
@@ -707,7 +719,7 @@
             subnetSlot.innerHTML = `
                 <div class="subnet-info">${subnet.network}/${subnet.cidr}</div>
                 <div class="subnet-department">${departmentName}</div>
-                <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">
+                <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">
                     ${requiredHosts}/${subnet.usableHosts} hosts
                 </div>
             `;
@@ -771,8 +783,8 @@
                 slot.className = 'subnet-slot';
                 slot.dataset.subnet = index;
                 slot.innerHTML = `
-                    <div style="color: #8888bb;">Arrastra un departamento aquí</div>
-                    <div style="font-size: 0.8rem; color: #8888bb; margin-top: 5px;">
+                    <div style="color: #55538a;">Arrastra un departamento aquí</div>
+                    <div style="font-size: 0.8rem; color: #55538a; margin-top: 5px;">
                         ${subnet.network}/${subnet.cidr} (${subnet.usableHosts} hosts)
                     </div>
                 `;
@@ -835,9 +847,9 @@
                     <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #4CAF50;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                             <span style="font-weight: 600; color: #2E7D32;">${assignment.departmentName}</span>
-                            <span style="font-family: 'Courier New', monospace; color: #8888bb;">${assignment.subnet.network}/${assignment.subnet.cidr}</span>
+                            <span style="font-family: 'Courier New', monospace; color: #55538a;">${assignment.subnet.network}/${assignment.subnet.cidr}</span>
                         </div>
-                        <div style="font-size: 0.9rem; color: #8888bb;">
+                        <div style="font-size: 0.9rem; color: #55538a;">
                             Utilización: ${assignment.requiredHosts}/${assignment.subnet.usableHosts} hosts (${utilizacion}%)
                         </div>
                         <div style="background: #f8f9fa; height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden;">

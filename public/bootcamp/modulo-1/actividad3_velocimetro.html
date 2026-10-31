@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>Actividad 3 - Velocímetro de Red</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -136,7 +136,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: #000;
-            color: #e0f24a;
+            color: var(--lime-texto);
             padding: 5px 15px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
@@ -394,6 +394,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -528,7 +540,7 @@
             </div>
 
             <div class="results-panel" id="resultsPanel">
-                <h3 style="margin-bottom: 20px; color: #8888bb;"> Resultados de la Prueba</h3>
+                <h3 style="margin-bottom: 20px; color: #55538a;"> Resultados de la Prueba</h3>
                 
                 <div class="results-grid">
                     <div class="result-metric">
@@ -569,7 +581,7 @@
                 </div>
 
                 <div class="comparison-chart" id="comparisonChart" style="display: none;">
-                    <h4 style="margin-bottom: 15px; color: #8888bb;"> Comparación de Velocidades</h4>
+                    <h4 style="margin-bottom: 15px; color: #55538a;"> Comparación de Velocidades</h4>
                     <div id="chartContent"></div>
                 </div>
             </div>

@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title> Actividad 5 - Constructor Digital</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -590,6 +590,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 1 · En la playa</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-redes.png" alt="" width="72" height="72"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 1</span><span class="dl-jh-tit">Las carreteras digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 1</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -906,7 +918,7 @@
 
                         <div style="text-align: center; margin: 20px 0;">
                             <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí..."
-                                style="padding: 10px; border-radius: 10px; border: 1px solid #4299e1; margin-right: 10px; background: white; color: #8888bb;">
+                                style="padding: 10px; border-radius: 10px; border: 1px solid #4299e1; margin-right: 10px; background: white; color: #55538a;">
                             <button onclick="startSimulation()"
                                 style="padding: 10px 20px; background: linear-gradient(135deg, #4299e1, #3182ce); color: white; border: none; border-radius: 10px; cursor: pointer;">
                                  Enviar Mensaje
@@ -917,7 +929,7 @@
                             </button>
                         </div>
 
-                        <div id="simulationSteps" style="margin-top: 20px; color: #4fd1c7;"></div>
+                        <div id="simulationSteps" style="margin-top: 20px; color: #0f7f86;"></div>
                     </div>
                 </div>
             </div>

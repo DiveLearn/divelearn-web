@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 4 - Configurador de Reglas de Firewall</title>
     <style>
-.breadcrumb a:hover { color: var(--lime); }.section-title, h2 {
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
@@ -304,6 +304,18 @@
 <link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
+<header class="dl-jh">
+  <a class="dl-jh-logo" href="/" aria-label="DiveLearn, ir al inicio"><img src="/img/logo-divelearn-morado.png" alt="DiveLearn" width="140" height="31"></a>
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 2 · Revisión del equipo</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/mod-seguridad.png" alt="" width="64" height="74"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 4</span><span class="dl-jh-tit">Los guardianes digitales</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 4</a></nav>
+    </div>
+  </div>
+</header>
+
   <nav class="dl-nav">
     <a href="/">
       <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
@@ -346,7 +358,7 @@
                 <div class="firewall-simulator">
                     <div class="simulator-section">
                         <h3 class="simulator-title"> Escenarios Predefinidos</h3>
-                        <p style="margin-bottom: 15px; color: #8888bb;">Selecciona un escenario para cargar reglas de ejemplo:</p>
+                        <p style="margin-bottom: 15px; color: #55538a;">Selecciona un escenario para cargar reglas de ejemplo:</p>
                         
                         <div class="predefined-scenarios">
                             <div class="scenario-card" onclick="loadScenario('office')" data-scenario="office">
@@ -448,7 +460,7 @@
                                 </thead>
                                 <tbody id="rulesTableBody">
                                     <tr>
-                                        <td colspan="9" style="text-align: center; color: #8888bb; padding: 40px;">
+                                        <td colspan="9" style="text-align: center; color: #55538a; padding: 40px;">
                                             No hay reglas configuradas. Agrega tu primera regla arriba.
                                         </td>
                                     </tr>
@@ -465,7 +477,7 @@
                         <h3 class="simulator-title"> Probar Conexión</h3>
                         <div class="test-panel">
                             <div class="test-title"> Simulador de Tráfico</div>
-                            <p style="margin-bottom: 15px; color: #8888bb;">Prueba si una conexión específica sería permitida o bloqueada por tus reglas:</p>
+                            <p style="margin-bottom: 15px; color: #55538a;">Prueba si una conexión específica sería permitida o bloqueada por tus reglas:</p>
                             
                             <div class="test-form">
                                 <div class="form-group">
@@ -715,7 +727,7 @@
             if (firewallRules.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="9" style="text-align: center; color: #8888bb; padding: 40px;">
+                        <td colspan="9" style="text-align: center; color: #55538a; padding: 40px;">
                             No hay reglas configuradas. Agrega tu primera regla arriba.
                         </td>
                     </tr>
