@@ -245,9 +245,21 @@ html body :is(.footer, .divelearn-brand) {
 }
 
 /* Dentro de lo que sigue siendo oscuro (terminales, código), el lima y la lavanda vuelven a su color */
-html body :is(.terminal, [class*="terminal"], .console, pre, .code-block, .output, [class*="output"]) {
+html body :is(.terminal, [class*="terminal"], .console, pre, .code-block, .output, [class*="output"],
+  .binary-display, .editor-header, .line-numbers, .key-content, .key-display, .log-panel, .code-editor,
+  .numeric-display, .connection-simulator, .code-snippet, .editor-container) {
   --lime-texto: #e0f24a;
   --lav-texto: #b2cafd;
+}
+/* Pantallas oscuras de los simuladores: azul noche de la marca, nunca negro */
+html body :is(.binary-display, .editor-header, .line-numbers, .key-content, .log-panel) {
+  background: #1f1d5c !important;
+  color: #e0f24a !important;
+  border-radius: 12px !important;
+}
+html body :is(.editor-header, .line-numbers) {
+  background: #2a2870 !important;
+  color: #b2cafd !important;
 }
 html body code {
   background: var(--tinte) !important;
@@ -545,4 +557,87 @@ html body :is(.feedback-error, .result-error, .feedback.wrong-feedback) {
   image-rendering: pixelated;
   vertical-align: -7px;
   margin-right: 10px;
+}
+
+/* ── Simuladores: todos los botones, campos y títulos internos con el estilo de juego ── */
+html body :is(.container, .main-content, main, .simulator-container, .tool-container) button:not(.dl-jh-btn),
+html body :is(.container, .main-content, main) [role="button"],
+html body :is(.container, .main-content, main) input[type="button"],
+html body :is(.container, .main-content, main) input[type="submit"] {
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.3px;
+  min-height: 40px;
+  padding: 8px 16px !important;
+  border: var(--borde) !important;
+  border-radius: 10px !important;
+  background: #6fd08c !important;
+  background-image: none !important;
+  color: var(--ink) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
+  text-shadow: none !important;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s !important;
+}
+html body :is(.container, .main-content, main) button:not(.dl-jh-btn):hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 var(--ink) !important;
+}
+html body :is(.container, .main-content, main) button:not(.dl-jh-btn):active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 0 0 0 var(--ink) !important;
+}
+html body :is(.container, .main-content, main) button:is(.secondary, .example-btn, .preset-btn, .copy-btn, .file-tab, .calc-tab, .tab-mini, .mode-btn, .help-btn, .tutorial-btn, .version-btn, .remove-field, .quiz-nav-btn, .scenario-btn, .deploy-option, .algorithm-btn, .bit-button) {
+  background: #fff !important;
+}
+html body :is(.container, .main-content, main) button:is(.danger, .reset-btn) {
+  background: #ff9aa6 !important;
+}
+html body :is(.container, .main-content, main) button:is(.active, .selected, [aria-pressed="true"]) {
+  background: var(--c) !important;
+}
+html body :is(.container, .main-content, main) button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+html body :is(.container, .main-content, main) :is(input[type="text"], input[type="number"], input:not([type]), select, textarea) {
+  border: var(--borde-suave) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: var(--ink) !important;
+  padding: 8px 12px !important;
+  font-family: "Questrial", "Century Gothic", system-ui, sans-serif !important;
+}
+html body :is(.container, .main-content, main) :is(input, select, textarea):focus {
+  outline: 3px solid color-mix(in srgb, var(--c) 70%, transparent) !important;
+  outline-offset: 1px;
+}
+/* Títulos internos de cada simulador (venían en naranjas, verdes, azules sueltos) */
+html body :is(.main-content, .container) :is(h3, h4, h5):not(.dl-jh-tit) {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor;
+  background-image: none !important;
+}
+html body :is(.terminal, [class*="terminal"], pre, .console) :is(h3, h4, h5) {
+  color: inherit !important;
+}
+
+/* Acentos naranjas sueltos de algunos simuladores → color del módulo */
+html body :is(.firewall-simulator, .simulator-section, .simulator-container, .timeline) {
+  border-color: color-mix(in srgb, var(--ink) 18%, transparent) !important;
+}
+html body :is(.simulator-section, .example-box)[class] {
+  border-left-color: var(--c) !important;
+}
+html body .control-title {
+  color: var(--ink) !important;
+  font-family: var(--pixel) !important;
+  font-weight: 700 !important;
+}
+/* Editores de código: letra monoespaciada */
+html body :is(.code-editor, textarea[class*="code"], textarea[class*="editor"], .script-editor) {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace !important;
+  font-size: 0.9rem !important;
 }
