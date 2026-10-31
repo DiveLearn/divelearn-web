@@ -1,0 +1,20 @@
+---
+// Ícono duotono de Phosphor (MIT), incrustado como SVG en el build.
+// Color principal = currentColor; capa de relleno = --duo (lima por defecto).
+import { readFileSync } from "node:fs";
+
+interface Props {
+  name: string;
+  class?: string;
+  label?: string;
+}
+
+const { name, class: cls = "", label } = Astro.props;
+const a11y = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true" focusable="false"';
+const svg = readFileSync(`node_modules/@phosphor-icons/core/assets/duotone/${name}-duotone.svg`, "utf8").replace(
+  "<svg ",
+  `<svg class="ico ${cls}" ${a11y} `,
+);
+---
+
+<Fragment set:html={svg} />

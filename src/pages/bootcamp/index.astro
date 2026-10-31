@@ -1,68 +1,76 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { zonas, rangos } from "../../data/bootcamp";
+import Icon from "../../components/Icon.astro";
+import { etapas, rangos } from "../../data/bootcamp";
 
-const modulos = zonas.flatMap((z) => z.modulos);
+const modulos = etapas.flatMap((e) => e.modulos);
 const juego = {
-  modulos: zonas.flatMap((z) => z.modulos.map((m) => ({ n: m.n, xp: m.xp, titulo: m.titulo, zona: z.id }))),
-  zonas: zonas.map((z) => ({ id: z.id })),
+  modulos: etapas.flatMap((e) => e.modulos.map((m) => ({ n: m.n, xp: m.xp, titulo: m.titulo, etapa: e.id }))),
+  etapas: etapas.map((e) => ({ id: e.id })),
   rangos,
 };
-const peces = ["🐟", "🐠", "🦑", "🪼"];
 ---
 
-<Base title="Bootcamp" description="Bootcamp gratis de fundamentos técnicos para la nube: redes, IP, DNS, seguridad, Linux, virtualización, datos y backup. Como un videojuego: de la superficie al abismo.">
+<Base title="Bootcamp" description="Bootcamp gratis de fundamentos para la nube: redes, IP, DNS, seguridad, Linux, virtualización, datos y backup. Tu escuela de buceo antes de entrar al océano de AWS.">
   <section class="intro">
-    <div class="wrap">
-      <p class="kicker">Bootcamp gratis</p>
-      <h1>De la superficie <em>al abismo</em></h1>
-      <p class="lead">
-        {modulos.length} módulos de fundamentos para la nube, en orden. Cada módulo es un nivel: ganas XP, subes de rango
-        y desbloqueas una insignia por cada zona que completas.
-      </p>
-      <a class="btn" href="#superficie">Empezar la inmersión ↓</a>
+    <div class="wrap intro-grid">
+      <div>
+        <p class="kicker">Bootcamp gratis · Escuela de buceo</p>
+        <h1>Antes del océano, <em>aprende a bucear</em></h1>
+        <p class="lead">
+          {modulos.length} módulos de fundamentos, en orden: de la teoría en la playa a tu primera inmersión de práctica.
+          Al terminar te llevas tu <b>licencia de buceo</b> para entrar a la nube.
+        </p>
+        <a class="btn" href="#playa">Empezar el bootcamp</a>
+      </div>
+      <div class="licencia-mini" aria-hidden="true">
+        <Icon name="identification-card" />
+      </div>
     </div>
   </section>
 
   <aside class="hud" aria-label="Tu progreso">
     <div class="wrap hud-in">
       <div class="rango">
-        <span class="rango-ico" aria-hidden="true">🤿</span>
-        <div>
-          <p class="rango-nombre" data-rango>Snorkel</p>
-          <div class="barra" role="progressbar" aria-label="XP hacia el siguiente rango" aria-valuemin="0" aria-valuemax="100" data-barra-aria>
-            <span data-barra></span>
-          </div>
+        <p class="rango-nombre" data-rango>{rangos[0].nombre}</p>
+        <div class="barra" role="progressbar" aria-label="Progreso hacia tu licencia" aria-valuemin="0" aria-valuemax="100" data-barra-aria>
+          <span data-barra></span>
         </div>
       </div>
       <p class="stat"><b data-xp>0</b> XP</p>
       <p class="stat"><b data-hechos>0</b>/{modulos.length} módulos</p>
-      <p class="insignias" aria-label="Insignias por zona">
-        {zonas.map((z) => <span title={`Insignia ${z.nombre}`} data-insignia={z.id}>{z.modulos[0].icono}</span>)}
+      <p class="insignias" aria-label="Insignias por etapa">
+        {
+          etapas.map((e) => (
+            <span title={`Insignia: ${e.nombre}`} data-insignia={e.id}>
+              <Icon name={e.icono} />
+            </span>
+          ))
+        }
       </p>
     </div>
   </aside>
 
-  <div class="oceano" data-oceano>
-    <div class="burbujas" aria-hidden="true">
-      {Array.from({ length: 18 }, (_, i) => <span style={`--x:${(i * 53) % 100}%;--d:${8 + (i % 5) * 2}s;--s:${6 + (i % 4) * 5}px;--r:${(i * 0.7) % 9}s`} />)}
-    </div>
-
+  <div class="escuela">
     {
-      zonas.map((z, zi) => (
-        <section class={`zona z${zi}`} id={z.id} aria-labelledby={`t-${z.id}`}>
-          {zi > 0 && <span class="pez" aria-hidden="true">{peces[zi % peces.length]}</span>}
-          <header class="wrap zona-head">
-            <p class="metros">{z.metros}</p>
-            <h2 id={`t-${z.id}`}>{z.nombre}</h2>
-            <p class="lema">{z.lema}</p>
+      etapas.map((e, ei) => (
+        <section class="etapa" id={e.id} aria-labelledby={`t-${e.id}`}>
+          <header class="wrap etapa-head">
+            <span class="etapa-ico">
+              <Icon name={e.icono} />
+            </span>
+            <div>
+              <p class="paso">Etapa {ei + 1} de {etapas.length}</p>
+              <h2 id={`t-${e.id}`}>{e.nombre}</h2>
+              <p class="lema">{e.lema}</p>
+            </div>
           </header>
           <ol class="wrap ruta">
-            {z.modulos.map((m) => (
+            {e.modulos.map((m) => (
               <li class={`nivel ${m.n % 2 ? "der" : "izq"}`} data-modulo={m.n}>
                 <a href={`/bootcamp/modulo-${m.n}/`} data-ir={m.n}>
                   <span class="nodo">
-                    <span aria-hidden="true">{m.icono}</span>
+                    <Icon name={m.icono} />
                     <span class="num">{m.n}</span>
                   </span>
                   <span class="tarjeta">
@@ -80,22 +88,35 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
         </section>
       ))
     }
-    <div class="wrap fondo">
-      <p>Tocaste fondo 🐚 ¿Quieres seguir bajando? Las clases en video y la próxima edición en vivo llegan primero a la lista.</p>
-      <a class="btn lime" href="https://mar31orvel.kit.com/inmersion-ans-c01">Avísame</a>
+
+    <section class="wrap meta" aria-labelledby="t-licencia">
+      <div class="licencia" data-licencia>
+        <span class="licencia-ico"><Icon name="identification-card" /></span>
+        <div>
+          <p class="paso" data-licencia-estado>Se desbloquea al terminar los {modulos.length} módulos</p>
+          <h2 id="t-licencia">Licencia de buceo DiveLearn</h2>
+          <p>
+            Ya sabes cómo viajan los datos, cómo se protegen y dónde viven. Lo que sigue es el océano: tu primera
+            certificación de AWS.
+          </p>
+          <div class="acciones">
+            <a class="btn lime" href="/cursos/">Ver el océano (cursos)</a>
+            <a class="btn ghost" href="https://mar31orvel.kit.com/inmersion-ans-c01">Avísame de las clases en video</a>
+          </div>
+        </div>
+      </div>
       <button type="button" class="reiniciar" data-reiniciar>Reiniciar mi progreso</button>
-    </div>
+    </section>
   </div>
 
-  <p class="profundimetro" aria-hidden="true" data-profundimetro><span data-metros>0</span> m</p>
   <div class="toast" role="status" aria-live="polite" data-toast></div>
 
   <script is:inline type="application/json" id="juego" set:html={JSON.stringify(juego)} />
   <script>
-    // Progreso del buzo, guardado solo en este navegador (sin cookies ni servidor).
+    // Progreso guardado solo en este navegador (sin cookies ni servidor).
     type Juego = {
-      modulos: { n: number; xp: number; titulo: string; zona: string }[];
-      zonas: { id: string }[];
+      modulos: { n: number; xp: number; titulo: string; etapa: string }[];
+      etapas: { id: string }[];
       rangos: { xp: number; nombre: string }[];
     };
     type Progreso = { hechos: number[]; ultimo?: string };
@@ -121,9 +142,9 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
 
     function pintar(p: Progreso) {
       const xp = juego.modulos.filter((m) => p.hechos.includes(m.n)).reduce((a, m) => a + m.xp, 0);
+      const total = juego.modulos.reduce((a, m) => a + m.xp, 0);
       const i = juego.rangos.findLastIndex((r) => xp >= r.xp);
-      const sig = juego.rangos[i + 1];
-      const pct = sig ? Math.round(((xp - juego.rangos[i].xp) / (sig.xp - juego.rangos[i].xp)) * 100) : 100;
+      const pct = Math.round((xp / total) * 100);
       $("[data-rango]").textContent = juego.rangos[i].nombre;
       $("[data-xp]").textContent = xp.toLocaleString("es-ES");
       $("[data-hechos]").textContent = String(p.hechos.length);
@@ -136,10 +157,15 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
         el.classList.toggle("hecho", p.hechos.includes(n));
         el.classList.toggle("siguiente", n === siguiente?.n);
       });
-      juego.zonas.forEach((z) => {
-        const completa = juego.modulos.filter((m) => m.zona === z.id).every((m) => p.hechos.includes(m.n));
-        $(`[data-insignia="${z.id}"]`).classList.toggle("ganada", completa);
+      juego.etapas.forEach((e) => {
+        const completa = juego.modulos.filter((m) => m.etapa === e.id).every((m) => p.hechos.includes(m.n));
+        $(`[data-insignia="${e.id}"]`).classList.toggle("ganada", completa);
       });
+      const lista = !siguiente;
+      $("[data-licencia]").classList.toggle("lista", lista);
+      $("[data-licencia-estado]").textContent = lista
+        ? "¡Desbloqueada! 🎉"
+        : `Te faltan ${juego.modulos.length - p.hechos.length} módulos para desbloquearla`;
     }
 
     function avisar(texto: string) {
@@ -171,21 +197,8 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
       p = { hechos: [] };
       guardar(p);
       pintar(p);
-      avisar("Progreso reiniciado: de vuelta a la superficie 🤿");
+      avisar("Progreso reiniciado: de vuelta a la playa");
     });
-
-    // Profundímetro: 0 m arriba del océano, 150 m al tocar fondo.
-    const oceano = $("[data-oceano]");
-    const metros = $("[data-metros]");
-    const medir = () => {
-      const r = oceano.getBoundingClientRect();
-      const avance = Math.min(1, Math.max(0, (innerHeight * 0.5 - r.top) / r.height));
-      metros.textContent = String(Math.round(avance * 150));
-    };
-    addEventListener("scroll", medir, { passive: true });
-    medir();
-    // El profundímetro solo se ve mientras estás bajo el agua.
-    new IntersectionObserver(([e]) => $("[data-profundimetro]").classList.toggle("ver", e.isIntersecting)).observe(oceano);
 
     // Los niveles aparecen al bajar.
     const io = new IntersectionObserver(
@@ -198,38 +211,60 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
         }),
       { threshold: 0.2 },
     );
-    document.querySelectorAll(".nivel, .zona-head").forEach((el) => io.observe(el));
+    document.querySelectorAll(".nivel, .etapa-head, .licencia").forEach((el) => io.observe(el));
   </script>
 </Base>
 
 <style>
+  /* Paleta estricta: blanco, morado, lavanda, lima y azul noche para el texto. */
   .intro {
-    background: linear-gradient(#ffffff, #eef2ff);
-    padding: 56px 0 32px;
-    text-align: center;
+    background: var(--purple);
+    color: var(--white);
+    padding: 56px 0;
+    overflow: hidden;
+  }
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 32px;
+    align-items: center;
   }
   .kicker {
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     font-size: 0.8rem;
-    color: var(--muted);
+    color: var(--lav);
     margin: 0;
   }
   .intro h1 {
-    font-size: clamp(2.4rem, 7vw, 4.2rem);
-    color: var(--purple);
-    margin-top: 8px;
+    font-size: clamp(2.3rem, 6vw, 3.8rem);
+    margin-top: 10px;
   }
   .intro h1 em {
-    color: var(--deep);
-    background: linear-gradient(transparent 62%, var(--lime) 62%);
+    color: var(--lime);
   }
   .lead {
-    max-width: 52ch;
-    margin: 0 auto 24px;
-    color: var(--muted);
+    max-width: 48ch;
+    margin: 0 0 24px;
+    color: var(--lav);
     font-size: 1.1rem;
+  }
+  .lead b {
+    color: var(--white);
+  }
+  .licencia-mini {
+    justify-self: center;
+    font-size: clamp(7rem, 16vw, 12rem);
+    color: var(--white);
+    --duo: var(--lime);
+    animation: flotar 5s ease-in-out infinite;
+    filter: drop-shadow(0 20px 30px rgba(31, 29, 92, 0.35));
+  }
+  @keyframes flotar {
+    50% {
+      transform: translateY(-12px) rotate(-3deg);
+    }
   }
 
   /* ── Marcador ── */
@@ -237,7 +272,7 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     position: sticky;
     top: 59px;
     z-index: 5;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
@@ -251,13 +286,7 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     flex-wrap: wrap;
   }
   .rango {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     flex: 1 1 220px;
-  }
-  .rango-ico {
-    font-size: 1.8rem;
   }
   .rango-nombre {
     margin: 0;
@@ -268,19 +297,18 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
   }
   .barra {
     height: 8px;
-    width: 100%;
-    max-width: 240px;
+    max-width: 260px;
     border-radius: 99px;
     background: var(--line);
     overflow: hidden;
-    margin-top: 4px;
+    margin-top: 6px;
   }
   .barra span {
     display: block;
     height: 100%;
     width: 0;
     border-radius: 99px;
-    background: linear-gradient(90deg, var(--purple), var(--lime));
+    background: var(--purple);
     transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .stat {
@@ -300,133 +328,77 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
   .insignias span {
     display: grid;
     place-items: center;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: var(--line);
-    filter: grayscale(1);
-    opacity: 0.45;
+    font-size: 1.2rem;
+    background: var(--lav-soft);
+    color: var(--lav);
+    --duo: var(--lav-soft);
     transition:
       transform 0.4s,
-      opacity 0.4s,
-      filter 0.4s;
+      background 0.4s,
+      color 0.4s;
   }
   .insignias span.ganada {
-    filter: none;
-    opacity: 1;
-    background: var(--lime);
+    background: var(--purple);
+    color: var(--white);
+    --duo: var(--lime);
     transform: scale(1.1);
-    box-shadow: 0 0 0 3px var(--purple);
   }
 
-  /* ── Océano: se oscurece hacia morado profundo, nunca negro ── */
-  .oceano {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 48px;
-    background: linear-gradient(180deg, #eef2ff 0%, #b2cafd 22%, #7f86f2 42%, #5453eb 60%, #3a34d2 80%, #27218f 100%);
+  /* ── Etapas ── */
+  .escuela {
+    background: linear-gradient(180deg, var(--white), var(--lav-soft));
+    padding-bottom: 32px;
   }
-  .burbujas span {
-    position: absolute;
-    bottom: -20px;
-    left: var(--x);
-    width: var(--s);
-    height: var(--s);
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.55);
-    animation: subir var(--d) linear var(--r) infinite;
-    pointer-events: none;
+  .etapa {
+    padding: 64px 0 8px;
   }
-  @keyframes subir {
-    from {
-      transform: translate(0, 0);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    to {
-      transform: translate(20px, -120vh);
-      opacity: 0;
-    }
-  }
-  .profundimetro {
-    position: fixed;
-    right: 16px;
-    top: 50%;
-    margin: 0;
-    z-index: 4;
-    opacity: 0;
-    transform: translateX(20px);
-    transition:
-      opacity 0.3s,
-      transform 0.3s;
-    padding: 8px 14px;
-    border-radius: 99px;
-    background: var(--ink);
-    color: var(--lime);
-    font-family: var(--title);
-    font-size: 1.1rem;
-    box-shadow: 0 8px 24px rgba(31, 29, 92, 0.3);
-  }
-  .profundimetro.ver {
-    opacity: 1;
-    transform: none;
-  }
-  .zona {
-    position: relative;
-    padding: 64px 0 24px;
-  }
-  .pez {
-    position: absolute;
-    top: 40px;
-    left: -60px;
-    font-size: 2rem;
-    animation: nadar 26s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes nadar {
-    to {
-      transform: translateX(calc(100vw + 120px));
-    }
-  }
-  .zona-head {
-    text-align: center;
+  .etapa-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: left;
     opacity: 0;
     transform: translateY(20px);
     transition:
       opacity 0.6s,
       transform 0.6s;
   }
-  .metros {
-    display: inline-block;
-    margin: 0;
-    padding: 4px 12px;
-    border-radius: 99px;
-    background: rgba(255, 255, 255, 0.65);
-    color: var(--ink);
-    font-weight: 700;
-    font-size: 0.85rem;
+  .etapa-ico {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 2rem;
+    --duo: var(--lime);
+    transform: rotate(-6deg);
   }
-  .zona-head h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
+  .paso {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .etapa-head h2 {
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
     color: var(--ink);
-    margin: 10px 0 4px;
+    margin: 2px 0;
   }
   .lema {
     margin: 0;
     color: var(--muted);
   }
-  .z2 .zona-head h2,
-  .z3 .zona-head h2 {
-    color: var(--white);
-  }
-  .z2 .lema,
-  .z3 .lema {
-    color: var(--lav);
-  }
 
-  /* ── Ruta de niveles ── */
+  /* ── Ruta de módulos ── */
   .ruta {
     list-style: none;
     margin: 32px auto 0;
@@ -439,7 +411,7 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     left: 50%;
     top: 0;
     bottom: 0;
-    border-left: 3px dashed rgba(255, 255, 255, 0.7);
+    border-left: 3px dashed var(--lav);
     transform: translateX(-50%);
   }
   .nivel {
@@ -471,18 +443,21 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     place-items: center;
     width: 88px;
     height: 88px;
-    border-radius: 50%;
+    border-radius: 28px;
     background: var(--white);
-    font-size: 2.2rem;
-    box-shadow:
-      0 0 0 6px rgba(255, 255, 255, 0.35),
-      0 12px 30px rgba(31, 29, 92, 0.25);
-    transition: transform 0.25s;
+    color: var(--purple);
+    font-size: 2.6rem;
+    --duo: var(--lav);
+    border: 2px solid var(--line);
+    box-shadow: 0 12px 30px rgba(84, 83, 235, 0.16);
+    transition:
+      transform 0.25s,
+      background 0.3s;
   }
   .num {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: -8px;
+    right: -8px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -500,11 +475,13 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     gap: 4px;
     padding: 18px 20px;
     border-radius: var(--radius);
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 10px 30px rgba(31, 29, 92, 0.15);
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(84, 83, 235, 0.08);
     transition:
       transform 0.25s,
-      box-shadow 0.25s;
+      box-shadow 0.25s,
+      border-color 0.25s;
   }
   .izq .tarjeta {
     grid-column: 1;
@@ -535,8 +512,8 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     margin-top: 4px;
     padding: 2px 10px;
     border-radius: 99px;
-    background: var(--lime);
-    color: var(--ink);
+    background: var(--lav-soft);
+    color: var(--purple);
     font-size: 0.8rem;
     font-weight: 700;
   }
@@ -549,25 +526,34 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
   }
   .nivel a:hover .tarjeta {
     transform: translateY(-3px);
-    box-shadow: 0 16px 36px rgba(31, 29, 92, 0.25);
+    border-color: var(--lav);
+    box-shadow: 0 16px 36px rgba(84, 83, 235, 0.16);
   }
   .siguiente .nodo {
+    background: var(--purple);
+    color: var(--white);
+    --duo: var(--lime);
+    border-color: var(--purple);
     animation: latir 1.8s ease-in-out infinite;
-    box-shadow:
-      0 0 0 6px var(--lime),
-      0 12px 30px rgba(31, 29, 92, 0.25);
+  }
+  .siguiente .num {
+    background: var(--lime);
+    color: var(--ink);
   }
   .siguiente .estado::before {
-    content: "▶ Siguiente · ";
-    color: var(--deep);
+    content: "▶ Sigue aquí · ";
+    color: var(--purple);
   }
   @keyframes latir {
     50% {
-      transform: scale(1.07);
+      box-shadow: 0 0 0 10px rgba(84, 83, 235, 0.15);
     }
   }
   .hecho .nodo {
     background: var(--lime);
+    color: var(--ink);
+    --duo: var(--white);
+    border-color: var(--lime);
   }
   .hecho .num {
     background: var(--ink);
@@ -577,26 +563,99 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     content: "✓";
     font-size: 0.95rem;
   }
+  .hecho .xp {
+    background: var(--lime);
+    color: var(--ink);
+  }
   .hecho .estado::before {
-    content: "Explorado · ";
-    color: #2f8a3c;
+    content: "Completado · ";
+    color: var(--ink);
   }
-  .fondo {
-    position: relative;
-    text-align: center;
-    color: var(--white);
+
+  /* ── Licencia ── */
+  .meta {
     padding-top: 56px;
-    max-width: 640px;
+    max-width: 760px;
   }
-  .fondo p {
-    font-size: 1.15rem;
+  .licencia {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding: 28px;
+    border-radius: 28px;
+    border: 2px dashed var(--lav);
+    background: var(--white);
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s,
+      transform 0.6s;
+  }
+  .licencia-ico {
+    flex: 0 0 auto;
+    font-size: 5rem;
+    color: var(--lav);
+    --duo: var(--lav-soft);
+    transition: color 0.4s;
+  }
+  .licencia h2 {
+    color: var(--ink);
+    font-size: 1.8rem;
+    margin: 4px 0 8px;
+  }
+  .licencia p {
+    color: var(--muted);
+  }
+  .licencia .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .licencia .btn.ghost {
+    color: var(--purple);
+    box-shadow: inset 0 0 0 2px var(--lav);
+  }
+  .licencia.lista {
+    border: 0;
+    background: var(--purple);
+    color: var(--white);
+    box-shadow: 0 20px 50px rgba(84, 83, 235, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .licencia.lista::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
+    transform: translateX(-100%);
+    animation: brillo 3.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes brillo {
+    60%,
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  .licencia.lista h2,
+  .licencia.lista .btn.ghost {
+    color: var(--white);
+  }
+  .licencia.lista p,
+  .licencia.lista .paso {
+    color: var(--lav);
+  }
+  .licencia.lista .licencia-ico {
+    color: var(--white);
+    --duo: var(--lime);
   }
   .reiniciar {
     display: block;
     margin: 24px auto 0;
     background: none;
     border: 0;
-    color: var(--lav);
+    color: var(--muted);
     text-decoration: underline;
     cursor: pointer;
     font: inherit;
@@ -628,15 +687,26 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     visibility: visible;
   }
 
+  @media (max-width: 768px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+    }
+    .licencia-mini {
+      display: none;
+    }
+  }
   @media (max-width: 640px) {
     .hud {
-      top: 55px;
+      top: 58px;
     }
     .hud-in {
       gap: 8px 16px;
     }
     .rango {
       flex-basis: 100%;
+    }
+    .etapa-head {
+      justify-content: flex-start;
     }
     .ruta::before {
       left: 36px;
@@ -649,7 +719,8 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
       grid-column: 1;
       width: 72px;
       height: 72px;
-      font-size: 1.8rem;
+      font-size: 2.1rem;
+      border-radius: 22px;
     }
     .izq .tarjeta,
     .der .tarjeta {
@@ -659,23 +730,20 @@ const peces = ["🐟", "🐠", "🦑", "🪼"];
     .izq .xp {
       align-self: flex-start;
     }
-    .profundimetro {
-      font-size: 0.9rem;
-      padding: 6px 10px;
-      right: 8px;
-      top: auto;
-      bottom: 16px;
+    .licencia {
+      flex-direction: column;
+      text-align: center;
+    }
+    .licencia .acciones {
+      justify-content: center;
     }
   }
   @media (prefers-reduced-motion: reduce) {
     .nivel,
-    .zona-head {
+    .etapa-head,
+    .licencia {
       opacity: 1;
       transform: none;
-    }
-    .burbujas,
-    .pez {
-      display: none;
     }
   }
 </style>
