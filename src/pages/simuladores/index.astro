@@ -7,6 +7,7 @@ import Sprite from "../../components/Sprite.astro";
 const sims = [
   {
     href: "/simuladores/terminal-linux/",
+    clave: "terminal",
     t: "Terminal Linux",
     d: "Tu primer día en un servidor: moverte, leer logs, buscar errores con grep, tuberías, permisos y respaldos.",
     sprite: "mod-linux",
@@ -15,10 +16,13 @@ const sims = [
     nivel: "Superficie",
   },
   {
+    href: "/simuladores/bases-de-datos/",
+    clave: "sql",
     t: "Bases de datos SQL",
-    d: "Una tienda con clientes y pedidos: SELECT, WHERE, JOIN y por qué un índice cambia todo.",
+    d: "La tienda de un centro de buceo: SELECT, WHERE, GROUP BY, JOIN, cambios seguros y por qué un índice cambia todo.",
     sprite: "mod-datos",
     color: "#b39dfa",
+    misiones: 12,
     nivel: "Superficie",
   },
   {
@@ -67,7 +71,7 @@ const sims = [
                 {s.href ? (
                   <>
                     <b>{s.misiones} misiones</b>
-                    <span class="avance" data-sim="terminal" />
+                    <span class="avance" data-sim={s.clave} />
                     <span class="jugar">Jugar &rarr;</span>
                   </>
                 ) : (

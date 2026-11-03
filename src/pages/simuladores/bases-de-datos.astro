@@ -1,0 +1,212 @@
+---
+import "@fontsource/silkscreen/700.css";
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import "../../styles/simulador.css";
+
+const ejemplos = [
+  "SELECT * FROM productos;",
+  "SELECT * FROM pedidos WHERE estado = 'enviado';",
+  "SELECT categoria, AVG(precio) FROM productos GROUP BY categoria;",
+  "SELECT c.nombre, pr.nombre AS producto, pe.cantidad\nFROM pedidos pe\nJOIN clientes c ON c.id = pe.cliente_id\nJOIN productos pr ON pr.id = pe.producto_id;",
+  "SELECT c.nombre, COUNT(*) AS pedidos\nFROM pedidos pe JOIN clientes c ON c.id = pe.cliente_id\nGROUP BY c.nombre ORDER BY pedidos DESC;",
+];
+---
+
+<Base title="Simulador: Bases de datos SQL" description="Practica SQL de verdad en el navegador con una tienda de buceo: SELECT, WHERE, GROUP BY, JOIN, INSERT, UPDATE, DELETE e índices, con guía de laboratorio por misiones.">
+  <div class="sim" style="--c:#b39dfa;--c-osc:#5a3fc0;--c-suave:#f1ecff;--fondo:#f3effc">
+    <section class="wrap cabeza">
+      <a class="volver" href="/simuladores/">&larr; Simuladores</a>
+      <div class="titulo">
+        <Sprite nombre="mod-datos" escala={2} />
+        <div>
+          <p class="etq">Laboratorio 2 · Nivel superficie</p>
+          <h1>Bases de datos SQL</h1>
+          <p class="lead">La tienda online de un centro de buceo: clientes, productos y pedidos. Escribe SQL de verdad (es SQLite corriendo en tu navegador), sigue las misiones y aprende por qué cada consulta importa en el trabajo.</p>
+        </div>
+        <Sprite nombre="buzo-estudia" escala={2} class="buzo" />
+      </div>
+    </section>
+
+    <section class="wrap lab">
+      <aside class="guia">
+        <div class="panel progreso">
+          <div class="fila"><b>Guía de laboratorio</b><span><b id="sim-xp">0</b> XP</span></div>
+          <div class="barra"><span id="sim-barra"></span></div>
+          <small id="sim-cuenta">0/12</small>
+        </div>
+
+        <div class="panel mision" id="sim-mision">
+          <p class="num" id="m-num">Misión 1</p>
+          <h2 id="m-titulo"></h2>
+          <p id="m-historia"></p>
+          <p class="obj"><Sprite nombre="obj-checklist" escala={1} /><span id="m-objetivo"></span></p>
+          <button type="button" class="pista-btn" id="m-ver-pista">Ver pista</button>
+          <p class="pista" id="m-pista" hidden></p>
+        </div>
+
+        <div class="panel fin" id="sim-fin" hidden>
+          <Sprite nombre="buzo-celebra" escala={2} />
+          <h2>¡Laboratorio completo!</h2>
+          <p>Consultas, filtros, agregaciones, JOIN, cambios seguros con WHERE e índices. Con esto ya entiendes lo que pasa dentro de RDS y Aurora.</p>
+          <a class="btn lime" href="/simuladores/">Ver más simuladores</a>
+        </div>
+
+        <ol class="lista" id="sim-lista"></ol>
+        <button type="button" class="reiniciar" id="sim-reiniciar">Reiniciar laboratorio</button>
+      </aside>
+
+      <div class="consola">
+        <div class="term sql">
+          <div class="barra-term"><span class="puntos"><i></i><i></i><i></i></span><span>tienda.db · SQLite</span></div>
+          <label class="sr" for="sql-editor">Escribe tu consulta SQL</label>
+          <textarea id="sql-editor" rows="5" spellcheck="false" autocapitalize="off" placeholder="SELECT * FROM clientes;"></textarea>
+          <div class="acciones">
+            <button type="button" class="pista-btn" id="sql-run">Ejecutar</button>
+            <small>o Ctrl/Cmd + Enter</small>
+            <button type="button" class="reiniciar" id="sql-reset-db">Reiniciar base</button>
+          </div>
+        </div>
+
+        <p class="msg" id="sql-msg" aria-live="polite"><span id="sql-cargando">Cargando la base de datos…</span></p>
+        <div class="resultado"><table id="sql-res"></table></div>
+
+        <div class="logro" id="sim-logro" hidden>
+          <img id="logro-img" class="px" src="/img/sprites/pulpo-ok.png" alt="" width="48" height="48" />
+          <div>
+            <b id="logro-titulo"></b>
+            <p><span>Por qué importa:</span> <span id="logro-porque"></span></p>
+          </div>
+          <button type="button" id="logro-cerrar" aria-label="Cerrar">&times;</button>
+        </div>
+
+        <div class="panel esquema">
+          <b>Tablas</b> <small>(toca una para verla)</small>
+          <div id="sql-esquema"></div>
+        </div>
+
+        <details class="chuleta">
+          <summary>Consultas de ejemplo</summary>
+          <div class="chips">
+            {ejemplos.map((e) => <button type="button" data-ejemplo={e}>{e.split("\n")[0]}{e.includes("\n") ? " …" : ""}</button>)}
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+  <script is:inline src="/vendor/sql/sql-wasm.js"></script>
+  <script is:inline src="/js/sim-sql.js" defer></script>
+</Base>
+
+<style>
+  .sql {
+    cursor: auto;
+  }
+  #sql-editor {
+    display: block;
+    width: 100%;
+    min-height: 130px;
+    padding: 12px 14px;
+    border: 0;
+    outline: 0;
+    resize: vertical;
+    background: var(--navy);
+    color: #fff;
+    caret-color: var(--lime);
+    font: 15px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #2c2a7a;
+    color: var(--lav);
+  }
+  .acciones .reiniciar {
+    margin-left: auto;
+  }
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .msg {
+    margin: 12px 0 8px;
+    font-weight: 700;
+    min-height: 1.5em;
+  }
+  .msg.ok {
+    color: var(--c-osc);
+  }
+  .msg.err {
+    color: #c23a52;
+  }
+  .resultado {
+    max-height: 360px;
+    overflow: auto;
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    background: var(--white);
+  }
+  .resultado:has(table:empty) {
+    display: none;
+  }
+  #sql-res {
+    width: 100%;
+    border-collapse: collapse;
+    font: 14px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  #sql-res :global(th) {
+    position: sticky;
+    top: 0;
+    background: var(--c-suave);
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  #sql-res :global(td) {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  #sql-res :global(td.n) {
+    text-align: right;
+  }
+  .esquema {
+    margin-top: 14px;
+  }
+  #sql-esquema {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  #sql-esquema :global(.tabla-esq) {
+    padding: 8px 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--c-suave);
+    cursor: pointer;
+  }
+  #sql-esquema :global(ul) {
+    margin: 4px 0 0;
+    padding-left: 16px;
+    font: 13px/1.5 ui-monospace, Menlo, monospace;
+  }
+  .chips button {
+    font: 13px ui-monospace, Menlo, monospace;
+    padding: 6px 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: 8px;
+    background: var(--white);
+    cursor: pointer;
+    text-align: left;
+  }
+  .chips button:hover {
+    background: var(--c-suave);
+  }
+</style>
