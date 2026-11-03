@@ -27,13 +27,19 @@
           "bienvenida.txt": arch(
             "Hola, buzo. Este servidor es tuyo para practicar.\nNada de lo que hagas aquí rompe algo de verdad.\nSigue las misiones de la guía de la izquierda.",
           ),
+          ".bashrc": arch("# Configuración de tu terminal: se lee cada vez que abres una sesión\nexport PATH=$PATH:/usr/local/bin\nalias ll='ls -la'\nPS1='\\u@\\h:\\w\\$ '"),
           ".secreto": arch("La contraseña del cofre es: burbuja42\n(los archivos que empiezan con punto están ocultos)"),
           logs: dir({ "app.log": arch(LOG), "acceso.log": arch("10.0.1.5 GET /\n10.0.1.9 GET /login\n10.0.1.5 POST /pagar") }),
           scripts: dir({ "deploy.sh": arch('#!/bin/bash\necho "desplegando la app..."') }),
           tmp: dir({ "cache1.tmp": arch("basura"), "cache2.tmp": arch("más basura") }),
         }),
       }),
-      etc: dir({ hostname: arch("divelearn"), "os-release": arch('NAME="DiveLearn Linux"\nVERSION="26.11"') }),
+      etc: dir({
+        hostname: arch("divelearn"),
+        "os-release": arch('NAME="DiveLearn Linux"\nVERSION="26.11"'),
+        hosts: arch("# Nombres que se resuelven antes de preguntarle al DNS\n127.0.0.1   localhost\n10.0.1.20   base-datos.interna"),
+        fstab: arch("# Discos que se montan al arrancar (en EC2: tus volúmenes EBS)\nUUID=1a2b  /      ext4  defaults  0 1\nUUID=3c4d  /data  xfs   defaults,nofail  0 2"),
+      }),
       var: dir({ log: dir({ syslog: arch("kernel: arranque normal") }) }),
       tmp: dir(),
     });
@@ -618,6 +624,31 @@
     arrancar();
     guardar();
   });
+
+  // Calculadora de permisos: 9 interruptores rwx ↔ número octal, y escribe el chmod en la terminal.
+  const calc = $("#perm");
+  if (calc) {
+    const bits = [...calc.querySelectorAll("[data-bit]")];
+    const pintarCalc = () => {
+      const on = bits.map((b) => b.getAttribute("aria-pressed") === "true");
+      const sim = on.map((v, i) => (v ? "rwx"[i % 3] : "-")).join("");
+      const oct = [0, 1, 2].map((g) => on[g * 3] * 4 + on[g * 3 + 1] * 2 + on[g * 3 + 2] * 1).join("");
+      $("#perm-sim").textContent = "-" + sim;
+      $("#perm-oct").textContent = oct;
+      return oct;
+    };
+    bits.forEach((b) =>
+      b.addEventListener("click", () => {
+        b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true");
+        pintarCalc();
+      }),
+    );
+    $("#perm-usar").addEventListener("click", () => {
+      input.value = `chmod ${pintarCalc()} ~/scripts/deploy.sh`;
+      input.focus();
+    });
+    pintarCalc();
+  }
 
   const arrancar = () => {
     linea("DiveLearn Linux 26.11 · servidor de práctica", "ok");

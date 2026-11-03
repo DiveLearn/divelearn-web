@@ -68,10 +68,20 @@ import Sprite from "../../components/Sprite.astro";
           <button type="button" id="logro-cerrar" aria-label="Cerrar">&times;</button>
         </div>
 
+        <div class="panel perm" id="perm">
+          <div class="perm-cab">
+            <b>Calculadora de permisos</b>
+            <span><code id="perm-sim">-rwxr-xr-x</code> = <code class="oct" id="perm-oct">755</code></span>
+          </div>
+          <div class="bits"><div class="grupo"><span>Dueño</span><button type="button" data-bit aria-pressed="true" aria-label="Dueño: r">r</button><button type="button" data-bit aria-pressed="true" aria-label="Dueño: w">w</button><button type="button" data-bit aria-pressed="true" aria-label="Dueño: x">x</button></div><div class="grupo"><span>Grupo</span><button type="button" data-bit aria-pressed="true" aria-label="Grupo: r">r</button><button type="button" data-bit aria-pressed="false" aria-label="Grupo: w">w</button><button type="button" data-bit aria-pressed="true" aria-label="Grupo: x">x</button></div><div class="grupo"><span>Otros</span><button type="button" data-bit aria-pressed="true" aria-label="Otros: r">r</button><button type="button" data-bit aria-pressed="false" aria-label="Otros: w">w</button><button type="button" data-bit aria-pressed="true" aria-label="Otros: x">x</button></div></div>
+          <p class="nota">r = leer (4) · w = escribir (2) · x = ejecutar (1). Se suman por grupo: rwx = 7, r-x = 5, rw- = 6.</p>
+          <button type="button" class="pista-btn" id="perm-usar">Escribir el chmod en la terminal</button>
+        </div>
+
         <details class="chuleta">
           <summary>Chuleta de comandos</summary>
           <div class="chips">
-            <code>pwd</code><code>ls -la</code><code>cd ..</code><code>cat</code><code>grep -i</code><code>wc -l</code><code>head -n 3</code><code>tail</code><code>mkdir -p</code><code>cp -r</code><code>mv</code><code>rm -r</code><code>chmod +x</code><code>find . -name "*.log"</code><code>tree</code><code>man ls</code>
+            <code>pwd</code><code>ls -la</code><code>cd ..</code><code>cat</code><code>grep -i</code><code>wc -l</code><code>head -n 3</code><code>tail</code><code>mkdir -p</code><code>cp -r</code><code>mv</code><code>rm -r</code><code>chmod +x</code><code>find . -name "*.log"</code><code>tree</code><code>man ls</code><code>cat ~/.bashrc</code><code>cat /etc/hosts</code><code>cat /etc/fstab</code>
           </div>
         </details>
       </div>
@@ -379,6 +389,63 @@ import Sprite from "../../components/Sprite.astro";
   }
   .chuleta {
     margin-top: 14px;
+  }
+  .perm {
+    margin: 14px 0 0;
+  }
+  .perm-cab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: var(--pixel);
+    font-size: 0.85rem;
+  }
+  .perm code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    background: var(--lav-soft);
+    padding: 1px 6px;
+    border-radius: 5px;
+  }
+  .perm .oct {
+    background: var(--lime);
+    font-weight: 700;
+  }
+  .bits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 12px 0 6px;
+  }
+  .grupo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .grupo span {
+    font-size: 0.85rem;
+    margin-right: 4px;
+    color: var(--muted);
+  }
+  .bits button {
+    width: 36px;
+    height: 40px;
+    border: var(--borde);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--muted);
+    font: 700 1rem ui-monospace, Menlo, monospace;
+    cursor: pointer;
+  }
+  .bits button[aria-pressed="true"] {
+    background: var(--c);
+    color: var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .nota {
+    margin: 4px 0 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
   }
   .chuleta summary {
     font: 700 0.85rem var(--pixel);
