@@ -1,0 +1,741 @@
+---
+import "@fontsource/silkscreen/700.css";
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import datos from "../../data/infra-global.json";
+
+// Datos generados con scripts/infra-global.mjs (catálogo del AWS CLI + ip-ranges.json de AWS).
+const comerciales = datos.regiones.filter((r) => r.particion === "comercial");
+const stats = [
+  { n: datos.regiones.length, t: "Regiones", d: `${comerciales.length} públicas + GovCloud, China y la Nube Soberana Europea` },
+  { n: datos.regiones.reduce((a, r) => a + r.azs, 0), t: "Zonas de disponibilidad", d: "Centros de datos separados dentro de cada región" },
+  { n: datos.localZones.length, t: "Local Zones", d: "Nube cerca de ciudades grandes, para latencias de un dígito" },
+  { n: datos.wavelength.length, t: "Zonas Wavelength", d: "AWS dentro de la red 5G de operadores móviles" },
+];
+const capas = [
+  { id: "regiones", t: "Regiones", c: "#e0f24a", d: "Una región es una zona geográfica con varios centros de datos. Tus datos no salen de ella si tú no lo decides." },
+  { id: "azs", t: "Zonas de disponibilidad", c: "#7cc6fe", d: "Cada región tiene al menos 3 AZ: centros de datos con energía y red propias, a kilómetros entre sí. Si una cae, las otras siguen." },
+  { id: "local", t: "Local Zones", c: "#ff7a8a", d: "Extensiones de una región dentro de una ciudad, para apps que necesitan responder en pocos milisegundos (videojuegos, video en vivo)." },
+  { id: "wavelength", t: "Wavelength", c: "#5fd3c6", d: "AWS dentro de la red 5G de un operador móvil: el tráfico del celular no sale a internet." },
+  { id: "edge", t: "Edge locations", c: "#ffffff", d: "Puntos de presencia de CloudFront, Route 53 y Global Accelerator. Guardan copias cerca de ti para que todo cargue rápido." },
+  { id: "red", t: "Red troncal", c: "#b39dfa", d: "Fibra privada de AWS que une todo. El tráfico entre regiones viaja por ella, cifrado, sin pasar por internet público." },
+];
+const juego = {
+  regiones: datos.regiones,
+  localZones: datos.localZones,
+  wavelength: datos.wavelength,
+  edge: datos.edge,
+  puntos: datos.puntos,
+  capas: capas.map(({ id, c }) => ({ id, c })),
+};
+---
+
+<Base title="Mapa de la infraestructura de AWS" description="Globo interactivo con las regiones, zonas de disponibilidad, Local Zones, Wavelength y edge locations de AWS, con tu latencia en vivo a cada región y el viaje de tu clic explicado.">
+  <div class="mapa">
+    <section class="wrap portada">
+      <a class="volver" href="/recursos/">&larr; Recursos</a>
+      <h1>Mapa de la nube</h1>
+      <p class="lead">Dónde vive AWS en el planeta, cuánto tarda tu conexión en llegar a cada región y por dónde viaja tu clic. Arrastra el globo para girarlo y toca un punto para ver qué es.</p>
+    </section>
+
+    <section class="wrap escena">
+      <div class="globo-caja">
+        <canvas id="globo" aria-label="Globo terráqueo con la infraestructura de AWS" role="img"></canvas>
+        <div class="globo-ayuda"><Sprite nombre="nautilus-mapamundi" escala={1} /> Arrastra para girar · toca un punto</div>
+        <div class="ficha" id="ficha" hidden>
+          <button type="button" id="ficha-cerrar" aria-label="Cerrar">&times;</button>
+          <p class="ficha-tipo" id="ficha-tipo"></p>
+          <h2 id="ficha-titulo"></h2>
+          <p id="ficha-texto"></p>
+        </div>
+      </div>
+
+      <aside class="panel-lado">
+        <h2 class="mini">Capas</h2>
+        <div class="capas">
+          {
+            capas.map((c) => (
+              <label class="capa" style={`--c:${c.c}`}>
+                <input type="checkbox" data-capa={c.id} checked={c.id !== "edge"} />
+                <span class="marca" />
+                <span>
+                  <b>{c.t}</b>
+                  <small>{c.d}</small>
+                </span>
+              </label>
+            ))
+          }
+        </div>
+      </aside>
+    </section>
+
+    <section class="wrap stats">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <b>{s.n}</b>
+            <span>{s.t}</span>
+            <small>{s.d}</small>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="wrap dos">
+      <div class="caja">
+        <h2 class="mini">El viaje de tu clic</h2>
+        <ol class="saltos" id="saltos">
+          <li><span class="paso">1</span><div><b>Tu equipo</b><small>Tu navegador arma la petición y la manda por Wi-Fi o cable.</small></div><em>~1 ms</em></li>
+          <li><span class="paso">2</span><div><b>Tu proveedor de internet</b><small>Tu ISP la lleva por su red hasta un punto de intercambio con AWS.</small></div><em>~5–20 ms</em></li>
+          <li><span class="paso">3</span><div><b>Edge location <span id="pop-nombre">más cercana</span></b><small>Aquí entra a la red de AWS. Si es contenido de CloudFront, muchas veces la respuesta ya está aquí y el viaje termina.</small></div><em id="pop-ms">midiendo…</em></li>
+          <li><span class="paso">4</span><div><b>Red troncal de AWS</b><small>Fibra privada y cifrada entre edge y región. Más estable que internet público: por eso existe Global Accelerator.</small></div><em>—</em></li>
+          <li><span class="paso">5</span><div><b>Región <span id="reg-nombre">más cercana</span></b><small>Donde corren tus servicios: EC2, RDS, Lambda… medido ida y vuelta desde tu navegador.</small></div><em id="reg-ms">midiendo…</em></li>
+          <li><span class="paso">6</span><div><b>Zona de disponibilidad</b><small>Dentro de la región, las AZ se hablan en menos de 2 ms. Por eso puedes repartir tu app en varias sin que se note.</small></div><em>&lt; 2 ms</em></li>
+        </ol>
+      </div>
+
+      <div class="caja">
+        <div class="lat-cab">
+          <h2 class="mini">Tu latencia a cada región</h2>
+          <button type="button" class="boton" id="medir">Medir de nuevo</button>
+        </div>
+        <p class="nota">Ida y vuelta desde tu navegador hasta el endpoint de DynamoDB de cada región, en este momento. Cambia según tu red y tu país.</p>
+        <ol class="latencias" id="latencias"></ol>
+      </div>
+    </section>
+
+    <section class="wrap fuentes">
+      <p>
+        <Sprite nombre="obj-satelite" escala={1} />
+        <span>Datos al {datos.generado}: regiones del catálogo del AWS CLI {datos.fuente.catalogo}, Local Zones y Wavelength de
+        <a href="https://ip-ranges.amazonaws.com/ip-ranges.json">ip-ranges.json</a> ({datos.fuente.ipRanges}).
+        {datos.enCamino.length > 0 && <>Ya aparecen en los rangos IP, sin abrir todavía: {datos.enCamino.join(", ")}. </>}
+        Las edge locations son una selección de ciudades: AWS tiene cientos de puntos de presencia.</span>
+      </p>
+    </section>
+  </div>
+
+  <script type="application/json" id="datos-mapa" set:html={JSON.stringify(juego)} />
+</Base>
+
+<script>
+  type Punto = { lat: number; lon: number };
+  const D = JSON.parse(document.getElementById("datos-mapa")!.textContent!);
+  const TIPO: Record<string, string> = { comercial: "Región", gov: "Región GovCloud", china: "Región en China", soberana: "Nube Soberana Europea" };
+  const COLOR: Record<string, string> = Object.fromEntries(D.capas.map((c: { id: string; c: string }) => [c.id, c.c]));
+  const PART: Record<string, string> = { comercial: "#e0f24a", gov: "#ff9f43", china: "#ffd36e", soberana: "#7cc6fe" };
+  const rad = Math.PI / 180;
+
+  const canvas = document.getElementById("globo") as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+  const activo: Record<string, boolean> = {};
+  document.querySelectorAll<HTMLInputElement>("[data-capa]").forEach((i) => {
+    activo[i.dataset.capa!] = i.checked;
+    i.addEventListener("change", () => (activo[i.dataset.capa!] = i.checked));
+  });
+
+  // Rotación del globo: lon0/lat0 es el punto que mira de frente.
+  let lon0 = -20;
+  let lat0 = 20;
+  let R = 200;
+  let cx = 0;
+  let cy = 0;
+  let quieto = 0;
+  let tPaquete = 0;
+  let seleccion: (Punto & { tipo: string }) | null = null;
+  let miPop: (Punto & { codigo: string }) | null = null;
+  let cercana: string | null = null;
+  const lat: Record<string, number> = {};
+
+  const proyectar = (p: Punto) => {
+    const l = (p.lon - lon0) * rad;
+    const f = p.lat * rad;
+    const f0 = lat0 * rad;
+    const cosc = Math.sin(f0) * Math.sin(f) + Math.cos(f0) * Math.cos(f) * Math.cos(l);
+    return {
+      x: cx + R * Math.cos(f) * Math.sin(l),
+      y: cy - R * (Math.cos(f0) * Math.sin(f) - Math.sin(f0) * Math.cos(f) * Math.cos(l)),
+      v: cosc,
+    };
+  };
+
+  // Red troncal ilustrativa: cada región se une con sus 2 vecinas más cercanas.
+  const dist = (a: Punto, b: Punto) => {
+    const s = Math.sin(((b.lat - a.lat) * rad) / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(((b.lon - a.lon) * rad) / 2) ** 2;
+    return 2 * Math.asin(Math.sqrt(s));
+  };
+  const enlaces: [Punto, Punto][] = [];
+  const vistos = new Set<string>();
+  for (const a of D.regiones) {
+    D.regiones
+      .filter((b: Punto & { id: string }) => b.id !== a.id)
+      .sort((b: Punto, c: Punto) => dist(a, b) - dist(a, c))
+      .slice(0, 2)
+      .forEach((b: Punto & { id: string }) => {
+        const k = [a.id, b.id].sort().join("|");
+        if (!vistos.has(k)) vistos.add(k), enlaces.push([a, b]);
+      });
+  }
+  const arco = (a: Punto, b: Punto, n = 24) => {
+    const v = (p: Punto) => [Math.cos(p.lat * rad) * Math.cos(p.lon * rad), Math.cos(p.lat * rad) * Math.sin(p.lon * rad), Math.sin(p.lat * rad)];
+    const [A, B] = [v(a), v(b)];
+    const w = dist(a, b) || 1e-6;
+    return Array.from({ length: n + 1 }, (_, i) => {
+      const t = i / n;
+      const k1 = Math.sin((1 - t) * w) / Math.sin(w);
+      const k2 = Math.sin(t * w) / Math.sin(w);
+      const [x, y, z] = [0, 1, 2].map((j) => k1 * A[j] + k2 * B[j]);
+      return { lat: Math.asin(z) / rad, lon: Math.atan2(y, x) / rad };
+    });
+  };
+  const arcos = enlaces.map(([a, b]) => arco(a, b));
+
+  const cuadro = (x: number, y: number, s: number, color: string, borde = true) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s);
+    if (borde) {
+      ctx.strokeStyle = "#1f1d5c";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s);
+    }
+  };
+
+  const pintar = () => {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    if (canvas.width !== w * dpr) [canvas.width, canvas.height] = [w * dpr, h * dpr];
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    R = Math.min(w, h) * 0.44;
+    [cx, cy] = [w / 2, h / 2];
+
+    // Océano
+    const g = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.3, R * 0.1, cx, cy, R);
+    g.addColorStop(0, "#3a34d2");
+    g.addColorStop(1, "#1f1d5c");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Tierra en puntos pixel
+    const s = Math.max(2, R * 0.022);
+    for (const [lon, la] of D.puntos) {
+      const p = proyectar({ lat: la, lon });
+      if (p.v <= 0) continue;
+      ctx.fillStyle = `rgba(178, 202, 253, ${0.25 + 0.75 * p.v})`;
+      ctx.fillRect(p.x - s / 2, p.y - s / 2, s * p.v + 0.6, s);
+    }
+
+    // Red troncal y paquetes viajando
+    if (activo.red) {
+      ctx.lineWidth = 1.5;
+      arcos.forEach((pts, i) => {
+        ctx.strokeStyle = "rgba(179, 157, 250, 0.7)";
+        ctx.beginPath();
+        let dentro = false;
+        for (const q of pts) {
+          const p = proyectar(q);
+          if (p.v > 0) dentro ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y), (dentro = true);
+          else dentro = false;
+        }
+        ctx.stroke();
+        const t = (tPaquete / 160 + i * 0.37) % 1;
+        const p = proyectar(pts[Math.floor(t * (pts.length - 1))]);
+        if (p.v > 0) cuadro(p.x, p.y, 4, "#e0f24a", false);
+      });
+    }
+
+    const capa = (lista: Punto[], color: string, tam: number, borde = true) => {
+      for (const z of lista) {
+        const p = proyectar(z);
+        if (p.v > 0.05) cuadro(p.x, p.y, tam, color, borde);
+      }
+    };
+    if (activo.edge) capa(D.edge, COLOR.edge, 4, false);
+    if (activo.wavelength) capa(D.wavelength, COLOR.wavelength, 6);
+    if (activo.local) capa(D.localZones, COLOR.local, 7);
+
+    for (const r of D.regiones) {
+      const p = proyectar(r);
+      if (p.v <= 0.05) continue;
+      if (activo.azs)
+        for (let i = 0; i < r.azs; i++) {
+          const a = (i / r.azs) * Math.PI * 2 + tPaquete / 300;
+          cuadro(p.x + Math.cos(a) * 13, p.y + Math.sin(a) * 13, 4, COLOR.azs, false);
+        }
+      if (activo.regiones) {
+        const color = r.id === cercana ? "#ff7a8a" : PART[r.particion];
+        cuadro(p.x, p.y, r.id === cercana ? 14 : 11, color);
+      }
+    }
+
+    // Tu edge location, latiendo
+    if (miPop) {
+      const p = proyectar(miPop);
+      if (p.v > 0) {
+        const pulso = 8 + 6 * Math.abs(Math.sin(tPaquete / 25));
+        ctx.strokeStyle = "#e0f24a";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(p.x - pulso, p.y - pulso, pulso * 2, pulso * 2);
+        cuadro(p.x, p.y, 7, "#ffffff");
+      }
+    }
+    if (seleccion) {
+      const p = proyectar(seleccion);
+      if (p.v > 0) {
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(p.x - 12, p.y - 12, 24, 24);
+      }
+    }
+  };
+
+  const mueve = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1;
+  const bucle = () => {
+    tPaquete += mueve;
+    if (mueve && Date.now() - quieto > 2500) lon0 += 0.08;
+    pintar();
+    requestAnimationFrame(bucle);
+  };
+
+  // Arrastrar para girar
+  let arrastre: { x: number; y: number; lon: number; lat: number; movio: boolean } | null = null;
+  canvas.addEventListener("pointerdown", (e) => {
+    arrastre = { x: e.clientX, y: e.clientY, lon: lon0, lat: lat0, movio: false };
+    canvas.setPointerCapture(e.pointerId);
+    quieto = Date.now();
+  });
+  canvas.addEventListener("pointermove", (e) => {
+    if (!arrastre) return;
+    const dx = e.clientX - arrastre.x;
+    const dy = e.clientY - arrastre.y;
+    if (Math.abs(dx) + Math.abs(dy) > 4) arrastre.movio = true;
+    lon0 = arrastre.lon - (dx / R) * 57;
+    lat0 = Math.max(-70, Math.min(70, arrastre.lat + (dy / R) * 57));
+    quieto = Date.now();
+  });
+  canvas.addEventListener("pointerup", (e) => {
+    const clic = arrastre && !arrastre.movio;
+    arrastre = null;
+    if (clic) elegir(e.offsetX, e.offsetY);
+  });
+
+  // Tocar un punto: busca el más cercano entre las capas visibles.
+  const ficha = document.getElementById("ficha")!;
+  const elegir = (x: number, y: number) => {
+    type Cand = Punto & { tipo: string; titulo: string; texto: string };
+    const cands: Cand[] = [];
+    if (activo.regiones)
+      D.regiones.forEach((r: any) =>
+        cands.push({
+          ...r,
+          tipo: TIPO[r.particion],
+          titulo: `${r.nombre} · ${r.id}`,
+          texto: `${r.pais}. ${r.azs} zonas de disponibilidad.${lat[r.id] ? ` Tu latencia ahora: ${lat[r.id]} ms.` : ""}`,
+        }),
+      );
+    if (activo.local)
+      D.localZones.forEach((z: any) =>
+        cands.push({ ...z, tipo: "Local Zone", titulo: `${z.ciudad} · ${z.id}`, texto: `Extensión de la región ${z.region} dentro de ${z.ciudad}.` }),
+      );
+    if (activo.wavelength)
+      D.wavelength.forEach((z: any) =>
+        cands.push({ ...z, tipo: "Zona Wavelength", titulo: `${z.ciudad} · ${z.id}`, texto: `AWS dentro de la red 5G de un operador, conectada a ${z.region}.` }),
+      );
+    if (activo.edge)
+      D.edge.forEach((z: any) =>
+        cands.push({ ...z, tipo: "Edge location", titulo: `${z.ciudad} (${z.codigo})`, texto: "Ciudad con puntos de presencia de CloudFront y Route 53." }),
+      );
+    let mejor: Cand | null = null;
+    let md = 14;
+    for (const c of cands) {
+      const p = proyectar(c);
+      const d = Math.hypot(p.x - x, p.y - y);
+      if (p.v > 0.05 && d < md) [mejor, md] = [c, d];
+    }
+    seleccion = mejor;
+    ficha.hidden = !mejor;
+    if (!mejor) return;
+    document.getElementById("ficha-tipo")!.textContent = mejor.tipo;
+    document.getElementById("ficha-titulo")!.textContent = mejor.titulo;
+    document.getElementById("ficha-texto")!.textContent = mejor.texto;
+  };
+  document.getElementById("ficha-cerrar")!.addEventListener("click", () => {
+    ficha.hidden = true;
+    seleccion = null;
+  });
+
+  // ── Latencia en vivo ──
+  const ping = async (url: string) => {
+    // La primera abre la conexión (DNS + TLS); se mide la segunda. Si una región no responde en 6 s, se salta.
+    await fetch(url, { cache: "no-store", mode: "cors", signal: AbortSignal.timeout(6000) });
+    const t0 = performance.now();
+    const r = await fetch(url, { cache: "no-store", mode: "cors", signal: AbortSignal.timeout(6000) });
+    return { ms: Math.round(performance.now() - t0), r };
+  };
+  const lista = document.getElementById("latencias")!;
+  const medibles = D.regiones.filter((r: any) => r.particion === "comercial" || r.particion === "gov");
+
+  const pintarLat = () => {
+    const orden = [...medibles].sort((a: any, b: any) => (lat[a.id] || 9e9) - (lat[b.id] || 9e9));
+    const max = Math.max(...Object.values(lat), 1);
+    lista.innerHTML = "";
+    orden.forEach((r: any, i: number) => {
+      const li = document.createElement("li");
+      if (i === 0 && lat[r.id]) li.className = "primera";
+      const ms = lat[r.id];
+      li.innerHTML = `<span class="rn"></span><span class="rb"><i style="width:${ms ? (ms / max) * 100 : 0}%"></i></span><b>${ms ? ms + " ms" : ms === 0 ? "sin respuesta" : "…"}</b>`;
+      (li.querySelector(".rn") as HTMLElement).textContent = `${r.nombre} · ${r.id}`;
+      lista.appendChild(li);
+    });
+  };
+
+  const medir = async () => {
+    const boton = document.getElementById("medir") as HTMLButtonElement;
+    boton.disabled = true;
+    for (const k of Object.keys(lat)) delete lat[k];
+    pintarLat();
+    // Edge: el mismo sitio va por CloudFront, así que su cabecera dice en qué edge location entraste.
+    try {
+      const { ms, r } = await ping(`/favicon.png?pop=${Date.now() % 1000}`);
+      const pop = r.headers.get("x-amz-cf-pop");
+      document.getElementById("pop-ms")!.textContent = `${ms} ms`;
+      if (pop) {
+        const cod = pop.slice(0, 3).toLowerCase();
+        const c = D.edge.find((e: any) => e.codigo.toLowerCase() === cod);
+        document.getElementById("pop-nombre")!.textContent = c ? `${c.ciudad} (${pop})` : pop;
+        if (c) miPop = c;
+      } else document.getElementById("pop-nombre")!.textContent = "(se ve en divelearn.cloud)";
+    } catch {
+      document.getElementById("pop-ms")!.textContent = "—";
+    }
+    const cola = [...medibles];
+    const trabajador = async () => {
+      while (cola.length) {
+        const r: any = cola.shift();
+        try {
+          lat[r.id] = (await ping(`https://dynamodb.${r.id}.amazonaws.com/ping`)).ms;
+        } catch {
+          lat[r.id] = 0;
+        }
+        pintarLat();
+      }
+    };
+    await Promise.all(Array.from({ length: 6 }, trabajador));
+    const mejor = medibles.filter((r: any) => lat[r.id]).sort((a: any, b: any) => lat[a.id] - lat[b.id])[0];
+    if (mejor) {
+      cercana = mejor.id;
+      document.getElementById("reg-nombre")!.textContent = `${mejor.nombre} (${mejor.id})`;
+      document.getElementById("reg-ms")!.textContent = `${lat[mejor.id]} ms`;
+      if (!seleccion) [lon0, lat0] = [mejor.lon, Math.max(-50, Math.min(50, mejor.lat))];
+      quieto = Date.now();
+    }
+    boton.disabled = false;
+  };
+  document.getElementById("medir")!.addEventListener("click", medir);
+
+  requestAnimationFrame(bucle);
+  pintarLat();
+  medir();
+</script>
+
+<style>
+  .mapa {
+    --pixel: "Silkscreen", ui-monospace, monospace;
+    --borde: 1.5px solid var(--ink);
+    background:
+      radial-gradient(circle at 1px 1px, rgba(84, 83, 235, 0.12) 1px, transparent 0) 0 0 / 22px 22px,
+      #e9e4fb;
+    padding: 28px 0 48px;
+  }
+  .mapa :global(.px) {
+    image-rendering: pixelated;
+  }
+  .volver {
+    font: 700 0.85rem var(--pixel);
+    text-decoration: none;
+  }
+  .portada h1 {
+    font: 700 clamp(2.2rem, 7vw, 4.2rem) var(--pixel);
+    color: #ffd36e;
+    margin: 10px 0 8px;
+    text-shadow:
+      2px 0 0 var(--ink),
+      -2px 0 0 var(--ink),
+      0 2px 0 var(--ink),
+      0 -2px 0 var(--ink),
+      5px 5px 0 var(--purple);
+  }
+  .lead {
+    max-width: 66ch;
+    color: var(--muted);
+    margin: 0 0 20px;
+  }
+  .mini {
+    font: 700 1rem var(--pixel);
+    margin: 0 0 10px;
+  }
+  .escena {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+    gap: 18px;
+    align-items: start;
+  }
+  .globo-caja {
+    position: relative;
+    border: 2px solid var(--ink);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 5px 5px 0 rgba(31, 29, 92, 0.25);
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) 0 0 / 16px 16px,
+      #12104a;
+  }
+  #globo {
+    display: block;
+    width: 100%;
+    height: clamp(340px, 62vw, 600px);
+    cursor: grab;
+    touch-action: none;
+  }
+  #globo:active {
+    cursor: grabbing;
+  }
+  .globo-ayuda {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--lav);
+    font: 700 0.7rem var(--pixel);
+  }
+  .ficha {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: min(280px, calc(100% - 24px));
+    padding: 12px 14px;
+    border: var(--borde);
+    border-radius: 12px;
+    background: var(--white);
+  }
+  .ficha[hidden] {
+    display: none;
+  }
+  .ficha h2 {
+    font: 700 1rem var(--pixel);
+    margin: 2px 0 6px;
+  }
+  .ficha p {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .ficha-tipo {
+    font: 700 0.7rem var(--pixel);
+    color: var(--purple);
+  }
+  .ficha button {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    border: 0;
+    background: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+  .panel-lado,
+  .caja {
+    padding: 16px 18px;
+    border: var(--borde);
+    border-radius: 14px;
+    background: var(--white);
+    box-shadow: 3px 3px 0 rgba(31, 29, 92, 0.18);
+  }
+  .capas {
+    display: grid;
+    gap: 10px;
+  }
+  .capa {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+  .capa input {
+    position: absolute;
+    opacity: 0;
+  }
+  .capa .marca {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    border: 2px solid var(--ink);
+    background: var(--white);
+  }
+  .capa input:checked + .marca {
+    background: var(--c);
+  }
+  .capa input:focus-visible + .marca {
+    outline: 3px solid var(--purple);
+  }
+  .capa b {
+    display: block;
+    font-size: 0.95rem;
+  }
+  .capa small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .stat {
+    padding: 14px 16px;
+    border: var(--borde);
+    border-radius: 14px;
+    background: var(--white);
+  }
+  .stat b {
+    display: block;
+    font: 700 2rem var(--pixel);
+    color: var(--purple);
+  }
+  .stat span {
+    font-weight: 700;
+  }
+  .stat small {
+    display: block;
+    color: var(--muted);
+  }
+  .dos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+    align-items: start;
+  }
+  .saltos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .saltos li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: start;
+  }
+  .paso {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--ink);
+    background: var(--lime);
+    font: 700 0.75rem var(--pixel);
+  }
+  .saltos small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .saltos em {
+    font: 700 0.85rem ui-monospace, Menlo, monospace;
+    white-space: nowrap;
+    color: var(--purple);
+  }
+  .lat-cab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .boton {
+    font: 700 0.75rem var(--pixel);
+    padding: 8px 12px;
+    border: var(--borde);
+    border-radius: 8px;
+    background: #ffd36e;
+    box-shadow: 2px 2px 0 var(--ink);
+    cursor: pointer;
+  }
+  .boton:disabled {
+    opacity: 0.5;
+  }
+  .nota {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 6px 0 10px;
+  }
+  .latencias {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 430px;
+    overflow: auto;
+    display: grid;
+    gap: 6px;
+  }
+  .latencias :global(li) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 76px;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+  .latencias :global(.rn) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .latencias :global(.rb) {
+    height: 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .latencias :global(.rb i) {
+    display: block;
+    height: 100%;
+    background: var(--lav);
+  }
+  .latencias :global(li.primera) {
+    font-weight: 700;
+  }
+  .latencias :global(li.primera .rb i) {
+    background: #ff7a8a;
+  }
+  .latencias :global(b) {
+    text-align: right;
+    font-family: ui-monospace, Menlo, monospace;
+  }
+  .fuentes p {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .fuentes :global(img) {
+    flex: none;
+  }
+  @media (max-width: 860px) {
+    .escena,
+    .dos {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
