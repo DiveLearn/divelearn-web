@@ -11,7 +11,6 @@
 // - Puntos de tierra del globo: world-atlas (Natural Earth, dominio público).
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
-import { geoContains } from "d3-geo";
 import { feature } from "topojson-client";
 
 // Región → [ciudad, país, lat, lon, zonas de disponibilidad]
@@ -172,12 +171,13 @@ const wavelength = zonas((g) => g.includes("-wlz-") && g.includes("-wl"));
 
 const edge = EDGE.map(ciudad).filter(Boolean);
 
-// ── Puntos de tierra para el globo pixel (rejilla de 2°) ──
+// ── Costas para el globo: anillos [lon, lat] de los continentes (world-atlas 110m) ──
 const land = JSON.parse(readFileSync(new URL("../node_modules/world-atlas/land-110m.json", import.meta.url)));
 const tierra = feature(land, land.objects.land);
-const puntos = [];
-for (let lat = -58; lat <= 82; lat += 2)
-  for (let lon = -180; lon < 180; lon += 2) if (geoContains(tierra, [lon, lat])) puntos.push([lon, lat]);
+const r2 = (n) => Math.round(n * 100) / 100;
+const costas = tierra.features
+  .flatMap((f) => (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates))
+  .map((pol) => pol[0].map(([lon, lat]) => [r2(lon), r2(lat)]));
 
 const salida = {
   generado: new Date().toISOString().slice(0, 10),
@@ -187,9 +187,9 @@ const salida = {
   localZones,
   wavelength,
   edge,
-  puntos,
+  costas,
 };
 writeFileSync(new URL("../src/data/infra-global.json", import.meta.url), JSON.stringify(salida));
 console.log(
-  `regiones ${regiones.length} (+${enCamino.length} en camino: ${enCamino.join(", ")}), AZs ${regiones.reduce((a, r) => a + r.azs, 0)}, local zones ${localZones.length}, wavelength ${wavelength.length}, edge ${edge.length}, puntos ${puntos.length}`,
+  `regiones ${regiones.length} (+${enCamino.length} en camino: ${enCamino.join(", ")}), AZs ${regiones.reduce((a, r) => a + r.azs, 0)}, local zones ${localZones.length}, wavelength ${wavelength.length}, edge ${edge.length}, costas ${costas.length}`,
 );

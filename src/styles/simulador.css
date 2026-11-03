@@ -4,7 +4,7 @@
   --navy: #1f1d5c;
   /* Color del simulador: cada página puede cambiar --c, --c-osc, --c-suave y --fondo. */
   --c: #6fd08c;
-  --c-osc: #2f8a52;
+  --c-osc: #24703f;
   --c-suave: #eaf8ef;
   --fondo: #eef6f0;
   --borde: 1.5px solid var(--ink);
@@ -384,4 +384,10 @@
   .sim .logro.entra {
     animation: none;
   }
+}
+
+/* Texto de ejemplo dentro de terminales y editores: lavanda, no el gris del navegador */
+.sim .term ::placeholder {
+  color: var(--lav);
+  opacity: 0.8;
 }
