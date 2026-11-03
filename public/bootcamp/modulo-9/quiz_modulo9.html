@@ -1,0 +1,762 @@
+</html><!DOCTYPE html>
+<html lang="es" style="--c:#e0f24a">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Módulo 9: El Lenguaje de la Configuración</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .question {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            to { opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .results-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-title {
+            font-size: 2.2rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5453eb, #7b7aff);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .score-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #ff9a9e;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .divelearn-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
+</head>
+<body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/obj-checklist.png" alt="" width="38" height="52"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 9</span><span class="dl-jh-tit">El lenguaje de la configuración</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 9</a></nav>
+    </div>
+    <nav class="dl-pasos" aria-label="Actividades del módulo"><a class="dl-paso" href="./" data-paso="index" title="Portada del módulo">Inicio</a><a class="dl-paso" href="./actividad1_editor.html" data-paso="actividad1_editor" title="Editor de Configuraciones">1</a><a class="dl-paso" href="./actividad2_convertidor.html" data-paso="actividad2_convertidor" title="Convertidor entre Formatos">2</a><a class="dl-paso" href="./actividad3_generador.html" data-paso="actividad3_generador" title="Generador de Plantillas">3</a><a class="dl-paso" href="./actividad4_validador.html" data-paso="actividad4_validador" title="Validador de Sintaxis">4</a><a class="dl-paso actual" href="./quiz_modulo9.html" data-paso="quiz_modulo9" title="Módulo 9: El Lenguaje de la Configuración" aria-current="page">Quiz</a></nav>
+  </div>
+</header>
+
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 9</a>
+  </nav>
+  <div class="container">
+        <div class="breadcrumb">
+            <a href="./">← Volver al Módulo 9</a>
+        </div>
+
+        <div class="header">
+            <h1 class="quiz-title"> Quiz del Módulo</h1>
+            <p class="quiz-subtitle">Evalúa tus conocimientos sobre El Lenguaje de la Configuración</p>
+        </div>
+
+        <div class="quiz-container">
+            <div class="progress-header">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> de <span id="totalQuestions">5</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="currentScore">0</span> puntos
+                </div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <!-- Pregunta 1 -->
+                <div class="question active" data-question="1">
+                    <div class="question-number">1</div>
+                    <h2 class="question-text">¿Cuál es la principal ventaja de usar configuración como código?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Es más rápido de escribir</div>
+                            <div class="option-text">Velocidad de escritura inicial</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Repetibilidad y versionado</div>
+                            <div class="option-text">Permite hacer lo mismo múltiples veces con control de cambios</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Ocupa menos espacio en disco</div>
+                            <div class="option-text">Optimización de almacenamiento</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Solo funciona con JSON</div>
+                            <div class="option-text">Limitado a un formato específico</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback1">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="question" data-question="2">
+                    <div class="question-number">2</div>
+                    <h2 class="question-text">Observa este fragmento de código. ¿Qué formato es y cuál es el error principal?</h2>
+                    <div class="code-block">aplicacion:
+  nombre: Mi App
+  version: 1.0.0
+ puerto: 8080
+  debug: true</div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) JSON - Faltan comillas dobles</div>
+                            <div class="option-text">El formato es JSON pero sin la sintaxis correcta</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) YAML - Indentación incorrecta en "puerto"</div>
+                            <div class="option-text">Es YAML pero "puerto" no tiene la indentación adecuada</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) XML - Faltan etiquetas de cierre</div>
+                            <div class="option-text">Es XML mal formado</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) ENV - Faltan signos de igual</div>
+                            <div class="option-text">Es un archivo de variables de entorno incompleto</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback2">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="question" data-question="3">
+                    <div class="question-number">3</div>
+                    <h2 class="question-text">¿Cuál de estas variables de entorno sigue las mejores prácticas?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) app-name=mi_aplicacion</div>
+                            <div class="option-text">Usa guiones en el nombre de la variable</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) APP_NAME=mi_aplicacion</div>
+                            <div class="option-text">Nombre en mayúsculas con guión bajo</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) AppName = mi_aplicacion</div>
+                            <div class="option-text">CamelCase con espacios alrededor del igual</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) 1APP_NAME=mi_aplicacion</div>
+                            <div class="option-text">Comienza con número</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback3">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="question" data-question="4">
+                    <div class="question-number">4</div>
+                    <h2 class="question-text">En un sistema de plantillas, ¿qué sintaxis usarías para mostrar contenido solo en producción?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) {{if PRODUCTION}} contenido {{end}}</div>
+                            <div class="option-text">Sintaxis con palabras clave simples</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) {{#if PRODUCTION}} contenido {{/if}}</div>
+                            <div class="option-text">Sintaxis estilo Handlebars con # y /</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) {{when PRODUCTION}} contenido {{done}}</div>
+                            <div class="option-text">Sintaxis alternativa con when/done</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) {{PRODUCTION ? contenido : ""}}</div>
+                            <div class="option-text">Operador ternario JavaScript</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback4">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="question" data-question="5">
+                    <div class="question-number">5</div>
+                    <h2 class="question-text">¿Cuál es la mejor práctica para manejar secretos en archivos de configuración?</h2>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-label">A) Incluirlos directamente en el archivo de configuración</div>
+                            <div class="option-text">Escribir passwords y API keys en el archivo</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-label">B) Usar variables de entorno para los secretos</div>
+                            <div class="option-text">Mantener secretos fuera del código usando ENV vars</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-label">C) Encriptarlos con Base64</div>
+                            <div class="option-text">Codificar en Base64 dentro del archivo</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-label">D) Comentarlos para que no se ejecuten</div>
+                            <div class="option-text">Poner secretos en comentarios</div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="feedback5">
+                        <div class="feedback-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #55538a; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 9: El Lenguaje de la Configuración</strong>
+                </p>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" disabled>
+                    ← Anterior
+                </button>
+                
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="nav-btn primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Siguiente →
+                    </button>
+                    <button class="nav-btn success" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                        Finalizar Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand"> DiveLearn</div>
+            <div class="divelearn-tagline">Sumérgete en el aprendizaje técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let score = 0;
+        let startTime = Date.now();
+        let questionAnswered = false;
+
+        const questions = [
+            {
+                id: 1,
+                correct: 'b',
+                feedback: {
+                    'a': ' Incorrecto. Aunque puede ser más rápido escribir configuración manual inicialmente, la ventaja principal no es la velocidad.',
+                    'b': ' ¡Correcto! La configuración como código permite repetibilidad (hacer lo mismo múltiples veces sin errores) y versionado (control de cambios), que son sus principales ventajas.',
+                    'c': ' Incorrecto. El espacio en disco no es una preocupación principal de la configuración como código.',
+                    'd': ' Incorrecto. La configuración como código funciona con múltiples formatos: JSON, YAML, XML, TOML, etc.'
+                }
+            },
+            {
+                id: 2,
+                correct: 'b',
+                feedback: {
+                    'a': ' Incorrecto. Este es formato YAML, no JSON. JSON requiere llaves {} y comillas dobles para strings.',
+                    'b': ' ¡Correcto! Es YAML y el error está en la línea "puerto: 8080" que tiene menos indentación que debería. Debería estar al mismo nivel que "nombre", "version" y "debug".',
+                    'c': ' Incorrecto. Este no es XML. XML usa etiquetas como <aplicacion></aplicacion>.',
+                    'd': ' Incorrecto. Este no es un archivo ENV. Los archivos ENV usan formato VARIABLE=valor.'
+                }
+            },
+            {
+                id: 3,
+                correct: 'b',
+                feedback: {
+                    'a': ' Incorrecto. Los nombres de variables de entorno no deben usar guiones (-), solo letras, números y guiones bajos (_).',
+                    'b': ' ¡Correcto! APP_NAME=mi_aplicacion sigue las mejores prácticas: nombre en MAYÚSCULAS, usando guiones bajos para separar palabras, sin espacios alrededor del =.',
+                    'c': ' Incorrecto. No debe haber espacios alrededor del signo = y las variables de entorno deben estar en MAYÚSCULAS.',
+                    'd': ' Incorrecto. Los nombres de variables no pueden comenzar con números, deben empezar con letra o guión bajo.'
+                }
+            },
+            {
+                id: 4,
+                correct: 'b',
+                feedback: {
+                    'a': ' Incorrecto. Esta sintaxis no es estándar en sistemas de plantillas populares.',
+                    'b': ' ¡Correcto! {{#if PRODUCTION}} contenido {{/if}} es la sintaxis estándar de Handlebars y muchos otros sistemas de plantillas, donde # indica inicio de bloque y / indica fin.',
+                    'c': ' Incorrecto. Esta no es una sintaxis reconocida en sistemas de plantillas estándar.',
+                    'd': ' Incorrecto. Aunque los operadores ternarios existen en JavaScript, no es la sintaxis típica para plantillas de configuración.'
+                }
+            },
+            {
+                id: 5,
+                correct: 'b',
+                feedback: {
+                    'a': ' Incorrecto. Nunca incluyas secretos directamente en archivos de configuración, especialmente si van a un repositorio de código.',
+                    'b': ' ¡Correcto! Usar variables de entorno para secretos es la mejor práctica. Mantiene los secretos fuera del código y permite diferentes valores por ambiente.',
+                    'c': ' Incorrecto. Base64 es codificación, no encriptación. Los secretos seguirían siendo visibles fácilmente.',
+                    'd': ' Incorrecto. Poner secretos en comentarios los hace visibles a cualquiera que lea el código y no es seguro.'
+                }
+            }
+        ];
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('currentScore').textContent = score;
+        }
+
+        function showQuestion(index) {
+            // Ocultar todas las preguntas
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+
+            // Mostrar pregunta actual
+            const currentQuestion = document.querySelector(`[data-question="${index + 1}"]`);
+            if (currentQuestion) {
+                currentQuestion.classList.add('active');
+            }
+
+            // Actualizar botones de navegación
+            document.getElementById('prevBtn').disabled = index === 0;
+            
+            if (index === questions.length - 1) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('finishBtn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-flex';
+                document.getElementById('finishBtn').style.display = 'none';
+            }
+
+            // Verificar si ya se respondió esta pregunta
+            questionAnswered = answers[index + 1] !== undefined;
+            updateNextButton();
+
+            updateProgress();
+        }
+
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                finishBtn.disabled = !questionAnswered;
+            } else {
+                nextBtn.disabled = !questionAnswered;
+            }
+        }
+
+        function selectOption(element, questionId, option) {
+            // Marcar opción seleccionada
+            const questionElement = document.querySelector(`[data-question="${questionId}"]`);
+            questionElement.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            answers[questionId] = option;
+            questionAnswered = true;
+
+            // Mostrar feedback inmediato
+            setTimeout(() => {
+                const question = questions[questionId - 1];
+                const isCorrect = option === question.correct;
+                
+                // Marcar opción correcta e incorrecta
+                questionElement.querySelectorAll('.option').forEach(opt => {
+                    const optionValue = opt.getAttribute('data-option');
+                    if (optionValue === question.correct) {
+                        opt.classList.add('correct');
+                    } else if (optionValue === option && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                // Mostrar feedback
+                const feedback = document.getElementById(`feedback${questionId}`);
+                const feedbackContent = feedback.querySelector('.feedback-content');
+                
+                feedbackContent.innerHTML = question.feedback[option];
+                feedback.className = `feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                // Actualizar puntaje
+                if (isCorrect && answers[questionId] !== 'scored') {
+                    score++;
+                    answers[questionId] = 'scored'; // Evitar doble conteo
+                }
+
+                updateNextButton();
+                updateProgress();
+            }, 500);
+        }
+
+        function nextQuestion() {
+            if (questionAnswered && currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                questionAnswered = false;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                questionAnswered = answers[currentQuestionIndex + 1] !== undefined;
+                showQuestion(currentQuestionIndex);
+            }
+        }
+
+        function finishQuiz() {
+            if (!questionAnswered) return;
+
+            // Calcular tiempo total
+            const endTime = Date.now();
+            const totalTimeMs = endTime - startTime;
+            const minutes = Math.floor(totalTimeMs / 60000);
+            const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Calcular puntos (50 puntos por respuesta correcta)
+            const points = score * 50;
+
+            // Ocultar contenedor de preguntas
+            document.getElementById('questionContainer').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+
+            // Mostrar resultados
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            // Actualizar estadísticas
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('totalTime').textContent = timeString;
+            document.getElementById('finalPoints').textContent = points;
+
+            // Crear botones de navegación en resultados
+            const navigationDiv = document.createElement('div');
+            navigationDiv.style.cssText = 'margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;';
+            
+            navigationDiv.innerHTML = `
+                <button class="nav-btn" onclick="retryQuiz()">
+                     Repetir Quiz
+                </button>
+                <button class="nav-btn primary" onclick="goToHub()">
+                     Volver al Hub
+                </button>
+                <button class="nav-btn success" onclick="nextModule()">
+                     Siguiente Módulo
+                </button>
+            `;
+            
+            resultsContainer.appendChild(navigationDiv);
+
+            // Mostrar mensaje motivacional basado en el puntaje
+            let message = '';
+            if (score === 5) {
+                message = ' ¡Perfecto! Dominas completamente la configuración como código.';
+            } else if (score >= 4) {
+                message = ' ¡Excelente! Tienes un gran entendimiento del lenguaje de configuración.';
+            } else if (score >= 3) {
+                message = ' ¡Buen trabajo! Revisa algunos conceptos sobre plantillas y variables de entorno.';
+            } else {
+                message = ' Te recomendamos revisar la teoría sobre formatos de configuración y mejores prácticas.';
+            }
+
+            const messageElement = document.createElement('p');
+            messageElement.style.cssText = 'color: #55538a; margin: 20px 0; font-size: 1rem; font-weight: 500;';
+            messageElement.innerHTML = message;
+            resultsContainer.insertBefore(messageElement, navigationDiv);
+        }
+
+        function retryQuiz() {
+            // Reiniciar variables
+            currentQuestionIndex = 0;
+            answers = {};
+            score = 0;
+            startTime = Date.now();
+            questionAnswered = false;
+
+            // Limpiar todas las opciones y feedback
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.classList.remove('show', 'correct', 'incorrect');
+            });
+
+            // Ocultar resultados
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('resultsContainer').innerHTML = `
+                <h2 class="results-title"> ¡Quiz Completado!</h2>
+                <div class="score-circle">
+                    <div id="finalScore">0</div>
+                    <div class="score-text">de 5</div>
+                </div>
+                <div class="results-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Respuestas Correctas</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalTime">0:00</div>
+                        <div class="result-stat-label">Tiempo Total</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="finalPoints">0</div>
+                        <div class="result-stat-label">Puntos Obtenidos</div>
+                    </div>
+                </div>
+                <p style="color: #55538a; margin: 20px 0; font-size: 1.1rem;">
+                    <strong>¡Felicidades!</strong> Has completado el quiz del <strong>Módulo 9: El Lenguaje de la Configuración</strong>
+                </p>
+            `;
+
+            // Mostrar contenedor de preguntas y navegación
+            document.getElementById('questionContainer').style.display = 'block';
+            document.querySelector('.navigation').style.display = 'flex';
+
+            // Mostrar primera pregunta
+            showQuestion(0);
+        }
+
+        function goToHub() {
+            window.location.href = './';
+        }
+
+        function nextModule() {
+            alert(' ¡Excelente progreso! Has completado el Módulo 9 sobre configuración como código.\n\nEl siguiente módulo estará disponible pronto.\n\nPor ahora, puedes volver al hub para repasar o explorar otros módulos.');
+            goToHub();
+        }
+
+        // Event listeners para las opciones
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionElement = this.closest('.question');
+                    const questionId = parseInt(questionElement.getAttribute('data-question'));
+                    const optionValue = this.getAttribute('data-option');
+                    
+                    // Solo permitir selección si no se ha respondido o es la primera vez
+                    if (!questionElement.querySelector('.option.correct') && !questionElement.querySelector('.option.incorrect')) {
+                        selectOption(this, questionId, optionValue);
+                    }
+                });
+            });
+
+            // Inicializar
+            showQuestion(0);
+        });
+
+        // Atajos de teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' && !document.getElementById('prevBtn').disabled) {
+                previousQuestion();
+            } else if (e.key === 'ArrowRight' && !document.getElementById('nextBtn').disabled) {
+                nextQuestion();
+            } else if (e.key === 'Enter') {
+                if (currentQuestionIndex === questions.length - 1 && questionAnswered) {
+                    finishQuiz();
+                } else if (questionAnswered) {
+                    nextQuestion();
+                }
+            }
+        });
+    </script>
+
+<nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad4_validador.html">← Validador de Sintaxis</a><a class="dl-pie-btn sig" href="/bootcamp/#licencia">Reclamar tu licencia →</a></nav>
+<script src="/js/bootcamp-progreso.js" data-modulo="9" data-pagina="quiz_modulo9" data-total="5" defer></script>
+</body>

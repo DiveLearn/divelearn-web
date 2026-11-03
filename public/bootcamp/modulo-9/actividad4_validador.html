@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="es" style="--c:#e0f24a">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Validador de Sintaxis</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .validator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            min-height: 500px;
+        }
+
+        .
+
+        .results-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .panel-title {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .code-editor {
+            flex: 1;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            background: #1f1d5c;
+            color: #55538a;
+            line-height: 1.5;
+            min-height: 350px;
+        }
+
+        .code-editor:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: var(--glow);
+        }
+
+        .validation-results {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            min-height: 350px;
+        }
+
+        .validation-summary {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .validation-summary.valid {
+            background: var(--surface2);
+            border-left: 4px solid #28a745;
+            color: var(--text-muted);
+        }
+
+        .validation-summary.invalid {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .validation-summary.warning {
+            background: var(--surface2);
+            border-left: 4px solid #ffc107;
+            color: var(--text-muted);
+        }
+
+        .status-icon {
+            font-size: 1.5rem;
+        }
+
+        .status-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .issues-container {
+            margin-top: 15px;
+        }
+
+        .issue-item {
+            background: var(--surface);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #dc3545;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .issue-item.warning {
+            border-left-color: #F59E0B;
+        }
+
+        .issue-item.info {
+            border-left-color: #06B6D4;
+        }
+
+        .issue-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .issue-type {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .issue-location {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+
+        .issue-message {
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .issue-suggestion {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .tools-section {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: #5a6268;
+        }
+
+        .tool-btn.validate {
+            background: #22C55E;
+        }
+
+        .tool-btn.validate:hover {
+            background: #22C55E;
+        }
+
+        .tool-btn.fix {
+            background: #06B6D4;
+        }
+
+        .tool-btn.fix:hover {
+            background: #138496;
+        }
+
+        .tool-btn.clear {
+            background: #EF4444;
+        }
+
+        .tool-btn.clear:hover {
+            background: #EF4444;
+        }
+
+        .examples-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .examples-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .example-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .example-btn:hover {
+            background: var(--purple);
+            transform: translateY(-1px);
+        }
+
+        .example-btn.valid {
+            background: #22C55E;
+        }
+
+        .example-btn.valid:hover {
+            background: #22C55E;
+        }
+
+        .example-btn.invalid {
+            background: #EF4444;
+        }
+
+        .example-btn.invalid:hover {
+            background: #EF4444;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--purple);
+        }
+        @media (max-width: 768px) {            .validator-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .example-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
+</head>
+<body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/obj-checklist.png" alt="" width="38" height="52"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 9</span><span class="dl-jh-tit">El lenguaje de la configuración</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 9</a></nav>
+    </div>
+    <nav class="dl-pasos" aria-label="Actividades del módulo"><a class="dl-paso" href="./" data-paso="index" title="Portada del módulo">Inicio</a><a class="dl-paso" href="./actividad1_editor.html" data-paso="actividad1_editor" title="Editor de Configuraciones">1</a><a class="dl-paso" href="./actividad2_convertidor.html" data-paso="actividad2_convertidor" title="Convertidor entre Formatos">2</a><a class="dl-paso" href="./actividad3_generador.html" data-paso="actividad3_generador" title="Generador de Plantillas">3</a><a class="dl-paso actual" href="./actividad4_validador.html" data-paso="actividad4_validador" title="Validador de Sintaxis" aria-current="page">4</a><a class="dl-paso" href="./quiz_modulo9.html" data-paso="quiz_modulo9" title="Módulo 9: El Lenguaje de la Configuración">Quiz</a></nav>
+  </div>
+</header>
+
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 9</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 9</a> / Actividad 4
+            </div>
+            <h1 class="activity-title"> Validador de Sintaxis</h1>
+            <p class="activity-subtitle">Verifica la sintaxis y estructura de archivos de configuración con detección de errores y sugerencias</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span></span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span></span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span></span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
+                <p>Desarrolla un validador avanzado que detecte errores de sintaxis, problemas de estructura y ofrezca sugerencias de mejora para archivos de configuración en diferentes formatos. Aprenderás a identificar patrones comunes de errores y a proporcionar feedback útil.</p>
+            </div>
+
+            <div class="examples-section">
+                <h3 class="examples-title">
+                     Ejemplos para Probar
+                </h3>
+                <p style="color: #856404; margin-bottom: 15px;">Carga ejemplos con diferentes tipos de errores para probar el validador:</p>
+                <div class="example-buttons">
+                    <button class="example-btn valid" onclick="loadExample('valid_json')"> JSON Válido</button>
+                    <button class="example-btn invalid" onclick="loadExample('invalid_json')"> JSON con Errores</button>
+                    <button class="example-btn valid" onclick="loadExample('valid_yaml')"> YAML Válido</button>
+                    <button class="example-btn invalid" onclick="loadExample('invalid_yaml')"> YAML con Errores</button>
+                    <button class="example-btn invalid" onclick="loadExample('invalid_xml')"> XML Malformado</button>
+                    <button class="example-btn invalid" onclick="loadExample('invalid_env')"> ENV Incorrecto</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-llave.png" alt="" width="32" height="32"> Validador Interactivo</h2>
+                <div class="validator-container">
+                    <!-- Panel de Entrada -->
+                    <div class="input-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Código a Validar</span>
+                            <select class="format-selector" id="formatSelector" onchange="onFormatChange()">
+                                <option value="json">JSON</option>
+                                <option value="yaml">YAML</option>
+                                <option value="xml">XML</option>
+                                <option value="env">ENV</option>
+                            </select>
+                        </div>
+                        <textarea class="code-editor" id="codeEditor" placeholder="Pega tu código aquí para validar..." oninput="validateCode()"></textarea>
+                        <div class="tools-section">
+                            <button class="tool-btn validate" onclick="validateCode()"> Validar</button>
+                            <button class="tool-btn fix" onclick="autoFix()"> Auto-reparar</button>
+                            <button class="tool-btn" onclick="formatCode()"> Formatear</button>
+                            <button class="tool-btn clear" onclick="clearEditor()"> Limpiar</button>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Resultados -->
+                    <div class="results-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Resultados de Validación</span>
+                        </div>
+                        <div class="validation-results" id="validationResults">
+                            <div style="color: #55538a; text-align: center; padding: 50px;">
+                                Escribe código en el editor para ver los resultados de validación
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-container" id="statsContainer" style="display: none;">
+                    <div class="stat-card">
+                        <div class="stat-number" id="errorsCount">0</div>
+                        <div class="stat-label">Errores</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="warningsCount">0</div>
+                        <div class="stat-label">Advertencias</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="linesCount">0</div>
+                        <div class="stat-label">Líneas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="sizeBytes">0</div>
+                        <div class="stat-label">Bytes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                     Errores Comunes y Soluciones
+                </h3>
+                <div class="tip-item">
+                    <strong> JSON:</strong> Falta coma entre elementos, comillas simples en lugar de dobles, coma extra al final.
+                </div>
+                <div class="tip-item">
+                    <strong> YAML:</strong> Indentación incorrecta, tabs en lugar de espacios, falta espacio después de los dos puntos.
+                </div>
+                <div class="tip-item">
+                    <strong> XML:</strong> Etiquetas sin cerrar, atributos sin comillas, caracteres especiales sin escapar.
+                </div>
+                <div class="tip-item">
+                    <strong> Pro tip:</strong> Usa la función "Auto-reparar" para corregir automáticamente errores comunes detectados.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">En progreso</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                 Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentFormat = 'json';
+        let validationResults = {
+            errors: [],
+            warnings: [],
+            isValid: false
+        };
+
+        const examples = {
+            valid_json: {
+                format: 'json',
+                content: `{
+  "aplicacion": {
+    "nombre": "Mi API",
+    "version": "1.0.0",
+    "configuracion": {
+      "puerto": 8080,
+      "debug": false,
+      "database": {
+        "host": "localhost",
+        "puerto": 5432,
+        "ssl": true
+      }
+    },
+    "servicios": [
+      {
+        "nombre": "auth",
+        "activo": true
+      },
+      {
+        "nombre": "mail",
+        "activo": false
+      }
+    ]
+  }
+}`
+            },
+            invalid_json: {
+                format: 'json',
+                content: `{
+  "aplicacion": {
+    "nombre": 'Mi API',  // Error: comillas simples
+    "version": "1.0.0",
+    "configuracion": {
+      "puerto": 8080,
+      "debug": false,
+      "database": {
+        "host": "localhost",
+        "puerto": 5432,
+        "ssl": true,  // Error: coma extra
+      }
+    },
+    "servicios": [
+      {
+        "nombre": "auth",
+        "activo": true
+      },
+      {
+        "nombre": "mail"  // Error: falta valor
+        "activo": false
+      }
+    ]  // Error: falta coma
+    "extra": "valor"
+  }
+}`
+            },
+            valid_yaml: {
+                format: 'yaml',
+                content: `# Configuración válida de aplicación
+aplicacion:
+  nombre: Mi API
+  version: 1.0.0
+  
+  configuracion:
+    puerto: 8080
+    debug: false
+    
+    database:
+      host: localhost
+      puerto: 5432
+      ssl: true
+      
+  servicios:
+    - nombre: auth
+      activo: true
+      config:
+        timeout: 30
+        retries: 3
+        
+    - nombre: mail
+      activo: false
+      config:
+        servidor: smtp.ejemplo.com
+        puerto: 587`
+            },
+            invalid_yaml: {
+                format: 'yaml',
+                content: `# YAML con errores de sintaxis
+aplicacion:
+  nombre: Mi API
+  version: 1.0.0
+  
+  configuracion:
+    puerto: 8080
+    debug: false
+    
+    database:
+      host: localhost
+     puerto: 5432  # Error: indentación incorrecta
+      ssl:true     # Error: falta espacio después de :
+      
+  servicios:
+    - nombre: auth
+      activo: true
+      config:
+      timeout: 30    # Error: indentación incorrecta para objeto anidado
+        retries: 3
+        
+    - nombre: mail
+      activo: false
+      config
+        servidor: smtp.ejemplo.com  # Error: falta :
+        puerto: 587`
+            },
+            invalid_xml: {
+                format: 'xml',
+                content: `<?xml version="1.0" encoding="UTF-8"?>
+<configuracion>
+  <aplicacion nombre="Mi API" version="1.0.0">
+    <servidor puerto=8080 debug="false">  <!-- Error: atributo sin comillas -->
+      <database>
+        <host>localhost</host>
+        <puerto>5432</puerto>
+        <ssl>true</ssl>
+      </database>
+    </servidor>
+    
+    <servicios>
+      <servicio nombre="auth" activo="true">
+        <timeout>30</timeout>
+        <retries>3</retries>
+      </servicio>
+      
+      <servicio nombre="mail" activo="false">
+        <servidor>smtp.ejemplo.com</servidor>
+        <puerto>587
+      </servicio>  <!-- Error: etiqueta sin cerrar -->
+    </servicios>
+  </aplicacion>
+  <!-- Error: etiqueta raíz sin cerrar -->`
+            },
+            invalid_env: {
+                format: 'env',
+                content: `# Variables de entorno con errores
+APP_NAME=Mi Aplicación
+APP_VERSION=1.0.0
+APP_PORT=8080
+
+# Error: espacios alrededor del =
+DB_HOST = localhost
+DB_PORT= 5432
+DB_NAME =mi_base_datos
+
+# Error: nombres de variables en minúsculas
+api_timeout=30
+debug_mode=true
+
+# Error: caracteres especiales en nombres
+APP-CONFIG=production
+SERVER@HOST=0.0.0.0
+
+# Error: valores sin definir
+REDIS_HOST=
+CACHE_TTL
+
+# Error: valores con espacios sin comillas
+LOG_LEVEL=debug info
+SECRET_KEY=mi clave secreta
+
+# Error: líneas malformadas
+MALFORMED LINE WITHOUT EQUALS
+ANOTHER_VAR == double_equals`
+            }
+        };
+
+        function loadExample(exampleName) {
+            const example = examples[exampleName];
+            if (!example) return;
+
+            document.getElementById('formatSelector').value = example.format;
+            document.getElementById('codeEditor').value = example.content;
+            currentFormat = example.format;
+            
+            validateCode();
+        }
+
+        function onFormatChange() {
+            currentFormat = document.getElementById('formatSelector').value;
+            validateCode();
+        }
+
+        function validateCode() {
+            const code = document.getElementById('codeEditor').value;
+            const resultsContainer = document.getElementById('validationResults');
+            const statsContainer = document.getElementById('statsContainer');
+            
+            if (!code.trim()) {
+                resultsContainer.innerHTML = '<div style="color: #55538a; text-align: center; padding: 50px;">Escribe código en el editor para ver los resultados de validación</div>';
+                statsContainer.style.display = 'none';
+                return;
+            }
+
+            // Reiniciar resultados
+            validationResults = {
+                errors: [],
+                warnings: [],
+                isValid: false
+            };
+
+            try {
+                switch(currentFormat) {
+                    case 'json':
+                        validateJSON(code);
+                        break;
+                    case 'yaml':
+                        validateYAML(code);
+                        break;
+                    case 'xml':
+                        validateXML(code);
+                        break;
+                    case 'env':
+                        validateENV(code);
+                        break;
+                }
+            } catch (error) {
+                validationResults.errors.push({
+                    type: 'SYNTAX_ERROR',
+                    message: error.message,
+                    line: 1,
+                    suggestion: 'Revisa la sintaxis básica del formato'
+                });
+            }
+
+            renderResults();
+            updateStats(code);
+        }
+
+        function validateJSON(code) {
+            try {
+                // Verificar JSON básico
+                JSON.parse(code);
+                validationResults.isValid = true;
+                
+                // Verificaciones adicionales
+                checkJSONBestPractices(code);
+                
+            } catch (error) {
+                validationResults.isValid = false;
+                
+                // Análisis detallado del error
+                analyzeJSONError(code, error);
+            }
+        }
+
+        function analyzeJSONError(code, error) {
+            const lines = code.split('\n');
+            let errorLine = 1;
+            
+            // Buscar errores comunes
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const lineNum = i + 1;
+                
+                // Comillas simples
+                if (line.includes("'") && line.includes(':')) {
+                    validationResults.errors.push({
+                        type: 'INVALID_QUOTES',
+                        message: 'Uso de comillas simples en lugar de dobles',
+                        line: lineNum,
+                        suggestion: 'Reemplaza las comillas simples (\') por comillas dobles (")'
+                    });
+                }
+                
+                // Coma extra
+                if (line.trim().endsWith(',') && i < lines.length - 1) {
+                    const nextNonEmpty = findNextNonEmptyLine(lines, i + 1);
+                    if (nextNonEmpty && (nextNonEmpty.trim().startsWith('}') || nextNonEmpty.trim().startsWith(']'))) {
+                        validationResults.errors.push({
+                            type: 'TRAILING_COMMA',
+                            message: 'Coma extra antes del cierre',
+                            line: lineNum,
+                            suggestion: 'Elimina la coma al final de la línea'
+                        });
+                    }
+                }
+                
+                // Falta coma
+                if (line.includes(':') && !line.trim().endsWith(',') && !line.trim().endsWith('{') && !line.trim().endsWith('[')) {
+                    const nextNonEmpty = findNextNonEmptyLine(lines, i + 1);
+                    if (nextNonEmpty && (nextNonEmpty.includes(':') || nextNonEmpty.trim().startsWith('"'))) {
+                        validationResults.errors.push({
+                            type: 'MISSING_COMMA',
+                            message: 'Falta coma entre elementos',
+                            line: lineNum,
+                            suggestion: 'Agrega una coma al final de la línea'
+                        });
+                    }
+                }
+                
+                // Comentarios (no válidos en JSON)
+                if (line.includes('//')) {
+                    validationResults.errors.push({
+                        type: 'INVALID_COMMENT',
+                        message: 'Los comentarios no están permitidos en JSON',
+                        line: lineNum,
+                        suggestion: 'Elimina el comentario o usa un formato que los soporte (YAML)'
+                    });
+                }
+            }
+            
+            // Si no encontramos errores específicos, usar el error general
+            if (validationResults.errors.length === 0) {
+                validationResults.errors.push({
+                    type: 'SYNTAX_ERROR',
+                    message: error.message,
+                    line: errorLine,
+                    suggestion: 'Verifica la sintaxis JSON básica'
+                });
+            }
+        }
+
+        function checkJSONBestPractices(code) {
+            const lines = code.split('\n');
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const lineNum = i + 1;
+                
+                // Claves muy largas
+                const keyMatch = line.match(/"([^"]{50,})"\s*:/);
+                if (keyMatch) {
+                    validationResults.warnings.push({
+                        type: 'LONG_KEY',
+                        message: `Clave muy larga: "${keyMatch[1].substring(0, 30)}..."`,
+                        line: lineNum,
+                        suggestion: 'Considera usar claves más cortas y descriptivas'
+                    });
+                }
+                
+                // Anidamiento profundo (simplificado)
+                const indentLevel = (line.match(/^\s*/)[0].length / 2);
+                if (indentLevel > 6) {
+                    validationResults.warnings.push({
+                        type: 'DEEP_NESTING',
+                        message: 'Anidamiento muy profundo',
+                        line: lineNum,
+                        suggestion: 'Considera reestructurar para reducir la complejidad'
+                    });
+                }
+            }
+        }
+
+        function validateYAML(code) {
+            const lines = code.split('\n');
+            let hasErrors = false;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const lineNum = i + 1;
+                
+                if (line.trim() === '' || line.trim().startsWith('#')) continue;
+                
+                // Verificar indentación
+                const indent = line.match(/^\s*/)[0];
+                if (indent.includes('\t')) {
+                    validationResults.errors.push({
+                        type: 'TAB_INDENTATION',
+                        message: 'Uso de tabs en lugar de espacios',
+                        line: lineNum,
+                        suggestion: 'Reemplaza los tabs por espacios (2 espacios por nivel)'
+                    });
+                    hasErrors = true;
+                }
+                
+                // Verificar formato key: value
+                if (line.includes(':')) {
+                    const colonIndex = line.indexOf(':');
+                    const afterColon = line.substring(colonIndex + 1);
+                    
+                    if (afterColon && !afterColon.startsWith(' ') && afterColon.trim() !== '') {
+                        validationResults.errors.push({
+                            type: 'MISSING_SPACE',
+                            message: 'Falta espacio después de los dos puntos',
+                            line: lineNum,
+                            suggestion: 'Agrega un espacio después de : (ejemplo: "clave: valor")'
+                        });
+                        hasErrors = true;
+                    }
+                    
+                    // Verificar indentación correcta para objetos anidados
+                    if (afterColon.trim() === '' && i < lines.length - 1) {
+                        const nextLine = lines[i + 1];
+                        if (nextLine.trim() && !nextLine.trim().startsWith('-')) {
+                            const currentIndent = indent.length;
+                            const nextIndent = nextLine.match(/^\s*/)[0].length;
+                            
+                            if (nextIndent <= currentIndent) {
+                                validationResults.errors.push({
+                                    type: 'INCORRECT_INDENTATION',
+                                    message: 'Indentación incorrecta para objeto anidado',
+                                    line: lineNum + 1,
+                                    suggestion: 'Los elementos anidados deben tener más indentación que su padre'
+                                });
+                                hasErrors = true;
+                            }
+                        }
+                    }
+                }
+                
+                // Verificar arrays
+                if (line.trim().startsWith('-')) {
+                    const afterDash = line.substring(line.indexOf('-') + 1);
+                    if (afterDash && !afterDash.startsWith(' ')) {
+                        validationResults.errors.push({
+                            type: 'MISSING_SPACE_ARRAY',
+                            message: 'Falta espacio después del guión en array',
+                            line: lineNum,
+                            suggestion: 'Agrega un espacio después de - (ejemplo: "- elemento")'
+                        });
+                        hasErrors = true;
+                    }
+                }
+            }
+            
+            validationResults.isValid = !hasErrors;
+        }
+
+        function validateXML(code) {
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(code, 'text/xml');
+                
+                const parserError = doc.querySelector('parsererror');
+                if (parserError) {
+                    validationResults.isValid = false;
+                    validationResults.errors.push({
+                        type: 'XML_PARSE_ERROR',
+                        message: 'Error de análisis XML',
+                        line: 1,
+                        suggestion: 'Verifica que todas las etiquetas estén cerradas correctamente'
+                    });
+                } else {
+                    validationResults.isValid = true;
+                }
+                
+                // Verificaciones adicionales
+                analyzeXMLStructure(code);
+                
+            } catch (error) {
+                validationResults.isValid = false;
+                validationResults.errors.push({
+                    type: 'XML_ERROR',
+                    message: error.message,
+                    line: 1,
+                    suggestion: 'Revisa la estructura XML'
+                });
+            }
+        }
+
+        function analyzeXMLStructure(code) {
+            const lines = code.split('\n');
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const lineNum = i + 1;
+                
+                // Atributos sin comillas
+                const attrMatch = line.match(/(\w+)=([^"\s>]+)/);
+                if (attrMatch && !attrMatch[2].startsWith('"') && !attrMatch[2].startsWith("'")) {
+                    validationResults.errors.push({
+                        type: 'UNQUOTED_ATTRIBUTE',
+                        message: `Atributo sin comillas: ${attrMatch[1]}=${attrMatch[2]}`,
+                        line: lineNum,
+                        suggestion: 'Envuelve el valor del atributo entre comillas'
+                    });
+                }
+                
+                // Etiquetas sin cerrar (básico)
+                const openTags = line.match(/<(\w+)[^>]*>/g);
+                const closeTags = line.match(/<\/(\w+)>/g);
+                const selfClosing = line.match(/<\w+[^>]*\/>/g);
+                
+                if (openTags && openTags.length > 0) {
+                    const openCount = openTags.length - (selfClosing ? selfClosing.length : 0);
+                    const closeCount = closeTags ? closeTags.length : 0;
+                    
+                    if (openCount > closeCount) {
+                        validationResults.warnings.push({
+                            type: 'UNCLOSED_TAG',
+                            message: 'Posible etiqueta sin cerrar en esta línea',
+                            line: lineNum,
+                            suggestion: 'Verifica que todas las etiquetas abiertas estén cerradas'
+                        });
+                    }
+                }
+            }
+        }
+
+        function validateENV(code) {
+            const lines = code.split('\n');
+            let hasErrors = false;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const lineNum = i + 1;
+                
+                if (line.trim() === '' || line.trim().startsWith('#')) continue;
+                
+                // Verificar formato básico
+                if (!line.includes('=')) {
+                    validationResults.errors.push({
+                        type: 'MISSING_EQUALS',
+                        message: 'Línea sin formato clave=valor',
+                        line: lineNum,
+                        suggestion: 'Usa el formato VARIABLE=valor'
+                    });
+                    hasErrors = true;
+                    continue;
+                }
+                
+                const [key, ...valueParts] = line.split('=');
+                const value = valueParts.join('=');
+                
+                // Verificar nombre de variable
+                if (!key.match(/^[A-Z_][A-Z0-9_]*$/)) {
+                    validationResults.errors.push({
+                        type: 'INVALID_VAR_NAME',
+                        message: `Nombre de variable inválido: ${key}`,
+                        line: lineNum,
+                        suggestion: 'Usa solo letras mayúsculas, números y guiones bajos'
+                    });
+                    hasErrors = true;
+                }
+                
+                // Verificar espacios alrededor del =
+                if (line.includes(' = ') || line.includes('= ') || line.includes(' =')) {
+                    validationResults.warnings.push({
+                        type: 'SPACES_AROUND_EQUALS',
+                        message: 'Espacios innecesarios alrededor del signo igual',
+                        line: lineNum,
+                        suggestion: 'Elimina los espacios: VARIABLE=valor'
+                    });
+                }
+                
+                // Verificar valor vacío
+                if (value === '') {
+                    validationResults.warnings.push({
+                        type: 'EMPTY_VALUE',
+                        message: `Variable sin valor: ${key}`,
+                        line: lineNum,
+                        suggestion: 'Define un valor o comenta la línea si no es necesaria'
+                    });
+                }
+                
+                // Verificar valores con espacios sin comillas
+                if (value.includes(' ') && !value.startsWith('"') && !value.startsWith("'")) {
+                    validationResults.warnings.push({
+                        type: 'UNQUOTED_VALUE',
+                        message: 'Valor con espacios sin comillas',
+                        line: lineNum,
+                        suggestion: 'Envuelve el valor entre comillas si contiene espacios'
+                    });
+                }
+            }
+            
+            validationResults.isValid = !hasErrors;
+        }
+
+        function findNextNonEmptyLine(lines, startIndex) {
+            for (let i = startIndex; i < lines.length; i++) {
+                if (lines[i].trim()) {
+                    return lines[i];
+                }
+            }
+            return null;
+        }
+
+        function renderResults() {
+            const container = document.getElementById('validationResults');
+            const { errors, warnings, isValid } = validationResults;
+            
+            let html = '';
+            
+            // Resumen
+            if (isValid && errors.length === 0) {
+                html += `
+                    <div class="validation-summary valid">
+                        <div class="status-icon"></div>
+                        <div>
+                            <div class="status-text">Código Válido</div>
+                            <div>El archivo pasa todas las verificaciones de sintaxis</div>
+                        </div>
+                    </div>
+                `;
+            } else if (errors.length > 0) {
+                html += `
+                    <div class="validation-summary invalid">
+                        <div class="status-icon"></div>
+                        <div>
+                            <div class="status-text">Errores Detectados</div>
+                            <div>Se encontraron ${errors.length} error(es) que requieren corrección</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (warnings.length > 0 && errors.length === 0) {
+                html += `
+                    <div class="validation-summary warning">
+                        <div class="status-icon"></div>
+                        <div>
+                            <div class="status-text">Advertencias</div>
+                            <div>Se encontraron ${warnings.length} advertencia(s) para mejorar</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Errores
+            if (errors.length > 0) {
+                html += '<div class="issues-container">';
+                errors.forEach(error => {
+                    html += `
+                        <div class="issue-item">
+                            <div class="issue-header">
+                                <span class="issue-type">Error</span>
+                                <span class="issue-location">Línea ${error.line}</span>
+                            </div>
+                            <div class="issue-message">${error.message}</div>
+                            <div class="issue-suggestion"> ${error.suggestion}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Advertencias
+            if (warnings.length > 0) {
+                html += '<div class="issues-container">';
+                warnings.forEach(warning => {
+                    html += `
+                        <div class="issue-item warning">
+                            <div class="issue-header">
+                                <span class="issue-type">Advertencia</span>
+                                <span class="issue-location">Línea ${warning.line}</span>
+                            </div>
+                            <div class="issue-message">${warning.message}</div>
+                            <div class="issue-suggestion"> ${warning.suggestion}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function updateStats(code) {
+            const statsContainer = document.getElementById('statsContainer');
+            const lines = code.split('\n').length;
+            const bytes = new Blob([code]).size;
+            
+            document.getElementById('errorsCount').textContent = validationResults.errors.length;
+            document.getElementById('warningsCount').textContent = validationResults.warnings.length;
+            document.getElementById('linesCount').textContent = lines;
+            document.getElementById('sizeBytes').textContent = bytes;
+            
+            statsContainer.style.display = 'grid';
+        }
+
+        function autoFix() {
+            const editor = document.getElementById('codeEditor');
+            let code = editor.value;
+            
+            if (!code.trim()) {
+                alert('No hay código para reparar');
+                return;
+            }
+            
+            let fixed = false;
+            
+            switch(currentFormat) {
+                case 'json':
+                    const jsonFixed = autoFixJSON(code);
+                    if (jsonFixed !== code) {
+                        editor.value = jsonFixed;
+                        fixed = true;
+                    }
+                    break;
+                case 'yaml':
+                    const yamlFixed = autoFixYAML(code);
+                    if (yamlFixed !== code) {
+                        editor.value = yamlFixed;
+                        fixed = true;
+                    }
+                    break;
+                case 'env':
+                    const envFixed = autoFixENV(code);
+                    if (envFixed !== code) {
+                        editor.value = envFixed;
+                        fixed = true;
+                    }
+                    break;
+                default:
+                    alert('Auto-reparación no disponible para este formato');
+                    return;
+            }
+            
+            if (fixed) {
+                alert(' Se aplicaron correcciones automáticas');
+                validateCode();
+            } else {
+                alert(' No se encontraron errores que se puedan corregir automáticamente');
+            }
+        }
+
+        function autoFixJSON(code) {
+            // Corregir comillas simples por dobles
+            code = code.replace(/'/g, '"');
+            
+            // Eliminar comentarios
+            code = code.replace(/\/\/.*$/gm, '');
+            
+            // Tratar de eliminar comas extra (simplificado)
+            code = code.replace(/,(\s*[}\]])/g, '$1');
+            
+            return code;
+        }
+
+        function autoFixYAML(code) {
+            const lines = code.split('\n');
+            
+            return lines.map(line => {
+                // Reemplazar tabs por espacios
+                line = line.replace(/\t/g, '  ');
+                
+                // Agregar espacio después de :
+                if (line.includes(':') && !line.includes(': ') && !line.trim().endsWith(':')) {
+                    line = line.replace(/:([^\s])/, ': $1');
+                }
+                
+                // Agregar espacio después de - en arrays
+                if (line.trim().startsWith('-') && !line.includes('- ')) {
+                    line = line.replace(/-([^\s])/, '- $1');
+                }
+                
+                return line;
+            }).join('\n');
+        }
+
+        function autoFixENV(code) {
+            const lines = code.split('\n');
+            
+            return lines.map(line => {
+                if (line.trim() === '' || line.trim().startsWith('#')) return line;
+                
+                // Eliminar espacios alrededor del =
+                line = line.replace(/\s*=\s*/, '=');
+                
+                // Convertir nombre de variable a mayúsculas
+                const equalIndex = line.indexOf('=');
+                if (equalIndex > 0) {
+                    const key = line.substring(0, equalIndex).toUpperCase().replace(/[^A-Z0-9_]/g, '_');
+                    const value = line.substring(equalIndex + 1);
+                    line = `${key}=${value}`;
+                }
+                
+                return line;
+            }).join('\n');
+        }
+
+        function formatCode() {
+            const editor = document.getElementById('codeEditor');
+            const code = editor.value;
+            
+            if (!code.trim()) return;
+            
+            try {
+                switch(currentFormat) {
+                    case 'json':
+                        const parsed = JSON.parse(code);
+                        editor.value = JSON.stringify(parsed, null, 2);
+                        break;
+                    default:
+                        alert('Formateo automático no disponible para este formato');
+                        return;
+                }
+                validateCode();
+            } catch (error) {
+                alert('No se puede formatear: el código contiene errores de sintaxis');
+            }
+        }
+
+        function clearEditor() {
+            if (confirm('¿Estás seguro de que quieres limpiar el editor?')) {
+                document.getElementById('codeEditor').value = '';
+                document.getElementById('validationResults').innerHTML = '<div style="color: #55538a; text-align: center; padding: 50px;">Escribe código en el editor para ver los resultados de validación</div>';
+                document.getElementById('statsContainer').style.display = 'none';
+            }
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ';
+            
+            alert(' ¡Fantástico trabajo! Has completado la actividad "Validador de Sintaxis".\n\n Has aprendido a:\n• Detectar y analizar errores de sintaxis\n• Identificar problemas comunes en cada formato\n• Proporcionar sugerencias útiles para correcciones\n• Implementar reparaciones automáticas\n\n +200 puntos ganados');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar con ejemplo inválido de JSON
+        document.addEventListener('DOMContentLoaded', function() {
+            loadExample('invalid_json');
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            console.log('Progreso guardado automáticamente');
+        }, 30000);
+    </script>
+
+<nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad3_generador.html">← Generador de Plantillas</a><a class="dl-pie-btn sig" href="./quiz_modulo9.html">Módulo 9: El Lenguaje de la Configuración →</a></nav>
+<script src="/js/bootcamp-progreso.js" data-modulo="9" data-pagina="actividad4_validador" data-total="5" defer></script>
+</body>
+</html>

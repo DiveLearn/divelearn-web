@@ -104,7 +104,7 @@ def limpiar(h: str) -> str:
 
 
 # Color propio de cada módulo (los mismos que src/data/bootcamp.ts).
-COLOR = {0: "#ffd36e", 1: "#ff9f43", 2: "#ff7a8a", 3: "#f49ac2", 4: "#b39dfa", 5: "#7cc6fe", 6: "#5fd3c6", 7: "#04a8bb", 8: "#6fd08c"}
+COLOR = {0: "#ffd36e", 1: "#ff9f43", 2: "#ff7a8a", 3: "#f49ac2", 4: "#b39dfa", 5: "#7cc6fe", 6: "#5fd3c6", 7: "#04a8bb", 8: "#6fd08c", 9: "#e0f24a"}
 
 
 # Datos de cada módulo (etapa, título, sprite) leídos de src/data/bootcamp.ts, para la cabecera de juego.
@@ -158,7 +158,7 @@ def pie(m: int, pagina: str) -> str:
     if i + 1 < len(orden):
         sig = orden[i + 1]
         b = f'<a class="dl-pie-btn sig" href="{href(sig)}">{TITULOS.get((m, sig), "Siguiente")} →</a>'
-    elif m < 8:
+    elif m < 9:
         b = f'<a class="dl-pie-btn sig" href="/bootcamp/modulo-{m + 1}/">Módulo {m + 1}: {MODULO[m + 1]["titulo"]} →</a>'
     else:
         b = '<a class="dl-pie-btn sig" href="/bootcamp/#licencia">Reclamar tu licencia →</a>'
@@ -211,7 +211,7 @@ OBJETO_TEMA = [
     (("checklist", "pasos", "plan", "planific", "evalua"), "obj-checklist"),
     (("idea", "concepto", "qué es", "que es", "por qué", "por que"), "obj-bombillo"),
 ]
-OBJETO_MODULO = {0: "obj-satelite", 1: "obj-cable", 2: "obj-router", 3: "obj-lupa", 4: "obj-candado", 5: "obj-laptop", 6: "obj-servidores", 7: "obj-disco", 8: "obj-disquete"}
+OBJETO_MODULO = {0: "obj-satelite", 1: "obj-cable", 2: "obj-router", 3: "obj-lupa", 4: "obj-candado", 5: "obj-laptop", 6: "obj-servidores", 7: "obj-disco", 8: "obj-disquete", 9: "obj-llave"}
 
 
 def con_objetos(h: str, m: int) -> str:
@@ -256,11 +256,16 @@ EN_REPARACION = """<!doctype html>
 
 paginas = {}
 reparar = []
-for m in range(9):
+for m in range(10):
     src = T / f"modulo_{m}"
     out = D / f"modulo-{m}"
     out.mkdir()
     todas = sorted((src / "submodulos").glob("*.html"), key=lambda f: (f.stem.startswith("quiz"), f.stem))
+    if m == 9:
+        # El rebranding dejó en modulo_9/submodulos una copia de las actividades de todos los módulos:
+        # solo cuentan las que enlaza el hub del módulo.
+        propias = set(re.findall(r"submodulos/(\w+)\.html", (src / "hub_modulo9.html").read_text()))
+        todas = [f for f in todas if f.stem in propias]
     # Algunas actividades vienen cortadas a la mitad (sin </html>): no cuentan para el juego.
     subs = [f for f in todas if "</html>" in f.read_text()]
     for f in todas:

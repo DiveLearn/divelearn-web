@@ -1,0 +1,1251 @@
+</html><!DOCTYPE html>
+<html lang="es" style="--c:#e0f24a">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 3 - Generador de Plantillas</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .template-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+            min-height: 600px;
+        }
+
+        .variables-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .template-panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .output-panel {
+            grid-column: 1 / -1;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .panel-title {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .variables-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .variable-item {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .variable-item:hover {
+            border-color: var(--purple);
+            box-shadow: var(--glow);
+        }
+
+        .variable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .variable-name {
+            font-weight: 600;
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            background: var(--surface2);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .remove-variable {
+            background: #EF4444;
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .variable-
+
+        .add-variable {
+            background: #22C55E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .add-variable:hover {
+            background: #22C55E;
+        }
+
+        .template-editor {
+            width: 100%;
+            height: 400px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            background: #1f1d5c;
+            color: #55538a;
+            line-height: 1.5;
+        }
+
+        .template-editor:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: var(--glow);
+        }
+
+        .output-area {
+            width: 100%;
+            height: 300px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            background: var(--surface);
+            resize: none;
+            line-height: 1.5;
+        }
+
+        .output-area:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: var(--glow);
+        }
+        .generate-btn {
+            background: linear-gradient(135deg, #1a3d1a, #22C55E33);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .tools-section {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: #5a6268;
+        }
+
+        .tool-btn.copy {
+            background: #06B6D4;
+        }
+
+        .tool-btn.copy:hover {
+            background: #138496;
+        }
+
+        .tool-btn.download {
+            background: #F59E0B;
+        }
+
+        .tool-btn.download:hover {
+            background: #e8680c;
+        }
+
+        .examples-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .examples-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .example-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .example-btn:hover {
+            background: var(--purple);
+            transform: translateY(-1px);
+        }
+
+        .example-btn.docker {
+            background: var(--purple);
+        }
+
+        .example-btn.docker:hover {
+            background: #0056b3;
+        }
+
+        .example-btn.nginx {
+            background: #22C55E;
+        }
+
+        .example-btn.nginx:hover {
+            background: #22C55E;
+        }
+
+        .example-btn.k8s {
+            background: #6f42c1;
+        }
+
+        .example-btn.k8s:hover {
+            background: #5a2d91;
+        }
+
+        
+
+        
+
+        
+
+        .syntax-help {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .syntax-help h4 {
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .syntax-example {
+            font-family: 'Courier New', monospace;
+            background: var(--surface2);
+            padding: 5px 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 968px) {
+            .template-workspace {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+            }
+
+            .output-panel {
+                grid-column: 1;
+            }
+        }
+
+        @media (max-width: 768px) {            .example-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .template-workspace {
+                gap: 15px;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
+</head>
+<body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/obj-checklist.png" alt="" width="38" height="52"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 9</span><span class="dl-jh-tit">El lenguaje de la configuración</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 9</a></nav>
+    </div>
+    <nav class="dl-pasos" aria-label="Actividades del módulo"><a class="dl-paso" href="./" data-paso="index" title="Portada del módulo">Inicio</a><a class="dl-paso" href="./actividad1_editor.html" data-paso="actividad1_editor" title="Editor de Configuraciones">1</a><a class="dl-paso" href="./actividad2_convertidor.html" data-paso="actividad2_convertidor" title="Convertidor entre Formatos">2</a><a class="dl-paso actual" href="./actividad3_generador.html" data-paso="actividad3_generador" title="Generador de Plantillas" aria-current="page">3</a><a class="dl-paso" href="./actividad4_validador.html" data-paso="actividad4_validador" title="Validador de Sintaxis">4</a><a class="dl-paso" href="./quiz_modulo9.html" data-paso="quiz_modulo9" title="Módulo 9: El Lenguaje de la Configuración">Quiz</a></nav>
+  </div>
+</header>
+
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 9</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 9</a> / Actividad 3
+            </div>
+            <h1 class="activity-title"> Generador de Plantillas</h1>
+            <p class="activity-subtitle">Crea un sistema de plantillas que genera configuraciones automáticamente usando variables dinámicas</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span></span>
+                    <span>30 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span></span>
+                    <span>Nivel: Intermedio-Avanzado</span>
+                </div>
+                <div class="meta-item">
+                    <span></span>
+                    <span>Puntos: 250</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
+                <p>Construye un generador de plantillas que permita crear configuraciones reutilizables usando variables dinámicas. Aprenderás a implementar el principio DRY (Don't Repeat Yourself) y a automatizar la generación de archivos de configuración.</p>
+            </div>
+
+            <div class="examples-section">
+                <h3 class="examples-title">
+                     Plantillas Predefinidas
+                </h3>
+                <p style="color: #856404; margin-bottom: 15px;">Carga una plantilla para comenzar a experimentar:</p>
+                <div class="example-buttons">
+                    <button class="example-btn" onclick="loadTemplate('basic')"> Configuración Básica</button>
+                    <button class="example-btn docker" onclick="loadTemplate('docker')"> Docker Compose</button>
+                    <button class="example-btn nginx" onclick="loadTemplate('nginx')"> Nginx Config</button>
+                    <button class="example-btn k8s" onclick="loadTemplate('kubernetes')"> Kubernetes Manifest</button>
+                </div>
+            </div>
+
+            <div class="syntax-help">
+                <h4> Sintaxis de Plantillas</h4>
+                <div class="syntax-example">{{VARIABLE_NAME}} - Variable simple</div>
+                <div class="syntax-example">{{#if CONDITION}} contenido {{/if}} - Condicional</div>
+                <div class="syntax-example">{{#each ARRAY}} {{this}} {{/each}} - Bucle</div>
+                <div class="syntax-example">{{VARIABLE|default:valor}} - Valor por defecto</div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-checklist.png" alt="" width="32" height="32"> Editor de Plantillas</h2>
+                <div class="template-workspace">
+                    <!-- Panel de Variables -->
+                    <div class="variables-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Variables</span>
+                            <button class="add-variable" onclick="addVariable()">
+                                <span>+</span> Agregar Variable
+                            </button>
+                        </div>
+                        <div class="variables-container" id="variablesContainer">
+                            <!-- Variables se cargan dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Panel de Plantilla -->
+                    <div class="template-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Plantilla</span>
+                            <select class="template-selector" id="templateType" onchange="onTemplateTypeChange()">
+                                <option value="yaml">YAML</option>
+                                <option value="json">JSON</option>
+                                <option value="xml">XML</option>
+                                <option value="env">ENV</option>
+                                <option value="dockerfile">Dockerfile</option>
+                                <option value="nginx">Nginx Conf</option>
+                            </select>
+                        </div>
+                        <textarea class="template-editor" id="templateEditor" placeholder="Escribe tu plantilla aquí usando {{VARIABLE_NAME}} para las variables..." oninput="autoGenerate()"></textarea>
+                        <button class="generate-btn" onclick="generateOutput()">
+                            <span></span> Generar Configuración
+                        </button>
+                    </div>
+
+                    <!-- Panel de Salida -->
+                    <div class="output-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Configuración Generada</span>
+                            <div class="tools-section">
+                                <button class="tool-btn copy" onclick="copyOutput()"> Copiar</button>
+                                <button class="tool-btn download" onclick="downloadOutput()"> Descargar</button>
+                                <button class="tool-btn" onclick="validateOutput()"> Validar</button>
+                            </div>
+                        </div>
+                        <textarea class="output-area" id="outputArea" readonly placeholder="La configuración generada aparecerá aquí..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                     Tips para Plantillas
+                </h3>
+                <div class="tip-item">
+                    <strong> Variables:</strong> Usa nombres descriptivos en MAYÚSCULAS como {{APP_NAME}}, {{DATABASE_HOST}}.
+                </div>
+                <div class="tip-item">
+                    <strong> Condicionales:</strong> {{#if PRODUCTION}} habilita contenido solo cuando PRODUCTION es true.
+                </div>
+                <div class="tip-item">
+                    <strong> Bucles:</strong> {{#each SERVICES}} {{name}}:{{port}} {{/each}} itera sobre arrays.
+                </div>
+                <div class="tip-item">
+                    <strong> Pro tip:</strong> Usa valores por defecto con {{VARIABLE|default:valor_predeterminado}} para mayor robustez.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">En progreso</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                 Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let variables = {};
+        let autoGeneration = true;
+
+        const templates = {
+            basic: {
+                type: 'yaml',
+                template: `# Configuración de {{APP_NAME}}
+app:
+  name: {{APP_NAME}}
+  version: {{APP_VERSION|default:1.0.0}}
+  environment: {{ENVIRONMENT|default:development}}
+  
+server:
+  host: {{SERVER_HOST|default:localhost}}
+  port: {{SERVER_PORT|default:3000}}
+  debug: {{#if DEBUG}}true{{else}}false{{/if}}
+
+database:
+  type: {{DB_TYPE|default:postgresql}}
+  host: {{DB_HOST|default:localhost}}
+  port: {{DB_PORT|default:5432}}
+  name: {{DB_NAME}}
+  {{#if ENVIRONMENT === 'production'}}
+  ssl: true
+  pool_size: 20
+  {{else}}
+  ssl: false
+  pool_size: 5
+  {{/if}}`,
+                variables: {
+                    APP_NAME: 'mi-aplicacion',
+                    APP_VERSION: '2.1.0',
+                    ENVIRONMENT: 'production',
+                    SERVER_HOST: '0.0.0.0',
+                    SERVER_PORT: '8080',
+                    DEBUG: 'false',
+                    DB_TYPE: 'postgresql',
+                    DB_HOST: 'db.empresa.com',
+                    DB_PORT: '5432',
+                    DB_NAME: 'app_db'
+                }
+            },
+            docker: {
+                type: 'yaml',
+                template: `version: '3.8'
+
+services:
+  {{APP_NAME}}:
+    image: {{DOCKER_IMAGE}}:{{IMAGE_TAG|default:latest}}
+    container_name: {{CONTAINER_NAME|default:{{APP_NAME}}_container}}
+    ports:
+      - "{{HOST_PORT|default:8080}}:{{CONTAINER_PORT|default:8080}}"
+    environment:
+      - NODE_ENV={{ENVIRONMENT|default:production}}
+      - DATABASE_URL=postgresql://{{DB_USER}}:{{DB_PASSWORD}}@{{DB_HOST}}:{{DB_PORT}}/{{DB_NAME}}
+      {{#if REDIS_ENABLED}}
+      - REDIS_URL=redis://redis:6379
+      {{/if}}
+    volumes:
+      - ./logs:/app/logs
+      {{#if PERSISTENT_STORAGE}}
+      - {{VOLUME_PATH}}:/app/data
+      {{/if}}
+    depends_on:
+      - database
+      {{#if REDIS_ENABLED}}
+      - redis
+      {{/if}}
+    networks:
+      - app-network
+
+  database:
+    image: postgres:{{POSTGRES_VERSION|default:13}}
+    environment:
+      POSTGRES_DB: {{DB_NAME}}
+      POSTGRES_USER: {{DB_USER}}
+      POSTGRES_PASSWORD: {{DB_PASSWORD}}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+{{#if REDIS_ENABLED}}
+  redis:
+    image: redis:{{REDIS_VERSION|default:6.2}}
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+{{/if}}
+
+volumes:
+  postgres_data:
+{{#if REDIS_ENABLED}}
+  redis_data:
+{{/if}}
+
+networks:
+  app-network:
+    driver: bridge`,
+                variables: {
+                    APP_NAME: 'mi-app-web',
+                    DOCKER_IMAGE: 'node',
+                    IMAGE_TAG: '16-alpine',
+                    CONTAINER_NAME: 'mi-app-container',
+                    HOST_PORT: '3000',
+                    CONTAINER_PORT: '3000',
+                    ENVIRONMENT: 'production',
+                    DB_USER: 'app_user',
+                    DB_PASSWORD: 'secreto123',
+                    DB_HOST: 'database',
+                    DB_PORT: '5432',
+                    DB_NAME: 'mi_aplicacion',
+                    POSTGRES_VERSION: '14',
+                    REDIS_ENABLED: 'true',
+                    REDIS_VERSION: '7.0',
+                    PERSISTENT_STORAGE: 'true',
+                    VOLUME_PATH: './data'
+                }
+            },
+            nginx: {
+                type: 'nginx',
+                template: `# Configuración Nginx para {{DOMAIN}}
+upstream {{APP_NAME}}_backend {
+    {{#each BACKEND_SERVERS}}
+    server {{this.host}}:{{this.port}} weight={{this.weight|default:1}};
+    {{/each}}
+}
+
+server {
+    listen {{HTTP_PORT|default:80}};
+    server_name {{DOMAIN}} {{#if WWW_REDIRECT}}www.{{DOMAIN}}{{/if}};
+    
+    {{#if SSL_ENABLED}}
+    # Redirigir HTTP a HTTPS
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen {{HTTPS_PORT|default:443}} ssl http2;
+    server_name {{DOMAIN}} {{#if WWW_REDIRECT}}www.{{DOMAIN}}{{/if}};
+    
+    # Certificados SSL
+    ssl_certificate {{SSL_CERT_PATH}};
+    ssl_certificate_key {{SSL_KEY_PATH}};
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
+    {{/if}}
+    
+    # Configuración general
+    client_max_body_size {{MAX_UPLOAD_SIZE|default:50M}};
+    
+    # Logs
+    access_log {{ACCESS_LOG_PATH|default:/var/log/nginx/{{DOMAIN}}.access.log}};
+    error_log {{ERROR_LOG_PATH|default:/var/log/nginx/{{DOMAIN}}.error.log}};
+    
+    # Archivos estáticos
+    location /static/ {
+        alias {{STATIC_FILES_PATH}};
+        expires {{STATIC_CACHE_TIME|default:30d}};
+        add_header Cache-Control "public, immutable";
+    }
+    
+    # Proxy a la aplicación
+    location / {
+        proxy_pass http://{{APP_NAME}}_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        {{#if SSL_ENABLED}}
+        proxy_set_header X-Forwarded-Proto https;
+        {{else}}
+        proxy_set_header X-Forwarded-Proto http;
+        {{/if}}
+        proxy_connect_timeout {{PROXY_TIMEOUT|default:60s}};
+        proxy_send_timeout {{PROXY_TIMEOUT|default:60s}};
+        proxy_read_timeout {{PROXY_TIMEOUT|default:60s}};
+    }
+    
+    {{#if HEALTH_CHECK}}
+    # Health check
+    location /health {
+        access_log off;
+        return 200 "healthy\\n";
+        add_header Content-Type text/plain;
+    }
+    {{/if}}
+}`,
+                variables: {
+                    DOMAIN: 'miapp.com',
+                    APP_NAME: 'miapp',
+                    HTTP_PORT: '80',
+                    HTTPS_PORT: '443',
+                    SSL_ENABLED: 'true',
+                    SSL_CERT_PATH: '/etc/ssl/certs/miapp.com.crt',
+                    SSL_KEY_PATH: '/etc/ssl/private/miapp.com.key',
+                    WWW_REDIRECT: 'true',
+                    MAX_UPLOAD_SIZE: '100M',
+                    STATIC_FILES_PATH: '/var/www/miapp/static/',
+                    STATIC_CACHE_TIME: '7d',
+                    PROXY_TIMEOUT: '30s',
+                    HEALTH_CHECK: 'true',
+                    'BACKEND_SERVERS[0].host': '10.0.1.10',
+                    'BACKEND_SERVERS[0].port': '3000',
+                    'BACKEND_SERVERS[0].weight': '2',
+                    'BACKEND_SERVERS[1].host': '10.0.1.11',
+                    'BACKEND_SERVERS[1].port': '3000',
+                    'BACKEND_SERVERS[1].weight': '1'
+                }
+            },
+            kubernetes: {
+                type: 'yaml',
+                template: `apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{APP_NAME}}-deployment
+  namespace: {{NAMESPACE|default:default}}
+  labels:
+    app: {{APP_NAME}}
+    version: {{APP_VERSION}}
+spec:
+  replicas: {{REPLICAS|default:3}}
+  selector:
+    matchLabels:
+      app: {{APP_NAME}}
+  template:
+    metadata:
+      labels:
+        app: {{APP_NAME}}
+        version: {{APP_VERSION}}
+    spec:
+      containers:
+      - name: {{APP_NAME}}
+        image: {{DOCKER_IMAGE}}:{{IMAGE_TAG}}
+        ports:
+        - containerPort: {{CONTAINER_PORT|default:8080}}
+        env:
+        - name: NODE_ENV
+          value: {{ENVIRONMENT|default:production}}
+        {{#if DATABASE_ENABLED}}
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{APP_NAME}}-secrets
+              key: database-url
+        {{/if}}
+        resources:
+          requests:
+            memory: {{MEMORY_REQUEST|default:256Mi}}
+            cpu: {{CPU_REQUEST|default:100m}}
+          limits:
+            memory: {{MEMORY_LIMIT|default:512Mi}}
+            cpu: {{CPU_LIMIT|default:500m}}
+        {{#if HEALTH_CHECKS}}
+        livenessProbe:
+          httpGet:
+            path: {{HEALTH_PATH|default:/health}}
+            port: {{CONTAINER_PORT|default:8080}}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: {{READY_PATH|default:/ready}}
+            port: {{CONTAINER_PORT|default:8080}}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        {{/if}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{APP_NAME}}-service
+  namespace: {{NAMESPACE|default:default}}
+spec:
+  selector:
+    app: {{APP_NAME}}
+  ports:
+  - protocol: TCP
+    port: {{SERVICE_PORT|default:80}}
+    targetPort: {{CONTAINER_PORT|default:8080}}
+  type: {{SERVICE_TYPE|default:ClusterIP}}
+
+{{#if INGRESS_ENABLED}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{APP_NAME}}-ingress
+  namespace: {{NAMESPACE|default:default}}
+  annotations:
+    kubernetes.io/ingress.class: {{INGRESS_CLASS|default:nginx}}
+    {{#if SSL_ENABLED}}
+    cert-manager.io/cluster-issuer: {{CERT_ISSUER|default:letsencrypt-prod}}
+    {{/if}}
+spec:
+  {{#if SSL_ENABLED}}
+  tls:
+  - hosts:
+    - {{DOMAIN}}
+    secretName: {{APP_NAME}}-tls
+  {{/if}}
+  rules:
+  - host: {{DOMAIN}}
+    http:
+      paths:
+      - path: {{INGRESS_PATH|default:/}}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{APP_NAME}}-service
+            port:
+              number: {{SERVICE_PORT|default:80}}
+{{/if}}`,
+                variables: {
+                    APP_NAME: 'mi-microservicio',
+                    APP_VERSION: 'v1.2.0',
+                    NAMESPACE: 'production',
+                    REPLICAS: '5',
+                    DOCKER_IMAGE: 'mi-empresa/mi-app',
+                    IMAGE_TAG: 'v1.2.0',
+                    CONTAINER_PORT: '3000',
+                    ENVIRONMENT: 'production',
+                    DATABASE_ENABLED: 'true',
+                    MEMORY_REQUEST: '512Mi',
+                    CPU_REQUEST: '250m',
+                    MEMORY_LIMIT: '1Gi',
+                    CPU_LIMIT: '1000m',
+                    HEALTH_CHECKS: 'true',
+                    HEALTH_PATH: '/health',
+                    READY_PATH: '/ready',
+                    SERVICE_PORT: '80',
+                    SERVICE_TYPE: 'ClusterIP',
+                    INGRESS_ENABLED: 'true',
+                    INGRESS_CLASS: 'nginx',
+                    SSL_ENABLED: 'true',
+                    CERT_ISSUER: 'letsencrypt-prod',
+                    DOMAIN: 'api.miempresa.com',
+                    INGRESS_PATH: '/api'
+                }
+            }
+        };
+
+        function loadTemplate(templateName) {
+            const template = templates[templateName];
+            if (!template) return;
+
+            // Cargar plantilla
+            document.getElementById('templateType').value = template.type;
+            document.getElementById('templateEditor').value = template.template;
+
+            // Cargar variables
+            variables = { ...template.variables };
+            renderVariables();
+            
+            // Generar salida
+            generateOutput();
+        }
+
+        function addVariable() {
+            const name = prompt('Nombre de la variable (en MAYÚSCULAS):');
+            if (!name || !name.trim()) return;
+            
+            const varName = name.trim().toUpperCase();
+            if (variables[varName]) {
+                alert('La variable ya existe');
+                return;
+            }
+            
+            variables[varName] = '';
+            renderVariables();
+        }
+
+        function removeVariable(name) {
+            if (confirm(`¿Eliminar la variable ${name}?`)) {
+                delete variables[name];
+                renderVariables();
+                if (autoGeneration) generateOutput();
+            }
+        }
+
+        function renderVariables() {
+            const container = document.getElementById('variablesContainer');
+            container.innerHTML = '';
+
+            Object.keys(variables).forEach(name => {
+                const variableItem = document.createElement('div');
+                variableItem.className = 'variable-item';
+                variableItem.innerHTML = `
+                    <div class="variable-header">
+                        <span class="variable-name">{{${name}}}</span>
+                        <button class="remove-variable" onclick="removeVariable('${name}')">×</button>
+                    </div>
+                    <input type="text" class="variable-input" value="${variables[name]}" 
+                           onchange="updateVariable('${name}', this.value)" 
+                           placeholder="Valor de ${name}">
+                `;
+                container.appendChild(variableItem);
+            });
+        }
+
+        function updateVariable(name, value) {
+            variables[name] = value;
+            if (autoGeneration) generateOutput();
+        }
+
+        function onTemplateTypeChange() {
+            if (autoGeneration) generateOutput();
+        }
+
+        function autoGenerate() {
+            if (autoGeneration) {
+                setTimeout(generateOutput, 500); // Debounce
+            }
+        }
+
+        function generateOutput() {
+            const template = document.getElementById('templateEditor').value;
+            const outputArea = document.getElementById('outputArea');
+            
+            if (!template.trim()) {
+                outputArea.value = '';
+                return;
+            }
+
+            try {
+                const result = processTemplate(template, variables);
+                outputArea.value = result;
+            } catch (error) {
+                outputArea.value = `Error al procesar plantilla:\n${error.message}`;
+            }
+        }
+
+        function processTemplate(template, vars) {
+            let result = template;
+
+            // Procesar condicionales {{#if CONDITION}} content {{/if}}
+            result = result.replace(/\{\{#if\s+([^}]+)\}\}([\s\S]*?)\{\{\/if\}\}/g, (match, condition, content) => {
+                if (evaluateCondition(condition, vars)) {
+                    return content;
+                }
+                return '';
+            });
+
+            // Procesar condicionales con else {{#if CONDITION}} content {{else}} other {{/if}}
+            result = result.replace(/\{\{#if\s+([^}]+)\}\}([\s\S]*?)\{\{else\}\}([\s\S]*?)\{\{\/if\}\}/g, (match, condition, ifContent, elseContent) => {
+                if (evaluateCondition(condition, vars)) {
+                    return ifContent;
+                }
+                return elseContent;
+            });
+
+            // Procesar bucles {{#each ARRAY}} content {{/each}}
+            result = result.replace(/\{\{#each\s+([^}]+)\}\}([\s\S]*?)\{\{\/each\}\}/g, (match, arrayName, content) => {
+                const array = getArrayFromVars(arrayName, vars);
+                if (Array.isArray(array)) {
+                    return array.map(item => {
+                        let itemContent = content;
+                        if (typeof item === 'object') {
+                            Object.keys(item).forEach(key => {
+                                itemContent = itemContent.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), item[key]);
+                            });
+                        } else {
+                            itemContent = itemContent.replace(/\{\{this\}\}/g, item);
+                        }
+                        return itemContent;
+                    }).join('');
+                }
+                return '';
+            });
+
+            // Procesar variables con valor por defecto {{VAR|default:value}}
+            result = result.replace(/\{\{([^|}]+)\|default:([^}]+)\}\}/g, (match, varName, defaultValue) => {
+                const value = vars[varName.trim()];
+                return value !== undefined && value !== '' ? value : defaultValue;
+            });
+
+            // Procesar variables simples {{VAR}}
+            result = result.replace(/\{\{([^}]+)\}\}/g, (match, varName) => {
+                const trimmedName = varName.trim();
+                return vars[trimmedName] !== undefined ? vars[trimmedName] : match;
+            });
+
+            return result;
+        }
+
+        function evaluateCondition(condition, vars) {
+            // Evaluar condiciones simples
+            condition = condition.trim();
+            
+            if (condition.includes('===')) {
+                const [left, right] = condition.split('===').map(s => s.trim());
+                const leftValue = vars[left] || left.replace(/['"]/g, '');
+                const rightValue = right.replace(/['"]/g, '');
+                return leftValue === rightValue;
+            }
+            
+            if (condition.includes('!==')) {
+                const [left, right] = condition.split('!==').map(s => s.trim());
+                const leftValue = vars[left] || left.replace(/['"]/g, '');
+                const rightValue = right.replace(/['"]/g, '');
+                return leftValue !== rightValue;
+            }
+            
+            // Condición simple - verificar si la variable existe y es truthy
+            const value = vars[condition];
+            if (value === 'true') return true;
+            if (value === 'false') return false;
+            return !!value;
+        }
+
+        function getArrayFromVars(arrayName, vars) {
+            // Buscar variables que empiecen con ARRAY_NAME[index]
+            const arrayItems = [];
+            const prefix = arrayName + '[';
+            
+            Object.keys(vars).forEach(key => {
+                if (key.startsWith(prefix)) {
+                    const match = key.match(/\[(\d+)\]\.?(.*)$/);
+                    if (match) {
+                        const index = parseInt(match[1]);
+                        const property = match[2];
+                        
+                        if (!arrayItems[index]) {
+                            arrayItems[index] = {};
+                        }
+                        
+                        if (property) {
+                            arrayItems[index][property] = vars[key];
+                        } else {
+                            arrayItems[index] = vars[key];
+                        }
+                    }
+                }
+            });
+            
+            return arrayItems.filter(item => item !== undefined);
+        }
+
+        function copyOutput() {
+            const outputArea = document.getElementById('outputArea');
+            if (!outputArea.value.trim()) {
+                alert('No hay contenido para copiar');
+                return;
+            }
+            
+            outputArea.select();
+            document.execCommand('copy');
+            
+            // Feedback visual
+            const originalText = document.querySelector('.tool-btn.copy').textContent;
+            document.querySelector('.tool-btn.copy').textContent = ' Copiado';
+            setTimeout(() => {
+                document.querySelector('.tool-btn.copy').textContent = originalText;
+            }, 2000);
+        }
+
+        function downloadOutput() {
+            const outputArea = document.getElementById('outputArea');
+            const templateType = document.getElementById('templateType').value;
+            
+            if (!outputArea.value.trim()) {
+                alert('No hay contenido para descargar');
+                return;
+            }
+            
+            const blob = new Blob([outputArea.value], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            const extensions = {
+                yaml: 'yml',
+                json: 'json',
+                xml: 'xml',
+                env: 'env',
+                dockerfile: 'Dockerfile',
+                nginx: 'conf'
+            };
+            
+            a.href = url;
+            a.download = `configuracion_generada.${extensions[templateType] || 'txt'}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function validateOutput() {
+            const outputArea = document.getElementById('outputArea');
+            const templateType = document.getElementById('templateType').value;
+            const content = outputArea.value.trim();
+            
+            if (!content) {
+                alert('No hay contenido para validar');
+                return;
+            }
+            
+            try {
+                switch(templateType) {
+                    case 'json':
+                        JSON.parse(content);
+                        alert(' JSON válido');
+                        break;
+                    case 'yaml':
+                        // Validación básica de YAML
+                        if (validateYAMLSyntax(content)) {
+                            alert(' YAML válido');
+                        } else {
+                            alert(' YAML inválido');
+                        }
+                        break;
+                    case 'xml':
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(content, 'text/xml');
+                        if (doc.querySelector('parsererror')) {
+                            alert(' XML inválido');
+                        } else {
+                            alert(' XML válido');
+                        }
+                        break;
+                    default:
+                        alert(' Sintaxis básica verificada');
+                }
+            } catch (error) {
+                alert(` Error de validación: ${error.message}`);
+            }
+        }
+
+        function validateYAMLSyntax(content) {
+            const lines = content.split('\n');
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                if (line.trim() && !line.startsWith('#')) {
+                    // Verificar indentación básica y estructura key: value
+                    if (line.includes(':') && !line.match(/^\s*[\w-]+\s*:/)) {
+                        if (!line.match(/^\s*-\s*[\w-]+\s*:/)) { // Array items
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ';
+            
+            alert(' ¡Increíble trabajo! Has completado la actividad "Generador de Plantillas".\n\n Has aprendido a:\n• Crear plantillas reutilizables con variables dinámicas\n• Implementar lógica condicional y bucles\n• Generar configuraciones automáticamente\n• Aplicar el principio DRY en configuraciones\n\n +250 puntos ganados');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar con plantilla básica
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTemplate('basic');
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            console.log('Progreso guardado automáticamente');
+        }, 30000);
+    </script>
+
+<nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad2_convertidor.html">← Convertidor entre Formatos</a><a class="dl-pie-btn sig" href="./actividad4_validador.html">Validador de Sintaxis →</a></nav>
+<script src="/js/bootcamp-progreso.js" data-modulo="9" data-pagina="actividad3_generador" data-total="5" defer></script>
+</body>
