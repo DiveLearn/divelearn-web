@@ -369,7 +369,7 @@
 <body>
 <header class="dl-sitio">
   <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
-  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
 </header>
 <header class="dl-jh">
   <div class="dl-jh-panel">
@@ -744,13 +744,13 @@ main</textarea>
                 # Verificar uso de CPU
                 check_cpu() {
                     CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1)
-                    CPU_USAGE=${CPU_USAGE%.*}  # Convertir a entero
+                    CPU_USAGE=\${CPU_USAGE%.*}  # Convertir a entero
                     
                     if [ "$CPU_USAGE" -gt "$CPU_THRESHOLD" ]; then
-                        log_message "  ALERTA: CPU al ${CPU_USAGE}% (Límite: ${CPU_THRESHOLD}%)"
+                        log_message "  ALERTA: CPU al \${CPU_USAGE}% (Límite: \${CPU_THRESHOLD}%)"
                         return 1
                     else
-                        log_message " CPU: ${CPU_USAGE}% - OK"
+                        log_message " CPU: \${CPU_USAGE}% - OK"
                         return 0
                     fi
                 }
@@ -760,10 +760,10 @@ main</textarea>
                     MEMORY_USAGE=$(free | grep Mem | awk '{printf("%.0f", $3/$2 * 100.0)}')
                     
                     if [ "$MEMORY_USAGE" -gt "$MEMORY_THRESHOLD" ]; then
-                        log_message "  ALERTA: Memoria al ${MEMORY_USAGE}% (Límite: ${MEMORY_THRESHOLD}%)"
+                        log_message "  ALERTA: Memoria al \${MEMORY_USAGE}% (Límite: \${MEMORY_THRESHOLD}%)"
                         return 1
                     else
-                        log_message " Memoria: ${MEMORY_USAGE}% - OK"
+                        log_message " Memoria: \${MEMORY_USAGE}% - OK"
                         return 0
                     fi
                 }
@@ -773,10 +773,10 @@ main</textarea>
                     DISK_USAGE=$(df / | awk 'NR==2{printf("%.0f", $5)}' | sed 's/%//')
                     
                     if [ "$DISK_USAGE" -gt "$DISK_THRESHOLD" ]; then
-                        log_message "  ALERTA: Disco al ${DISK_USAGE}% (Límite: ${DISK_THRESHOLD}%)"
+                        log_message "  ALERTA: Disco al \${DISK_USAGE}% (Límite: \${DISK_THRESHOLD}%)"
                         return 1
                     else
-                        log_message " Disco: ${DISK_USAGE}% - OK"
+                        log_message " Disco: \${DISK_USAGE}% - OK"
                         return 0
                     fi
                 }
@@ -903,7 +903,7 @@ main</textarea>
                 limpiar_temporales() {
                     echo "  Limpiando archivos temporales..."
                     
-                    for dir in "${TEMP_DIRS[@]}"; do
+                    for dir in "\${TEMP_DIRS[@]}"; do
                         if [ -d "$dir" ]; then
                             echo "Limpiando $dir..."
                             find "$dir" -type f -atime +7 -delete 2>/dev/null
@@ -918,7 +918,7 @@ main</textarea>
                 rotar_logs() {
                     echo " Rotando logs antiguos..."
                     
-                    for dir in "${LOG_DIRS[@]}"; do
+                    for dir in "\${LOG_DIRS[@]}"; do
                         if [ -d "$dir" ]; then
                             echo "Procesando logs en $dir..."
                             # Comprimir logs antiguos
@@ -942,7 +942,7 @@ main</textarea>
                     fi
                     
                     # Limpiar directorios de cache
-                    for dir in "${CACHE_DIRS[@]}"; do
+                    for dir in "\${CACHE_DIRS[@]}"; do
                         if [ -d "$dir" ]; then
                             echo "Limpiando cache en $dir..."
                             find "$dir" -type f -atime +30 -delete 2>/dev/null

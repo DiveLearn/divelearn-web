@@ -516,7 +516,7 @@
 <body>
 <header class="dl-sitio">
   <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
-  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
 </header>
 <header class="dl-jh">
   <div class="dl-jh-panel">
@@ -987,15 +987,6 @@
 
         function handleDragEnd(e) {
             e.target.classList.remove('dragging');
-        }
-
-        function calculateSecurityLevel() {
-            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
-            const securityImplemented = designerState.implementedSecurity.size;
-            
-            if ((hasFirewall && securityImplemented >= 4) || securityImplemented >= 5) return 'Alta';
-            if ((hasFirewall && securityImplemented >= 2) || securityImplemented >= 3) return 'Media';
-            return 'Básica';
         }
 
         function handleDragOver(e) {

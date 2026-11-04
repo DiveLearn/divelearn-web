@@ -592,7 +592,7 @@
 <body>
 <header class="dl-sitio">
   <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
-  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
 </header>
 <header class="dl-jh">
   <div class="dl-jh-panel">
@@ -639,10 +639,10 @@
         <div class="main-content">
             <!-- Navigation Tabs -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('construction')"> Construcción</button>
-                <button class="tab-btn" onclick="showTab('simulation')"> Simulación</button>
-                <button class="tab-btn" onclick="showTab('exercises')"> Ejercicios</button>
-                <button class="tab-btn" onclick="showTab('quiz')"> Quiz de Capas</button>
+                <button class="tab-btn active" onclick="showTab('construction', event)"> Construcción</button>
+                <button class="tab-btn" onclick="showTab('simulation', event)"> Simulación</button>
+                <button class="tab-btn" onclick="showTab('exercises', event)"> Ejercicios</button>
+                <button class="tab-btn" onclick="showTab('quiz', event)"> Quiz de Capas</button>
             </div>
 
             <!-- Construcción de Capas -->
@@ -1845,7 +1845,7 @@
             currentExercise = 0;
         }
 
-        function showTab(tabName) {
+        function showTab(tabName, ev) {
             // Ocultar todas las pestañas
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
@@ -1858,7 +1858,7 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
 
             // Cargar contenido específico si es necesario
             if (tabName === 'quiz' && !quizCompleted) {
