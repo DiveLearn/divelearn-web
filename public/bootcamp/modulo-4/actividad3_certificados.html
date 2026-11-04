@@ -500,14 +500,21 @@
         let isCompleted = false;
         let currentSite = '';
 
+        // Fechas relativas a hoy (AAAA-MM-DD), para que los certificados simulados no caduquen con el tiempo
+        function fechaRelativa(dias) {
+            const d = new Date();
+            d.setDate(d.getDate() + dias);
+            return d.toISOString().slice(0, 10);
+        }
+
         // Datos simulados de certificados para sitios populares
         const certificateData = {
             'google.com': {
                 commonName: '*.google.com',
                 organization: 'Google LLC',
                 country: 'US',
-                validFrom: '2024-02-15',
-                validTo: '2025-05-15',
+                validFrom: fechaRelativa(-120),
+                validTo: fechaRelativa(245),
                 issuer: 'GTS CA 1C3',
                 algorithm: 'RSA 2048 bits',
                 san: ['*.google.com', 'google.com'],
@@ -529,8 +536,8 @@
                 commonName: 'github.com',
                 organization: 'GitHub, Inc.',
                 country: 'US',
-                validFrom: '2024-03-20',
-                validTo: '2025-03-20',
+                validFrom: fechaRelativa(-200),
+                validTo: fechaRelativa(165),
                 issuer: 'DigiCert SHA2 High Assurance Server CA',
                 algorithm: 'RSA 2048 bits',
                 san: ['github.com', 'www.github.com'],
@@ -552,8 +559,8 @@
                 commonName: '*.amazon.com',
                 organization: 'Amazon.com, Inc.',
                 country: 'US',
-                validFrom: '2024-01-10',
-                validTo: '2025-02-08',
+                validFrom: fechaRelativa(-300),
+                validTo: fechaRelativa(95),
                 issuer: 'Amazon',
                 algorithm: 'RSA 2048 bits',
                 san: ['*.amazon.com', 'amazon.com'],
@@ -575,8 +582,8 @@
                 commonName: 'www.microsoft.com',
                 organization: 'Microsoft Corporation',
                 country: 'US',
-                validFrom: '2024-04-01',
-                validTo: '2025-03-31',
+                validFrom: fechaRelativa(-60),
+                validTo: fechaRelativa(305),
                 issuer: 'Microsoft IT TLS CA 5',
                 algorithm: 'RSA 2048 bits',
                 san: ['www.microsoft.com', 'microsoft.com'],
@@ -598,8 +605,8 @@
                 commonName: 'cloudflare.com',
                 organization: 'Cloudflare, Inc.',
                 country: 'US',
-                validFrom: '2024-05-15',
-                validTo: '2025-05-15',
+                validFrom: fechaRelativa(-150),
+                validTo: fechaRelativa(215),
                 issuer: 'Cloudflare Inc ECC CA-3',
                 algorithm: 'ECDSA P-256',
                 san: ['cloudflare.com', 'www.cloudflare.com'],
@@ -621,8 +628,8 @@
                 commonName: '*.stackoverflow.com',
                 organization: 'Stack Exchange Inc.',
                 country: 'US',
-                validFrom: '2024-03-01',
-                validTo: '2025-03-01',
+                validFrom: fechaRelativa(-240),
+                validTo: fechaRelativa(125),
                 issuer: 'DigiCert TLS RSA SHA256 2020 CA1',
                 algorithm: 'RSA 2048 bits',
                 san: ['*.stackoverflow.com', 'stackoverflow.com'],

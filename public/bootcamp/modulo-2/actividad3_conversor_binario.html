@@ -370,16 +370,16 @@
                 <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Modos de Juego</h2>
                 <div class="game-container">
                     <div class="mode-selector">
-                        <button class="mode-btn active" onclick="setGameMode('decimal-to-binary')">
+                        <button class="mode-btn active" onclick="setGameMode('decimal-to-binary', event)">
                              Decimal → Binario
                         </button>
-                        <button class="mode-btn" onclick="setGameMode('binary-to-decimal')">
+                        <button class="mode-btn" onclick="setGameMode('binary-to-decimal', event)">
                              Binario → Decimal
                         </button>
-                        <button class="mode-btn" onclick="setGameMode('bit-builder')">
+                        <button class="mode-btn" onclick="setGameMode('bit-builder', event)">
                              Constructor de Bits
                         </button>
-                        <button class="mode-btn" onclick="setGameMode('speed-round')">
+                        <button class="mode-btn" onclick="setGameMode('speed-round', event)">
                              Ronda Rápida
                         </button>
                     </div>
@@ -528,14 +528,14 @@
         let speedRoundCount = 0;
         let isCompleted = false;
 
-        function setGameMode(mode) {
+        function setGameMode(mode, ev) {
             gameMode = mode;
             
             // Actualizar botones
             document.querySelectorAll('.mode-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
 
             // Configurar interfaz según el modo
             setupGameMode();

@@ -664,7 +664,7 @@
 
             const factor = dataTypeFactors[dataType];
             const lossPerHour = dataValue * factor.criticality;
-            const recommendedRPO = Math.min(factor.maxLoss, currentFrequency * 0.5); // Máximo la mitad de la frecuencia actual
+            const recommendedRPO = factor.maxLoss; // Máxima pérdida de datos aceptable según el tipo de datos
             const potentialLoss = lossPerHour * recommendedRPO;
 
             displayRPOResults({
@@ -832,11 +832,12 @@
                     ${recommendations.map(rec => `<div class="recommendation-item">${rec}</div>`).join('')}
                 </div>
 
-                ${data.recommendedRPO < data.currentFrequency ? `
+                ${data.currentFrequency > data.recommendedRPO ? `
                     <div class="recommendations" style="border-color: #DC3545; background: linear-gradient(135deg, #F8D7DA 0%, #F5C6CB 100%);">
                         <div class="recommendations-title" style="color: #721C24;"> Atención Requerida</div>
                         <div class="recommendation-item" style="color: #721C24;">
                             Tu frecuencia actual de backup (${data.currentFrequency}h) es insuficiente para el RPO recomendado (${data.recommendedRPO.toFixed(2)}h).
+                            Si falla justo antes del siguiente backup, podrías perder hasta ${(data.dataPerHour * data.currentFrequency).toLocaleString()} ${data.dataUnit} de datos (≈ ${(data.lossPerHour * data.currentFrequency).toLocaleString()} USD).
                             Debes incrementar la frecuencia de backups para reducir el riesgo de pérdida de datos.
                         </div>
                     </div>

@@ -243,10 +243,10 @@
                 <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Área de Diseño</h2>
                 
                 <div class="topology-selector">
-                    <div class="topology-btn active" onclick="selectTopology('libre')"> Diseño Libre</div>
-                    <div class="topology-btn" onclick="selectTopology('estrella')"> Estrella</div>
-                    <div class="topology-btn" onclick="selectTopology('bus')"> Bus</div>
-                    <div class="topology-btn" onclick="selectTopology('anillo')"> Anillo</div>
+                    <div class="topology-btn active" onclick="selectTopology('libre', event)"> Diseño Libre</div>
+                    <div class="topology-btn" onclick="selectTopology('estrella', event)"> Estrella</div>
+                    <div class="topology-btn" onclick="selectTopology('bus', event)"> Bus</div>
+                    <div class="topology-btn" onclick="selectTopology('anillo', event)"> Anillo</div>
                 </div>
 
                 <div class="design-area">
@@ -431,12 +431,12 @@
             updateFeedback('info', ' Dispositivo eliminado correctamente.');
         }
 
-        function selectTopology(topology) {
+        function selectTopology(topology, ev) {
             // Actualizar botones
             document.querySelectorAll('.topology-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
             
             currentTopology = topology;
             applyTopology(topology);

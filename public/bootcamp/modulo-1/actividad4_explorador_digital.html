@@ -594,10 +594,10 @@
 
             <!-- Navigation Tabs -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('identification')"> Identificación</button>
-                <button class="tab-btn" onclick="showTab('simulation')"> Simulación</button>
-                <button class="tab-btn" onclick="showTab('configuration')"> Configuración</button>
-                <button class="tab-btn" onclick="showTab('challenge')"> Desafío</button>
+                <button class="tab-btn active" onclick="showTab('identification', event)"> Identificación</button>
+                <button class="tab-btn" onclick="showTab('simulation', event)"> Simulación</button>
+                <button class="tab-btn" onclick="showTab('configuration', event)"> Configuración</button>
+                <button class="tab-btn" onclick="showTab('challenge', event)"> Desafío</button>
             </div>
 
             <!-- Tab 1: Identificación de Dispositivos -->
@@ -1528,7 +1528,7 @@
             document.getElementById('scenario-details').style.display = 'none';
         }
 
-        function showTab(tabName) {
+        function showTab(tabName, ev) {
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -1538,7 +1538,7 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
         }
 
         function markCompleted() {

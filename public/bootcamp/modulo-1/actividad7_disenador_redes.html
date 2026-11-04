@@ -989,15 +989,6 @@
             e.target.classList.remove('dragging');
         }
 
-        function calculateSecurityLevel() {
-            const hasFirewall = designerState.devices.some(d => d.type === 'firewall');
-            const securityImplemented = designerState.implementedSecurity.size;
-            
-            if ((hasFirewall && securityImplemented >= 4) || securityImplemented >= 5) return 'Alta';
-            if ((hasFirewall && securityImplemented >= 2) || securityImplemented >= 3) return 'Media';
-            return 'Básica';
-        }
-
         function handleDragOver(e) {
             e.preventDefault();
         }

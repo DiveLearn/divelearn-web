@@ -388,16 +388,16 @@
                 <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-router.png" alt="" width="32" height="32"> Simulador de Tráfico de Red</h2>
                 
                 <div class="scenario-selector">
-                    <div class="scenario-btn active" onclick="loadScenario('office')">
+                    <div class="scenario-btn active" onclick="loadScenario('office', event)">
                          Oficina Pequeña
                     </div>
-                    <div class="scenario-btn" onclick="loadScenario('datacenter')">
+                    <div class="scenario-btn" onclick="loadScenario('datacenter', event)">
                          Data Center
                     </div>
-                    <div class="scenario-btn" onclick="loadScenario('home')">
+                    <div class="scenario-btn" onclick="loadScenario('home', event)">
                          Red Doméstica
                     </div>
-                    <div class="scenario-btn" onclick="loadScenario('campus')">
+                    <div class="scenario-btn" onclick="loadScenario('campus', event)">
                          Campus Universitario
                     </div>
                 </div>
@@ -666,12 +666,12 @@
             utilization: 0
         };
 
-        function loadScenario(scenarioName) {
+        function loadScenario(scenarioName, ev) {
             // Actualizar botones
             document.querySelectorAll('.scenario-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
 
             currentScenario = scenarioName;
             setupNetwork();

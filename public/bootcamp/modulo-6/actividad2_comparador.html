@@ -636,26 +636,8 @@
             const vmArch = document.getElementById('vm-architecture');
             const containerArch = document.getElementById('container-architecture');
 
-            // Limpiar badges anteriores
-            document.querySelectorAll('.winner-badge').forEach(badge => badge.remove());
-
-            // Añadir badge de ganador
-            if (scenario.winner === 'vm') {
-                const badge = document.createElement('div');
-                badge.className = 'winner-badge';
-                badge.textContent = ' Mejor';
-                vmArch.style.position = 'relative';
-                vmArch.appendChild(badge);
-            } else if (scenario.winner === 'container') {
-                const badge = document.createElement('div');
-                badge.className = 'winner-badge';
-                badge.textContent = ' Mejor';
-                containerArch.style.position = 'relative';
-                containerArch.appendChild(badge);
-            }
-
             // Actualizar títulos según el escenario
-            if (scenarioId === 'microservices') {
+            if (currentScenario === 'microservices') {
                 vmArch.innerHTML = `
                     <div class="layer hardware"> Hardware Físico</div>
                     <div class="layer hypervisor"> Hipervisor</div>
@@ -690,6 +672,24 @@
                     <div class="layer runtime"> Container Runtime</div>
                     <div class="layer app"> ${scenario.name}</div>
                 `;
+            }
+
+            // Limpiar badges anteriores
+            document.querySelectorAll('.winner-badge').forEach(badge => badge.remove());
+
+            // Añadir badge de ganador
+            if (scenario.winner === 'vm') {
+                const badge = document.createElement('div');
+                badge.className = 'winner-badge';
+                badge.textContent = ' Mejor';
+                vmArch.style.position = 'relative';
+                vmArch.appendChild(badge);
+            } else if (scenario.winner === 'container') {
+                const badge = document.createElement('div');
+                badge.className = 'winner-badge';
+                badge.textContent = ' Mejor';
+                containerArch.style.position = 'relative';
+                containerArch.appendChild(badge);
             }
         }
 
@@ -891,13 +891,4 @@
 <nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad1_simulador_vms.html">← Simulador de Máquinas Virtuales</a><a class="dl-pie-btn sig" href="./actividad3_planificador.html">Planificador de Recursos →</a></nav>
 <script src="/js/bootcamp-progreso.js" data-modulo="6" data-pagina="actividad2_comparador" data-total="4" defer></script>
 </body>
-</html>btn" onclick="goBack()">
-                ← Volver al Hub
-            </button>
-            
-            <div class="completion-status">
-                <div class="status-indicator" id="statusIndicator"></div>
-                <span id="statusText">No completado</span>
-            </div>
-
-            <button class="nav-
+</html>

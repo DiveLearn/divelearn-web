@@ -639,10 +639,10 @@
         <div class="main-content">
             <!-- Navigation Tabs -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('construction')"> Construcción</button>
-                <button class="tab-btn" onclick="showTab('simulation')"> Simulación</button>
-                <button class="tab-btn" onclick="showTab('exercises')"> Ejercicios</button>
-                <button class="tab-btn" onclick="showTab('quiz')"> Quiz de Capas</button>
+                <button class="tab-btn active" onclick="showTab('construction', event)"> Construcción</button>
+                <button class="tab-btn" onclick="showTab('simulation', event)"> Simulación</button>
+                <button class="tab-btn" onclick="showTab('exercises', event)"> Ejercicios</button>
+                <button class="tab-btn" onclick="showTab('quiz', event)"> Quiz de Capas</button>
             </div>
 
             <!-- Construcción de Capas -->
@@ -1845,7 +1845,7 @@
             currentExercise = 0;
         }
 
-        function showTab(tabName) {
+        function showTab(tabName, ev) {
             // Ocultar todas las pestañas
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
@@ -1858,7 +1858,7 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
 
             // Cargar contenido específico si es necesario
             if (tabName === 'quiz' && !quizCompleted) {

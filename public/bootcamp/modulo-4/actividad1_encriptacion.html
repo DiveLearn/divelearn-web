@@ -439,13 +439,14 @@
                 
                 <div class="encryption-container">
                     <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-candado.png" alt="" width="32" height="32"> Laboratorio de Encriptación</h2>
+                    <p style="font-size: 0.9em; color: #55538a; margin-bottom: 15px;">Nota: esto es una simulación didáctica para entender cómo se usan las llaves, no es criptografía real.</p>
                     
                     <div class="encryption-type">
-                        <div class="encryption-card" onclick="selectEncryptionType('symmetric')">
+                        <div class="encryption-card" onclick="selectEncryptionType('symmetric', event)">
                             <h3> Encriptación Simétrica</h3>
                             <p>Usa la misma llave para cifrar y descifrar. Rápida y eficiente, pero requiere compartir la llave de forma segura.</p>
                         </div>
-                        <div class="encryption-card" onclick="selectEncryptionType('asymmetric')">
+                        <div class="encryption-card" onclick="selectEncryptionType('asymmetric', event)">
                             <h3> Encriptación Asimétrica</h3>
                             <p>Usa un par de llaves: pública y privada. Más segura pero más lenta. Ideal para intercambio de llaves.</p>
                         </div>
@@ -547,12 +548,12 @@
             private: generateRandomKey()
         };
 
-        function selectEncryptionType(type) {
+        function selectEncryptionType(type, ev) {
             currentEncryptionType = type;
             document.querySelectorAll('.encryption-card').forEach(card => {
                 card.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
+            ev.currentTarget.classList.add('active');
             updateKeyVisualization();
         }
 
@@ -622,22 +623,27 @@
             if (currentEncryptionType === 'symmetric') {
                 decryptedMessage = simpleDecrypt(message, currentKeys.symmetric);
             } else {
-                decryptedMessage = simpleDecrypt(message, currentKeys.private);
+                // Simulación: la llave privada solo abre lo que se cifró con SU llave pública (su par)
+                decryptedMessage = simpleDecrypt(message, currentKeys.public);
             }
 
             document.getElementById('resultArea').textContent = decryptedMessage;
         }
 
         function simpleEncrypt(message, key) {
-            // Simulación simple de encriptación
-            return btoa(message + key);
+            // Simulación simple de encriptación (Base64 del mensaje + la llave usada; admite tildes y ñ)
+            return btoa(unescape(encodeURIComponent(message + '::' + key)));
         }
 
         function simpleDecrypt(encrypted, key) {
             // Simulación simple de desencriptación
             try {
-                const decoded = atob(encrypted);
-                return decoded.slice(0, -key.length);
+                const decoded = decodeURIComponent(escape(atob(encrypted.trim())));
+                const marca = '::' + key;
+                if (!decoded.endsWith(marca)) {
+                    return 'Error: Mensaje no válido o llave incorrecta';
+                }
+                return decoded.slice(0, -marca.length);
             } catch (e) {
                 return 'Error: Mensaje no válido o llave incorrecta';
             }

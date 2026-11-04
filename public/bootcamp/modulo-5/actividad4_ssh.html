@@ -436,7 +436,7 @@
                         <div class="key-section">
                             <div class="key-title">
                                  Llave Pública (id_rsa.pub)
-                                <button class="copy-btn" onclick="copyToClipboard('publicKey')"> Copiar</button>
+                                <button class="copy-btn" onclick="copyToClipboard('publicKey', event)"> Copiar</button>
                             </div>
                             <div class="key-content" id="publicKey"></div>
                         </div>
@@ -444,7 +444,7 @@
                         <div class="key-section">
                             <div class="key-title">
                                  Llave Privada (id_rsa) - ¡MANTENER SECRETA!
-                                <button class="copy-btn" onclick="copyToClipboard('privateKey')"> Copiar</button>
+                                <button class="copy-btn" onclick="copyToClipboard('privateKey', event)"> Copiar</button>
                             </div>
                             <div class="key-content" id="privateKey"></div>
                         </div>
@@ -595,6 +595,7 @@
     <script>
         let isCompleted = false;
         let connectedServers = new Set();
+        let sshKeyGenerated = false;
 
         function generateSSHKey() {
             const keyType = document.getElementById('keyType').value;
@@ -614,6 +615,7 @@
             document.getElementById('publicKey').textContent = publicKey;
             document.getElementById('privateKey').textContent = privateKey;
             document.getElementById('keyDisplay').classList.add('show');
+            sshKeyGenerated = true;
             
             // Log de generación
             const log = document.getElementById('connectionLog');
@@ -674,12 +676,12 @@
             return result;
         }
 
-        function copyToClipboard(elementId) {
+        function copyToClipboard(elementId, ev) {
             const element = document.getElementById(elementId);
             const text = element.textContent;
+            const btn = ev.currentTarget;
             
             navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
                 const originalText = btn.textContent;
                 btn.textContent = ' Copiado';
                 btn.style.background = '#28a745';
@@ -724,6 +726,22 @@
                     </div>
                     <div class="terminal-line">
                         <span class="output">Connection to ${serverHosts[serverId].split('@')[1]} closed.</span>
+                    </div>
+                `;
+            } else if (!sshKeyGenerated) {
+                // Sin llave SSH el servidor rechaza la conexión
+                log.innerHTML += `
+                    <div class="terminal-line">
+                        <span class="prompt">$</span> <span class="command">ssh ${serverHosts[serverId]}</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">Connecting to ${serverHosts[serverId].split('@')[1]}...</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="error">${serverHosts[serverId]}: Permission denied (publickey).</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output"># Pista: primero genera tu par de llaves SSH en la sección de arriba (ssh-keygen); sin llave el servidor no te deja entrar.</span>
                     </div>
                 `;
             } else {

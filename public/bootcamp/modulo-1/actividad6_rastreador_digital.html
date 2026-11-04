@@ -612,11 +612,11 @@
         <div class="main-content">
             <!-- Navigation Tabs -->
             <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('simulation')"> Simulación</button>
-                <button class="tab-btn" onclick="showTab('analysis')"> Análisis</button>
-                <button class="tab-btn" onclick="showTab('nodes')"> Nodos</button>
-                <button class="tab-btn" onclick="showTab('diagnostics')"> Diagnóstico</button>
-                <button class="tab-btn" onclick="showTab('quiz')"> Quiz</button>
+                <button class="tab-btn active" onclick="showTab('simulation', event)"> Simulación</button>
+                <button class="tab-btn" onclick="showTab('analysis', event)"> Análisis</button>
+                <button class="tab-btn" onclick="showTab('nodes', event)"> Nodos</button>
+                <button class="tab-btn" onclick="showTab('diagnostics', event)"> Diagnóstico</button>
+                <button class="tab-btn" onclick="showTab('quiz', event)"> Quiz</button>
             </div>
 
             <!-- Simulación Interactiva -->
@@ -1486,10 +1486,8 @@
                         <p>Este reporte muestra el análisis detallado de las rutas de red ejecutadas. Utiliza esta información para optimizar tu conectividad.</p>
                     </div>
                 
-<nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad5_constructor_digital.html">← 🏗️ Actividad 5 - Constructor Digital</a><a class="dl-pie-btn sig" href="./actividad7_disenador_redes.html">Diseñador de Redes →</a></nav>
-<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="actividad6_rastreador_digital" data-total="10" defer></script>
-</body>
-                </html>
+<\/body>
+                <\/html>
             `;
             
             reportWindow.document.write(reportContent);
@@ -1623,7 +1621,7 @@
             updateCompletionStatus();
         }
 
-        function showTab(tabName) {
+        function showTab(tabName, ev) {
             // Ocultar todas las pestañas
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
@@ -1636,7 +1634,7 @@
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
             
             // Cargar contenido específico si es necesario
             if (tabName === 'quiz' && !quizCompleted) {
@@ -1695,5 +1693,7 @@
         }, 30000); // Cada 30 segundos
     </script>
 
+<nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad5_constructor_digital.html">← 🏗️ Actividad 5 - Constructor Digital</a><a class="dl-pie-btn sig" href="./actividad7_disenador_redes.html">Diseñador de Redes →</a></nav>
+<script src="/js/bootcamp-progreso.js" data-modulo="1" data-pagina="actividad6_rastreador_digital" data-total="10" defer></script>
 </body>
 </html>
