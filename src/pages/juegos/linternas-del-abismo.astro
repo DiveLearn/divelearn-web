@@ -2,6 +2,7 @@
 // Videojueguito del módulo 2 (binario): reemplaza a la actividad "Conversor binario".
 import Base from "../../layouts/Base.astro";
 import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
 
 const linternas = [128, 64, 32, 16, 8, 4, 2, 1];
 ---
@@ -102,6 +103,7 @@ const linternas = [128, 64, 32, 16, 8, 4, 2, 1];
         </div>
       </div>
     </div>
+    <AvisoProgreso />
   </section>
 
   <script is:inline src="/js/juego-dl.js" defer></script>
