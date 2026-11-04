@@ -1,0 +1,1238 @@
+---
+import "@fontsource/silkscreen/700.css";
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import datos from "../../data/infra-global.json";
+
+// Datos generados con scripts/infra-global.mjs (catálogo del AWS CLI + ip-ranges.json de AWS).
+// La página es una app a pantalla completa: menú de capítulos a la izquierda, globo a la derecha.
+// Cada capítulo deja una sola pieza de la infraestructura a todo color, lleva el globo a un ejemplo y explica en qué se diferencia.
+const azs = datos.regiones.reduce((a, r) => a + r.azs, 0);
+const stats = [
+  { n: datos.regiones.length, t: "Regiones", id: "regiones" },
+  { n: azs, t: "Zonas de disponibilidad", id: "azs" },
+  { n: datos.localZones.length, t: "Local Zones", id: "local" },
+  { n: datos.wavelength.length, t: "Wavelength", id: "wavelength" },
+];
+
+// forma: cómo se dibuja cada pieza en el globo y en la leyenda
+const piezas = [
+  { id: "regiones", t: "Región", c: "#e0f24a", forma: "cuadro" },
+  { id: "azs", t: "Zona de disponibilidad", c: "#7cc6fe", forma: "cuadrito" },
+  { id: "local", t: "Local Zone", c: "#ff7a8a", forma: "rombo" },
+  { id: "wavelength", t: "Wavelength", c: "#5fd3c6", forma: "triangulo" },
+  { id: "edge", t: "Edge location", c: "#ffffff", forma: "punto" },
+  { id: "red", t: "Red troncal", c: "#b39dfa", forma: "linea" },
+];
+
+const capitulos = [
+  {
+    id: "inicio",
+    t: "Toda la nube",
+    foco: ["regiones", "azs", "local", "wavelength", "red"],
+    vista: { lon: -30, lat: 25, zoom: 1 },
+    que: "Así está repartida la infraestructura de AWS en el planeta. Cada forma es una pieza distinta: elige un capítulo del menú para verla sola y entender para qué sirve.",
+    dif: "De lo más grande a lo más cercano a ti: regiones → zonas de disponibilidad → Local Zones y Wavelength → edge locations. Todo unido por la red troncal.",
+    ej: "Arrastra para girar, usa la rueda o los botones + y − para acercarte, y toca cualquier punto para ver qué es.",
+  },
+  {
+    id: "regiones",
+    t: "Regiones",
+    foco: ["regiones"],
+    vista: { lon: 0, lat: 42, zoom: 1.9 },
+    que: "Una región es un lugar del mapa (un país o una zona de un país) donde AWS tiene varios centros de datos. Cuando creas algo en AWS, lo primero que eliges es la región.",
+    dif: "Es la pieza más grande y es independiente: tus datos se quedan en ella salvo que tú los copies a otra, y si una región tiene un problema, las demás no se enteran.",
+    ej: "Una tienda en España elige eu-south-2 (Aragón) para que los datos de sus clientes no salgan de Europa y le respondan rápido a quien compra desde Madrid.",
+  },
+  {
+    id: "azs",
+    t: "Zonas de disponibilidad",
+    foco: ["regiones", "azs"],
+    vista: { lon: -77.5, lat: 38.9, zoom: 7 },
+    zona: "us-east-1",
+    que: "Cada región está hecha de 3 o más zonas de disponibilidad (AZ): grupos de centros de datos con su propia energía, red y refrigeración. Aquí ves las 6 de Virginia (us-east-1).",
+    dif: "La región es la ciudad; la AZ es el edificio. Están a kilómetros entre sí para que un incendio o una inundación no las tumbe juntas, pero a menos de 2 ms para trabajar como si fueran una.",
+    ej: "Pones tu app en 2 AZ detrás de un balanceador: si se cae use1-az4, el balanceador manda todo a la otra y los usuarios ni lo notan.",
+    nota: "Posición ilustrativa: AWS no publica dónde está cada edificio.",
+  },
+  {
+    id: "local",
+    t: "Local Zones",
+    foco: ["regiones", "local"],
+    vista: { lon: -78, lat: 18, zoom: 2.6 },
+    que: "Un pedacito de una región instalado dentro de una ciudad grande que le queda lejos. Trae cómputo, almacenamiento y red, pero no todos los servicios.",
+    dif: "No es una región: depende de su región madre (la línea punteada) y se administra desde ella. Sirve cuando necesitas responder en menos de 10 ms a la gente de esa ciudad.",
+    ej: "Bogotá tiene una Local Zone de us-east-1 (Virginia). Un estudio de videojuegos colombiano pone ahí sus servidores de partida y los jugadores juegan con ping bajo.",
+  },
+  {
+    id: "wavelength",
+    t: "Wavelength",
+    foco: ["regiones", "wavelength"],
+    vista: { lon: -96, lat: 38, zoom: 2.4 },
+    que: "AWS instalado dentro de la red 5G de un operador móvil (Verizon, Vodafone, KDDI, SK Telecom…).",
+    dif: "La Local Zone está en la ciudad; Wavelength está dentro de la red del operador. El tráfico del celular llega a tu app sin salir a internet.",
+    ej: "Un carro conectado o unas gafas de realidad aumentada que necesitan respuesta casi instantánea por 5G.",
+  },
+  {
+    id: "edge",
+    t: "Edge locations",
+    foco: ["edge"],
+    vista: { lon: 5, lat: 45, zoom: 2.2 },
+    que: "Cientos de puntos de presencia en ciudades de todo el mundo, donde AWS guarda copias de tu contenido (CloudFront) y responde el DNS (Route 53).",
+    dif: "Aquí no corren tus servidores: son la puerta de entrada y la caché. Hay muchísimas más que regiones, por eso tu clic casi siempre entra a AWS cerca de casa. La que late es la tuya.",
+    ej: "Las imágenes de divelearn.cloud se sirven desde la edge más cercana a ti, aunque el sitio viva en Estocolmo.",
+  },
+  {
+    id: "red",
+    t: "Red troncal",
+    foco: ["regiones", "red"],
+    vista: { lon: 20, lat: 20, zoom: 1.15 },
+    que: "La fibra privada de AWS que une regiones y edge locations, incluidos cables submarinos.",
+    dif: "Internet público salta por redes de muchas empresas; la red troncal es una sola red, cifrada y controlada por AWS: más estable y predecible.",
+    ej: "La ruta en lima es un viaje de São Paulo a Tokio, salto a salto: Virginia, Irlanda, Frankfurt, Emiratos, Mumbai, Singapur y Tokio. Cada número es una región por la que pasa el paquete sin tocar internet público.",
+    nota: "Las líneas son ilustrativas: unen cada región con sus vecinas más cercanas. Los cables reales siguen rutas submarinas parecidas.",
+  },
+  {
+    id: "conexion",
+    t: "Tu conexión",
+    foco: ["regiones", "edge"],
+    vista: null,
+    que: "Medimos en vivo cuánto tarda tu navegador en llegar a cada región y por cuál edge location entraste a AWS.",
+    dif: "",
+    ej: "",
+  },
+];
+
+const juego = {
+  regiones: datos.regiones,
+  localZones: datos.localZones,
+  wavelength: datos.wavelength,
+  edge: datos.edge,
+  costas: datos.costas,
+  piezas,
+  capitulos: capitulos.map(({ id, foco, vista, zona }) => ({ id, foco, vista, zona })),
+};
+const icono = (forma: string, c: string) =>
+  ({
+    cuadro: `<rect x="3" y="3" width="12" height="12" fill="${c}" stroke="#1f1d5c" stroke-width="2"/>`,
+    cuadrito: `<rect x="2" y="2" width="5" height="5" fill="${c}"/><rect x="11" y="2" width="5" height="5" fill="${c}"/><rect x="6.5" y="11" width="5" height="5" fill="${c}"/>`,
+    rombo: `<path d="M9 1 17 9 9 17 1 9Z" fill="${c}" stroke="#1f1d5c" stroke-width="2"/>`,
+    triangulo: `<path d="M9 2 17 16H1Z" fill="${c}" stroke="#1f1d5c" stroke-width="2"/>`,
+    punto: `<circle cx="9" cy="9" r="4" fill="${c}" stroke="#1f1d5c" stroke-width="1.5"/>`,
+    linea: `<path d="M1 13Q9 1 17 13" fill="none" stroke="${c}" stroke-width="2.5"/>`,
+  })[forma];
+---
+
+<Base title="Mapa de la infraestructura de AWS" description="Globo interactivo a pantalla completa con las regiones, zonas de disponibilidad, Local Zones, Wavelength y edge locations de AWS: qué es cada una, en qué se diferencian y tu latencia en vivo.">
+  <div class="mapa">
+    <div class="app" id="app">
+      <aside class="lado">
+        <div class="lado-cab">
+          <a class="volver" href="/recursos/">&larr; Recursos</a>
+          <h1>Mapa de la nube</h1>
+        </div>
+        <nav class="menu" aria-label="Capítulos del mapa">
+          {
+            capitulos.map((c, i) => {
+              const p = piezas.find((x) => x.id === c.id);
+              return (
+                <button type="button" class:list={["cap", { activo: i === 0 }]} data-cap={c.id} aria-pressed={i === 0 ? "true" : "false"}>
+                  <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true" set:html={p ? icono(p.forma, p.c) : icono(c.id === "conexion" ? "punto" : "cuadro", c.id === "conexion" ? "#ff7a8a" : "#b2cafd")} />
+                  {c.t}
+                </button>
+              );
+            })
+          }
+        </nav>
+
+        {
+          capitulos.map((c, i) => (
+            <section class="texto" data-texto={c.id} hidden={i !== 0}>
+              <h2>{c.t}</h2>
+              <p>{c.que}</p>
+              {c.dif && (
+                <>
+                  <h3>En qué se diferencia</h3>
+                  <p>{c.dif}</p>
+                </>
+              )}
+              {c.ej && (
+                <>
+                  <h3>Ejemplo</h3>
+                  <p>{c.ej}</p>
+                </>
+              )}
+              {c.nota && <p class="nota">{c.nota}</p>}
+              {c.id === "conexion" && (
+                <>
+                  <h3>El viaje de tu clic</h3>
+                  <ol class="saltos">
+                    <li><span class="paso">1</span><div><b>Tu equipo</b><small>Tu navegador arma la petición y la manda por Wi-Fi o cable.</small></div><em>~1 ms</em></li>
+                    <li><span class="paso">2</span><div><b>Tu proveedor de internet</b><small>La lleva por su red hasta un punto de intercambio con AWS.</small></div><em>~5–20 ms</em></li>
+                    <li><span class="paso">3</span><div><b>Edge location <span id="pop-nombre">más cercana</span></b><small>Aquí entra a la red de AWS. Si es contenido de CloudFront, la respuesta muchas veces ya está aquí.</small></div><em id="pop-ms">midiendo…</em></li>
+                    <li><span class="paso">4</span><div><b>Red troncal de AWS</b><small>Fibra privada y cifrada entre la edge y la región.</small></div><em>—</em></li>
+                    <li><span class="paso">5</span><div><b>Región <span id="reg-nombre">más rápida</span></b><small>Donde corren tus servicios. La más rápida para ti no siempre es la más cercana en el mapa: depende de por dónde lleve tu proveedor el tráfico.</small></div><em id="reg-ms">midiendo…</em></li>
+                    <li><span class="paso">6</span><div><b>Zona de disponibilidad</b><small>Dentro de la región, las AZ se hablan en menos de 2 ms.</small></div><em>&lt; 2 ms</em></li>
+                  </ol>
+                  <div class="lat-cab">
+                    <h3>Tu latencia a cada región</h3>
+                    <button type="button" class="boton" id="medir">Medir</button>
+                  </div>
+                  <p class="nota">Ida y vuelta desde tu navegador hasta cada región, la mejor de 3 mediciones. Cambia según tu red, tu país y el momento.</p>
+                  <ol class="latencias" id="latencias" />
+                </>
+              )}
+            </section>
+          ))
+        }
+      </aside>
+
+      <div class="escenario">
+        <canvas id="globo" aria-label="Globo terráqueo con la infraestructura de AWS" role="img"></canvas>
+
+        <div class="stats">
+          {
+            stats.map((s) => (
+              <button type="button" class="stat" data-ver={s.id} title={`Resaltar ${s.t.toLowerCase()} en el globo`}>
+                <b>{s.n}</b>
+                <span>{s.t}</span>
+              </button>
+            ))
+          }
+        </div>
+
+        <ul class="leyenda" aria-label="Leyenda">
+          {
+            piezas.map((p) => (
+              <li data-pieza={p.id}>
+                <button type="button" data-ver={p.id} title={`Resaltar ${p.t.toLowerCase()} en el globo`}>
+                  <svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true" set:html={icono(p.forma, p.c)} />
+                  {p.t}
+                </button>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="zoom">
+          <button type="button" id="zoom-mas" aria-label="Acercar">+</button>
+          <button type="button" id="zoom-menos" aria-label="Alejar">&minus;</button>
+        </div>
+
+        <div class="ayuda"><Sprite nombre="nautilus-mapamundi" escala={1} /> Arrastra · rueda para acercar · toca un punto</div>
+
+        <div class="ficha" id="ficha" hidden>
+          <button type="button" id="ficha-cerrar" aria-label="Cerrar">&times;</button>
+          <p class="ficha-tipo" id="ficha-tipo"></p>
+          <h2 id="ficha-titulo"></h2>
+          <p id="ficha-texto"></p>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap fuentes">
+      <p>
+        <Sprite nombre="obj-satelite" escala={1} />
+        <span>Datos al {datos.generado}: regiones del catálogo del AWS CLI {datos.fuente.catalogo}, Local Zones y Wavelength de
+        <a href="https://ip-ranges.amazonaws.com/ip-ranges.json">ip-ranges.json</a> ({datos.fuente.ipRanges}).
+        {datos.enCamino.length > 0 && <>Ya aparecen en los rangos IP, sin abrir todavía: {datos.enCamino.join(", ")}. </>}
+        Las edge locations son una selección de ciudades: AWS tiene cientos de puntos de presencia.</span>
+      </p>
+    </section>
+  </div>
+
+  <script type="application/json" id="datos-mapa" set:html={JSON.stringify(juego)} />
+</Base>
+
+<script>
+  type Punto = { lat: number; lon: number };
+  const D = JSON.parse(document.getElementById("datos-mapa")!.textContent!);
+  const TIPO: Record<string, string> = { comercial: "Región", gov: "Región GovCloud", china: "Región en China", soberana: "Nube Soberana Europea" };
+  const COLOR: Record<string, string> = Object.fromEntries(D.piezas.map((c: { id: string; c: string }) => [c.id, c.c]));
+  const PART: Record<string, string> = { comercial: "#e0f24a", gov: "#ff9f43", china: "#ffd36e", soberana: "#7cc6fe" };
+  const REG: Record<string, any> = Object.fromEntries(D.regiones.map((r: any) => [r.id, r]));
+  const rad = Math.PI / 180;
+
+  const canvas = document.getElementById("globo") as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d")!;
+
+  // La app ocupa la pantalla menos la cabecera del sitio.
+  const app = document.getElementById("app")!;
+  const ajustarAlto = () => {
+    const cab = document.querySelector("header")?.getBoundingClientRect().height ?? 64;
+    app.style.setProperty("--cab", `${Math.round(cab)}px`);
+  };
+  ajustarAlto();
+  addEventListener("resize", ajustarAlto);
+
+  // Vista actual y destino (el globo "vuela" suave hacia el destino).
+  let lon0 = -30;
+  let lat0 = 25;
+  let zoom = 1;
+  let destino: { lon: number; lat: number; zoom: number } | null = null;
+  let R = 200;
+  let cx = 0;
+  let cy = 0;
+  let quieto = 0;
+  let t = 0;
+  let cap = D.capitulos[0];
+  let foco = new Set<string>(cap.foco);
+  let seleccion: (Punto & { tipo: string }) | null = null;
+  let miPop: (Punto & { codigo: string }) | null = null;
+  let cercana: string | null = null;
+  let resaltado = -1e9; // momento en que se tocó una tarjeta o la leyenda
+  let piezaRes = "";
+  const lat: Record<string, number> = {};
+
+  const proyectar = (p: Punto) => {
+    const l = (p.lon - lon0) * rad;
+    const f = p.lat * rad;
+    const f0 = lat0 * rad;
+    const cosc = Math.sin(f0) * Math.sin(f) + Math.cos(f0) * Math.cos(f) * Math.cos(l);
+    return {
+      x: cx + R * Math.cos(f) * Math.sin(l),
+      y: cy - R * (Math.cos(f0) * Math.sin(f) - Math.sin(f0) * Math.cos(f) * Math.cos(l)),
+      v: cosc,
+    };
+  };
+
+  // Red troncal ilustrativa: cada región se une con sus 2 vecinas más cercanas.
+  const dist = (a: Punto, b: Punto) => {
+    const s = Math.sin(((b.lat - a.lat) * rad) / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(((b.lon - a.lon) * rad) / 2) ** 2;
+    return 2 * Math.asin(Math.sqrt(s));
+  };
+  const arco = (a: Punto, b: Punto, n = 32) => {
+    const v = (p: Punto) => [Math.cos(p.lat * rad) * Math.cos(p.lon * rad), Math.cos(p.lat * rad) * Math.sin(p.lon * rad), Math.sin(p.lat * rad)];
+    const [A, B] = [v(a), v(b)];
+    const w = dist(a, b) || 1e-6;
+    return Array.from({ length: n + 1 }, (_, i) => {
+      const k = i / n;
+      const k1 = Math.sin((1 - k) * w) / Math.sin(w);
+      const k2 = Math.sin(k * w) / Math.sin(w);
+      const [x, y, z] = [0, 1, 2].map((j) => k1 * A[j] + k2 * B[j]);
+      return { lat: Math.asin(z) / rad, lon: Math.atan2(y, x) / rad };
+    });
+  };
+  const enlaces: [Punto, Punto][] = [];
+  const vistos = new Set<string>();
+  for (const a of D.regiones) {
+    D.regiones
+      .filter((b: any) => b.id !== a.id)
+      .sort((b: Punto, c: Punto) => dist(a, b) - dist(a, c))
+      .slice(0, 2)
+      .forEach((b: any) => {
+        const k = [a.id, b.id].sort().join("|");
+        if (!vistos.has(k)) vistos.add(k), enlaces.push([a, b]);
+      });
+  }
+  const troncal = enlaces.map(([a, b]) => arco(a, b));
+  // Viaje de ejemplo por la troncal, salto a salto (São Paulo → Tokio).
+  const RUTA = ["sa-east-1", "us-east-1", "eu-west-1", "eu-central-1", "me-central-1", "ap-south-1", "ap-southeast-1", "ap-northeast-1"].filter((id) => REG[id]);
+  const tramos = RUTA.slice(1).map((id, i) => arco(REG[RUTA[i]], REG[id], 40));
+  // Local Zones y Wavelength cuelgan de su región madre.
+  const madre = (z: any) => (REG[z.region] ? arco(z, REG[z.region], 24) : null);
+  const hilosLocal = D.localZones.map(madre);
+  const hilosWave = D.wavelength.map(madre);
+
+  // Cuánto se ve cada pieza: a todo color si está en el capítulo, casi transparente si no.
+  const alfa = (pieza: string) => (foco.has(pieza) ? 1 : cap.id === "inicio" ? 0 : pieza === "regiones" ? 0.3 : 0.08);
+
+  const forma = (f: string, x: number, y: number, s: number, color: string, a = 1, pieza = "") => {
+    if (a <= 0) return;
+    // Al tocar una tarjeta o la leyenda, esa pieza late unos segundos: crece y gana un aro blanco.
+    const latiendo = a >= 1 && pieza !== "" && pieza === piezaRes && t - resaltado < 300;
+    const pulso = latiendo ? Math.abs(Math.sin((t - resaltado) / 10)) : 0;
+    if (latiendo) s *= 1.3 + 0.4 * pulso;
+    if (a >= 1 && f !== "cuadrito") {
+      // Halo del color de la pieza para que se distinga del fondo
+      ctx.globalAlpha = 0.28;
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, s * 0.95, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if (latiendo) {
+      ctx.globalAlpha = 1 - pulso * 0.6;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(x, y, s * (0.8 + 0.5 * pulso), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = a;
+    ctx.fillStyle = color;
+    ctx.strokeStyle = "#1f1d5c";
+    ctx.lineWidth = 2;
+    const h = s / 2;
+    ctx.beginPath();
+    if (f === "rombo") ctx.moveTo(x, y - h), ctx.lineTo(x + h, y), ctx.lineTo(x, y + h), ctx.lineTo(x - h, y), ctx.closePath();
+    else if (f === "triangulo") ctx.moveTo(x, y - h), ctx.lineTo(x + h, y + h * 0.8), ctx.lineTo(x - h, y + h * 0.8), ctx.closePath();
+    else if (f === "punto") ctx.arc(x, y, h, 0, Math.PI * 2);
+    else ctx.rect(Math.round(x - h), Math.round(y - h), s, s);
+    ctx.fill();
+    if (f !== "cuadrito") ctx.stroke();
+    ctx.globalAlpha = 1;
+  };
+
+  const trazo = (pts: Punto[], color: string, ancho: number, a: number, punteado = false) => {
+    if (a <= 0) return;
+    ctx.globalAlpha = a;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = ancho;
+    ctx.setLineDash(punteado ? [5, 5] : []);
+    ctx.beginPath();
+    let dentro = false;
+    for (const q of pts) {
+      const p = proyectar(q);
+      if (p.v > 0) dentro ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y), (dentro = true);
+      else dentro = false;
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+  };
+
+  const etiqueta = (texto: string, x: number, y: number, color = "#ffffff") => {
+    ctx.font = "700 12px Silkscreen, ui-monospace, monospace";
+    const w = ctx.measureText(texto).width + 10;
+    ctx.fillStyle = "rgba(18, 16, 74, 0.85)";
+    ctx.fillRect(x - w / 2, y - 9, w, 18);
+    ctx.fillStyle = color;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(texto, x, y + 1);
+  };
+
+  const pintar = () => {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    const dpr = window.devicePixelRatio || 1;
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) [canvas.width, canvas.height] = [Math.round(w * dpr), Math.round(h * dpr)];
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    R = Math.min(w, h) * 0.43 * zoom;
+    [cx, cy] = [w / 2, h / 2];
+
+    const g = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.3, R * 0.1, cx, cy, R);
+    g.addColorStop(0, "#211e78");
+    g.addColorStop(1, "#14124f");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Continentes lisos y apagados: el protagonismo es de las piezas de AWS.
+    // Los vértices del lado oculto se pegan al borde del globo para que el contorno cierre bien.
+    ctx.fillStyle = "#34318f";
+    ctx.strokeStyle = "#5754c9";
+    ctx.lineWidth = 1;
+    for (const anillo of D.costas) {
+      let alguno = false;
+      ctx.beginPath();
+      anillo.forEach(([lon, la]: number[], k: number) => {
+        const p = proyectar({ lat: la, lon });
+        let { x, y } = p;
+        if (p.v > 0) alguno = true;
+        else {
+          const d = Math.hypot(x - cx, y - cy) || 1;
+          [x, y] = [cx + ((x - cx) / d) * R, cy + ((y - cy) / d) * R];
+        }
+        k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      });
+      if (!alguno) continue;
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // Red troncal: fibra con brillo y paquetes viajando
+    const aRed = alfa("red");
+    if (aRed > 0) {
+      const enRed = cap.id === "red";
+      troncal.forEach((pts, i) => {
+        if (enRed) trazo(pts, COLOR.red, 7, 0.18);
+        trazo(pts, enRed ? "#d9ccff" : COLOR.red, enRed ? 2.5 : 1.5, aRed * (enRed ? 1 : 0.7));
+        const k = (t / 200 + i * 0.37) % 1;
+        const p = proyectar(pts[Math.floor(k * (pts.length - 1))]);
+        if (p.v > 0) forma("cuadro", p.x, p.y, 5, "#ffffff", aRed);
+      });
+      if (enRed) {
+        // La ruta de ejemplo en lima, con cada salto numerado y un paquete que va de uno a otro
+        tramos.forEach((pts) => {
+          trazo(pts, "#e0f24a", 9, 0.2);
+          trazo(pts, "#e0f24a", 3.5, 1);
+        });
+        const total = tramos.length;
+        const fase = (t / 90) % (total + 1.5);
+        const n = Math.min(Math.floor(fase), total - 1);
+        const k = Math.min(fase - n, 1);
+        if (fase < total) {
+          const pts = tramos[n];
+          const p = proyectar(pts[Math.floor(k * (pts.length - 1))]);
+          if (p.v > 0) {
+            forma("cuadro", p.x, p.y, 12, "#ffffff");
+          }
+        }
+        RUTA.forEach((id, i) => {
+          const p = proyectar(REG[id]);
+          if (p.v <= 0.05) return;
+          const hecho = i <= Math.floor(fase);
+          ctx.fillStyle = hecho ? "#e0f24a" : "#12104a";
+          ctx.strokeStyle = "#e0f24a";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y - 26, 11, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          ctx.fillStyle = hecho ? "#12104a" : "#e0f24a";
+          ctx.font = "700 12px Silkscreen, ui-monospace, monospace";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(String(i + 1), p.x, p.y - 25);
+        });
+      }
+    }
+
+    // Hilos a la región madre
+    const aL = alfa("local");
+    const aW = alfa("wavelength");
+    if (aL >= 1 && cap.id !== "inicio") hilosLocal.forEach((pts: Punto[] | null) => pts && trazo(pts, COLOR.local, 1.5, 0.7, true));
+    if (aW >= 1 && cap.id !== "inicio") hilosWave.forEach((pts: Punto[] | null) => pts && trazo(pts, COLOR.wavelength, 1.5, 0.7, true));
+
+    const tam = Math.min(1 + (zoom - 1) * 0.25, 2);
+    const capa = (lista: Punto[], f: string, color: string, base: number, a: number, pieza: string) => {
+      if (a <= 0) return;
+      for (const z of lista) {
+        const p = proyectar(z);
+        if (p.v > 0.05) forma(f, p.x, p.y, base * tam, color, a, pieza);
+      }
+    };
+    capa(D.edge, "punto", COLOR.edge, 7, alfa("edge"), "edge");
+    capa(D.wavelength, "triangulo", COLOR.wavelength, 13, aW, "wavelength");
+    capa(D.localZones, "rombo", COLOR.local, 13, aL, "local");
+
+    // Regiones y sus zonas de disponibilidad alrededor
+    const aR = alfa("regiones");
+    const aZ = alfa("azs");
+    for (const r of D.regiones) {
+      const p = proyectar(r);
+      if (p.v <= 0.05) continue;
+      if (aZ > 0) {
+        const grande = cap.zona === r.id && zoom > 4;
+        const radio = grande ? Math.min(w, h) * 0.22 : 12 + 6 * Math.min(zoom, 4);
+        for (let i = 0; i < r.azs; i++) {
+          const a = (i / r.azs) * Math.PI * 2 - Math.PI / 2;
+          const [x, y] = [p.x + Math.cos(a) * radio, p.y + Math.sin(a) * radio];
+          forma("cuadrito", x, y, grande ? 20 : 5 * tam, COLOR.azs, aZ, "azs");
+          if (grande) {
+            ctx.globalAlpha = 0.5;
+            ctx.strokeStyle = COLOR.azs;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+            etiqueta(`use1-az${i + 1}`, x, y + 24, COLOR.azs);
+          }
+        }
+      }
+      forma("cuadro", p.x, p.y, (r.id === cercana ? 16 : 13) * tam, PART[r.particion], aR, "regiones");
+      if (r.id === cercana && aR >= 1) {
+        // Tu región más cercana: mismo cuadro de región, con un marco que late (no cambia de color para no confundirla con otra pieza)
+        const m = 13 + 4 * Math.abs(Math.sin(t / 25));
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(p.x - m, p.y - m, m * 2, m * 2);
+        if (cap.id === "conexion" || cap.id === "regiones") etiqueta(`Tu región más rápida: ${r.nombre}`, p.x, p.y + 30, "#ffffff");
+      }
+      if (aR >= 1 && zoom >= 1.8 && cap.id !== "azs" && cap.id !== "red") etiqueta(r.nombre, p.x, p.y - 18 * tam, "#e0f24a");
+    }
+
+    // Nombres de ciudades en el capítulo de cada pieza
+    if (zoom >= 2) {
+      if (cap.id === "local") D.localZones.forEach((z: any) => { const p = proyectar(z); if (p.v > 0.3) etiqueta(z.ciudad, p.x, p.y + 18 * tam, COLOR.local); });
+      if (cap.id === "wavelength") D.wavelength.forEach((z: any) => { const p = proyectar(z); if (p.v > 0.3) etiqueta(z.ciudad, p.x, p.y + 18 * tam, COLOR.wavelength); });
+      if (cap.id === "edge") D.edge.forEach((z: any) => { const p = proyectar(z); if (p.v > 0.5) etiqueta(z.codigo, p.x, p.y + 14 * tam); });
+    }
+    if (cap.id === "azs" && zoom > 4) {
+      const p = proyectar(REG[cap.zona]);
+      etiqueta(`Región ${cap.zona}`, p.x, p.y + 26, "#e0f24a");
+    }
+
+    // Tu edge location, latiendo
+    if (miPop && (cap.id === "edge" || cap.id === "conexion" || cap.id === "inicio")) {
+      const p = proyectar(miPop);
+      if (p.v > 0) {
+        const pulso = 9 + 6 * Math.abs(Math.sin(t / 25));
+        ctx.strokeStyle = "#e0f24a";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(p.x - pulso, p.y - pulso, pulso * 2, pulso * 2);
+        etiqueta("Tú entras aquí", p.x, p.y - pulso - 12, "#e0f24a");
+      }
+    }
+    if (seleccion) {
+      const p = proyectar(seleccion);
+      if (p.v > 0) {
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(p.x - 14, p.y - 14, 28, 28);
+      }
+    }
+  };
+
+  const mueve = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1;
+  const bucle = () => {
+    t += mueve;
+    if (destino) {
+      const k = mueve ? 0.07 : 1;
+      const dl = ((destino.lon - lon0 + 540) % 360) - 180;
+      lon0 += dl * k;
+      lat0 += (destino.lat - lat0) * k;
+      zoom += (destino.zoom - zoom) * k;
+      if (Math.abs(dl) < 0.05 && Math.abs(destino.lat - lat0) < 0.05 && Math.abs(destino.zoom - zoom) < 0.005) destino = null;
+    } else if (mueve && cap.id === "inicio" && Date.now() - quieto > 3000) lon0 += 0.06;
+    pintar();
+    requestAnimationFrame(bucle);
+  };
+
+  // ── Capítulos ──
+  const botones = document.querySelectorAll<HTMLButtonElement>("[data-cap]");
+  const textos = document.querySelectorAll<HTMLElement>("[data-texto]");
+  const leyenda = document.querySelectorAll<HTMLElement>("[data-pieza]");
+  const irA = (id: string, volar = true) => {
+    cap = D.capitulos.find((c: any) => c.id === id);
+    foco = new Set(cap.foco);
+    botones.forEach((b) => {
+      b.classList.toggle("activo", b.dataset.cap === id);
+      b.setAttribute("aria-pressed", String(b.dataset.cap === id));
+    });
+    textos.forEach((s) => (s.hidden = s.dataset.texto !== id));
+    leyenda.forEach((l) => l.classList.toggle("apagada", cap.id !== "inicio" && !foco.has(l.dataset.pieza!)));
+    document.querySelectorAll<HTMLElement>(".stat").forEach((s) => s.classList.toggle("activa", s.dataset.ver === id));
+    cerrarFicha();
+    if (!volar) return;
+    let v = cap.vista;
+    if (id === "conexion") {
+      const r = cercana ? REG[cercana] : null;
+      v = r ? { lon: r.lon, lat: Math.max(-50, Math.min(50, r.lat)), zoom: 1.6 } : { lon: lon0, lat: lat0, zoom: 1.2 };
+      if (!Object.keys(lat).length) medir();
+    }
+    if (id === "edge" && miPop) v = { lon: miPop.lon, lat: Math.max(-50, Math.min(55, miPop.lat)), zoom: 2.2 };
+    destino = { ...v };
+    quieto = Date.now();
+  };
+  botones.forEach((b) => b.addEventListener("click", () => irA(b.dataset.cap!)));
+  // Tarjetas de la esquina y leyenda: resaltan esa pieza sin mover el globo.
+  document.querySelectorAll<HTMLButtonElement>("[data-ver]").forEach((b) =>
+    b.addEventListener("click", () => {
+      irA(b.dataset.ver!, false);
+      piezaRes = b.dataset.ver!;
+      resaltado = t;
+      quieto = Date.now();
+    }),
+  );
+
+  // ── Girar y acercar ──
+  const limitar = (z: number) => Math.max(0.8, Math.min(9, z));
+  const punteros = new Map<number, { x: number; y: number }>();
+  let arrastre: { x: number; y: number; lon: number; lat: number; movio: boolean } | null = null;
+  let pellizco: { d: number; zoom: number } | null = null;
+  canvas.addEventListener("pointerdown", (e) => {
+    punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    canvas.setPointerCapture(e.pointerId);
+    destino = null;
+    quieto = Date.now();
+    if (punteros.size === 2) {
+      const [a, b] = [...punteros.values()];
+      pellizco = { d: Math.hypot(a.x - b.x, a.y - b.y), zoom };
+      arrastre = null;
+    } else arrastre = { x: e.clientX, y: e.clientY, lon: lon0, lat: lat0, movio: false };
+  });
+  canvas.addEventListener("pointermove", (e) => {
+    if (!punteros.has(e.pointerId)) return;
+    punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    quieto = Date.now();
+    if (pellizco && punteros.size === 2) {
+      const [a, b] = [...punteros.values()];
+      zoom = limitar((pellizco.zoom * Math.hypot(a.x - b.x, a.y - b.y)) / pellizco.d);
+      return;
+    }
+    if (!arrastre) return;
+    const dx = e.clientX - arrastre.x;
+    const dy = e.clientY - arrastre.y;
+    if (Math.abs(dx) + Math.abs(dy) > 4) arrastre.movio = true;
+    lon0 = arrastre.lon - (dx / R) * 57;
+    lat0 = Math.max(-75, Math.min(75, arrastre.lat + (dy / R) * 57));
+  });
+  const soltar = (e: PointerEvent) => {
+    const clic = arrastre && !arrastre.movio && punteros.size === 1;
+    punteros.delete(e.pointerId);
+    if (punteros.size < 2) pellizco = null;
+    arrastre = null;
+    if (clic) elegir(e.offsetX, e.offsetY);
+  };
+  canvas.addEventListener("pointerup", soltar);
+  canvas.addEventListener("pointercancel", soltar);
+  canvas.addEventListener(
+    "wheel",
+    (e) => {
+      e.preventDefault();
+      destino = null;
+      zoom = limitar(zoom * Math.exp(-e.deltaY * 0.0015));
+      quieto = Date.now();
+    },
+    { passive: false },
+  );
+  const zoomA = (f: number) => {
+    destino = { lon: lon0, lat: lat0, zoom: limitar(zoom * f) };
+    quieto = Date.now();
+  };
+  document.getElementById("zoom-mas")!.addEventListener("click", () => zoomA(1.6));
+  document.getElementById("zoom-menos")!.addEventListener("click", () => zoomA(1 / 1.6));
+
+  // ── Tocar un punto: el más cercano entre las piezas visibles ──
+  const ficha = document.getElementById("ficha")!;
+  const cerrarFicha = () => {
+    ficha.hidden = true;
+    seleccion = null;
+  };
+  const elegir = (x: number, y: number) => {
+    type Cand = Punto & { tipo: string; titulo: string; texto: string };
+    const cands: Cand[] = [];
+    const ve = (p: string) => alfa(p) >= 0.3;
+    if (ve("regiones"))
+      D.regiones.forEach((r: any) =>
+        cands.push({
+          ...r,
+          tipo: TIPO[r.particion],
+          titulo: `${r.nombre} · ${r.id}`,
+          texto: `${r.pais}. ${r.azs} zonas de disponibilidad.${lat[r.id] ? ` Tu latencia ahora: ${lat[r.id]} ms.` : ""}`,
+        }),
+      );
+    if (ve("local"))
+      D.localZones.forEach((z: any) =>
+        cands.push({ ...z, tipo: "Local Zone", titulo: `${z.ciudad} · ${z.id}`, texto: `Extensión de la región ${REG[z.region]?.nombre ?? ""} (${z.region}) dentro de ${z.ciudad}.` }),
+      );
+    if (ve("wavelength"))
+      D.wavelength.forEach((z: any) =>
+        cands.push({ ...z, tipo: "Zona Wavelength", titulo: `${z.ciudad} · ${z.id}`, texto: `AWS dentro de la red 5G de un operador, conectada a ${REG[z.region]?.nombre ?? ""} (${z.region}).` }),
+      );
+    if (ve("edge"))
+      D.edge.forEach((z: any) =>
+        cands.push({ ...z, tipo: "Edge location", titulo: `${z.ciudad} (${z.codigo})`, texto: "Ciudad con puntos de presencia de CloudFront y Route 53." }),
+      );
+    let mejor: Cand | null = null;
+    let md = 18;
+    for (const c of cands) {
+      const p = proyectar(c);
+      const d = Math.hypot(p.x - x, p.y - y);
+      if (p.v > 0.05 && d < md) [mejor, md] = [c, d];
+    }
+    seleccion = mejor;
+    ficha.hidden = !mejor;
+    if (!mejor) return;
+    document.getElementById("ficha-tipo")!.textContent = mejor.tipo;
+    document.getElementById("ficha-titulo")!.textContent = mejor.titulo;
+    document.getElementById("ficha-texto")!.textContent = mejor.texto;
+  };
+  document.getElementById("ficha-cerrar")!.addEventListener("click", cerrarFicha);
+
+  // ── Latencia en vivo ──
+  const ping = async (url: string, veces = 3) => {
+    // La primera abre la conexión (DNS + TLS) y no cuenta. Luego se mide varias veces y se queda la mejor:
+    // una sola medida varía mucho y puede hacer ganar a una región que no es la más rápida.
+    // Si una región no responde en 6 s, se salta.
+    await fetch(url, { cache: "no-store", mode: "cors", signal: AbortSignal.timeout(6000) });
+    let ms = Infinity;
+    let r!: Response;
+    for (let i = 0; i < veces; i++) {
+      const t0 = performance.now();
+      r = await fetch(url, { cache: "no-store", mode: "cors", signal: AbortSignal.timeout(6000) });
+      ms = Math.min(ms, performance.now() - t0);
+    }
+    return { ms: Math.round(ms), r };
+  };
+  const lista = document.getElementById("latencias")!;
+  const medibles = D.regiones.filter((r: any) => r.particion === "comercial" || r.particion === "gov");
+
+  const pintarLat = () => {
+    const orden = [...medibles].sort((a: any, b: any) => (lat[a.id] || 9e9) - (lat[b.id] || 9e9));
+    const max = Math.max(...Object.values(lat), 1);
+    lista.innerHTML = "";
+    orden.forEach((r: any, i: number) => {
+      const li = document.createElement("li");
+      if (i === 0 && lat[r.id]) li.className = "primera";
+      const ms = lat[r.id];
+      li.innerHTML = `<span class="rn"></span><span class="rb"><i style="width:${ms ? (ms / max) * 100 : 0}%"></i></span><b>${ms ? ms + " ms" : ms === 0 ? "sin respuesta" : "…"}</b>`;
+      (li.querySelector(".rn") as HTMLElement).textContent = `${r.nombre} · ${r.id}`;
+      lista.appendChild(li);
+    });
+  };
+
+  let midiendo = false;
+  const medir = async () => {
+    if (midiendo) return;
+    midiendo = true;
+    const boton = document.getElementById("medir") as HTMLButtonElement;
+    boton.disabled = true;
+    for (const k of Object.keys(lat)) delete lat[k];
+    pintarLat();
+    // Edge: el mismo sitio va por CloudFront, así que su cabecera dice en qué edge location entraste.
+    try {
+      const { ms, r } = await ping(`/favicon.png?pop=${Date.now() % 1000}`);
+      const pop = r.headers.get("x-amz-cf-pop");
+      document.getElementById("pop-ms")!.textContent = `${ms} ms`;
+      if (pop) {
+        const cod = pop.slice(0, 3).toLowerCase();
+        const c = D.edge.find((e: any) => e.codigo.toLowerCase() === cod);
+        document.getElementById("pop-nombre")!.textContent = c ? `${c.ciudad} (${pop})` : pop;
+        if (c) miPop = c;
+      } else document.getElementById("pop-nombre")!.textContent = "(se ve en divelearn.cloud)";
+    } catch {
+      document.getElementById("pop-ms")!.textContent = "—";
+    }
+    const cola = [...medibles];
+    const trabajador = async () => {
+      while (cola.length) {
+        const r: any = cola.shift();
+        try {
+          lat[r.id] = (await ping(`https://dynamodb.${r.id}.amazonaws.com/ping`)).ms;
+        } catch {
+          lat[r.id] = 0;
+        }
+        pintarLat();
+      }
+    };
+    await Promise.all(Array.from({ length: 6 }, trabajador));
+    const mejor = medibles.filter((r: any) => lat[r.id]).sort((a: any, b: any) => lat[a.id] - lat[b.id])[0];
+    if (mejor) {
+      cercana = mejor.id;
+      document.getElementById("reg-nombre")!.textContent = `${mejor.nombre} (${mejor.id})`;
+      document.getElementById("reg-ms")!.textContent = `${lat[mejor.id]} ms`;
+      if (cap.id === "conexion") destino = { lon: mejor.lon, lat: Math.max(-50, Math.min(50, mejor.lat)), zoom: 1.6 };
+    }
+    boton.disabled = false;
+    midiendo = false;
+  };
+  document.getElementById("medir")!.addEventListener("click", medir);
+
+  requestAnimationFrame(bucle);
+  pintarLat();
+  medir();
+</script>
+
+<style>
+  .mapa {
+    --pixel: "Silkscreen", ui-monospace, monospace;
+    --borde: 1.5px solid var(--ink);
+    --noche: #12104a;
+    background: #e9e4fb;
+  }
+  .mapa :global(.px) {
+    image-rendering: pixelated;
+  }
+
+  /* App a pantalla completa: menú + globo */
+  .app {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    height: calc(100dvh - var(--cab, 64px));
+    min-height: 520px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .lado {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 18px 22px;
+    overflow-y: auto;
+    background: var(--white);
+    border-right: 2px solid var(--ink);
+  }
+  .volver {
+    font: 700 0.75rem var(--pixel);
+    text-decoration: none;
+  }
+  .lado-cab h1 {
+    font: 700 1.6rem var(--pixel);
+    color: #ffd36e;
+    margin: 6px 0 0;
+    text-shadow:
+      2px 0 0 var(--ink),
+      -2px 0 0 var(--ink),
+      0 2px 0 var(--ink),
+      0 -2px 0 var(--ink),
+      3px 3px 0 var(--purple);
+  }
+  .menu {
+    display: grid;
+    gap: 6px;
+  }
+  .cap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    border: var(--borde);
+    border-radius: 10px;
+    background: #f6f7ff;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .cap:hover {
+    background: #eef2ff;
+  }
+  .cap.activo {
+    background: var(--noche);
+    color: #fff;
+    box-shadow: 3px 3px 0 var(--purple);
+  }
+  .cap:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 2px;
+  }
+  .texto[hidden] {
+    display: none;
+  }
+  .texto h2 {
+    font: 700 1.05rem var(--pixel);
+    margin: 4px 0 8px;
+  }
+  .texto h3 {
+    font: 700 0.75rem var(--pixel);
+    color: var(--purple);
+    margin: 14px 0 4px;
+  }
+  .texto p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .texto .nota {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .escenario {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.16) 1px, transparent 0) 0 0 / 18px 18px,
+      var(--noche);
+  }
+  #globo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+  }
+  #globo:active {
+    cursor: grabbing;
+  }
+  .stats {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px;
+  }
+  .stat {
+    padding: 8px 12px;
+    border: 1.5px solid #3a34d2;
+    border-radius: 10px;
+    background: rgba(18, 16, 74, 0.85);
+    color: var(--lav);
+    font-size: 0.875rem;
+  }
+  .stat {
+    font: inherit;
+    font-size: 0.875rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat:hover,
+  .stat:focus-visible {
+    border-color: #e0f24a;
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .stat.activa {
+    border-color: #e0f24a;
+    box-shadow: 0 0 0 2px #e0f24a;
+  }
+  .stat b {
+    display: block;
+    font: 700 1.3rem var(--pixel);
+    color: #e0f24a;
+  }
+  .leyenda {
+    position: absolute;
+    left: 14px;
+    bottom: 44px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    display: grid;
+    gap: 6px;
+    border: 1.5px solid #3a34d2;
+    border-radius: 10px;
+    background: rgba(18, 16, 74, 0.85);
+    color: #fff;
+    font-size: 0.875rem;
+  }
+  .leyenda li {
+    transition: opacity 0.3s;
+  }
+  .leyenda button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 4px;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  .leyenda button:hover,
+  .leyenda button:focus-visible {
+    background: rgba(224, 242, 74, 0.15);
+    outline: none;
+  }
+  .leyenda li.apagada {
+    opacity: 0.3;
+  }
+  .zoom {
+    position: absolute;
+    right: 14px;
+    bottom: 44px;
+    display: grid;
+    gap: 6px;
+  }
+  .zoom button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: #ffd36e;
+    box-shadow: 2px 2px 0 var(--ink);
+    font: 700 1.3rem var(--pixel);
+    cursor: pointer;
+  }
+  .ayuda {
+    position: absolute;
+    left: 14px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--lav);
+    font: 700 0.65rem var(--pixel);
+  }
+  .ficha {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: min(300px, calc(100% - 28px));
+    padding: 12px 14px;
+    border: var(--borde);
+    border-radius: 12px;
+    background: var(--white);
+    box-shadow: 3px 3px 0 var(--purple);
+  }
+  .ficha[hidden] {
+    display: none;
+  }
+  .ficha h2 {
+    font: 700 0.95rem var(--pixel);
+    margin: 2px 0 6px;
+  }
+  .ficha p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .ficha-tipo {
+    font: 700 0.7rem var(--pixel);
+    color: var(--purple);
+  }
+  .ficha button {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    border: 0;
+    background: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+
+  /* Tu conexión */
+  .saltos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .saltos li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    align-items: start;
+    font-size: 0.88rem;
+  }
+  .paso {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--ink);
+    background: var(--lime);
+    font: 700 0.7rem var(--pixel);
+  }
+  .saltos small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .saltos em {
+    font: 700 0.8rem ui-monospace, Menlo, monospace;
+    white-space: nowrap;
+    color: var(--purple);
+  }
+  .lat-cab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .boton {
+    font: 700 0.7rem var(--pixel);
+    padding: 6px 10px;
+    margin-top: 10px;
+    border: var(--borde);
+    border-radius: 8px;
+    background: #ffd36e;
+    box-shadow: 2px 2px 0 var(--ink);
+    cursor: pointer;
+  }
+  .boton:disabled {
+    opacity: 0.5;
+  }
+  .latencias {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+    display: grid;
+    gap: 5px;
+  }
+  .latencias :global(li) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 70px;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+  .latencias :global(.rn) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .latencias :global(.rb) {
+    height: 9px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .latencias :global(.rb i) {
+    display: block;
+    height: 100%;
+    background: var(--lav);
+  }
+  .latencias :global(li.primera) {
+    font-weight: 700;
+  }
+  .latencias :global(li.primera .rb i) {
+    background: #ff7a8a;
+  }
+  .latencias :global(b) {
+    text-align: right;
+    font-family: ui-monospace, Menlo, monospace;
+  }
+
+  .fuentes p {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 0;
+    padding: 18px 0 28px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .fuentes :global(img) {
+    flex: none;
+  }
+
+  /* Celular: globo arriba, capítulos como fichas deslizables, texto debajo */
+  @media (max-width: 860px) {
+    .app {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      height: auto;
+    }
+    .escenario {
+      order: -1;
+      height: 68dvh;
+    }
+    .lado {
+      border-right: 0;
+      border-top: 2px solid var(--ink);
+      overflow: visible;
+    }
+    .lado-cab {
+      display: none;
+    }
+    .menu {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+    .cap {
+      width: auto;
+      flex: none;
+      white-space: nowrap;
+      font-size: 0.85rem;
+    }
+    .stats {
+      grid-template-columns: repeat(4, auto);
+      left: 10px;
+      right: 10px;
+      top: 10px;
+      gap: 6px;
+    }
+    .stat {
+      padding: 5px 7px;
+      font-size: 0.6rem;
+    }
+    .stat b {
+      font-size: 0.95rem;
+    }
+    .leyenda {
+      display: none;
+    }
+    .ficha {
+      top: auto;
+      bottom: 44px;
+    }
+  }
+</style>

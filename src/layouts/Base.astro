@@ -14,6 +14,7 @@ const path = Astro.url.pathname;
 const fullTitle = title === "DiveLearn" ? "DiveLearn · Educamos para lo real, no para lo perfecto" : `${title} · DiveLearn`;
 const nav = [
   { href: "/bootcamp/", label: "Bootcamp" },
+  { href: "/simuladores/", label: "Simuladores" },
   { href: "/blog/", label: "Blog" },
   { href: "/recursos/", label: "Recursos" },
   { href: "/cursos/", label: "Cursos" },
@@ -185,7 +186,7 @@ const nav = [
   }
   .top nav a:hover,
   .top nav a[aria-current="page"] {
-    background: rgba(178, 202, 253, 0.25);
+    background: rgba(31, 29, 92, 0.35);
   }
   .brand img {
     width: 140px;
@@ -195,7 +196,7 @@ const nav = [
     padding: 48px 16px;
     text-align: center;
     background: var(--purple);
-    color: var(--lav);
+    color: var(--lav-soft);
   }
   .foot a {
     color: var(--white);
@@ -227,9 +228,18 @@ const nav = [
     .top nav {
       gap: 0;
     }
+    .top nav {
+      gap: 0;
+    }
     .top nav a {
-      padding: 10px 7px;
-      font-size: 0.9rem;
+      padding: 10px 4px;
+      font-size: 0.78rem;
+    }
+  }
+  @media (max-width: 360px) {
+    .top nav a {
+      padding: 10px 2px;
+      font-size: 0.72rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {

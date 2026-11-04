@@ -1,0 +1,217 @@
+---
+import "@fontsource/silkscreen/700.css";
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
+
+// Simuladores aparte del bootcamp: cada uno trae su guía de laboratorio por misiones.
+const sims = [
+  {
+    href: "/simuladores/terminal-linux/",
+    clave: "terminal",
+    t: "Terminal Linux",
+    d: "Tu primer día en un servidor: moverte, leer logs, buscar errores con grep, tuberías, permisos y respaldos.",
+    sprite: "mod-linux",
+    color: "#6fd08c",
+    misiones: 13,
+    nivel: "Superficie",
+  },
+  {
+    href: "/simuladores/bases-de-datos/",
+    clave: "sql",
+    t: "Bases de datos SQL",
+    d: "La tienda de un centro de buceo: SELECT, WHERE, GROUP BY, JOIN, cambios seguros y por qué un índice cambia todo.",
+    sprite: "mod-datos",
+    color: "#b39dfa",
+    misiones: 13,
+    nivel: "Superficie",
+  },
+  {
+    t: "Subredes y CIDR",
+    d: "Parte una VPC en subredes públicas y privadas sin que se pisen las direcciones.",
+    sprite: "mod-ip",
+    color: "#7cc6fe",
+    nivel: "Arrecife",
+  },
+  {
+    t: "Viaje de un DNS",
+    d: "Sigue una consulta desde tu navegador hasta Route 53, salto por salto.",
+    sprite: "mod-dns",
+    color: "#ff9f43",
+    nivel: "Arrecife",
+  },
+];
+---
+
+<Base title="Simuladores" description="Simuladores gratis para practicar Linux, bases de datos y redes en el navegador, cada uno con su guía de laboratorio.">
+  <div class="sims">
+    <section class="wrap portada">
+      <p class="etq">Gratis · sin instalar nada · tu progreso se guarda en este navegador</p>
+      <h1>Simuladores</h1>
+      <p class="lead">Aquí se aprende haciendo. Cada simulador trae una guía de laboratorio con misiones: lees la historia, escribes el comando y ves por qué importa en el trabajo de verdad.</p>
+      <div class="deco" aria-hidden="true">
+        <Sprite nombre="buzo-laptop" escala={2} />
+        <Sprite nombre="obj-servidores" escala={2} />
+        <Sprite nombre="pulpo-profe" escala={2} />
+      </div>
+    </section>
+
+    <section class="wrap"><AvisoProgreso /></section>
+
+    <section class="wrap grid">
+      {
+        sims.map((s) => {
+          const Tag = s.href ? "a" : "div";
+          return (
+            <Tag class:list={["sim", { pronto: !s.href }]} href={s.href} style={`--c:${s.color}`}>
+              <div class="cab">
+                <Sprite nombre={s.sprite} escala={1.5} />
+                <span class="nivel">{s.nivel}</span>
+              </div>
+              <h2>{s.t}</h2>
+              <p>{s.d}</p>
+              <span class="pie">
+                {s.href ? (
+                  <>
+                    <b>{s.misiones} misiones</b>
+                    <span class="avance" data-sim={s.clave} />
+                    <span class="jugar">Jugar &rarr;</span>
+                  </>
+                ) : (
+                  <b>Próximamente</b>
+                )}
+              </span>
+            </Tag>
+          );
+        })
+      }
+    </section>
+  </div>
+</Base>
+
+<script is:inline>
+  // Muestra el avance guardado por cada simulador.
+  try {
+    const s = JSON.parse(localStorage.getItem("divelearn-sims") || "{}");
+    document.querySelectorAll(".avance").forEach((el) => {
+      const d = s[el.dataset.sim];
+      if (d && d.hechas) el.textContent = `${d.hechas} hechas`;
+    });
+  } catch {}
+</script>
+
+<style>
+  .sims {
+    --pixel: "Silkscreen", ui-monospace, monospace;
+    --borde: 1.5px solid var(--ink);
+    background:
+      radial-gradient(circle at 1px 1px, rgba(84, 83, 235, 0.12) 1px, transparent 0) 0 0 / 22px 22px,
+      #e9e4fb;
+    padding: 40px 0 56px;
+  }
+  .sims :global(.px) {
+    image-rendering: pixelated;
+  }
+  .portada {
+    text-align: center;
+  }
+  .etq {
+    font: 700 0.8rem var(--pixel);
+    color: var(--purple);
+    margin: 0;
+  }
+  h1 {
+    font: 700 clamp(2.2rem, 7vw, 4.2rem) var(--pixel);
+    color: #ffd36e;
+    margin: 8px 0 10px;
+    text-shadow:
+      2px 0 0 var(--ink),
+      -2px 0 0 var(--ink),
+      0 2px 0 var(--ink),
+      0 -2px 0 var(--ink),
+      5px 5px 0 var(--purple);
+  }
+  .lead {
+    max-width: 62ch;
+    margin: 0 auto;
+    color: var(--muted);
+  }
+  .deco {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 22px;
+    margin: 22px 0 8px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .sim {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 18px;
+    border: var(--borde);
+    border-top: 6px solid var(--c);
+    border-radius: 14px;
+    background: var(--white);
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 3px 3px 0 rgba(31, 29, 92, 0.18);
+    transition: transform 0.15s;
+  }
+  a.sim:hover {
+    transform: translateY(-3px);
+    box-shadow: 4px 6px 0 var(--c);
+  }
+  .pronto {
+    opacity: 0.72;
+  }
+  .cab {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .nivel {
+    font: 700 0.7rem var(--pixel);
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--c) 30%, white);
+  }
+  h2 {
+    font: 700 1.15rem var(--pixel);
+    margin: 10px 0 6px;
+  }
+  .sim p {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .pie {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    font-size: 0.875rem;
+  }
+  .pie > * {
+    white-space: nowrap;
+  }
+  .avance {
+    color: #24703f;
+    font-weight: 700;
+  }
+  .jugar {
+    margin-left: auto;
+    font: 700 0.8rem var(--pixel);
+    padding: 6px 12px;
+    border: var(--borde);
+    border-radius: 8px;
+    background: var(--c);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+</style>

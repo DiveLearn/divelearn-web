@@ -1,0 +1,97 @@
+---
+import "@fontsource/silkscreen/700.css";
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
+import "../../styles/simulador.css";
+---
+
+<Base title="Simulador: Terminal Linux" description="Practica Linux en el navegador con misiones guiadas: ubicarte, leer logs, buscar errores, permisos y respaldos. Gratis y sin instalar nada.">
+  <div class="sim">
+    <section class="wrap cabeza">
+      <a class="volver" href="/simuladores/">&larr; Simuladores</a>
+      <div class="titulo">
+        <Sprite nombre="mod-linux" escala={2} />
+        <div>
+          <p class="etq">Laboratorio 1 · Nivel superficie</p>
+          <h1>Terminal Linux</h1>
+          <p class="lead">Tu primer día en un servidor: ubícate, lee los logs, encuentra los errores, haz un respaldo y deja todo limpio. Todo pasa en tu navegador; nada se rompe de verdad.</p>
+        </div>
+        <Sprite nombre="buzo-laptop" escala={2} class="buzo" />
+      </div>
+    </section>
+
+    <section class="wrap lab">
+      <aside class="guia">
+        <div class="panel progreso">
+          <div class="fila"><b>Guía de laboratorio</b><span><b id="sim-xp">0</b> XP</span></div>
+          <div class="barra"><span id="sim-barra"></span></div>
+          <small id="sim-cuenta">0/13</small>
+          <div class="compas" id="sim-compas" aria-label="Compañeros que se unen a tu inmersión"></div>
+        </div>
+
+        <div class="panel mision" id="sim-mision">
+          <p class="num" id="m-num">Misión 1</p>
+          <h2 id="m-titulo"></h2>
+          <p id="m-historia"></p>
+          <p class="obj"><Sprite nombre="obj-checklist" escala={1} /><span id="m-objetivo"></span></p>
+          <button type="button" class="pista-btn" id="m-ver-pista">Ver pista</button>
+          <p class="pista" id="m-pista" hidden></p>
+        </div>
+
+        <div class="panel fin" id="sim-fin" hidden>
+          <Sprite nombre="buzo-celebra" escala={2} />
+          <h2>¡Laboratorio completo!</h2>
+          <p class="fin-xp">Terminaste con <b id="sim-fin-xp">0 XP</b> y tus tres compañeros.</p>
+          <p>Ya sabes moverte, leer logs, filtrar con grep, encadenar con tuberías, respaldar, dar permisos y limpiar. Eso es el día a día en un servidor de verdad, también en EC2.</p>
+          <a class="btn lime" href="/simuladores/">Ver más simuladores</a>
+        </div>
+
+        <ol class="lista" id="sim-lista"></ol>
+        <button type="button" class="reiniciar" id="sim-reiniciar">Reiniciar laboratorio</button>
+        <AvisoProgreso />
+      </aside>
+
+      <div class="consola">
+        <div class="term" role="region" aria-label="Terminal simulada">
+          <div class="barra-term"><span class="puntos"><i></i><i></i><i></i></span><span>buzo@divelearn: ~</span></div>
+          <div class="cuerpo">
+            <div id="term-salida" aria-live="polite"></div>
+            <label class="entrada">
+              <span id="term-prompt">buzo@divelearn:~$</span>
+              <input id="term-input" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Escribe un comando" autofocus />
+            </label>
+          </div>
+        </div>
+
+        <div class="logro" id="sim-logro" hidden>
+          <Sprite nombre="pulpo-ok" escala={1.5} />
+          <div>
+            <b id="logro-titulo"></b>
+            <p><span>Por qué importa:</span> <span id="logro-porque"></span></p>
+          </div>
+          <button type="button" id="logro-cerrar" aria-label="Cerrar">&times;</button>
+        </div>
+
+        <div class="panel perm" id="perm">
+          <div class="perm-cab">
+            <b>Calculadora de permisos</b>
+            <span><code id="perm-sim">-rwxr-xr-x</code> = <code class="oct" id="perm-oct">755</code></span>
+          </div>
+          <div class="bits"><div class="grupo"><span>Dueño</span><button type="button" data-bit aria-pressed="true" aria-label="Dueño: r">r</button><button type="button" data-bit aria-pressed="true" aria-label="Dueño: w">w</button><button type="button" data-bit aria-pressed="true" aria-label="Dueño: x">x</button></div><div class="grupo"><span>Grupo</span><button type="button" data-bit aria-pressed="true" aria-label="Grupo: r">r</button><button type="button" data-bit aria-pressed="false" aria-label="Grupo: w">w</button><button type="button" data-bit aria-pressed="true" aria-label="Grupo: x">x</button></div><div class="grupo"><span>Otros</span><button type="button" data-bit aria-pressed="true" aria-label="Otros: r">r</button><button type="button" data-bit aria-pressed="false" aria-label="Otros: w">w</button><button type="button" data-bit aria-pressed="true" aria-label="Otros: x">x</button></div></div>
+          <p class="nota">r = leer (4) · w = escribir (2) · x = ejecutar (1). Se suman por grupo: rwx = 7, r-x = 5, rw- = 6.</p>
+          <button type="button" class="pista-btn" id="perm-usar">Escribir el chmod en la terminal</button>
+        </div>
+
+        <details class="chuleta">
+          <summary>Chuleta de comandos</summary>
+          <div class="chips">
+            <code>pwd</code><code>ls -la</code><code>cd ..</code><code>cat</code><code>grep -i</code><code>wc -l</code><code>head -n 3</code><code>tail</code><code>mkdir -p</code><code>cp -r</code><code>mv</code><code>rm -r</code><code>chmod +x</code><code>find . -name "*.log"</code><code>tree</code><code>man ls</code><code>cat ~/.bashrc</code><code>cat /etc/hosts</code><code>cat /etc/fstab</code>
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+  <script is:inline src="/js/sim-guia.js" defer></script>
+  <script is:inline src="/js/sim-terminal.js" defer></script>
+</Base>
