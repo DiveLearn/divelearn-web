@@ -1,0 +1,38 @@
+---
+// Aviso corto: el progreso vive solo en localStorage hasta que existan las cuentas (hoja de ruta 8i).
+import Sprite from "./Sprite.astro";
+
+interface Props {
+  class?: string;
+}
+const { class: cls = "" } = Astro.props;
+---
+
+<p class={`aviso-progreso ${cls}`} role="note">
+  <Sprite nombre="obj-disquete" escala={1} />
+  <span>
+    <b>Tu avance se guarda solo en este navegador.</b> Si cambias de computador o de navegador, usas modo incógnito o
+    borras los datos de navegación, se pierde. Pronto podrás guardarlo en tu cuenta.
+  </span>
+</p>
+
+<style>
+  .aviso-progreso {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 16px 0 0;
+    padding: 10px 12px;
+    border: 1.5px dashed var(--lav-texto, #4b49c9);
+    border-radius: 10px;
+    background: var(--lav-soft, #eef2ff);
+    color: var(--ink, #1f1d5c);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .aviso-progreso :global(img) {
+    flex: none;
+    margin-top: 2px;
+  }
+</style>

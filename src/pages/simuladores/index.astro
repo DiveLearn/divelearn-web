@@ -2,6 +2,7 @@
 import "@fontsource/silkscreen/700.css";
 import Base from "../../layouts/Base.astro";
 import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
 
 // Simuladores aparte del bootcamp: cada uno trae su guía de laboratorio por misiones.
 const sims = [
@@ -54,6 +55,8 @@ const sims = [
         <Sprite nombre="pulpo-profe" escala={2} />
       </div>
     </section>
+
+    <section class="wrap"><AvisoProgreso /></section>
 
     <section class="wrap grid">
       {

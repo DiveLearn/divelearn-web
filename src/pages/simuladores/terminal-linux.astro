@@ -2,6 +2,7 @@
 import "@fontsource/silkscreen/700.css";
 import Base from "../../layouts/Base.astro";
 import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
 import "../../styles/simulador.css";
 ---
 
@@ -48,6 +49,7 @@ import "../../styles/simulador.css";
 
         <ol class="lista" id="sim-lista"></ol>
         <button type="button" class="reiniciar" id="sim-reiniciar">Reiniciar laboratorio</button>
+        <AvisoProgreso />
       </aside>
 
       <div class="consola">

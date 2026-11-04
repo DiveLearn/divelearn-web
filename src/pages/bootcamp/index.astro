@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import Pixel from "../../components/Pixel.astro";
 import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
 import { etapas, rangos, XP } from "../../data/bootcamp";
 import paginas from "../../data/bootcamp-paginas.json";
 import { PALETA, ISLA, NUBE, BURBUJA, TANQUE } from "../../data/sprites";
@@ -119,6 +120,7 @@ const camino = [
           <div class="stat"><Icon name="clock" /><b data-min>0 min</b><span>hoy</span></div>
           <div class="stat"><Icon name="chart-bar" /><b data-pct>0%</b><span>completado</span></div>
         </div>
+        <AvisoProgreso />
       </article>
 
       <article class="panel">
