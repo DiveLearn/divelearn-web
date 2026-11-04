@@ -52,6 +52,11 @@
   var s = document.currentScript;
   if (!s || !s.dataset.modulo) return; // el mapa usa solo leer/guardar
 
+  // En las actividades, el guardián de contraste corrige textos que no se leen (ver bootcamp-contraste.js).
+  var guardian = document.createElement("script");
+  guardian.src = "/js/bootcamp-contraste.js";
+  document.head.appendChild(guardian);
+
   var m = s.dataset.modulo;
   var pagina = s.dataset.pagina;
   var total = Number(s.dataset.total);

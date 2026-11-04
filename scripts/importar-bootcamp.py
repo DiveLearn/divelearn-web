@@ -104,7 +104,7 @@ def limpiar(h: str) -> str:
 
 
 # Color propio de cada módulo (los mismos que src/data/bootcamp.ts).
-COLOR = {0: "#ffd36e", 1: "#ff9f43", 2: "#ff7a8a", 3: "#f49ac2", 4: "#b39dfa", 5: "#7cc6fe", 6: "#5fd3c6", 7: "#04a8bb", 8: "#6fd08c"}
+COLOR = {0: "#ffd36e", 1: "#ff9f43", 2: "#ff7a8a", 3: "#f49ac2", 4: "#b39dfa", 5: "#7cc6fe", 6: "#5fd3c6", 7: "#04a8bb", 8: "#6fd08c", 9: "#e0f24a"}
 
 
 # Datos de cada módulo (etapa, título, sprite) leídos de src/data/bootcamp.ts, para la cabecera de juego.
@@ -158,7 +158,7 @@ def pie(m: int, pagina: str) -> str:
     if i + 1 < len(orden):
         sig = orden[i + 1]
         b = f'<a class="dl-pie-btn sig" href="{href(sig)}">{TITULOS.get((m, sig), "Siguiente")} →</a>'
-    elif m < 8:
+    elif m < 9:
         b = f'<a class="dl-pie-btn sig" href="/bootcamp/modulo-{m + 1}/">Módulo {m + 1}: {MODULO[m + 1]["titulo"]} →</a>'
     else:
         b = '<a class="dl-pie-btn sig" href="/bootcamp/#licencia">Reclamar tu licencia →</a>'
@@ -173,7 +173,7 @@ def cabecera(m: int, pagina: str) -> str:
     # Mismo banner que el resto del sitio (src/layouts/Base.astro) + panel de juego.
     return f"""<header class="dl-sitio">
   <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
-  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
 </header>
 <header class="dl-jh">
   <div class="dl-jh-panel">
@@ -211,7 +211,7 @@ OBJETO_TEMA = [
     (("checklist", "pasos", "plan", "planific", "evalua"), "obj-checklist"),
     (("idea", "concepto", "qué es", "que es", "por qué", "por que"), "obj-bombillo"),
 ]
-OBJETO_MODULO = {0: "obj-satelite", 1: "obj-cable", 2: "obj-router", 3: "obj-lupa", 4: "obj-candado", 5: "obj-laptop", 6: "obj-servidores", 7: "obj-disco", 8: "obj-disquete"}
+OBJETO_MODULO = {0: "obj-satelite", 1: "obj-cable", 2: "obj-router", 3: "obj-lupa", 4: "obj-candado", 5: "obj-laptop", 6: "obj-servidores", 7: "obj-disco", 8: "obj-disquete", 9: "obj-llave"}
 
 
 def con_objetos(h: str, m: int) -> str:
@@ -234,40 +234,81 @@ def con_progreso(h: str, m: int, pagina: str, total: int) -> str:
     return h.replace("</body>", f"{tag}\n</body>", 1)
 
 
-EN_REPARACION = """<!doctype html>
+# Actividades que vienen cortadas desde el origen: se van a rehacer como videojuegos
+# (ver _empresa/Gamificacion/plan-videojueguitos.md). Mientras, una página "Próximamente" con la cara del bootcamp.
+PROXIMOS = {
+    "actividad4_planificacion_crecimiento": ("Divide la jaula", "Parte un bloque de direcciones entre especies que crecen cada temporada."),
+    "actividad4_visualizador": ("Medusas bajo demanda", "Serverless: funciones que solo se encienden cuando llega una presa, y pagas por picada."),
+    "actividad3_simulador_desastre": ("Alerta en la estación", "Falla la estación submarina y ejecutas el plan de recuperación con el reloj RTO corriendo."),
+    "actividad4_plan_contingencia": ("Alerta en la estación", "Arma el protocolo de emergencia de la tripulación y pruébalo en un simulacro."),
+}
+
+
+def proximamente(m: int, stem: str) -> str:
+    juego, idea = PROXIMOS.get(stem, ("un videojuego", "Este tema se está rehaciendo para que se aprenda jugando."))
+    cab = cabecera(m, stem).split('<header class="dl-jh">')[0]
+    return f"""<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Actividad en reparación · DiveLearn</title>
+<title>Próximamente: {juego} · DiveLearn</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
 </head>
 <body>
-<nav class="dl-nav"><a href="/"><img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo"></a><div class="dl-nav-divider"></div><a href="./" class="dl-nav-back">← Módulo</a></nav>
-<main class="container" style="text-align:center;padding-top:80px">
-<h1>Esta actividad está en reparación</h1>
-<p style="max-width:46ch;margin:16px auto 32px">La estamos mejorando para que funcione como se merece. Mientras tanto, sigue con las demás actividades del módulo.</p>
-<a href="./" class="btn btn-primary">Volver al módulo</a>
+{cab}
+<main class="container" style="text-align:center;padding:64px 16px;max-width:640px;margin:0 auto">
+<img src="/img/sprites/pulpo-profe.png" alt="" width="96" style="image-rendering:pixelated">
+<p style="font:700 0.875rem 'Silkscreen',monospace;margin:16px 0 4px">Próximamente · videojuego</p>
+<h1 style="margin:0 0 12px">{juego}</h1>
+<p style="margin:0 auto 28px;max-width:46ch;line-height:1.6">{idea} Esta actividad se está convirtiendo en un juego para que se aprenda jugando. Mientras tanto, sigue con las demás del módulo.</p>
+<p style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="./" class="btn btn-primary">Volver al módulo {m}</a><a href="/simuladores/" class="btn">Probar los simuladores</a></p>
 </main>
 </body>
 </html>
 """
 
+
+# Actividades que ya tienen su videojuego: la página vieja lleva al juego.
+# La actividad cuenta en el mapa cuando se gana el juego (lo marca juego-dl.js con este mismo nombre).
+JUEGOS = {(2, "actividad3_conversor_binario"): ("/juegos/linternas-del-abismo/", "Linternas del abismo")}
+
+
+def al_juego(url: str, nombre: str) -> str:
+    return f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url={url}">
+<link rel="canonical" href="{url}">
+<title>{nombre} · DiveLearn</title>
+</head>
+<body><p>Esta actividad ahora es un juego: <a href="{url}">{nombre}</a>.</p></body>
+</html>
+"""
+
+
 paginas = {}
 reparar = []
-for m in range(9):
+for m in range(10):
     src = T / f"modulo_{m}"
     out = D / f"modulo-{m}"
     out.mkdir()
     todas = sorted((src / "submodulos").glob("*.html"), key=lambda f: (f.stem.startswith("quiz"), f.stem))
+    if m == 9:
+        # El rebranding dejó en modulo_9/submodulos una copia de las actividades de todos los módulos:
+        # solo cuentan las que enlaza el hub del módulo.
+        propias = set(re.findall(r"submodulos/(\w+)\.html", (src / "hub_modulo9.html").read_text()))
+        todas = [f for f in todas if f.stem in propias]
     # Algunas actividades vienen cortadas a la mitad (sin </html>): no cuentan para el juego.
     subs = [f for f in todas if "</html>" in f.read_text()]
+    paginas[m] = [f.stem for f in subs]
     for f in todas:
         if f not in subs:
             reparar.append(f"modulo-{m}/{f.name}")
-            (out / f.name).write_text(EN_REPARACION)
-    paginas[m] = [f.stem for f in subs]
+            (out / f.name).write_text(proximamente(m, f.stem))
     for f in subs:
         TITULOS[(m, f.stem)] = titulo_de(f.read_text())
     hub = limpiar((src / f"hub_modulo{m}.html").read_text())
@@ -275,6 +316,9 @@ for m in range(9):
     hub = re.sub(r'<a href="\./" class="dl-nav-back">← [^<]*</a>', '<a href="/bootcamp/" class="dl-nav-back">← Bootcamp</a>', hub)
     (out / "index.html").write_text(con_progreso(hub, m, "index", len(subs)))
     for f in subs:
+        if (m, f.stem) in JUEGOS:
+            (out / f.name).write_text(al_juego(*JUEGOS[(m, f.stem)]))
+            continue
         (out / f.name).write_text(con_progreso(limpiar(f.read_text()), m, f.stem, len(subs)))
 
 (D.parent.parent / "src/data/bootcamp-paginas.json").write_text(json.dumps(paginas, indent=2) + "\n")
@@ -292,5 +336,5 @@ for f in D.rglob("*.html"):
         if not tgt.exists():
             malos.add(f"{f.relative_to(D)} -> {ref}")
 print(len(list(D.rglob('*.html'))), "páginas")
-print("En reparación (archivo cortado en el origen):", ", ".join(reparar) or "ninguna")
+print("Próximamente (archivo cortado en el origen):", ", ".join(reparar) or "ninguna")
 print("\n".join(sorted(malos)) or "sin enlaces rotos")

@@ -166,7 +166,7 @@
 <body>
 <header class="dl-sitio">
   <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
-  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
 </header>
 <header class="dl-jh">
   <div class="dl-jh-panel">
@@ -243,10 +243,10 @@
                 <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-cable.png" alt="" width="32" height="32"> Área de Diseño</h2>
                 
                 <div class="topology-selector">
-                    <div class="topology-btn active" onclick="selectTopology('libre')"> Diseño Libre</div>
-                    <div class="topology-btn" onclick="selectTopology('estrella')"> Estrella</div>
-                    <div class="topology-btn" onclick="selectTopology('bus')"> Bus</div>
-                    <div class="topology-btn" onclick="selectTopology('anillo')"> Anillo</div>
+                    <div class="topology-btn active" onclick="selectTopology('libre', event)"> Diseño Libre</div>
+                    <div class="topology-btn" onclick="selectTopology('estrella', event)"> Estrella</div>
+                    <div class="topology-btn" onclick="selectTopology('bus', event)"> Bus</div>
+                    <div class="topology-btn" onclick="selectTopology('anillo', event)"> Anillo</div>
                 </div>
 
                 <div class="design-area">
@@ -431,12 +431,12 @@
             updateFeedback('info', ' Dispositivo eliminado correctamente.');
         }
 
-        function selectTopology(topology) {
+        function selectTopology(topology, ev) {
             // Actualizar botones
             document.querySelectorAll('.topology-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
             
             currentTopology = topology;
             applyTopology(topology);

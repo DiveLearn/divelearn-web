@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es" style="--c:#e0f24a">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 2 - Convertidor entre Formatos</title>
+    <style>
+.breadcrumb a:hover { color: var(--lime-texto); }.section-title, h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple);
+  display: inline-block;
+}  to   { opacity: 1; transform: translateY(0); }
+}
+
+  to   { opacity: 1; }
+}
+
+  50%      { transform: scale(1.05); }
+}
+
+    
+
+  
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        .converter-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: stretch;
+            min-height: 500px;
+        }
+
+        .
+
+        .conversion-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: var(--surface2);
+            border-radius: 12px;
+            border: 2px dashed var(--border);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .panel-title {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .code-area {
+            flex: 1;
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            background: #1f1d5c;
+            color: #55538a;
+            line-height: 1.5;
+            min-height: 350px;
+        }
+
+        .code-area:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: var(--glow);
+        }
+
+        .code-area[readonly] {
+            background: var(--surface);
+            color: var(--text);
+            cursor: default;
+        }
+
+        .convert-btn {
+            background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 150px;
+            justify-content: center;
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .convert-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .format-arrow {
+            font-size: 1.5rem;
+            color: var(--purple);
+            animation: pulse 2s infinite;
+        }
+
+        
+            50% { opacity: 0.6; }
+        }
+
+        .conversion-info {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .status-message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .status-success {
+            background: rgba(34,197,94,0.15);
+            color: var(--text-muted);
+            border: 1px solid var(--purple);
+        }
+
+        .status-error {
+            background: rgba(239,68,68,0.15);
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .examples-section {
+            background: var(--surface2);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .examples-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .example-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .example-btn:hover {
+            background: var(--purple);
+            transform: translateY(-1px);
+        }
+
+        .example-btn.json-to-yaml {
+            background: #22C55E;
+        }
+
+        .example-btn.json-to-yaml:hover {
+            background: #22C55E;
+        }
+
+        .example-btn.yaml-to-xml {
+            background: #EF4444;
+        }
+
+        .example-btn.yaml-to-xml:hover {
+            background: #EF4444;
+        }
+
+        .example-btn.xml-to-json {
+            background: #06B6D4;
+        }
+
+        .example-btn.xml-to-json:hover {
+            background: #138496;
+        }
+
+        .tools-section {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: #5a6268;
+        }
+
+        .tool-btn.copy {
+            background: #22C55E;
+        }
+
+        .tool-btn.copy:hover {
+            background: #22C55E;
+        }
+
+        .tool-btn.clear {
+            background: #EF4444;
+        }
+
+        .tool-btn.clear:hover {
+            background: #EF4444;
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        @media (max-width: 968px) {
+            .converter-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .conversion-controls {
+                order: 2;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .output-panel {
+                order: 3;
+            }
+        }
+
+        @media (max-width: 768px) {            .example-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .conversion-controls {
+                flex-direction: column;
+            }
+        }
+</style>
+  
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/bootcamp/dl-brand.css">
+<link rel="stylesheet" href="/css/bootcamp-juego.css">
+</head>
+<body>
+<header class="dl-sitio">
+  <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+</header>
+<header class="dl-jh">
+  <div class="dl-jh-panel">
+    <div class="dl-jh-barra"><span>Etapa 4 · Inmersión de práctica</span><span class="dl-jh-puntos"><i></i><i></i><i></i></span></div>
+    <div class="dl-jh-cuerpo">
+      <span class="dl-jh-ico"><img src="/img/sprites/obj-checklist.png" alt="" width="38" height="52"></span>
+      <div class="dl-jh-txt"><span class="dl-jh-mod">Módulo 9</span><span class="dl-jh-tit">El lenguaje de la configuración</span></div>
+      <nav class="dl-jh-nav"><a class="dl-jh-btn" href="/bootcamp/">← Mapa</a><a class="dl-jh-btn" href="./">Módulo 9</a></nav>
+    </div>
+    <nav class="dl-pasos" aria-label="Actividades del módulo"><a class="dl-paso" href="./" data-paso="index" title="Portada del módulo">Inicio</a><a class="dl-paso" href="./actividad1_editor.html" data-paso="actividad1_editor" title="Editor de Configuraciones">1</a><a class="dl-paso actual" href="./actividad2_convertidor.html" data-paso="actividad2_convertidor" title="Convertidor entre Formatos" aria-current="page">2</a><a class="dl-paso" href="./actividad3_generador.html" data-paso="actividad3_generador" title="Generador de Plantillas">3</a><a class="dl-paso" href="./actividad4_validador.html" data-paso="actividad4_validador" title="Validador de Sintaxis">4</a><a class="dl-paso" href="./quiz_modulo9.html" data-paso="quiz_modulo9" title="Módulo 9: El Lenguaje de la Configuración">Quiz</a></nav>
+  </div>
+</header>
+
+  <nav class="dl-nav">
+    <a href="/">
+      <img src="/img/logo-divelearn-morado.png" alt="Divelearn" class="dl-nav-logo">
+    </a>
+    <div class="dl-nav-divider"></div>
+    <a href="./" class="dl-nav-back">← Módulo 9</a>
+  </nav>
+  <div class="container">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="./">← Módulo 9</a> / Actividad 2
+            </div>
+            <h1 class="activity-title"> Convertidor entre Formatos</h1>
+            <p class="activity-subtitle">Convierte configuraciones entre JSON, YAML, XML y ENV manteniendo la estructura de datos</p>
+            <div class="activity-meta">
+                <div class="meta-item">
+                    <span></span>
+                    <span>25 minutos</span>
+                </div>
+                <div class="meta-item">
+                    <span></span>
+                    <span>Nivel: Intermedio</span>
+                </div>
+                <div class="meta-item">
+                    <span></span>
+                    <span>Puntos: 200</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-bandera.png" alt="" width="32" height="32"> Objetivo</h2>
+                <p>Desarrolla una herramienta que convierta configuraciones entre diferentes formatos (JSON, YAML, XML, ENV) manteniendo la integridad y estructura de los datos. Aprenderás las diferencias y limitaciones de cada formato.</p>
+            </div>
+
+            <div class="examples-section">
+                <h3 class="examples-title">
+                     Ejemplos de Conversión
+                </h3>
+                <p style="color: #856404; margin-bottom: 15px;">Carga un ejemplo para ver cómo funciona la conversión entre formatos:</p>
+                <div class="example-buttons">
+                    <button class="example-btn" onclick="loadExample('basic')"> Configuración Básica</button>
+                    <button class="example-btn json-to-yaml" onclick="loadExample('database')"> Configuración BD</button>
+                    <button class="example-btn yaml-to-xml" onclick="loadExample('server')"> Configuración Servidor</button>
+                    <button class="example-btn xml-to-json" onclick="loadExample('complex')"> Configuración Compleja</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-llave.png" alt="" width="32" height="32"> Convertidor Interactivo</h2>
+                <div class="converter-container">
+                    <!-- Panel de Entrada -->
+                    <div class="input-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Formato Origen</span>
+                            <select class="format-selector" id="inputFormat" onchange="onInputFormatChange()">
+                                <option value="json">JSON</option>
+                                <option value="yaml">YAML</option>
+                                <option value="xml">XML</option>
+                                <option value="env">ENV</option>
+                            </select>
+                        </div>
+                        <textarea class="code-area" id="inputArea" placeholder="Pega tu configuración aquí..." oninput="validateInput()"></textarea>
+                        <div class="tools-section">
+                            <button class="tool-btn" onclick="formatInput()"> Formatear</button>
+                            <button class="tool-btn clear" onclick="clearInput()"> Limpiar</button>
+                        </div>
+                        <div id="inputStatus" class="status-message" style="display: none;"></div>
+                    </div>
+
+                    <!-- Controles de Conversión -->
+                    <div class="conversion-controls">
+                        <div class="format-arrow">→</div>
+                        <button class="convert-btn" id="convertBtn" onclick="convertFormat()" disabled>
+                            <span></span>
+                            <span>Convertir</span>
+                        </button>
+                        <div class="conversion-info" id="conversionInfo">
+                            JSON → YAML
+                        </div>
+                    </div>
+
+                    <!-- Panel de Salida -->
+                    <div class="output-panel">
+                        <div class="panel-header">
+                            <span class="panel-title"> Formato Destino</span>
+                            <select class="format-selector" id="outputFormat" onchange="onOutputFormatChange()">
+                                <option value="yaml">YAML</option>
+                                <option value="json">JSON</option>
+                                <option value="xml">XML</option>
+                                <option value="env">ENV</option>
+                            </select>
+                        </div>
+                        <textarea class="code-area" id="outputArea" readonly placeholder="El resultado de la conversión aparecerá aquí..."></textarea>
+                        <div class="tools-section">
+                            <button class="tool-btn copy" onclick="copyOutput()"> Copiar</button>
+                            <button class="tool-btn" onclick="downloadOutput()"> Descargar</button>
+                        </div>
+                        <div id="outputStatus" class="status-message" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h3 class="tips-title">
+                     Tips de Conversión
+                </h3>
+                <div class="tip-item">
+                    <strong> JSON ↔ YAML:</strong> Conversión perfecta en ambas direcciones. YAML es más legible pero JSON es más compacto.
+                </div>
+                <div class="tip-item">
+                    <strong> XML:</strong> Puede requerir simplificación al convertir desde otros formatos. Los atributos se convierten en propiedades.
+                </div>
+                <div class="tip-item">
+                    <strong> ENV:</strong> Solo admite valores planos (strings). Los objetos anidados se convierten en variables con notación de punto.
+                </div>
+                <div class="tip-item">
+                    <strong> Pro tip:</strong> Siempre valida el resultado después de la conversión para asegurar que mantiene la funcionalidad esperada.
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goBack()">
+                ← Volver al Módulo
+            </button>
+            
+            <div class="completion-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">En progreso</span>
+            </div>
+
+            <button class="nav-btn secondary" onclick="markCompleted()">
+                 Marcar Completado
+            </button>
+        </div>
+
+        <div class="footer">
+            <div class="divelearn-brand"> DiveLearn - Bootcamp Técnico</div>
+        </div>
+    </div>
+
+    <script>
+        let isCompleted = false;
+        let currentData = null;
+
+        const examples = {
+            basic: {
+                format: 'json',
+                content: `{
+  "nombre": "Mi Aplicación",
+  "version": "1.0.0",
+  "puerto": 3000,
+  "debug": true,
+  "database": {
+    "host": "localhost",
+    "puerto": 5432,
+    "nombre": "mi_db"
+  }
+}`
+            },
+            database: {
+                format: 'yaml',
+                content: `# Configuración de Base de Datos
+database:
+  tipo: postgresql
+  conexion:
+    host: prod-db.ejemplo.com
+    puerto: 5432
+    ssl: true
+  credenciales:
+    usuario: app_user
+    timeout: 30
+  pool:
+    min: 2
+    max: 10
+    idle_timeout: 60000`
+            },
+            server: {
+                format: 'xml',
+                content: `<?xml version="1.0" encoding="UTF-8"?>
+<configuracion>
+  <servidor nombre="web-server" version="2.1.0">
+    <red puerto="8080" host="0.0.0.0"/>
+    <ssl habilitado="true" puerto="8443">
+      <certificado>/etc/ssl/server.crt</certificado>
+      <clave_privada>/etc/ssl/server.key</clave_privada>
+    </ssl>
+    <logs nivel="info" archivo="/var/log/server.log"/>
+  </servidor>
+</configuracion>`
+            },
+            complex: {
+                format: 'json',
+                content: `{
+  "microservicios": {
+    "api_usuarios": {
+      "imagen": "usuarios:1.2.3",
+      "puerto": 3001,
+      "variables_entorno": {
+        "NODE_ENV": "production",
+        "JWT_SECRET": "supersecret123"
+      },
+      "dependencias": ["redis", "postgresql"]
+    },
+    "api_productos": {
+      "imagen": "productos:2.0.1",
+      "puerto": 3002,
+      "variables_entorno": {
+        "NODE_ENV": "production",
+        "CACHE_TTL": "300"
+      },
+      "dependencias": ["elasticsearch"]
+    }
+  },
+  "infraestructura": {
+    "redis": {
+      "imagen": "redis:6.2",
+      "puerto": 6379,
+      "configuracion": {
+        "maxmemory": "256mb",
+        "maxmemory-policy": "allkeys-lru"
+      }
+    },
+    "postgresql": {
+      "imagen": "postgres:13",
+      "puerto": 5432,
+      "variables_entorno": {
+        "POSTGRES_DB": "mi_app",
+        "POSTGRES_USER": "app_user"
+      }
+    }
+  }
+}`
+            }
+        };
+
+        function loadExample(type) {
+            const example = examples[type];
+            const inputFormat = document.getElementById('inputFormat');
+            const inputArea = document.getElementById('inputArea');
+            
+            inputFormat.value = example.format;
+            inputArea.value = example.content;
+            
+            onInputFormatChange();
+            validateInput();
+        }
+
+        function onInputFormatChange() {
+            updateConversionInfo();
+            validateInput();
+        }
+
+        function onOutputFormatChange() {
+            updateConversionInfo();
+            if (currentData) {
+                convertFormat();
+            }
+        }
+
+        function updateConversionInfo() {
+            const inputFormat = document.getElementById('inputFormat').value.toUpperCase();
+            const outputFormat = document.getElementById('outputFormat').value.toUpperCase();
+            const conversionInfo = document.getElementById('conversionInfo');
+            
+            conversionInfo.textContent = `${inputFormat} → ${outputFormat}`;
+        }
+
+        function validateInput() {
+            const inputArea = document.getElementById('inputArea');
+            const inputFormat = document.getElementById('inputFormat').value;
+            const inputStatus = document.getElementById('inputStatus');
+            const convertBtn = document.getElementById('convertBtn');
+            
+            const content = inputArea.value.trim();
+            
+            if (!content) {
+                inputStatus.style.display = 'none';
+                convertBtn.disabled = true;
+                currentData = null;
+                clearOutput();
+                return;
+            }
+
+            try {
+                currentData = parseInput(content, inputFormat);
+                
+                inputStatus.style.display = 'block';
+                inputStatus.className = 'status-message status-success';
+                inputStatus.textContent = ' Formato válido - Listo para convertir';
+                convertBtn.disabled = false;
+                
+            } catch (error) {
+                inputStatus.style.display = 'block';
+                inputStatus.className = 'status-message status-error';
+                inputStatus.textContent = ` Error: ${error.message}`;
+                convertBtn.disabled = true;
+                currentData = null;
+                clearOutput();
+            }
+        }
+
+        function parseInput(content, format) {
+            switch (format) {
+                case 'json':
+                    return JSON.parse(content);
+                
+                case 'yaml':
+                    return parseYAML(content);
+                
+                case 'xml':
+                    return parseXML(content);
+                
+                case 'env':
+                    return parseENV(content);
+                
+                default:
+                    throw new Error('Formato no soportado');
+            }
+        }
+
+        function parseYAML(content) {
+            // Parser YAML básico
+            const lines = content.split('\n');
+            const result = {};
+            const stack = [result];
+            const indentStack = [0];
+            
+            for (let line of lines) {
+                line = line.replace(/\s*#.*$/, ''); // Remover comentarios
+                if (!line.trim()) continue;
+                
+                const indent = line.match(/^\s*/)[0].length;
+                const cleanLine = line.trim();
+                
+                if (!cleanLine.includes(':')) continue;
+                
+                const [key, ...valueParts] = cleanLine.split(':');
+                const value = valueParts.join(':').trim();
+                
+                // Ajustar el stack según la indentación
+                while (indentStack.length > 1 && indent <= indentStack[indentStack.length - 1]) {
+                    stack.pop();
+                    indentStack.pop();
+                }
+                
+                const current = stack[stack.length - 1];
+                
+                if (value) {
+                    // Valor directo
+                    current[key.trim()] = isNaN(value) ? 
+                        (value === 'true' ? true : value === 'false' ? false : value) : 
+                        Number(value);
+                } else {
+                    // Objeto anidado
+                    current[key.trim()] = {};
+                    stack.push(current[key.trim()]);
+                    indentStack.push(indent);
+                }
+            }
+            
+            return result;
+        }
+
+        function parseXML(content) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, 'text/xml');
+            
+            if (doc.querySelector('parsererror')) {
+                throw new Error('XML mal formado');
+            }
+            
+            function xmlToObj(node) {
+                const result = {};
+                
+                // Atributos
+                if (node.attributes) {
+                    for (let attr of node.attributes) {
+                        result[`@${attr.name}`] = attr.value;
+                    }
+                }
+                
+                // Nodos hijos
+                const children = Array.from(node.children);
+                if (children.length === 0) {
+                    const text = node.textContent.trim();
+                    if (text) {
+                        result['#text'] = isNaN(text) ? text : Number(text);
+                    }
+                } else {
+                    for (let child of children) {
+                        const childName = child.tagName;
+                        const childObj = xmlToObj(child);
+                        
+                        if (result[childName]) {
+                            if (!Array.isArray(result[childName])) {
+                                result[childName] = [result[childName]];
+                            }
+                            result[childName].push(childObj);
+                        } else {
+                            result[childName] = childObj;
+                        }
+                    }
+                }
+                
+                return result;
+            }
+            
+            return xmlToObj(doc.documentElement);
+        }
+
+        function parseENV(content) {
+            const result = {};
+            const lines = content.split('\n');
+            
+            for (let line of lines) {
+                line = line.trim();
+                if (!line || line.startsWith('#')) continue;
+                
+                const equalIndex = line.indexOf('=');
+                if (equalIndex === -1) continue;
+                
+                const key = line.substring(0, equalIndex).trim();
+                const value = line.substring(equalIndex + 1).trim();
+                
+                // Convertir notación de punto a objeto anidado
+                const keys = key.split('_').map(k => k.toLowerCase());
+                let current = result;
+                
+                for (let i = 0; i < keys.length - 1; i++) {
+                    if (!current[keys[i]]) {
+                        current[keys[i]] = {};
+                    }
+                    current = current[keys[i]];
+                }
+                
+                const finalValue = isNaN(value) ? 
+                    (value === 'true' ? true : value === 'false' ? false : value) : 
+                    Number(value);
+                    
+                current[keys[keys.length - 1]] = finalValue;
+            }
+            
+            return result;
+        }
+
+        function convertFormat() {
+            if (!currentData) return;
+            
+            const outputFormat = document.getElementById('outputFormat').value;
+            const outputArea = document.getElementById('outputArea');
+            const outputStatus = document.getElementById('outputStatus');
+            
+            try {
+                const converted = generateOutput(currentData, outputFormat);
+                outputArea.value = converted;
+                
+                outputStatus.style.display = 'block';
+                outputStatus.className = 'status-message status-success';
+                outputStatus.textContent = ' Conversión completada exitosamente';
+                
+            } catch (error) {
+                outputStatus.style.display = 'block';
+                outputStatus.className = 'status-message status-error';
+                outputStatus.textContent = ` Error en conversión: ${error.message}`;
+                outputArea.value = '';
+            }
+        }
+
+        function generateOutput(data, format) {
+            switch (format) {
+                case 'json':
+                    return JSON.stringify(data, null, 2);
+                
+                case 'yaml':
+                    return generateYAML(data);
+                
+                case 'xml':
+                    return generateXML(data);
+                
+                case 'env':
+                    return generateENV(data);
+                
+                default:
+                    throw new Error('Formato de salida no soportado');
+            }
+        }
+
+        function generateYAML(obj, indent = 0) {
+            let result = '';
+            const spaces = '  '.repeat(indent);
+            
+            for (const [key, value] of Object.entries(obj)) {
+                if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                    result += `${spaces}${key}:\n`;
+                    result += generateYAML(value, indent + 1);
+                } else if (Array.isArray(value)) {
+                    result += `${spaces}${key}:\n`;
+                    for (const item of value) {
+                        if (typeof item === 'object' && item !== null) {
+                            result += `${spaces}  -\n`;
+                            result += generateYAML(item, indent + 2);
+                        } else {
+                            result += `${spaces}  - ${item}\n`;
+                        }
+                    }
+                } else {
+                    result += `${spaces}${key}: ${value}\n`;
+                }
+            }
+            
+            return result;
+        }
+
+        function generateXML(obj, rootName = 'root') {
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            
+            function objToXML(obj, name, indent = 0) {
+                const spaces = '  '.repeat(indent);
+                let result = '';
+                
+                if (typeof obj === 'object' && obj !== null && !Array.isArray(obj)) {
+                    result += `${spaces}<${name}>\n`;
+                    
+                    for (const [key, value] of Object.entries(obj)) {
+                        if (key.startsWith('@')) {
+                            // Los atributos se manejan diferente
+                            continue;
+                        } else if (key === '#text') {
+                            result += `${spaces}  ${value}\n`;
+                        } else {
+                            result += objToXML(value, key, indent + 1);
+                        }
+                    }
+                    
+                    result += `${spaces}</${name}>\n`;
+                } else if (Array.isArray(obj)) {
+                    for (const item of obj) {
+                        result += objToXML(item, name, indent);
+                    }
+                } else {
+                    result += `${spaces}<${name}>${obj}</${name}>\n`;
+                }
+                
+                return result;
+            }
+            
+            xml += objToXML(obj, rootName);
+            return xml;
+        }
+
+        function generateENV(obj, prefix = '') {
+            let result = '';
+            
+            function flatten(obj, currentPrefix) {
+                for (const [key, value] of Object.entries(obj)) {
+                    const envKey = currentPrefix ? `${currentPrefix}_${key.toUpperCase()}` : key.toUpperCase();
+                    
+                    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                        flatten(value, envKey);
+                    } else if (Array.isArray(value)) {
+                        result += `${envKey}=${value.join(',')}\n`;
+                    } else {
+                        result += `${envKey}=${value}\n`;
+                    }
+                }
+            }
+            
+            flatten(obj, prefix);
+            return result.trim();
+        }
+
+        function formatInput() {
+            const inputArea = document.getElementById('inputArea');
+            const inputFormat = document.getElementById('inputFormat').value;
+            const content = inputArea.value.trim();
+            
+            if (!content) return;
+            
+            try {
+                const data = parseInput(content, inputFormat);
+                const formatted = generateOutput(data, inputFormat);
+                inputArea.value = formatted;
+                validateInput();
+            } catch (error) {
+                alert('Error al formatear: ' + error.message);
+            }
+        }
+
+        function clearInput() {
+            if (confirm('¿Estás seguro de que quieres limpiar el área de entrada?')) {
+                document.getElementById('inputArea').value = '';
+                validateInput();
+            }
+        }
+
+        function clearOutput() {
+            document.getElementById('outputArea').value = '';
+            document.getElementById('outputStatus').style.display = 'none';
+        }
+
+        function copyOutput() {
+            const outputArea = document.getElementById('outputArea');
+            if (!outputArea.value.trim()) {
+                alert('No hay contenido para copiar');
+                return;
+            }
+            
+            outputArea.select();
+            document.execCommand('copy');
+            
+            // Feedback visual
+            const originalText = document.querySelector('.tool-btn.copy').textContent;
+            document.querySelector('.tool-btn.copy').textContent = ' Copiado';
+            setTimeout(() => {
+                document.querySelector('.tool-btn.copy').textContent = originalText;
+            }, 2000);
+        }
+
+        function downloadOutput() {
+            const outputArea = document.getElementById('outputArea');
+            const outputFormat = document.getElementById('outputFormat').value;
+            
+            if (!outputArea.value.trim()) {
+                alert('No hay contenido para descargar');
+                return;
+            }
+            
+            const blob = new Blob([outputArea.value], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            
+            a.href = url;
+            a.download = `configuracion_convertida.${outputFormat}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function markCompleted() {
+            isCompleted = true;
+            const indicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            indicator.classList.add('completed');
+            statusText.textContent = 'Completado ';
+            
+            alert(' ¡Excelente trabajo! Has completado la actividad "Convertidor entre Formatos".\n\n Has aprendido a:\n• Convertir entre JSON, YAML, XML y ENV\n• Validar diferentes formatos de configuración\n• Manejar las limitaciones de cada formato\n\n +200 puntos ganados');
+        }
+
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver al módulo? Tu progreso se guardará automáticamente.')) {
+                window.location.href = './';
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateConversionInfo();
+            loadExample('basic');
+        });
+
+        // Autoguardado simulado
+        setInterval(() => {
+            console.log('Progreso guardado automáticamente');
+        }, 30000);
+    </script>
+
+<nav class="dl-pie" aria-label="Siguiente paso"><a class="dl-pie-btn" href="./actividad1_editor.html">← Editor de Configuraciones</a><a class="dl-pie-btn sig" href="./actividad3_generador.html">Generador de Plantillas →</a></nav>
+<script src="/js/bootcamp-progreso.js" data-modulo="9" data-pagina="actividad2_convertidor" data-total="5" defer></script>
+</body>
+</html>

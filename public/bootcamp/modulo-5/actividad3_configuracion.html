@@ -305,7 +305,7 @@
 <body>
 <header class="dl-sitio">
   <a class="dl-sitio-logo" href="/" aria-label="DiveLearn, inicio"><picture><source media="(max-width: 480px)" srcset="/img/logo-icono-lima.png"><img src="/img/logo-divelearn.png" alt="DiveLearn" width="140" height="31"></picture></a>
-  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
+  <nav aria-label="Principal"><a href="/bootcamp/" aria-current="page">Bootcamp</a><a href="/simuladores/">Simuladores</a><a href="/blog/">Blog</a><a href="/recursos/">Recursos</a><a href="/cursos/">Cursos</a></nav>
 </header>
 <header class="dl-jh">
   <div class="dl-jh-panel">
@@ -359,16 +359,16 @@
                 <h2 class="section-title"><img class="dl-obj" src="/img/sprites/obj-laptop.png" alt="" width="32" height="32"> Editor de Configuración</h2>
                 
                 <div class="file-tabs">
-                    <button class="file-tab active" onclick="switchFile('bashrc')">
+                    <button class="file-tab active" onclick="switchFile('bashrc', event)">
                          ~/.bashrc
                     </button>
-                    <button class="file-tab" onclick="switchFile('hosts')">
+                    <button class="file-tab" onclick="switchFile('hosts', event)">
                          /etc/hosts
                     </button>
-                    <button class="file-tab" onclick="switchFile('env')">
+                    <button class="file-tab" onclick="switchFile('env', event)">
                          .env
                     </button>
-                    <button class="file-tab" onclick="switchFile('nginx')">
+                    <button class="file-tab" onclick="switchFile('nginx', event)">
                          nginx.conf
                     </button>
                 </div>
@@ -674,7 +674,7 @@ http {
             }
         };
 
-        function switchFile(fileName) {
+        function switchFile(fileName, ev) {
             // Remover active de todos los tabs
             document.querySelectorAll('.file-tab').forEach(tab => {
                 tab.classList.remove('active');
@@ -684,7 +684,7 @@ http {
             });
             
             // Activar tab y contenido seleccionado
-            event.target.classList.add('active');
+            ev.currentTarget.classList.add('active');
             document.getElementById(fileName + '-content').classList.add('active');
             
             // Actualizar título del archivo

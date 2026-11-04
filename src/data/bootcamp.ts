@@ -60,10 +60,11 @@ export const etapas: Etapa[] = [
     insignia: "insignia-inmersion",
     color: "#04a8bb",
     nombre: "Inmersión de práctica",
-    lema: "Los datos que no se pueden perder",
+    lema: "Los datos que no se pueden perder y cómo se configura todo",
     modulos: [
       { n: 7, color: "#04a8bb", sprite: "mod-datos", titulo: "Dónde guardar las cosas", tema: "Almacenamiento y bases de datos", comando: "SELECT * FROM buzos WHERE licencia = true;" },
       { n: 8, color: "#6fd08c", sprite: "mod-backup", titulo: "Proteger lo importante", tema: "Backup, RTO/RPO y recuperación de desastres", comando: "aws s3 sync ./datos s3://mi-backup" },
+      { n: 9, color: "#e0f24a", sprite: "obj-checklist", titulo: "El lenguaje de la configuración", tema: "JSON, YAML, APIs y variables de entorno", comando: "cat config.yaml | yq .entorno" },
     ],
   },
 ];

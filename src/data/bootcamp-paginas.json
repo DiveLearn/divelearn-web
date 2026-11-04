@@ -63,5 +63,12 @@
     "actividad1_planificador_backup",
     "actividad2_calculadora_rto_rpo",
     "quiz_modulo8"
+  ],
+  "9": [
+    "actividad1_editor",
+    "actividad2_convertidor",
+    "actividad3_generador",
+    "actividad4_validador",
+    "quiz_modulo9"
   ]
 }
