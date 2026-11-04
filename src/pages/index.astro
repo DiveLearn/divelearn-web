@@ -386,40 +386,38 @@ const rutas = [
     color: var(--muted);
     margin: 0 0 24px;
   }
-  /* Problema: coral (el villano) */
+  /* Problema: lavanda */
   .problema {
     margin-top: 0;
     padding: 56px 0;
-    background: #fff1f3;
-    border-block: 1.5px solid #ffd0d7;
+    background: var(--lav);
   }
   .problema h2 {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     color: var(--ink);
   }
   .problema h2 em {
-    color: #a3283f;
+    color: var(--deep);
   }
   .problema .tarjeta {
     background: var(--white);
-    border-color: #ffd0d7;
-    border-top: 4px solid #ff7a8a;
+    border-color: var(--line);
+    border-top: 4px solid var(--purple);
   }
   .filo {
     margin: 24px 0 0;
     font-weight: 700;
-    color: #a3283f;
+    color: var(--ink);
   }
-  /* Plan: turquesa (el camino) */
+  /* Plan: lima (la acción) */
   .plan {
     margin-top: 64px;
     padding: 56px 0;
-    background: #e3f7f5;
-    border-block: 1.5px solid #b9e9e4;
+    background: var(--lime);
   }
   .plan h2 {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
-    color: #006b77;
+    color: var(--ink);
   }
   .pasos {
     list-style: none;
@@ -431,7 +429,7 @@ const rutas = [
   }
   .pasos li {
     background: var(--white);
-    border: 1.5px solid #b9e9e4;
+    border: 1.5px solid var(--ink);
     border-radius: var(--radius);
     padding: 24px;
   }
@@ -441,8 +439,8 @@ const rutas = [
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: #04a8bb;
-    color: var(--ink);
+    background: var(--purple);
+    color: var(--white);
     font-family: var(--title);
     font-size: 1.4rem;
   }
@@ -461,7 +459,7 @@ const rutas = [
   }
   .testi {
     margin: 0;
-    border-left: 4px solid #04a8bb;
+    border-left: 4px solid var(--purple);
   }
   .testi blockquote {
     margin: 0 0 12px;
