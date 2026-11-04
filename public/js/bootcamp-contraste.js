@@ -70,13 +70,19 @@
       h = max === r ? (g - b) / d + (g < b ? 6 : 0) : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
       h /= 6;
     }
-    var oscurecer = lum(bg) > 0.4;
-    for (var paso = 0; paso < 40; paso++) {
-      l = Math.max(0, Math.min(1, l + (oscurecer ? -0.025 : 0.025)));
-      var c = hsl(h, s, l);
-      if (razon(c, bg) >= meta) return c;
+    // Primero hacia donde manda el fondo; si no alcanza (fondos de tono medio), hacia el otro lado.
+    var primero = lum(bg) > 0.4 ? -1 : 1;
+    var dirs = [primero, -primero];
+    for (var k = 0; k < 2; k++) {
+      var luz = l;
+      for (var paso = 0; paso < 40; paso++) {
+        luz = Math.max(0, Math.min(1, luz + dirs[k] * 0.025));
+        var c = hsl(h, s, luz);
+        if (razon(c, bg) >= meta) return c;
+      }
     }
-    return oscurecer ? { r: 31, g: 29, b: 92 } : { r: 246, g: 247, b: 255 };
+    var navy = { r: 31, g: 29, b: 92 }, claro = { r: 246, g: 247, b: 255 };
+    return razon(navy, bg) >= razon(claro, bg) ? navy : claro;
   }
   function hsl(h, s, l) {
     function k(p, q, t) {
