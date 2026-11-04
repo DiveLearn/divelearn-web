@@ -503,9 +503,21 @@ html body .tabs-bar {
     width: auto;
     height: 34px;
   }
+  .dl-sitio {
+    gap: 8px;
+  }
+  .dl-sitio nav {
+    gap: 0;
+  }
   .dl-sitio nav a {
-    padding: 10px 7px;
-    font-size: 0.9rem;
+    padding: 10px 4px;
+    font-size: 0.78rem;
+  }
+}
+@media (max-width: 360px) {
+  .dl-sitio nav a {
+    padding: 10px 2px;
+    font-size: 0.72rem;
   }
 }
 html body .tabs-bar {
