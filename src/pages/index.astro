@@ -1,8 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
-
 const KIT = "/lista/";
-
+const problemas = [
+  { t: "Jerga en inglés que nadie explica", d: "VPC, IAM, CIDR, IOPS. Cada video asume que ya sabes lo que significa." },
+  { t: "Horas instalando antes de practicar", d: "Linux, bases de datos, máquinas virtuales. Te cansas antes de aprender lo primero." },
+  { t: "Memorizar para el examen", d: "Pasas preguntas de memoria y en la entrevista no sabes explicar cómo funciona." },
+];
 const historia = [
   {
     n: "8",
@@ -20,7 +23,16 @@ const historia = [
     d: "Me mudé de Colombia a un pueblito de Córdoba. Si alguien me hubiera dicho que el cloud me iba a traer hasta aquí, no le creo.",
   },
 ];
-
+const pasos = [
+  { t: "Entra gratis al bootcamp", d: "Redes, seguridad, Linux, datos. Todo en el navegador, sin instalar nada." },
+  { t: "Practica jugando", d: "Simuladores de terminal y SQL, juegos y quizzes. Ganas XP y tu avance se guarda solo." },
+  { t: "Elige tu certificación", d: "Bajas de la superficie al abismo a tu ritmo: de Cloud Practitioner a Specialty." },
+];
+const testimonios = [
+  { q: "Excelente bootcamp, total gratitud.", n: "Clara H.", c: "Bootcamp en vivo, 2025" },
+  { q: "Geniales los simuladores, buen trabajo y súper didáctico.", n: "Clara H.", c: "Bootcamp en vivo, 2025" },
+  { q: "Eso que mencionas del traslado facilita el concepto de alta disponibilidad.", n: "Sebastián M.", c: "Bootcamp en vivo, 2025" },
+];
 const rutas = [
   {
     tag: "Gratis",
@@ -52,26 +64,48 @@ const rutas = [
     <span class="burbuja b1"></span><span class="burbuja b2"></span><span class="burbuja b3"></span>
     <div class="wrap hero-grid">
       <div class="hero-txt">
-        <p class="hola">Hola, soy Mar</p>
-        <h1>Educamos para lo real, <em>no para lo perfecto.</em></h1>
+        <p class="hola">Cloud en español, para quien empieza</p>
+        <h1>Entra a cloud <em>practicando desde el primer día.</em></h1>
         <p class="sub">
-          Soy arquitecta de AWS y fundadora de DiveLearn. Aquí aprendes cloud como se aprende a bucear:
-          <b>haciéndolo.</b>
+          Bootcamp gratis, simuladores y rutas de certificación AWS. <b>Sin instalar nada y sin jerga sin explicar.</b>
         </p>
         <div class="acciones">
-          <a class="btn lime" href="/inmersion-ans-c01/">Empieza gratis</a>
+          <a class="btn lime" href="/bootcamp/">Empieza el bootcamp gratis</a>
           <a class="btn ghost" href={KIT}>Únete a la lista</a>
         </div>
+        <p class="acuerdo">Gratis · sin tarjeta · tu avance se guarda solo</p>
       </div>
       <figure class="foto">
         <img src="/img/mar.jpg" alt="Mar Ortiz sonriendo, con su portátil decorado con una ola" width="562" height="620" />
-        <figcaption>Speaker · AWS Community Day Spain 2026</figcaption>
+        <figcaption>Mar Ortiz, tu guía · Speaker AWS Community Day Spain 2026</figcaption>
       </figure>
     </div>
   </section>
 
+  <section class="problema">
+    <div class="wrap">
+      <h2>Si cloud te parece un mar de siglas, <em>no eres tú.</em></h2>
+      <div class="tarjetas">
+        {
+          problemas.map((p) => (
+            <article class="tarjeta">
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="filo">Aprender tech no debería exigir que ya sepas tech. Educamos para lo real, no para lo perfecto.</p>
+    </div>
+  </section>
+
   <section class="wrap bloque">
-    <h2>Mi historia, corta</h2>
+    <p class="kicker">Tu guía</p>
+    <h2>Hola, soy Mar. Yo también me perdí.</h2>
+    <p class="intro">
+      Me frustré instalando Linux en Windows, me ahogué en siglas y reprobé. Por eso armé DiveLearn como me hubiera
+      gustado aprender: jugando y practicando.
+    </p>
     <div class="tarjetas">
       {
         historia.map((h) => (
@@ -80,6 +114,40 @@ const rutas = [
             <h3>{h.t}</h3>
             <p>{h.d}</p>
           </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="plan">
+    <div class="wrap">
+      <h2>Tu ruta en 3 pasos</h2>
+      <ol class="pasos">
+        {
+          pasos.map((p, i) => (
+            <li>
+              <span class="n">{i + 1}</span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <a class="btn navy" href="/bootcamp/">Empieza el paso 1</a>
+    </div>
+  </section>
+
+  <section class="wrap bloque">
+    <h2>Lo que dicen quienes ya bucearon</h2>
+    <div class="tarjetas">
+      {
+        testimonios.map((t) => (
+          <figure class="tarjeta testi">
+            <blockquote>“{t.q}”</blockquote>
+            <figcaption>
+              <b>{t.n}</b> · {t.c}
+            </figcaption>
+          </figure>
         ))
       }
     </div>
@@ -103,8 +171,8 @@ const rutas = [
 
   <section class="wrap">
     <div class="lista">
-      <h2>Lo que vale la pena, <em>directo a tu correo.</em></h2>
-      <p>Recursos nuevos, lo que estoy aprendiendo y avisos de cursos. Sin spam: te sales con un clic.</p>
+      <h2>Que en unos meses puedas <em>explicar lo que construiste.</em></h2>
+      <p>En vez de seguir viendo tutoriales sin practicar. Recibe recursos nuevos y avisos de cursos. Sin spam: te sales con un clic.</p>
       <a class="btn lime" href={KIT}>Quiero recibirlo</a>
     </div>
   </section>
@@ -300,12 +368,117 @@ const rutas = [
     max-width: 46ch;
     margin: 0 auto 20px;
   }
+  .acuerdo {
+    margin: 14px 0 0;
+    font-size: 0.9rem;
+    color: var(--lav);
+  }
+  .kicker {
+    margin: 0 0 4px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--deep);
+  }
+  .intro {
+    max-width: 60ch;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+  /* Problema: coral (el villano) */
+  .problema {
+    margin-top: 0;
+    padding: 56px 0;
+    background: #fff1f3;
+    border-block: 1.5px solid #ffd0d7;
+  }
+  .problema h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--ink);
+  }
+  .problema h2 em {
+    color: #a3283f;
+  }
+  .problema .tarjeta {
+    background: var(--white);
+    border-color: #ffd0d7;
+    border-top: 4px solid #ff7a8a;
+  }
+  .filo {
+    margin: 24px 0 0;
+    font-weight: 700;
+    color: #a3283f;
+  }
+  /* Plan: turquesa (el camino) */
+  .plan {
+    margin-top: 64px;
+    padding: 56px 0;
+    background: #e3f7f5;
+    border-block: 1.5px solid #b9e9e4;
+  }
+  .plan h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: #006b77;
+  }
+  .pasos {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .pasos li {
+    background: var(--white);
+    border: 1.5px solid #b9e9e4;
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .pasos .n {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #04a8bb;
+    color: var(--ink);
+    font-family: var(--title);
+    font-size: 1.4rem;
+  }
+  .pasos h3 {
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin: 12px 0 6px;
+  }
+  .pasos p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .btn.navy {
+    background: var(--ink);
+    color: var(--white);
+  }
+  .testi {
+    margin: 0;
+    border-left: 4px solid #04a8bb;
+  }
+  .testi blockquote {
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+  .testi figcaption {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
   @media (max-width: 768px) {
     .hero {
       padding: 32px 0 48px;
     }
     .hero-grid,
-    .tarjetas {
+    .tarjetas,
+    .pasos {
       grid-template-columns: 1fr;
     }
     .foto {
