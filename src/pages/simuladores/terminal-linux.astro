@@ -25,7 +25,8 @@ import "../../styles/simulador.css";
         <div class="panel progreso">
           <div class="fila"><b>Guía de laboratorio</b><span><b id="sim-xp">0</b> XP</span></div>
           <div class="barra"><span id="sim-barra"></span></div>
-          <small id="sim-cuenta">0/12</small>
+          <small id="sim-cuenta">0/13</small>
+          <div class="compas" id="sim-compas" aria-label="Compañeros que se unen a tu inmersión"></div>
         </div>
 
         <div class="panel mision" id="sim-mision">
@@ -40,6 +41,7 @@ import "../../styles/simulador.css";
         <div class="panel fin" id="sim-fin" hidden>
           <Sprite nombre="buzo-celebra" escala={2} />
           <h2>¡Laboratorio completo!</h2>
+          <p class="fin-xp">Terminaste con <b id="sim-fin-xp">0 XP</b> y tus tres compañeros.</p>
           <p>Ya sabes moverte, leer logs, filtrar con grep, encadenar con tuberías, respaldar, dar permisos y limpiar. Eso es el día a día en un servidor de verdad, también en EC2.</p>
           <a class="btn lime" href="/simuladores/">Ver más simuladores</a>
         </div>
@@ -88,5 +90,6 @@ import "../../styles/simulador.css";
       </div>
     </section>
   </div>
+  <script is:inline src="/js/sim-guia.js" defer></script>
   <script is:inline src="/js/sim-terminal.js" defer></script>
 </Base>

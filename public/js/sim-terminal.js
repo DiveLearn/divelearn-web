@@ -4,7 +4,6 @@
 (() => {
   const CLAVE = "divelearn-sims";
   const HOME = "/home/buzo";
-  const XP_MISION = 20;
 
   // ── Sistema de archivos inicial ──
   const dir = (hijos = {}) => ({ t: "d", m: "rwxr-xr-x", h: hijos });
@@ -45,18 +44,19 @@
     });
 
   // ── Estado ──
-  let raiz, cwd, hechas, historial;
+  let raiz, cwd, historial;
+  let guardado = {};
   const cargar = () => {
     try {
       const s = JSON.parse(localStorage.getItem(CLAVE) || "{}").terminal;
-      if (s && s.fs) return ([raiz, cwd, hechas, historial] = [s.fs, s.cwd, s.hechas, s.hist || []]);
+      if (s && s.fs) return ([raiz, cwd, historial, guardado] = [s.fs, s.cwd, s.hist || [], s]);
     } catch {}
-    [raiz, cwd, hechas, historial] = [inicial(), HOME, 0, []];
+    [raiz, cwd, historial, guardado] = [inicial(), HOME, [], {}];
   };
   const guardar = () => {
     try {
       const todo = JSON.parse(localStorage.getItem(CLAVE) || "{}");
-      todo.terminal = { fs: raiz, cwd, hechas, hist: historial.slice(-50) };
+      todo.terminal = { fs: raiz, cwd, ...guia.estado(), hist: historial.slice(-50) };
       localStorage.setItem(CLAVE, JSON.stringify(todo));
     } catch {}
   };
@@ -393,7 +393,9 @@
     {
       t: "¿Dónde estoy?",
       h: "Te acaban de dar acceso a un servidor. Lo primero, como al saltar al agua: ubicarte.",
-      o: "Muestra la carpeta en la que estás con <code>pwd</code>.",
+      o: "Muestra la carpeta en la que estás con",
+      r: "<code>pwd</code>",
+      guiada: true,
       p: "Escribe pwd y presiona Enter.",
       y: "En la nube casi siempre entras por SSH o por Session Manager a una máquina que no ves. pwd te dice dónde estás parada antes de tocar nada.",
       ok: (p) => usa(p, "pwd"),
@@ -401,7 +403,9 @@
     {
       t: "Mira alrededor",
       h: "Ya sabes dónde estás. Ahora, ¿qué hay aquí?",
-      o: "Lista los archivos con <code>ls</code>.",
+      o: "Lista los archivos de esta carpeta con",
+      r: "<code>ls</code>",
+      guiada: true,
       p: "ls a secas. Las carpetas salen con / al final.",
       y: "ls es el comando que más vas a escribir en tu vida. Las carpetas terminan en / y los ejecutables en *.",
       ok: (p) => usa(p, "ls"),
@@ -409,7 +413,8 @@
     {
       t: "Lo que no se ve",
       h: "Dicen que hay un archivo escondido en tu casa con una contraseña.",
-      o: "Muestra también los archivos ocultos con <code>ls -a</code> y lee el secreto con <code>cat</code>.",
+      o: "Encuentra el archivo oculto y lee la contraseña que guarda.",
+      r: "<code>ls -a</code> y después <code>cat .secreto</code>",
       p: "ls -a y luego cat .secreto (con el punto).",
       y: "En Linux, un archivo que empieza con punto está oculto. Así se guardan configuraciones como .bashrc o .aws/credentials: no se ven, pero ahí están.",
       ok: (p) => usa(p, "cat", (x) => x.args.some((a) => normalizar(a) === HOME + "/.secreto")),
@@ -417,7 +422,8 @@
     {
       t: "Baja a los logs",
       h: "La app del servidor se queja. Los registros (logs) están en la carpeta logs.",
-      o: "Entra a la carpeta con <code>cd logs</code>.",
+      o: "Entra a la carpeta <b>logs</b>.",
+      r: "<code>cd logs</code>",
       p: "cd logs. Si te pierdes, cd ~ te devuelve a casa.",
       y: "cd cambia de carpeta. cd .. sube un nivel y cd ~ vuelve a tu casa desde donde estés.",
       ok: () => cwd === HOME + "/logs",
@@ -425,7 +431,8 @@
     {
       t: "Lee el registro",
       h: "Dentro hay un app.log. Toca leerlo.",
-      o: "Muestra el contenido con <code>cat app.log</code>.",
+      o: "Muestra todo lo que hay dentro de <b>app.log</b>.",
+      r: "<code>cat app.log</code>",
       p: "cat app.log",
       y: "Leer logs es la mitad del trabajo de soporte. En AWS los vas a ver en CloudWatch Logs, pero la idea es la misma: líneas con fecha, nivel y mensaje.",
       ok: (p) => usa(p, "cat", (x) => x.args.some((a) => normalizar(a) === HOME + "/logs/app.log")),
@@ -433,7 +440,8 @@
     {
       t: "Busca los errores",
       h: "Leer todo a ojo no escala. Filtra solo lo que importa.",
-      o: "Muestra solo las líneas con ERROR: <code>grep ERROR app.log</code>.",
+      o: "Muestra solo las líneas de app.log que dicen <b>ERROR</b>.",
+      r: "<code>grep ERROR app.log</code>",
       p: "grep distingue mayúsculas: escribe ERROR en mayúsculas (o usa grep -i).",
       y: "grep encuentra la aguja en el pajar. En un log de millones de líneas es lo primero que se usa.",
       ok: (p) => usa(p, "grep", (x) => /error/i.test(x.args.join(" ")) && x.salida.length > 0),
@@ -441,7 +449,8 @@
     {
       t: "Cuenta los errores",
       h: "Tu jefa pregunta: ¿cuántos errores hubo hoy?",
-      o: "Une dos comandos con una tubería: <code>grep ERROR app.log | wc -l</code>.",
+      o: "Responde con un número: cuántas líneas con ERROR hay. Encadena dos comandos.",
+      r: "<code>grep ERROR app.log | wc -l</code>",
       p: "La barra | pasa la salida del primer comando como entrada del segundo.",
       y: "La tubería | es la idea más poderosa de Linux: comandos pequeños que se encadenan. Así se arman alertas y reportes sin programar.",
       ok: (p) => usa(p, "grep") && usa(p, "wc"),
@@ -449,7 +458,8 @@
     {
       t: "Prepara el respaldo",
       h: "Antes de tocar nada, se hace un backup. Siempre.",
-      o: "Crea la carpeta <code>~/backup</code> con <code>mkdir</code>.",
+      o: "Crea una carpeta llamada <b>backup</b> en tu casa (~).",
+      r: "<code>mkdir ~/backup</code>",
       p: "mkdir ~/backup (funciona desde cualquier carpeta gracias a ~).",
       y: "Regla de oro de producción: respaldo primero, cambio después. Lo mismo con un snapshot de EBS antes de actualizar una instancia.",
       ok: () => existe(HOME + "/backup", "d"),
@@ -457,7 +467,8 @@
     {
       t: "Copia el log",
       h: "Guarda una copia del log en el respaldo.",
-      o: "Copia <code>app.log</code> a <code>~/backup</code> con <code>cp</code>.",
+      o: "Deja una copia de <b>app.log</b> dentro de ~/backup.",
+      r: "<code>cp ~/logs/app.log ~/backup/</code>",
       p: "cp ~/logs/app.log ~/backup/",
       y: "cp copia y mv mueve. Si el destino es una carpeta, el archivo entra con su mismo nombre.",
       ok: () => existe(HOME + "/backup/app.log", "f"),
@@ -465,7 +476,8 @@
     {
       t: "Deja una nota",
       h: "Quien venga después debe saber qué pasó.",
-      o: 'Escribe una nota en un archivo: <code>echo "revisar disco y certificado" > ~/backup/nota.txt</code>.',
+      o: "Crea <b>~/backup/nota.txt</b> con un texto que explique qué hay que revisar, sin abrir ningún editor.",
+      r: '<code>echo "revisar disco y certificado" > ~/backup/nota.txt</code>',
       p: "El > manda la salida de echo a un archivo. Si el archivo existía, lo reemplaza; >> agrega al final.",
       y: "Con > y >> guardas la salida de cualquier comando. Así nacen los reportes automáticos y los scripts de user data.",
       ok: () => {
@@ -476,7 +488,8 @@
     {
       t: "Permiso para desplegar",
       h: "El script scripts/deploy.sh no arranca: no tiene permiso de ejecución.",
-      o: "Revisa los permisos con <code>ls -l</code> y dáselo con <code>chmod +x</code>.",
+      o: "Haz que <b>~/scripts/deploy.sh</b> se pueda ejecutar y comprueba que tiene la x.",
+      r: "<code>chmod +x ~/scripts/deploy.sh</code> y después <code>ls -l ~/scripts</code>",
       p: "chmod +x ~/scripts/deploy.sh y luego ls -l ~/scripts para ver la x.",
       y: "rwx = leer, escribir, ejecutar, para dueño, grupo y otros. Un script de user data o de CodeDeploy sin +x falla en silencio: pasa muchísimo.",
       ok: () => {
@@ -487,12 +500,36 @@
     {
       t: "Limpieza final",
       h: "La carpeta tmp está llena de basura que ocupa disco.",
-      o: "Borra la carpeta <code>~/tmp</code> completa con <code>rm -r</code>.",
+      o: "Borra la carpeta <b>~/tmp</b> con todo lo que tiene dentro.",
+      r: "<code>rm -r ~/tmp</code>",
       p: "rm -r ~/tmp. Ojo: en Linux no hay papelera.",
       y: "rm no pregunta y no tiene papelera. Por eso hiciste el backup primero. En la nube, lo equivalente es borrar un bucket o un volumen: siempre con evidencia antes.",
       ok: () => !existe(HOME + "/tmp"),
     },
+    {
+      t: "Incidente de las 3 a. m.",
+      jefe: true,
+      h: "Suena la alerta de madrugada. El equipo necesita, ya, un archivo con todos los errores del log para revisarlos en la mañana. Esta vez nadie te dicta el comando.",
+      o: "Crea <b>~/backup/incidente.txt</b> con <b>solo las líneas ERROR</b> de ~/logs/app.log.",
+      p: "Junta dos cosas que ya usaste: grep para filtrar y > para guardar lo que sale en un archivo. Las rutas con ~ funcionan desde cualquier carpeta.",
+      r: "<code>grep ERROR ~/logs/app.log > ~/backup/incidente.txt</code>",
+      y: "Filtrar y guardar evidencia en segundos es lo que separa un incidente ordenado de uno caótico. Es lo mismo que exportar un filtro de CloudWatch Logs Insights para el informe del incidente.",
+      ok: () => {
+        const n = nodo(HOME + "/backup/incidente.txt");
+        const errores = LOG.split("\n").filter((l) => l.includes("ERROR"));
+        const lineas = n && n.t === "f" ? n.c.split("\n").filter((l) => l.trim()) : [];
+        return lineas.length === errores.length && errores.every((e) => lineas.includes(e));
+      },
+    },
   ];
+
+  const guia = SimGuia(MISIONES, {
+    compas: [
+      { en: 4, sprite: "caracolin", nombre: "Caracolín", dato: "Lleva su casa a cuestas, como tu ~ que te sigue a todas partes." },
+      { en: 8, sprite: "pez-limpiador-correcta", nombre: "Pez limpiador", dato: "Se pasa el día buscando lo que sobra: el compañero ideal para leer logs." },
+      { en: 13, sprite: "jefe-kraken-servidores", nombre: "Kraken de los servidores", dato: "Maneja mil tentáculos a la vez. Tú ya manejas la terminal." },
+    ],
+  });
 
   // ── Interfaz ──
   const $ = (s) => document.querySelector(s);
@@ -511,46 +548,6 @@
   const pintarPrompt = () => (prompt.textContent = ps1());
   const bajar = () => (pantalla.parentElement.scrollTop = pantalla.parentElement.scrollHeight);
 
-  const pintarGuia = () => {
-    const total = MISIONES.length;
-    $("#sim-barra").style.width = `${(hechas / total) * 100}%`;
-    $("#sim-cuenta").textContent = `${hechas}/${total}`;
-    $("#sim-xp").textContent = hechas * XP_MISION;
-    const lista = $("#sim-lista");
-    lista.innerHTML = "";
-    MISIONES.forEach((m, i) => {
-      const li = document.createElement("li");
-      li.className = i < hechas ? "hecha" : i === hechas ? "actual" : "";
-      li.textContent = m.t;
-      lista.appendChild(li);
-    });
-    const card = $("#sim-mision");
-    if (hechas >= total) {
-      card.hidden = true;
-      $("#sim-fin").hidden = false;
-      return;
-    }
-    card.hidden = false;
-    $("#sim-fin").hidden = true;
-    const m = MISIONES[hechas];
-    $("#m-num").textContent = `Misión ${hechas + 1}`;
-    $("#m-titulo").textContent = m.t;
-    $("#m-historia").textContent = m.h;
-    $("#m-objetivo").innerHTML = m.o;
-    $("#m-pista").textContent = m.p;
-    $("#m-pista").hidden = true;
-  };
-
-  const celebrar = (m) => {
-    const t = $("#sim-logro");
-    $("#logro-titulo").textContent = `+${XP_MISION} XP · ${m.t}`;
-    $("#logro-porque").textContent = m.y;
-    t.hidden = false;
-    t.classList.remove("entra");
-    void t.offsetWidth;
-    t.classList.add("entra");
-  };
-
   const enviar = (txt) => {
     linea(`${ps1()} ${txt}`, "cmd");
     if (!txt.trim()) return bajar();
@@ -560,13 +557,10 @@
     if (r.limpiar) pantalla.innerHTML = "";
     else if (r.error) linea(r.error, "err");
     else if (r.salida) lineas(r.salida).forEach((l) => linea(l));
-    if (hechas < MISIONES.length && MISIONES[hechas].ok(r.pasos)) {
-      celebrar(MISIONES[hechas]);
-      hechas++;
-      if (hechas === MISIONES.length) linea("*** Laboratorio completado. Ya te mueves por Linux como pez en el agua. ***", "ok");
-    }
+    if (guia.revisar(r.pasos) && guia.terminado())
+      linea("*** Laboratorio completado. Ya te mueves por Linux como pez en el agua. ***", "ok");
     pintarPrompt();
-    pintarGuia();
+    guia.pintar();
     guardar();
     bajar();
   };
@@ -615,12 +609,10 @@
     }
   });
   $(".term").addEventListener("click", () => input.focus());
-  $("#m-ver-pista").addEventListener("click", () => ($("#m-pista").hidden = false));
-  $("#logro-cerrar").addEventListener("click", () => ($("#sim-logro").hidden = true));
   $("#sim-reiniciar").addEventListener("click", () => {
-    [raiz, cwd, hechas, historial] = [inicial(), HOME, 0, []];
+    [raiz, cwd, historial] = [inicial(), HOME, []];
+    guia.reiniciar();
     pantalla.innerHTML = "";
-    $("#sim-logro").hidden = true;
     arrancar();
     guardar();
   });
@@ -654,9 +646,10 @@
     linea("DiveLearn Linux 26.11 · servidor de práctica", "ok");
     linea("Escribe help para ver los comandos. Tab completa nombres y las flechas recorren el historial.");
     pintarPrompt();
-    pintarGuia();
+    guia.pintar();
   };
   cargar();
+  guia.cargar(guardado);
   idxHist = historial.length;
   arrancar();
 })();

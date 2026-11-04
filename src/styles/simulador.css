@@ -391,3 +391,46 @@
   color: var(--lav);
   opacity: 0.8;
 }
+
+/* Compañeros que se unen a la inmersión: silueta hasta desbloquearlos */
+.sim .compas {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.sim .compa {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  padding: 4px;
+  border: var(--borde);
+  border-radius: 8px;
+  background: var(--c-suave);
+  image-rendering: pixelated;
+}
+.sim .compa.bloqueado {
+  filter: brightness(0);
+  opacity: 0.25;
+  background: none;
+  border-style: dashed;
+}
+
+/* Respuesta visible en las misiones guiadas */
+.sim .obj .resp code {
+  white-space: nowrap;
+}
+
+/* Reto final: tarjeta y lista con el color del jefe */
+.sim .mision.jefe {
+  border-color: var(--ink);
+  background: linear-gradient(180deg, #fff6dc, var(--white) 60%);
+}
+.sim .mision.jefe .num {
+  color: #b5401d;
+}
+.sim .lista li.jefe {
+  font-weight: 700;
+}
+.sim .fin-xp {
+  font-weight: 700;
+}

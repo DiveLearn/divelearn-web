@@ -33,7 +33,8 @@ const ejemplos = [
         <div class="panel progreso">
           <div class="fila"><b>Guía de laboratorio</b><span><b id="sim-xp">0</b> XP</span></div>
           <div class="barra"><span id="sim-barra"></span></div>
-          <small id="sim-cuenta">0/12</small>
+          <small id="sim-cuenta">0/13</small>
+          <div class="compas" id="sim-compas" aria-label="Compañeros que se unen a tu inmersión"></div>
         </div>
 
         <div class="panel mision" id="sim-mision">
@@ -48,6 +49,7 @@ const ejemplos = [
         <div class="panel fin" id="sim-fin" hidden>
           <Sprite nombre="buzo-celebra" escala={2} />
           <h2>¡Laboratorio completo!</h2>
+          <p class="fin-xp">Terminaste con <b id="sim-fin-xp">0 XP</b> y tus tres compañeros.</p>
           <p>Consultas, filtros, agregaciones, JOIN, cambios seguros con WHERE e índices. Con esto ya entiendes lo que pasa dentro de RDS y Aurora.</p>
           <a class="btn lime" href="/simuladores/">Ver más simuladores</a>
         </div>
@@ -95,6 +97,7 @@ const ejemplos = [
     </section>
   </div>
   <script is:inline src="/vendor/sql/sql-wasm.js"></script>
+  <script is:inline src="/js/sim-guia.js" defer></script>
   <script is:inline src="/js/sim-sql.js" defer></script>
 </Base>
 
