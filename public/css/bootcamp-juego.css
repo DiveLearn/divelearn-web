@@ -804,5 +804,10 @@ html body .tabs-mini {
   html body :is(input, select, textarea) {
     max-width: 100%;
     min-width: 0;
+  }  /* Última red: decoraciones invisibles (pseudo-elementos, sombras) no deben dar scroll lateral.
+     clip no crea contenedor de scroll, así que el menú sticky sigue funcionando. */
+  html,
+  body {
+    overflow-x: clip;
   }
 }
