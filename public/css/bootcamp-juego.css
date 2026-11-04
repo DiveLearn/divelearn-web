@@ -774,3 +774,35 @@ html body .tabs-mini {
   flex-wrap: wrap;
   gap: 8px;
 }
+
+/* Celular: nada se sale de la pantalla. Filas de botones bajan de línea, código y tablas se acomodan. */
+@media (max-width: 600px) {
+  html body :is(pre, code) {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  html body table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  html body :is(img, svg, canvas, video, iframe) {
+    max-width: 100%;
+  }
+  html body button {
+    white-space: normal;
+  }
+  html body :has(> button + button),
+  html body
+    :is(.tab-navigation, .action-buttons, .editor-actions, .editor-header, .scenario-buttons, .panel-header,
+      .form-row, .script-templates, .variables-panel, .tabs-bar, .tab-buttons, .tabs) {
+    flex-wrap: wrap;
+  }
+  html body :is(.form-row, .generator-form) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  html body :is(input, select, textarea) {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
