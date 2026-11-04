@@ -2,7 +2,8 @@
 // Las actividades vienen de un diseño oscuro y se pasaron a fondo claro: algunos textos quedaron
 // con colores que no se leen (lima sobre blanco, gris sobre terminal). Este script revisa cada
 // texto, también el que aparece después (respuestas, resultados), y si no llega a 4.5:1
-// lo oscurece o aclara manteniendo su tono. No toca textos sobre degradados ni imágenes.
+// lo oscurece o aclara manteniendo su tono. Sobre un degradado usa el promedio de sus colores;
+// sobre una imagen no toca nada.
 (function () {
   var MARCA = "data-dl-contraste";
 
@@ -31,7 +32,25 @@
     var capas = [];
     for (var e = el; e && e.nodeType === 1; e = e.parentElement) {
       var cs = getComputedStyle(e);
-      if (cs.backgroundImage !== "none") return null;
+      var img = cs.backgroundImage;
+      if (img !== "none") {
+        // Degradado: se usa el promedio de sus colores. Imagen: no se puede saber.
+        if (img.indexOf("url(") !== -1 || img.indexOf("gradient") === -1) return null;
+        var stops = img.match(/rgba?\([^)]+\)/g) || [];
+        if (stops.length) {
+          var suma = { r: 0, g: 0, b: 0, a: 0 };
+          stops.forEach(function (t) {
+            var x = rgba(t);
+            suma.r += x.r; suma.g += x.g; suma.b += x.b; suma.a += x.a;
+          });
+          var n = stops.length;
+          var prom = { r: suma.r / n, g: suma.g / n, b: suma.b / n, a: suma.a / n };
+          if (prom.a > 0.6) {
+            capas.push({ r: prom.r, g: prom.g, b: prom.b, a: 1 });
+            break;
+          }
+        }
+      }
       var c = rgba(cs.backgroundColor);
       if (c && c.a > 0) {
         capas.push(c);
@@ -108,7 +127,7 @@
       pendiente = null;
       obs.disconnect();
       revisar(document.body);
-      obs.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
+      obs.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style", "hidden"] });
     }, 120);
   }
   var obs = new MutationObserver(programar);
