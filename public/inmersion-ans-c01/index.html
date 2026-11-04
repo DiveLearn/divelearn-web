@@ -116,7 +116,9 @@ input[type=date]{background:var(--panel-solid);color:var(--ink);border:1px solid
 .pips i{flex:1;height:5px;border-radius:3px;background:var(--line)}
 .pips i.on{background:var(--ok)}
 .found{position:absolute;top:10px;right:10px;font-family:var(--f-mono);font-size:10px;color:var(--ok);letter-spacing:.08em}
-.locked .cr svg{filter:brightness(0) saturate(0) drop-shadow(0 0 1px rgba(178,202,253,.7));opacity:.6}
+.locked .cr svg,.locked .cr img{filter:brightness(0) saturate(0) drop-shadow(0 0 1px rgba(178,202,253,.7));opacity:.6}
+.aviso-avance{margin:14px 0 0;max-width:60ch;padding:10px 12px;border:1.5px dashed var(--line);border-radius:10px;font-size:14px;line-height:1.5;color:var(--ink)}
+.aviso-avance b{color:var(--lime)}
 .locked h3::after{content:" ?";color:var(--muted)}
 
 /* ── Criaturas ── */
@@ -200,6 +202,7 @@ textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:1
       <h1>Inmersión <em>ANS-C01</em></h1>
       <p>Treinta inmersiones hasta la fosa. Cada tema del examen es una especie que descubres con estudio, un reto práctico en AWS y una batalla de preguntas. Pon tu fecha de examen y la ruta se arma sola.</p>
       <p><a class="btn ghost" href="guia/index.html">Abrir la guía de estudio</a></p>
+      <p class="aviso-avance" role="note"><b>Tu avance se guarda solo en este navegador.</b> Si cambias de computador o de navegador, usas modo incógnito o borras los datos de navegación, se pierde. Pronto podrás guardarlo en tu cuenta.</p>
     </div>
     <section class="gauge" aria-label="Profundidad alcanzada">
       <div class="eyebrow">Profundidad alcanzada</div>
@@ -400,7 +403,7 @@ const K={
 };
 /* Especies pixel propias (diseñadas con Gemini, limpiadas con scripts/recortar-sprites.py). Si falta alguna, queda el dibujo SVG. */
 const PIXEL={"caracolin": "caracolin", "subnetto": "subnetto", "linternin": "linternin", "flowlug": "medusa-flowlug", "peerlinga": "remora-peerlinga", "linkpriv": "cangrejo-linkpriv", "hubzilla": "pulpo-hubzilla", "megahub": "pulpo-megahub", "manta": "guardiana-manta", "bgpardo": "delfin-bgpardo", "tunelin": "anguila-tunelin", "clienton": "caballito-clienton", "fibron": "calamar-fibron", "lagmor": "ballena-lagmor", "cachalote": "guardian-cachalote", "cachemon": "pez-volador-cachemon", "balanceo": "sardinas-balanceo", "anycastor": "tortuga-anycastor", "resolveron": "narval-resolveron", "espada": "guardian-pez-espada", "wafflor": "erizo-wafflor", "suricaton": "pez-globo-suricaton", "podlet": "estrella-podlet", "rape": "guardiana-rape-abisal", "tiburon": "tiburon-simulacro", "limpiador": "pez-limpiador-correcta", "mapamundi": "nautilus-mapamundi", "granblanco": "jefe-megalodon", "orca": "orca-alto-mando", "manati": "manati-campeon"};
-function creature(sp){const px=PIXEL[sp.id];if(px)return `<span class="cr cr-px"><img src="/img/sprites/${px}.png" alt="${sp.name}" loading="lazy" decoding="async"></span>`;const f=K[sp.kind]||K.fish;return `<span class="cr"><svg viewBox="0 0 120 120" role="img" aria-label="${sp.name}">${f(sp.pal,sp.opt)}</svg></span>`}
+function creature(sp,oculta=false){const px=PIXEL[sp.id];if(px)return `<span class="cr cr-px"><img src="/img/sprites/${px}.png" alt="${oculta?"Especie por descubrir":sp.name}" loading="lazy" decoding="async"></span>`;const f=K[sp.kind]||K.fish;return `<span class="cr"><svg viewBox="0 0 120 120" role="img" aria-label="${sp.name}">${f(sp.pal,sp.opt)}</svg></span>`}
 
 /* ───────────── Estado ───────────── */
 const KEY="inmersion-ans-c01-v1";
@@ -478,7 +481,7 @@ function renderGrid(){
   const g=$("grid");g.innerHTML="";
   SPECIES.filter(s=>s.zone===state.zone).forEach(sp=>{const v=state.done[sp.id]||[],found=isFound(sp),dt=plan.dates[sp.id];
     const b=document.createElement("button");b.className="card"+(found?"":" locked")+(dt===today?" is-today":"");
-    b.innerHTML=`<div class="top"><span>#${pad(sp.n)}</span><span>${dt?fmt(dt):"sin fecha"}</span></div>${creature(sp)}<h3>${found?sp.name:sp.name.split(" ").slice(-1)[0]}</h3>${chip(sp.dom)}<div class="topic">${sp.topic}</div><div class="pips" aria-label="${v.filter(Boolean).length} de 4 pasos">${[0,1,2,3].map(k=>`<i class="${v[k]?"on":""}"></i>`).join("")}</div>${found?'<span class="found">DESCUBIERTA</span>':""}`;
+    b.innerHTML=`<div class="top"><span>#${pad(sp.n)}</span><span>${dt?fmt(dt):"sin fecha"}</span></div>${creature(sp,!found)}<h3>${found?sp.name:sp.name.split(" ").slice(-1)[0]}</h3>${chip(sp.dom)}<div class="topic">${sp.topic}</div><div class="pips" aria-label="${v.filter(Boolean).length} de 4 pasos">${[0,1,2,3].map(k=>`<i class="${v[k]?"on":""}"></i>`).join("")}</div>${found?'<span class="found">DESCUBIERTA</span>':""}`;
     b.onclick=()=>openSp(sp);g.append(b)});
 }
 function renderDoms(){$("doms").innerHTML=WEIGHTS.map(([k,t,w])=>`<div class="dom"><span>${t}</span><b>${w} %</b><div class="bar"><i style="width:${w/30*100}%;background:var(${DOMS[k][1]})"></i></div></div>`).join("")}
