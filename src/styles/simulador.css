@@ -415,9 +415,24 @@
   border-style: dashed;
 }
 
-/* Respuesta visible en las misiones guiadas */
+/* Respuesta visible en las misiones guiadas: bloque de código propio que baja de línea, nunca se sale de la tarjeta */
+.sim .obj > span {
+  min-width: 0;
+}
+.sim .obj .resp {
+  display: block;
+  margin-top: 8px;
+}
 .sim .obj .resp code {
-  white-space: nowrap;
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* Reto final: tarjeta y lista con el color del jefe */
