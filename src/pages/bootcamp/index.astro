@@ -37,6 +37,9 @@ const camino = [
     <section class="wrap portada">
       <h1 class="titulo-pixel">BOOTCAMP DIVELEARN</h1>
       <p class="sub-pixel">Aprende cloud. <span>Como un videojuego.</span></p>
+      <p class="promesa">
+        Los fundamentos que nadie te explica antes de AWS: redes, seguridad, Linux y datos. <b>Gratis, en el navegador y sin instalar nada.</b>
+      </p>
 
       <div class="pantalla" aria-label="Escena del juego: un buzo en el mar junto a una isla">
         <div class="hud-juego">
@@ -135,6 +138,23 @@ const camino = [
         </div>
         <a class="btn-jugar" href="/bootcamp/modulo-0/" data-jugar>▶ Jugar</a>
       </article>
+    </section>
+
+    <!-- ── Opiniones ── -->
+    <section class="wrap opiniones" aria-labelledby="t-opiniones">
+      <div class="panel">
+        <header class="barra-titulo"><h2 id="t-opiniones">Quienes ya lo jugaron</h2><span class="puntos"><i></i><i></i><i></i></span></header>
+        <div class="citas">
+          <figure>
+            <blockquote>“Me pareció muy parchado. No lo sentí tan abrumador con respecto a las temáticas.”</blockquote>
+            <figcaption>Eduardo M.</figcaption>
+          </figure>
+          <figure>
+            <blockquote>“Geniales los simuladores, buen trabajo y súper didáctico.”</blockquote>
+            <figcaption>Clara H. · Bootcamp en vivo, 2025</figcaption>
+          </figure>
+        </div>
+      </div>
     </section>
 
     <!-- ── Etapas ── -->
@@ -468,6 +488,47 @@ const camino = [
   }
   .sub-pixel span {
     color: var(--purple);
+  }
+
+  .promesa {
+    max-width: 58ch;
+    margin: -14px auto 28px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .opiniones {
+    margin-top: 48px;
+  }
+  .citas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  .citas figure {
+    margin: 0;
+    padding: 16px 18px;
+    border: 1.5px solid var(--line);
+    border-left: 4px solid var(--purple);
+    border-radius: 10px;
+    background: var(--lav-soft);
+  }
+  .citas blockquote {
+    margin: 0 0 10px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .citas figcaption {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  @media (max-width: 768px) {
+    .citas {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Pantalla del juego */
