@@ -496,7 +496,7 @@ html body .tabs-bar {
 }
 .dl-sitio nav a:hover,
 .dl-sitio nav a[aria-current="page"] {
-  background: rgba(178, 202, 253, 0.25);
+  background: rgba(31, 29, 92, 0.35);
 }
 @media (max-width: 480px) {
   .dl-sitio-logo img {
@@ -754,4 +754,11 @@ html body .example-btn {
   white-space: normal !important;
   overflow-wrap: anywhere;
   line-height: 1.35 !important;
+}
+
+/* Pestañas pequeñas (consola HTTP y similares): separadas, no pegadas */
+html body .tabs-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
