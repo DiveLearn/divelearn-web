@@ -1,0 +1,300 @@
+---
+// Videojueguito del módulo 2 (máscaras de red y CIDR): reemplaza a la actividad "Máscaras de red".
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
+---
+
+<Base
+  title="La red de pesca · juego de máscaras de red"
+  description="Mueve el corcho del /n para lanzar la red justa a cada banco de peces: aprende prefijos CIDR, máscaras y hosts usables jugando."
+>
+  <link rel="stylesheet" href="/css/juego-dl.css" />
+  <section class="wrap marco">
+    <a class="volver" href="/bootcamp/modulo-2/">← Módulo 2 · Las direcciones secretas</a>
+
+    <div class="juego" id="juego" style="--modulo:#ff7a8a">
+      <div class="j-hud">
+        <span class="j-titulo" id="j-titulo"></span>
+        <span id="j-nivel">Nivel 1/5</span>
+        <span class="j-ronda-caja">Ronda <b id="j-ronda">1/5</b><span class="j-ronda-pista"><span id="j-ronda-barra"></span></span></span>
+        <span><i class="j-perla" aria-hidden="true"></i><b id="j-perlas">0</b> perlas</span>
+      </div>
+
+      <!-- Inicio -->
+      <div class="j-pantalla j-centro" id="j-inicio">
+        <Sprite nombre="sardinas-balanceo" escala={2.2} alt="Un banco de sardinas" />
+        <h1>La red de pesca</h1>
+        <p>
+          Eres la pescadora del arrecife. Cada banco de peces necesita una red del tamaño justo: si es chica se escapan,
+          si es enorme la barca se hunde. El <b>corcho</b> de tu red marca su tamaño, como el <b>/n</b> de una red IP.
+        </p>
+        <button type="button" class="j-btn" id="j-empezar">Zarpar</button>
+        <ol class="j-niveles" id="j-niveles" aria-label="Niveles"></ol>
+      </div>
+
+      <!-- Intro de nivel -->
+      <div class="j-pantalla j-centro" id="j-intro" hidden>
+        <span class="j-etiqueta" id="j-intro-num">Nivel 1</span>
+        <h2 id="j-intro-titulo"></h2>
+        <p id="j-intro-txt"></p>
+        <button type="button" class="j-btn" id="j-intro-ir">¡Vamos!</button>
+      </div>
+
+      <!-- Tablero -->
+      <div class="j-pantalla" id="j-tablero" hidden>
+        <div class="escena">
+          <div class="pedido" aria-live="polite">
+            <Sprite nombre="sardinas-balanceo" escala={1.2} alt="" />
+            <div class="globo"><span id="pedido-txt"></span></div>
+          </div>
+          <div class="placa">
+            <span class="n" id="n">/24</span>
+            <span class="mascara" id="mascara">255.255.255.0</span>
+          </div>
+        </div>
+
+        <div class="red" id="red">
+          <div class="red-celdas" id="red-celdas" aria-hidden="true"></div>
+          <div class="leyenda">
+            <span><i class="cu pez"></i> pez atrapado</span>
+            <span><i class="cu nudo"></i> nudo reservado</span>
+            <span><i class="cu"></i> lugar libre</span>
+            <span id="escala"></span>
+          </div>
+          <p class="contador" id="contador">
+            Direcciones: <b id="total">256</b> · Para peces: <b id="usables">254</b>
+          </p>
+          <p class="escapan" id="escapan" hidden></p>
+        </div>
+
+        <div class="controles">
+          <div class="mover" id="mover">
+            <button type="button" class="j-btn sec flecha" id="mas-grande" aria-label="Corcho a la izquierda: red el doble de grande">◀ Más grande</button>
+            <label class="corcho">
+              <span>Corcho</span>
+              <input id="corcho" type="range" min="20" max="30" step="1" value="24" />
+            </label>
+            <button type="button" class="j-btn sec flecha" id="mas-chica" aria-label="Corcho a la derecha: red la mitad de grande">Más chica ▶</button>
+          </div>
+          <label class="respuesta" id="respuesta-caja" hidden>
+            <span>¿Cuántos peces caben?</span>
+            <input id="respuesta" type="number" min="0" inputmode="numeric" />
+          </label>
+          <button type="button" class="j-btn" id="lanzar">Lanzar <span class="kbd">Enter</span></button>
+        </div>
+
+        <div class="j-profe" id="j-profe">
+          <img class="px" id="j-profe-img" src="/img/sprites/pulpo-profe.png" alt="Pulpo profe" width="56" />
+          <p id="j-profe-txt"></p>
+        </div>
+      </div>
+
+      <!-- Nivel superado -->
+      <div class="j-pantalla j-centro" id="j-sube" hidden>
+        <Sprite nombre="buzo-celebra" escala={2} alt="" />
+        <h2>¡Nivel superado!</h2>
+        <p id="j-sube-txt"></p>
+        <button type="button" class="j-btn" id="j-sube-ir">Siguiente nivel</button>
+      </div>
+
+      <!-- Final -->
+      <div class="j-pantalla j-centro" id="j-fin" hidden>
+        <Sprite nombre="buzo-celebra" escala={2} alt="" />
+        <h2>¡Ya lanzas redes justas!</h2>
+        <p>Terminaste con <b id="j-fin-perlas">0</b> perlas. Esto es lo que ya sabes:</p>
+        <ul class="j-lista" id="j-fin-lista"></ul>
+        <div class="fin-botones">
+          <a class="j-btn" href="/bootcamp/modulo-2/">Volver al módulo 2</a>
+          <button type="button" class="j-btn sec" id="j-fin-otra">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+    <AvisoProgreso />
+  </section>
+
+  <script is:inline src="/js/juego-dl.js" defer></script>
+  <script is:inline src="/js/juego-red-pesca.js" defer></script>
+</Base>
+
+<style>
+  .marco {
+    padding-top: 24px;
+  }
+  .volver {
+    display: inline-block;
+    margin-bottom: 12px;
+    font: 700 0.875rem "Silkscreen", ui-monospace, monospace;
+    color: var(--purple);
+  }
+  .escena {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .pedido {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .globo {
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: var(--claro);
+    color: var(--abismo);
+    font-size: 1.1rem;
+  }
+  .globo :global(b) {
+    font: 700 1.4rem "Silkscreen", ui-monospace, monospace;
+    color: #b5401d;
+  }
+  .placa {
+    display: grid;
+    justify-items: end;
+    gap: 2px;
+  }
+  .n {
+    font: 700 2.4rem "Silkscreen", ui-monospace, monospace;
+    line-height: 1;
+    color: var(--lima);
+  }
+  .mascara {
+    font: 700 1rem ui-monospace, Menlo, monospace;
+    color: var(--lav);
+  }
+  .red {
+    padding: 16px;
+    border: 2px dashed var(--lav);
+    border-radius: 16px;
+    background: rgba(23, 21, 74, 0.55);
+  }
+  .red-celdas {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 16), minmax(0, 1fr));
+    gap: 4px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .red-celdas :global(span) {
+    aspect-ratio: 1;
+    border: 1.5px solid rgba(178, 202, 253, 0.55);
+    border-radius: 4px;
+    transition: background 0.15s ease;
+  }
+  .red-celdas :global(span.pez),
+  .cu.pez {
+    background: var(--c);
+    border-color: var(--c);
+  }
+  .red-celdas :global(span.nudo),
+  .cu.nudo {
+    background: repeating-linear-gradient(45deg, var(--lav) 0 3px, transparent 3px 6px);
+    border-color: var(--lav);
+  }
+  .leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    justify-content: center;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--lav);
+  }
+  .cu {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    vertical-align: -2px;
+    border: 1.5px solid rgba(178, 202, 253, 0.55);
+    border-radius: 3px;
+  }
+  .contador {
+    margin: 10px 0 0;
+    text-align: center;
+    font: 700 1rem "Silkscreen", ui-monospace, monospace;
+    color: var(--lav);
+  }
+  .contador b {
+    color: var(--lima);
+  }
+  .escapan {
+    margin: 6px 0 0;
+    text-align: center;
+    font-weight: 700;
+    color: #ffb3bd;
+  }
+  .controles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    justify-content: space-between;
+    margin-top: 18px;
+  }
+  .mover {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .flecha {
+    min-height: 48px;
+  }
+  .corcho {
+    display: grid;
+    gap: 4px;
+    font: 700 0.8rem "Silkscreen", ui-monospace, monospace;
+    color: var(--lav);
+  }
+  .corcho input {
+    width: 180px;
+    min-height: 44px;
+    accent-color: var(--lima);
+  }
+  .respuesta {
+    display: grid;
+    gap: 4px;
+  }
+  .respuesta input {
+    width: 160px;
+    min-height: 48px;
+    padding: 6px 12px;
+    border: 2px solid var(--lav);
+    border-radius: 10px;
+    background: var(--abismo);
+    color: var(--claro);
+    font: 700 1.3rem ui-monospace, Menlo, monospace;
+  }
+  .kbd {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border: 1px solid var(--abismo);
+    border-radius: 5px;
+    font-size: 0.8em;
+    opacity: 0.7;
+  }
+  .fin-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .fin-botones a {
+    text-decoration: none;
+  }
+  @media (max-width: 600px) {
+    .kbd {
+      display: none;
+    }
+    .corcho input {
+      width: 120px;
+    }
+    .n {
+      font-size: 1.9rem;
+    }
+  }
+</style>

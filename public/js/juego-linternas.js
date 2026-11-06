@@ -52,6 +52,7 @@
   let objetivo = 0;
   let fallos = 0;
   let ip = null;
+  let esperando = false; // entre una ronda ganada y la siguiente no se puede volver a iluminar
   const modoReves = () => j.nivel === 3;
 
   const encendidas = () => botones.filter((b) => b.getAttribute("aria-pressed") === "true");
@@ -68,6 +69,7 @@
 
   const nuevoObjetivo = () => {
     fallos = 0;
+    esperando = false;
     botones.forEach((b) => {
       poner(b, false);
       b.classList.remove("sugerida");
@@ -108,6 +110,7 @@
   };
 
   const acierto = () => {
+    esperando = true;
     const premio = fallos === 0 ? 2 : 1;
     j.brillar($("#pedido"));
     j.ganarPerlas(premio, $("#iluminar"));
@@ -133,7 +136,7 @@
   };
 
   const iluminar = () => {
-    if ($("#j-tablero").hidden) return;
+    if ($("#j-tablero").hidden || esperando) return;
     if (modoReves()) {
       const v = Number($("#respuesta").value);
       if ($("#respuesta").value === "") return j.hablar("Escribe un número de 0 a 255.");

@@ -273,7 +273,10 @@ def proximamente(m: int, stem: str) -> str:
 
 # Actividades que ya tienen su videojuego: la página vieja lleva al juego.
 # La actividad cuenta en el mapa cuando se gana el juego (lo marca juego-dl.js con este mismo nombre).
-JUEGOS = {(2, "actividad3_conversor_binario"): ("/juegos/linternas-del-abismo/", "Linternas del abismo")}
+JUEGOS = {
+    (2, "actividad3_conversor_binario"): ("/juegos/linternas-del-abismo/", "Linternas del abismo"),
+    (2, "actividad5_mascaras_red"): ("/juegos/la-red-de-pesca/", "La red de pesca"),
+}
 
 
 def al_juego(url: str, nombre: str) -> str:
