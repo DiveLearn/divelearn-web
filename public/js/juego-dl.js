@@ -38,7 +38,8 @@ window.JuegoDL = (cfg) => {
     if (cambios.ganado && cfg.modulo != null) {
       p.visitas = p.visitas || {};
       const v = p.visitas[cfg.modulo] || [];
-      if (!v.includes(cfg.pagina)) v.push(cfg.pagina);
+      // Un juego puede reemplazar varias actividades (pagina: "a" o ["a", "b"]).
+      [].concat(cfg.pagina).forEach((pg) => v.includes(pg) || v.push(pg));
       p.visitas[cfg.modulo] = v;
     }
     escribir(p);

@@ -276,6 +276,9 @@ def proximamente(m: int, stem: str) -> str:
 JUEGOS = {
     (2, "actividad3_conversor_binario"): ("/juegos/linternas-del-abismo/", "Linternas del abismo"),
     (2, "actividad5_mascaras_red"): ("/juegos/la-red-de-pesca/", "La red de pesca"),
+    (2, "actividad1_calculadora_subredes"): ("/juegos/divide-la-jaula/", "Divide la jaula"),
+    (2, "actividad2_diseno_barrio"): ("/juegos/divide-la-jaula/", "Divide la jaula"),
+    (2, "actividad4_planificacion_crecimiento"): ("/juegos/divide-la-jaula/", "Divide la jaula"),
 }
 
 
@@ -310,6 +313,10 @@ for m in range(10):
     paginas[m] = [f.stem for f in subs]
     for f in todas:
         if f not in subs:
+            # Si ya hay un juego que la reemplaza, se va directo al juego.
+            if (m, f.stem) in JUEGOS:
+                (out / f.name).write_text(al_juego(*JUEGOS[(m, f.stem)]))
+                continue
             reparar.append(f"modulo-{m}/{f.name}")
             (out / f.name).write_text(proximamente(m, f.stem))
     for f in subs:

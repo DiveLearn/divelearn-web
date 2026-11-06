@@ -1,0 +1,303 @@
+---
+// Videojueguito del módulo 2 (subneteo y VLSM): reemplaza a las actividades 1, 2 y 4 (calculadora de subredes, barrio digital y planificación de crecimiento).
+import Base from "../../layouts/Base.astro";
+import Sprite from "../../components/Sprite.astro";
+import AvisoProgreso from "../../components/AvisoProgreso.astro";
+---
+
+<Base
+  title="Divide la jaula · juego de subredes y VLSM"
+  description="Parte la jaula en corrales y dale a cada grupo de animales el suyo: aprende subneteo, saltos, VLSM y subredes de una VPC jugando."
+>
+  <link rel="stylesheet" href="/css/juego-dl.css" />
+  <section class="wrap marco">
+    <a class="volver" href="/bootcamp/modulo-2/">← Módulo 2 · Las direcciones secretas</a>
+
+    <div class="juego" id="juego" style="--modulo:#ff7a8a">
+      <div class="j-hud">
+        <span class="j-titulo" id="j-titulo"></span>
+        <span id="j-nivel">Nivel 1/5</span>
+        <span class="j-ronda-caja">Ronda <b id="j-ronda">1/5</b><span class="j-ronda-pista"><span id="j-ronda-barra"></span></span></span>
+        <span><i class="j-perla" aria-hidden="true"></i><b id="j-perlas">0</b> perlas</span>
+      </div>
+
+      <!-- Inicio -->
+      <div class="j-pantalla j-centro" id="j-inicio">
+        <Sprite nombre="tortuga" escala={2} alt="Una tortuga" />
+        <h1>Divide la jaula</h1>
+        <p>
+          Eres la cuidadora del arrecife y tienes una jaula enorme: la red <b>/24</b>. Cada grupo de animales necesita
+          su corral, ni muy chico ni gigante. Cada vez que partes un corral en dos, la máscara gana <b>un bit</b>.
+        </p>
+        <button type="button" class="j-btn" id="j-empezar">Abrir la jaula</button>
+        <ol class="j-niveles" id="j-niveles" aria-label="Niveles"></ol>
+      </div>
+
+      <!-- Intro de nivel -->
+      <div class="j-pantalla j-centro" id="j-intro" hidden>
+        <span class="j-etiqueta" id="j-intro-num">Nivel 1</span>
+        <h2 id="j-intro-titulo"></h2>
+        <p id="j-intro-txt"></p>
+        <button type="button" class="j-btn" id="j-intro-ir">¡Vamos!</button>
+      </div>
+
+      <!-- Tablero -->
+      <div class="j-pantalla" id="j-tablero" hidden>
+        <div class="escena">
+          <div class="globo" aria-live="polite"><span id="pedido-txt"></span></div>
+          <div class="placa">
+            <span class="etq" id="red-etq">Jaula</span>
+            <span class="base" id="red-base">192.168.1.0/24</span>
+          </div>
+        </div>
+
+        <div class="grupos" id="grupos" aria-label="Grupos por acomodar" hidden></div>
+
+        <div class="jaula" id="jaula"></div>
+        <p class="estado" id="estado" aria-live="polite"></p>
+
+        <div class="controles">
+          <button type="button" class="j-btn sec" id="deshacer">Deshacer</button>
+          <label class="respuesta" id="respuesta-caja" hidden>
+            <span>Último número</span>
+            <input id="respuesta" type="number" min="0" max="255" inputmode="numeric" />
+          </label>
+          <button type="button" class="j-btn" id="listo">Listo <span class="kbd">Enter</span></button>
+        </div>
+
+        <div class="j-profe" id="j-profe">
+          <img class="px" id="j-profe-img" src="/img/sprites/pulpo-profe.png" alt="Pulpo profe" width="56" />
+          <p id="j-profe-txt"></p>
+        </div>
+      </div>
+
+      <!-- Nivel superado -->
+      <div class="j-pantalla j-centro" id="j-sube" hidden>
+        <Sprite nombre="buzo-celebra" escala={2} alt="" />
+        <h2>¡Nivel superado!</h2>
+        <p id="j-sube-txt"></p>
+        <button type="button" class="j-btn" id="j-sube-ir">Siguiente nivel</button>
+      </div>
+
+      <!-- Final -->
+      <div class="j-pantalla j-centro" id="j-fin" hidden>
+        <Sprite nombre="buzo-celebra" escala={2} alt="" />
+        <h2>¡Ya repartes redes como experta!</h2>
+        <p>Terminaste con <b id="j-fin-perlas">0</b> perlas. Esto es lo que ya sabes:</p>
+        <ul class="j-lista" id="j-fin-lista"></ul>
+        <div class="fin-botones">
+          <a class="j-btn" href="/bootcamp/modulo-2/">Volver al módulo 2</a>
+          <button type="button" class="j-btn sec" id="j-fin-otra">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+    <AvisoProgreso />
+  </section>
+
+  <script is:inline src="/js/juego-dl.js" defer></script>
+  <script is:inline src="/js/juego-divide-jaula.js" defer></script>
+</Base>
+
+<style>
+  .marco {
+    padding-top: 24px;
+  }
+  .volver {
+    display: inline-block;
+    margin-bottom: 12px;
+    font: 700 0.875rem "Silkscreen", ui-monospace, monospace;
+    color: var(--purple);
+  }
+  .escena {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .globo {
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: var(--claro);
+    color: var(--abismo);
+    font-size: 1.1rem;
+  }
+  .globo :global(b) {
+    font: 700 1.25rem "Silkscreen", ui-monospace, monospace;
+    color: #b5401d;
+  }
+  .placa {
+    display: grid;
+    justify-items: end;
+    gap: 2px;
+  }
+  .etq {
+    font: 700 0.8rem "Silkscreen", ui-monospace, monospace;
+    color: var(--lav);
+  }
+  .base {
+    font: 700 1.3rem ui-monospace, Menlo, monospace;
+    color: var(--lima);
+  }
+  .grupos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .grupos :global(.grupo) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 6px 12px;
+    border: 2px solid var(--lav);
+    border-radius: 12px;
+    background: rgba(23, 21, 74, 0.55);
+    color: var(--claro);
+    font: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .grupos :global(.grupo img) {
+    width: 32px;
+    height: auto;
+  }
+  .grupos :global(.cuanto) {
+    font: 700 0.95rem "Silkscreen", ui-monospace, monospace;
+    color: var(--lima);
+  }
+  .grupos :global(.grupo.elegido) {
+    border-color: var(--lima);
+    background: var(--lima);
+    color: var(--abismo);
+    box-shadow: 0 0 0 3px rgba(224, 242, 74, 0.35);
+  }
+  .grupos :global(.grupo.elegido .cuanto) {
+    color: var(--abismo);
+  }
+  .jaula {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    grid-template-rows: repeat(16, minmax(0, 1fr));
+    gap: 3px;
+    width: min(100%, 560px);
+    aspect-ratio: 1;
+    margin: 0 auto;
+    padding: 8px;
+    border: 2px dashed var(--lav);
+    border-radius: 16px;
+    background: rgba(23, 21, 74, 0.55);
+  }
+  .jaula :global(.corral) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    padding: 2px;
+    border: 2px solid var(--lav);
+    border-radius: 8px;
+    background: rgba(178, 202, 253, 0.08);
+    color: var(--claro);
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .jaula :global(.corral:hover:not(:disabled)) {
+    border-color: var(--lima);
+    background: rgba(224, 242, 74, 0.12);
+  }
+  .jaula :global(.corral:disabled) {
+    cursor: default;
+  }
+  .jaula :global(.corral.lleno) {
+    border-color: var(--c);
+    background: color-mix(in srgb, var(--c) 30%, transparent);
+  }
+  .jaula :global(.corral.marcado) {
+    border-color: var(--lima);
+    background: var(--lima);
+    color: var(--abismo);
+  }
+  .jaula :global(.ip) {
+    font: 700 clamp(0.6rem, 2.2vw, 0.85rem) "Silkscreen", ui-monospace, monospace;
+    color: var(--lima);
+    white-space: nowrap;
+  }
+  .jaula :global(.cap) {
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+    line-height: 1.15;
+    text-align: center;
+    color: var(--lav);
+  }
+  .jaula :global(.corral.lleno .cap) {
+    color: var(--claro);
+  }
+  .jaula :global(.corral img) {
+    width: clamp(18px, 6vw, 36px);
+    height: auto;
+  }
+  .jaula :global(.num) {
+    font: 700 clamp(0.8rem, 3vw, 1.2rem) "Silkscreen", ui-monospace, monospace;
+  }
+  .estado {
+    min-height: 1.4em;
+    margin: 8px 0 0;
+    text-align: center;
+    font: 700 0.95rem "Silkscreen", ui-monospace, monospace;
+    color: var(--lav);
+  }
+  .controles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    justify-content: space-between;
+    margin-top: 14px;
+  }
+  .respuesta {
+    display: grid;
+    gap: 4px;
+  }
+  .respuesta input {
+    width: 140px;
+    min-height: 48px;
+    padding: 6px 12px;
+    border: 2px solid var(--lav);
+    border-radius: 10px;
+    background: var(--abismo);
+    color: var(--claro);
+    font: 700 1.3rem ui-monospace, Menlo, monospace;
+  }
+  .kbd {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border: 1px solid var(--abismo);
+    border-radius: 5px;
+    font-size: 0.8em;
+    opacity: 0.7;
+  }
+  .fin-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .fin-botones a {
+    text-decoration: none;
+  }
+  @media (max-width: 600px) {
+    .kbd {
+      display: none;
+    }
+    .jaula {
+      gap: 2px;
+      padding: 5px;
+    }
+  }
+</style>
