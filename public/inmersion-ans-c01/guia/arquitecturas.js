@@ -334,11 +334,12 @@
     });
     (a.e || []).forEach(([de, a2, etq, o], i) => (s += flecha(a.n[de], a.n[a2], etq, o || {}, `arq${uid}-${i}`)));
     Object.values(a.n).forEach(([x, y, ico, l]) => {
-      s += `<g class="arq-n"><rect x="${x - 26}" y="${y - 26}" width="52" height="52" rx="12"/><image href="aws/${ico}.svg" x="${x - 19}" y="${y - 19}" width="38" height="38"/>${l ? texto(x, y + 42, l, "arq-nl") : ""}</g>`;
+      s += `<g class="arq-n"><rect x="${x - 26}" y="${y - 26}" width="52" height="52" rx="12"/><image href="${window.ARQ_ICONOS || "aws/"}${ico}.svg" x="${x - 19}" y="${y - 19}" width="38" height="38"/>${l ? texto(x, y + 42, l, "arq-nl") : ""}</g>`;
     });
     return s + "</svg>";
   }
 
+  window.arqDiagrama = diagrama; // también lo usa el blog (public/js/blog-arq.js)
   window.ARQ_IDS = Object.keys(ARQ);
   window.arqHTML = function (id, titulo) {
     const a = ARQ[id];
