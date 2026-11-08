@@ -10,6 +10,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+const conDiagrama = post.body?.includes("data-arq");
 ---
 
 <Base title={post.data.title} description={post.data.description}>
@@ -19,6 +20,16 @@ const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
     <time datetime={post.data.date.toISOString()}>{fecha.format(post.data.date)}</time>
     <div class="cuerpo"><Content /></div>
   </article>
+  {
+    conDiagrama && (
+      <Fragment>
+        <link rel="stylesheet" href="/inmersion-ans-c01/guia/arquitecturas.css" />
+        <link rel="stylesheet" href="/css/blog-arq.css" />
+        <script is:inline src="/inmersion-ans-c01/guia/arquitecturas.js" />
+        <script is:inline src="/js/blog-arq.js" />
+      </Fragment>
+    )
+  }
 </Base>
 
 <style>
@@ -48,6 +59,31 @@ const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
   }
   .cuerpo :global(img) {
     border-radius: var(--radius);
+  }
+  .cuerpo :global(h3) {
+    color: var(--deep);
+    margin-top: 1.4em;
+  }
+  .cuerpo :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 1.4em 0;
+    font-size: 0.98rem;
+  }
+  .cuerpo :global(th),
+  .cuerpo :global(td) {
+    padding: 10px 14px 10px 0;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  .cuerpo :global(th) {
+    color: var(--purple);
+  }
+  .cuerpo :global(:not(pre) > code) {
+    overflow-wrap: anywhere;
   }
   .cuerpo :global(pre) {
     overflow-x: auto;

@@ -1,0 +1,8 @@
+/* Diagramas del blog: el motor de la guía, con la paleta del manual. */
+.blog-arq { --mono: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 1.6em 0; padding: 14px 10px 12px; border-radius: 18px; background: #1f1d5c; }
+.blog-arq figcaption { padding: 8px 8px 0; color: #b2cafd; font-size: 0.9rem; }
+.blog-arq .arq-e.no { stroke: #fff; }
+.blog-arq marker[id^="pnx"] path { fill: #fff; }
+.blog-arq .arq-etq.no rect { stroke: #fff; }
+.blog-arq .arq-etq.no text { fill: #fff; }
+.blog-arq .paquete.vuelta { fill: #b2cafd; filter: drop-shadow(0 0 4px #b2cafd); }
