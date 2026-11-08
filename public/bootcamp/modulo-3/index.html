@@ -410,6 +410,27 @@
         </div>
 
         <div class="main-content">
+            <!-- mira-la-clase --><style>
+.mlc{margin:0 0 26px;padding:24px;border-radius:20px;background:#1f1d5c;border-top:8px solid var(--c,#b2cafd);color:#fff;box-shadow:0 14px 30px rgba(31,29,92,.22)}
+.mlc h2{margin:0 0 6px;padding:0;border:0;display:block;color:#e0f24a;font-family:var(--pixel,ui-monospace,monospace);font-size:1.15rem;letter-spacing:.06em;text-transform:uppercase}
+.mlc>p{margin:0 0 18px;color:#fff}
+.mlc-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:18px}
+.mlc-v{margin:0}.mlc-b{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:12px;overflow:hidden;background:#17154a;cursor:pointer}
+.mlc-b img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.mlc-b:hover img{transform:scale(1.04)}
+.mlc-b span{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px;border-radius:50%;background:#e0f24a;box-shadow:0 0 0 6px rgba(224,242,74,.25),0 8px 24px rgba(23,21,74,.6);transition:transform .2s}
+.mlc-b:hover span{transform:scale(1.1)}
+.mlc-b span:after{content:"";position:absolute;left:30px;top:22px;border-style:solid;border-width:16px 0 16px 26px;border-color:transparent transparent transparent #1f1d5c}
+.mlc-b:focus-visible{outline:4px solid #e0f24a;outline-offset:3px}
+.mlc-f{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:12px}
+.mlc figcaption{margin-top:10px;font-weight:700;color:#fff}
+@media (prefers-reduced-motion:reduce){.mlc-b img,.mlc-b span{transition:none}.mlc-b:hover img,.mlc-b:hover span{transform:none}}
+</style><section class="mlc" aria-label="Mira la clase"><h2>Mira la clase</h2><p>La clase grabada de este módulo, con subtítulos.</p><div class="mlc-g"><figure class="mlc-v"><button class="mlc-b" type="button" data-v="oYAJfgk-SpU" data-t="Cómo funciona el DNS" aria-label="Reproducir: Cómo funciona el DNS"><img src="/img/clases/05.webp" alt="" width="720" height="405" loading="lazy"><span></span></button><figcaption>Cómo funciona el DNS</figcaption></figure></div></section><script>
+document.querySelectorAll('.mlc-b').forEach(function(b){b.addEventListener('click',function(){
+var f=document.createElement('iframe');f.className='mlc-f';f.title=b.dataset.t;f.loading='lazy';
+f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.v+'?autoplay=1&rel=0';
+f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';
+b.replaceWith(f);f.focus();});});
+</script><!-- /mira-la-clase -->
             <div class="tabs">
                 <div class="tab active" onclick="showTab('teoria')">
                      Teoría

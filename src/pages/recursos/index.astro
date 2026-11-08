@@ -1,30 +1,43 @@
 ---
 import Base from "../../layouts/Base.astro";
-import PageHead from "../../components/PageHead.astro";
 
-const recursos = [
+type Item = { t: string; d: string; sirve: string; href: string; sprite: string; tema: string; externo?: boolean; portada?: string };
+const niveles: { id: string; nombre: string; metros: string; lema: string; items: Item[] }[] = [
   {
-    t: "Mapa de la nube",
-    d: "Globo interactivo con regiones, zonas de disponibilidad, Local Zones y edge locations de AWS, y tu latencia en vivo.",
-    href: "/recursos/mapa-aws/",
+    id: "orilla",
+    nombre: "La orilla",
+    metros: "0 m",
+    lema: "Para mojarte los pies. No necesitas saber nada.",
+    items: [
+      { t: "Bootcamp gratis", d: "Redes, seguridad, Linux y datos, como un videojuego, en el navegador.", sirve: "vas a empezar desde cero", href: "/bootcamp/", sprite: "buzo-saluda", tema: "Fundamentos", portada: "bootcamp" },
+      { t: "Las 16 clases en video", d: "Todo el bootcamp grabado, con subtítulos y por módulos.", sirve: "aprendes mejor viendo y oyendo", href: "https://www.youtube.com/playlist?list=PLfeX6c1p4uM1is5fgSn66YPer-9M65koM", sprite: "obj-laptop", tema: "Fundamentos", externo: true },
+      { t: "Mapa de la nube", d: "Globo interactivo de regiones y zonas de AWS, con tu latencia en vivo.", sirve: "quieres ver dónde vive la nube", href: "/recursos/mapa-aws/", sprite: "nautilus-mapamundi", tema: "Fundamentos" },
+    ],
   },
   {
-    t: "Simuladores",
-    d: "Practica en el navegador con guía de laboratorio por misiones. Primero: Terminal Linux.",
-    href: "/simuladores/",
+    id: "aguas",
+    nombre: "Aguas claras",
+    metros: "18 m",
+    lema: "Ya flotas. Ahora toca practicar con las manos.",
+    items: [
+      { t: "Linternas del abismo", d: "Juego para entender direcciones IP y binario prendiendo linternas.", sirve: "el binario te da pereza", href: "/juegos/linternas-del-abismo/", sprite: "linternin", tema: "Redes" },
+      { t: "La red de pesca", d: "Mueve la máscara y atrapa justo los peces que necesitas.", sirve: "las máscaras no te cuadran", href: "/juegos/la-red-de-pesca/", sprite: "pez-payaso", tema: "Redes" },
+      { t: "Divide la jaula", d: "Reparte una red en subredes, hasta armar tu primera VPC.", sirve: "subnetear te da miedo", href: "/juegos/divide-la-jaula/", sprite: "subnetto", tema: "Redes" },
+      { t: "Terminal Linux", d: "Misiones en una terminal simulada, sin instalar nada.", sirve: "nunca has abierto una consola", href: "/simuladores/terminal-linux/", sprite: "obj-laptop", tema: "Linux" },
+      { t: "Bases de datos SQL", d: "Escribe consultas de verdad, con errores explicados.", sirve: "SQL te suena a chino", href: "/simuladores/bases-de-datos/", sprite: "obj-servidores", tema: "Datos" },
+    ],
   },
   {
-    t: "Inmersión ANS-C01",
-    d: "Ruta gamificada para AWS Advanced Networking – Specialty, con fecha de examen editable.",
-    href: "/inmersion-ans-c01/",
-  },
-  {
-    t: "Guía de estudio ANS-C01",
-    d: "La cheat sheet de networking: lo que más pregunta el examen, en una sola página.",
-    href: "/inmersion-ans-c01/guia/",
+    id: "abismo",
+    nombre: "Abismo",
+    metros: "200 m",
+    lema: "Aquí ya no estás tocando fondo. Pónganse el tubo.",
+    items: [
+      { t: "Inmersión ANS-C01", d: "Ruta gamificada para AWS Advanced Networking, con fecha de examen editable.", sirve: "vas por la certificación de redes", href: "/inmersion-ans-c01/", sprite: "guardiana-manta", tema: "Certificación" },
+      { t: "Guía de estudio ANS-C01", d: "Lo que más pregunta el examen, en una sola página.", sirve: "necesitas repasar rápido", href: "/inmersion-ans-c01/guia/", sprite: "pulpo-megahub", tema: "Certificación" },
+    ],
   },
 ];
-
 const mapas = [
   ["vpc-fundamentos", "Fundamentos de VPC"],
   ["peering-endpoints", "Peering y Endpoints"],
@@ -32,75 +45,268 @@ const mapas = [
   ["vpn-bgp", "Site-to-Site VPN con BGP"],
   ["direct-connect", "Direct Connect"],
   ["dns-hibrido", "DNS híbrido"],
-  ["edge", "Edge: CloudFront y Global Accelerator"],
+  ["edge", "CloudFront y Global Accelerator"],
   ["seguridad-red", "Seguridad de red"],
+];
+const temas = ["Todo", ...new Set(niveles.flatMap((n) => n.items.map((i) => i.tema)))];
+const prompts = [
+  ["Costos", "Revisa esta arquitectura de AWS. Dime los 5 lugares donde más estoy gastando sin necesidad y cuánto podría ahorrar en cada uno. Si te falta un dato, pregúntamelo antes de estimar."],
+  ["Seguridad", "Audita esta política de IAM con mínimo privilegio. Muéstrame qué permisos sobran, por qué son riesgosos y la política corregida, explicada en simple."],
+  ["Arquitectura", "Compara estas dos arquitecturas de AWS por costo, disponibilidad, complejidad y qué pasa si se cae una zona. Recomienda una y explica qué sacrifico."],
+  ["Certificación", "Hazme 5 preguntas tipo escenario sobre VPC, de una en una. Espera mi respuesta y explícame por qué cada opción es correcta o incorrecta."],
+  ["Explicar", "Explícame este servicio de AWS con una analogía de la vida diaria. Luego dime cuándo usarlo, cuándo no y el error más común."],
+  ["Incidentes", "Actúa como mi compañera de guardia. Te doy este error y estos logs: dame hipótesis ordenadas por probabilidad y el comando para comprobar cada una, solo de lectura."],
 ];
 ---
 
-<Base title="Recursos" description="Guías, mapas e infografías gratis para estudiar AWS.">
-  <PageHead title="Recursos" lead="Guías, mapas e infografías gratis para estudiar AWS. Se van sumando más; los avisos llegan primero a la lista de correo." />
-  <section class="wrap grid">
+<Base title="Recursos" description="Juegos, simuladores, mapas, guías y prompts gratis para aprender AWS practicando, según qué tan hondo quieras bajar.">
+  <div class="eq">
+    <aside class="prof" aria-hidden="true">
+      <span class="prof-m"><b data-m>0</b> m</span>
+      <div class="prof-l"><img data-buzo src="/img/sprites/buzo-bajando.png" alt="" /></div>
+    </aside>
+    <section class="portada">
+      <div class="placa"><i></i>TU EQUIPO DE BUCEO<i></i></div>
+      <h1>Deja de leer sobre cloud. Practícalo hoy.</h1>
+      <p>Juegos, simuladores, mapas y guías para pasar de "tanta sigla me pierde" a saber explicarlo.</p>
+      <div class="rutas">
+        <a href="#orilla"><b>No sé nada de cloud</b><span>Empieza en la orilla</span></a>
+        <a href="#aguas"><b>Quiero practicar</b><span>Métete al agua</span></a>
+        <a href="#abismo"><b>Voy por una certificación</b><span>Baja al abismo</span></a>
+      </div>
+      <p class="acuerdo">Gratis, sin tarjeta y sin instalar nada.</p>
+      <div class="filtros" role="group" aria-label="Filtrar por tema">
+        {temas.map((t, i) => <button type="button" data-tema={t} aria-pressed={i === 0 ? "true" : "false"}>{t}</button>)}
+      </div>
+    </section>
+
     {
-      recursos.map((r) => (
-        <a class="item" href={r.href}>
-          <h2>{r.t}</h2>
-          <p>{r.d}</p>
-        </a>
+      niveles.map((n, k) => (
+        <section class={`nivel n${k}`} id={n.id} data-nivel>
+          <div class="wrap">
+            <header class="cab ap">
+              <span class="metros">{n.metros}</span>
+              <div>
+                <h2>{n.nombre}</h2>
+                <p>{n.lema}</p>
+              </div>
+            </header>
+            <div class="rejilla">
+              {n.items.map((r, i) => (
+                <a class={`rec ap ${i === 0 ? "top" : ""}`} href={r.href} data-tema={r.tema} {...(r.externo ? { target: "_blank", rel: "noopener" } : {})}>
+                  <span class={`dibujo ${r.portada ? "foto" : ""}`}><img src={r.portada ? `/img/recursos/${r.portada}.webp` : `/img/sprites/${r.sprite}.png`} alt="" loading="lazy" /></span>
+                  <span class="tag">{i === 0 ? "Empieza por aquí" : r.tema}</span>
+                  <h3>{r.t}</h3>
+                  <p>{r.d}</p>
+                  <p class="sirve">Te sirve si {r.sirve}.</p>
+                </a>
+              ))}
+            </div>
+            {
+              n.id === "abismo" && (
+                <div class="ap" data-tema="Certificación">
+                  <h3 class="sub">8 mapas interactivos de redes en AWS</h3>
+                  <div class="mapas">
+                    {mapas.map(([s, nom], i) => (
+                      <a href={`/inmersion-ans-c01/mapas/${s}.html`}>
+                        <b>{String(i + 1).padStart(2, "0")}</b>
+                        {nom}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
+          </div>
+        </section>
       ))
     }
-  </section>
-  <section class="wrap">
-    <h2 class="sub">Mapas interactivos de redes en AWS</h2>
-    <div class="chips">
-      {mapas.map(([slug, nombre]) => <a href={`/inmersion-ans-c01/mapas/${slug}.html`}>{nombre}</a>)}
-    </div>
-  </section>
+
+    <section class="prompts" id="prompts">
+      <div class="wrap">
+        <div class="placa"><i></i>PARA COPIAR<i></i></div>
+        <h2>Prompts para tu día en AWS</h2>
+        <p class="ent">Escritos por Mar. Copia, cambia lo que necesites y revisa siempre lo que te responda la IA.</p>
+        <div class="pg">
+          {prompts.map(([t, x]) => (
+            <article class="pr ap">
+              <span class="tag">{t}</span>
+              <p>{x}</p>
+              <button type="button" data-copiar={x}>Copiar</button>
+            </article>
+          ))}
+        </div>
+        <div class="final">
+          <h2>El primer paso cabe en una tarde</h2>
+          <p>Entra al bootcamp, juega el primer módulo y mira cómo se siente entender.</p>
+          <a class="b1" href="/bootcamp/">Empieza el bootcamp gratis</a>
+          <a class="b2" href="/lista/">Únete a la lista</a>
+        </div>
+      </div>
+    </section>
+  </div>
 </Base>
 
+<script>
+  const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ob = new IntersectionObserver(
+    (es) =>
+      es.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("si");
+          ob.unobserve(e.target);
+        }
+      }),
+    { threshold: 0.12 },
+  );
+  document.querySelectorAll(".ap").forEach((e) => (quieto ? e.classList.add("si") : ob.observe(e)));
+
+  const prof = document.querySelector<HTMLElement>(".prof");
+  const niveles = [...document.querySelectorAll<HTMLElement>("[data-nivel]")];
+  const buzo = document.querySelector<HTMLElement>("[data-buzo]");
+  const m = document.querySelector<HTMLElement>("[data-m]");
+  const hondo = () => {
+    const ini = niveles[0].offsetTop - innerHeight * 0.4;
+    const fin = niveles[niveles.length - 1].offsetTop + niveles[niveles.length - 1].offsetHeight - innerHeight;
+    const f = Math.max(0, Math.min(1, (scrollY - ini) / Math.max(1, fin - ini)));
+    if (m) m.textContent = String(Math.round(200 * f * f));
+    if (buzo) buzo.style.top = `${f * 100}%`;
+    if (prof) prof.classList.toggle("oscuro", f > 0.12);
+  };
+  hondo();
+  addEventListener("scroll", hondo, { passive: true });
+  addEventListener("resize", hondo);
+
+  if (!quieto && matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll<HTMLElement>(".rec").forEach((c) => {
+      c.addEventListener("pointermove", (e) => {
+        const r = c.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        c.style.setProperty("--rx", `${(0.5 - y) * 7}deg`);
+        c.style.setProperty("--ry", `${(x - 0.5) * 9}deg`);
+        c.style.setProperty("--mx", `${x * 100}%`);
+        c.style.setProperty("--my", `${y * 100}%`);
+      });
+      c.addEventListener("pointerleave", () => {
+        c.style.setProperty("--rx", "0deg");
+        c.style.setProperty("--ry", "0deg");
+      });
+    });
+  }
+
+  const botones = [...document.querySelectorAll<HTMLButtonElement>(".filtros button")];
+  botones.forEach((b) =>
+    b.addEventListener("click", () => {
+      botones.forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+      const t = b.dataset.tema;
+      document.querySelectorAll<HTMLElement>(".rec").forEach((c) => {
+        c.hidden = !(t === "Todo" || c.dataset.tema === t);
+        c.classList.add("si");
+      });
+      document.querySelectorAll<HTMLElement>("[data-nivel]").forEach((n) => {
+        n.hidden = ![...n.querySelectorAll<HTMLElement>(".rec")].some((c) => !c.hidden);
+      });
+    }),
+  );
+  document.querySelectorAll<HTMLButtonElement>("[data-copiar]").forEach((b) =>
+    b.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(b.dataset.copiar ?? "");
+        b.textContent = "Copiado";
+      } catch {
+        b.textContent = "No se pudo copiar";
+      }
+      setTimeout(() => (b.textContent = "Copiar"), 1500);
+    }),
+  );
+</script>
+
 <style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-    padding-top: 40px;
-  }
-  .item {
-    padding: 24px;
-    border-radius: var(--radius);
-    background: var(--lav-soft);
-    border: 1px solid var(--line);
-    text-decoration: none;
-    color: var(--ink);
-  }
-  .item:hover {
-    border-color: var(--purple);
-  }
-  h2 {
-    font-size: 1.4rem;
-    color: var(--purple);
-  }
-  p {
-    margin: 0;
-    color: var(--muted);
-  }
-  .sub {
-    margin-top: 48px;
-    font-size: 1.8rem;
-  }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .chips a {
-    padding: 10px 16px;
-    border-radius: 999px;
-    background: var(--lav);
-    color: var(--ink);
-    text-decoration: none;
-    font-weight: 700;
-  }
-  .chips a:hover {
-    background: var(--lime);
-  }
+  .portada { text-align: center; padding: 72px 22px 56px; background: var(--lav-soft); }
+  .portada h1 { font-size: clamp(2.4rem, 6.4vw, 4.4rem); line-height: 1.08; max-width: 860px; margin: 0 auto 14px; color: var(--ink); }
+  .portada p { max-width: 560px; margin: 0 auto 24px; font-size: 1.15rem; }
+  .placa { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border-radius: 99px; background: linear-gradient(180deg, #2d2a7a, var(--deep)); color: #fff; font-size: 0.82rem; letter-spacing: 0.08em; margin-bottom: 16px; }
+  .placa i { width: 11px; height: 11px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #8d96c9 55%, #4c5190); }
+  .filtros { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .filtros button { min-height: 44px; padding: 0 18px; border-radius: 12px; border: 2px solid var(--deep); background: transparent; color: var(--deep); font: inherit; font-weight: 700; cursor: pointer; }
+  .filtros button[aria-pressed="true"] { background: var(--deep); color: var(--lime); }
+  .nivel { padding: 72px 0; }
+  .nivel[hidden] { display: none; }
+  .n0 { background: linear-gradient(180deg, var(--lav-soft), var(--lav)); color: var(--ink); }
+  .n1 { background: linear-gradient(180deg, var(--lav) 0, var(--purple) 150px, var(--deep)); color: #fff; }
+  .n2 { background: linear-gradient(180deg, var(--deep) 0, var(--ink) 200px); color: #fff; }
+  .n1 .wrap, .n2 .wrap { position: relative; z-index: 1; }
+  .n1, .n2 { position: relative; overflow: hidden; }
+  .n1::before, .n2::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255, 255, 255, 0.5) 2px, transparent 3px), radial-gradient(circle, rgba(224, 242, 74, 0.45) 3px, transparent 4px); background-size: 170px 210px, 290px 330px; background-position: 30px 40px, 120px 90px; animation: burbujas 22s linear infinite; }
+  @keyframes burbujas { to { background-position: 30px -380px, 120px -570px; } }
+  .rutas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 860px; margin: 26px auto 8px; }
+  .rutas a { display: flex; flex-direction: column; gap: 4px; padding: 18px; border-radius: 18px; background: var(--ink); color: #fff; text-decoration: none; transition: transform 0.2s, background 0.2s; }
+  .rutas a span { color: var(--lime); }
+  .rutas a:hover, .rutas a:focus-visible { transform: translateY(-4px); background: var(--purple); }
+  .acuerdo { margin-top: 14px !important; font-weight: 700; font-size: 1rem !important; }
+  .prof { position: fixed; left: 18px; top: 18vh; z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 58px; color: var(--ink); transition: color 0.3s; }
+  .prof.oscuro { color: #fff; }
+  .prof-m { font-size: 0.82rem; white-space: nowrap; }
+  .prof-m b { font-size: 1.15rem; }
+  .prof-l { position: relative; width: 4px; height: 56vh; border-radius: 4px; background: currentColor; opacity: 0.95; }
+  .prof-l img { position: absolute; left: 50%; top: 0; width: 56px; max-width: none; height: auto; margin: -24px 0 0 -28px; image-rendering: pixelated; transform: rotate(38deg); filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8)); }
+  .final { margin-top: 56px; padding: 40px 26px; border-radius: 28px; background: var(--ink); color: #fff; text-align: center; }
+  .final h2 { color: #fff; }
+  .final p { margin: 0 0 20px; }
+  .final a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 14px; font-weight: 700; text-decoration: none; margin: 4px; }
+  .b1 { background: var(--lime); color: var(--ink); }
+  .b2 { color: #fff; border: 2px solid var(--lav); }
+  @media (max-width: 1180px) { .prof-l { display: none; } .prof { left: auto; right: 12px; top: auto; bottom: 14px; width: auto; padding: 8px 12px; border-radius: 12px; background: var(--ink); color: var(--lime); } .prof.oscuro { color: var(--lime); } }
+  @media (max-width: 640px) { .rutas { grid-template-columns: 1fr; } }
+  .cab { display: flex; align-items: center; gap: 22px; margin-bottom: 30px; }
+  .cab h2 { margin: 0; font-size: clamp(2rem, 5vw, 3.2rem); color: inherit; }
+  .cab p { margin: 2px 0 0; font-size: 1.1rem; }
+  .metros { flex: none; display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--lime); color: var(--deep); font-weight: 700; font-size: 1.15rem; box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.3); }
+  .rejilla { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; perspective: 1400px; }
+  .rec { grid-column: span 2; }
+  .n0 .rec { grid-column: span 3; }
+  .n0 .rec.top { grid-column: span 6; }
+  .n1 .rec.top { grid-column: span 4; }
+  .n2 .rec { grid-column: span 3; }
+  .rec.top { display: grid; grid-template-columns: minmax(180px, 38%) 1fr; column-gap: 24px; align-content: center; }
+  .rec.top .dibujo { grid-row: 1 / span 5; height: 100%; min-height: 190px; margin: 0; }
+  .rec.top .dibujo img { height: 128px; }
+  .rec.top .tag { background: var(--lime); justify-self: start; }
+  .rec.top h3 { font-size: 1.8rem; }
+  .rec { position: relative; display: flex; flex-direction: column; background: #fff; color: var(--ink); border-radius: 26px; padding: 22px; text-decoration: none; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.18s ease-out, box-shadow 0.25s; }
+  .rec::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(224, 242, 74, 0.34), transparent 70%); transition: opacity 0.25s; }
+  .rec:hover::after { opacity: 1; }
+  .rec[hidden] { display: none; }
+  .rec:hover, .rec:focus-visible { box-shadow: 0 24px 50px rgba(23, 21, 74, 0.42); }
+  .rec:focus-visible { outline: 4px solid var(--lime); outline-offset: 3px; }
+  .dibujo { display: grid; place-items: center; height: 130px; border-radius: 18px; background: var(--lav-soft); margin-bottom: 14px; }
+  .dibujo img { height: 92px; width: auto; image-rendering: pixelated; transition: transform 0.25s cubic-bezier(0.3, 1.7, 0.5, 1), filter 0.25s; }
+  .dibujo.foto { display: block; overflow: hidden; height: 170px; padding: 0; }
+  .dibujo.foto img, .rec.top .dibujo.foto img { display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: auto; }
+  .rec.top .dibujo.foto { height: 100%; min-height: 260px; }
+  .rec:hover .dibujo.foto img { transform: scale(1.05); filter: none; }
+  .rec:hover .dibujo img { transform: scale(1.16) rotate(-4deg); filter: drop-shadow(0 0 14px var(--purple)); }
+  .tag { align-self: flex-start; padding: 4px 10px; border-radius: 8px; background: var(--lav-soft); color: var(--deep); font-size: 0.8rem; font-weight: 700; }
+  .rec h3 { margin: 10px 0 4px; font-size: 1.35rem; color: var(--purple); }
+  .rec p { margin: 0; }
+  .rec .sirve { margin-top: auto; padding-top: 12px; font-weight: 700; }
+  .sub { margin: 40px 0 14px; font-size: 1.5rem; color: #fff; }
+  .mapas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 10px; }
+  .mapas a { display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 10px 16px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.28); color: #fff; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .mapas a:hover, .mapas a:focus-visible { background: var(--lime); color: var(--deep); }
+  .mapas b { color: var(--lime); }
+  .mapas a:hover b, .mapas a:focus-visible b { color: var(--deep); }
+  .prompts { padding: 72px 0; background: var(--lav-soft); }
+  .prompts h2 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 6px; color: var(--deep); }
+  .ent { margin: 0 0 26px; }
+  .pg { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 18px; }
+  .pr { display: flex; flex-direction: column; gap: 12px; background: #fff; border-radius: 22px; padding: 22px; }
+  .pr p { margin: 0; flex: 1; font-size: 0.97rem; line-height: 1.5; }
+  .pr button { align-self: flex-start; min-height: 44px; padding: 0 18px; border: 0; border-radius: 12px; background: var(--purple); color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  .ap { opacity: 0; filter: blur(8px); transform: translateY(22px); transition: opacity 0.6s, filter 0.6s, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .ap.si { opacity: 1; filter: none; transform: none; }
+  @media (max-width: 760px) { .rejilla { grid-template-columns: 1fr; } .rec, .n0 .rec, .n0 .rec.top, .n1 .rec.top, .n2 .rec { grid-column: auto; } .rec.top { display: flex; } .rec.top .dibujo { height: 150px; min-height: 0; margin-bottom: 14px; } .rec.top .dibujo.foto { height: 190px; min-height: 0; } }
+  @media (max-width: 560px) { .metros { width: 72px; height: 72px; font-size: 1rem; } .nivel, .prompts { padding: 54px 0; } }
+  @media (prefers-reduced-motion: reduce) { .ap, .rec, .dibujo img, .rutas a { transition: none; } .ap { opacity: 1; filter: none; transform: none; } .n1::before, .n2::before { animation: none; } }
 </style>

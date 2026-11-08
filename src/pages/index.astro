@@ -110,7 +110,7 @@ const rutas = [
           ))
         }
       </div>
-      <p class="filo">Aprender tech no debería exigir que ya sepas tech. Educamos para lo real, no para lo perfecto.</p>
+      <p class="filo">Aprender tech no debería exigir que ya sepas tech. Educamos para lo <span class="tacha">perfecto<svg viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M4 24 C60 8 110 34 160 18 S260 8 296 22" /></svg></span> <strong>real</strong>.</p>
     </div>
   </section>
 
@@ -154,17 +154,22 @@ const rutas = [
 
   <section class="wrap bloque">
     <h2>Lo que dicen quienes ya bucearon</h2>
-    <div class="tarjetas">
+    <div class="carrusel" data-carrusel>
       {
-        testimonios.map((t) => (
-          <figure class="tarjeta testi">
+        testimonios.map((t, i) => (
+          <figure class={`opi ${i === 0 ? "c" : i === 1 ? "d" : i === testimonios.length - 1 ? "iz" : ""}`}>
             <blockquote>“{t.q}”</blockquote>
             <figcaption>
-              <b>{t.n}</b> · {t.c}
+              <b>{t.n}</b>
+              <br />
+              {t.c}
             </figcaption>
           </figure>
         ))
       }
+    </div>
+    <div class="puntos" data-puntos>
+      {testimonios.map((t, i) => <button type="button" aria-label={`Opinión de ${t.n}`} aria-pressed={i === 0 ? "true" : "false"} data-i={i} />)}
     </div>
   </section>
 
@@ -184,6 +189,19 @@ const rutas = [
     </div>
   </section>
 
+  <section class="arco" data-arco aria-label="Empieza tu inmersión">
+    {
+      ["jefe-pulpo-ddos", "buzo-saluda", "medusa", "obj-candado", "tortuga", "pulpo-profe", "rack-servidores", "pez-payaso", "cofre-tesoro", "nodo-nube", "erizo-wafflor", "caballito-clienton", "obj-nube", "ballena-lagmor", "buzo-pulgar", "estrella-podlet"].map((s) => (
+        <span class="pieza"><img src={`/img/sprites/${s}.png`} alt="" loading="lazy" /></span>
+      ))
+    }
+    <div class="dentro">
+      <p class="hora" data-hora></p>
+      <h2>Siempre es buen momento para ponerse el tubo</h2>
+      <a class="btn lime" href="/bootcamp/">Empieza aquí</a>
+    </div>
+  </section>
+
   <section class="wrap">
     <div class="lista">
       <h2>Que en unos meses puedas <em>explicar lo que construiste.</em></h2>
@@ -192,6 +210,64 @@ const rutas = [
     </div>
   </section>
 </Base>
+
+<script>
+  const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const opis = [...document.querySelectorAll<HTMLElement>("[data-carrusel] .opi")];
+  const pts = [...document.querySelectorAll<HTMLButtonElement>("[data-puntos] button")];
+  let ix = 0;
+  let tem: ReturnType<typeof setInterval>;
+  const mira = () => {
+    opis.forEach((e, i) => {
+      const d = (i - ix + opis.length) % opis.length;
+      e.className = "opi" + (d === 0 ? " c" : d === 1 ? " d" : d === opis.length - 1 ? " iz" : "");
+      e.setAttribute("aria-hidden", String(d !== 0));
+    });
+    pts.forEach((b, i) => b.setAttribute("aria-pressed", String(i === ix)));
+  };
+  const auto = () => {
+    clearInterval(tem);
+    if (!quieto) tem = setInterval(() => { ix = (ix + 1) % opis.length; mira(); }, 5200);
+  };
+  pts.forEach((b, i) => b.addEventListener("click", () => { ix = i; mira(); auto(); }));
+  const car = document.querySelector("[data-carrusel]");
+  car?.addEventListener("pointerenter", () => clearInterval(tem));
+  car?.addEventListener("pointerleave", auto);
+  mira();
+  auto();
+
+  const ar = document.querySelector<HTMLElement>("[data-arco]");
+  if (ar) {
+    const pz = [...ar.querySelectorAll<HTMLElement>(".pieza")];
+    const pinta = (giro: number) => {
+      const movil = ar.clientWidth < 640;
+      const R = movil ? ar.clientWidth * 0.44 : Math.min(ar.clientWidth * 0.46, Math.max(300, ar.clientHeight * 0.6));
+      pz.forEach((d, i) => {
+        const a = (i / pz.length) * Math.PI * 2 + giro;
+        const v = Math.max(0, Math.min(1, movil ? (Math.cos(a) - 0.1) / 0.35 : (Math.cos(a) + 0.45) / 0.75));
+        d.style.transform = `translate(${Math.sin(a) * R}px,${-Math.cos(a) * R}px) rotate(${a}rad) scale(${0.82 + 0.18 * v})`;
+        d.style.opacity = String(v);
+        d.style.filter = `blur(${(1 - v) * 9}px)`;
+      });
+    };
+    pinta(0);
+    addEventListener("resize", () => pinta(0));
+    if (!quieto) {
+      let vis = false;
+      new IntersectionObserver((e) => (vis = e[0].isIntersecting)).observe(ar);
+      const ini = performance.now();
+      const g = (t: number) => {
+        if (vis) pinta((t - ini) / 28000);
+        requestAnimationFrame(g);
+      };
+      requestAnimationFrame(g);
+    }
+    const h = ar.querySelector<HTMLElement>("[data-hora]");
+    const reloj = () => { if (h) h.textContent = "Son las " + new Date().toLocaleTimeString("es-CO") + " y en alguna región de AWS alguien está desplegando"; };
+    reloj();
+    setInterval(reloj, 1000);
+  }
+</script>
 
 <style>
   .hero {
@@ -502,4 +578,25 @@ const rutas = [
       display: none;
     }
   }
+  .tacha { position: relative; white-space: nowrap; opacity: 0.7; }
+  .tacha svg { position: absolute; left: -4%; top: 40%; width: 108%; height: 34%; overflow: visible; }
+  .tacha path { fill: none; stroke: var(--lime); stroke-width: 7; stroke-linecap: round; }
+  .carrusel { position: relative; min-height: 300px; margin-top: 30px; perspective: 1300px; }
+  .opi { position: absolute; left: 50%; top: 0; width: min(520px, 88%); margin: 0 0 0 calc(min(520px, 88%) / -2); padding: 30px; background: #fff; border-radius: 26px; box-shadow: 0 22px 54px rgba(31, 29, 92, 0.16); text-align: center; opacity: 0; pointer-events: none; transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.7s, filter 0.7s; }
+  .opi blockquote { margin: 0 0 14px; font-size: 1.15rem; line-height: 1.5; }
+  .opi.c { opacity: 1; pointer-events: auto; z-index: 3; }
+  .opi.iz { opacity: 0.35; filter: blur(3px); transform: translateX(-76%) rotateY(26deg) scale(0.86); }
+  .opi.d { opacity: 0.35; filter: blur(3px); transform: translateX(76%) rotateY(-26deg) scale(0.86); }
+  .puntos { display: flex; justify-content: center; }
+  .puntos button { width: 44px; height: 44px; border: 0; background: none; padding: 0; cursor: pointer; display: grid; place-items: center; }
+  .puntos button::after { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--lav); }
+  .puntos button[aria-pressed="true"]::after { background: var(--deep); }
+  .arco { position: relative; height: min(100vh, 820px); min-height: 620px; margin-top: 40px; overflow: hidden; color: #fff; text-align: center; border-radius: 56px 56px 0 0; background: radial-gradient(90% 70% at 50% 58%, #2b2878, var(--deep)); }
+  .pieza { position: absolute; left: 50%; top: 62%; width: 116px; height: 116px; margin: -58px; display: grid; place-items: center; border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.2); background: linear-gradient(145deg, rgba(178, 202, 253, 0.28), rgba(84, 83, 235, 0.28)); will-change: transform, opacity, filter; }
+  .pieza img { width: 78px; height: 78px; object-fit: contain; image-rendering: pixelated; }
+  .dentro { position: absolute; left: 0; right: 0; top: 46%; z-index: 3; padding: 0 22px; }
+  .dentro h2 { max-width: 560px; margin: 0 auto 20px; color: #fff; }
+  .hora { margin: 0 0 10px; color: var(--lav); }
+  @media (max-width: 640px) { .carrusel { min-height: 420px; overflow: hidden; } .pieza { top: 46%; } .dentro { top: 54%; } .opi.iz, .opi.d { opacity: 0; } .arco { border-radius: 36px 36px 0 0; } .pieza { width: 84px; height: 84px; margin: -42px; } .pieza img { width: 56px; height: 56px; } }
+  @media (prefers-reduced-motion: reduce) { .opi { transition: none; } }
 </style>
