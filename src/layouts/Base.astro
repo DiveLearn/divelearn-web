@@ -46,6 +46,7 @@ const nav = [
       </a>
       <nav aria-label="Principal">
         {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? "page" : undefined}>{n.label}</a>)}
+        <a class="nav-cta" href="/bootcamp/">Empieza aquí</a>
       </nav>
     </header>
     <main>
@@ -178,6 +179,13 @@ const nav = [
     display: flex;
     gap: 4px;
   }
+  .top nav a.nav-cta {
+    background: var(--lime);
+    color: var(--deep);
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 10px;
+  }
   .top nav a {
     color: var(--white);
     text-decoration: none;
@@ -246,6 +254,11 @@ const nav = [
     * {
       transition: none !important;
       animation: none !important;
+    }
+  }
+  @media (max-width: 720px) {
+    .top nav a.nav-cta {
+      display: none;
     }
   }
 </style>

@@ -348,3 +348,7 @@ for f in D.rglob("*.html"):
 print(len(list(D.rglob('*.html'))), "páginas")
 print("Próximamente (archivo cortado en el origen):", ", ".join(reparar) or "ninguna")
 print("\n".join(sorted(malos)) or "sin enlaces rotos")
+
+# "Mira la clase" se agrega encima de las páginas generadas.
+import subprocess, sys
+subprocess.run([sys.executable, "scripts/poner-videos.py"], check=True)
