@@ -1,0 +1,663 @@
+---
+import Base from "../../layouts/Base.astro";
+
+// Guía pública: crear la cuenta de AWS con los créditos del Free Tier (programa de julio 2025).
+// Datos verificados en la documentación de AWS el 2026-11-10. Si AWS cambia el programa, actualizar aquí y en
+// DiveLearn/cursos/navegando-remaster/PLAN.md.
+
+type Paso = { id: string; t: string; d: string[]; ojo?: string };
+const bloques: { id: string; n: string; t: string; lema: string; sprite: string; pasos: Paso[] }[] = [
+  {
+    id: "registro",
+    n: "1",
+    t: "Abre la cuenta",
+    lema: "15 minutos. Ten el celular y la tarjeta a la mano.",
+    sprite: "licencia",
+    pasos: [
+      {
+        id: "r1",
+        t: "Entra a la página de la capa gratuita",
+        d: ["Ve a aws.amazon.com/free y dale a crear una cuenta gratis."],
+        ojo: "Si AWS te ofrece dos formas de registrarte, elige la avanzada (advanced). La otra no te deja escoger región, y en el curso y en el examen las regiones importan.",
+      },
+      {
+        id: "r2",
+        t: "Correo y nombre de la cuenta",
+        d: [
+          "Ese correo será el del usuario raíz, el dueño de todo. Usa uno personal que revises, nunca el del trabajo.",
+          "El nombre puede ser el tuyo o algo como \"mi-laboratorio\". Te llega un código al correo para verificarlo.",
+        ],
+      },
+      {
+        id: "r3",
+        t: "Contraseña larga y guardada",
+        d: ["Créala y guárdala en un gestor de contraseñas. Esta es la llave maestra: no la reutilices en ningún otro lado."],
+      },
+      {
+        id: "r4",
+        t: "Elige el plan Free",
+        d: [
+          "Te va a preguntar entre plan Free y plan Paid. Para aprender, Free: AWS no te cobra nada mientras dure.",
+          "Dura 6 meses o hasta que se acaben los créditos, lo que pase primero. Antes de eso puedes pasarte a Paid si quieres seguir.",
+        ],
+        ojo: "Si gastas todos los créditos con el plan Free, la cuenta se cierra sola y tienes 90 días para pasarla a Paid sin perder lo que tenías. Por eso el bloque 3 es el presupuesto.",
+      },
+      {
+        id: "r5",
+        t: "Datos de contacto: Personal",
+        d: ["Marca cuenta personal y llena nombre, teléfono, país y dirección reales. AWS los usa para recuperar la cuenta."],
+      },
+      {
+        id: "r6",
+        t: "Tarjeta de crédito o débito",
+        d: [
+          "Es para verificar que eres una persona. Puede aparecer una retención pequeña (alrededor de 1 USD) que luego se libera.",
+          "Con el plan Free no te cobran aunque la tarjeta esté ahí.",
+        ],
+      },
+      {
+        id: "r7",
+        t: "Verifica tu teléfono",
+        d: ["Por SMS o llamada. Si te pregunta por un plan de soporte, deja el Básico, que es gratis."],
+      },
+      {
+        id: "r8",
+        t: "Entra a la consola",
+        d: [
+          "Inicia sesión en console.aws.amazon.com como usuario raíz. La activación a veces tarda unos minutos.",
+          "Arriba a la derecha elige la región Norte de Virginia (us-east-1). Es donde vamos a hacer los laboratorios: tiene todos los servicios y los precios más bajos.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "blindar",
+    n: "2",
+    t: "Blíndala",
+    lema: "10 minutos. Lo que más protege tu bolsillo no es el presupuesto, es que nadie más entre.",
+    sprite: "obj-candado",
+    pasos: [
+      {
+        id: "b1",
+        t: "MFA para el usuario raíz",
+        d: [
+          "En el menú de tu nombre, entra a Credenciales de seguridad y asigna un dispositivo MFA.",
+          "Lo mejor es una llave de acceso (passkey) o llave física. Si no tienes, una app como Google Authenticator, Microsoft Authenticator o 1Password.",
+        ],
+        ojo: "AWS lo exige: tienes 14 días desde el primer inicio de sesión. Hazlo ya y te olvidas.",
+      },
+      {
+        id: "b2",
+        t: "Nunca crees llaves de acceso del raíz",
+        d: ["En esa misma página verás \"Claves de acceso\". Para el usuario raíz, no se crean. Si una se filtra, alguien tiene tu cuenta entera."],
+      },
+      {
+        id: "b3",
+        t: "Crea tu usuario de todos los días",
+        d: [
+          "En IAM, crea un usuario con acceso a la consola, mételo en un grupo \"Administradores\" con la política AdministratorAccess y ponle MFA también.",
+          "Desde ahora entras con ese usuario y el raíz queda guardado para emergencias.",
+        ],
+        ojo: "No actives AWS Organizations ni IAM Identity Center todavía: unirte a Organizations pasa tu cuenta a plan Paid automáticamente.",
+      },
+    ],
+  },
+  {
+    id: "presupuesto",
+    n: "3",
+    t: "Ponle alarma al gasto",
+    lema: "5 minutos, y AWS te paga 20 USD por hacerlo.",
+    sprite: "cofre-tesoro",
+    pasos: [
+      {
+        id: "p1",
+        t: "Crea tu primer presupuesto",
+        d: [
+          "En la consola, el recuadro Explora AWS te muestra las actividades que dan créditos. Elige la de AWS Budgets.",
+          "Usa la plantilla simplificada \"Presupuesto de costos mensual\", ponle 10 USD y tu correo. Te avisa si gastas o vas a gastar más de eso.",
+        ],
+      },
+      {
+        id: "p2",
+        t: "Confirma los 20 USD",
+        d: ["En Billing and Cost Management, entra a Créditos. Pueden tardar unos 10 minutos en aparecer."],
+      },
+      {
+        id: "p3",
+        t: "Revisa tus créditos cada semana",
+        d: [
+          "En Créditos ves cuánto te queda y cuándo vence. AWS además te escribe cuando te queda el 50 %, 25 % y 10 %.",
+          "Si de una semana a otra baja más de lo que usaste, algo quedó prendido.",
+        ],
+      },
+    ],
+  },
+];
+
+const actividades = [
+  { s: "AWS Budgets", q: "Crear un presupuesto con alerta", d: "En esta guía, bloque 3" },
+  { s: "Amazon EC2", q: "Lanzar un servidor y terminarlo", d: "Navegando en AWS, módulo 5" },
+  { s: "AWS Lambda", q: "Una función con URL pública", d: "Navegando en AWS, módulo 5" },
+  { s: "Amazon RDS", q: "Lanzar una base de datos", d: "Navegando en AWS, módulo 6" },
+  { s: "Amazon Bedrock", q: "Mandar un prompt en el playground", d: "Navegando en AWS, módulo 8" },
+];
+
+const olvidos = [
+  { r: "NAT Gateway", h: "0,05", m: "33" },
+  { r: "Balanceador de carga (ALB)", h: "0,03", m: "18" },
+  { r: "Base de datos RDS pequeña", h: "0,02", m: "14" },
+  { r: "Servidor EC2 pequeño con IP pública", h: "0,02", m: "11" },
+  { r: "S3, DynamoDB, Lambda", h: "centavos", m: "centavos" },
+];
+
+const total = bloques.reduce((a, b) => a + b.pasos.length, 0);
+---
+
+<Base title="Crea tu cuenta de AWS" description="Abre tu cuenta de AWS con hasta 200 USD en créditos, blíndala con MFA y ponle alarma al gasto. Paso a paso, en español y sin miedo a la factura.">
+  <section class="portada">
+    <div class="wrap grid">
+      <div>
+        <p class="placa">GUÍA GRATIS · 30 MINUTOS</p>
+        <h1>Crea tu cuenta de AWS <em>sin miedo a la factura</em></h1>
+        <p class="lead">
+          AWS le regala hasta 200 USD en créditos a las cuentas nuevas. Te acompaño a abrirla, blindarla y ponerle alarma, para que practiques en la nube de verdad sin ningún susto.
+        </p>
+        <div class="cifras">
+          <div><b>100 USD</b><span>al registrarte</span></div>
+          <div><b>+100 USD</b><span>haciendo 5 actividades</span></div>
+          <div><b>0 USD</b><span>de cobro con el plan Free</span></div>
+        </div>
+        <a class="btn lime" href="#registro">Empezar ahora</a>
+      </div>
+      <img class="buzo" src="/img/sprites/buzo-saluda.png" alt="" width="220" height="220" />
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="antes">
+      <h2>Antes de empezar, ten a la mano</h2>
+      <ul>
+        <li><b>Un correo personal</b> que revises, que no sea el del trabajo.</li>
+        <li><b>Una tarjeta</b> de crédito o débito, solo para verificar.</li>
+        <li><b>Tu celular</b> para el código y para el MFA.</li>
+        <li><b>Un gestor de contraseñas</b> (el del navegador sirve).</li>
+      </ul>
+    </div>
+
+    <h2 class="sec">Los 200 USD, en simple</h2>
+    <p class="intro">
+      Te dan 100 USD apenas creas la cuenta. Los otros 100 te los ganas de a 20 haciendo cinco actividades cortas que AWS te muestra en la consola. Con el plan Free tienes 6 meses para usarlos y no te cobran nada.
+    </p>
+    <div class="tabla-wrap">
+      <table class="tabla">
+        <thead><tr><th>Actividad (+20 USD)</th><th>Qué haces</th><th>Dónde la hacemos</th></tr></thead>
+        <tbody>
+          {actividades.map((a) => <tr><td><b>{a.s}</b></td><td>{a.q}</td><td>{a.d}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="progreso" aria-live="polite">
+      <div class="barra"><i data-barra style="width:0%"></i></div>
+      <p><b data-hechos>0</b> de {total} pasos listos <span class="nota">(tu avance se guarda solo en este navegador)</span></p>
+    </div>
+
+    {
+      bloques.map((b) => (
+        <section class="bloque" id={b.id}>
+          <header class="cab">
+            <img src={`/img/sprites/${b.sprite}.png`} alt="" width="64" height="64" loading="lazy" />
+            <div>
+              <span class="num">Bloque {b.n}</span>
+              <h2>{b.t}</h2>
+              <p>{b.lema}</p>
+            </div>
+          </header>
+          <ol class="pasos">
+            {b.pasos.map((p) => (
+              <li class="paso" data-paso={p.id}>
+                <div class="txt">
+                  <h3>{p.t}</h3>
+                  {p.d.map((x) => <p>{x}</p>)}
+                  {p.ojo && <p class="ojo"><b>Ojo:</b> {p.ojo}</p>}
+                </div>
+                <label class="check">
+                  <input type="checkbox" data-check={p.id} />
+                  <span>Listo</span>
+                </label>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+
+    <section class="regla">
+      <div class="cab">
+        <img src="/img/sprites/obj-advertencia.png" alt="" width="64" height="64" loading="lazy" />
+        <div>
+          <span class="num">La regla de oro</span>
+          <h2>Si lo prendes, lo apagas</h2>
+          <p>Un laboratorio de una hora cuesta centavos. Lo que se come los créditos es lo que queda prendido.</p>
+        </div>
+      </div>
+      <div class="tabla-wrap">
+        <table class="tabla">
+          <thead><tr><th>Recurso</th><th>Laboratorio de 1 hora</th><th>Olvidado 1 mes</th></tr></thead>
+          <tbody>
+            {olvidos.map((o) => <tr><td>{o.r}</td><td>{o.h === "centavos" ? o.h : `~${o.h} USD`}</td><td>{o.m === "centavos" ? o.m : `~${o.m} USD`}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="fuente">Precios aproximados en us-east-1, noviembre de 2026. Cada laboratorio de Navegando en AWS trae su paso de limpieza y cómo comprobar que no quedó nada.</p>
+    </section>
+
+    <section class="fin" data-fin hidden>
+      <img src="/img/sprites/buzo-celebra.png" alt="" width="120" height="120" />
+      <div>
+        <h2>Tu cuenta está lista para bucear</h2>
+        <p>Ya tienes créditos, MFA y alarma. El siguiente paso es usarla.</p>
+      </div>
+    </section>
+
+    <section class="sigue">
+      <h2>Y ahora, ¿qué hago con mi cuenta?</h2>
+      <div class="opciones">
+        <a href="/bootcamp/"><b>Si no sabes nada de cloud</b><span>Empieza por el bootcamp gratis: redes, Linux y datos jugando.</span></a>
+        <a href="/cursos/"><b>Si vas por la Cloud Practitioner</b><span>Navegando en AWS tiene laboratorios que usan justo estos créditos.</span></a>
+        <a href="/lista/"><b>Si quieres que te avise</b><span>Únete a la lista y te escribo cuando salga cada laboratorio.</span></a>
+      </div>
+    </section>
+  </section>
+</Base>
+
+<script>
+  const CLAVE = "divelearn-labs";
+  const ID = "crea-tu-cuenta";
+  const leer = (): Record<string, string[]> => {
+    try {
+      return JSON.parse(localStorage.getItem(CLAVE) || "{}") || {};
+    } catch {
+      return {};
+    }
+  };
+  const guardar = (d: Record<string, string[]>) => {
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify(d));
+    } catch {
+      /* sin almacenamiento: el avance no se guarda, la página sigue funcionando */
+    }
+  };
+  const checks = [...document.querySelectorAll<HTMLInputElement>("[data-check]")];
+  const barra = document.querySelector<HTMLElement>("[data-barra]");
+  const hechos = document.querySelector<HTMLElement>("[data-hechos]");
+  const fin = document.querySelector<HTMLElement>("[data-fin]");
+  const pintar = () => {
+    const n = checks.filter((c) => c.checked).length;
+    if (barra) barra.style.width = `${(n / checks.length) * 100}%`;
+    if (hechos) hechos.textContent = String(n);
+    checks.forEach((c) => c.closest(".paso")?.classList.toggle("ok", c.checked));
+    if (fin) fin.hidden = n !== checks.length;
+  };
+  const datos = leer();
+  const marcados = new Set(datos[ID] || []);
+  checks.forEach((c) => {
+    c.checked = marcados.has(c.dataset.check!);
+    c.addEventListener("change", () => {
+      const d = leer();
+      d[ID] = checks.filter((x) => x.checked).map((x) => x.dataset.check!);
+      guardar(d);
+      pintar();
+    });
+  });
+  pintar();
+</script>
+
+<style>
+  .portada {
+    background: radial-gradient(120% 140% at 85% 0%, #6463f2 0%, var(--purple) 45%, var(--deep) 100%);
+    color: var(--white);
+    padding: 48px 0 56px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .placa {
+    display: inline-block;
+    margin: 0 0 16px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--lime);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5vw, 3.3rem);
+    max-width: 18ch;
+  }
+  h1 em {
+    color: var(--lime);
+  }
+  .lead {
+    max-width: 54ch;
+    color: var(--lav-soft);
+    font-size: 1.1rem;
+  }
+  .cifras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0 28px;
+  }
+  .cifras div {
+    background: rgba(31, 29, 92, 0.35);
+    border: 1.5px solid var(--lav);
+    border-radius: 14px;
+    padding: 10px 16px;
+    min-width: 150px;
+  }
+  .cifras b {
+    display: block;
+    font-family: var(--title);
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: var(--lime);
+  }
+  .cifras span {
+    font-size: 0.9rem;
+    color: var(--lav-soft);
+  }
+  .buzo {
+    width: 220px;
+    image-rendering: pixelated;
+  }
+  .antes {
+    margin: -28px 0 40px;
+    background: var(--white);
+    border: 1.5px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    position: relative;
+  }
+  .antes h2 {
+    font-size: 1.4rem;
+  }
+  .antes ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px 20px;
+  }
+  .antes li {
+    padding-left: 22px;
+    position: relative;
+  }
+  .antes li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--lime);
+    border: 1.5px solid var(--ink);
+  }
+  .sec {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    margin-top: 8px;
+  }
+  .intro {
+    max-width: 68ch;
+  }
+  .tabla-wrap {
+    overflow-x: auto;
+    margin: 16px 0 8px;
+  }
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    min-width: 520px;
+  }
+  .tabla th {
+    text-align: left;
+    background: var(--lav-soft);
+    padding: 10px 12px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .tabla td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .progreso {
+    position: sticky;
+    top: 64px;
+    z-index: 5;
+    margin: 40px 0 8px;
+    background: var(--white);
+    padding: 12px 0;
+  }
+  .barra {
+    height: 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: var(--lav-soft);
+    overflow: hidden;
+  }
+  .barra i {
+    display: block;
+    height: 100%;
+    background: var(--lime);
+    transition: width 0.3s ease;
+  }
+  .progreso p {
+    margin: 6px 0 0;
+    font-size: 0.95rem;
+  }
+  .nota {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .bloque,
+  .regla {
+    margin-top: 48px;
+    scroll-margin-top: 140px;
+  }
+  .cab {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .cab img {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+  }
+  .cab h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    margin: 0;
+  }
+  .cab p {
+    margin: 4px 0 0;
+    color: var(--muted);
+  }
+  .num {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--deep);
+  }
+  .pasos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: paso;
+    display: grid;
+    gap: 12px;
+  }
+  .paso {
+    counter-increment: paso;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: space-between;
+    border: 1.5px solid var(--ink);
+    border-radius: 14px;
+    padding: 16px 18px 16px 60px;
+    position: relative;
+    background: var(--white);
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: background 0.2s ease;
+  }
+  .paso::before {
+    content: counter(paso);
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--lav);
+    border: 1.5px solid var(--ink);
+    font-weight: 700;
+  }
+  .paso.ok {
+    background: color-mix(in srgb, var(--lime) 18%, var(--white));
+  }
+  .paso.ok::before {
+    background: var(--lime);
+    content: "✓";
+  }
+  .paso h3 {
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 2px 0 6px;
+  }
+  .paso p {
+    margin: 0 0 6px;
+  }
+  .ojo {
+    background: var(--lav-soft);
+    border-left: 4px solid var(--purple);
+    padding: 8px 12px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 8px !important;
+    font-size: 0.95rem;
+  }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    cursor: pointer;
+    font-weight: 700;
+    flex-shrink: 0;
+    background: var(--white);
+  }
+  .check input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--deep);
+  }
+  .regla {
+    background: var(--lav-soft);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .regla .tabla th {
+    background: var(--white);
+  }
+  .fuente {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 8px 0 0;
+  }
+  .fin {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: var(--purple);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+  .fin[hidden] {
+    display: none;
+  }
+  .fin img {
+    width: 120px;
+    image-rendering: pixelated;
+  }
+  .fin p {
+    color: var(--lav-soft);
+    margin: 0;
+  }
+  .sigue {
+    margin-top: 56px;
+  }
+  .sigue h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  }
+  .opciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .opciones a {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.15s ease;
+  }
+  .opciones a:hover {
+    transform: translateY(-2px);
+  }
+  .opciones a:first-child {
+    background: var(--lime);
+  }
+  .opciones b {
+    display: block;
+    margin-bottom: 4px;
+  }
+  .opciones span {
+    font-size: 0.95rem;
+  }
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .buzo {
+      display: none;
+    }
+    .paso {
+      flex-direction: column;
+      padding-left: 56px;
+    }
+    .progreso {
+      top: 58px;
+    }
+  }
+</style>
