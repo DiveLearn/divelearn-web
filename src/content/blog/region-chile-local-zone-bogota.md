@@ -58,6 +58,8 @@ Para usarla tienes que activarla en tu cuenta (desde AWS Global View) y crear un
 
 Y para no confundirla con otras piezas de la infraestructura global: **CloudFront** acerca contenido con caché en ubicaciones de borde (Bogotá tiene desde 2019), y **Outposts** lleva hardware de AWS a tu propio centro de datos (llegó a Colombia en 2021).
 
+¿Quieres verlo en el mapa? En el [mapa interactivo de AWS](/recursos/mapa-aws/) están todas las regiones, zonas de disponibilidad, Local Zones y edge locations del mundo. Busca Bogotá y vas a ver de qué región cuelga.
+
 ## Qué significa para ti
 
 **Si estudias para el Cloud Practitioner o el Solutions Architect:** la infraestructura global entra en los dos exámenes. Ahora tienes ejemplos cercanos: si te preguntan qué usar para darle latencia de milisegundos a usuarios en una ciudad sin región, la respuesta es Local Zone; si te preguntan por alta disponibilidad con varias zonas dentro del país, es una región.
