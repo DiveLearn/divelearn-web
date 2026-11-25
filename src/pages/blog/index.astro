@@ -2,10 +2,16 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
+import { existsSync } from "node:fs";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+// Miniatura en /img/blog/thumb/; si falta, usa la imagen completa.
+const miniatura = (img: string) => {
+  const t = img.replace("/img/blog/", "/img/blog/thumb/");
+  return existsSync(`public${t}`) ? t : img;
+};
 const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
 ---
 
@@ -20,7 +26,7 @@ const fecha = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
       ) : (
         posts.map((p) => (
           <a class="post" href={`/blog/${p.id}/`}>
-            {p.data.image && <img src={p.data.image.replace("/img/blog/", "/img/blog/thumb/")} width="132" height="132" alt={p.data.imageAlt} loading="lazy" decoding="async" />}
+            {p.data.image && <img src={miniatura(p.data.image)} width="132" height="132" alt={p.data.imageAlt} loading="lazy" decoding="async" />}
             <div>
               <time datetime={p.data.date.toISOString()}>{fecha.format(p.data.date)}</time>
               <h2>{p.data.title}</h2>
