@@ -7,6 +7,8 @@ import datos from "../../data/infra-global.json";
 // Datos generados con scripts/infra-global.mjs (catálogo del AWS CLI + ip-ranges.json de AWS).
 // La página es una app a pantalla completa: menú de capítulos a la izquierda, globo a la derecha.
 // Cada capítulo deja una sola pieza de la infraestructura a todo color, lleva el globo a un ejemplo y explica en qué se diferencia.
+// Nombre de las regiones "en camino" que ya sabemos a qué país corresponden (AWS aún no publica el código oficial).
+const enCaminoNombres: Record<string, string> = { "sa-west-1": "Chile" };
 const azs = datos.regiones.reduce((a, r) => a + r.azs, 0);
 const stats = [
   { n: datos.regiones.length, t: "Regiones", id: "regiones" },
@@ -235,7 +237,7 @@ const icono = (forma: string, c: string) =>
         <Sprite nombre="obj-satelite" escala={1} />
         <span>Datos al {datos.generado}: regiones del catálogo del AWS CLI {datos.fuente.catalogo}, Local Zones y Wavelength de
         <a href="https://ip-ranges.amazonaws.com/ip-ranges.json">ip-ranges.json</a> ({datos.fuente.ipRanges}).
-        {datos.enCamino.length > 0 && <>Ya aparecen en los rangos IP, sin abrir todavía: {datos.enCamino.join(", ")}. </>}
+        {datos.enCamino.length > 0 && <>Ya aparecen en los rangos IP, sin abrir todavía: {datos.enCamino.map((r) => (enCaminoNombres[r] ? `${enCaminoNombres[r]} (${r})` : r)).join(", ")}. </>}
         Las edge locations son una selección de ciudades: AWS tiene cientos de puntos de presencia.</span>
       </p>
     </section>
